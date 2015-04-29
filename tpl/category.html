@@ -1,0 +1,93 @@
+<include target="header.html" />
+<load target="./js/sitemap.js" />
+
+<!--//
+<load target="../../admin/tpl/js/sitemap.js" />
+//-->
+
+{@ $module_info->default_category_title ? 0 : $module_info->default_category_title = Context::getLang('category')}
+
+<div id="siteMapFrame">
+	<form  class="x_form-horizontal siteMap" id="menu_{$menuSrl}" method="post">
+	<input type="hidden" name="act" value="procBeluxeAdminInsertCategory" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
+
+		<div class="default_title">
+			<input class="lang_code" type="text" name="default_category_title" placeholder="{$lang->category}" id="default_category_title" value="{htmlspecialchars($module_info->default_category_title)}" />
+		</div>
+
+		<div class="lined">
+			<ul id="nav_category">
+				<li style="display:none" class="_template">
+					<input type="hidden" name="parent_key[]" value="0" class="_parent_key" disabled="disabled" />
+					<input type="hidden" name="item_key[]" value="0" class="_item_key" disabled="disabled" />
+					<input type="text" name="item_title[]" value="" placeholder="{$lang->title}" class="_lang_code _item_title" disabled="disabled" />
+					<div class="side">
+						<span class="cbSelect" data-index="0">
+							<input type="hidden" name="item_type[]" value="" class="_value" disabled="disabled" />
+							<label class="_title">{$lang->is_default}</label>
+							<dl class="cbLayer"></dl>
+						</span>
+						<span class="cbSelect" data-type="panel" data-index="1">
+							<input type="hidden" name="item_color[]" value="" class="_item_color" disabled="disabled" />
+							<input type="hidden" name="item_opts[]" value="N|@||@||@||@||@|" class="_value" disabled="disabled" />
+							<label class="_title">{$lang->cmd_option}</label>
+							<dl class="cbLayer"></dl>
+						</span>
+						<span cond="count($group_list)" class="cbSelect" data-type="array">
+							<input type="hidden" name="group_srls[]" value="" class="_value" disabled="disabled" />
+							<label class="_title">{$lang->category_group_srls}</label>
+							<dl class="cbLayer _groupList">
+								<dt loop="$group_list=>$g_val" data-val="{$g_val->group_srl}">
+								<label><input type="checkbox" value="{$g_val->group_srl}" disabled="disabled" /> {$g_val->title}</label>
+								</dt>
+							</dl>
+						</span>
+						<a href="#delete" class="_delete x_icon-remove" title="{$lang->cmd_delete}"><em>X</em></a>
+					</div>
+				</li>
+				<block cond="count($menu)">
+					{@
+						$depth = 0;
+						$list = $menu[0];
+					}
+					<include loop="$list=>$csrl,$item" target="category.item.html" />
+				</block>
+			</ul>
+		</div>
+
+		<div class="x_clearfix btnArea">
+			<a class="x_pull-left x_btn x_btn-warning" href="#remakeCache" data-type="category">{$lang->cmd_remake_cache}</a>
+			<span class="x_pull-right">
+				<a class="x_btn" href="#addMenu">{$lang->add_menu}</a>
+				<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_save}</button>
+			</span>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+xe.lang.confirm_delete = "{$lang->confirm_delete}";
+var addSitemapMenuSampleOption = [];
+addSitemapMenuSampleOption['0'] = '<dt data-val="" class="defi">{$lang->is_default}</dt><dt loop="$type_list=>$g_key,$g_val" data-val="{$g_key}">{$g_val->title}</dt>';
+addSitemapMenuSampleOption['1'] = '<dt class="defi text"><select><option value="N">{$lang->collapsing}</option><option value="Y">{$lang->expanding}</option></select></dt> \
+<dt class="defi"><input type="text" id="item_color" value="" class="color-indicator" /></dt> \
+<dt>-- navigation ---</dt> \
+<dt class="text"><label><select> \
+<option value="" class="defi">{$lang->is_default}</option> \
+<option loop="$order_target => $key,$val" value="{$key}">{$val}</option> \
+</select> {$lang->order_target}</label></dt> \
+<dt class="text"><label><select> \
+<option value="" class="defi">{$lang->is_default}</option> \
+<option value="asc">{$lang->order_asc}</option> \
+<option value="desc">{$lang->order_desc}</option> \
+</select> {$lang->order_type}</label></dt> \
+<dt class="text"><label><input type="text" value="" /> {$lang->list_count}</label></dt> \
+<dt class="text"><label><input type="text" value="" /> {$lang->page_count}</label></dt> \
+<dt class="text"><label><input type="text" value="" /> {$lang->comment_count}</label></dt>';
+//]]>
+</script>
+
+<include target="footer.html" />

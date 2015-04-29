@@ -1,0 +1,15 @@
+<query id="updateDocumentMemberInfo" action="update">
+	<tables>
+		<table name="documents" />
+	</tables>
+	<columns>
+		<column name="member_srl" var="member_srl" />
+		<column name="user_name" var="user_name" />
+		<column name="nick_name" var="nick_name" />
+		<column name="email_address" var="email_address" />
+		<column name="homepage" var="homepage" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="document_srl" var="document_srl" filter="number" notnull="notnull" />
+	</conditions>
+</query>

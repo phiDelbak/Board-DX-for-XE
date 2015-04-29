@@ -1,0 +1,84 @@
+<include target="header.html" />
+
+<form id="extraKeyFrame" class="x_form-horizontal" action="./" method="post" enctype="multipart/form-data">
+	<input cond="$module=='admin'" type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procBeluxeAdminInsertExtraKey" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+
+	<div class="table even extraKeys">
+		<table width="100%" border="1" cellspacing="0" class="sortable _extraList">
+			<tbody class="uDrag lined">
+				<tr style="display:none"><td><span>&nbsp;</span></td></tr>
+				<tr style="display:none" class="_template">
+					<td>
+						<div class="wrap" style="height:45px">
+							<button type="button" class="dragBtn">Move to</button>
+							<input type="hidden" name="extra_idx[]" value="0" disabled="disabled" />
+							<input type="hidden" name="extra_option[]" id="extra_option" value="N" disabled="disabled" />
+							<span class="einfo x_pull-left">
+								<input type="text" name="extra_eid[]" value="" placeholder="ID" class="_extra_eid" disabled="disabled" />
+								<input type="text" name="extra_name[]" value="" placeholder="{$lang->extra_name}" class="_lang_code _extra_name" disabled="disabled" />
+								<br />
+								<input type="text" name="extra_default[]" value="" placeholder="{$lang->default_value}" class="blue _extra_default" disabled="disabled" />
+								<input type="text" name="extra_desc[]" value="" placeholder="{$lang->description}" class="_lang_code blue _extra_desc" disabled="disabled" />
+							</span>
+							<span class="side x_pull-right">
+								<label class="x_pull-left"><input type="checkbox" class="_extra_option" value="Y" disabled="disabled" /> {$lang->is_required} </label>
+								<label class="x_pull-right"><a href="#delete" class="_delete x_icon-remove" title="{$lang->cmd_delete}"><em>X</em></a></label>
+								<br /> <label>
+									<select name="extra_type[]" disabled="disabled">
+										<option loop="$lang->column_type_list => $k,$v" cond="$key != $dis_key" value="{$k}">{$lang->column_type_list[$k]}</option>
+									</select>
+								</label>
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr loop="$extra_keys => $key,$val" style="display: table-row;">
+					<td>
+						<div class="wrap" style="height:45px">
+							<button type="button" class="dragBtn">Move to</button>
+							<input type="hidden" name="extra_idx[]" value="{$val->idx}" class="_extra_idx" />
+							<input type="hidden" name="extra_option[]" id="extra_option" value="{implode('|@|',array($val->is_required))}" />
+							<span class="einfo x_pull-left">
+								<input type="text" name="extra_eid[]" value="{$val->eid}" placeholder="ID" class="_extra_eid" readonly="readonly"|cond="$val->eid" />
+								<input type="text" name="extra_name[]" value="{htmlspecialchars($val->name)}" placeholder="{$lang->extra_name}" class="lang_code _extra_name" id="extra_name{$val->eid}" />
+								<br />
+								<input type="text" name="extra_default[]" value="{$val->default}" placeholder="{$lang->default_value}" class="blue _extra_default" />
+								<input type="text" name="extra_desc[]" value="{htmlspecialchars($val->desc)}" placeholder="{$lang->description}" class="lang_code blue _extra_desc" id="extra_desc{$val->eid}" />
+							</span>
+							<span class="side x_pull-right">
+								<label class="x_pull-left"><input type="checkbox" class="_extra_option" value="Y" checked="checked"|cond="$val->is_required == 'Y'" /> {$lang->is_required} </label>
+								<label class="x_pull-right"><a href="#delete" class="_delete x_icon-remove" title="{$lang->cmd_delete}"><em>X</em></a></label>
+								<br /> <label>
+									<select name="extra_type[]">
+										<option loop="$lang->column_type_list => $k,$v" cond="$key != 'kr_zip'" value="{$k}" selected="selected"|cond="$val->type==$k">{$lang->column_type_list[$k]}</option>
+									</select>
+								</label>
+							</span>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="x_clearfix btnArea">
+		<a class="x_pull-left x_btn x_btn-warning" href="#remakeCache" data-type="column">{$lang->cmd_remake_cache}</a>
+		<span class="x_pull-right">
+			<a class="x_btn" href="#addMenu">{$lang->extra_vars} {$lang->cmd_insert}</a>
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_save}</button>
+		</span>
+	</div>
+</form>
+{@
+	$dis_key = 'kr_zip';
+}
+<script type="text/javascript">
+//<![CDATA[
+xe.lang.confirm_delete = "{str_replace('"', '\\"', $lang->confirm_delete)}";
+xe.lang.msg_invalid_eid = "{str_replace('"', '\\"', $lang->msg_invalid_eid)}";
+//]]>
+</script>
+
+<include target="footer.html" />

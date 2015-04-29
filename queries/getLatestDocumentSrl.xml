@@ -1,0 +1,15 @@
+<query id="getLatestDocumentSrl" action="select">
+    <tables>
+        <table name="documents" />
+    </tables>
+    <columns>
+        <column name="document_srl" />
+    </columns>
+    <conditions>
+		<condition operation="equal" column="module_srl" var="module_srl" />
+    </conditions>
+	<navigation>
+		<index var="sort_index" default="list_order" order="asc" />
+		<list_count var="list_count" default="1" />
+	</navigation>
+</query>

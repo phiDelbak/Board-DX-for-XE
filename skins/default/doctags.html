@@ -1,0 +1,40 @@
+<include cond="$is_modal" target="___setting.html" />
+<include cond="!$is_modal" target="__header.html" />
+
+<div id="siHrm"><a name="document"></a>
+	<ul class="scFrm">
+		<li class="scElps"><strong>{$lang->tag}</strong></li>
+	</ul>
+</div>
+
+<div id="siBody">
+	<div class="scContent">
+		<div class="scTags">
+			<!--@foreach($tag_list as $val)-->
+				<!--@if($val->count>20)-->
+					{@ $tag_class = "rank i1" }
+				<!--@elseif($val->count>15)-->
+					{@ $tag_class = "rank i2" }
+				<!--@elseif($val->count>10)-->
+					{@ $tag_class = "rank i3" }
+				<!--@elseif($val->count>5)-->
+					{@ $tag_class = "i4" }
+				<!--@else-->
+					{@ $tag_class = "" }
+				<!--@end-->
+
+				<!--@if($layout_info->mid)-->
+					<a class="{$tag_class}"|cond="$tag_class" href="{getUrl('','mid',$layout_info->mid,'search_target','tag','search_keyword',$val->tag)}">{htmlspecialchars($val->tag)}</a>
+				<!--@else-->
+					<a class="{$tag_class}"|cond="$tag_class" href="{getUrl('','mid',$mid,'search_target','tag','search_keyword',$val->tag)}">{htmlspecialchars($val->tag)}</a>
+				<!--@end-->
+			<!--@end-->
+		</div>
+	</div>
+</div>
+
+<div class="btnArea">
+    <span class="scBtn"><a href="{getUrl('act','')}">{$lang->cmd_back}</a></span>
+</div>
+
+<include cond="!$is_modal" target="__footer.html" />

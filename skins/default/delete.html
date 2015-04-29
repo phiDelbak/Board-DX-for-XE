@@ -1,0 +1,17 @@
+<include cond="$is_modal" target="___setting.html" />
+<include cond="!$is_modal" target="__header.html" />
+
+<div id="siBody">
+	<div class="scContent clearBar">
+
+<div cond="$is_modal && $XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+	{@
+		$oTemplate = &TemplateHandler::getInstance();
+		print $oTemplate->compile($tpl_path, '_tpl.'.($act=='dispBoardDeleteComment'?'c.delete':'delete').'.html');
+	}
+	</div>
+</div>
+
+<include cond="!$is_modal" target="__footer.html" />

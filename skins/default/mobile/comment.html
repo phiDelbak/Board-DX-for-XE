@@ -1,0 +1,90 @@
+{@
+	$doc_srl = $oDocument->document_srl;
+
+	$ci = &$column_info;
+	$mi = &$module_info;
+
+	$ds_nick = $ci['nick_name']->display == 'Y';
+	$ds_user =	$ci['user_name']->display == 'Y';
+
+	$ds_voteup = $is_logged&&strpos($mi->use_c_vote, 'up')!==false;
+	$ds_votedown = $is_logged&&strpos($mi->use_c_vote, 'down')!==false;
+	$ds_declare = $is_logged&&strpos($mi->use_c_vote, 'declare')!==false;
+	$adm_id = $ds_declare ? $oThis->getAdminId() : array();
+
+	$start = true;
+	$depth = 0;
+
+	$cmts = $oThis->getCommentList($doc_srl, $cpage, $clist_count);
+	$bscmts = $mi->use_c_best=='Y' ? $oThis->getBestCommentList($document_srl) : array();
+	$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);
+}
+
+<block cond="$mi->view_comment_style == 'webzine'">
+{@
+	$voted_list = $oThis->getDocumentVotedLogs($doc_srl);
+	$is_webzine = true;
+}
+</block>
+
+<ul id="cl" class="rp tgo open">
+<li>
+	<ul loop="$a_clsttp => $tlk,$p_list" cond="count($p_list)">
+		<li loop="$p_list=>$key,$comment" style="padding-left:{((int)$comment->get('depth')*20+5)}px;background-position:{((int)$comment->get('depth')*15-10)}px -145px"|cond="$comment->get('depth')">
+		<a name="comment_{$comment->comment_srl}"></a>
+			{@
+				$is_granted = $comment->isGranted();
+				$is_secret = $grant->view && $comment->isSecret();
+				$is_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($comment->comment_srl, 'cmt'):0;
+
+				$tmp = $comment->get('member_srl')?$comment->get('member_srl'):$comment->get('ipaddress');
+				$is_chk = !$comment->get('depth') ? (int) $voted_list[$tmp]->point > -1 : $is_chk;
+			}
+			<span cond="$tlk" class="{$tlk}">Best</span>
+			<span cond="$is_webzine&&!$comment->get('depth')" class="best agree">{$is_chk ? $lang->cmd_agree : $lang->cmd_disagree }</span>
+
+			<div class="cmt {$is_blind?'blind':($is_secret?'secret':'')}">
+				<form cond="$is_secret && !$is_granted" action="./" method="post" class="ff secret" onsubmit="if(!this.password.value){ alert('Input password'); this.password.focus(); return false;}else return true;">
+					<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+					<input type="hidden" name="ruleset" value="checkPassword" />
+					<input type="hidden" name="comment_srl" value="{$comment->comment_srl}" />
+					<input type="hidden" name="act" value="procBoardVerificationPassword" />
+					<input type="hidden" name="error_return_url" value="{$oEntry->getUrl('', 'mid',$mid, 'document_srl', $document_srl, 'comment_srl', $comment->comment_srl)}" />
+					<input type="password" name="password" id="cpw" />
+					<input type="submit" value="{$lang->cmd_input}" class="bn dark" />
+				</form>
+
+				{$comment->getContent(false)}
+			</div>
+
+			{@ $ds_vtxt = !($ds_voteup||$ds_votedown) && ($comment->get('voted_count')!='0'||$comment->get('blamed_count')!='0')}
+			<p cond="$ds_voteup||$ds_votedown||$ds_declare||$ds_vtxt" class="auth">
+				<span cond="$ds_vtxt">{$lang->cmd_vote}: {(int)$comment->get('voted_count')} / {(int)$comment->get('blamed_count')}&nbsp;&nbsp;</span>
+				<a cond="$ds_voteup" class="bn small white" style="color:#AA3300" href="#recommend" data-type="comment" data-srl="{$comment->comment_srl}" title="{$lang->cmd_vote}"><em class="vote">&uarr;</em><em class="cnt">{$comment->get('voted_count')}</em></a>
+				<a cond="$ds_votedown" class="bn small white" style="color:#0000AA" href="#not_recommend" data-type="comment" data-srl="{$comment->comment_srl}" title="{$lang->cmd_vote_down}"><em class="blame">&darr;</em><em class="cnt">{$comment->get('blamed_count')}</em></a>
+				<a cond="$ds_declare" class="bn small white" href="#declare" data-type="comment" data-srl="{$comment->comment_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$comment->get('member_srl')}"><em class="declare">{$lang->cmd_declare}</em></a>
+			</p>
+
+			<ul cond="$comment->hasUploadedFiles()" class="fil">
+				<li loop="$comment->getUploadedFiles()=>$key,$file"><a href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}">{$file->source_filename}<span>({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>,</li>
+			</ul>
+
+			<div class="auth">
+				<span class="fsi"|cond="!$comment->get('member_srl')">{cut_str((!$comment->get('member_srl')||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length)}</span>
+				<span class="time">| {$comment->getRegdate("Y.m.d")}</span>
+				<a cond="$comment->isEditable()" href="{$oEntry->getUrl('','mid',$mid,'act','dispBoardDeleteComment','comment_srl',$comment->comment_srl, 'document_srl',$document_srl)}" class="btn de">{$lang->cmd_delete}</a>
+				<a cond="$comment->isEditable()" href="{$oEntry->getUrl('','mid',$mid,'act','dispBoardWriteComment','comment_srl',$comment->comment_srl, 'document_srl',$document_srl)}" class="btn ed">{$lang->cmd_modify}</a>
+				<a cond="$grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()" href="{$oEntry->getUrl('','mid',$mid,'act','dispBoardWriteComment','comment_srl','','parent_srl',$comment->comment_srl, 'document_srl',$document_srl)}" class="btn re">{$lang->cmd_reply}</a>
+				{@ $start = false }
+				{@ $depth = $comment->get('depth') }
+			</div>
+		</li>
+	</ul>
+</li>
+</ul>
+
+<div cond="$cmts->total_page > 1" id="clpn" class="pn">
+	<a cond="$cmts->page_navigation->cur_page != 1" href="#" data-srl="{$doc_srl}" data-page="{$cmts->page_navigation->cur_page-1}" data-count="{$clist_count}" class="prev">{$lang->cmd_prev}</a>
+	<strong id="curpage">{$cmts->page_navigation->cur_page} / {$cmts->page_navigation->last_page}</strong>
+	<a cond="$cmts->page_navigation->cur_page != $cmts->page_navigation->last_page" href="#" data-srl="{$doc_srl}" data-page="{$cmts->page_navigation->cur_page+1}" data-count="{$clist_count}" class="next">{$lang->cmd_next}</a>
+</div>

@@ -1,0 +1,24 @@
+{@ $tbks = $oDocument->getTrackbackCount() ? $oDocument->getTrackbacks() : array()}
+
+<div id="siFbk" class="tbk clearBar"><a name="trackback"></a>
+	<div class="scFbH scToggle" data-target="#siFbk .scTlst.d{$doc_srl}">
+		<h2>
+			{$lang->trackback} <em>{$oDocument->getTrackbackCount()}</em>
+			<span cond="$oDocument->allowTrackback()" class="fr trackbackURL scClipboard">{$oDocument->getTrackbackUrl()}</span>
+		</h2>
+	</div>
+
+	<ul cond="count($tbks)" class="scFrm scTlst d{$doc_srl}">
+		<li loop="$tbks=>$key,$val" class="clearBar"><a name="trackback_{$val->trackback_srl}"></a>
+			<div class="scFbt">
+				<h3 class="author"><span class="scHLink" data-href="{$val->url}" data-target="_blank" title="{htmlspecialchars($val->blog_name)}">{htmlspecialchars($val->blog_name)}</span></h3>
+				<p class="time">{zdate($val->regdate, "Y.m.d H:i")}</p>
+			</div>
+			<div class="scCmtCon clearBar">
+				<strong>{htmlspecialchars($val->title)}</strong>
+				<div class="xe_content">{$val->excerpt}</div>
+			</div>
+			<div class="action" cond="$grant->manager"><a href="#tbk_action" class="delete">{$lang->cmd_delete}</a></div>
+		</li>
+	</ul>
+</div>

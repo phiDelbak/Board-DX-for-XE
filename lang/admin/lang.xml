@@ -1,0 +1,512 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+일본어 번역: 감로수
+영어 번역: 썬
+-->
+<lang>
+	<item name="cmd_all_setting">
+		<value xml:lang="ko"><![CDATA[모두 설정]]></value>
+		<value xml:lang="jp"><![CDATA[設定変更]]></value>
+		<value xml:lang="en"><![CDATA[Multi setting]]></value>
+	</item>
+	<item name="cmd_module_default_menus" type="array">
+		<item name="dispBeluxeAdminContent">
+			<value xml:lang="ko"><![CDATA[게시판 DX]]></value>
+			<value xml:lang="jp"><![CDATA[掲示板 DX]]></value>
+			<value xml:lang="en"><![CDATA[Board DX]]></value>
+		</item>
+		<item name="dispBeluxeAdminList">
+			<value xml:lang="ko"><![CDATA[모듈 목록]]></value>
+			<value xml:lang="jp"><![CDATA[モジュールリスト]]></value>
+			<value xml:lang="en"><![CDATA[Module list]]></value>
+		</item>
+	</item>
+	<item name="cmd_module_menus" type="array">
+		<item name="dispBeluxeAdminModuleInfo">
+			<value xml:lang="ko"><![CDATA[모듈 정보]]></value>
+			<value xml:lang="jp"><![CDATA[モジュール情報]]></value>
+			<value xml:lang="en"><![CDATA[Module info]]></value>
+		</item>
+		<item name="dispBeluxeAdminSkinInfo">
+			<value xml:lang="ko"><![CDATA[스킨 정보]]></value>
+			<value xml:lang="jp"><![CDATA[スキン情報]]></value>
+			<value xml:lang="en"><![CDATA[Skin info]]></value>
+		</item>
+		<item name="dispBeluxeAdminMobileSkinInfo">
+			<value xml:lang="ko"><![CDATA[모바일 정보]]></value>
+			<value xml:lang="jp"><![CDATA[모바일 정보]]></value>
+			<value xml:lang="en"><![CDATA[Mobile info]]></value>
+		</item>
+		<item name="dispBeluxeAdminAdditionSetting">
+			<value xml:lang="ko"><![CDATA[추가 정보]]></value>
+			<value xml:lang="jp"><![CDATA[追加設定]]></value>
+			<value xml:lang="en"><![CDATA[Additional]]></value>
+		</item>
+		<item name="dispBeluxeAdminCategoryInfo">
+			<value xml:lang="ko"><![CDATA[분류 관리]]></value>
+			<value xml:lang="jp"><![CDATA[分類管理]]></value>
+			<value xml:lang="en"><![CDATA[Categories]]></value>
+		</item>
+		<item name="dispBeluxeAdminExtraKeys">
+			<value xml:lang="ko"><![CDATA[확장 변수]]></value>
+			<value xml:lang="jp"><![CDATA[拡張変数]]></value>
+			<value xml:lang="en"><![CDATA[Expansion keys]]></value>
+		</item>
+		<item name="dispBeluxeAdminColumnInfo">
+			<value xml:lang="ko"><![CDATA[컬럼 설정]]></value>
+			<value xml:lang="jp"><![CDATA[コラム設定]]></value>
+			<value xml:lang="en"><![CDATA[Column info]]></value>
+		</item>
+		<item name="dispBeluxeAdminGrantInfo">
+			<value xml:lang="ko"><![CDATA[권한 관리]]></value>
+			<value xml:lang="jp"><![CDATA[権限管理]]></value>
+			<value xml:lang="en"><![CDATA[Permission]]></value>
+		</item>
+		<item name="dispBeluxeAdminSkinColor">
+			<value xml:lang="ko"><![CDATA[색상 설정]]></value>
+			<value xml:lang="jp"><![CDATA[色設定]]></value>
+			<value xml:lang="en"><![CDATA[Skin color]]></value>
+		</item>
+	</item>
+	<item name="desc_module_menus" type="array">
+		<item name="dispBeluxeAdminContent">
+			<value xml:lang="ko"><![CDATA[이 모듈은 게시판 모듈입니다.  새로운 모듈 생성은 "모듈 생성" 버튼을 눌러주세요.]]></value>
+			<value xml:lang="jp"><![CDATA[このモジュールは掲示板モジュールです. 新しいモジュール生成 "モジュール 作成" ボタンを押してください.]]></value>
+			<value xml:lang="en"><![CDATA[this module is a message board module. press "Module Create" button to create new module.]]></value>
+		</item>
+		<item name="dispBeluxeAdminList">
+			<value xml:lang="ko"><![CDATA[게시판 생성은 하단의 "모듈 생성" 버튼을 눌러 주세요.]]></value>
+			<value xml:lang="jp"><![CDATA[掲示板生成は下端の生成ボタンを押してください.]]></value>
+			<value xml:lang="en"><![CDATA[press bottom button for message board creation.]]></value>
+		</item>
+		<item name="dispBeluxeAdminColumnInfo">
+			<value xml:lang="ko"><![CDATA[항목 이동은 좌측 바를 잡고 위,아래로 이동하시면 됩니다.]]></value>
+			<value xml:lang="jp"><![CDATA[掲示板のリスト形式使用の時必要な項目で配置ができます. ただしスキンでの支援しない場合は不可能です.]]></value>
+			<value xml:lang="en"><![CDATA[hold the left bar to move an item up and down.]]></value>
+		</item>
+		<item name="dispBeluxeAdminCategoryInfo">
+			<value xml:lang="ko"><![CDATA[분류를 표시하려면 컬럼 설정에서 분류 표시를 선택해주세요. 분류에 문제가 생기면 캐시 재생성 버튼을 눌러주세요.]]></value>
+			<value xml:lang="jp"><![CDATA[分類の表示の仕方ばコラム設定で分類表示を選択してください. 分類に問題が発生の時はキャッシュファイル再生性ボタンを押してください.]]></value>
+			<value xml:lang="en"><![CDATA[check category in column setting to display category. press refresh cache button if there is a category error.]]></value>
+		</item>
+		<item name="dispBeluxeAdminExtraKeys">
+			<value xml:lang="ko"><![CDATA[확장변수 ID는 "영문, 숫자, _" 조합에 첫 글자는 영문이어야 합니다. (기본값은 콤마(,)를 사용해 복수 등록이 가능합니다)]]></value>
+			<value xml:lang="jp"><![CDATA[拡張変数 IDは "英文, 数字, _" 組合に初字は英文でなければなりません. (基本値はコンマ(,)を使って復数登録が可能です)]]></value>
+			<value xml:lang="en"><![CDATA[expansion variable ID must be "English letter, number, _" sequence with 1st character must be an english letter.<br />(use default value comma(,) for multiple submit)]]></value>
+		</item>
+		<item name="dispBeluxeAdminSkinColor">
+			<value xml:lang="ko"><![CDATA[값이 없으면 기본 값을 사용합니다. (주의: transparent 값은 투명 값입니다)]]></value>
+			<value xml:lang="jp"><![CDATA[値が存在しない場合、デフォルト値を使用します. (注意：transparentの値は、透明値です)]]></value>
+			<value xml:lang="en"><![CDATA[If there is no value, default will be used (Note: transparent and empty are different)]]></value>
+		</item>
+	</item>
+	<item name="display">
+		<value xml:lang="ko"><![CDATA[표시]]></value>
+		<value xml:lang="jp"><![CDATA[表示]]></value>
+		<value xml:lang="en"><![CDATA[Display]]></value>
+	</item>
+	<item name="sort">
+		<value xml:lang="ko"><![CDATA[정렬]]></value>
+		<value xml:lang="jp"><![CDATA[整列]]></value>
+		<value xml:lang="en"><![CDATA[Sort]]></value>
+	</item>
+	<item name="mobile">
+		<value xml:lang="ko"><![CDATA[모바일]]></value>
+		<value xml:lang="jp"><![CDATA[モバイル]]></value>
+		<value xml:lang="en"><![CDATA[Mobile]]></value>
+	</item>
+	<item name="trash">
+		<value xml:lang="ko"><![CDATA[휴지통]]></value>
+		<value xml:lang="jp"><![CDATA[ゴミ箱]]></value>
+		<value xml:lang="en"><![CDATA[Recycle Bin]]></value>
+	</item>
+	<item name="skin_type">
+		<value xml:lang="ko"><![CDATA[스킨 타입]]></value>
+		<value xml:lang="jp"><![CDATA[スキンタイプ]]></value>
+		<value xml:lang="en"><![CDATA[Skin type]]></value>
+	</item>
+	<item name="custom_status">
+		<value xml:lang="ko"><![CDATA[사용자 지정 상태]]></value>
+		<value xml:lang="jp"><![CDATA[使用者指定状態]]></value>
+		<value xml:lang="en"><![CDATA[Custom status]]></value>
+	</item>
+	<item name="use_title_color">
+		<value xml:lang="ko"><![CDATA[제목 색상 사용]]></value>
+		<value xml:lang="jp"><![CDATA[題目色使用]]></value>
+		<value xml:lang="en"><![CDATA[Use title color]]></value>
+	</item>
+	<item name="use_anonymous">
+		<value xml:lang="ko"><![CDATA[익명 사용]]></value>
+		<value xml:lang="jp"><![CDATA[匿名使用]]></value>
+		<value xml:lang="en"><![CDATA[Use anonymous]]></value>
+	</item>
+	<item name="use_mobile_uploader">
+		<value xml:lang="ko"><![CDATA[파일 업로더 사용하기]]></value>
+		<value xml:lang="jp"><![CDATA[ファイルアップロド使用]]></value>
+		<value xml:lang="en"><![CDATA[Use file uploader]]></value>
+	</item>
+	<item name="consultation">
+		<value xml:lang="ko"><![CDATA[상담 기능]]></value>
+		<value xml:lang="jp"><![CDATA[相談機能]]></value>
+		<value xml:lang="en"><![CDATA[Consultation]]></value>
+	</item>
+	<item name="trace_only2">
+		<value xml:lang="ko"><![CDATA[흔적만]]></value>
+		<value xml:lang="jp"><![CDATA[記録だけ]]></value>
+		<value xml:lang="en"><![CDATA[Trace]]></value>
+	</item>
+	<item name="doc_bottom_list">
+		<value xml:lang="ko"><![CDATA[본문 하단 목록]]></value>
+		<value xml:lang="jp"><![CDATA[本文下端リスト]]></value>
+		<value xml:lang="en"><![CDATA[list of view bottom]]></value>
+	</item>
+	<item name="list_options" type="array">
+		<item name="category" type="array">
+			<item name="N">
+				<value xml:lang="ko"><![CDATA[모든 분류에서 출력]]></value>
+				<value xml:lang="jp"><![CDATA[すべての分類で表示]]></value>
+				<value xml:lang="en"><![CDATA[all categories print]]></value>
+			</item>
+			<item name="Y">
+				<value xml:lang="ko"><![CDATA[분류별로 따로 출력]]></value>
+				<value xml:lang="jp"><![CDATA[分類別に表示]]></value>
+				<value xml:lang="en"><![CDATA[print by separately category]]></value>
+			</item>
+		</item>
+		<item name="bottom_list" type="array">
+			<item name="N">
+				<value xml:lang="ko"><![CDATA[출력 안함]]></value>
+				<value xml:lang="jp"><![CDATA[非表示]]></value>
+				<value xml:lang="en"><![CDATA[no print]]></value>
+			</item>
+			<item name="Y">
+				<value xml:lang="ko"><![CDATA[목록으로  출력]]></value>
+				<value xml:lang="jp"><![CDATA[リストで表示]]></value>
+				<value xml:lang="en"><![CDATA[print by list]]></value>
+			</item>
+			<item name="except" type="array">
+				<item name="Y">
+					<value xml:lang="ko"><![CDATA[공지를 제외하여 출력]]></value>
+					<value xml:lang="jp"><![CDATA[公知を除いて、出力]]></value>
+					<value xml:lang="en"><![CDATA[Disables "NOTICE"]]></value>
+				</item>
+				<item name="N">
+					<value xml:lang="ko"><![CDATA[공지를 포함해 출력]]></value>
+					<value xml:lang="jp"><![CDATA[公知を含めて出力]]></value>
+					<value xml:lang="en"><![CDATA[Enables "NOTICE"]]></value>
+				</item>
+			</item>
+		</item>
+		<item name="count">
+			<value xml:lang="ko"><![CDATA[1,2,3,5,10,20,30,50]]></value>
+			<value xml:lang="jp"><![CDATA[1,2,3,5,10,20,30,50]]></value>
+			<value xml:lang="en"><![CDATA[1,2,3,5,10,20,30,50]]></value>
+		</item>
+	</item>
+	<item name="best">
+		<value xml:lang="ko"><![CDATA[베스트]]></value>
+		<value xml:lang="jp"><![CDATA[ベスト]]></value>
+		<value xml:lang="en"><![CDATA[Best]]></value>
+	</item>
+	<item name="best_options" type="array">
+		<item name="index">
+			<value xml:lang="ko"><![CDATA[정렬]]></value>
+			<value xml:lang="jp"><![CDATA[整列]]></value>
+			<value xml:lang="en"><![CDATA[sort]]></value>
+		</item>
+		<item name="date">
+			<value xml:lang="ko"><![CDATA[검색 날짜]]></value>
+			<value xml:lang="jp"><![CDATA[検索日付]]></value>
+			<value xml:lang="en"><![CDATA[search date]]></value>
+		</item>
+		<item name="count">
+			<value xml:lang="ko"><![CDATA[목록 수]]></value>
+			<value xml:lang="jp"><![CDATA[リスト数]]></value>
+			<value xml:lang="en"><![CDATA[list count]]></value>
+		</item>
+		<item name="date_list">
+			<value xml:lang="ko"><![CDATA[1,3,7,15,30,60,90,180]]></value>
+			<value xml:lang="jp"><![CDATA[1,3,7,15,30,60,90,180]]></value>
+			<value xml:lang="en"><![CDATA[1,3,7,15,30,60,90,180]]></value>
+		</item>
+		<item name="more_list">
+			<value xml:lang="ko"><![CDATA[1,3,5,10,15,30,50,100,300,500,1000]]></value>
+			<value xml:lang="jp"><![CDATA[1,3,5,10,15,30,50,100,300,500,1000]]></value>
+			<value xml:lang="en"><![CDATA[1,3,5,10,15,30,50,100,300,500,1000]]></value>
+		</item>
+		<item name="count_list">
+			<value xml:lang="ko"><![CDATA[1,2,3,4,5,6,7,8,9]]></value>
+			<value xml:lang="jp"><![CDATA[1,2,3,4,5,6,7,8,9]]></value>
+			<value xml:lang="en"><![CDATA[1,2,3,4,5,6,7,8,9]]></value>
+		</item>
+	</item>
+	<item name="blind">
+		<value xml:lang="ko"><![CDATA[블라인드]]></value>
+		<value xml:lang="jp"><![CDATA[ブラインド]]></value>
+		<value xml:lang="en"><![CDATA[Blind]]></value>
+	</item>
+	<item name="blind_options" type="array">
+		<item name="index">
+			<value xml:lang="ko"><![CDATA[검사]]></value>
+			<value xml:lang="jp"><![CDATA[検査]]></value>
+			<value xml:lang="en"><![CDATA[Check]]></value>
+		</item>
+		<item name="more_list">
+			<value xml:lang="ko"><![CDATA[1,3,5,10,15,20,30,50,100]]></value>
+			<value xml:lang="jp"><![CDATA[1,3,5,10,15,20,30,50,100]]></value>
+			<value xml:lang="en"><![CDATA[1,3,5,10,15,20,30,50,100]]></value>
+		</item>
+	</item>
+	<item name="lock_options" type="array">
+		<item name="lock" type="array">
+			<item name="N">
+				<value xml:lang="ko"><![CDATA[사용 안함]]></value>
+				<value xml:lang="jp"><![CDATA[非使用]]></value>
+				<value xml:lang="en"><![CDATA[disabled]]></value>
+			</item>
+			<item name="Y">
+				<value xml:lang="ko"><![CDATA[작성 즉시]]></value>
+				<value xml:lang="jp"><![CDATA[作成直後]]></value>
+				<value xml:lang="en"><![CDATA[instant]]></value>
+			</item>
+			<item name="T">
+				<value xml:lang="ko"><![CDATA[날짜 (일)]]></value>
+				<value xml:lang="jp"><![CDATA[日付 (日)]]></value>
+				<value xml:lang="en"><![CDATA[date(day)]]></value>
+			</item>
+			<item name="C">
+				<value xml:lang="ko"><![CDATA[댓글 수]]></value>
+				<value xml:lang="jp"><![CDATA[コメント数]]></value>
+				<value xml:lang="en"><![CDATA[comments]]></value>
+			</item>
+		</item>
+		<item name="count">
+			<value xml:lang="ko"><![CDATA[1,3,5,7,10,15,30,60,90]]></value>
+			<value xml:lang="jp"><![CDATA[1,3,5,7,10,15,30,60,90]]></value>
+			<value xml:lang="en"><![CDATA[1,3,5,7,10,15,30,60,90]]></value>
+		</item>
+		<item name="owner">
+			<value xml:lang="ko"><![CDATA[소유자 댓글]]></value>
+			<value xml:lang="jp"><![CDATA[所有者コメント]]></value>
+			<value xml:lang="en"><![CDATA[owner comment]]></value>
+		</item>
+	</item>
+	<item name="custom_colorset">
+		<value xml:lang="ko"><![CDATA[사용자 지정]]></value>
+		<value xml:lang="jp"><![CDATA[使用者指定]]></value>
+		<value xml:lang="en"><![CDATA[Defined by user]]></value>
+	</item>
+	<item name="declare_count">
+		<value xml:lang="ko"><![CDATA[신고 수]]></value>
+		<value xml:lang="jp"><![CDATA[申告数]]></value>
+		<value xml:lang="en"><![CDATA[Reports]]></value>
+	</item>
+	<item name="vote_down_count">
+		<value xml:lang="ko"><![CDATA[비추천 수]]></value>
+		<value xml:lang="jp"><![CDATA[非推薦数]]></value>
+		<value xml:lang="en"><![CDATA[Blames]]></value>
+	</item>
+	<item name="category_group_srls">
+		<value xml:lang="ko"><![CDATA[그룹 제한]]></value>
+		<value xml:lang="jp"><![CDATA[グループ制限]]></value>
+		<value xml:lang="en"><![CDATA[group limited]]></value>
+	</item>
+	<item name="category_trace">
+		<value xml:lang="ko"><![CDATA[카테고리 추적]]></value>
+		<value xml:lang="jp"><![CDATA[カテゴリーの追跡]]></value>
+		<value xml:lang="en"><![CDATA[Trace a category]]></value>
+	</item>
+	<item name="use_trash">
+		<value xml:lang="ko"><![CDATA[삭제시 휴지통]]></value>
+		<value xml:lang="jp"><![CDATA[削除の時ごみ箱]]></value>
+		<value xml:lang="en"><![CDATA[Trash]]></value>
+	</item>
+	<item name="extra_name">
+		<value xml:lang="ko"><![CDATA[이름]]></value>
+		<value xml:lang="jp"><![CDATA[이름]]></value>
+		<value xml:lang="en"><![CDATA[NAME]]></value>
+	</item>
+	<item name="add_menu">
+		<value xml:lang="ko"><![CDATA[메뉴 추가]]></value>
+		<value xml:lang="en"><![CDATA[Add Menu Item]]></value>
+		<value xml:lang="jp"><![CDATA[メニュー追加]]></value>
+		<value xml:lang="zh-TW"><![CDATA[追加選單]]></value>
+	</item>
+	<item name="use_robots_meta">
+		<value xml:lang="ko"><![CDATA[검색 로봇 제한]]></value>
+		<value xml:lang="jp"><![CDATA[検索ロボット制限]]></value>
+		<value xml:lang="en"><![CDATA[search robots limit]]></value>
+	</item>
+	<item name="robots_meta_option" type="array">
+		<item name="0">
+			<value xml:lang="ko"><![CDATA[기본값]]></value>
+			<value xml:lang="jp"><![CDATA[基本値]]></value>
+			<value xml:lang="en"><![CDATA[default]]></value>
+		</item>
+		<item name="1">
+			<value xml:lang="ko"><![CDATA[문서 허용, 링크 허용]]></value>
+			<value xml:lang="jp"><![CDATA[文書許可, リンク許可]]></value>
+			<value xml:lang="en"><![CDATA[doc allow, link allow]]></value>
+		</item>
+		<item name="2">
+			<value xml:lang="ko"><![CDATA[문서 허용, 링크 허용 안함]]></value>
+			<value xml:lang="jp"><![CDATA[文書許可, リンク非許可]]></value>
+			<value xml:lang="en"><![CDATA[doc allow, link limited]]></value>
+		</item>
+		<item name="3">
+			<value xml:lang="ko"><![CDATA[문서 허용 안함, 링크 허용]]></value>
+			<value xml:lang="jp"><![CDATA[文書非許可, リンク許可]]></value>
+			<value xml:lang="en"><![CDATA[doc limited, link allow]]></value>
+		</item>
+		<item name="4">
+			<value xml:lang="ko"><![CDATA[문서 허용 안함, 링크 허용 안함]]></value>
+			<value xml:lang="jp"><![CDATA[文書非許可, リンク非許可]]></value>
+			<value xml:lang="en"><![CDATA[doc limited, link limited]]></value>
+		</item>
+	</item>
+	<item name="msg_delete_this_module">
+		<value xml:lang="ko"><![CDATA[삭제하시면 해당 모듈과 관련된 모든 데이터가 지워집니다.]]></value>
+		<value xml:lang="jp"><![CDATA[削除すれば該当のモジュールと係わるすべてのデータが消されます.]]></value>
+		<value xml:lang="en"><![CDATA[deleting will delete module and all related data.]]></value>
+	</item>
+	<item name="msg_invalid_eid">
+		<value xml:lang="ko"><![CDATA[확장변수 ID는 "영문, 숫자, _" 조합에 첫 글자는 영문이어야 합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[拡張変数 IDは "英文, 数字, _" 組合に初字は英文でなければなりません.]]></value>
+		<value xml:lang="en"><![CDATA[expansion variable ID must be "English letter, number, _" sequence with 1st character must be an english letter.]]></value>
+	</item>
+	<item name="msg_module_backup_options">
+		<value xml:lang="ko"><![CDATA[이전 스킨에 강제 설정이 적용되어 있었습니다.<br />이전에 강제 설정된  옵션에 <span class="opt_bks">빨강</span> 테두리로 표시해 두었으니 설정을 확인해 주세요.]]></value>
+		<value xml:lang="jp"><![CDATA[以前スキンに強制設定が適用されていました.<br />以前に強制設定されたオプションに <span class="opt_bks">赤色</span> わくで表示しておいたので設定を確認してください.]]></value>
+		<value xml:lang="en"><![CDATA[Previously been applied to the skin was forced.<br />Force prior to the options set <span class="opt_bks">red</span> Border have set the settings Please check mark.]]></value>
+	</item>
+	<item name="about_download_skin">
+		<value xml:lang="ko"><![CDATA[스킨이 하나 이상은 존재해야 합니다. (<a href="http://foxb.kr/dx_skin">스킨 다운로드하러 가기</a>)]]></value>
+		<value xml:lang="jp"><![CDATA[スキンが一つ以上存在しなければなりません. (<a href="http://foxb.kr/dx_skin">スキンダウンロード</a>)]]></value>
+		<value xml:lang="en"><![CDATA[must have at least one existing skin. (<a href="http://foxb.kr/dx_skin"> Download skins </a>)]]></value>
+	</item>
+	<item name="about_category_list">
+		<value xml:lang="ko"><![CDATA[분류의 이동은 해당 분류를 마우스로 잡고 이동하시면 됩니다.]]></value>
+		<value xml:lang="jp"><![CDATA[分類の移動は該当の分類をマウスのドラッグで移動可能です.]]></value>
+		<value xml:lang="en"><![CDATA[Category can move by mouse, hold the mouse and move]]></value>
+	</item>
+	<item name="about_use_anonymous">
+		<value xml:lang="ko"><![CDATA[글쓴이의 정보를 없애고 익명으로 게시판 사용을 할 수 있게 합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[著者の情報を無くして匿名で掲示板使用ができるようにします.]]></value>
+		<value xml:lang="en"><![CDATA[anonymous can use bulletin board also can remove author info]]></value>
+	</item>
+	<item name="about_consultation">
+		<value xml:lang="ko"><![CDATA[상담 기능은 관리자 외에는 자신이 쓴 글만 보이도록 하는 기능입니다. (회원 전용)]]></value>
+		<value xml:lang="jp"><![CDATA[相談機能は管理者以外には自分が書いた文書のみ閲覧できるようにする機能です. (会員専用)]]></value>
+		<value xml:lang="en"><![CDATA[consultation function. (member only)]]></value>
+	</item>
+	<item name="about_admin_mail">
+		<value xml:lang="ko"><![CDATA[글이나 댓글이 등록될때 등록된 메일주소로 메일이 발송됩니다. 콤마(,)로 연결시 다수의 메일주소로 발송할 수 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[文書やコメントが登録される時登録されたメールアドレスでメールが発送されます. コンマ(,)で連結の時多数のメールアドレスで発送することができます.]]></value>
+		<value xml:lang="en"><![CDATA[receive by email any new article or comment. By commas (,) separate email address you can send multiple.]]></value>
+	</item>
+	<item name="about_custom_status">
+		<value xml:lang="ko"><![CDATA[사용자 지정 상태 목록을 추가하시려면 입력해주세요. (콤마(,)로 구분, 최대 9개)]]></value>
+		<value xml:lang="jp"><![CDATA[使用者指定状態リストを追加したいの時入力してください. (コンマ(,)路仕分け, 最大 9個)]]></value>
+		<value xml:lang="en"><![CDATA[To add a custom status list, please enter. (commas(,)separate, max 9)]]></value>
+	</item>
+	<item name="about_use_best">
+		<value xml:lang="ko"><![CDATA[선택한 설정 조건에 맞는 글을 목록 상단에 출력합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[選択した設定条件に該当する文書をリストの上端に出力します.]]></value>
+		<value xml:lang="en"><![CDATA[article display at top of the list by selected]]></value>
+	</item>
+	<item name="about_restriction">
+		<value xml:lang="ko"><![CDATA[댓글: 댓글을 1개이상 등록해야만 사용 가능합니다.<br />포인트: 사용자는 포인트를 지불해야 사용 가능하며 소유자는 지정한 포인트의 퍼센트만큼 가집니다.]]></value>
+		<value xml:lang="jp"><![CDATA[コメント: コメントを 一つ以上 登録しなければ 使用することができません.<br />ポイント: 使用者はポイントを支払うと使用可能 所有者は指定したポイントのパーセントを貰うことができます.]]></value>
+		<value xml:lang="en"><![CDATA[comment: allow to one more comment writer<br />point: any user have to use points for allow, article owner will be get point by percentage.]]></value>
+	</item>
+	<item name="about_restriction_download">
+		<value xml:lang="ko"><![CDATA[다운로드 제한 기능을 사용하시려면 설치가 필요합니다. <a href="#" onclick="alert('설치법을 순서대로 따라해주세요.<br /><br />1. ./schemas/ 폴더로 이동합니다.<br />2. file_downloaded_log.xml.bk 뒤에 .bk 지워주세요.<br />3. 관리자 초기 화면에서 beluxe 설치를 눌러줍니다.'); return false">다운로드 제한 설치법</a>]]></value>
+		<value xml:lang="jp"><![CDATA[ダウンロード制限機能を使おうとすればインストールが必要です. <a href="#" onclick="alert('インストール方法.<br /><br />1. ./schemas/ フォルダに移動します.<br />2. file_downloaded_log.xml.bk 後の .bk 消してください.<br />3. 管理者初期画面で beluxe 設置を押してください.'); return false">ダウンロード制限インストール法</a>]]></value>
+		<value xml:lang="en"><![CDATA[if you want to use download function, have to setup. <a href="#" onclick="alert('follow install guide.<br /><br />1. ./schemas/ move to folder.<br />2. file_downloaded_log.xml.bk back .bk delete.<br />3. initial screen for admin beluxe select set.'); return false">install guide for limited download</a>]]></value>
+	</item>
+	<item name="about_use_title_color">
+		<value xml:lang="ko"><![CDATA[관리자가 아니여도 제목의 색상 변경을 허용할지 설정합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[一般会員も題目の色を変更するようにします.]]></value>
+		<value xml:lang="en"><![CDATA[allow to change title color even not administrator.]]></value>
+	</item>
+	<item name="about_doc_bottom_list">
+		<value xml:lang="ko"><![CDATA[본문 하단에 표시되는 목록을 설정합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[本文下端に表示されるリストを設定します.]]></value>
+		<value xml:lang="en"><![CDATA[set showing list for body bottom]]></value>
+	</item>
+	<item name="about_use_blind">
+		<value xml:lang="ko"><![CDATA[선택한 옵션에 해당하는 글을 블라인드 처리합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[選択したオプションに該当する文書をブラインドします.]]></value>
+		<value xml:lang="en"><![CDATA[article blind if select options]]></value>
+	</item>
+	<item name="about_use_lock_document">
+		<value xml:lang="ko"><![CDATA[글 수정, 삭제를 막습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[文書修正, 削除を禁止します.]]></value>
+		<value xml:lang="en"><![CDATA[lock write, change, delete.]]></value>
+	</item>
+	<item name="about_use_lock_owner_comment">
+		<value xml:lang="ko"><![CDATA[글 작성자의 댓글을 막습니다. (댓글의 댓글은 허용)]]></value>
+		<value xml:lang="jp"><![CDATA[文書作成者のコメントを禁止します. (コメントの コメントは 許可)]]></value>
+		<value xml:lang="en"><![CDATA[lock owner comment. (allow comment for comment)]]></value>
+	</item>
+	<item name="about_allow_comment">
+		<value xml:lang="ko"><![CDATA[댓글을 허용할지 선택합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[コメントの許可を選択します.]]></value>
+		<value xml:lang="en"><![CDATA[allow comment.]]></value>
+	</item>
+	<item name="about_allow_trackback">
+		<value xml:lang="ko"><![CDATA[엮인글을 허용할지 선택합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[トラックバックの許可を選択します.]]></value>
+		<value xml:lang="en"><![CDATA[allow trackback comment.]]></value>
+	</item>
+	<item name="about_use_robots_meta">
+		<value xml:lang="ko"><![CDATA[검색 로봇이 문서를 긁어가는것에 제한을 걸 수 있습니다. 단, 검색 사이트에 노출 빈도는 낮아집니다.]]></value>
+		<value xml:lang="jp"><![CDATA[検索ロボットの接近に制限をかけることができます. ただし, 検索サイトに露出頻度は低くなります.]]></value>
+		<value xml:lang="en"><![CDATA[Robots of this document going to limit what can be scratched. However, the lower the frequency of exposure on search sites.]]></value>
+	</item>
+	<item name="about_use_trash">
+		<value xml:lang="ko"><![CDATA[문서 삭제시 휴지통으로 이동하여 복구할 수 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[文書削除の時ごみ箱に移動して復旧することができます.]]></value>
+		<value xml:lang="en"><![CDATA[문서 삭제시 휴지통으로 이동하여 복구할 수 있습니다.]]></value>
+	</item>
+	<item name="about_mobile_uploader">
+		<value xml:lang="ko"><![CDATA[파일 업로더를 사용하시면 모바일 모드에서도 첨부 파일을 추가할 수 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[ファイルアップロドを使えばモバイルモードでも添付ファイルを追加することができます.]]></value>
+		<value xml:lang="en"><![CDATA[using file upload will also allow file attach from mobile mode.]]></value>
+	</item>
+	<item name="about_all_setting">
+		<value xml:lang="ko"><![CDATA[선택하신 모든 모듈에 해당 설정을 적용합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[選択したすべてのモジュールに該当の設定を適用します.]]></value>
+		<value xml:lang="en"><![CDATA[Chosen, the setting will apply to all modules.]]></value>
+	</item>
+	<item name="about_setting_copy">
+		<value xml:lang="ko"><![CDATA[선택하신 모듈의 설정을 복사하여 새로운 모듈을 생성합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[選択したモジュールの設定をコピーして新しいモジュールを生成します.]]></value>
+		<value xml:lang="en"><![CDATA[선택하신 모듈의 설정을 복사하여 새로운 모듈을 생성합니다.]]></value>
+	</item>
+	<item name="about_setting_copy2">
+		<value xml:lang="ko"><![CDATA[아래 설정은 대상 모듈이 가지고 있는 설정이며 필요한 부분만 설정 하시면 됩니다.<br />참고: 같이 복사되는 스킨 설정은 대상 모듈의 스킨 설정을 그대로 따릅니다.]]></value>
+		<value xml:lang="jp"><![CDATA[下の設定は対象モジュールが持っている設定で必要な部分だけ設定すれば良いです.<br />参照: 一緒にコピーされるスキン設定は対象モジュールのスキン設定にそのまま従います.]]></value>
+		<value xml:lang="en"><![CDATA[아래 설정은 대상 모듈이 가지고 있는 설정이며 필요한 부분만 설정 하시면 됩니다.<br />참고: 같이 복사되는 스킨 설정은 대상 모듈의 스킨 설정을 그대로 따릅니다.]]></value>
+	</item>
+	<item name="about_use_history2">
+		<value xml:lang="ko"><![CDATA[히스토리 기능을 사용할 경우, 문서 수정 후 이전 수정판으로 복원할 수 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[文書修正のバージョンを管理し、過去のバージョンから復元することも可能です.]]></value>
+		<value xml:lang="en"><![CDATA[Allows you to restore an updated article to the previous version.]]></value>
+	</item>
+	<item name="about_category_trace">
+		<value xml:lang="ko"><![CDATA[문서 선택시 해당 문서의 분류를 자동으로 찾아 선택해 줍니다.]]></value>
+		<value xml:lang="jp"><![CDATA[ドキュメントの選択時に、その文書の分類を自動的に見つけて選択します。]]></value>
+		<value xml:lang="en"><![CDATA[When selecting a document, categories will be selected automatically]]></value>
+	</item>
+	<item name="about_use_vote">
+		<value xml:lang="ko"><![CDATA[추천/비추천/신고 버튼을 표시할지 선택합니다.<br />권한 관리에 관리자를 등록하면 신고시 관리자에게 쪽지가 발송됩니다. (기본값: 작성자)]]></value>
+		<value xml:lang="jp"><![CDATA[推薦/非推薦/申告ボタンを表示するかを選択します。<br/>権管理に管理者を登録すると申告時の管理者にメッセージが送信されます。 （デフォルト：作成者）]]></value>
+		<value xml:lang="en"><![CDATA[Decide whether to display "Vote/UnVote/Report" buttons <br /> if a moderator is registered in the authorization tab, a message will be sent to the moderator at the time of report. (default: author)]]></value>
+	</item>
+	<item name="about_skin_type">
+		<value xml:lang="ko"><![CDATA[이 옵션은 모든 분류의 기본값이며 <a href="%s">분류 관리</a>에서 분류별로 따로 설정이 가능합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[このオプションは、すべての分類の基本値であり、<a href="%s">分類管理</a>で分類別に個別に設定が可能です。]]></value>
+		<value xml:lang="en"><![CDATA[This option is a default for all categories and separate settings are available for each categories under <a href="%s">category management</a> menu.]]></value>
+	</item>
+</lang>

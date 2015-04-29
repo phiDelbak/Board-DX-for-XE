@@ -1,0 +1,45 @@
+<include target="header.html" />
+
+<block cond="file_exists('files/_debug_message.php')">
+	*** debug_message 파일이 있습니다.<br />*** 디버깅을 끝내면 삭제해주세요.<br />
+</block>
+
+<div class="dashboard clearBar"|cond="$module=='admin'">
+	<div class="section">
+		<div class="portlet">
+			<h2 class="h2"><a href="{getUrl('','module','admin','act','dispDocumentAdminDeclared')}">{$lang->document} {$lang->cmd_declared_list}</a></h2>
+			<ul cond="count($document_list)" class="lined">
+				<li loop="$document_list=>$key,$val">
+					<a href="{getUrl('','mid',$val->mid,'document_srl',$val->document_srl)}" target="_blank">{$val->title}</a> <span class="side">{$val->nick_name}</span>
+					<form class="action" style="position: absolute; display: none; ">
+						<input type="hidden" name="module" value="admin">
+						<input type="hidden" name="act" value="procDocumentManageCheckedDocument">
+						<input type="hidden" name="cart[]" value="{$val->document_srl}">
+						<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}">
+						<button type="submit" name="type" value="trash" class="text">{$lang->trash}</button>
+						<button type="submit" name="type" value="delete" class="text">{$lang->cmd_delete}</button>
+					</form>
+				</li>
+			</ul>
+		</div>
+		<div class="portlet">
+			<h2 class="h2"><a href="{getUrl('','module','admin','act','dispCommentAdminDeclared')}">{$lang->comment} {$lang->cmd_declared_list}</a></h2>
+			<ul cond="count($comment_list)" class="lined">
+				<li loop="$comment_list=>$key,$val">
+					<a href="{getUrl('','mid',$val->mid,'document_srl',$val->document_srl,'comment_srl',$val->comment_srl)}" target="_blank">{cut_str(strip_tags($val->content),255)}</a> <span class="side">{$val->nick_name}</span>
+					<form class="action" style="position: absolute; display: none; ">
+						<input type="hidden" name="module" value="admin">
+						<input type="hidden" name="act" value="procCommentAdminDeleteChecked">
+						<input type="hidden" name="cart[]" value="{$val->comment_srl}">
+						<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}">
+						<button type="submit" name="type" value="trash" class="text">{$lang->trash}</button>
+						<button type="submit" name="type" value="delete" class="text">{$lang->cmd_delete}</button>
+					</form>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div style="text-align:right"><a href="http://www.foxb.kr/" target="_blank" style="">Board DX</a></div>
+
+<include target="footer.html" />

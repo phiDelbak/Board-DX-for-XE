@@ -1,0 +1,39 @@
+<!--// CSS,JS 파일 import -->
+<load target="css/common.css" />
+<load target="css/iefix.css" targetie="lte IE 9" />
+
+<div>
+	<div cond="$XE_VALIDATOR_MESSAGE" class="{$XE_VALIDATOR_MESSAGE_TYPE}">
+		<p>{nl2br($XE_VALIDATOR_MESSAGE)}</p>
+	</div>
+
+	<div id="siBody">
+		<div class="scContent">
+			<div cond="$history_document" class="history">{$history_document->content}</div>
+			<textarea class="history" style="display:none"></textarea>
+		</div>
+	</div>
+
+	<div class="btnArea">
+		<span class="scBtn"><a href="#" onclick="sjHistoryHtmlView();return false">HTML {$lang->cmd_view}</a></span>
+		<span class="scBtn"><a href="#" onclick="window.close();return false">{$lang->cmd_close}</a></span>
+	</div>
+</div>
+
+<script type="text/javascript">
+	//<![CDATA[
+	function sjHistoryHtmlView()
+	{
+		jQuery(function($){
+			var $o = $('#siBody div.history');
+			if($o.is(':hidden')) return false;
+			var $t = $('#siBody textarea.history'),
+				w = $o.width(),
+				h= $o.height();
+			$t.width(($o.outerWidth()||510)-10);
+			$t.height(($o.outerHeight()||400)+20);
+			$t.text($o.hide().html()).show();
+		});
+	}
+	//]]>
+</script>

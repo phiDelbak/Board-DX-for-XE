@@ -1,0 +1,18 @@
+<include target="___setting.html" />
+
+<div id="siMaHtxt" cond="$mi->header_text" class="clearBar">
+	{$mi->header_text}
+</div>
+
+<div id="siMaTitle" cond="$mi->title||$mi->sub_title" class="clearBar">
+	<h1 cond="$mi->title" class="mai"><a href="{getUrl('','mid',$mid)}">{$mi->title}</a></h1>
+	<h4 cond="$mi->sub_title" class="sub">{$mi->sub_title}</h4>
+</div>
+
+<div id="siMaDesc" cond="$mi->board_desc" class="clearBar">
+	{$mi->board_desc}
+</div>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>

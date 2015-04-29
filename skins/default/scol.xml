@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<colors>
+	<sample>
+		<value name="Black set">
+			<![CDATA[NONE;#E5E5E5;#999999;#CCCCCC;#888888;#CCCCCC;#555555;#000000;#333333;#BABAFF;#333333;#808080;#353535;#4A4A4A;#818181;#353535;#FFFFFF;#000000;#FAFAFA;#353535;#4A4A4A;#818181;#353535;#FFFFFF;#000000;#FAFAFA;#5034A0;#4A4A4A;#9164BE;#5034A0;#FFFFFF;#000000;#FAFAFA;#4A4A4A;#555555;#EEEEEE;#5C5C5C;#8A8A8A;#5C5C5C;#4C4C4C;#FFFFFF;#000000;#000000;#AAAAAA;#4C4C4C;#4C4C4C;#000000;#000000;#3C3C3C;#333333;#EEEEEE;#555555;#CCCCCC;#EEEEEE;#555555;#393939;#555555;#818181;#393939;#EEEEEE;#555555;#8475D5;#4D4D4D;#CCCCCC;#777777;#333333;#333333;#4D4D4D;#CCCCCC;#555555;#555555;#000000;#333333;#3A3A3A;#BABAFF;#333333;#AAAAAA;#CCCCCC;#333333;#3C3C3C;#B2B2B2;#333333;#B2B2B2;#616161;#999999;#3C3C3C;#333333;#AAAAAA;#555555;#666666;#767676;#333333;#333333;#CCCCCC;#000000;#999999;#8475D5;#616161;#999999;#4D4D4D;#CCCCCC;#CCCCCC;#777777;#555555;#CCCCCC;#DDDDDD;#553DE6;#111111;#3C3C3C;#767676;#FFFFFF;#000000;#8A7ADB;#DDDDDD;#EEEEEE;#777777]]>
+		</value>
+	</sample>
+	<!-- 스킨 색상 설정 (*** color="" 이 부분은 색 테스트용으로 만든거라 의미 없는 값 ***) -->
+	<item name="body">
+		<value name="background-color:%s;color:%s" color=";">
+			<select><![CDATA[#siBody,#siLst]]></select>
+		</value>
+		<value name="border-color:%s" color="#999999">
+			<select><![CDATA[#siLst,#siBody div.scNoDocs,#siNavi ul,#siBody .scTags]]></select>
+		</value>
+	</item>
+	<item name="a link">
+		<value name="color:%s" color="#cccccc">
+			<select><![CDATA[#siBody a,#siBody a:link,#siBody a:visited]]></select>
+		</value>
+		<value desc="hover" name="color:%s" color="#888888">
+			<select><![CDATA[#siBody a:hover,#siBody a:active,#siBody a:focus]]></select>
+		</value>
+	</item>
+	<item name="input box">
+		<value name="background-color:%s;border-color:%s;color:%s" color="#cccccc;#555555;#000000">
+			<select><![CDATA[#siBody input[type=text],#siBody input[type=password],#siBody textarea,#siBody select]]></select>
+		</value>
+		<value desc="readonly" name="background-color:%s!important;color:%s" color="#333333;#BF8080">
+			<select><![CDATA[#siBody input[type=text][readonly],#siBody input[type=password][readonly],#siBody textarea[readonly],#siBody select[readonly]]]></select>
+		</value>
+		<value desc="disabled" name="background-color:%s!important;color:%s" color="#333333;#808080">
+			<select><![CDATA[#siBody input[type=text][disabled],#siBody input[type=password][disabled],#siBody textarea[disabled],#siBody select[disabled]]]></select>
+		</value>
+	</item>
+	<item name="button 1">
+		<value name="background-color:%s;border-color:%s" color="#353535;#4a4a4a">
+			<select><![CDATA[.scBtn]]></select>
+			<groups name="gradient" color="#818181;#353535">
+				<group name="background-image:linear-gradient(%s,%s)" />
+				<group name="background-image:-moz-linear-gradient(%s,%s)" />
+				<group name="background-image:-webkit-linear-gradient(%s,%s)" />
+				<group name="background-image:-o-linear-gradient(%s,%s)" />
+				<group name="background-image:-ms-linear-gradient(%s,%s)" />
+				<group name="filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%s',endColorstr='%s')" select=".scBtn a,.scBtn *" />
+			</groups>
+		</value>
+		<value name="color:%s!important;text-shadow:0 1px %s" color="#ffffff;#000000">
+			<select><![CDATA[.scBtn a,.scBtn *]]></select>
+		</value>
+		<value desc="hover" name="" color="">
+			<select><![CDATA[.scBtn:hover,.scBtn.group a:hover]]></select>
+			<groups name="shadow" color="#fafafa">
+				<group name="box-shadow:0 0 4px %s" />
+				<group name="-moz-box-shadow:0 0 4px %s" />
+				<group name="-webkit-box-shadow:0 0 4px %s" />
+			</groups>
+		</value>
+	</item>
+	<item name="button 2">
+		<value name="background-color:%s;border-color:%s" color="#353535;#4a4a4a">
+			<select><![CDATA[.scBtn.black]]></select>
+			<groups name="gradient" color="#818181;#353535">
+				<group name="background-image:linear-gradient(%s,%s)" />
+				<group name="background-image:-moz-linear-gradient(%s,%s)" />
+				<group name="background-image:-webkit-linear-gradient(%s,%s)" />
+				<group name="background-image:-o-linear-gradient(%s,%s)" />
+				<group name="background-image:-ms-linear-gradient(%s,%s)" />
+				<group name="filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%s',endColorstr='%s')" select=".scBtn.black a,.scBtn.black *" />
+			</groups>
+		</value>
+		<value name="color:%s!important;text-shadow:0 1px %s" color="#ffffff;#000000">
+			<select><![CDATA[.scBtn.black a,.scBtn.black *]]></select>
+		</value>
+		<value desc="hover" name="" color="">
+			<select><![CDATA[.scBtn.black:hover,.scBtn.black.group a:hover]]></select>
+			<groups name="shadow" color="#fafafa">
+				<group name="box-shadow:0 0 4px %s" />
+				<group name="-moz-box-shadow:0 0 4px %s" />
+				<group name="-webkit-box-shadow:0 0 4px %s" />
+			</groups>
+		</value>
+	</item>
+	<item name="button 3">
+		<value name="background-color:%s;border-color:%s" color="#5034A0;#4a4a4a">
+			<select><![CDATA[.scBtn.blue]]></select>
+			<groups name="gradient" color="#9164BE;#5034A0">
+				<group name="background-image:linear-gradient(%s,%s)" />
+				<group name="background-image:-moz-linear-gradient(%s,%s)" />
+				<group name="background-image:-webkit-linear-gradient(%s,%s)" />
+				<group name="background-image:-o-linear-gradient(%s,%s)" />
+				<group name="background-image:-ms-linear-gradient(%s,%s)" />
+				<group name="filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%s',endColorstr='%s')" select=".scBtn.blue a,.scBtn.blue *" />
+			</groups>
+		</value>
+		<value name="color:%s!important;text-shadow:0 1px %s" color="#ffffff;#000000">
+			<select><![CDATA[.scBtn.blue a,.scBtn.blue *]]></select>
+		</value>
+		<value desc="hover" name="" color="">
+			<select><![CDATA[.scBtn.blue:hover,.scBtn.blue.group a:hover]]></select>
+			<groups name="shadow" color="#fafafa">
+				<group name="box-shadow:0 0 4px %s" />
+				<group name="-moz-box-shadow:0 0 4px %s" />
+				<group name="-webkit-box-shadow:0 0 4px %s" />
+			</groups>
+		</value>
+	</item>
+	<item name="button group">
+		<value name="border-color:%s!important" color="#4a4a4a">
+			<select><![CDATA[.scBtn.group a]]></select>
+		</value>
+		<value desc="select" name="background-color:%s!important;color:%s!important" color="#555555;#eeeeee">
+			<select><![CDATA[#siBody .scSch select,#siBody .scSch select option]]></select>
+		</value>
+	</item>
+	<item name="ribbon">
+		<value name="background-color:%s" color="#5c5c5c">
+			<select><![CDATA[#siLst .scRibbon,#siDoc .scRibbon]]></select>
+			<groups name="gradient" color="#8A8A8A;#5C5C5C">
+				<group name="background-image:linear-gradient(%s,%s)" />
+				<group name="background-image:-moz-linear-gradient(%s,%s)" />
+				<group name="background-image:-webkit-linear-gradient(%s,%s)" />
+				<group name="background-image:-o-linear-gradient(%s,%s)" />
+				<group name="background-image:-ms-linear-gradient(%s,%s)" />
+				<group name="filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%s',endColorstr='%s')" />
+			</groups>
+			<groups name="shadow" color="#4c4c4c">
+				<group name="box-shadow:2px 2px 0 %s" />
+				<group name="-moz-box-shadow:2px 2px 0 %s" />
+				<group name="-webkit-box-shadow:2px 2px 0 %s" />
+			</groups>
+		</value>
+		<value name="color:%s;text-shadow:0 1px %s" color="#ffffff;#000000">
+			<select><![CDATA[#siLst .scRibbon,#siDoc .scRibbon,#siLst .scRibbon .caption,#siDoc .scRibbon .caption,#siDoc .scRibbon .caption a]]></select>
+		</value>
+		<value desc="action" name="color:%s;text-shadow:2px 2px 5px %s" color="#000000;#AAaaaA">
+			<select><![CDATA[#siLst .scRibbon.action .caption]]></select>
+		</value>
+		<value desc="tail" name="border-left-color:%s;border-right-color:%s" color="#4c4c4c;#4c4c4c">
+			<select><![CDATA[#siLst .scRibbon:before,#siDoc .scRibbon:before,#siLst .scRibbon:after,#siDoc .scRibbon:after]]></select>
+		</value>
+	</item>
+	<item name="modal">
+		<value name="background-color:%s" color="#000000">
+			<select><![CDATA[#siModalWin .bg]]></select>
+		</value>
+		<value desc="fog" name="background-color:%s;border-color:%s" color="#000000;#3c3c3c">
+			<select><![CDATA[#siModalWin .fg]]></select>
+			<groups name="shadow" color="#333333">
+				<group name="box-shadow:0 0 10px %s" />
+				<group name="-moz-box-shadow:0 0 10px %s" />
+				<group name="-webkit-box-shadow:0 0 10px %s" />
+			</groups>
+		</value>
+		<value desc="close:button" name="color:%s;text-shadow:2px 2px 5px %s" color="#eeeeee;#555555">
+			<select><![CDATA[#siModalWin button.modalClose]]></select>
+		</value>
+		<value desc="header" name="border-color:%s;color: %s;text-shadow:0 1px %s" color="#cccccc;#eeeeee;#555555">
+			<select><![CDATA[#siBody .scLtitle]]></select>
+		</value>
+	</item>
+	<item name="header">
+		<value name="background-color:%s;border-color:%s" color="#393939;#555555">
+			<select><![CDATA[#siCat.tabn li,#siCat.colm .cateArea,#siHrm .scFrm,#siLst thead tr div,#siLst thead th span]]></select>
+			<groups name="gradient" color="#818181;#393939">
+				<group name="background-image:linear-gradient(%s,%s)" />
+				<group name="background-image:-moz-linear-gradient(%s,%s)" />
+				<group name="background-image:-webkit-linear-gradient(%s,%s)" />
+				<group name="background-image:-o-linear-gradient(%s,%s)" />
+				<group name="background-image:-ms-linear-gradient(%s,%s)" />
+				<group name="filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%s',endColorstr='%s')" select="#siCat.tabn li a,#siCat.colm .cateArea,#siHrm .scFrm,#siLst thead tr div" />
+			</groups>
+		</value>
+		<value name="color:%s!important;text-shadow:0 1px %s" color="#eeeeee;#555555">
+			<select><![CDATA[#siCat.tabn li a,#siCat.tabn li a:link,#siCat.tabn li a:visited,#siCat.colm li a,#siCat.colm li a:link,#siCat.colm li a:visited,#siCat.text ul,#siCat.text li a,#siCat.text li.active a,#siHrm .scFrm,#siLst thead tr div,#siLst thead th span,#siLst thead th span a]]></select>
+		</value>
+		<value desc="doc:count" name="color:%s" color="#8475D5">
+			<select><![CDATA[.scHaDCnts strong]]></select>
+		</value>
+	</item>
+	<item name="list">
+		<value name="border-color:%s" color="#4D4D4D">
+			<select><![CDATA[#siLst td,#siDoc.widg li,#siLst.webz .scItem .scFrm,#siLst.list td.thumbnail img,#siLst.webz .scItem a.thum,#siLst.gall .scItem,#siDoc .thmAx img.thum,#siDoc.guest .scDocCon img.profile, #siBody .scGwf .profile, #siBody .scGwf textarea]]></select>
+		</value>
+		<value name="color:%s" color="#cccccc">
+			<select><![CDATA[#siLst td,#siDoc.widg li]]></select>
+		</value>
+		<value desc="summary" name="color:%s" color="#777777">
+			<select><![CDATA[#siLst.list td.content,#siLst.webz .scItem .scFrm li.content]]></select>
+		</value>
+		<value desc="notice" name="background-color:%s" color="#333333">
+			<select><![CDATA[#siLst .notice td,#siLst .best td]]></select>
+		</value>
+		<value desc="image:info" name="background-color:%s;border-color:%s;color:%s" color="#333333;#4D4D4D;#cccccc">
+			<select><![CDATA[#siLst.gall .scInfo.aHide,#siLst.gall .scInfo.aHide li,#siLst.gall .scInfo.aHide li a,#siLst.gall .prtImg em,#siBody em.usept]]></select>
+		</value>
+		<value desc="image:hover" name="" color="">
+			<select><![CDATA[#siLst.list td.thumbnail img:hover,#siLst.webz .scItem a.thum:hover,#siLst.gall .scItem:hover,#siBody .scGwf .profile:hover]]></select>
+			<groups name="shadow" color="#555555">
+				<group name="box-shadow:1px 1px 2px %s" />
+				<group name="-moz-box-shadow:1px 1px 2px %s" />
+				<group name="-webkit-box-shadow:1px 1px 2px %s" />
+			</groups>
+		</value>
+	</item>
+	<item name="widget">
+		<value name="border-color:%s" color="#555555">
+			<select><![CDATA[#siDoc.book .scConfrm,#siDoc.widg ul]]></select>
+			<groups name="gradient" color="#000000;#333333">
+				<group name="background-image:linear-gradient(%s,%s)" />
+				<group name="background-image:-moz-linear-gradient(%s,%s)" />
+				<group name="background-image:-webkit-linear-gradient(%s,%s)" />
+				<group name="background-image:-o-linear-gradient(%s,%s)" />
+				<group name="background-image:-ms-linear-gradient(%s,%s)" />
+				<group name="filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%s',endColorstr='%s')" />
+			</groups>
+			<groups name="shadow" color="#3a3a3a">
+				<group name="box-shadow:1px 1px 2px %s" />
+				<group name="-moz-box-shadow:1px 1px 2px %s" />
+				<group name="-webkit-box-shadow:1px 1px 2px %s" />
+			</groups>
+		</value>
+		<value desc="ribbon:best" name="color:%s" color="#BABAFF">
+			<select><![CDATA[#siDoc.widg .best .scRibbon .caption]]></select>
+		</value>
+		<value desc="ribbon:y" name="color:%s;text-shadow: 2px 2px 5px %s" color="#333333;#aaaaaa">
+			<select><![CDATA[#siDoc.widg .scRibbon .regdate .y]]></select>
+		</value>
+	</item>
+	<item name="view">
+		<value name="color:%s!important" color="">
+			<select><![CDATA[#siDoc .scConDoc,#siDoc .xe_content,#siWrt .scCpar .xe_content]]></select>
+		</value>
+		<value desc="info" name="background-color:%s;border-color:%s;color:%s" color="#333333;#3c3c3c;#dddddd">
+			<select><![CDATA[#siDoc .mbAfrm,#siDoc.widg .doct .nick_name,#siWrt .scExTog button]]></select>
+		</value>
+		<value desc="label" name="background-color:%s;color:%s" color="#333333;#dddddd">
+			<select><![CDATA[#siFbk .scFbWt,#siDoc .scVext li label:first-child,#siWrt .scWul .scWli label:first-child,#siSimWrt .scWul label:first-child]]></select>
+		</value>
+		<value desc="extra" name="border-color:%s;color:%s" color="#616161;#999999">
+			<select><![CDATA[#siDoc .scVext li,#siDoc .tags,#siDoc .tags a,#siDoc.widg .scElps em]]></select>
+		</value>
+		<value desc="sign" name="border-color:%s;color:%s" color="#3c3c3c;#333333">
+			<select><![CDATA[#siDoc .sign,#siDoc .sign .tx,#siMaDesc]]></select>
+		</value>
+	</item>
+	<item name="feedback">
+		<value name="color:%s!important" color="#aaaaaa">
+			<select><![CDATA[#siFbk .scCmtCon,#siFbk .xe_content]]></select>
+		</value>
+		<value name="border-color:%s" color="#555555">
+			<select><![CDATA[#siFbk,#siFbk .scFrm>li,#siFbk .scFbt .profile,#siWrt .scCpar,#siLst.memo tr.scMRp td li.scLi]]></select>
+		</value>
+		<value desc="info" name="color:%s" color="#cccccc">
+			<select><![CDATA[#siFbk .author, #siFbk .time]]></select>
+		</value>
+		<value desc="button" name="color:%s" color="#767676">
+			<select><![CDATA[#siFbk .action a,#siFbk .scVoteArea span.vote]]></select>
+		</value>
+		<value desc="header" name="background-color:%s;border-color:%s;color:%s;text-shadow:0 1px %s" color="#333333;#333333;#cccccc;#000000">
+			<select><![CDATA[#siModalCmtWin .fg,#siFbk .scFbH,#siFbk .scFrm.best>li,#siWrt label.wrtTxt em,#siFbk label.wrtTxt em,#siLst.memo tr.scMRp td]]></select>
+		</value>
+		<value desc="header:hover" name="border-color:%s!important" color="#999999">
+			<select><![CDATA[#siFbk .scFbH.scToggle:hover]]></select>
+		</value>
+		<value desc="cmt:count" name="color:%s" color="#8475D5">
+			<select><![CDATA[#siFbk .scFbH h2 em]]></select>
+		</value>
+	</item>
+	<item name="write">
+		<value name="border-color:%s;color:%s" color="#616161;#999999">
+			<select><![CDATA[#siWrt .scWul .scWli,#siSimWrt .scWul li]]></select>
+		</value>
+	</item>
+	<item name="navigation">
+		<value name="border-color:%s;color:%s" color="#4d4d4d;#cccccc">
+			<select><![CDATA[#siNavi li,#siNavi li a,#siNavi li div.cate a,#siNavi li div.no]]></select>
+		</value>
+		<value desc="header" name="color:%s;text-shadow:0 1px %s" color="#cccccc;#777777">
+			<select><![CDATA[#siNavi h2]]></select>
+		</value>
+	</item>
+	<item name="page">
+		<value name="border-color:%s;color:%s" color="#333333;#cccccc">
+			<select><![CDATA[#siBody .scPage a,#siBody .scPage strong,#siBody .scAdmActs a]]></select>
+		</value>
+		<value desc="hover" name="color:%s" color="#dddddd">
+			<select><![CDATA[#siBody .scPageArea a:hover,#siBody .scPageArea a:active,#siBody .scPageArea a:focus]]></select>
+		</value>
+		<value desc="current" name="color:%s" color="#553DE6">
+			<select><![CDATA[#siBody .scPage strong]]></select>
+		</value>
+	</item>
+	<item name="file">
+		<value name="background-color:%s;border-color:%s" color="#111111;#3c3c3c">
+			<select><![CDATA[#siBody .scFiles ul]]></select>
+		</value>
+		<value name="color:%s" color="#767676">
+			<select><![CDATA[#siBody .scFiles li a,#siFbk .scFiles .scToggle]]></select>
+		</value>
+	</item>
+	<item name="tag">
+		<value desc="rank" name="background-color:%s;color:%s" color="#ffffff;#000000">
+			<select><![CDATA[#siBody .scTags a.rank]]></select>
+		</value>
+	</item>
+	<item name="hot track">
+		<value name="border-color:%s!important" color="#8A7ADB">
+			<select><![CDATA[#siBody a.scHotTrack:hover,#siLst.gall .scItem.scHottrack:hover]]></select>
+		</value>
+	</item>
+	<item name="board title">
+		<value name="color:%s;text-shadow:0 1px %s" color="#dddddd;#eeeeee">
+			<select><![CDATA[#siMaTitle h1.mai a]]></select>
+		</value>
+		<value desc="sub" name="color:%s" color="#777777">
+			<select><![CDATA[#siMaTitle h4.sub]]></select>
+		</value>
+	</item>
+</colors>

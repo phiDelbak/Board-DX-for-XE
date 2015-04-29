@@ -1,0 +1,17 @@
+<div id="siMaFtxt" cond="$mi->footer_text" class="clearBar">
+	{$mi->footer_text}
+</div>
+
+<script cond="$is_doc&&($us_modal||$mi->use_restrict_down=='P'||$ds_declare||$ds_cdeclare)" type="text/javascript">
+//<![CDATA[
+	<!--@if($mi->use_restrict_down=='P')-->
+	var sj_download_message = '{$lang->confirm_download_point}';
+	<!--@endif-->
+	<!--@if($ds_declare||$ds_cdeclare)-->
+	var sj_declare_message = '{sprintf($lang->confirm_declare, $adm_id?$lang->manager:$lang->author)}';
+	<!--@endif-->
+	<!--@if($us_modal)-->
+		jQuery('#siDoc,#siFbk.cmt').pidModalFlashFix();
+	<!--@endif-->
+//]]>
+</script>

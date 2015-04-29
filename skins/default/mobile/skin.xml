@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin version="0.2">
+	<title xml:lang="ko">게시판 DX 모바일 스킨</title>
+	<title xml:lang="en">Board DX mobile skin</title>
+	<description xml:lang="ko">
+		게시판 DX의 모바일 스킨입니다.
+	</description>
+	<description xml:lang="en">
+		This is the mobile skin of board DX.
+	</description>
+	<version>0.2</version>
+	<date>2011-12-15</date>
+
+	<author email_address="phidel@foxb.kr" link="http://foxb.kr/">
+		<name xml:lang="ko">phiDel</name>
+		<name xml:lang="en">phiDel</name>
+	</author>
+
+	<extra_vars />
+</skin>

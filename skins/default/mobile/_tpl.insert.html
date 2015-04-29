@@ -1,0 +1,181 @@
+{@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
+
+<div class="hx h2">
+	<h2 cond="$is_doc"><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> - {$lang->document.' '.$lang->no}: {$document_srl}</h2>
+	<h2 cond="!$is_doc"><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> - {$not_permitted?$lang->msg_input_password:$lang->new_document}</h2>
+</div>
+<!--@if($not_permitted)-->
+	<form ruleset="checkPassword" action="./" method="post" class="ff secret">
+		<input type="hidden" name="document_srl" value="{$document_srl}" />
+		<input type="hidden" name="act" value="procBoardVerificationPassword" />
+		<div class="origin">
+			<input type="password" name="password" id="cpw" />
+			<input type="submit" value="{$lang->cmd_input}" class="bn dark" />
+			<a class="bn white" href="{$oEntry->getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','')}">{$lang->cmd_back}</a>
+			<div>{$XE_VALIDATOR_MESSAGE}</div>
+		</div>
+	</form>
+<!--@else-->
+	<block cond="$mi->use_mobile_uploader == 'Y'">
+	{@
+		$editor_sequence = '1';
+		$upload_target_srl = $is_doc?$oDocument->document_srl:0;
+		$oFileController = &getController('file');
+		$oFileController->setUploadInfo($editor_sequence, $upload_target_srl);
+		$_SESSION['upload_info'][$editor_sequence]->enabled = true;
+		$_SESSION['upload_info'][$editor_sequence]->upload_target_srl = $upload_target_srl;
+	}
+	<!--%import("ajaxfileupload.min.js")-->
+	</block>
+	{@
+		$un_extra = $is_rtrpt?$oDocument->get('extra_vars'):null;
+		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+		$us_point = $un_extra?$un_extra->beluxe->use_point:0;
+	}
+	<form ruleset="#insertDocument.{$mid}" action="./" method="post" id="siFf" class="ff">
+		<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+		<input type="hidden" name="act" value="procBoardInsertDocument" />
+		<input type="hidden" name="document_srl" value="{$is_doc?$oDocument->document_srl:''}" />
+		<ul>
+			<li cond="$is_cts">
+				{@
+					$t_ctsrl = (int)($category_srl?$category_srl:$oDocument->get('category_srl'));
+					$cts[$t_ctsrl]->grant ? 0 : $t_ctsrl = 0;
+				}
+				<label for="nCategory">{$lang->category}</label>
+				<select name="category_srl" id="nCategory" filter-rule="true,number" filter-name="{$lang->category_srl}">
+					<option cond="!$category_srl" value="">{$lang->none_category}</option>
+					<option loop="$cts=>$val" cond="$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->grant&&$val->selected||$val->category_srl==$t_ctsrl">
+					{str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
+					</option>
+				</select>
+			</li>
+			<li>
+				<label for="nTitle">{$lang->title}</label>
+				<input name="title" type="text" id="nTitle" value="{htmlspecialchars($is_doc?$oDocument->getTitleText():$mi->document_default_title)}" />
+			</li>
+			<li>
+				{@ $t_dstus = explode(',', $mi->use_status)}
+				<label cond="count($t_dstus) > 1">
+					<select name="status">
+						<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$oDocument->get('status') == $value">{Context::getLang(strtolower($value))}</option>
+					</select>
+				</label>
+				<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
+				<block cond="$grant->manager||$mi->use_title_color=='Y'">
+					<input type="hidden" name="title_color" value="{$is_doc?$oDocument->get('title_color'):''}" />
+					<input type="hidden" name="title_bold" value="{$is_doc?$oDocument->get('title_bold'):''}" />
+				</block>
+				<label cond="$grant->manager">
+					<input type="checkbox" name="is_notice" value="Y" checked="checked"|cond="$oDocument->isNotice()" />
+					{$lang->notice}
+				</label>
+				<label cond="$is_logged">
+					<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify()" />
+					{$lang->notify}
+				</label>
+				<label cond="$grant->manager || ($mi->allow_comment!='N' && $mi->allow_comment!='Y')">
+					<input type="checkbox" name="allow_comment" value="Y" checked="checked"|cond="!$is_doc&&(!$grant->manager||($grant->manager&&$mi->allow_comment!='N')) || $oDocument->allowComment()" />
+					{$lang->allow_comment}
+				</label>
+				<label cond="$grant->manager || ($mi->allow_trackback!='N' && $mi->allow_trackback!='Y')">
+					<input type="checkbox" name="allow_trackback" value="Y" checked="checked"|cond="!$is_doc&&(!$grant->manager||($grant->manager&&$mi->allow_trackback!='N')) || $oDocument->allowTrackback()" />
+					{$lang->allow_trackback}
+				</label>
+				<label cond="$mi->use_anonymous=='S'">
+					<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oDocument->get('member_srl')<0)&&(($oDocument->get('nick_name').$oDocument->get('user_name')) == 'anonymousanonymous')" />
+					{$lang->anonymous}
+				</label>
+
+				<label cond="$grant->manager && count($cstus)">
+					- {$lang->status}
+					<select name="custom_status">
+						<option loop="$cstus => $key,$value" value="{$key}" selected="selected"|cond="(int)$oDocument->get('is_notice') == $key">{$value}</option>
+					</select>
+				</label>
+			</li>
+			<block cond="$is_logged && $is_rtrpt">
+				<li>
+					<label>
+						{$lang->point}
+						{@
+							$my_point = $oThis->getPoint();
+							$point_list = explode(',',$mi->use_point_list?$mi->use_point_list:'10,50,100,500,1000');
+						}
+						<block cond="!$us_point||$us_point>0">
+							<select name="use_point">
+								<option cond="$us_point" value="{$us_point}">{$us_point}</option>
+								<option loop="$point_list => $value" cond="$value<=$my_point" value="{$value}">{$value}</option>
+							</select> {sprintf($lang->my_point,$my_point)}
+						</block>
+						<block cond="$us_point<0">
+							<strong>{abs($us_point)}</strong> - {sprintf($lang->my_point,$my_point)}
+						</block>
+					</label>
+					<p>{sprintf($lang->about_use_point,$mi->restrict_option.'%')}</p>
+				</li>
+			</block>
+			{@ $extra_keys = $oThis->getDocumentExtraVars($is_doc?$oDocument->document_srl:0)}
+			<block cond="count($extra_keys)">
+				<li class="hr"><hr /></li>
+				<li loop="$extra_keys => $key,$val" class="exvar">
+					<label for="ex_{$val->name}" class="exnm">{$val->name} <span cond="$val->is_required=='Y'" class="required">*</span></label>
+					{$val->getFormHTML()}
+				</li>
+				<li class="hr"><hr /></li>
+			</block>
+			<block cond="!$is_logged">
+				<li cond="$mi->use_input_guest_info != 'N'">
+					<label for="uName">{$lang->writer}</label>
+					<input name="nick_name" type="text" id="uName" maxlength="80" value="{htmlspecialchars($oDocument->get('nick_name'))}" />
+				</li>
+				<li>
+					<block cond="$mi->use_input_guest_info == 'N'">
+						<input type="hidden" name="nick_name" value="{$oThis->getIpaddress(1)}" />
+					</block>
+					<label for="uPw">{$lang->password}</label>
+					<input name="password" type="password" id="uPw" />
+				</li>
+				<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
+					<li>
+						<label for="uMail">{$lang->email_address}</label>
+						<input name="email_address" type="text" id="uMail" maxlength="250" value="{htmlspecialchars($oDocument->get('email_address'))}" />
+					</li>
+					<li>
+						<label for="uSite">{$lang->homepage}</label>
+						<input name="homepage" type="text" id="uSite" maxlength="250" value="{htmlspecialchars($oDocument->get('homepage'))}" />
+					</li>
+				</block>
+				<li class="hr"><hr /></li>
+			</block>
+			<block cond="$is_logged">
+				<input type="hidden" name="nick_name" value="1" />
+				<input type="hidden" name="password" value="1" />
+			</block>
+			<li>
+				<label for="nText">{$lang->content}</label>
+				<label><input type="checkbox" name="use_html" value="Y" /> HTML</label>
+				<textarea name="content" cols="20" rows="8" id="nText">{$is_doc?$oDocument->getContentText():htmlspecialchars($mi->document_default_content)}</textarea>
+				<input type="hidden" name="tags" value="{htmlspecialchars($oDocument->get('tags'))}" />
+			</li>
+			<li cond="$mi->use_mobile_uploader == 'Y'">
+				<div class="fsa">
+					<div class="scFpv"></div>
+					<div class="scFLst"><select id="siFiles" class="fl" onchange="sjFilePreview();"></select></div>
+					<div class="scFins">
+						<a href="#" onclick="return sjDeleteFile();">Delete</a>
+						<a href="#" onclick="return sjInsertFile();">Insert</a>
+						<p><button class="bn white" onclick="return sjClickFileUpload();">Upload <em id="siFileCnt">0</em></button></p>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="bna">
+			<button type="submit" accesskey="s" class="bn dark">{Context::getLang('cmd_'.($is_doc?'update':'registration'))}</button>
+			<a class="bn white" href="{$oEntry->getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','')}" onclick="history.back(-1);return false;"|cond="!$is_doc">{$is_doc?$lang->cmd_back:$lang->cmd_cancel}</a>
+		</div>
+	</form>
+	<div cond="$mi->use_mobile_uploader == 'Y'" class="scFiledata">
+		<form name="form" action="" method="POST" enctype="multipart/form-data"><input id="Filedata" type="file" name="Filedata" onchange="return ajaxFileUpload();"></form>
+	</div>
+<!--@endif-->

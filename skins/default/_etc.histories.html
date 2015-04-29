@@ -1,0 +1,37 @@
+{@ $histories = $oThis->getHistoryList($oDocument->document_srl, $hpage)}
+
+<!-- HISTORIES -->
+<div cond="$histories&&count($histories->data)" id="siNavi" class="histories"><a name="history"></a>
+	<h2>Histories</h2>
+	<ul>
+		<li loop="$histories->data=>$history" class="clearBar">
+			<div class="no fl"><span>{zdate($history->regdate)}</span></div>
+			<div class="scElps" data-active="true"|cond="$is_elips">
+				<a cond="$history->content" class="fl" href="#history" data-srl="{$history->history_srl}">
+					{cut_str(htmlspecialchars(strip_tags($history->content)), 150)}
+				</a>
+				<strong cond="!$history->content" class="fl">{$lang->trace_only}</strong>
+				<span class="fr">
+					<block cond="$history->member_srl!=$oDocument->get('member_srl')">
+						{@ $nick = cut_str($history->nick_name, $mi->nickname_length)}
+						<i cond="!$history->member_srl">{$nick}</i>
+						<span cond="$history->member_srl" class="scHLink member_{$history->member_srl}">{$nick}</span>
+					</block>
+					<a cond="$is_granted" href="#his_action" data-mode="delete" data-srl="{$history->history_srl}" data-doc="{$history->document_srl}">{$lang->cmd_delete}</a>
+				</span>
+			</div>
+		</li>
+	</ul>
+
+	<div cond="$histories->total_page > 1" class="scPageArea" style="text-align:right">
+		<span class="scPage">
+			<a href="{getUrl('hpage','1')}#history" class="direction prev"><span></span><span></span> {$lang->first_page}</a>
+			<block loop="$page_no=$histories->page_navigation->getNextPage()">
+				<strong cond="$hpage==$page_no">{$page_no}</strong>
+				<a cond="$hpage!=$page_no" href="{getUrl('hpage',$page_no)}#history">{$page_no}</a>
+			</block>
+			<a href="{getUrl('hpage',$histories->page_navigation->last_page)}#history" class="direction next">{$lang->last_page} <span></span><span></span></a>
+		</span>
+	</div>
+</div>
+<!-- /HISTORIES -->

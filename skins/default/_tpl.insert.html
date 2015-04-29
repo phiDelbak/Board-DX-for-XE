@@ -1,0 +1,249 @@
+{@
+	$not_permitted = $XE_VALIDATOR_ERROR == '-1380';
+	$is_doc = $oDocument && $oDocument->isExists();
+}
+<!--@if($not_permitted)-->
+{@
+	$rulepath = $tpl_path.'../../ruleset/checkPassword.xml';
+	$autoPath = null;
+}
+<!--@else-->
+{@
+	$rulepath = './files/ruleset/insertDocument.'.$mid.'.xml';
+	$autoPath = $tpl_path.'../../ruleset/insertDocument.xml';
+}
+<!--@endif-->
+{@ Context::addJsFile($rulepath, false, '', 0, 'head', true, $autoPath)}
+
+<form action="./" method="post" class="pid_ajax-form">
+<input cond="$is_modal" type="hidden" name="is_modal" value="1" />
+<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+<input type="hidden" name="document_srl" value="{$document_srl}" />
+<input type="hidden" name="ruleset" value="{$not_permitted?'checkPassword':'insertDocument'}" />
+<input type="hidden" name="act" value="{$not_permitted?'procBoardVerificationPassword':'procBoardInsertDocument'}" />
+
+<div class="scLtitle">
+	<span cond="$is_doc">{$lang->document.' '.$lang->no}: {$document_srl}</span>
+	<span cond="!$is_doc">{$not_permitted?$lang->msg_input_password:$lang->new_document}</span>
+</div>
+
+<!--@if($not_permitted)-->
+	<input cond="$is_modal" type="hidden" name="success_return_url" value="{getUrl('act','','is_modal','')}" />
+	<div>
+		<span class="scBtn black"><input type="password" name="password" /></span>
+		<span class="scBtn black"><input type="submit" value="{$lang->cmd_input}" onclick="setCookie('dx_write_mode','update',null,'/')" /></span>
+		<span class="scBtn">
+        	{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
+			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+		</span>
+	</div>
+<!--@else-->
+	{@
+		$un_extra = $is_rtrpt?$oDocument->get('extra_vars'):null;
+		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+		$us_point = $un_extra?$un_extra->beluxe->use_point:0;
+	}
+	<div id="siWrt">
+		<input type="hidden" name="content" value="{$is_doc?$oDocument->getContentText():htmlspecialchars($mi->document_default_content)}" />
+
+		<ul class="scWul">
+			<li cond="$is_cts" class="scWli clearBar">
+				<label for="category_srl">{$lang->category}</label>
+				{@
+					$t_ctsrl = (int)($category_srl?$category_srl:$oDocument->get('category_srl'));
+					$cts[$t_ctsrl]->grant ? 0 : $t_ctsrl = 0;
+				}
+				<!--@if($mi->use_step_category!='N')-->
+				<input type="hidden" name="category_srl" value="{$t_ctsrl}" filter-rule="true,number" filter-name="{$lang->category_srl}" />
+				<select class="scWcateList">
+					<option cond="!$category_srl" value="">{$lang->none_category}</option>
+					{@ $sub_cate_list_1 = array()}
+					<option loop="$cts => $val" cond="!$val->depth&&$val->grant" value="{$val->category_srl}">
+						{@ $sub_cate_list_1[$val->category_srl] = $val->childs}
+						{$val->title.($val->total_document_count?'&nbsp;('.$val->total_document_count.')':'')}
+					</option>
+				</select>
+				{@ $sub_cate_list_2 = array()}
+				<block loop="$sub_cate_list_1=>$key,$val_list">
+					<select cond="count($val_list)" class="scWcateList" data-key="{$key}" style="display:none">
+						<block loop="$val_list => $val">
+							{@ $val = $cts[$val]}
+							<option cond="(int) $val->depth === 1&&$val->grant" value="{$val->category_srl}">
+								{@ $sub_cate_list_2[$val->category_srl] = $val->childs}
+								{$val->title.($val->total_document_count?'&nbsp;('.$val->total_document_count.')':'')}
+							</option>
+						</block>
+					</select>
+				</block>
+				<block loop="$sub_cate_list_2=>$key,$val_list">
+					<select cond="count($val_list)" class="scWcateList" data-key="{$key}" style="display:none">
+						<block loop="$val_list => $val">
+							{@ $val = $cts[$val]}
+							<option value="{$val->category_srl}" cond="$val->grant">
+								{$val->title.($val->total_document_count?'&nbsp;('.$val->total_document_count.')':'')}
+							</option>
+						</block>
+					</select>
+				</block>
+				<!--@else-->
+				<select name="category_srl" value="{$t_ctsrl}" filter-rule="true,number" filter-name="{$lang->category_srl}">
+					<option cond="!$category_srl" value="">{$lang->none_category}</option>
+					<option loop="$cts => $val" cond="$val->grant" value="{$val->category_srl}">
+						{str_repeat('&nbsp;&nbsp;',$val->depth)}{$val->title.($val->total_document_count?'&nbsp;('.$val->total_document_count.')':'')}
+					</option>
+				</select>
+				<!--@endif-->
+			</li>
+			<li class="scWli clearBar">
+				<label for="title">{$lang->title}</label>
+				<input type="text" name="title" id="title" maxlength="250" value="{htmlspecialchars($is_doc?$oDocument->getTitleText():$mi->document_default_title)}" />
+			</li>
+		</ul>
+
+		<div class="scWul clearBar">
+			<div class="fl">
+				<block cond="$grant->manager||$mi->use_title_color=='Y'">
+					{@ $_color = array('555555','222288','226622','2266EE','8866CC','88AA66','EE2222','EE6622','EEAA22','EEEE22') }
+					<select name="title_color" style="background-color:#{$oDocument->get('title_color')};"|cond="$oDocument->get('title_color')" onchange="this.style.backgroundColor=this.options[this.selectedIndex].style.backgroundColor;">
+							<option value="" style="background-color:#FFFFFF;">{$lang->title_color}</option>
+							<option loop="$_color => $col" value="{$col}" style="background-color:#{$col}" selected="selected"|cond="$oDocument->get('title_color')==$col">{$lang->title_color}</option>
+					</select>
+					<label>
+						<input type="checkbox" name="title_bold" value="Y" checked="checked"|cond="$oDocument->get('title_bold')=='Y'" />
+						{$lang->title_bold}
+					</label>
+				</block>
+				<label cond="$grant->manager">
+					<input type="checkbox" name="is_notice" value="Y" checked="checked"|cond="$oDocument->isNotice()" />
+					{$lang->notice}
+				</label>
+				<label cond="$is_logged">
+					<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify()" />
+					{$lang->notify}
+				</label>
+				<label cond="$grant->manager || ($mi->allow_comment!='N' && $mi->allow_comment!='Y')">
+					<input type="checkbox" name="allow_comment" value="Y" checked="checked"|cond="!$is_doc&&(!$grant->manager||($grant->manager&&$mi->allow_comment!='N')) || $oDocument->allowComment()" />
+					{$lang->allow_comment}
+				</label>
+				<label cond="$grant->manager || ($mi->allow_trackback!='N' && $mi->allow_trackback!='Y')">
+					<input type="checkbox" name="allow_trackback" value="Y" checked="checked"|cond="!$is_doc&&(!$grant->manager||($grant->manager&&$mi->allow_trackback!='N')) || $oDocument->allowTrackback()" />
+					{$lang->allow_trackback}
+				</label>
+				<label cond="$mi->use_anonymous=='S'">
+					<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oDocument->get('member_srl')<0)&&(($oDocument->get('nick_name').$oDocument->get('user_name')) == 'anonymousanonymous')" />
+					{$lang->anonymous}
+				</label>
+			</div>
+
+			{@ $t_dstus = explode(',', $mi->use_status)}
+			<label cond="count($t_dstus) > 1" class="fr">
+				<select name="status">
+					<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$oDocument->get('status') == $value">{Context::getLang(strtolower($value))}</option>
+				</select>
+			</label>
+			<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
+
+			<label cond="$grant->manager && count($cstus)" class="fr">
+				{$lang->status}
+				<select name="custom_status">
+					<option loop="$cstus => $key,$value" value="{$key}" selected="selected"|cond="(int)$oDocument->get('is_notice') == $key">{$value}</option>
+				</select>
+			</label>
+		</div>
+
+		<div cond="!$is_logged" class="scWusr clearBar">
+			{@ $is_guestinfo = $mi->use_input_guest_info == 'N' ? $oThis->getIpaddress(1) : ''}
+			<label class="scLaEt">
+				<span>Name</span>
+				<input type="text" name="nick_name" maxlength="80" value="{$is_guestinfo?$is_guestinfo:htmlspecialchars($oDocument->get('nick_name'))}" readonly="readonly"|cond="$is_guestinfo" />
+			</label>
+			<label class="scLaEt">
+				<span>Pass</span>
+				<input type="password" name="password" />
+			</label>
+			<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
+				<label class="scLaEt">
+					<span>Email</span>
+					<input type="text" name="email_address" maxlength="250" value="{htmlspecialchars($oDocument->get('email_address'))}" />
+				</label>
+				<label class="scLaEt">
+					<span>Home</span>
+					<input type="text" name="homepage" maxlength="250" value="{htmlspecialchars($oDocument->get('homepage'))}" />
+				</label>
+			</block>
+		</div>
+		<block cond="$is_logged">
+			<input type="hidden" name="nick_name" value="1" />
+			<input type="hidden" name="password" value="1" />
+		</block>
+
+		<ul cond="$is_logged && $is_rtrpt" class="scWul">
+			<li class="scWli clearBar">
+				<label>{$lang->point}</label>
+				{@
+					$my_point = $oThis->getPoint();
+					$point_list = explode(',',$mi->use_point_list?$mi->use_point_list:'10,50,100,500,1000');
+				}
+				<block cond="!$us_point||$us_point>0">
+					<select name="use_point">
+						<option cond="$us_point" value="{$us_point}">{$us_point}</option>
+						<option loop="$point_list => $value" cond="$value<=$my_point" value="{$value}">{$value}</option>
+					</select> {sprintf($lang->my_point,$my_point)}
+				</block>
+				<p cond="$us_point<0" style="margin-top:3px">
+					<strong>{abs($us_point)}</strong> - {sprintf($lang->my_point,$my_point)}
+				</p>
+				<p>{sprintf($lang->about_use_point,$mi->restrict_option.'%')}</p>
+			</li>
+		</ul>
+
+		<div class="scExTog" style="display:none"><button type="button" title="{$lang->extra_toggle}"><i></i></button></div>
+
+		{@ $extra_keys = $oThis->getDocumentExtraVars($is_doc?$oDocument->document_srl:0)}
+		<ul cond="count($extra_keys)" class="scWul extraKeys">
+			<li loop="$extra_keys => $key,$val" class="scWli clearBar" style="display:none"|cond="$mi->use_auto_hide_extra_vars=='Y'&&$val->is_required!='Y'">
+				<label>{$val->name} <span cond="$val->is_required=='Y'" class="required">*</span></label>
+				{$val->getFormHTML()}
+			</li>
+		</ul>
+
+		<div class="editor clearBar">
+			{$oDocument->getEditor()}
+		</div>
+
+		<div class="scWtag">
+			<label cond="$mi->use_input_link_file!='N'" class="scLaEt clearBar" id="insert_filelink">
+				<span>Link</span>
+				<input type="text" id="upload_filelink" value="" style="width:80%" />
+				<span class="scBtn blue small"><a href="#insert_filelink" data-seq="{$editor_sequence}" data-srl="{$document_srl}">{$lang->upload_filelink}</a></span>
+				<p class="scItemDesc" data-target="upload_filelink">{htmlspecialchars($lang->about_upload_filelink)}</p>
+			</label>
+			<label cond="$mi->use_input_tag!='N'" class="scLaEt clearBar <!--@if(!$is_modal)-->scNmodal<!--@endif-->">
+				<span>Tags</span>{@ $tag_tmp = htmlspecialchars($oDocument->get('tags'))}
+				<input type="text" name="tags" id="doc_tags" value="{$tag_tmp}" />
+				<p class="scItemDesc" data-target="doc_tags" style="display:none"|cond="$tag_tmp">{htmlspecialchars($lang->about_tag)}</p>
+			</label>
+		</div>
+
+		<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
+			<div class="fl">
+				<span class="scBtn blue"><button type="button" onclick="doDocumentPreview(this); return false;">{$lang->cmd_preview}</button></span>
+				<block cond="$is_logged && (!$oDocument->isExists() || $oDocument->get('status') == 'TEMP')">
+					<span class="scBtn blue"><button type="button" onclick="doDocumentSave(this); return false;">{$lang->cmd_temp_save}</button></span>
+					<span class="scBtn blue"><button type="button" onclick="doDocumentLoad(this); return false;">{$lang->cmd_load}</button></span>
+				</block>
+			</div>
+			<div class="fr">
+				<span class="scBtn">
+        			{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
+					<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+				</span>
+				<span cond="!$is_doc&&$is_modal&&$grant->manager" class="scBtn black"><button type="submit" accesskey="r" onclick="setCookie('dx_write_mode','insert',null,'/');">{$lang->cmd_repeat_write}</button></span>
+				<span class="scBtn black"><button type="submit" accesskey="s" onclick="setCookie('dx_write_mode','',null,'/')">{$lang->document} {Context::getLang('cmd_'.($is_doc?'update':'registration'))}</button></span>
+			</div>
+		</div>
+	</div>
+<!--@endif-->
+</form>
+
+<script type="text/javascript" src="js/write.js"></script>

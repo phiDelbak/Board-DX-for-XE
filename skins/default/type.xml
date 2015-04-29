@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<type>
+	<!--
+		스킨이 지원하는 게시판 타입들 입니다
+
+		속성:
+		name = 식별 ID (*필수*) (id는 영문자만 허용)
+		sort_index = 정렬 대상 [list_order|update_order|regdate|voted_count|readed_count|comment_count|title]
+		order_type = 정렬 방법 [asc|desc]
+		list_count = 문서 수
+		page_count = 페이지 수
+		clist_count = 댓글 수
+
+		예제:
+		<items>
+			<item name="id" sort_index="list_order" order_type="desc" list_count="10">
+				<value xml:lang="ko"><![CDATA[예제]]></value>
+			</item>
+		</items>
+	-->
+	<items>
+		<item name="list">
+			<value xml:lang="ko"><![CDATA[목록]]></value>
+			<value xml:lang="jp"><![CDATA[リスト]]></value>
+			<value xml:lang="en"><![CDATA[List]]></value>
+		</item>
+		<item name="webzine">
+			<value xml:lang="ko"><![CDATA[웹진]]></value>
+			<value xml:lang="jp"><![CDATA[ウェッブジン]]></value>
+			<value xml:lang="en"><![CDATA[Webzine]]></value>
+		</item>
+		<item name="gallery">
+			<value xml:lang="ko"><![CDATA[갤러리]]></value>
+			<value xml:lang="jp"><![CDATA[ギャラリー]]></value>
+			<value xml:lang="en"><![CDATA[Gallery]]></value>
+		</item>
+		<item name="widget">
+			<value xml:lang="ko"><![CDATA[위젯]]></value>
+			<value xml:lang="jp"><![CDATA[ウィジェット]]></value>
+			<value xml:lang="en"><![CDATA[Widget]]></value>
+		</item>
+	</items>
+
+	<!--
+		필수적으로 사용해야 할 설정값을  적어 사용할 수 있습니다 (이 값은 고정되어 임의로 변경이 안됩니다)
+
+		예제:
+		<options>
+			<option name="use_lock_document"><![CDATA[Y]]></option>
+		</options>
+	-->
+	<!--
+		사용자 정의 확장 필드를 추가해 사용할 수 있습니다 (필드 최대 수 20, 값 최대 길이 255)
+
+		속성:
+		required = 필수 항목
+		readonly = 일기 전용 (한번 값을 쓰고나면 수정불가)
+		length   = 최소:최대 크기 (숫자만 가능, 0 이나 값이 없으면 검사 안함)
+		rule     = 사용자 정의 규칙 (정규식)
+		default  = 기본값 (값이 없을때 기본값 입력)
+
+		예제:
+		<exfields>
+			<exfield name="aaa" length="3:5" default="5" />
+			<exfield name="bbb" readonly="true" required="true" length=":7" rule="@[1-9]+@" />
+		</exfields>
+	-->
+</type>

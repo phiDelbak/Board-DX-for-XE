@@ -1,0 +1,70 @@
+<!--// 스킨 ID, Class, function 이름이 si, sc, sj로 시작하면 javascript 사용되니 주의하세요. -->
+{@
+	$ci = &$column_info;
+	$mi = &$module_info;
+
+	$cts = ($ci['category_srl']&&$ci['category_srl']->display == 'Y')?$oThis->getCategoryList():array();
+	$cstus = $mi->custom_status?explode(',',$mi->custom_status):array();
+
+	$is_doc = $oDocument&&$oDocument->isExists();
+	$is_cts = count($cts);
+
+	$lsttp = $category_srl&&$cts[$category_srl]->type?$cts[$category_srl]->type:$mi->default_type;
+	$lsttp = in_array($lsttp, array('gallery','webzine','widget'))?$lsttp:'list';
+	$viwtp = in_array($mi->view_style, array('webzine','list'))?$mi->view_style:(in_array($lsttp,array('webzine'))?'webzine':'list');
+
+	$mi->category_style?0:$mi->category_style = 'Y';
+	$mi->star_style?0:$mi->star_style = 'N';
+	$mi->duration_new?0:$mi->duration_new = '12';
+	$mi->thumbnail_type?0:$mi->thumbnail_type = 'crop';
+	$mi->thumbnail_width?0:$mi->thumbnail_width = '100';
+	$mi->thumbnail_height?0:$mi->thumbnail_height = '100';
+	$mi->display_thumbnail_info?0:$mi->display_thumbnail_info = 'N';
+	$mi->display_attached_files?0:$mi->display_attached_files = 'Y';
+	$mi->consultation == 'Y' ? $mi->use_input_simple_editor = 'C' : 0;
+
+	$is_sedt = $mi->use_input_simple_editor;
+	$is_sedt = $is_sedt == 'C' && $grant->manager ? '' : ($is_sedt != 'N' ? $is_sedt : '');
+	$is_sedt = $is_sedt == 'C' && $mi->consultation == 'Y' ? 'T' : $is_sedt;
+
+	$browser = $oThis->getBrowserInfo();
+	$lte_ie7 = $browser['msie']&&$browser['msie'] < 8;
+	$us_modal = !$lte_ie7 && $mi->use_modal_window == 'Y';
+	$us_hottrack = !$lte_ie7 && $mi->hot_track == 'Y';
+
+	$is_elips = !$mi->title_length;
+	$ao_ppang = $mi->addon_pang_pang == 'Y';
+	$ds_mtlng = $mi->display_lang_code == 'Y';
+	$is_btlst = $mi->document_bottom_list?$mi->document_bottom_list:'Y';
+	$is_rtrpt = $mi->use_restrict_view == 'P'||$mi->use_restrict_down == 'P';
+	$is_cklok = !$grant->manager && $mi->use_lock_document && $mi->use_lock_document != 'N';
+	$cmt_lstcnt = $is_cts?$cts[(int)$category_srl]->navigation->clist_count:$navigation_info->clist_count;
+
+	$is_doc ? $mi->use_input_simple_editor = 'N' : 0;
+
+	$tmp1 = array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/');
+	$tmp2 = array($mid,($logged_info?$logged_info->nick_name:'Guest'),$is_doc?$oDocument->getPermanentUrl():'',$is_doc?$oDocument->getTitle():'',$is_doc?$oDocument->getNickName():'',$is_doc?$oDocument->document_srl:'');
+	$mi->sub_title = $mi->sub_title ? preg_replace($tmp1,$tmp2,$mi->sub_title) : '';
+	$mi->board_desc = $mi->board_desc ? preg_replace($tmp1,$tmp2,$mi->board_desc) : '';
+	$mi->document_default_title = $mi->document_default_title ? preg_replace($tmp1,$tmp2,$mi->document_default_title) : '';
+	$mi->document_default_content = $mi->document_default_content ? preg_replace($tmp1,$tmp2,$mi->document_default_content) : '';
+	$mi->document_bottom_text = $mi->document_bottom_text ? preg_replace($tmp1,$tmp2,$mi->document_bottom_text) : '';
+}
+
+<!--// CSS,JS 파일 import -->
+<load target="css/common.css" />
+<load target="css/iefix.css" targetie="lte IE 9" />
+<block cond="$color_css=$oThis->getSkinColorFile()">{@ Context::addCSSFile($color_css)}</block>
+
+<!--@if(__DEBUG__)-->
+	<load target="js/common.js" />
+	<load cond="$us_modal" target="js/modal.win.js" />
+	<load cond="$us_modal" target="js/modal.resize.js" />
+<!--@else-->
+	<load target="js/common.min.js" />
+	<load cond="$us_modal" target="js/modal.win.min.js" />
+	<load cond="$us_modal" target="js/modal.resize.min.js" />
+<!--@endif-->
+
+<!--// 사용자 CSS 설정 -->
+<style type="text/css" cond="$mi->custom_css"> {$mi->custom_css} </style>

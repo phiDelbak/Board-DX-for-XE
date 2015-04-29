@@ -1,0 +1,153 @@
+<include target="header.html" />
+
+<div class="table even">
+
+	<table width="100%" border="1" cellspacing="0">
+		<caption>{$module_category_srl>0?$module_category[$module_category_srl]->title:$lang->total} ({number_format($total_count)}), Page: {number_format($page)}/{number_format($total_page)}</caption>
+		<thead>
+			<tr>
+				<th scope="col" class="select_th" style="padding:0 5px;vertical-align:middle">
+					<select class="changeLocation" name="module_category_srl" style="min-width:50px;width:auto;margin:0">
+						<option value="">{$lang->category}</option>
+						<option value="0" selected="selected"|cond="$module_category_srl == '0'">{$lang->not_exists}</option>
+						<option loop="$module_category => $key,$val" value="{$key}" selected="selected"|cond="$module_category_srl==$key">{$val->title}</option>
+						<option value="">---------</option>
+						<option value="-1">{$lang->cmd_management}</option>
+					</select>
+				</th>
+				<th scope="col">{$lang->cmd_setup}</th>
+				<th scope="col" class="wide">{$lang->browser_title}</th>
+				<th scope="col">{$lang->grant}</th>
+				<th scope="col">{$lang->mobile}</th>
+				<th scope="col">{$lang->regdate}</th>
+				<th scope="col">{$lang->cmd_delete} {$lang->cmd_copy}</th>
+				<th scope="col"><input type="checkbox" onclick="jQuery('input[name=cart]').attr('checked',jQuery(this).is(':checked'))" /></th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="8">
+					<a class="x_btn x_btn-inverse" href="{getUrl('', 'module', 'admin', 'act', 'dispBeluxeAdminInsert')}">{$lang->module} {$lang->cmd_make}</a>
+					<div class="x_btn-group x_pull-right">
+						<a class="x_btn" href="#dispBeluxeAdminInsert">{$lang->cmd_all_setting}</a>
+						<a class="x_btn" href="#dispModuleAdminModuleGrantSetup">{$lang->permission_setting}</a>
+					</div>
+				</td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<tr loop="$beluxe_list=>$key,$val">
+				<td class="module_category nowrap">
+					<!--@if(!$val->module_category_srl)-->
+						<!--@if($val->site_srl)-->
+						{$lang->virtual_site}
+						<!--@else-->
+						{$lang->not_exists}
+						<!--@end-->
+					<!--@else-->
+						{$module_category[$val->module_category_srl]->title}
+					<!--@end-->
+				</td>
+				<td class="nowrap"><a href="{getUrl('','module','admin', 'act','dispBeluxeAdminModuleInfo','module_srl',$val->module_srl)}"><strong>{$val->mid}</strong></a></td>
+				<td class="module_title wide"><a href="{getSiteUrl($val->domain,'','mid',$val->mid)}" target="_blank"><span>{htmlspecialchars($val->browser_title)}</span></a></td>
+				<td class="nowrap"><span>{$val->grants['access']?$val->grants['access']:'A'},</span><span>{$val->grants['list']?$val->grants['list']:'A'},</span><span>{$val->grants['view']?$val->grants['view']:'A'},</span><span>{$val->grants['write_document']?$val->grants['write_document']:'A'},</span><span>{$val->grants['write_comment']?$val->grants['write_comment']:'A'},</span><span>{$val->grants['manager']?$val->grants['manager']:'N'}</span></td>
+				<td class="nowrap">{$val->use_mobile=='Y'?$lang->use:$lang->notuse}</td>
+				<td class="module_regdate nowrap">{zdate($val->regdate,"Y-m-d")}</td>
+				<td class="nowrap">
+					<a href="#manageDeleteModule" title="{$lang->cmd_delete}" class="modalAnchor" data-val="{$val->mid}|@|{$val->module_srl}"><span>{$lang->cmd_delete}</span></a>
+					<a href="#doBeluxeSettingCopy" title="{$lang->cmd_copy}" data-val="{$val->mid}|@|{$val->module_srl}"><span>{$lang->cmd_copy}</span></a>
+				</td>
+				<td><input type="checkbox" name="cart" value="{$val->mid}|@|{$val->module_srl}" /></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="x_clearfix" style="margin-top:-10px">
+	<form cond="$page_navigation" action="./" class="x_pagination x_pull-left" no-error-return-url="true">
+		<input loop="$param => $key, $val" cond="!in_array($key, array('mid', 'vid', 'act'))" type="hidden" name="{$key}" value="{$val}" />
+		<ul>
+			<li class="x_disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
+			<block cond="$page_navigation->first_page != 1 && $page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page - 1 && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<li>
+				<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+				<span cond="$isGoTo" id="goTo" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+			</li>
+			</block>
+			<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<li class="x_active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
+			<!--@end-->
+			<block cond="$last_page != $page_navigation->last_page && $last_page + 1 != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<li>
+				<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+				<span cond="$isGoTo" id="goTo" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+			</li>
+			</block>
+		<li class="x_disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
+		</ul>
+	</form>
+
+	<form action="" class="search x_input-append x_pull-right" style="margin-bottom:-28px" method="get" onsubmit="return (this.search_keyword.value!='')" no-error-return-url="true">
+	<input cond="$module=='admin'" type="hidden" name="module" value="{$module}" />
+		<select name="search_target" title="{$lang->search_target}" style="margin-right:4px">
+			<option value="mid" selected="selected"|cond="$search_target=='mid'">{$lang->mid}</option>
+			<option value="browser_title" selected="selected"|cond="$search_target=='browser_title'">{$lang->browser_title}</option>
+		</select>
+		<input type="text" name="search_keyword" required value="{htmlspecialchars($search_keyword)}" />
+		<input class="x_btn x_btn-inverse" type="submit" value="{$lang->cmd_search}" />
+		<a cond="$search_keyword" class="x_btn" href="{getUrl('search_target', '', 'search_keyword', '')}">{$lang->cmd_cancel}</a>
+	</form>
+</div>
+
+<section id="manageDeleteModule" class="x_modal x" style="display:none">
+	<div class="x_modal-header">
+		<h1>{$lang->confirm_delete}</h1>
+	</div>
+	<form ruleset="deleteBeluxe" action="./" method="post" id="deleteFo">
+	<div class="x_modal-body">
+		<input cond="$module=='admin'" type="hidden" name="module" value="{$module}" />
+		<input type="hidden" name="act" value="procBeluxeAdminDelete" />
+		<input type="hidden" name="page" value="{$page}" />
+		<input type="hidden" name="module_srl" value="" />
+		<div class="table even">
+			<table width="100%" border="1" cellspacing="0">
+				<col width="200px" />
+				<tr>
+					<th scope="row">{$lang->module_category}</th>
+					<td class="module_category wide">&nbsp;</td>
+				</tr>
+				<tr>
+					<th scope="row">{$lang->mid}</th>
+					<td class="module_mid wide">&nbsp;</td>
+				</tr>
+				<tr>
+					<th scope="row">{$lang->browser_title}</th>
+					<td class="module_title">&nbsp;</td>
+				</tr>
+				<tr>
+					<th scope="row">{$lang->regdate}</th>
+					<td class="module_regdate wide">&nbsp;</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="x_modal-footer">
+		<span class="x_pull-left"><strong class="colRed">Warning! </strong> {$lang->msg_delete_this_module}</span>
+		<span class="x_pull-right">
+			<input class="x_btn x_btn-primary" type="submit" value="{$lang->cmd_delete}" />
+			<button type="button" class="x_btn" data-hide="#manageSelectedModule">{$lang->cmd_close}</button>
+		</span>
+	</div>
+	</form>
+</section>
+
+<include target="footer.html" />

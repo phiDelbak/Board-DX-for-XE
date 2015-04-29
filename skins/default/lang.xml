@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+일본어 번역: 감로수
+영어 번역: 썬
+-->
+<lang>
+	<item name="skip_content">
+		<value xml:lang="ko"><![CDATA[본문 건너뛰기]]></value>
+		<value xml:lang="jp"><![CDATA[本文を飛ばす]]></value>
+		<value xml:lang="en"><![CDATA[Skip to content]]></value>
+	</item>
+	<item name="cmd_all_list">
+		<value xml:lang="ko"><![CDATA[모두]]></value>
+		<value xml:lang="jp"><![CDATA[全体]]></value>
+		<value xml:lang="en"><![CDATA[All]]></value>
+	</item>
+	<item name="cmd_agree">
+		<value xml:lang="ko"><![CDATA[찬성]]></value>
+		<value xml:lang="jp"><![CDATA[賛成]]></value>
+		<value xml:lang="en"><![CDATA[Agree]]></value>
+	</item>
+	<item name="cmd_disagree">
+		<value xml:lang="ko"><![CDATA[반대]]></value>
+		<value xml:lang="jp"><![CDATA[反対]]></value>
+		<value xml:lang="en"><![CDATA[Disagree]]></value>
+	</item>
+	<item name="use_wysiwyg">
+		<value xml:lang="ko"><![CDATA[위지윅 사용]]></value>
+		<value xml:lang="jp"><![CDATA[エディタ使用]]></value>
+		<value xml:lang="en"><![CDATA[Use WYSIWYG]]></value>
+	</item>
+	<item name="new_document">
+		<value xml:lang="ko"><![CDATA[새로운 문서]]></value>
+		<value xml:lang="jp"><![CDATA[新しい文書]]></value>
+		<value xml:lang="en"><![CDATA[New document]]></value>
+	</item>
+	<item name="new_comment">
+		<value xml:lang="ko"><![CDATA[새로운 댓글]]></value>
+		<value xml:lang="jp"><![CDATA[新しいコメント]]></value>
+		<value xml:lang="en"><![CDATA[New comment]]></value>
+	</item>
+	<item name="document_write">
+		<value xml:lang="ko"><![CDATA[글 쓰기]]></value>
+		<value xml:lang="jp"><![CDATA[書き込み]]></value>
+		<value xml:lang="en"><![CDATA[Write document]]></value>
+	</item>
+	<item name="comment_write">
+		<value xml:lang="ko"><![CDATA[댓글 쓰기]]></value>
+		<value xml:lang="jp"><![CDATA[コメントを書く]]></value>
+		<value xml:lang="en"><![CDATA[Write comment]]></value>
+	</item>
+	<item name="star_column">
+		<value xml:lang="ko"><![CDATA[별점]]></value>
+		<value xml:lang="jp"><![CDATA[星数]]></value>
+		<value xml:lang="en"><![CDATA[Star]]></value>
+	</item>
+	<item name="short_readed_count">
+		<value xml:lang="ko"><![CDATA[조회]]></value>
+		<value xml:lang="jp"><![CDATA[閲覧]]></value>
+		<value xml:lang="en"><![CDATA[Read]]></value>
+	</item>
+	<item name="short_voted_count">
+		<value xml:lang="ko"><![CDATA[추천]]></value>
+		<value xml:lang="jp"><![CDATA[推薦]]></value>
+		<value xml:lang="en"><![CDATA[Vote]]></value>
+	</item>
+	<item name="short_blamed_count">
+		<value xml:lang="ko"><![CDATA[비추]]></value>
+		<value xml:lang="jp"><![CDATA[非推薦]]></value>
+		<value xml:lang="en"><![CDATA[Blame]]></value>
+	</item>
+	<item name="bonus_pang_pang">
+		<value xml:lang="ko"><![CDATA[보너스 : %s포인트]]></value>
+		<value xml:lang="jp"><![CDATA[ボーナス : % sポイント]]></value>
+		<value xml:lang="en"><![CDATA[Bonus: %spoint]]></value>
+	</item>
+	<item name="my_point">
+		<value xml:lang="ko"><![CDATA[내 포인트: %s]]></value>
+		<value xml:lang="jp"><![CDATA[私のポイント: %s]]></value>
+		<value xml:lang="en"><![CDATA[My point: %s]]></value>
+	</item>
+	<item name="confirm_download_point">
+		<value xml:lang="ko"><![CDATA[이 파일을 다운로드 하시려면 %s 포인트가 사용됩니다.\n계속 하시겠습니까? (단, 한번만 소모)]]></value>
+		<value xml:lang="jp"><![CDATA[このファイルをダウンロードするためには %s ポイントが使われます.\n続きますか? (ただし, 一度のみ消耗)]]></value>
+		<value xml:lang="en"><![CDATA[downloading this file will use %s points.\n continue? (used point once)]]></value>
+	</item>
+	<item name="confirm_declare">
+		<value xml:lang="ko"><![CDATA[%s에게 이유를 설명해주십시오.]]></value>
+		<value xml:lang="jp"><![CDATA[Please describe the reasons to %s.]]></value>
+		<value xml:lang="en"><![CDATA[Please describe the reasons to %s.]]></value>
+	</item>
+	<item name="about_use_point">
+		<value xml:lang="ko"><![CDATA[내 포인트를 걸고 사용자에게 포인트의 %s씩 받을 수 있습니다. (수정 불가)]]></value>
+		<value xml:lang="jp"><![CDATA[私のポイントをかけて使用者にポイントの %sづつ貰うことができます. (修正不可)]]></value>
+		<value xml:lang="en"><![CDATA[use your points to get user's %s points. (No modify)]]></value>
+	</item>
+	<item name="extra_toggle">
+		<value xml:lang="ko"><![CDATA[추가 입력항목 보기]]></value>
+		<value xml:lang="jp"><![CDATA[追加入力項目表示]]></value>
+		<value xml:lang="en"><![CDATA[View extra items]]></value>
+	</item>
+	<item name="nav_caption">
+		<value xml:lang="ko"><![CDATA["%s" 카테고리의 다른 글]]></value>
+		<value xml:lang="jp"><![CDATA[% s" カテゴリーの他の文書]]></value>
+		<value xml:lang="en"><![CDATA["%s" 카테고리의 다른 글]]></value>
+	</item>
+</lang>

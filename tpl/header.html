@@ -1,0 +1,37 @@
+<load target="css/admin.css" />
+<load target="js/admin.js" />
+
+<div cond="$module=='admin'" class="{$is_poped?'x_modal-header':'x_page-header'}">
+	<h1>
+		{$lang->this_module}
+		<block cond="!$is_poped&&$module == 'admin'&&$module_info->mid"> -
+			<a href="{getSiteUrl($module_info->domain, '', 'mid', $module_info->mid,'m_target','','m_targets','')}" target="_blank">
+				{cut_str($module_info->mid, 24)}
+			</a>
+		</block>
+	</h1>
+</div>
+
+<div cond="!$is_poped">
+	<ul class="x_nav x_nav-tabs">
+<!--@if($module_srl)-->
+		<li cond="$module=='admin'"><a href="{getUrl('', 'module', 'admin', 'act', 'dispBeluxeAdminList')}">{$lang->cmd_module_default_menus['dispBeluxeAdminList']}</a></li>
+		<li cond="$module!='admin'"><a href="{urldecode(getUrl('mid',$module_info->mid,'act','','module','','module_srl','','m_target','','m_targets',''))}">{$lang->cmd_back}</a></li>
+		<li loop="$lang->cmd_module_menus => $key,$val" class="x_active"|cond="$act == $key"><a href="{urldecode(getUrl('','module',$module,'module_srl',$module_srl,'mid',($module=='admin'?'':$module_info->mid),'act',$key))}">{$val}</a></li>
+<!--@else-->
+<!--//
+		<li class="x_active"|cond="$act == 'dispBeluxeAdminContent'"><a href="{getUrl('', 'module', 'admin', 'act', 'dispBeluxeAdminContent')}">{$lang->help}</a></li>
+//-->
+		<li class="x_active"|cond="($act == 'dispBeluxeAdminList') || ($act == 'dispBeluxeAdminContent')"><a href="{getUrl('', 'module', 'admin', 'act', 'dispBeluxeAdminList')}">{$lang->cmd_module_default_menus['dispBeluxeAdminList']}</a></li>
+		<li class="x_active"|cond="$act == 'dispBeluxeAdminInsert'"><a href="{getUrl('', 'module', 'admin', 'act', 'dispBeluxeAdminInsert')}">{$lang->module} {$lang->cmd_make}</a></li>
+<!--@end-->
+	</ul>
+</div>
+
+<p cond="$module=='admin'&&$lang->desc_module_menus[$act]">
+	{nl2br($lang->desc_module_menus[$act])}
+</p>
+
+<div cond="$XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>

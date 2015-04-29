@@ -1,0 +1,36 @@
+<include target="__header.html" />
+
+<div id="siBody">
+
+    <include cond="$is_sedt == 'T' || $is_sedt == 'C'" target="_etc.simplewrite.html" />
+
+    <block cond="$grant->manager || $is_sedt != 'C'">
+        <div cond="$is_cts" class="scHeader clearBar">
+            <include target="_etc.category.html" />
+        </div>
+
+        <div class="scContent clearBar">
+            {@
+            $is_btm_skp = $is_doc&&$mi->document_bottom_except_notice != 'N';
+            $notice_list = !$is_btm_skp&&($mi->notice_category!='Y'||!$is_cts||$category_srl)?$oThis->getNoticeList():array();
+            $best_list = !$is_btm_skp&&($mi->use_best=='Y'&&($mi->best_category!='Y'||!$is_cts||$category_srl))?$oThis->getBestList():array();
+            $oTemplate = &TemplateHandler::getInstance();
+            $is_doc?print $oTemplate->compile($tpl_path, '_viw.'.($oDocument->isNotice()?'list':$viwtp).'.html'):false;
+            }
+            <!--@if(!$is_doc||$is_btlst=='Y')-->
+            <a cond="$is_doc" name="navigation"></a>
+            {$oTemplate->compile($tpl_path, '_lst.'.$lsttp.'.html')}
+            <include target="_etc.pagination.html" />
+            <!--@endif-->
+        </div>
+        <div class="scFooter clearBar">
+            <include target="_etc.search.html" />
+        </div>
+    </block>
+
+    <include cond="$is_sedt == 'B'" target="_etc.simplewrite.html" />
+</div>
+
+<include target="__footer.html" />
+
+<section cond="$us_modal" id="pidModalFrame" style="display:none"><div class="pid_modal-body"></div></section>

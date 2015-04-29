@@ -1,0 +1,18 @@
+<query id="getBestList" action="select">
+	<tables>
+		<table name="documents" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="module_srl" var="module_srl" filter="number" />
+		<condition operation="in" column="category_srl" var="category_srl" pipe="and" />
+		<condition operation="more" column="regdate" var="start_date" pipe="and" />
+		<condition operation="more" column="readed_count" var="s_readed_count" pipe="and" />
+		<condition operation="more" column="voted_count" var="s_voted_count" pipe="and" />
+		<condition operation="more" column="voted_count" var="documents.blamed_count" pipe="and" />
+		<condition operation="notequal" column="is_notice" default="Y" pipe="and" />
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="list_order" order="order_type" />
+		<list_count var="list_count" default="20" />
+	</navigation>
+</query>

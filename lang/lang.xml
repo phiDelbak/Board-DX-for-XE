@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+일본어 번역: 감로수
+영어 번역: 썬
+-->
+<lang>
+	<item name="this_module">
+		<value xml:lang="ko"><![CDATA[게시판 DX]]></value>
+		<value xml:lang="jp"><![CDATA[掲示板 DX]]></value>
+		<value xml:lang="en"><![CDATA[Board DX]]></value>
+	</item>
+	<item name="cmd_repeat_write">
+		<value xml:lang="ko"><![CDATA[연속 쓰기]]></value>
+		<value xml:lang="jp"><![CDATA[連続書き込み]]></value>
+		<value xml:lang="en"><![CDATA[Repeat write]]></value>
+	</item>
+	<item name="cmd_download">
+		<value xml:lang="ko"><![CDATA[다운로드]]></value>
+		<value xml:lang="jp"><![CDATA[ダウンロード]]></value>
+		<value xml:lang="en"><![CDATA[Download]]></value>
+	</item>
+	<item name="cmd_lock">
+		<value xml:lang="ko"><![CDATA[잠금]]></value>
+		<value xml:lang="jp"><![CDATA[閉じる]]></value>
+		<value xml:lang="en"><![CDATA[Lock]]></value>
+	</item>
+	<item name="blamed_count">
+		<value xml:lang="ko"><![CDATA[비추천 수]]></value>
+		<value xml:lang="jp"><![CDATA[非推薦数]]></value>
+		<value xml:lang="en"><![CDATA[Blames]]></value>
+	</item>
+	<item name="last_updater">
+		<value xml:lang="ko"><![CDATA[최근 수정자]]></value>
+		<value xml:lang="jp"><![CDATA[最近修正者]]></value>
+		<value xml:lang="en"><![CDATA[Updater]]></value>
+	</item>
+	<item name="manager">
+		<value xml:lang="ko"><![CDATA[관리자]]></value>
+		<value xml:lang="jp"><![CDATA[Manager]]></value>
+		<value xml:lang="en"><![CDATA[Manager]]></value>
+	</item>
+	<item name="anonymous">
+		<value xml:lang="ko"><![CDATA[익명]]></value>
+		<value xml:lang="jp"><![CDATA[匿名]]></value>
+		<value xml:lang="en"><![CDATA[Anonymous]]></value>
+	</item>
+	<item name="point">
+		<value xml:lang="ko"><![CDATA[포인트]]></value>
+		<value xml:lang="jp"><![CDATA[ポイント]]></value>
+		<value xml:lang="en"><![CDATA[Point]]></value>
+	</item>
+	<item name="restriction">
+		<value xml:lang="ko"><![CDATA[제한]]></value>
+		<value xml:lang="jp"><![CDATA[制限]]></value>
+		<value xml:lang="en"><![CDATA[Restriction]]></value>
+	</item>
+	<item name="thumbnail">
+		<value xml:lang="ko"><![CDATA[썸네일]]></value>
+		<value xml:lang="jp"><![CDATA[サムネール]]></value>
+		<value xml:lang="en"><![CDATA[Thumbnail]]></value>
+	</item>
+	<item name="custom_status">
+		<value xml:lang="ko"><![CDATA[상태]]></value>
+		<value xml:lang="jp"><![CDATA[状態]]></value>
+		<value xml:lang="en"><![CDATA[Status]]></value>
+	</item>
+	<item name="upload_filelink">
+		<value xml:lang="ko"><![CDATA[링크 첨부]]></value>
+		<value xml:lang="jp"><![CDATA[リンク添付]]></value>
+		<value xml:lang="en"><![CDATA[Link file]]></value>
+	</item>
+	<item name="cmd_current_lang_delete">
+		<value xml:lang="ko"><![CDATA[해당 언어만 삭제]]></value>
+		<value xml:lang="jp"><![CDATA[該当の言語のみ削除]]></value>
+		<value xml:lang="en"><![CDATA[delete the current language]]></value>
+	</item>
+	<item name="msg_restricted_view">
+		<value xml:lang="ko"><![CDATA[이 문서의 내용은 %s자로 제한되있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[この文書の内容は %s文字に制限されています.]]></value>
+		<value xml:lang="en"><![CDATA[document viewing is restricted to %s.]]></value>
+	</item>
+	<item name="msg_restricted_download">
+		<value xml:lang="ko"><![CDATA[파일의 다운로드가 제한되있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[ファイルのダウンロードが制限されています.]]></value>
+		<value xml:lang="en"><![CDATA[file download is restricted.]]></value>
+	</item>
+	<item name="msg_required_comment">
+		<value xml:lang="ko"><![CDATA[이 기능을 완료하시려면 댓글을 작성해주세요.]]></value>
+		<value xml:lang="jp"><![CDATA[この機能を完了しようとすればコメントを作成してください.]]></value>
+		<value xml:lang="en"><![CDATA[please write comment to complete the feature.]]></value>
+	</item>
+	<item name="msg_required_point">
+		<value xml:lang="ko"><![CDATA[이 기능을 완료하시려면 포인트가 필요합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[この機能を完了しようとすればポイントが必要です.]]></value>
+		<value xml:lang="en"><![CDATA[points are needed to complete the feature.]]></value>
+	</item>
+	<item name="msg_point_is_used">
+		<value xml:lang="ko"><![CDATA[%s 포인트가 사용됩니다.]]></value>
+		<value xml:lang="jp"><![CDATA[%s ポイントが使われます.]]></value>
+		<value xml:lang="en"><![CDATA[%s points will be used.]]></value>
+	</item>
+	<item name="msg_not_enough_point">
+		<value xml:lang="ko"><![CDATA[포인트가 부족합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[ポイントが不足です.]]></value>
+		<value xml:lang="en"><![CDATA[not enough points.]]></value>
+	</item>
+	<item name="msg_not_default_delete">
+		<value xml:lang="ko"><![CDATA[기본값은 삭제할 수 없습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[基本値は削除することができません.]]></value>
+		<value xml:lang="en"><![CDATA[not delete to default.]]></value>
+	</item>
+	<item name="msg_is_not_write_comment">
+		<value xml:lang="ko"><![CDATA[댓글을 작성할 수 없습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[コメントを作成することができません.]]></value>
+		<value xml:lang="en"><![CDATA[cannot post comment.]]></value>
+	</item>
+	<item name="msg_is_locked_document">
+		<value xml:lang="ko"><![CDATA[문서가 잠겨 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[文書が掛かっています.]]></value>
+		<value xml:lang="en"><![CDATA[document is locked.]]></value>
+	</item>
+	<item name="msg_is_blind">
+		<value xml:lang="ko"><![CDATA[블라인드 되었습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[ブラインドされました.]]></value>
+		<value xml:lang="en"><![CDATA[is blind.]]></value>
+	</item>
+	<item name="msg_skin_does_not_exist">
+		<value xml:lang="ko"><![CDATA[선택하신 스킨이 없습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[選択したスキンがありません.]]></value>
+		<value xml:lang="en"><![CDATA[skin does not exist.]]></value>
+	</item>
+	<item name="about_upload_filelink">
+		<value xml:lang="ko"><![CDATA[링크를 첨부 하실 수 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[リンクを添付することができます.]]></value>
+		<value xml:lang="en"><![CDATA[link to upload a file.]]></value>
+	</item>
+	<item name="about_tag">
+		<value xml:lang="ko"><![CDATA[쉼표(,)를 이용해 복수 등록이 가능합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[コンマ(,)を利用して複数登録が可能です.]]></value>
+		<value xml:lang="en"><![CDATA[쉼표(,)를 이용해 복수 등록이 가능합니다.]]></value>
+	</item>
+</lang>

@@ -1,0 +1,10 @@
+<query id="deleteDocumentLangCode" action="delete">
+	<tables>
+		<table name="document_extra_vars" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="document_srl" var="document_srl" filter="number" notnull="notnull" />
+        <condition operation="in" column="lang_code" var="in_lang_code" pipe="and" />
+		<condition operation="equal" column="var_idx" default="-1" pipe="and" />
+	</conditions>
+</query>

@@ -1,0 +1,82 @@
+{@ $s_cate = $mi->category_style}
+
+<block cond="$s_cate == 'Y' || $s_cate == 'X'">
+	{@ $parent_srl = $category_srl}
+	<!--@while($parent_srl)-->
+		{@
+			$sub_cts = $cts[$parent_srl]->childs;
+			$parent_srl = $cts[$parent_srl]->parent_srl;
+		}
+	<!--@endwhile-->
+</block>
+
+<!-- CATEGORY -->
+<div cond="$s_cate == 'X'" id="siCat" class="text">
+	<ul class="scFrm clearBar" style="margin-bottom:3px"|cond="count($sub_cts)">
+		<li loop="$cts => $val" cond="!$val->depth" class="active"|cond="$val->selected">
+			<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}"><span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <span cond="$val->category_srl" class="cnt">({$val->total_document_count})</span></a>
+		</li>
+	</ul>
+	<ul cond="count($sub_cts)" class="scFrm clearBar">
+		<block loop="$sub_cts => $val">
+			{@ is_object($val) ? 0 : $val = $cts[$val]}
+			<li cond="is_object($val)" class="active"|cond="$val->selected">
+				<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}"><span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <span class="cnt">({$val->total_document_count})</span></a>
+			</li>
+		</block>
+	</ul>
+</div>
+
+<div cond="$s_cate == 'Y' || $s_cate == 'T'" id="siCat" class="tabn">
+	<ul class="scFrm clearBar">
+		<li loop="$cts => $val" cond="$s_cate == 'T' || !$val->depth" class="active"|cond="$val->selected">
+			<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}"><span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <span cond="$val->category_srl" class="cnt">({$val->total_document_count})</span></a>
+		</li>
+	</ul>
+	<span class="scBtn small group scCaNavi"><a href="#" title="{$lang->cmd_prev}"><em>&lt;</em></a><a href="#" title="{$lang->cmd_next}"><em>&gt;</em></a></span>
+</div>
+
+<div cond="($s_cate == 'Y' && count($sub_cts)) || $s_cate == 'H'" id="siCat" class="colm" data-autohide="true">
+	{@ $s_cate == 'H' ? $sub_cts = $cts : 0}
+	<div class="cateArea">
+		<ul class="scFrm clearBar">
+			<block loop="$sub_cts => $val">
+				{@ is_object($val) ? 0 : $val = $cts[$val]}
+				<li cond="is_object($val)" class="active"|cond="$val->selected">
+					<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}"><span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <span cond="$val->category_srl" class="cnt">({$val->total_document_count})</span></a>
+				</li>
+			</block>
+		</ul>
+	</div>
+	<span class="scBtn small group scCaNavi"><a href="#" title="{$lang->cmd_prev}"><em>&lt;</em></a><a href="#" title="{$lang->cmd_next}"><em>&gt;</em></a></span>
+	<span class="scBtn small scCaLock active"><a href="#" title="{$lang->cmd_lock}"><em>&amp;</em></a></span>
+</div>
+
+<div cond="$s_cate == 'L' || $s_cate == 'R'" id="siCat" class="side" style="{$s_cate=='R'?'right:0':'left:0'}">
+	<div class="cateArea {$s_cate=='R'?'right':''}">
+		<ul class="scFrm {$s_cate=='R'?'fr':'fl'}">
+			{@ $depth=0}
+			<block loop="$cts => $key,$val">
+				<block cond="$depth < $val->depth">
+					{@ $depth = $val->depth} <li style="display:none"|cond="!$is_p_expand" data-parent="toggle_{$is_p_key}"><ul>
+				</block>
+				<block cond="$depth && $depth > $val->depth">
+					{str_repeat('</ul></li>', $depth - $val->depth)}
+					{@ $depth = $val->depth}
+				</block>
+				{@
+					$is_p_expand = $val->selected||$val->expand;
+					$is_p_key = $key;
+				}
+				<li class="active"|cond="$val->selected" data-child="toggle_{$key}"|cond="count($val->childs)" style="font-weight:bold"|cond="!$val->category_srl">
+					<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{str_repeat('<b>&rsaquo;</b>',$val->category_srl?($val->depth+1):0)}
+						<span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <span cond="$val->category_srl" class="cnt">({$val->total_document_count})</span>
+					</a>
+				</li>
+			</block>
+			<block cond="$depth">{str_repeat('</ul></li>', $depth)}</block>
+		</ul>
+		<a class="mubtn {$s_cate=='R'?'fr':'fl'}" href="#"></a>
+	</div>
+</div>
+<!-- /CATEGORY -->

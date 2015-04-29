@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ruleset version="1.5.0">
+	<customrules>
+	</customrules>
+	<fields>
+		<field name="search_target" required="true" />
+		<field name="search_keyword" required="true" length="2:40" />
+	</fields>
+</ruleset>

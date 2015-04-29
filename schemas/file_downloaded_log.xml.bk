@@ -1,0 +1,6 @@
+<table name="file_downloaded_log">
+	<column name="file_srl" type="number" size="11" notnull="notnull" index="idx_file_srl" />
+	<column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />
+	<column name="ipaddress" type="varchar" size="128" notnull="notnull" index="idx_ipaddress" />
+	<column name="regdate" type="date" index="idx_regdate" />
+</table>

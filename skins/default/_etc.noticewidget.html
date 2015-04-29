@@ -1,0 +1,28 @@
+<div id="siDoc" class="widg">
+	<div loop="$a_lsttp => $tlk,$p_list" cond="$tlk && ($p_lst_cnt = count($p_list))" class="{$tlk} clearBar">
+		<strong class="scRibbon"><span class="caption">{$tlk=='best'?'List of best':'The notice'}{$p_lst_cnt>1?'s':''}</span></strong>
+		<ul class="scFrm">
+			<li cond="$tlk" style="padding-top:10px;padding-bottom:10px;"|cond="$p_lst_cnt===1" loop="$p_list => $no,$document">
+				{@
+					$is_blind = ($tlk!='notice'&&$mi->use_blind=='Y')?$oThis->isBlind($document->document_srl):0;
+					$purl = getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage);
+
+					$un_extra = ($is_rtrpt||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
+					$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+				}
+				<div class="scElps" data-active="true"|cond="$is_elips">
+					<a class="fl" href="{$purl}">{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</a>
+					<span class="fr">
+						{@
+							$t_cmtn = $document->getCommentCount();
+							$t_tbkn = $document->getTrackbackCount();
+						}
+						<em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
+						<em cond="!$t_cmtn&&!$t_tbkn">&nbsp;</em>
+						{$document->printExtraImages(60*60*$mi->duration_new)}<img class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
+					</span>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

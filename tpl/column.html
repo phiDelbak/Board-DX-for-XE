@@ -1,0 +1,40 @@
+<include target="header.html" />
+{@
+	$dis_sort = array('comment'=>true,'thumbnail'=>true,'tag'=>true);
+	$dis_search = array('no'=>true,'thumbnail'=>true,'category_srl'=>true,'last_updater'=>true,'blamed_count'=>true,'custom_status'=>true);
+}
+<form id="columnFrame" class="x_form-horizontal" action="./" method="post" enctype="multipart/form-data">
+	<input cond="$module=='admin'" type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procBeluxeAdminColumnSetting" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+
+	<div id="column_list" class="table even">
+		<table width="100%" border="1" cellspacing="0" class="sortable">
+			<tbody class="uDrag">
+				<tr loop="$column_info => $key,$val">
+					<td><div class="wrap clearBar" style="height:22px"><button type="button" class="dragBtn fl">Move to</button>
+							<span class="name x_pull-left">{$val->name}</span>
+							<span class="side x_pull-right">
+								<input type="hidden" name="column_key[]" value="{$key}" />
+								<input type="hidden" id="column_option" name="column_option[]" value="{implode('|@|',array($val->display,$val->sort,$val->search))}" />
+								<input type="text" name="column_color[]" value="{htmlspecialchars($val->color)}" class="color-indicator" />
+								<label class="x_inline" style="margin-left:15px"><input type="checkbox" id="column_display" value="Y" class="column_option" checked="checked"|cond="$val->display == 'Y'" /> {$lang->display} </label>
+								<label class="x_inline" style="text-decoration:line-through"|cond="$dis_sort[$key]"><input type="checkbox" id="column_sort" value="Y" class="column_option" disabled="true"|cond="$dis_sort[$key]" checked="checked"|cond="$val->sort == 'Y'" /> {$lang->sort} </label>
+								<label class="x_inline" style="text-decoration:line-through"|cond="$dis_search[$key]"><input type="checkbox" id="column_search" value="Y" class="column_option" disabled="true"|cond="$dis_search[$key]" checked="checked"|cond="$val->search == 'Y'" /> {$lang->cmd_search} </label>
+							</span>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="x_clearfix btnArea">
+		<a class="x_pull-left x_btn x_btn-warning" href="#remakeCache" data-type="column">{$lang->cmd_remake_cache}</a>
+		<span class="x_pull-right">
+			<button type="submit" class="x_btn x_btn-primary">{$lang->cmd_save}</button>
+		</span>
+	</div>
+</form>
+
+<include target="footer.html" />

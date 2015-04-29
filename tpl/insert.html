@@ -1,0 +1,649 @@
+<include target="header.html" />
+
+<div cond="($m_allset_targets||$m_copy_target)||count($module_backup_options)" class="message update">
+	<p cond="$m_allset_targets||$m_copy_target">{$m_copy_target ? $lang->about_setting_copy : $lang->about_all_setting}<br />{$lang->target}: {$m_copy_target ? $m_copy_target : $m_allset_targets}</p>
+	<p cond="count($module_backup_options)">{$lang->msg_module_backup_options}</p>
+</div>
+
+<form ruleset="insertBeluxe" action="./" method="post" enctype="multipart/form-data" class="x_form-horizontal" id="insertFrame">
+<input cond="$module=='admin'" type="hidden" name="module" value="{$module}" />
+<input cond="!$m_allset_targets&&!$m_copy_target" type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+<input type="hidden" name="act" value="procBeluxeAdminInsert" />
+<input type="hidden" name="site_srl" value="{$module_info->site_srl}" />
+<input type="hidden" name="use_update_vote_count" value="Y" />
+<input type="hidden" name="use_check_vote_point" value="N" />
+<input type="hidden" name="use_recover_vote_point" value="N" />
+<input type="hidden" name="use_lock_owner_comment" value="N" />
+<input type="hidden" name="use_latest_content_view" value="N" />
+<input cond="$is_poped" type="hidden" name="is_poped" value="1" />
+
+<div class="{$is_poped?'x_modal-body':''}">
+
+	<section cond="$m_copy_target" class="section">
+		<h1>{$lang->module}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label"><em style="color:red">*</em> {$lang->mid}</label>
+			<div class="x_controls opt_bks">
+				<input type="text" name="module_mid" value="" />
+				<a href="#about_mid" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="about_mid" hidden>{$lang->about_mid}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->module_category}</label>
+			<div class="x_controls opt_bks">
+				<select name="module_category_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$module_category => $key, $val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl == $key">{$val->title}</option>
+				</select>
+				<a href="#about_module_category" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="about_module_category" hidden>{$lang->about_module_category}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->browser_title}</label>
+			<div class="x_controls opt_bks">
+				<input type="text" class="lang_code" name="browser_title" value="<!--@if(strpos($module_info->browser_title, '$user_lang->') === false)-->{$module_info->browser_title}<!--@else-->{htmlspecialchars($module_info->browser_title)}<!--@end-->" />
+				<a href="#about_browser_title" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="about_browser_title" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+
+		<input type="hidden" name="target_module_srl" value="{$module_info->module_srl}" />
+		<input type="hidden" name="skin" value="{$module_info->skin}" />
+		<input type="hidden" name="default_type" value="{$module_info->default_type}" />
+		<input type="hidden" name="default_type_option" value="{$module_info->default_type_option}" />
+
+		<div class="x_clearfix btnArea">
+			<span class="x_pull-right">
+				<input class="x_btn x_btn-primary" type="submit" value="{$lang->module} {$lang->cmd_copy}" accesskey="s" />
+			</span>
+		</div>
+
+		<div class="message">
+			<p><h4>{$lang->about_setting_copy2}</h4></p>
+		</div>
+	</section>
+
+	<block cond="$module!='admin'">
+		<input type="hidden" name="module_category_srl" value="{$module_info->module_category_srl}" />
+		<input type="hidden" name="module_mid" value="{$module_info->mid}" />
+	</block>
+	<block cond="$m_allset_targets">
+		<input type="hidden" name="module_mid" value="target_module_mids" />
+		<input type="hidden" name="target_module_mids" value="{$m_allset_targets}" />
+	</block>
+
+	<section cond="!$m_allset_targets&&!$m_copy_target" class="section">
+		<h1>{$lang->module}</h1>
+		<block cond="$module=='admin'">
+			<div class="x_control-group">
+				<label class="x_control-label"><em style="color:red">*</em> {$lang->mid}</label>
+				<div class="x_controls">
+					<input type="text" name="module_mid" required value="{$module_info->mid}" />
+					<a href="#about_mid" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+					<p class="x_help-block" id="about_mid" hidden>{$lang->about_mid}</p>
+				</div>
+			</div>
+			<div class="x_control-group {$m_copy_target?'x_info':''}">
+				<label class="x_control-label">{$lang->module_category}</label>
+				<div class="x_controls">
+					<select name="module_category_srl">
+						<option value="0">{$lang->notuse}</option>
+						<option loop="$module_category => $key, $val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl == $key">{$val->title}</option>
+					</select>
+					<a href="#about_module_category" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+					<p class="x_help-block" id="about_module_category" hidden>{$lang->about_module_category}</p>
+				</div>
+			</div>
+		</block>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->browser_title}</label>
+			<div class="x_controls {$compulsory_options['browser_title']?'opt_cps':''} {$module_backup_options['browser_title']?'opt_bks':''}">
+				<input type="text" class="lang_code" name="browser_title" value="<!--@if(strpos($module_info->browser_title, '$user_lang->') === false)-->{$module_info->browser_title}<!--@else-->{htmlspecialchars($module_info->browser_title)}<!--@end-->" />
+				<a href="#about_browser_title" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p class="x_help-block" id="about_browser_title" hidden>{$lang->about_browser_title}</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section {$m_copy_target?'collapsed':''}">
+		<h1>{$lang->layout}</h1>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="layout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->layout_srl == $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#about_layout" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_layout" class="x_help-block" hidden>{$lang->about_layout}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->mobile_layout}</label>
+			<div class="x_controls {$compulsory_options['use_mobile']?'opt_cps':''} {$module_backup_options['use_mobile']?'opt_bks':''}">
+				<select name="mlayout_srl">
+				<option value="0">{$lang->notuse}</option>
+				<option loop="$mlayout_list => $key,$val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->use_mobile=='Y'&&$module_info->mlayout_srl==$val->layout_srl" >{$val->title} ({$val->layout})</option>
+				</select>
+				<a href="#about_mobile_view" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_mobile_view" class="x_help-block" hidden>{$lang->about_mobile_view}</p>
+				<label for="use_mobile_uploader">
+					<input type="checkbox" name="use_mobile_uploader" id="use_mobile_uploader" value="Y" checked="checked"|cond="$module_info->use_mobile_uploader=='Y'" />
+					{$lang->use_mobile_uploader}
+				</label>
+				<p id="about_mobile_uploader" class="x_help-block">{$lang->about_mobile_uploader}</p>
+			</div>
+		</div>
+	</section>
+
+	<section cond="!$m_allset_targets&&!$m_copy_target" class="section">
+		<h1>{$lang->skin}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->skin}</label>
+			<div class="x_controls">
+				<select name="skin" data-default="{$module_srl?$module_info->skin:'default'}">
+					<option cond="!$skin_list || !count($skin_list)" value="">{$lang->notuse}</option>
+					<option loop="$skin_list => $key, $val" value="{$key}" selected="selected"|cond="($module_srl && $module_info->skin == $key) || (!$module_srl && $key == 'default')">{$val->title}</option>
+				</select>
+				<a href="#about_skin" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_skin" class="x_help-block" hidden>{(!$skin_list || !count($skin_list)) ? $lang->about_download_skin : $lang->about_skin}</p>
+			</div>
+			<p class="x_controls msg_call_server" style="display:none"><strong style="color:blue">{$lang->msg_call_server}</strong></p>
+		</div>
+		<div cond="count($skin_list)&&count($default_type_list)" class="x_control-group {$module_info->module_srl&&!$module_info->default_type?'opt_bks':''}">
+			<label class="x_control-label">{$lang->skin_type}</label>
+			<div class="x_controls">
+				{@ $t_dftype = $module_info->default_type}
+				<!--@if($default_type_list[$t_dftype] && $module_info->default_type_option)-->
+				{@
+					$df_navi = explode('|@|', $module_info->default_type_option);
+					$default_type_list[$t_dftype]->sort_index = $df_navi[0];
+					$default_type_list[$t_dftype]->order_type = $df_navi[1];
+					$default_type_list[$t_dftype]->list_count = $df_navi[2];
+					$default_type_list[$t_dftype]->page_count = $df_navi[3];
+					$default_type_list[$t_dftype]->clist_count = $df_navi[4];
+				}
+				<!--@endif-->
+				<select name="default_type" data-skin="{$module_srl?$module_info->skin:'default'}" data-default="{$t_dftype}">
+				<block loop="$default_type_list => $key, $val">
+					{@ $tmp = array($val->sort_index,$val->order_type,$val->list_count,$val->page_count,$val->clist_count)}
+					<option value="{$key}" data-option="{implode('|@|', $tmp)}" selected="selected"|cond="$key==$module_info->default_type">{$val->title}</option>
+				</block>
+				</select>
+				<p class="x_help-block">{sprintf($lang->about_skin_type,getUrl('', 'module', 'admin', 'module_srl', $module_srl, 'act', 'dispBeluxeAdminCategoryInfo'))}</p>
+			</div>
+			{@
+				reset($default_type_list);
+				$t_dftype = $default_type_list[$t_dftype] ? $default_type_list[$t_dftype] : current($default_type_list);
+			}
+			<div class="x_controls">
+				<label>
+					<select name="default_sort_index">
+						<option loop="$order_target => $key, $val" value="{$key}" selected="selected"|cond="$t_dftype->sort_index == $key">{$val}</option>
+					</select>
+					{$lang->order_target}
+				</label>
+				<label>
+					<select name="default_order_type">
+						<option value="asc">{$lang->order_asc}</option>
+						<option value="desc" selected="selected"|cond="$t_dftype->order_type == 'desc'">{$lang->order_desc}</option>
+					</select>
+					{$lang->order_type}
+				</label>
+			</div>
+			<div class="x_controls">
+				<label class="x_inline" style="width:70px" for="id_default_list_count">{$lang->list_count}:</label>
+				<label class="x_inline" style="width:70px" for="id_default_page_count">{$lang->page_count}:</label>
+				<label class="x_inline" style="width:70px" for="id_default_clist_count">{$lang->comment_count}:</label>
+				<br />
+				<input name="default_list_count" id="id_default_list_count" type="number" value="{(int)$t_dftype->list_count}" maxlength="10" style="width:50px" />
+				<input name="default_page_count" id="id_default_page_count" type="number" value="{(int)$t_dftype->page_count}" maxlength="10" style="width:50px;margin-left:22px" />
+				<input name="default_clist_count" id="id_default_clist_count" type="number" value="{(int)$t_dftype->clist_count}" maxlength="10" style="width:50px;margin-left:22px" />
+			</div>
+		</div>
+	</section>
+
+	<section class="section {$m_copy_target?'collapsed':''}">
+		<h1>{$lang->cmd_list}</h1>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->notice}</label>
+			<div class="x_controls {$compulsory_options['notice_category']?'opt_cps':''} {$module_backup_options['notice_category']?'opt_bks':''}">
+				<select name="notice_category">
+					<option value="N" selected="selected"|cond="$module_info->notice_category != 'Y'">{$lang->list_options['category']['N']}</option>
+					<option value="Y" selected="selected"|cond="$module_info->notice_category == 'Y'">{$lang->list_options['category']['Y']}</option>
+				</select>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->best}</label>
+			<div class="x_controls {$compulsory_options['best_category']?'opt_cps':''} {$module_backup_options['best_category']?'opt_bks':''}">
+				<select name="best_category">
+					<option value="N" selected="selected"|cond="$module_info->best_category != 'Y'">{$lang->list_options['category']['N']}</option>
+					<option value="Y" selected="selected"|cond="$module_info->best_category == 'Y'">{$lang->list_options['category']['Y']}</option>
+				</select>
+				<p class="x_help-block">{$lang->about_use_best}</p>
+			</div>
+			<div class="x_controls {$compulsory_options['use_best']?'opt_cps':''} {$module_backup_options['use_best']?'opt_bks':''}">
+				<label for="use_best">
+					<input type="checkbox" name="use_best" id="use_best" value="Y" checked="checked"|cond="$module_info->use_best=='Y'" />
+					{$lang->document} {$lang->cmd_list}
+				</label>
+				<label>
+					<select name="best_index" style="min-width:122px;width:122px">
+						<option value="voted_count" selected="selected"|cond="$module_info->best_index != 'readed_count'">{$lang->voted_count}</option>
+						<option value="readed_count" selected="selected"|cond="$module_info->best_index == 'readed_count'">{$lang->readed_count}</option>
+					</select>
+					<select name="best_voted" style="min-width:20px;width:95px">
+						{@ $date_count = explode(',',$lang->best_options['more_list'])}
+						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->best_voted == $val">{$val} more</option>
+					</select>
+					{$lang->best_options['index']}
+				</label>
+				<label>
+					<select name="best_date">
+						{@ $date_count = explode(',',$lang->best_options['date_list'])}
+						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->best_date == $val">{$val} before</option>
+					</select>
+					{$lang->best_options['date']}
+				</label>
+				<label>
+					<select name="best_count">
+						{@ $date_count = explode(',',$lang->best_options['count_list'])}
+						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->best_count == $val">{$val}</option>
+					</select>
+					{$lang->best_options['count']}
+				</label>
+			</div>
+			<div class="x_controls {$compulsory_options['use_c_best']?'opt_cps':''} {$module_backup_options['use_c_best']?'opt_bks':''}">
+				<label for="use_c_best">
+					<input type="checkbox" name="use_c_best" id="use_c_best" value="Y" checked="checked"|cond="$module_info->use_c_best=='Y'" />
+					{$lang->comment} {$lang->cmd_list}
+				</label>
+				<label>
+					<select style="min-width:122px;width:122px">
+						<option>{$lang->voted_count}</option>
+					</select>
+					<select name="best_c_voted" style="min-width:20px;width:95px">
+						{@ $date_count = explode(',',$lang->best_options['more_list'])}
+						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->best_c_voted == $val">{$val} more</option>
+					</select>
+					{$lang->best_options['index']}
+				</label>
+				<label>
+					<select name="best_c_date">
+						{@ $date_count = explode(',',$lang->best_options['date_list'])}
+						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->best_c_date == $val">{$val} before</option>
+					</select>
+					{$lang->best_options['date']}
+				</label>
+				<label>
+					<select name="best_c_count">
+						{@ $date_count = explode(',',$lang->best_options['count_list'])}
+						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->best_c_count == $val">{$val}</option>
+					</select>
+					{$lang->best_options['count']}
+				</label>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->doc_bottom_list}</label>
+			<div class="x_controls {$compulsory_options['document_bottom_list']?'opt_cps':''} {$module_backup_options['document_bottom_list']?'opt_bks':''}">
+				<select name="document_bottom_list">
+					<option value="Y">{$lang->list_options['bottom_list']['Y']}</option>
+					<option value="N" selected="selected"|cond="$module_info->document_bottom_list == 'N'">{$lang->list_options['bottom_list']['N']}</option>
+				</select>
+				<a href="#about_doc_bottom_list" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_doc_bottom_list" class="x_help-block" hidden>{$lang->about_doc_bottom_list}</p>
+			</div>
+			<div class="x_controls {$compulsory_options['document_bottom_except_notice']?'opt_cps':''} {$module_backup_options['document_bottom_except_notice']?'opt_bks':''}">
+				<select name="document_bottom_except_notice">
+					<option value="Y">{$lang->list_options['bottom_list']['except']['Y']}</option>
+					<option value="N" selected="selected"|cond="$module_info->document_bottom_except_notice == 'N'">{$lang->list_options['bottom_list']['except']['N']}</option>
+				</select>
+			</div>
+			<div class="x_controls {$compulsory_options['document_bottom_list_count']?'opt_cps':''} {$module_backup_options['document_bottom_list_count']?'opt_bks':''}">
+				<label>
+					<select name="document_bottom_list_count">
+						{@
+							$module_info->document_bottom_list_count?0:$module_info->document_bottom_list_count=10;
+							$date_count = explode(',',$lang->list_options['count']);
+						}
+						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->document_bottom_list_count == $val">{$val}</option>
+					</select>
+					{$lang->best_options['count']}
+				</label>
+			</div>
+		</div>
+	</section>
+
+	<section class="section {$m_copy_target?'collapsed':''}">
+		<h1>Function</h1>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->blind}</label>
+			<div class="x_controls">
+				<p class="x_help-block">{$lang->about_use_blind}</p>
+			</div>
+			<div class="x_controls {$compulsory_options['use_blind']?'opt_cps':''} {$module_backup_options['use_blind']?'opt_bks':''}">
+				<label for="use_blind">
+					<input type="checkbox" name="use_blind" id="use_blind" value="Y" checked="checked"|cond="$module_info->use_blind=='Y'" />
+					{$lang->document} {$lang->cmd_option}
+				</label>
+				<div>
+					<select name="blind_index" style="min-width:122px;width:122px">
+						<option value="declare_count" selected="selected"|cond="$module_info->blind_index != 'vote_down_count'">{$lang->declare_count}</option>
+						<option value="vote_down_count" selected="selected"|cond="$module_info->blind_index == 'vote_down_count'">{$lang->vote_down_count}</option>
+					</select>
+					<select name="blind_voted" style="min-width:20px;width:95px">
+						{@ $date_count = explode(',',$lang->blind_options['more_list'])}
+						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->blind_voted == $val">{$val} more</option>
+					</select>
+				</div>
+			</div>
+			<div class="x_controls {$compulsory_options['use_c_blind']?'opt_cps':''} {$module_backup_options['use_c_blind']?'opt_bks':''}">
+				<label for="use_c_blind">
+					<input type="checkbox" name="use_c_blind" id="use_c_blind" value="Y" checked="checked"|cond="$module_info->use_c_blind=='Y'" />
+					{$lang->comment} {$lang->cmd_option}
+				</label>
+				<div>
+					<select name="blind_c_index" style="min-width:122px;width:122px">
+						<option value="declare_count" selected="selected"|cond="$module_info->blind_c_index != 'vote_down_count'">{$lang->declare_count}</option>
+						<option value="vote_down_count" selected="selected"|cond="$module_info->blind_c_index == 'vote_down_count'">{$lang->vote_down_count}</option>
+					</select>
+					<select name="blind_c_voted" style="min-width:20px;width:95px">
+						{@ $date_count = explode(',',$lang->blind_options['more_list'])}
+						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->blind_c_voted == $val">{$val} more</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->cmd_lock}</label>
+			<div class="x_controls">
+				<p class="x_help-block">{$lang->about_use_lock_document}</p>
+			</div>
+			<div class="x_controls {$compulsory_options['use_lock_document']?'opt_cps':''} {$module_backup_options['use_lock_document']?'opt_bks':''}">
+				<label for="tmp_lock_document">
+					<input type="checkbox" name="tmp_lock_document" id="tmp_lock_document" value="Y" checked="checked"|cond="$module_info->use_lock_document=='Y'||$module_info->use_lock_document=='T'||$module_info->use_lock_document=='C'" />
+					{$lang->document} {$lang->cmd_option}
+				</label>
+				<div>
+					<select name="use_lock_document" style="min-width:122px;width:122px">
+						<option value="Y" selected="selected"|cond="$module_info->use_lock_document == 'Y'">{$lang->lock_options['lock']['Y']}</option>
+						<option value="T" selected="selected"|cond="$module_info->use_lock_document == 'T'">{$lang->lock_options['lock']['T']}</option>
+						<option value="C" selected="selected"|cond="$module_info->use_lock_document != 'Y'&&$module_info->use_lock_document != 'T'">{$lang->lock_options['lock']['C']}</option>
+					</select>
+					{@ $lock_count_list = explode(',', $lang->lock_options['count'])}
+					<select name="use_lock_document_option" style="min-width:20px;width:95px">
+						<option loop="$lock_count_list=>$val" value="{$val}" selected="selected"|cond="$module_info->use_lock_document_option == $val">{$val} more</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->restriction}</label>
+			<div class="x_controls">
+				<select name="restrict_option">
+					{@ $point_list = array('10','30','50','70','90','100')}
+					<option loop="$point_list=>$val" value="{$val}" selected="selected"|cond="$module_info->restrict_option == $val">{$val}% {$lang->point}</option>
+				</select>
+				<p class="x_help-block">{$lang->about_restriction}</p>
+			</div>
+			<div class="x_controls {$compulsory_options['use_restrict_view']?'opt_cps':''} {$module_backup_options['use_restrict_view']?'opt_bks':''}">
+				<label for="tmp_restrict_view">
+					<input type="checkbox" name="tmp_restrict_view" id="tmp_restrict_view" value="Y" checked="checked"|cond="$module_info->use_restrict_view=='Y'||$module_info->use_restrict_view=='P'" />
+					{$lang->cmd_view} {$lang->cmd_option}
+				</label>
+				<div>
+					<select name="use_restrict_view">
+						<option value="Y">{$lang->comment}</option>
+						<option value="P" selected="selected"|cond="$module_info->use_restrict_view=='P'">{$lang->point}</option>
+					</select>
+				</div>
+			</div>
+			<div class="x_controls {$compulsory_options['use_restrict_down']?'opt_cps':''} {$module_backup_options['use_restrict_down']?'opt_bks':''}">
+				<label for="tmp_restrict_down">
+					<input type="checkbox" name="tmp_restrict_down" id="tmp_restrict_down" value="Y" checked="checked"|cond="$module_info->use_restrict_down=='Y'||$module_info->use_restrict_down=='P'" onclick="alert('Please Install the db table for this feature.');return false"|cond="!file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')" />
+					{$lang->cmd_download} {$lang->cmd_option}
+				</label>
+				<select name="use_restrict_down">
+					<option value="Y">{$lang->comment}</option>
+					<option value="P" selected="selected"|cond="$module_info->use_restrict_down=='P'">{$lang->point}</option>
+				</select>
+				<p class="x_help-block">{$lang->about_restriction_download}</p>
+			</div>
+		</div>
+		<div cond="!$m_allset_targets" class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->custom_status}</label>
+			<div class="x_controls {$compulsory_options['custom_status']?'opt_cps':''} {$module_backup_options['custom_status']?'opt_bks':''}">
+				<input type="text" class="lang_code" name="custom_status" value="<!--@if(strpos($module_info->custom_status, '$user_lang->') === false)-->{$module_info->custom_status}<!--@else-->{htmlspecialchars($module_info->custom_status)}<!--@end-->" />
+				<a href="#about_custom_status" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_custom_status" class="x_help-block" hidden>{$lang->about_custom_status}</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section {$m_copy_target?'collapsed':''}">
+		<h1>{$lang->cmd_option}</h1>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->status}</label>
+			<div class="x_controls {$compulsory_options['use_status']?'opt_cps':''} {$module_backup_options['use_status']?'opt_bks':''}">
+				<label class="x_inline">{$lang->document}:</label>
+				{@ $use_status = explode(',', $module_info->use_status)}
+				<label loop="$document_status_list => $key,$val" cond="$key != 'PRIVATE' && $key != 'TEMP'" class="x_inline">
+					<input type="checkbox" name="use_status[]" value="{$key}" checked="checked"|cond="in_array($key, $use_status)" />
+					{$val}
+				</label>
+			</div>
+			<div class="x_controls {$compulsory_options['use_c_status']?'opt_cps':''} {$module_backup_options['use_c_status']?'opt_bks':''}">
+				<label class="x_inline">{$lang->comment}:</label>
+				{@ $use_status = explode(',', $module_info->use_c_status)}
+				<label loop="$document_status_list => $key,$val" cond="$key != 'PRIVATE' && $key != 'TEMP'" class="x_inline">
+					<input type="checkbox" name="use_c_status[]" value="{$key}" checked="checked"|cond="in_array($key, $use_status)" />
+					{$val}
+				</label>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->cmd_vote} / {$lang->cmd_vote_down}</label>
+			{@
+				$use_vote = explode(',', $module_info->use_vote);
+				$tmp = ($part_config->use_vote_up=='N' && in_array('up', $use_vote))||($part_config->use_vote_up!='N' && !in_array('up', $use_vote));
+				$tmp ? 0 : $tmp = $part_config->use_vote_down=='N' && in_array('down', $use_vote);
+				($tmp&&!$module_info->module_srl)||$m_copy_target ? $tmp = 0 : 0;
+			}
+			<div class="x_controls {$compulsory_options['use_vote']?'opt_cps':''} {($module_info->use_vote&&$tmp)||$module_backup_options['use_vote']?'opt_bks':''}">
+				<label class="x_inline">{$lang->document}:</label>
+				<label class="x_inline">
+					<input type="checkbox" name="use_vote[]" value="up" checked="checked"|cond="in_array('up', $use_vote)" />
+					{$lang->cmd_vote}
+				</label>
+				<label class="x_inline">
+					<input type="checkbox" name="use_vote[]" value="down" checked="checked"|cond="in_array('down', $use_vote)" />
+					{$lang->cmd_vote_down}
+				</label>
+				<label class="x_inline">
+					<input type="checkbox" name="use_vote[]" value="declare" checked="checked"|cond="in_array('declare', $use_vote)" />
+					{$lang->cmd_declare}
+				</label>
+				<span cond="$module_info->use_vote&&$tmp" class="x_help-inline">Warning : please save the new value.</span>
+			</div>
+			{@
+				$use_c_vote = explode(',', $module_info->use_c_vote);
+				$tmp = ($part_config->use_c_vote_up=='N' && in_array('up', $use_c_vote))||($part_config->use_c_vote_up!='N' && !in_array('up', $use_c_vote));
+				$tmp ? 0 : $tmp = $part_config->use_c_vote_down=='N' && in_array('down', $use_c_vote);
+				($tmp&&!$module_info->module_srl)||$m_copy_target ? $tmp = 0 : 0;
+			}
+			<div class="x_controls {$compulsory_options['use_c_vote']?'opt_cps':''} {($module_info->use_c_vote&&$tmp)||$module_backup_options['use_c_vote']?'opt_bks':''}">
+				<label class="x_inline">{$lang->comment}:</label>
+				<label class="x_inline">
+					<input type="checkbox" name="use_c_vote[]" value="up" checked="checked"|cond="in_array('up', $use_c_vote)" />
+					{$lang->cmd_vote}
+				</label>
+				<label class="x_inline">
+					<input type="checkbox" name="use_c_vote[]" value="down" checked="checked"|cond="in_array('down', $use_c_vote)" />
+					{$lang->cmd_vote_down}
+				</label>
+				<label class="x_inline">
+					<input type="checkbox" name="use_c_vote[]" value="declare" checked="checked"|cond="in_array('declare', $use_c_vote)" />
+					{$lang->cmd_declare}
+				</label>
+				<a href="#about_use_vote" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_use_vote" class="x_help-block" hidden>{$lang->about_use_vote}</p>
+				<span cond="$module_info->use_c_vote&&$tmp" class="x_help-inline">Warning : please save the new value.</span>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->allow_comment}</label>
+			<div class="x_controls {$compulsory_options['allow_comment']?'opt_cps':''} {$module_backup_options['allow_comment']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="allow_comment" value="N" checked="checked"|cond="$module_info->allow_comment=='N'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="allow_comment" value="Y" checked="checked"|cond="$module_info->allow_comment=='Y'" /> {$lang->use}</label>
+				<label class="x_inline"><input type="radio" name="allow_comment" value="S" checked="checked"|cond="$module_info->allow_comment!='N'&&$module_info->allow_comment!='Y'" /> {$lang->cmd_select}</label>
+				<a href="#about_allow_comment" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_allow_comment" class="x_help-block" hidden>{$lang->about_allow_comment}</p>
+			</div>
+		</div>
+		{@
+			$tmp = $module_info->allow_trackback != 'N' ? 'Y' : 'N';
+			$tmp = $module_info->allow_trackback&&($tmp!=$part_config->enable_trackback);
+			$module_info->allow_trackback = $part_config->enable_trackback == 'N' ? 'N' : $module_info->allow_trackback;
+			($tmp&&!$module_info->module_srl)||$m_copy_target ? $tmp = 0 : 0;
+		}
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->allow_trackback}</label>
+			<div class="x_controls {$compulsory_options['allow_trackback']?'opt_cps':''} {$tmp||$module_backup_options['allow_trackback']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="allow_trackback" value="N" checked="checked"|cond="$module_info->allow_trackback=='N'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="allow_trackback" value="Y" checked="checked"|cond="$module_info->allow_trackback=='Y'" /> {$lang->use}</label>
+				<label class="x_inline"><input type="radio" name="allow_trackback" value="S" checked="checked"|cond="$module_info->allow_trackback!='N'&&$module_info->allow_trackback!='Y'" /> {$lang->cmd_select}</label>
+				<a href="#about_allow_trackback" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_allow_trackback" class="x_help-block" hidden>{$tmp?'Warning : please save the new value.':$lang->about_allow_trackback}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->use_anonymous}</label>
+			<div class="x_controls {$compulsory_options['use_anonymous']?'opt_cps':''} {$module_backup_options['use_anonymous']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="use_anonymous" value="N" checked="checked"|cond="$module_info->use_anonymous!='Y'&&$module_info->use_anonymous!='S'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="use_anonymous" value="Y" checked="checked"|cond="$module_info->use_anonymous=='Y'" /> {$lang->use}</label>
+				<label class="x_inline"><input type="radio" name="use_anonymous" value="S" checked="checked"|cond="$module_info->use_anonymous=='S'" /> {$lang->cmd_select}</label>
+				<a href="#about_use_anonymous" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_use_anonymous" class="x_help-block" hidden>{$lang->about_use_anonymous}</p>
+			</div>
+		</div>
+		{@
+			$tmp = $module_info->use_history&&($module_info->use_history!=$part_config->use_history);
+			($tmp&&!$module_info->module_srl)||$m_copy_target ? $tmp = 0 : 0;
+		}
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->history}</label>
+			<div class="x_controls {$compulsory_options['use_history']?'opt_cps':''} {$tmp||$module_backup_options['use_history']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="use_history" value="N" checked="checked"|cond="$module_info->use_history!='Y'&&$module_info->use_history!='Trace'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="use_history" value="Y" checked="checked"|cond="$module_info->use_history=='Y'" /> {$lang->use}</label>
+				<label class="x_inline"><input type="radio" name="use_history" value="Trace" checked="checked"|cond="$module_info->use_history=='Trace'" /> {$lang->trace_only2}</label>
+				<a href="#about_use_history2" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_use_history2" class="x_help-block" hidden>{$tmp?'Warning : please save the new value.':$lang->about_use_history2}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->consultation}</label>
+			<div class="x_controls {$compulsory_options['consultation']?'opt_cps':''} {$module_backup_options['consultation']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="consultation" value="N" checked="checked"|cond="$module_info->consultation!='Y'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="consultation" value="Y" checked="checked"|cond="$module_info->consultation=='Y'" /> {$lang->use}</label>
+				<a href="#about_consultation" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_consultation" class="x_help-block" hidden>{$lang->about_consultation}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->use_title_color}</label>
+			<div class="x_controls {$compulsory_options['use_title_color']?'opt_cps':''} {$module_backup_options['use_title_color']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="use_title_color" value="N" checked="checked"|cond="$module_info->use_title_color!='Y'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="use_title_color" value="Y" checked="checked"|cond="$module_info->use_title_color=='Y'" /> {$lang->use}</label>
+				<a href="#about_use_title_color" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_use_title_color" class="x_help-block" hidden>{$lang->about_use_title_color}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->category_trace}</label>
+			<div class="x_controls {$compulsory_options['category_trace']?'opt_cps':''} {$module_backup_options['category_trace']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="category_trace" value="N" checked="checked"|cond="$module_info->category_trace=='N'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="category_trace" value="Y" checked="checked"|cond="$module_info->category_trace!='N'" /> {$lang->use}</label>
+				<a href="#about_category_trace" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_category_trace" class="x_help-block" hidden>{$lang->about_category_trace}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->use_trash}</label>
+			<div class="x_controls {$compulsory_options['use_trash']?'opt_cps':''} {$module_backup_options['use_trash']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="use_trash" value="N" checked="checked"|cond="$module_info->use_trash!='Y'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="use_trash" value="Y" checked="checked"|cond="$module_info->use_trash=='Y'" /> {$lang->use}</label>
+				<a href="#about_use_trash" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_use_trash" class="x_help-block" hidden>{$lang->about_use_trash}</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section {$m_copy_target?'collapsed':''}">
+		<h1>{$lang->etc}</h1>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->header_text}</label>
+			<div class="x_controls {$compulsory_options['header_text']?'opt_cps':''} {$module_backup_options['header_text']?'opt_bks':''}">
+				<textarea class="lang_code" name="header_text" id="header_text">{htmlspecialchars($module_info->header_text)}</textarea>
+				<a href="#about_header_text" class="x_icon-question-sign" data-toggle style="vertical-align:top;margin-top:5px">{$lang->help}</a>
+				<p id="about_header_text" class="x_help-block" hidden>{$lang->about_header_text}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->footer_text}</label>
+			<div class="x_controls {$compulsory_options['footer_text']?'opt_cps':''} {$module_backup_options['footer_text']?'opt_bks':''}">
+				<textarea class="lang_code" name="footer_text" id="footer_text">{htmlspecialchars($module_info->footer_text)}</textarea>
+				<a href="#about_footer_text" class="x_icon-question-sign" data-toggle style="vertical-align:top;margin-top:5px">{$lang->help}</a>
+				<p id="about_footer_text" class="x_help-block" hidden>{$lang->about_footer_text}</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section {$m_copy_target?'collapsed':''}">
+		<h1>{$lang->cmd_management}</h1>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->use_robots_meta}</label>
+			<div class="x_controls {$compulsory_options['robots_meta_option']?'opt_cps':''} {$module_backup_options['robots_meta_option']?'opt_bks':''}">
+				<select name="robots_meta_option">
+					<option value="">{$lang->robots_meta_option['0']}</option>
+					<option value="index,follow" selected="selected"|cond="$module_info->robots_meta_option=='index,follow'">{$lang->robots_meta_option['1']}</option>
+					<option value="index,nofollow" selected="selected"|cond="$module_info->robots_meta_option=='index,nofollow'">{$lang->robots_meta_option['2']}</option>
+					<option value="noindex,follow" selected="selected"|cond="$module_info->robots_meta_option=='noindex,follow'">{$lang->robots_meta_option['3']}</option>
+					<option value="noindex,nofollow" selected="selected"|cond="$module_info->robots_meta_option=='noindex,nofollow'">{$lang->robots_meta_option['4']}</option>
+				</select>
+				<a href="#about_use_robots_meta" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_use_robots_meta" class="x_help-block" hidden>{$lang->about_use_robots_meta}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->admin_email_address}</label>
+			<div class="x_controls">
+				<input type="text" name="admin_mail" value="{htmlspecialchars($module_info->admin_mail)}"  />
+				<a href="#about_admin_mail" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_admin_mail" class="x_help-block" hidden>{$lang->about_admin_mail}</p>
+			</div>
+		</div>
+		<div cond="!$m_allset_targets" class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->description}</label>
+			<div class="x_controls">
+				<textarea name="description">{htmlspecialchars($module_info->description)}</textarea>
+				<a href="#about_description" class="x_icon-question-sign" data-toggle style="vertical-align:top;margin-top:5px">{$lang->help}</a>
+				<p id="about_description" class="x_help-block" hidden>{$lang->about_description}</p>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div class="{$is_poped?'x_modal-footer':'x_clearfix'} btnArea">
+	<span class="x_pull-right">
+		<input cond="$m_allset_targets" class="x_btn x_btn-primary" type="submit" value="All {$lang->cmd_update}" accesskey="s" />
+		<input cond="$m_copy_target" class="x_btn x_btn-primary" type="submit" value="{$lang->module} {$lang->cmd_copy}" accesskey="s" />
+		<input cond="!$m_allset_targets&&!$m_copy_target" class="x_btn x_btn-primary" type="submit" value="{$module_info->module_srl ? $lang->cmd_update : $lang->this_module.' '.$lang->cmd_registration}" accesskey="s" />
+	</span>
+</div>
+</form>
+
+<include target="footer.html" />

@@ -1,0 +1,29 @@
+<!--// 페이지 네비게이션 -->
+{@
+	$t_pagec = $is_doc?($npage?$npage:'1'):($page?$page:'1');
+	$t_pagep = $t_pagec - 1;
+	$t_pagen = $t_pagec + 1;
+	$t_pagei = $is_doc?'npage':'page';
+}
+
+<div class="scPageArea">
+	<div cond="$page_navigation&&$page_navigation->total_page" class="scPage">
+		<a href="{getUrl('comment_srl','',$t_pagei,'1','division',$division,'last_division',$last_division)}{$is_doc?'#navigation':''}" class="direction prev"><span></span><span></span> {$lang->first_page}</a>
+		<block loop="$page_no=$page_navigation->getNextPage()">
+			<strong cond="$t_pagec==$page_no">{$page_no}</strong>
+			<a cond="$t_pagec!=$page_no" href="{getUrl('comment_srl','',$t_pagei,$page_no,'division',$division,'last_division',$last_division)}{$is_doc?'#navigation':''}" accesskey="b"|cond="$t_pagep===$page_no" accesskey="n"|cond="$t_pagen===$page_no">{$page_no}</a>
+		</block>
+		<a href="{getUrl('comment_srl','',$t_pagei,$page_navigation->last_page,'division',$division,'last_division',$last_division)}{$is_doc?'#navigation':''}" class="direction next">{$lang->last_page} <span></span><span></span></a>
+	</div>
+
+	<div class="scAdmActs">
+		<a href="#beluxe">Board DX</a>
+		<block cond="!$is_poped && $grant->manager">
+			<a href="#siManageBtn">{$lang->cmd_management}</a>
+			<span style="display:none">
+				<a href="#" data-type="admin">[{$lang->cmd_setup}]</a> <a href="#" data-type="manage">[{$lang->cmd_manage_document}]</a>
+				<select cond="count($cstus)" style="border:0;padding:0;margin:0"><option value="">{$lang->status}</option><option loop="$cstus => $key,$value" value="{$key}">{$value}</option></select>
+			</span>
+		</block>
+	</div>
+</div>

@@ -1,0 +1,103 @@
+{@
+$ccDocument = &getController('document');
+$ccDocument->addXmlJsFilter($mi->module_srl);
+}
+<div id="siSimWrt" class="clearBar" style="margin:0;margin-top:20px"|cond="$mi->use_input_simple_editor == 'B'">
+	<form ruleset="insertDocument" action="./" method="post">
+		<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+		<input type="hidden" name="act" value="procBoardInsertDocument" />
+		<input type="hidden" name="text_editor" value="Y" />
+		<input type="hidden" name="success_return_url" value="{getUrl('act','','is_modal','','document_srl','','comment_srl','')}" />
+
+		<div id="siHrm" class="clearBar noheader">
+			<ul class="scFrm">
+			<li>
+				<block cond="$mi->use_input_simple_editor=='C'">
+					<span cond="$mi->consultation == 'Y'" class="scHaDCnts">
+						<em>Today</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd"))}</strong>,
+						<em>Yesterday</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd",strtotime("-1 day", time())))}</strong>,
+						<em>Total</em> <strong>{$total_count}</strong>
+					</span>
+				</block>
+				<block cond="$mi->use_input_simple_editor!='C'">
+					<strong class="t">{$lang->title}</strong>
+					<input type="text" name="title" value="{htmlspecialchars($mi->document_default_title)}" <!--@if(!$grant->write_document)-->class="scGotoLoginPage" readonly="readonly" placeholder="{$lang->msg_not_permitted}"<!--@endif--> />
+				</block>
+			</li>
+			</ul>
+		</div>
+
+		<ul class="scWul clearBar">
+			{@ $extra_keys = $grant->write_document?$oThis->getDocumentExtraVars(0):array()}
+			<block cond="count($extra_keys)">
+				<li loop="$extra_keys => $key,$val" class="scWli clearBar" style="display:none"|cond="$mi->use_auto_hide_extra_vars=='Y'&&$val->is_required!='Y'">
+					<label>{$val->name} <span cond="$val->is_required=='Y'" class="required">*</span></label>
+					{$val->getFormHTML()}
+				</li>
+			</block>
+			<li cond="$mi->use_input_simple_editor == 'C'" class="scWli">
+				<label>{$lang->title} <span class="required">*</span></label>
+				<input type="text" name="title" value="{htmlspecialchars($mi->document_default_title)}" <!--@if(!$grant->write_document)-->class="scGotoLoginPage" readonly="readonly" placeholder="{$lang->msg_not_permitted}"<!--@endif--> />
+			</li>
+			<li class="scWli">
+				<label>{$lang->content} <span class="required">*</span></label>
+				<textarea name="content" disabled="disabled"|cond="!$grant->write_document" style="height:{$mi->consultation=='Y'?'15':'30'}0px"|cond="$mi->use_input_simple_editor == 'C'">{htmlspecialchars($mi->document_default_content)}</textarea>
+			</li>
+		</ul>
+
+		<div class="scInfo clearBar">
+			<div cond="$grant->write_document" class="fl">
+				<block cond="!$is_logged">
+					<label class="scLaEt">
+						<span>Name</span>
+						<input type="text" name="nick_name" maxlength="80" />
+					</label>
+					<label class="scLaEt">
+						<span>Pass</span>
+						<input type="password" name="password" value="" />
+					</label>
+					<label class="scLaEt">
+						<span>Email</span>
+						<input type="text" name="email_address" maxlength="250" />
+					</label>
+					<label class="scLaEt">
+						<span>Home</span>
+						<input type="text" name="homepage" maxlength="250" />
+					</label>
+					<input type="hidden" name="allow_comment" value="Y" />
+					<input type="hidden" name="allow_trackback" value="Y" />
+				</block>
+				<block cond="$is_logged">
+					<input type="hidden" name="nick_name" value="1" />
+					<input type="hidden" name="password" value="1" />
+					<label>
+						<input type="checkbox" name="notify_message" value="Y" />
+						{$lang->notify}
+					</label>
+					<label cond="$grant->manager || ($mi->allow_comment!='N' && $mi->allow_comment!='Y')">
+						<input type="checkbox" name="allow_comment" value="Y" checked="checked"|cond="!$grant->manager||($grant->manager&&$mi->allow_comment!='N')" />
+						{$lang->allow_comment}
+					</label>
+					<label cond="$grant->manager || ($mi->allow_trackback!='N' && $mi->allow_trackback!='Y')">
+						<input type="checkbox" name="allow_trackback" value="Y" checked="checked"|cond="!$grant->manager||($grant->manager&&$mi->allow_trackback!='N')" />
+						{$lang->allow_trackback}
+					</label>
+					<label cond="$mi->use_anonymous=='S'">
+						<input type="checkbox" name="anonymous" value="Y" />
+						{$lang->anonymous}
+					</label>
+				</block>
+			</div>
+			<div class="fr">
+				{@ $t_ctsrl = $category_srl}
+				<block cond="!$t_ctsrl&&$is_cts" loop="$cts => $val" cond="$val->category_srl">
+					{@ $t_ctsrl = $val->category_srl}
+					<?php break; ?>
+				</block>
+				<input cond="$t_ctsrl" type="hidden" name="category_srl" value="{$t_ctsrl}" />
+				<span class="scBtn black" cond="!$grant->write_document"><a cond="!$is_logged" href="{getUrl('act','dispMemberLoginForm')}">{$lang->cmd_login}</a><a cond="$is_logged" href="#" onclick="location.reload();return false">{$lang->reload}</a></span>
+				<span class="scBtn black" cond="$grant->write_document"><button type="submit">{$lang->document_write}</button></span>
+			</div>
+		</div>
+	</form>
+</div>

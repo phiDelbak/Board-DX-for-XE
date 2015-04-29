@@ -1,0 +1,160 @@
+{@
+	$not_permitted = $XE_VALIDATOR_ERROR == '-1380';
+	$is_cmt = $oComment && $oComment->isExists();
+	$is_par = !$is_cmt && $oSourceComment && $oSourceComment->isExists();
+	$rulepath = $tpl_path.'../../ruleset/'.($not_permitted?'checkPassword':'insertComment').'.xml';
+	Context::addJsFile($rulepath, false, '', 0, 'head', true)
+}
+
+<form action="./" method="post" class="pid_ajax-form">
+<input cond="$is_modal" type="hidden" name="is_modal" value="1" />
+<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+<input type="hidden" name="document_srl" value="{$document_srl}" />
+<input type="hidden" name="comment_srl" value="{$comment_srl}" />
+<input type="hidden" name="ruleset" value="{$not_permitted?'checkPassword':'insertComment'}" />
+<input type="hidden" name="act" value="{$not_permitted?'procBoardVerificationPassword':'procBoardInsertComment'}" />
+<input type="hidden" name="cpage" value="{$cpage}" />
+
+<div cond="!$is_modal||$is_cmt||$is_par||$not_permitted||$mi->use_input_comment_writer=='N'" class="scLtitle">
+	<span cond="$is_cmt || $is_par">{$lang->comment.' '.$lang->no}: {$is_par?$oSourceComment->comment_srl.' - ':$comment_srl}</span>
+	<span cond="!$is_cmt">{$not_permitted?$lang->msg_input_password:$lang->new_comment}</span>
+	<span cond="$is_topic_vote" class="col{$is_topic_vote=='disagree'?'Red':'Blue'}"> - {$is_topic_vote=='agree'?$lang->cmd_agree:$lang->cmd_disagree}</span>
+</div>
+
+<!--@if($not_permitted)-->
+	<input cond="$is_modal" type="hidden" name="success_return_url" value="{getUrl('act','','is_modal','')}" />
+
+	<div>
+		<span class="scBtn black"><input type="password" name="password" /></span>
+		<span class="scBtn black"><input type="submit" value="{$lang->cmd_input}" onclick="setCookie('dx_write_mode','comment/update/{$comment_srl}',null,'/')" /></span>
+		<span class="scBtn">
+        	{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
+			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+		</span>
+	</div>
+<!--@else-->
+	{@
+		$ds_nick = $ci['nick_name']->display == 'Y';
+		$ds_user =	$ci['user_name']->display == 'Y';
+	}
+
+	<div id="siWrt">
+		<input type="hidden" name="parent_srl" value="{$oSourceComment->comment_srl}" />
+		<input type="hidden" name="content" value="{$oComment->getContentText()}" />
+
+		<block cond="!$is_modal&&!$is_cmt&&!$is_par&&$document_srl">
+		{@
+			$cmDoc = &getModel('document');
+			$oSourceComment = $cmDoc->getDocument($document_srl, FALSE, FALSE);
+			$is_par = $oSourceComment && $oSourceComment->isExists();
+		}
+		</block>
+
+		<div cond="$is_par" class="scCpar clearBar">
+			<h3 class="author">
+				{@
+					$mbsl = $oSourceComment->get('member_srl');
+					$home = $oSourceComment->get('homepage');
+					$nick = (!$mbsl||$ds_nick||!$ds_user)?$oSourceComment->getNickName():'';
+					$nick .= ($mbsl&&$ds_user)?($nick?' (':'').$oSourceComment->getUserName().($nick?')':''):'';
+				}
+				<i cond="!$mbsl && !$home">{$nick}</i>
+				<span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
+				<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
+			</h3>
+			<div class="clearBar">
+				{preg_replace(array('! name=(\"|\')?([^\"\']+)(\"|\')?!is','!<(iframe|embed|object)(.*?)>(.*?)<\/(iframe|embed|object)>!is'), array('','<div class="message"><p>$1 $2</p></div>'), $oSourceComment->getContent(false))}
+			</div>
+		</div>
+
+		{@
+			$t_dstus = explode(',', $mi->use_c_status);
+			$status = $oComment->get('is_secret') == 'Y'?'SECRET':'PUBLIC';
+		}
+		<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
+		<div cond="$is_topic_vote || $is_logged || count($t_dstus) > 1 || $mi->use_anonymous=='S'" class="scWul clearBar">
+			<div cond="$is_topic_vote" class="fl">
+				<label>
+					<input type="radio" name="vote_point" value="1" checked="checked"|cond="$is_topic_vote!='disagree'" />
+					<span class="colBlue">{$lang->cmd_agree}</span>
+				</label>
+				<label>
+					<input type="radio" name="vote_point" value="-1" checked="checked"|cond="$is_topic_vote=='disagree'" />
+					<span class="colRed">{$lang->cmd_disagree}</span>
+				</label>
+			</div>
+			<div cond="!$is_topic_vote" class="fl">
+				<label cond="$is_logged">
+					<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oComment->useNotify()" />
+					{$lang->notify}
+				</label>
+				<label cond="$mi->use_anonymous=='S'">
+					<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oComment->get('member_srl')<0)&&(($oComment->get('nick_name').$oComment->get('user_name')) == 'anonymousanonymous')" />
+					{$lang->anonymous}
+				</label>
+				<label cond="!$is_logged&&$mi->use_anonymous!='S'&&count($t_dstus) > 1" class="wrtTxt">
+					<em>WYSIWYG Editor</em>
+				</label>
+			</div>
+			<div class="fr">
+				<block cond="$is_topic_vote">
+					<label cond="$is_logged">
+						<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oComment->useNotify()" />
+						{$lang->notify}
+					</label>
+					<label cond="$mi->use_anonymous=='S'">
+						<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oComment->get('member_srl')<0)&&(($oComment->get('nick_name').$oComment->get('user_name')) == 'anonymousanonymous')" />
+						{$lang->anonymous}
+					</label>
+				</block>
+				<label cond="count($t_dstus) > 1">
+					<select name="status">
+						<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$status == $value">{Context::getLang(strtolower($value))}</option>
+					</select>
+				</label>
+			</div>
+		</div>
+
+		<div cond="!$is_logged" class="scWusr clearBar">
+			{@ $is_guestinfo = $mi->use_input_guest_info == 'N' ? $oThis->getIpaddress(1) : ''}
+			<label class="scLaEt">
+				<span>Name</span>
+				<input type="text" name="nick_name" maxlength="80" value="{$is_guestinfo?$is_guestinfo:htmlspecialchars($oComment->get('nick_name'))}" readonly="readonly"|cond="$is_guestinfo" />
+			</label>
+			<label class="scLaEt">
+				<span>Pass</span>
+				<input type="password" name="password" />
+			</label>
+			<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
+				<label class="scLaEt">
+					<span>Email</span>
+					<input type="text" name="email_address" maxlength="250" value="{htmlspecialchars($oComment->get('email_address'))}" />
+				</label>
+				<label class="scLaEt">
+					<span>Home</span>
+					<input type="text" name="homepage" maxlength="250" value="{htmlspecialchars($oComment->get('homepage'))}" />
+				</label>
+			</block>
+		</div>
+		<block cond="$is_logged">
+			<input type="hidden" name="nick_name" value="1" />
+			<input type="hidden" name="password" value="1" />
+		</block>
+
+		<div class="editor">{$oComment->getEditor()}</div>
+
+		<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
+			<div class="fl">
+				<span class="scBtn blue"><button type="button" onclick="doDocumentPreview(this); return false;">{$lang->cmd_preview}</button></span>
+			</div>
+			<div class="fr">
+				<span cond="!$is_modal||$is_cmt||$is_par" class="scBtn">
+	        		{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
+					<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+				</span>
+				<span class="scBtn black"><button type="submit" accesskey="s">{$lang->comment} {Context::getLang('cmd_'.($is_cmt?'update':'registration'))}</button></span>
+			</div>
+		</div>
+	</div>
+<!--@endif-->
+</form>

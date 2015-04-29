@@ -1,0 +1,44 @@
+{@
+	Context::addJsFile("./common/js/jquery.min.js", false, '', -100000);
+	Context::addJsFile("./common/js/xe.min.js", false, '', -100000);
+	$ci = &$column_info;
+	$mi = &$module_info;
+	$cts = &$category_list;
+}
+<load target="mboard.css" />
+
+<div class="bd">
+	<div class="hx h2">
+		<h2><a href="{$oEntry->getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> &rsaquo; {$lang->category}</h2>
+		<a cond="$grant->write_document" href="{$oEntry->getUrl('act','dispBoardWrite','document_srl','')}" class="write">{$lang->cmd_write}</a>
+	</div>
+	<ul class="gn">
+		{@ $start = true }
+		{@ $depth = 0 }
+		<!--@foreach($cts as $val)-->
+		<block cond="$val->category_srl">
+			<!--@if(!$start && $val->depth == $depth)-->
+			</li>
+			<!--@end-->
+			<!--@if($val->depth > $depth)--> <!--more depth-->
+			<ul>
+			<!--@else-->
+			<!--@while($val->depth < $depth)-->
+			</li>
+			</ul>
+			{@ $depth -= 1}
+			<!--@end-->
+			<!--@endif-->
+			<li><a href="{$oEntry->getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{$val->title} <em>[{$val->document_count}]</em></a>
+			{@ $start = false }
+			{@ $depth = $val->depth }
+		</block>
+		<!--@endforeach-->
+		<!--@while($depth > 0)-->
+		</li>
+		</ul>
+		{@ $depth -= 1}
+		<!--@end-->
+		</li>
+	</ul>
+</div>

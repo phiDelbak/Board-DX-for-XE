@@ -1,0 +1,5 @@
+<?php $u=$_GET['url'];$t='siModalWin';?><html><head><script type="text/javascript">
+//<![CDATA[
+function init(){var l=(("<?php echo $u;?>").split('#'))[0],p=parent.location,f=parent.document.getElementById("<?php echo $t;?>");if(f){f.style.overflow='hidden';f.style.height='1px';}if(l)p.replace(l);else p.reload();}
+//]]>
+</script></head><body style="background-color:transparent" onload="init()"></body></html>

@@ -1,0 +1,83 @@
+<include target="header.html" />
+
+<form id="colorFrame" class="x_form-horizontal" action="./" method="post" enctype="multipart/form-data">
+	<input cond="$module=='admin'" type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procBeluxeAdminUpdateSkinColor" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="skin" value="{$module_info->skin}" />
+
+	<section class="section collapsed">
+	<h1>
+		<div class="x_input-append">
+		<select class="changeColorsets" name="custom_colorset">
+			<option value="-2">{$lang->colorset} ({$lang->lock_options['lock']['N']})</option>
+			<option loop="$color_samples => $key,$val" value="{$key+1}" selected="selected"|cond="($key+1) == $custom_colorset">{$val->name}</option>
+			<option cond="file_exists(__XEFM_DXCFG__.sprintf('%s.scol.php', $module_info->module_srl))" value="-1" selected="selected"|cond="'-1' == $custom_colorset">{$lang->custom_colorset}</option>
+		</select>
+		<button class="x_btn" id="colorCodeView" type="button">CODE</button>
+		</div>
+	</h1>
+	<div style="display:none">
+		<input type="text" name="color_code" value="" style="width:100%" />
+		<div class="x_clearfix btnArea">
+			<span class="x_pull-right">
+			<button class="x_btn x_btn-primary" type="submit" name="send_color_code" value="Y">{$lang->cmd_apply}</button>
+			</span>
+		</div>
+	</div>
+	</section>
+
+	<dl id="color_list">
+		<block loop="$color_list => $key,$val">
+		<dt>
+			<strong>{$val->title}</strong>
+			<input type="hidden" name="color_key[]" value="{$key}" />
+		</dt>
+		<dd loop="$val->values => $idx,$col" cond="$col->select">
+			{@ $k=0}
+			<div cond="$col->name">
+				{@
+					$a_cols = explode(';',$col->color);
+					$t_name = str_replace('!important','',$col->name);
+				}
+				<label for="color_value_{$key}_{$idx}_0">
+					<a href="#"><strong>?</strong></a>
+					<span title="{htmlspecialchars($t_name)}">{cut_str(($col->desc ? $col->desc.'&gt;' : '').$t_name, 40)}</span>
+				</label>
+				<span loop="$a_cols => $k,$c">{$k?'&nbsp;':''}
+					<input type="text" name="color_value_{$key}[]" id="color_value_{$key}_{$idx}_{$k}" value="{htmlspecialchars($c)}" class="color-indicator" />
+				</span>
+			</div>
+			<block loop="$col->group => $grp">
+			<div loop="$grp->items => $g,$grp2">
+				{@
+					$g_cols = explode(';',$grp2->color);
+					$t_name = str_replace('!important','',$grp2->name);
+				}
+				<label for="color_value_{$key}_{$idx}_{$k}_0">
+					<a href="#"><strong>?</strong></a>
+					<span title="{htmlspecialchars($t_name)}">{cut_str(($col->desc ? $col->desc.'&gt;' : '').$grp->title, 40)}</span>
+				</label>
+				<span loop="$g_cols => $g2,$c2">{$g2?'&nbsp;':''}
+					<input type="text" name="color_value_{$key}[]" id="color_value_{$key}_{$idx}_{$k}_{$g2}" value="{htmlspecialchars($c2)}" class="color-indicator" />
+				</span>
+				<?php break; ?>
+			</div>
+			</block>
+		</dd>
+		</block>
+	</dl>
+
+	<div class="x_clearfix btnArea">
+		<a class="x_pull-left x_btn x_btn-warning" href="#remakeCache" data-type="Skincolor" data-option="{$module_info->skin}">{$lang->cmd_remake_cache}</a>
+		<span class="x_pull-right">
+			<input class="x_btn x_btn-primary" type="submit" value="{$lang->cmd_save}" />
+		</span>
+	</div>
+</form>
+
+<script type="text/javascript">
+	jQuery('#color_list label[for^=color_value_] a').click(function(){return alert((jQuery(this).next().attr('title')).replace(/\;/g,"<br />"))||false});
+</script>
+
+<include target="footer.html" />

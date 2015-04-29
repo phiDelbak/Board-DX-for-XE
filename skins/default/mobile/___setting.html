@@ -1,0 +1,49 @@
+{@
+	Context::addJsFile("./common/js/jquery.min.js", false, '', -100000);
+	Context::addJsFile("./common/js/xe.min.js", false, '', -100000);
+
+	$ci = &$column_info;
+	$mi = &$module_info;
+
+	$cts = ($ci['category_srl']&&$ci['category_srl']->display == 'Y')?$oThis->getCategoryList():array();
+	$cstus = $mi->custom_status?explode(',',$mi->custom_status):array();
+
+	$is_doc = $oDocument && $oDocument->isExists();
+	$is_cts = count($cts);
+
+	$ao_ppang = $mi->addon_pang_pang == 'Y';
+	$ds_mtlng = $mi->display_lang_code == 'Y';
+	$is_rtrpt = $mi->use_restrict_view == 'P'||$mi->use_restrict_down == 'P';
+	$is_cklok = !$grant->manager && $mi->use_lock_document && $mi->use_lock_document != 'N';
+	$cmt_lstcnt = $is_cts?$cts[(int)$category_srl]->navigation->clist_count:$navigation_info->clist_count;
+
+	$lsttp = $category_srl&&$cts[$category_srl]->type?$cts[$category_srl]->type:$mi->default_type;
+	$lsttp = in_array($lsttp, array('gallery','webzine'))?$lsttp:'list';
+
+	$mi->category_style?0:$mi->category_style = 'Y';
+	$mi->star_style?0:$mi->star_style = 'N';
+	$mi->duration_new?0:$mi->duration_new = '12';
+	$mi->thumbnail_type?0:$mi->thumbnail_type = 'crop';
+	$mi->thumbnail_width?0:$mi->thumbnail_width = '100';
+	$mi->thumbnail_height?0:$mi->thumbnail_height = '100';
+	$mi->display_attached_files?0:$mi->display_attached_files = 'Y';
+
+	$tmp1 = array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/');
+	$tmp2 = array($mid,($logged_info?$logged_info->nick_name:'Guest'),$is_doc?$oDocument->getPermanentUrl():'',$is_doc?$oDocument->getTitle():'',$is_doc?$oDocument->getNickName():'',$is_doc?$oDocument->document_srl:'');
+	$mi->sub_title = $mi->sub_title ? preg_replace($tmp1,$tmp2,$mi->sub_title) : '';
+	$mi->board_desc = $mi->board_desc ? preg_replace($tmp1,$tmp2,$mi->board_desc) : '';
+	$mi->document_default_title = $mi->document_default_title ? preg_replace($tmp1,$tmp2,$mi->document_default_title) : '';
+	$mi->document_default_content = $mi->document_default_content ? preg_replace($tmp1,$tmp2,$mi->document_default_content) : '';
+	$mi->document_bottom_text = $mi->document_bottom_text ? preg_replace($tmp1,$tmp2,$mi->document_bottom_text) : '';
+}
+
+<!--@if(__DEBUG__)-->
+	<load target="mboard.js" />
+<!--@else-->
+	<load target="mboard.min.js" />
+<!--@endif-->
+<load target="mboard.css" />
+
+<div cond="$XE_VALIDATOR_MESSAGE" id="xe_message" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>

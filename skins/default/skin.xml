@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+일본어 번역: 감로수
+영어 번역: 썬
+-->
+<skin version="0.2">
+	<title xml:lang="ko">기본 스킨</title>
+	<title xml:lang="jp">基本スキン</title>
+	<title xml:lang="en">Default Skin</title>
+	<description xml:lang="ko">
+		게시판 DX의 기본 스킨입니다.
+		목록, 웹진, 갤러리, 위젯형을 지원하며 "모듈 정보"에서 설정합니다.
+	</description>
+	<description xml:lang="jp">
+		掲示板 DXの基本スキンです.
+		リスト, ウェブジン, ギャラリー, ウィゼット型を支援"モジュール情報"から設定します.
+	</description>
+	<description xml:lang="en">
+		Is the Default skin of board DX.
+		목록, 웹진, 갤러리, 위젯형을 지원하며 "모듈 정보"에서 설정합니다.
+	</description>
+
+	<!-- make public 2011-10-01 -->
+	<version>1.8</version>
+	<date>2013-01-11</date>
+
+	<history version="0.1" date="2011-10-01">
+		<author email_address="admin@foxb.kr" link="http://foxb.kr/">
+			<name>phiDel</name>
+		</author>
+		<!--<description></description>-->
+		<!--<log link="">보러가기.↗</log>-->
+	</history>
+
+	<author email_address="admin@foxb.kr" link="http://foxb.kr/">
+		<name>phiDel</name>
+	</author>
+
+	<license xml:lang="ko">
+		게시판 DX는 개인,기업 누구나 사용가능합니다.
+	</license>
+	<license xml:lang="jp">
+		掲示板 DXは個人,企業誰も使用可能です.
+	</license>
+	<license xml:lang="en">
+		Board DX is an individual, business, everyone is available.
+	</license>
+
+	<extra_vars>
+		<group>
+			<title xml:lang="ko">모양</title>
+			<title xml:lang="jp">スタイル</title>
+			<title xml:lang="en">Style</title>
+			<var name="use_modal_window" type="radio" default="N">
+				<title xml:lang="ko">모달창</title>
+				<title xml:lang="jp">モダルウインドウ</title>
+				<title xml:lang="en">Modal window</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+				<description xml:lang="ko">글쓰기시 모달창을 사용할지 설정합니다.
+				사용에 문제가 있다면 도움말을 참고하시거나 사용 안함을 선택하시면 됩니다.</description>
+				<description xml:lang="jp">書き込みの時モダルウインドウを使うか設定します.
+				使用に問題があったらヘルプを参考するか使用しないことを選択すれば良いです.</description>
+				<description xml:lang="en">When writing, set use whether the modal window.
+				If you have any problems please use help or please disable that option.</description>
+			</var>
+			<var name="hot_track" type="radio" default="N">
+				<title xml:lang="ko">핫 트랙</title>
+				<title xml:lang="jp">ホットトラック</title>
+				<title xml:lang="en">Hot track</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+				<description xml:lang="ko">마우스를 가져가면 해당 항목을 자동으로 선택할 수 있습니다.</description>
+				<description xml:lang="jp">マウスを当てると該当の項目を自動で選択することができます.</description>
+				<description xml:lang="en">마우스를 가져가면 해당 항목을 자동으로 선택할 수 있습니다.</description>
+			</var>
+			<var name="category_style" type="radio" default="Y">
+				<title xml:lang="ko">분류 모양</title>
+				<title xml:lang="jp">分類スタイル</title>
+				<title xml:lang="en">Category style</title>
+				<options value="N">
+					<title xml:lang="ko">없음</title>
+					<title xml:lang="jp">なし</title>
+					<title xml:lang="en">none</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">혼합</title>
+					<title xml:lang="jp">混合</title>
+					<title xml:lang="en">mix</title>
+				</options>
+				<options value="T">
+					<title xml:lang="ko">탭</title>
+					<title xml:lang="jp">タップ</title>
+					<title xml:lang="en">tab</title>
+				</options>
+				<options value="H">
+					<title xml:lang="ko">컬럼</title>
+					<title xml:lang="jp">コラム</title>
+					<title xml:lang="en">column</title>
+				</options>
+				<options value="L">
+					<title xml:lang="ko">좌측</title>
+					<title xml:lang="jp">左側 </title>
+					<title xml:lang="en">left</title>
+				</options>
+				<options value="R">
+					<title xml:lang="ko">우측</title>
+					<title xml:lang="jp">右側</title>
+					<title xml:lang="en">right</title>
+				</options>
+				<options value="X">
+					<title xml:lang="ko">텍스트</title>
+					<title xml:lang="jp">テキスト</title>
+					<title xml:lang="en">text</title>
+				</options>
+				<description xml:lang="ko">분류의 모양을 설정합니다. (혼합: 탭+컬럼)</description>
+				<description xml:lang="jp">分類のスタイルを設定します. (混合: タップ+コラム)</description>
+				<description xml:lang="en">Set the appearance of the category. (mix: tab+column)</description>
+			</var>
+			<var name="use_notice_widget" type="radio" default="default">
+				<title xml:lang="ko">공지사항 모양</title>
+				<title xml:lang="jp">告知事項形態</title>
+				<title xml:lang="en">Notice style</title>
+				<options value="default">
+					<title xml:lang="ko">자동</title>
+					<title xml:lang="jp">自動</title>
+					<title xml:lang="en">auto</title>
+				</options>
+				<options value="list">
+					<title xml:lang="ko">일반</title>
+					<title xml:lang="jp">一般</title>
+					<title xml:lang="en">general</title>
+				</options>
+				<options value="widget">
+					<title xml:lang="ko">위젯</title>
+					<title xml:lang="jp">ウィジェット</title>
+					<title xml:lang="en">widget</title>
+				</options>
+				<description xml:lang="ko">공지사항 출력 모양을 설정할 수 있습니다. (자동일 경우 기본값)</description>
+				<description xml:lang="jp">告知事項出力形態を設定することができます. (自動の場合基本値)</description>
+				<description xml:lang="en">Set the appearance of the notice style. (auto: default)</description>
+			</var>
+			<var name="view_style" type="radio" default="default">
+				<title xml:lang="ko">문서 보기 모양</title>
+				<title xml:lang="jp">文書表示スタイル</title>
+				<title xml:lang="en">View style</title>
+				<options value="default">
+					<title xml:lang="ko">자동</title>
+					<title xml:lang="jp">自動</title>
+					<title xml:lang="en">auto</title>
+				</options>
+				<options value="list">
+					<title xml:lang="ko">일반</title>
+					<title xml:lang="jp">一般</title>
+					<title xml:lang="en">general</title>
+				</options>
+				<options value="webzine">
+					<title xml:lang="ko">웹진</title>
+					<title xml:lang="jp">ウェッブジン</title>
+					<title xml:lang="en">webzine</title>
+				</options>
+				<description xml:lang="ko">문서를 선택해 볼때 보기 모양을 설정할 수 있습니다. (자동일 경우 기본값)</description>
+				<description xml:lang="jp">文書を選択して見る形を設定することができます. (自動の場合基本値)</description>
+				<description xml:lang="en">Set the appearance of the view style. (auto: default)</description>
+			</var>
+			<var name="view_comment_style" type="radio" default="default">
+				<title xml:lang="ko">댓글 모양</title>
+				<title xml:lang="jp">コメントスタイル</title>
+				<title xml:lang="en">Comment style</title>
+				<options value="default">
+					<title xml:lang="ko">일반</title>
+					<title xml:lang="jp">一般</title>
+					<title xml:lang="en">general</title>
+				</options>
+				<options value="webzine">
+					<title xml:lang="ko">찬성/반대</title>
+					<title xml:lang="jp">賛成/反対</title>
+					<title xml:lang="en">agree/disagree</title>
+				</options>
+				<description xml:lang="ko">일반: 일반적인 댓글 모양입니다.
+				찬성/반대: 회원에 한해서 한번만 작성 가능합니다. (댓글에 대한 의견엔 제한 없음)</description>
+				<description xml:lang="jp">一般: 一般的なコメントスタイルです.
+				賛成/反対: 会員に限って一度のみ作成可能です. (コメントに対する意見には制限なし)</description>
+				<description xml:lang="en">general: 일반적인 댓글 모양입니다.
+				찬성/반대: 회원에 한해서 한번만 작성 가능합니다. (댓글에 대한 의견엔 제한 없음)</description>
+			</var>
+			<var name="star_style" type="radio" default="N">
+				<title xml:lang="ko">별점 모양</title>
+				<title xml:lang="jp">星色</title>
+				<title xml:lang="en">star style</title>
+				<options value="N">
+					<title xml:lang="ko">없음</title>
+					<title xml:lang="jp">なし</title>
+					<title xml:lang="en">none</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">노랑</title>
+					<title xml:lang="jp">黄色</title>
+					<title xml:lang="en">yellow</title>
+				</options>
+				<options value="R">
+					<title xml:lang="ko">빨강</title>
+					<title xml:lang="jp">赤</title>
+					<title xml:lang="en">red</title>
+				</options>
+				<options value="B">
+					<title xml:lang="ko">파랑</title>
+					<title xml:lang="jp">青</title>
+					<title xml:lang="en">blue</title>
+				</options>
+				<description xml:lang="ko">문서의 추천/비추천의 표시 모양을 별점 모양으로 설정합니다. (필요: 추천 수 표시)</description>
+				<description xml:lang="jp">文書の推薦/非推薦の表示スタイルを星の色で設定します. (推薦数表示必須)</description>
+				<description xml:lang="en">문서의 추천/비추천의 표시 모양을 별점 모양으로 설정합니다. (필요: 추천 수 표시)</description>
+			</var>
+			<var name="title_length" type="text" default="">
+				<title xml:lang="ko">제목 길이</title>
+				<title xml:lang="jp">タイトルの長さ</title>
+				<title xml:lang="en">Title length</title>
+				<description xml:lang="ko">문서 제목을 얼마나 보여줄지 그 길이를 설정합니다. (비워두면 자동 조절)</description>
+				<description xml:lang="jp">文書のタイトルの表示の長さを設定します.(空欄時自動調節)</description>
+				<description xml:lang="en">문서 제목을 얼마나 보여줄지 그 길이를 설정합니다. (비워두면 자동 조절)</description>
+			</var>
+			<var name="summary_length" type="text" default="300">
+				<title xml:lang="ko">요약 길이</title>
+				<title xml:lang="jp">要約長さ</title>
+				<title xml:lang="en">Summary length</title>
+				<description xml:lang="ko">문서 요약을 얼마나 보여줄지 그 길이를 설정합니다. (-1일경우 표시 안함)</description>
+				<description xml:lang="jp">文書要約の表示の長さを設定します. (-1の場合表示しない)</description>
+				<description xml:lang="en">문서 요약을 얼마나 보여줄지 그 길이를 설정합니다. (Does not display when the value is -1)</description>
+			</var>
+			<var name="nickname_length" type="text" default="">
+				<title xml:lang="ko">닉네임 길이</title>
+				<title xml:lang="jp">ニックネーム長さ</title>
+				<title xml:lang="en">Nickname length</title>
+				<description xml:lang="ko">닉네임 또는 이름을 얼마나 보여줄지 그 길이를 설정합니다. (비워두면 전부 출력)</description>
+				<description xml:lang="jp">ニックネームまたは名前の表示長さを設定します. (空欄時全部出力)</description>
+				<description xml:lang="en">닉네임 또는 이름을 얼마나 보여줄지 그 길이를 설정합니다. (비워두면 전부 출력)</description>
+			</var>
+			<var name="use_point_list" type="text" default="10,50,100,500,1000">
+				<title xml:lang="ko">포인트 사용</title>
+				<title xml:lang="jp">ポイント使用</title>
+				<title xml:lang="en">Use point</title>
+				<description xml:lang="ko">사용될 포인트 목록을 설정합니다. (기본: 10,50,100,500,1000)</description>
+				<description xml:lang="jp">使われるポイントリストを設定します. (基本: 10,50,100,500,1000)</description>
+				<description xml:lang="en">사용될 포인트 목록을 설정합니다. (기본: 10,50,100,500,1000)</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">표시</title>
+			<title xml:lang="jp">表示</title>
+			<title xml:lang="en">display</title>
+			<var name="display_list_header" type="radio" default="Y">
+				<title xml:lang="ko">목록 헤더</title>
+				<title xml:lang="jp">リストヘッダー</title>
+				<title xml:lang="en">목록 헤더</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">문서 목록 상단의 헤더를 표시할지 설정합니다.</description>
+				<description xml:lang="jp">文書リスト上端のヘッダーを表示するか設定します.</description>
+				<description xml:lang="en">Set whether to display the list header.</description>
+			</var>
+			<var name="display_document_count" type="radio" default="Y">
+				<title xml:lang="ko">총 문서 수</title>
+				<title xml:lang="jp">すべての文書数</title>
+				<title xml:lang="en">total count</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">목록 헤더에 총 문서 수를 표시할지 설정합니다. (빈 헤더일 경우에만 표시)</description>
+				<description xml:lang="jp">リストヘッダーにすべての文書数の表示、非表示を設定します. (空のヘッダーの場合のみ表示)</description>
+				<description xml:lang="en">Set whether to display the document count. (If the header is empty)</description>
+			</var>
+			<var name="display_button_sns" type="radio" default="Y">
+				<title xml:lang="ko">SNS 버튼</title>
+				<title xml:lang="jp">SNS ボタン</title>
+				<title xml:lang="en">SNS Button</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">該当の文書を SNSに送ることができるボタンを表示するか設定します.</description>
+				<description xml:lang="en">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
+			</var>
+			<var name="display_lang_code" type="radio" default="Y">
+				<title xml:lang="ko">다국어 표시</title>
+				<title xml:lang="jp">多国語表示</title>
+				<title xml:lang="en">다국어 표시</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">다국어로 작성된 문서일 경우 알기 쉽게 표시할지 설정합니다.</description>
+				<description xml:lang="jp">多国語に作成された文書の場合分かりやすく表示するように設定します.</description>
+				<description xml:lang="en">다국어로 작성된 문서일 경우 알기 쉽게 표시할지 설정합니다.</description>
+			</var>
+			<var name="display_document_do" type="radio" default="Y">
+				<title xml:lang="ko">이 게시물...</title>
+				<title xml:lang="jp">この掲示物...</title>
+				<title xml:lang="en">I want to...</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">문서 하단의 "이 게시물..."을  표시할지 설정합니다.</description>
+				<description xml:lang="jp">文書下端の "この掲示物 ... " の表示を設定します.</description>
+				<description xml:lang="en">Set whether to display the I want to...</description>
+			</var>
+			<var name="display_profile" type="radio" default="Y">
+				<title xml:lang="ko">프로필</title>
+				<title xml:lang="jp">プロフィール</title>
+				<title xml:lang="en">Profile</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<options value="D">
+					<title xml:lang="ko">문서</title>
+					<title xml:lang="jp">書き込み</title>
+					<title xml:lang="en">document</title>
+				</options>
+				<options value="C">
+					<title xml:lang="ko">댓글</title>
+					<title xml:lang="jp">返信</title>
+					<title xml:lang="en">comment</title>
+				</options>
+				<description xml:lang="ko">본문 하단에 프로필을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">本文下端にプロフィールの表示を設定します.</description>
+				<description xml:lang="en">Set whether to display the profile.</description>
+			</var>
+			<var name="display_ip_address" type="radio" default="N">
+				<title xml:lang="ko">아이피 주소 </title>
+				<title xml:lang="jp">ipアドレス</title>
+				<title xml:lang="en">ip address</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<options value="A">
+					<title xml:lang="ko">관리자</title>
+					<title xml:lang="jp">管理者</title>
+					<title xml:lang="en">admin</title>
+				</options>
+				<description xml:lang="ko">아이피 주소를 표시할지 설정합니다.</description>
+				<description xml:lang="jp">IPアドレスの表示、非表示を設定します.</description>
+				<description xml:lang="en">Set whether to display the ip address.</description>
+			</var>
+			<var name="display_attached_files" type="radio" default="Y">
+				<title xml:lang="ko">첨부 파일</title>
+				<title xml:lang="jp">添付ファイル</title>
+				<title xml:lang="en">Attached files</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">모든 파일</title>
+					<title xml:lang="jp">すべて表示</title>
+					<title xml:lang="en">all files</title>
+				</options>
+				<options value="G">
+					<title xml:lang="ko">일반 파일</title>
+					<title xml:lang="jp">一般ファイル</title>
+					<title xml:lang="en">general files</title>
+				</options>
+				<options value="M">
+					<title xml:lang="ko">미디어 파일</title>
+					<title xml:lang="jp">メディアファイル</title>
+					<title xml:lang="en">media files</title>
+				</options>
+				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
+				<description xml:lang="en">Set whether to display the attached files.</description>
+			</var>
+			<var name="navigation_bottom_list_count" type="text" default="">
+				<title xml:lang="ko">이전/다음 목록 수</title>
+				<title xml:lang="jp">이전/다음 목록 수</title>
+				<title xml:lang="en">이전/다음 목록 수</title>
+				<description xml:lang="ko">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
+				<description xml:lang="jp">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
+				<description xml:lang="en">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">입력기</title>
+			<title xml:lang="jp">入力機</title>
+			<title xml:lang="en">Input devices</title>
+			<var name="use_input_tag" type="radio" default="Y">
+				<title xml:lang="ko">태그</title>
+				<title xml:lang="jp">タッグ</title>
+				<title xml:lang="en">Tag</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+			</var>
+			<var name="use_input_link_file" type="radio" default="Y">
+				<title xml:lang="ko">링크 첨부</title>
+				<title xml:lang="jp">リンク添付</title>
+				<title xml:lang="en">Link file</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+				<description xml:lang="ko">글 작성시 하단에 태그, 링크 입력기를 표시할지 설정합니다.</description>
+				<description xml:lang="jp">文作成の時下端にタッグ, リンク入力機の表示を設定します.</description>
+				<description xml:lang="en">Set whether to display the tag and link input devices.</description>
+			</var>
+			<var name="use_input_comment_writer" type="radio" default="Y">
+				<title xml:lang="ko">댓글 입력기</title>
+				<title xml:lang="jp">コメント入力機</title>
+				<title xml:lang="en">댓글 입력기</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+				<options value="T">
+					<title xml:lang="ko">텍스트 전용</title>
+					<title xml:lang="jp">テキストのみ</title>
+					<title xml:lang="en">text only</title>
+				</options>
+				<description xml:lang="ko">댓글 입력기를 댓글 하단에 표시할지 설정합니다.</description>
+				<description xml:lang="jp">コメント入力機をコメントの下端に表示するか設定します.</description>
+				<description xml:lang="en">Set whether to display the comment editor.</description>
+			</var>
+			<var name="use_input_simple_editor" type="radio" default="N">
+				<title xml:lang="ko">간단 글쓰기</title>
+				<title xml:lang="jp">簡単書き込み</title>
+				<title xml:lang="en">Simple editor</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="T">
+					<title xml:lang="ko">상단 표시</title>
+					<title xml:lang="jp">上端に表示</title>
+					<title xml:lang="en">display top</title>
+				</options>
+				<options value="B">
+					<title xml:lang="ko">하단 표시</title>
+					<title xml:lang="jp">下端に表示</title>
+					<title xml:lang="en">display bottom</title>
+				</options>
+				<options value="C">
+					<title xml:lang="ko">중앙 표시</title>
+					<title xml:lang="jp">中央表示</title>
+					<title xml:lang="en">display center</title>
+				</options>
+				<description xml:lang="ko">간단 글 입력기를 목록에 표시할지 설정합니다. (중앙 표시시 관리자는 목록으로 표시)</description>
+				<description xml:lang="jp">簡単入力機をリストに表示するか設定します. (中央表示の時管理者はリストに表示)</description>
+				<description xml:lang="en">Set whether to display the simple editor. (중앙 표시시 관리자는 목록으로 표시)</description>
+			</var>
+			<var name="use_input_guest_info" type="radio" default="Y">
+				<title xml:lang="ko">비회원 정보</title>
+				<title xml:lang="jp">非会員情報</title>
+				<title xml:lang="en">Guest info</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">모두</title>
+					<title xml:lang="jp">すべて</title>
+					<title xml:lang="en">all</title>
+				</options>
+				<options value="S">
+					<title xml:lang="ko">닉네임</title>
+					<title xml:lang="jp">ニックネーム</title>
+					<title xml:lang="en">nickname</title>
+				</options>
+				<description xml:lang="ko">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
+				<description xml:lang="jp">非会員が文書作成の時入力情報を設定します.</description>
+				<description xml:lang="en">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
+			</var>
+			<var name="use_step_category" type="radio" default="Y">
+				<title xml:lang="ko">단계형 분류</title>
+				<title xml:lang="jp">段階型分類</title>
+				<title xml:lang="en">Step category</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+				<description xml:lang="ko">글쓰기시 하위 분류를 단계별로 선택할 수 있게 표시해줍니다.</description>
+				<description xml:lang="jp">書き込みの時サブ分類を段階的に選択できるように表示されます。</description>
+				<description xml:lang="en">When creating a document, it will allow selection of sub categories.</description>
+			</var>
+			<var name="use_auto_hide_extra_vars" type="radio" default="N">
+				<title xml:lang="ko">추가 입력 숨김</title>
+				<title xml:lang="jp">追加入力非表示</title>
+				<title xml:lang="en">추가 입력 숨김</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+				<description xml:lang="ko">추가 입력(확장변수) 항목이 필수가 아닐때 자동으로 숨겨줍니다.</description>
+				<description xml:lang="jp">追加入力(拡張変数) 項目が必須ではない時自動で非表示にします.</description>
+				<description xml:lang="en">추가 입력(확장변수) 항목이 필수가 아닐때 자동으로 숨겨줍니다.</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">썸네일</title>
+			<title xml:lang="jp">サムネール</title>
+			<title xml:lang="en">Thumbnail</title>
+			<var name="display_thumbnail_info" type="radio" default="N">
+				<title xml:lang="ko">썸네일 정보</title>
+				<title xml:lang="jp">サムネール情報</title>
+				<title xml:lang="en">Thumbnail info</title>
+				<options value="N">
+					<title xml:lang="ko">일반</title>
+					<title xml:lang="jp">一般</title>
+					<title xml:lang="en">general</title>
+				</options>
+				<options value="A">
+					<title xml:lang="ko">자동 숨김</title>
+					<title xml:lang="jp">自動隠し</title>
+					<title xml:lang="en">auto hide</title>
+				</options>
+				<options value="F">
+					<title xml:lang="ko">자동 숨김 (fade)</title>
+					<title xml:lang="jp">自動隠し (fade)</title>
+					<title xml:lang="en">auto hide (fade)</title>
+				</options>
+				<description xml:lang="ko">갤러리 스타일일때 정보를 어떻게 보여줄지 설정합니다.</description>
+				<description xml:lang="jp">ギャラリースタイル時情報の表示スタイルを設定します.</description>
+				<description xml:lang="en">How set whether to display the gallery Info.</description>
+			</var>
+			<var name="thumbnail_type" type="radio" default="crop">
+				<title xml:lang="ko">썸네일 생성 방법</title>
+				<title xml:lang="jp">サムネール生成方法</title>
+				<title xml:lang="zh-CN">缩略图生成方式</title>
+				<title xml:lang="en">Type of Thumbnail</title>
+				<title xml:lang="vi">Định dạng của hình nhỏ</title>
+				<title xml:lang="zh-TW">縮圖建立方式</title>
+				<title xml:lang="tr">Küçük Resim Türü</title>
+				<description xml:lang="ko">썸네일 생성 방법을 선택할 수 있습니다.</description>
+				<description xml:lang="jp">サムネールの生成方法を選択します。</description>
+				<description xml:lang="en">Choose the type to create the thumnail.</description>
+				<options value="crop">
+					<title xml:lang="ko">꽉 채우기</title>
+					<title xml:lang="jp">刈り込み</title>
+					<title xml:lang="en">crop</title>
+				</options>
+				<options value="ratio">
+					<title xml:lang="ko">비율 맞추기</title>
+					<title xml:lang="jp">比率</title>
+					<title xml:lang="en">ratio</title>
+				</options>
+			</var>
+			<var name="thumbnail_width" type="text" default="100">
+				<title xml:lang="ko">썸네일 가로크기</title>
+				<title xml:lang="jp">サムネール横長さ</title>
+				<title xml:lang="en">Width of Thumbnail</title>
+			</var>
+			<var name="thumbnail_height" type="text" default="100">
+				<title xml:lang="ko">썸네일 세로크기</title>
+				<title xml:lang="jp">サムネール縦長さ</title>
+				<title xml:lang="en">Height of Thumbnail</title>
+				<description xml:lang="ko">썸네일의 가로, 세로 크기를 지정할 수 있습니다. (기본: 100)</description>
+				<description xml:lang="jp">サムネールの横, 縦の大きさを指定することができます. (基本: 100)</description>
+				<description xml:lang="en">Sets the width,height of thumbnail. (Default is 100)</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">애드온</title>
+			<title xml:lang="jp">エドオン</title>
+			<title xml:lang="en">Addon</title>
+			<var name="addon_socialxe" type="radio" default="N">
+				<title xml:lang="ko">SocialXE 댓글</title>
+				<title xml:lang="jp">SocialXE コメント</title>
+				<title xml:lang="en">SocialXE comment</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+			</var>
+			<var name="addon_socialxe_option" type="text" default="">
+				<title xml:lang="ko">SocialXE 옵션</title>
+				<title xml:lang="jp">SocialXE オプション</title>
+				<title xml:lang="en">SocialXE options</title>
+				<description xml:lang="ko">SocialXE 댓글을 표시할지 설정합니다. (필요: SocialXE 모듈, 위젯)
+					SocialXE 옵션 : list_count="20" enter_send="Y" auto_view_sub="N"</description>
+				<description xml:lang="jp">SocialXE コメントを表示するか設定します. (必要: SocialXE モジュール, ウィゼット)
+					SocialXE 옵션 : list_count="20" enter_send="Y" auto_view_sub="N"</description>
+				<description xml:lang="en">Set whether to display the SocialXE comments. (Need: SocialXE module, widget)
+					SocialXE options : list_count="20" enter_send="Y" auto_view_sub="N"</description>
+			</var>
+			<var name="addon_pang_pang" type="radio" default="N">
+				<title xml:lang="ko">포인트 팡팡</title>
+				<title xml:lang="jp">ポイントパンパン</title>
+				<title xml:lang="en">Point pang</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+				<description xml:lang="ko">포인트 팡팡 아이콘을 표시할지 설정합니다. (필요: 포인트 팡팡!)</description>
+				<description xml:lang="jp">ポイントパンパンアイコンを表示するか設定します. (必要: ポイントパンパン!)</description>
+				<description xml:lang="en">Set whether to display the Point pang*2!. (Need: Point pang*2!)</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">내용</title>
+			<title xml:lang="jp">内容</title>
+			<title xml:lang="en">Content</title>
+			<var name="document_default_title" type="text">
+				<title xml:lang="ko">문서 기본 제목</title>
+				<title xml:lang="jp">文書の基本タイトル</title>
+				<title xml:lang="en">Default title</title>
+			</var>
+			<var name="document_default_content" type="textarea">
+				<title xml:lang="ko">문서 기본 내용</title>
+				<title xml:lang="jp">文書の基本内容</title>
+				<title xml:lang="en">Default content</title>
+				<description xml:lang="ko">문서 작성시 제목, 내용에 기본값을 입력할 수 있습니다. (HTML 가능, [help]치환자?||모듈 ID = %MID%\n회원 닉네임 = %LOGIN%[/help])</description>
+				<description xml:lang="jp">文書作成の時タイトル, 内容に基本値を入力することができます. (HTML 使用, [help]置き換え?||モジュール ID = %MID%\n会員ニックネーム = %LOGIN%[/help])</description>
+				<description xml:lang="en">Enter a default value for the title or content. (Available the HTML, [help]substitution?||Module ID = %MID%\nMember nick = %LOGIN%[/help])</description>
+			</var>
+			<var name="document_bottom_text" type="textarea">
+				<title xml:lang="ko">본문 하단 내용</title>
+				<title xml:lang="jp">本文下端内容</title>
+				<title xml:lang="en">Content of bottom</title>
+				<description xml:lang="ko">본문 하단에 표시되는 내용입니다. (HTML 가능, [help]치환자?||모듈 ID = %MID%\n회원 닉네임 = %LOGIN%\n문서 번호 = %SRL%\n문서 주소 = %URL%\n문서 작성자 = %NAME%\n문서 제목 = %TITLE%[/help])</description>
+				<description xml:lang="jp">本文下端に表示される内容です. (HTML 使用, [help]置き換え?||モジュール ID = %MID%\n会員ニックネーム = %LOGIN%\n文書番号 = %SRL%\n文書住所 = %URL%\n文書作成者 = %NAME%\n文書タイトル = %TITLE%[/help])</description>
+				<description xml:lang="en">This content is displayed of the document bottom. (Available the HTML, [help]substitution?||Module ID = %MID%\nMember nick = %LOGIN%\nDocument number = %SRL%\nDocument address = %URL%\nDocument writer = %NAME%\nDocument title = %TITLE%[/help])</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">설명</title>
+			<title xml:lang="jp">説明</title>
+			<title xml:lang="en">Description</title>
+			<var name="title" type="text">
+				<title xml:lang="ko">게시판 제목</title>
+				<title xml:lang="jp">掲示板タイトル</title>
+				<title xml:lang="en">Title of Board</title>
+			</var>
+			<var name="sub_title" type="text">
+				<title xml:lang="ko">게시판 부제목</title>
+				<title xml:lang="jp">掲示板副題目</title>
+				<title xml:lang="en">Subtitle of Board</title>
+				<description xml:lang="ko">게시판의 제목, 부제목을 적어 표시할 수 있습니다.</description>
+				<description xml:lang="jp">掲示板のタイトル, 副題目を表示することができます.</description>
+				<description xml:lang="en">Plase input the title, subtitle of board.</description>
+			</var>
+			<var name="board_desc" type="textarea">
+				<title xml:lang="ko">게시판 설명</title>
+				<title xml:lang="jp">掲示板説明</title>
+				<title xml:lang="en">Description</title>
+				<description xml:lang="ko">게시판 상단에 설명을 적어 표시할 수 있습니다. (HTML 가능, [help]치환자?||모듈 ID = %MID%\n회원 닉네임 = %LOGIN%[/help])</description>
+				<description xml:lang="jp">掲示板上端に説明を書いて表示することができます. (HTML 使用, [help]置き換え?||モジュール ID = %MID%\n会員ニックネーム = %LOGIN%[/help])</description>
+				<description xml:lang="en">This description is displayed of the board top. (Available the HTML, [help]substitution?||Module ID = %MID%\nMember nick = %LOGIN%[/help])</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">기타</title>
+			<title xml:lang="jp">その他</title>
+			<title xml:lang="en">Etc</title>
+			<var name="custom_css" type="textarea">
+				<title xml:lang="ko">사용자 CSS</title>
+				<title xml:lang="jp">使用者 CSS</title>
+				<title xml:lang="en">Custom CSS</title>
+				<description xml:lang="ko">게시판 스타일을 CSS 코드를 사용해서 직접 수정할 수 있습니다.</description>
+				<description xml:lang="jp">掲示板スタイルを CSS コードを使って直接修正することができます.</description>
+				<description xml:lang="en">You can specified a board style by custom CSS.</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">모바일</title>
+			<title xml:lang="jp">mobile</title>
+			<title xml:lang="en">mobile</title>
+			<var name="mobile_title_length" type="text" default="">
+				<title xml:lang="ko">제목 길이</title>
+				<title xml:lang="jp">タイトルの長さ</title>
+				<title xml:lang="en">Title length</title>
+				<description xml:lang="ko">문서 제목을 얼마나 보여줄지 그 길이를 설정합니다.)</description>
+				<description xml:lang="jp">文書のタイトルの表示の長さを設定します.</description>
+				<description xml:lang="en">문서 제목을 얼마나 보여줄지 그 길이를 설정합니다.</description>
+			</var>
+			<var name="mobile_summary_length" type="text" default="150">
+				<title xml:lang="ko">요약 길이</title>
+				<title xml:lang="jp">要約長さ</title>
+				<title xml:lang="en">Summary length</title>
+				<description xml:lang="ko">문서 요약을 얼마나 보여줄지 그 길이를 설정합니다. (-1일경우 표시 안함)</description>
+				<description xml:lang="jp">文書要約の表示の長さを設定します. (-1の場合表示しない)</description>
+				<description xml:lang="en">문서 요약을 얼마나 보여줄지 그 길이를 설정합니다. (Does not display when the value is -1)</description>
+			</var>
+			<var name="mobile_nickname_length" type="text" default="">
+				<title xml:lang="ko">닉네임 길이</title>
+				<title xml:lang="jp">ニックネーム長さ</title>
+				<title xml:lang="en">Nickname length</title>
+				<description xml:lang="ko">닉네임 또는 이름을 얼마나 보여줄지 그 길이를 설정합니다.</description>
+				<description xml:lang="jp">ニックネームまたは名前の表示長さを設定します. (空欄時全部出力)</description>
+				<description xml:lang="en">닉네임 또는 이름을 얼마나 보여줄지 그 길이를 설정합니다.</description>
+			</var>
+		</group>
+	</extra_vars>
+</skin>

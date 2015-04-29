@@ -1,0 +1,126 @@
+<include target="header.html" />
+
+<form action="./" method="post" enctype="multipart/form-data" class="x_form-horizontal">
+	<input cond="$module=='admin'" type="hidden" name="module" value="{$module}" />
+	<input type="hidden" name="act" value="procBeluxeAdminUpdateSkinInfo" />
+	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+	<input type="hidden" name="_mode" value="{$act == 'dispBeluxeAdminMobileSkinInfo' ? 'M' : 'P'}" />
+
+	<section class="section collapsed">
+	<h1>{$skin_info->title}</h1>
+		<div class="x_control-group">
+			<label class="x_control-label">Version</label>
+			<div class="x_controls">{$skin_info->version} ({zdate($skin_info->date, 'Y-m-d')})</div>
+		</div>
+		<div class="x_control-group">
+			<div class="x_controls">
+				<block loop="$skin_info->author=>$author">
+					{$author->name}
+					<block cond="$author->homepage || $author->email_address">
+						(<a href="{$author->homepage}" target="_blank" cond="$author->homepage">{$author->homepage}</a>
+						<block cond="$author->homepage && $author->email_address">, </block>
+						<a href="mailto:{$author->email_address}" cond="$author->email_address">{$author->email_address}</a>)
+					</block><br />
+				</block>
+			</div>
+		</div>
+		<div class="x_control-group" cond="$skin_info->license || $skin_info->license_link">
+			<label class="x_control-label">{$lang->skin_license}</label>
+			<div class="x_controls">{nl2br(trim($skin_info->license))}
+				<p cond="$skin_info->license_link"><a href="{$skin_info->license_link}" onclick="window.close(); return false;">{$skin_info->license_link}</a></p>
+			</div>
+		</div>
+		<div class="x_control-group" cond="$skin_info->description">
+			<label class="x_control-label">{$lang->description}</label>
+			<div class="x_controls">{nl2br(trim($skin_info->description))}</div>
+		</div>
+
+	<block cond="$skin_info->colorset">
+	</section>
+	<section class="section">
+		<h1>{$lang->colorset}</h1>
+			<div class="x_control-group">
+				{@ $skin_vars['colorset']->value ? 0 : $skin_vars['colorset']->value = $skin_info->colorset[0]->name}
+				<div class="x_controls">
+					<block loop="$skin_info->colorset => $key, $val">
+						<!--@if($val->screenshot)-->
+						{@ $_img_info = getImageSize($val->screenshot); $_height = $_img_info[1]+40; $_width = $_img_info[0]+20; $_talign = "center"; }
+						<!--@else-->
+						{@ $_width = 200; $_height = 20; $_talign = "left"; }
+						<!--@end-->
+						<div style="display:inline-block;text-align:{$_talign};margin-bottom:1em;width:{$_width}px;height:{$_height}px;margin-right:10px;">
+							<input type="radio" name="colorset" value="{$val->name}" id="colorset_{$key}" checked="checked"|cond="$skin_vars['colorset']->value==$val->name" />
+							<label for="colorset_{$key}">{$val->title}</label>
+							<block cond="$val->screenshot">
+								<br />
+								<img src="../../../{$val->screenshot}" alt="{$val->title}" style="border:1px solid #888888;padding:2px;margin:2px;"/>
+							</block>
+						</div>
+					</block>
+				</div>
+			</div>
+	</block>
+
+	<block loop="$skin_info->extra_vars => $key, $val">
+		<block cond="$val->group && ((!$group) || $group != $val->group)">
+			{@$group = $val->group}
+			</section>
+			<section class="section">
+			<h1>{$group}</h1>
+		</block>
+		{@
+			$value = $skin_vars[$val->name] ? $skin_vars[$val->name]->value : '';
+			$value = empty($value) ? $val->default : $value;
+		}
+		<div class="x_control-group">
+		<label class="x_control-label">{$val->title}</label>
+		<div class="x_controls">
+			<block cond="$val->type == 'text'">
+				{@$use_multilang = false}
+				<input type="text" name="{$val->name}" id="{$val->name}" class="lang_code" value="<!--@if(strpos($value, '$user_lang->') === false)-->{$value}<!--@else-->{htmlspecialchars($value)}<!--@end-->" />
+			</block>
+			<block cond="$val->type == 'textarea'">
+				{@$use_multilang_textarea = false}
+				<textarea name="{$val->name}" class="lang_code" id="{$val->name}" rows="8" cols="42">{htmlspecialchars($value)}</textarea>
+			</block>
+			<block cond="$val->type == 'select'">
+				<select name="{$val->name}">
+					<option loop="$val->options => $k, $v" value="{$v->value}" selected="selected"|cond="$v->value == $value">{$v->title}</option>
+				</select>
+			</block>
+			<block cond="$val->type == 'checkbox'">
+				<label loop="$val->options => $k, $v" class="x_inline">
+					<input type="checkbox" name="{$val->name}[]" value="{$v->value}" id="ch_{$key}_{$k}" checked="checked"|cond="@in_array($v->value, $val->value)" class="checkbox" />
+					{$v->title}
+				</label>
+			</block>
+			<block cond="$val->type == 'radio'">
+				<label loop="$val->options => $k, $v" class="x_inline">
+					<input type="radio" name="{$val->name}" value="{$v->value}" checked="checked"|cond="$v->value==$value" />
+					{$v->title}
+				</label>
+			</block>
+			<block cond="$val->type == 'image'">
+				<div cond="$value">
+					<img src="{$value}" /><br />
+					<input type="checkbox" name="del_{$val->name}" value="Y" id="del_{$val->name}" class="checkbox" />
+					<label for="del_{$val->name}">{$lang->cmd_delete}</label>
+				</div>
+				<input type="file" name="{$val->name}" value="" />
+			</block>
+			{@ $val->description = preg_replace('/\[help\](.*)\|\|(.*)\[\/help\]/i', '<a href="#popup_help" data-text="$2">$1</a>', $val->description)}
+			<a href="#about_{$val->name}" data-toggle class="x_icon-question-sign" cond="$val->description" style="vertical-align:top;margin-top:5px"|cond="$val->type == 'textarea'">{$lang->help}</a>
+			<p class="x_help-block" id="about_{$val->name}" hidden cond="$val->description">{nl2br(trim($val->description))}</p>
+		</div>
+		</div>
+	</block>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<span class="x_pull-right">
+			<input class="x_btn x_btn-primary" type="submit" value="{$lang->cmd_update}" />
+		</span>
+	</div>
+</form>
+
+<include target="footer.html" />
