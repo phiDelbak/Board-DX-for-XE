@@ -213,7 +213,7 @@ jQuery(function($){
 	}).bind('before-close.mw', function(e) {
 		var $modal = $($(this).attr('href'));
 		// 로딩중 안보이게 처리및 자원 제거
-		$('[data-modal-child]', $modal).remove();
+		//$('[data-modal-child]', $modal).remove();
         //$('.pid_modal-body', $modal).children().remove();
 	}).pidModalWindow();
 });

@@ -11,10 +11,6 @@ String.prototype.ucfirst = function()
 	var s=this;return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
-String.prototype.trim = function(){
-	return this.replace(/^\s+|\s+$/g,"");
-};
-
 String.prototype.urlDecode = function(){
 	var o = this, t, r = /(%[^%]{2})/, v;
 	while((v = r.exec(o)) != null && v.length > 1 && v[1] != '')
@@ -26,54 +22,58 @@ String.prototype.urlDecode = function(){
 	return o || '';
 };
 
-String.prototype.getEntryQuerys = function() {
-	var o = this, t = /([^=]+)=([^&]*)(&|$)/g, n = o.indexOf('?'),
-		a = arguments, q, v, x = new Array(), s = x;
-	if(n == -1) return x;
+// String.prototype.trim = function(){
+// 	return this.replace(/^\s+|\s+$/g,"");
+// };
 
-	q = o.substr(n + 1, o.length);
-	q.replace(t, function(){ var z = arguments; x[z[1]] = z[2]; });
-	if(typeof x['entry'] == 'string' && x['entry'])
-	{
-		v = (x['entry'].urlDecode()).split('/');
-		for(var i=0,c=v.length; i<c; i+=2) x[v[i]] = v[i + 1];
-		x['entry'] = '';
-	}
+// String.prototype.getEntryQuerys = function() {
+// 	var o = this, t = /([^=]+)=([^&]*)(&|$)/g, n = o.indexOf('?'),
+// 		a = arguments, q, v, x = new Array(), s = x;
+// 	if(n == -1) return x;
 
-	if(a.length)
-	{
-		for(var i in a) s[a[i]] = x[a[i]];
-		return s;
-	}
-	else return x;
-};
+// 	q = o.substr(n + 1, o.length);
+// 	q.replace(t, function(){ var z = arguments; x[z[1]] = z[2]; });
+// 	if(typeof x['entry'] == 'string' && x['entry'])
+// 	{
+// 		v = (x['entry'].urlDecode()).split('/');
+// 		for(var i=0,c=v.length; i<c; i+=2) x[v[i]] = v[i + 1];
+// 		x['entry'] = '';
+// 	}
 
-String.prototype.setEntryQuerys = function(a) {
-	var o = this, t = /entry=([^&]*)(&|$)/g, v;
-	if(typeof a != 'object') a = new Array();
+// 	if(a.length)
+// 	{
+// 		for(var i in a) s[a[i]] = x[a[i]];
+// 		return s;
+// 	}
+// 	else return x;
+// };
 
-	if(t.test(o))
-	{
-		if(v = o.match(t))
-		{
-			v = v[0].urlDecode();
-			v = v.substr((v.indexOf('=') + 1), v.length).split('/');
-			for(var i=0,c=v.length; i<c; i+=2)
-			{
-				if(typeof a[v[i]] != 'undefined') continue;
-				a[v[i]] = v[i + 1];
-			}
-		}
-	}
+// String.prototype.setEntryQuerys = function(a) {
+// 	var o = this, t = /entry=([^&]*)(&|$)/g, v;
+// 	if(typeof a != 'object') a = new Array();
 
-	o = o.setQuery('entry','');
-	if(typeof a == 'object')
-	{
-		for(var i in a) o = o.setQuery(i, a[i]);
-	}
+// 	if(t.test(o))
+// 	{
+// 		if(v = o.match(t))
+// 		{
+// 			v = v[0].urlDecode();
+// 			v = v.substr((v.indexOf('=') + 1), v.length).split('/');
+// 			for(var i=0,c=v.length; i<c; i+=2)
+// 			{
+// 				if(typeof a[v[i]] != 'undefined') continue;
+// 				a[v[i]] = v[i + 1];
+// 			}
+// 		}
+// 	}
 
-	return o;
-};
+// 	o = o.setQuery('entry','');
+// 	if(typeof a == 'object')
+// 	{
+// 		for(var i in a) o = o.setQuery(i, a[i]);
+// 	}
+
+// 	return o;
+// };
 
 jQuery(function($)
 {
@@ -104,14 +104,10 @@ jQuery(function($)
 
 		// TODO 중복 호출 막기, xe 1.5.3.4 부터 지원, 하위 호환용...
 		// xe issue 1253 , nagoon
-		$('button[type=submit],input[type=submit]', $f).click(function(e){
-			var $o = $(e.currentTarget);
-			setTimeout(function(){return function(){$o.attr('disabled', 'disabled');};}(), 0);
-			setTimeout(function(){return function(){$o.removeAttr('disabled');};}(), 3000);
-		});
+		// $('button[type=submit],input[type=submit]', $f).click(function(e){
+		// 	var $o = $(e.currentTarget);
+		// 	setTimeout(function(){return function(){$o.attr('disabled', 'disabled');};}(), 0);
+		// 	setTimeout(function(){return function(){$o.removeAttr('disabled');};}(), 3000);
+		// });
 	});
-
-	// * 주의 * 아래 코드는 라이센스 관련 코드이므로 절대 변경하시면 안됩니다.
-	// Only authorized users can delete the license.
-	$('a[href=#beluxe]:eq(0)').text('Board DX').attr('href','http://www.foxb.kr/').attr('target','_blank').show();
 });
