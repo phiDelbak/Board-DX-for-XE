@@ -18,7 +18,7 @@
         <span class="scBtn" cond="!$category_srl&&$document_srl"><a href="{getUrl('act', '','document_srl','','npage','','cpage','')}">{$lang->cmd_list}</a></span>
         <span class="scBtn black" cond="$is_sedt||!$grant->write_document"><a cond="!$is_logged" href="{getUrl('act','dispMemberLoginForm')}">{$lang->cmd_login}</a><a cond="$is_logged" href="#" onclick="location.reload();return false">{$lang->reload}</a></span>
         <span class="scBtn black" cond="!$is_sedt&&$grant->write_document">
-        {@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWrite" data-modal-param=""':''}
+        {@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWrite" data-modal-param="document_srl,"':''}
         <a href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardWrite','document_srl','')}" accesskey="w" {$s}>{$lang->document_write}</a>
         </span>
     </div>

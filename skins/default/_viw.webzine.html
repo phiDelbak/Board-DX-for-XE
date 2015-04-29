@@ -198,6 +198,10 @@
 <include cond="$is_doc&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
 
 <div class="btnArea">
+    <span class="scBtn black fl" cond="!$is_sedt&&$is_btlst!='N'&&$grant->write_document">
+        {@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWrite" data-modal-param="document_srl,"':''}
+        <a href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardWrite','document_srl','')}" accesskey="w" {$s}>{$lang->document_write}</a>
+    </span>
 	<span class="scBtn fl" cond="$category_srl"><a href="{getUrl('','mid',$mid)}">{$lang->cmd_all_list}</a></span>
 	<span class="scBtn"><a href="{getUrl('act', '','document_srl','','npage','','cpage','')}" accesskey="l">{$lang->cmd_list}</a></span>
 	<span cond="!$is_locked && $oDocument->isEditable()" class="scBtn black">
