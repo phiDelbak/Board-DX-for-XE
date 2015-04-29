@@ -73,11 +73,9 @@
 		<action name="dispBeluxeAdminAdditionSetting" type="view" />
 		<action name="dispBeluxeAdminSkinInfo" type="view" setup_index="true" />
 		<action name="dispBeluxeAdminMobileSkinInfo" type="view" />
-		<action name="dispBeluxeAdminSkinColor" type="view" />
 
 		<action name="procBeluxeAdminColumnSetting" type="controller" />
 		<action name="procBeluxeAdminUpdateSkinInfo" type="controller" />
-		<action name="procBeluxeAdminUpdateSkinColor" type="controller" />
 
 		<action name="procBeluxeAdminInsertExtraKey" type="controller" />
 		<action name="procBeluxeAdminDeleteExtraKey" type="controller" />
@@ -86,7 +84,6 @@
 
 		<action name="procBeluxeAdminMakeCategoryCache" type="controller" />
 		<action name="procBeluxeAdminMakeColumnCache" type="controller" />
-		<action name="procBeluxeAdminMakeSkincolorCache" type="controller" />
 
 		<action name="procBeluxeInsertFileLink" type="controller" />
 		<action name="procBeluxeDeleteHistory" type="controller" />

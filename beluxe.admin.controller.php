@@ -18,6 +18,49 @@ class beluxeAdminController extends beluxe
 	/**************************************************************/
 	/*********** @private function					***********/
 
+	function _setLocation($a_modsrl, $act)
+	{
+		$is_poped = Context::get('is_poped');
+		$retUrl = Context::get('success_return_url');
+
+		if(!$retUrl)
+		{
+			$module = Context::get('module');
+			if($module!='admin') $module = '';
+
+			$retUrl = getNotEncodedUrl(
+				'',
+				$module?'module':'mid', $module?$module:Context::get('mid'),
+				'module_srl', $a_modsrl ? $a_modsrl : '',
+				'act', $act
+			);
+		}
+
+		if(!$retUrl) $retUrl = Context::get('error_return_url');
+
+		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
+		{
+			$this->add('is_modal', $is_modal ? '1' : '');
+			$this->add('url', $retUrl);
+		}
+		else
+		{
+			$this->setRedirectUrl($retUrl);
+
+			if($is_poped)
+			{
+				$msg_code = $this->getMessage();
+				htmlHeader();
+				if($msg_code) alertScript(Context::getLang($msg_code));
+				reload(true);
+				closePopupScript();
+				htmlFooter();
+				Context::close();
+				exit;
+			}
+		}
+	}
+
 	function _setModuleInfo($a_modsrl)
 	{
 		$arglst = func_get_args();
@@ -407,12 +450,14 @@ class beluxeAdminController extends beluxe
 		{
 			$this->add('page', Context::get('page'));
 			$this->setMessage($msg_code);
+			$this->_setLocation(0, 'dispBeluxeAdminList');
 		}
 		else
 		{
 			$this->add('page', Context::get('page'));
 			$this->add('module_srl', $mod_srl);
 			$this->setMessage($msg_code);
+			$this->_setLocation($mod_srl, 'dispBeluxeAdminModuleInfo');
 		}
 	}
 
@@ -480,6 +525,7 @@ class beluxeAdminController extends beluxe
 
 		$this->add('page',Context::get('page'));
 		$this->setMessage('success_deleted');
+		$this->_setLocation('', 'dispBeluxeAdminList');
 	}
 
 	/* @brief Add a category */
@@ -592,6 +638,7 @@ class beluxeAdminController extends beluxe
 		$this->add('category_srl', $args->category_srl);
 		$this->add('parent_srl', $args->parent_srl);
 		$this->setMessage('success_updated');
+		$this->_setLocation($args->module_srl, 'dispBeluxeAdminCategoryInfo');
 	}
 
 	/* @brief Delete a category */
@@ -676,6 +723,7 @@ class beluxeAdminController extends beluxe
 		}
 
 		$this->setMessage('success_updated');
+		$this->_setLocation($mod_srl, 'dispBeluxeAdminColumnInfo');
 	}
 
 	/* @brief Create a cache of column config */
@@ -811,6 +859,7 @@ class beluxeAdminController extends beluxe
 		}
 
 		$this->setMessage('success_updated');
+		$this->_setLocation($mod_srl, 'dispBeluxeAdminExtraKeys');
 	}
 
 	function procBeluxeAdminDeleteExtraKey()
@@ -846,67 +895,7 @@ class beluxeAdminController extends beluxe
 		if($out && !$out->toBool()) return $out;
 
 		$this->setMessage('success_updated');
-	}
-
-	function procBeluxeAdminUpdateSkinColor()
-	{
-		$mod_srl = Context::get('module_srl');
-		$skin = Context::get('skin');
-		$custom_colorset = Context::get('custom_colorset');
-		if(!$mod_srl || !$skin) return new Object(-1, 'msg_invalid_request');
-
-		$color_key = Context::get('color_key');
-		$col_arr = array();
-		$is_set = false;
-
-		if(Context::get('send_color_code')=='Y')
-		{
-			$color_val = explode(';', Context::get('color_code'));
-			foreach($color_val as $v)
-			{
-				$v = trim($v);
-				$col_arr[] = $trm= ($v == 'NONE' ? '' : strtolower($v));
-				$is_set = $is_set || $trm;
-			}
-		}
-		else
-		{
-			foreach($color_key as $val)
-			{
-				$color_val = Context::get('color_value_' . $val);
-				$color_val = is_array($color_val) ? $color_val : array($color_val);
-				foreach($color_val as $v)
-				{
-					$col_arr[] = $trm = strtolower(trim($v));
-					$is_set = $is_set || $trm;
-				}
-			}
-		}
-
-		if(!is_dir(__XEFM_DXCFG__)) FileHandler::makeDir(__XEFM_DXCFG__);
-		$php_file = __XEFM_DXCFG__.sprintf('%s.scol.php', $mod_srl);
-
-		if($is_set) {
-			$php_buff = sprintf('$skin_color=array("%s");',implode('","', $col_arr));
-			FileHandler::writeFile($php_file, sprintf('<?php if(!defined("__XE__"))exit; %s ?>', $php_buff));
-			$this->procBeluxeAdminMakeSkincolorCache($skin);
-		} else {
-			FileHandler::removeFile($php_file);
-			FileHandler::removeFile(__XEFM_DXCFG__.sprintf('%s.scol.css', $mod_srl));
-		}
-
-		$this->setMessage('success_updated');
-	}
-
-	/* @brief Create a cache of skin color */
-	function procBeluxeAdminMakeSkincolorCache($a_skin = '')
-	{
-		$mod_srl = Context::get('module_srl');
-		$skin = $a_skin ? $a_skin : Context::get('option');
-		if(!$mod_srl || !$skin) return new Object(-1,'msg_invalid_request');
-
-		require_once(__XEFM_PATH__ . 'classes.cache.php');
-		BeluxeCache::skinColorCSS($mod_srl, $skin);
+		$this->_setLocation($mod_srl, 'dispBeluxeAdminSkinInfo');
 	}
 
 	/**************************************************************/

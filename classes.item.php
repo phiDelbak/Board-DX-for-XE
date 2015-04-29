@@ -42,19 +42,6 @@ class BeluxeItem extends Object
 		return $GLOBALS['BELUXE_ADMIN_ID'][$modsrl];
 	}
 
-	function getSkinColorFile()
-	{
-		$css_file = __XEFM_DXCFG__.sprintf('%s.scol.css', $this->module_srl);
-		if(!file_exists($css_file))
-		{
-			$oModIfo = Context::get('module_info');
-			require_once(__XEFM_PATH__ . 'classes.cache.php');
-			BeluxeCache::skinColorCSS($this->module_srl, $oModIfo->skin);
-		}
-
-		return file_exists($css_file) ? $css_file : '';
-	}
-
 	function getBrowserInfo($agent='')
 	{
 		// http://php.net/manual/en/function.get-browser.php

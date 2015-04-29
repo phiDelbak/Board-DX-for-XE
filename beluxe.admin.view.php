@@ -228,21 +228,6 @@ class beluxeAdminView extends beluxe
         $this->setTemplateFile('skin');
     }
     
-    /* @brief Display a skin color */
-    function dispBeluxeAdminSkinColor() {
-        $a_set = Context::get('custom_colorset');
-        if (!$a_set) $a_set = file_exists(__XEFM_DXCFG__ . sprintf('%s.scol.php', $this->module_srl)) ? -1 : 0;
-        Context::set('custom_colorset', $a_set);
-        
-        $cmAdmThis = & getAdminModel(__XEFM_NAME__);
-        $colors = $cmAdmThis->getSkinColorList($this->module_srl, $a_set, true);
-        Context::set('color_list', $colors->colors);
-        Context::set('color_samples', $colors->samples);
-        
-        Context::loadJavascriptPlugin('ui.colorpicker');
-        $this->setTemplateFile('color');
-    }
-    
     /* @brief Display a grant info */
     function dispBeluxeAdminGrantInfo() {
         $cmAdmModule = & getAdminModel('module');

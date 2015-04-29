@@ -62,11 +62,6 @@
 			<value xml:lang="jp"><![CDATA[権限管理]]></value>
 			<value xml:lang="en"><![CDATA[Permission]]></value>
 		</item>
-		<item name="dispBeluxeAdminSkinColor">
-			<value xml:lang="ko"><![CDATA[색상 설정]]></value>
-			<value xml:lang="jp"><![CDATA[色設定]]></value>
-			<value xml:lang="en"><![CDATA[Skin color]]></value>
-		</item>
 	</item>
 	<item name="desc_module_menus" type="array">
 		<item name="dispBeluxeAdminContent">
@@ -93,11 +88,6 @@
 			<value xml:lang="ko"><![CDATA[확장변수 ID는 "영문, 숫자, _" 조합에 첫 글자는 영문이어야 합니다. (기본값은 콤마(,)를 사용해 복수 등록이 가능합니다)]]></value>
 			<value xml:lang="jp"><![CDATA[拡張変数 IDは "英文, 数字, _" 組合に初字は英文でなければなりません. (基本値はコンマ(,)を使って復数登録が可能です)]]></value>
 			<value xml:lang="en"><![CDATA[expansion variable ID must be "English letter, number, _" sequence with 1st character must be an english letter.<br />(use default value comma(,) for multiple submit)]]></value>
-		</item>
-		<item name="dispBeluxeAdminSkinColor">
-			<value xml:lang="ko"><![CDATA[값이 없으면 기본 값을 사용합니다. (주의: transparent 값은 투명 값입니다)]]></value>
-			<value xml:lang="jp"><![CDATA[値が存在しない場合、デフォルト値を使用します. (注意：transparentの値は、透明値です)]]></value>
-			<value xml:lang="en"><![CDATA[If there is no value, default will be used (Note: transparent and empty are different)]]></value>
 		</item>
 	</item>
 	<item name="display">
