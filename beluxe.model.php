@@ -158,6 +158,55 @@ class beluxeModel extends beluxe
         return $is_obj ? $oCmtIfo : $re;
     }
     
+    /**
+     * fruleset 사용시 클라이언트는 지원 안해주니 어쩔수없다. 이렇게 해야지
+     * modules/document/document.controller.php
+     * Add javascript codes into the header by checking values of document_extra_keys type, required and others
+     * @param int $module_srl
+     * @return void
+     */
+    function _addDocumentJsFilter($module_srl) {
+        global $lang;
+        
+        $oDocumentModel = getModel('document');
+        $extra_keys = $oDocumentModel->getExtraKeys($module_srl);
+        if (!count($extra_keys)) return;
+        
+        $js_code = array();
+        $js_code[] = '<script>//<![CDATA[';
+        $js_code[] = '(function($){';
+        $js_code[] = 'var validator = xe.getApp("validator")[0];';
+        $js_code[] = 'if(!validator) return false;';
+        
+        // writes error messages
+        foreach ($lang->filter as $key => $val) {
+            if (!$val) $val = $key;
+            $val = preg_replace('@\r?\n@', '\\n', addslashes($val));
+            $js_code[] = sprintf("validator.cast('ADD_MESSAGE',['%s','%s']);", $key, $val);
+        }
+        
+        $logged_info = Context::get('logged_info');
+        
+        foreach ($extra_keys as $idx => $val) {
+            $idx = $val->idx;
+            if ($val->type == 'kr_zip') {
+                $idx.= '[]';
+            }
+            $name = str_ireplace(array('<script', '</script'), array('<scr" + "ipt', '</scr" + "ipt'), $val->name);
+            $js_code[] = sprintf('validator.cast("ADD_MESSAGE", ["extra_vars%s","%s"]);', $idx, $name);
+            if ($val->is_required == 'Y') $js_code[] = sprintf('validator.cast("ADD_EXTRA_FIELD", ["extra_vars%s", { required:true }]);', $idx);
+        }
+        
+        $js_code[] = '})(jQuery);';
+        $js_code[] = '//]]></script>';
+        $js_code = implode("\n", $js_code);
+        
+        Context::addHtmlHeader($js_code);
+    }
+    
+    /**
+     * modules/document/document.model.php
+     */
     function _arrangeCategory(&$p_lst, $list, $depth) {
         if (!count($list)) return;
         
