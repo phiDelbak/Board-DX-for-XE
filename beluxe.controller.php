@@ -52,20 +52,24 @@ class beluxeController extends beluxe
 
 		if(!$retUrl) $retUrl = Context::get('error_return_url');
 
-		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON'))) 
-		{	//filte 사용시
-			//$this->add('is_modal',  Context::get('is_modal')? '1' : '');
+		// addons 나 기타 다른 모듈에 보낼 정보
+		if($args) {
 			if($args) {
 				// arrange args_list
 				for($i = (int)!$list[0], $c = count($list); $i < $c; $i += 2){
 					// set new variables
 					$this->add($list[$i], trim($list[$i + 1]));
 				}
-			}
-			
+			}			
+		}
+
+		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON'))) 
+		{	//filte 사용시
+			//$this->add('is_modal',  Context::get('is_modal')? '1' : '');			
 			$this->add('url', $retUrl);
 		}// ruleset 사용시
-		else $this->setRedirectUrl($retUrl);
+		else 
+			$this->setRedirectUrl($retUrl);
 	}
 
 	function _setAnonymous(&$pObj, $aMbrIfo)
