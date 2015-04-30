@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  BeluxeCache
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @brief cache class of the BoardDX module
  */
 

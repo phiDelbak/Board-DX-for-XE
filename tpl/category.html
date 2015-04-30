@@ -1,9 +1,10 @@
 <include target="header.html" />
-<load target="./js/sitemap.js" />
 
-<!--//
-<load target="../../admin/tpl/js/sitemap.js" />
-//-->
+<!--@if(__DEBUG__)-->
+	<load target="js/sitemap.js" />
+<!--@else-->
+	<load target="js/sitemap.min.js" />
+<!--@endif-->
 
 {@ $module_info->default_category_title ? 0 : $module_info->default_category_title = Context::getLang('category')}
 

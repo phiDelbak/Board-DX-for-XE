@@ -1,7 +1,7 @@
 /**
  * @brief ajaxfileupload 2.1
  * @author PHPLETTER (http://www.phpletter.com/Our-Projects/AjaxFileUpload)
- * @Optimizer for XE by phiDel (http://foxb.kr)
+ * @Optimizer for XE by phiDel (xe.phidel@gmail.com)
  **/
 
 jQuery(function($)
@@ -52,7 +52,7 @@ jQuery(function($)
 
 			if(window.ActiveXObject && ((typeof r== 'boolean') || (typeof r== 'string')))
 			{
-				t = (typeof r== 'boolean') ? 'javascript:false' : r;
+				t = (typeof r== 'boolean') ? 'about:blink' : r;
 			}
 
 			if(!$w.parent(document.body).length)
@@ -102,7 +102,8 @@ jQuery(function($)
 				z = 'jUploadFrame' + n, x = 'jUploadForm' + n;
 
 			// Watch for a new set of requests
-			if ( s.global && ! $.active++ ) $.event.trigger( "ajaxStart" );
+			$.active++;
+			if ( s.global && !$.active ) $.event.trigger( "ajaxStart" );
 
 			var g = false,
 				xml = {}; // Create the request object
@@ -148,16 +149,16 @@ jQuery(function($)
 						{
 							if ( s.error )
 							{
-								s.error( data, sta, e );
+								s.error( e );
 							}
 							else alert(e);
 						}
 					}
-					catch(e)
+					catch(e1)
 					{
 						//sta = "error";
 						//$.handleError(s, xml, sta, e);
-						alert(e);
+						alert(e1);
 					}
 
 					// The request was completed
@@ -200,7 +201,7 @@ jQuery(function($)
 			try
 			{
 				var $f = $('#' + x);
-				$f.attr({action:s.url, method:'POST', target:z})
+				$f.attr({action:s.url, method:'POST', target:z});
 				$f.attr($f.encoding ? 'encoding' : 'enctype', 'multipart/form-data');
 				$f.submit();
 			}
@@ -234,7 +235,7 @@ jQuery(function($)
 
 function ajaxFileUpload()
 {
-	if(document.getElementById('Filedata').value =="") return alert("no file") || false;
+	if(document.getElementById('Filedata').value === "") return alert("no file") || false;
 
 	jQuery('.scFpv').empty();
 	jQuery('<img src="./common/img/msg.loading.gif" style="display:none;">').appendTo('.scFpv')
@@ -257,7 +258,7 @@ function ajaxFileUpload()
 			{
 				if(typeof data.error != 'undefined')
 				{
-					if(data.error != '')
+					if(data.error !== '')
 					{
 						alert(data.error);
 					}
@@ -273,7 +274,7 @@ function ajaxFileUpload()
 				alert(e);
 			}
 		}
-	)
+	);
 
 	return false;
 }
@@ -365,15 +366,15 @@ function sjReloadFileList(trl) {
 				z = z > 1024 ? Math.round(z / 1024) + 'kb' : z + 'byte';
 
 				jQuery('<option id="sif' + r + '" value="' + r + '" data-src="' + x + '"></option>')
-					.appendTo(ls).text(m + ' (' + z + ')').addClass(x != "" ? 'success' : 'error');
+					.appendTo(ls).text(m + ' (' + z + ')').addClass(x !== "" ? 'success' : 'error');
 			}
 
-			if(trl != undefined && trl) ls.val(trl);
+			if(trl !== undefined && trl) ls.val(trl);
 			sjFilePreview();
 		}
 
 		jQuery('#siFileCnt').text(c);
-	};
+	}
 
 	exec_xml("file","getFileList", ps, on_complete, 'error,message,files,upload_status,upload_target_srl,editor_sequence,left_size'.split(',') );
 }

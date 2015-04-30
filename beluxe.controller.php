@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  beluxeController
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @brief controller class of the BoardDX module
  */
 

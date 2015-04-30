@@ -1,5 +1,10 @@
 <load target="css/admin.css" />
-<load target="js/admin.js" />
+
+<!--@if(__DEBUG__)-->
+	<load target="js/admin.js" />
+<!--@else-->
+	<load target="js/admin.min.js" />
+<!--@endif-->
 
 <div cond="$module=='admin'" class="{$is_poped?'x_modal-header':'x_page-header'}">
 	<h1>

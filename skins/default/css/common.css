@@ -329,7 +329,7 @@
     display: none
 }
 #pidModalFrame #pidOframe {
-    min-width: 450px;
+    min-width: 300px;
     max-width: 800px;
     width: 750px
 }

@@ -5,7 +5,7 @@
 jQuery.fn.extend({
 	scrollIntoView: function(b) {
 		var $i = this.get(0);
-		if ($i != undefined && $i.scrollIntoView) $i.scrollIntoView(b ? b : true);
+		if ($i !== undefined && $i.scrollIntoView) $i.scrollIntoView(b ? b : true);
 		return this;
 	}
 });
@@ -30,7 +30,7 @@ jQuery(function($)
 
 	var pidCallbackError = function(data) {
 
-	}
+	};
 	var pidCallbackSucess = function(data) {
 		var wl = (parent ? parent : self).location, url='';
 		if(data.success_return_url){
@@ -43,7 +43,7 @@ jQuery(function($)
 			}
 		}
 		wl.replace(url);
-	}
+	};
 
 	$('form.pid_ajax-form')
 	.submit(function()
@@ -83,7 +83,7 @@ jQuery(function($)
 		var $a = $(this).next();
 
 		$('select', $a).change(function() {
-			var v = $(this).val() || '', s = new Array();
+			var v = $(this).val() || '', s = [];
 			$('input[name=cart]:checked').each(function(i) { s[i] = $(this).val(); });
 			if(s.length<1) return alert('Please select the items.') || false;
 			exec_xml('beluxe', 'procBeluxeChangeCustomStatus', {mid:current_mid,new_value:v,target_srls:s.join(',')}, completeCallModuleAction);
@@ -94,7 +94,8 @@ jQuery(function($)
 			switch($(this).attr('data-type')) {
 				case 'manage':popopen(request_uri+'?module=document&act=dispDocumentManageDocument','manageDocument');break;
 				case 'admin': location.href = current_url.setQuery('act','dispBeluxeAdminModuleInfo');
-			}; return false;
+			}
+			return false;
 		});
 
 		$a.show('slow');
@@ -185,7 +186,7 @@ jQuery(function($)
 		var $pr = $(this), $ca = $('.cateArea',$pr), $ul = $('ul.scFrm',$pr), $bt = $('.mubtn', $pr);
 
 		$bt.click(function(){
-			uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
+			var uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
 			// right 이면 범위를 벗어나기 때문에 크기 계산
 			if($ca.hasClass('right')) $ca.css({'margin-left':-(uw+bw)+'px','width':(uw+bw)+'px'});
 			$ul.animate(
@@ -210,7 +211,7 @@ jQuery(function($)
 				$to.slideToggle();
 
 				if($ca.hasClass('right')){
-					uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
+					var uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
 					$ca.css({'margin-left':-(uw+bw)+'px','width':(uw+bw)+'px'});
 				}
 				return false;
@@ -241,7 +242,7 @@ jQuery(function($)
 	.each(function()
 	{
 		var $i = $(this), t = $i.attr('data-target'), $e = $('label #' + t);
-		$e.focusin(function(){$i.fadeOut('fast')}).focusout(function(){$e.val() || $i.fadeIn('slow')});
+		$e.focusin(function(){$i.fadeOut('fast');}).focusout(function(){if($e.val()) $i.fadeIn('slow');});
 	});
 
 	$('.scSns a')
@@ -295,8 +296,8 @@ jQuery(function($)
 		exec_xml(
 			ty, (hr == '#recommend' ? 'proc' + ty.ucfirst() + 'VoteUp' : 'proc' + ty.ucfirst() + 'VoteDown'), params,
 			function(ret_obj) {
-				alert(ret_obj['message']);
-				if(ret_obj['error']=='0')
+				alert(ret_obj.message);
+				if(ret_obj.error === 0)
 				{
 					var $e = $i.find('em.cnt');
 					$e.text((parseInt($e.text()) || 0) + (hr == '#recommend' ? 1 : -1));
@@ -317,8 +318,8 @@ jQuery(function($)
 		exec_xml(
 			ty, 'proc' + ty.ucfirst() + 'Declare', params,
 			function(ret_obj) {
-				alert(ret_obj['message']);
-				if(ret_obj['error']=='0')
+				alert(ret_obj.message);
+				if(ret_obj.error === 0)
 				{
 					if(rec=='0') return location.reload() || false;
 					var t = '[Board DX] Declare, ' + ty + ':' + srl,
@@ -327,7 +328,7 @@ jQuery(function($)
 					var params2 = {receiver_srl : rec, title : t, content : c};
 					exec_xml('communication', 'procCommunicationSendMessage', params2,
 						function(ret_obj2) {
-							alert(ret_obj2['message']);
+							alert(ret_obj2.message);
 							location.reload();
 						}
 					);
@@ -454,5 +455,54 @@ jQuery(function($)
 				$(tmp + wmd[0] + '][data-type!=comment]').click();
 			}
 		}
+
+		$('#siWrt select.scWcateList').change(function(){
+			var v = $(this).val(), k = $(this).data('key'),
+				$d = $('select.scWcateList[data-key='+k+']'),
+				$s = $('select.scWcateList[data-key='+v+']');
+			$(this).data('key', v);
+			$('input:hidden[name=category_srl]').val(v);
+			$('select.scWcateList[data-key='+$d.data('key')+']').hide('slow');
+			$d.hide('slow');
+			if($s.find('>option').length) $s.change().show('slow');
+		});
+		$('#siWrt input:hidden[name=category_srl]').each(function(){
+			var v = $(this).val(), i = 0, $s;
+			if(v !== undefined && v > 0){
+				$s = $('select.scWcateList option[value='+v+']').closest('select');
+				while ($s)
+				{
+					$s.data('key', v).val(v);
+					v = $s.show().attr('data-key');
+					if(v === undefined || !v || (i++ > 9)) break;
+				}
+				$s.change();
+			}else{
+				$('select.scWcateList:eq(0)').change();
+			}
+		});
+		$('#siWrt .scWul.extraKeys li.scWli:hidden:eq(0)').each(function(){
+			$('#siWrt .scExTog:hidden').show().click(function(){
+				$('#siWrt .scWul.extraKeys li.scWli:hidden').show('slow');
+				$(this).hide();
+			});
+		});
+		$('#insert_filelink a[href=#insert_filelink]').click(function(){
+			var $p = $(this).closest('#insert_filelink').find('> input'),
+				v = $p.val(), q = $(this).attr('data-seq'), r = $(this).attr('data-srl');
+			if(v === undefined || !v){
+				alert('Please enter the file url.\nvirtual type example: http://... #.mov');
+				$p.focus();
+				return false;
+			}
+			exec_xml(
+				'Beluxe','procBeluxeInsertFileLink',
+				{ 'mid':current_mid,'sequence_srl':q,'document_srl':r,'filelink_url':v },
+				function(ret){
+					reloadFileList(uploaderSettings[ret.sequence_srl]);
+				}, ['error','message','sequence_srl']
+			);
+			return false;
+		});
 	});
 });

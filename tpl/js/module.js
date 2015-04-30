@@ -1,10 +1,7 @@
 /**
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @update 2011/08/08
  **/
-
-var __XEFM_NAME__ = 'beluxe',
-	__XEFM_LANG__ = new Array();
 
 String.prototype.ucfirst = function()
 {
@@ -75,6 +72,7 @@ String.prototype.urlDecode = function(){
 // 	return o;
 // };
 
+// ruleset 사용시 클라용 필터를 따로 만들어 주어야 한다.
 jQuery(function($)
 {
 	$('form input[type=hidden][name=ruleset]').each(function(){

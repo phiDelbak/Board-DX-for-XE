@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  beluxeAdminModel
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @brief admin model class of the BoardDX module
  */
 

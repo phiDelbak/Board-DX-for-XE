@@ -370,9 +370,9 @@
 		<value xml:lang="en"><![CDATA[Previously been applied to the skin was forced.<br />Force prior to the options set <span class="opt_bks">red</span> Border have set the settings Please check mark.]]></value>
 	</item>
 	<item name="about_download_skin">
-		<value xml:lang="ko"><![CDATA[스킨이 하나 이상은 존재해야 합니다. (<a href="http://foxb.kr/dx_skin">스킨 다운로드하러 가기</a>)]]></value>
-		<value xml:lang="jp"><![CDATA[スキンが一つ以上存在しなければなりません. (<a href="http://foxb.kr/dx_skin">スキンダウンロード</a>)]]></value>
-		<value xml:lang="en"><![CDATA[must have at least one existing skin. (<a href="http://foxb.kr/dx_skin"> Download skins </a>)]]></value>
+		<value xml:lang="ko"><![CDATA[스킨이 하나 이상은 존재해야 합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[スキンが一つ以上存在しなければなりません.]]></value>
+		<value xml:lang="en"><![CDATA[must have at least one existing skin.]]></value>
 	</item>
 	<item name="about_category_list">
 		<value xml:lang="ko"><![CDATA[분류의 이동은 해당 분류를 마우스로 잡고 이동하시면 됩니다.]]></value>

@@ -1,5 +1,5 @@
 /**
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @update 2011/08/08
  **/
 

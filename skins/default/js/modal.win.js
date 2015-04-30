@@ -1,15 +1,16 @@
 /* NHN (developers@xpressengine.com) Modal Window
- * @Optimizer for XE by phiDel (http://foxb.kr) */
+ * @Optimizer for XE by phiDel (xe.phidel@gmail.com) */
 
-jQuery.fn.pidModalFlashFix = function(){
-	var $ = jQuery;
-	$('embed[type*=flash]',this).each(function(){var o=$(this);if(o.attr('wmode')!='transparent')o.attr('wmode', 'opaque')});
-	$('iframe[src*=youtube]',this).each(function(){var o=$(this);o.attr('src',(o.attr('src')).setQuery('wmode', 'opaque'))});
-}
 
+
+	jQuery.fn.pidModalFlashFix = function(){
+		var $ = jQuery;
+		$('embed[type*=flash]',this).each(function(){var o=$(this);if(o.attr('wmode')!='transparent');o.attr('wmode', 'opaque');});
+		$('iframe[src*=youtube]',this).each(function(){var o=$(this);o.attr('src',(o.attr('src')).setQuery('wmode', 'opaque'));});
+	};
 
 // Modal Window
-jQuery(function($){
+jQuery(function($){	
 	var ESC = 27;
 	var pidModalStack = [];
 	var pidModalInitailZIndex = 1040;
@@ -164,7 +165,7 @@ jQuery(function($){
 			});
 	};
 
-	/** phiDel (www.foxb.kr, phidel@foxb.kr) **/
+	/** phiDel (xe.phidel@gmail.com) **/
 	// $('a.pidModalAnchor').pidModalWindow();
 
 	$.fn.pidModalGoUrl = function(url){
@@ -176,8 +177,7 @@ jQuery(function($){
 	    if(!$('.wait[data-modal-child=message]').length)
 	    {
 	        waitmsg = $('<div class="message update wait">').html(
-	            '<p>' + waiting_message + '<br />If time delays continue, <a href="' 
-	            + url.setQuery('is_modal','0') + '"><b>click here</b></a>.</p>'
+	            '<p>' + waiting_message + '<br />If time delays continue, <a href="' + url.setQuery('is_modal','0') + '"><b>click here</b></a>.</p>'
 	        ).attr('data-modal-child','message').css({'position':'absolute','left':'10px','z-index':'9'}).css('top', (sctop+10)+'px');
 	     	$modal.append(waitmsg);
 	    }
@@ -187,16 +187,16 @@ jQuery(function($){
 
 		// ie6~8 은 object 못씀
 		if(/msie|chromium/.test(navigator.userAgent.toLowerCase()) === true) {	
-			$('#'+frId, $modal).length ?
+			return $('#'+frId, $modal).length ?
 				window.frames[frId].location.replace(url) :
 				$('<iframe id="'+frId+'" allowTransparency="true" frameborder="0" scrolling="'+(scroll ? scroll : 'auto')+'" />')
 					.attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal))
-				.load(function(){
+				.load(function(e){
 					$modal.pidModalResize($modal.attr('data-modal-resize'));
 				});
 		} else {    	
 			if(scroll == 'no') scroll = 'hidden';
-			$('#'+frId, $modal).length ?
+			return $('#'+frId, $modal).length ?
 				$('#'+frId, $modal).attr('data', url):
 				$('<object id="'+frId+'" style="overflow-x:hidden;overflow-y:'+(scroll ? scroll : 'auto')+'" />')
 					.attr('data', url).appendTo($('.pid_modal-body:eq(0)', $modal))
@@ -213,7 +213,7 @@ jQuery(function($){
 	}).bind('before-close.mw', function(e) {
 		var $modal = $($(this).attr('href'));
 		// 로딩중 안보이게 처리및 자원 제거
-		//$('[data-modal-child]', $modal).remove();
-        //$('.pid_modal-body', $modal).children().remove();
+		$('[data-modal-child]', $modal).remove();
+        $('.pid_modal-body', $modal).children().remove();
 	}).pidModalWindow();
 });

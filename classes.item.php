@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  BeluxeItem
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @brief item class of the BoardDX module
  */
 

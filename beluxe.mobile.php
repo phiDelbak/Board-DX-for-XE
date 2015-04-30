@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  beluxeMobile
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @brief mobile class of the BoardDX module
  */
 

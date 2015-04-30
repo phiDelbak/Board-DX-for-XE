@@ -8,8 +8,8 @@ jQuery(function($)
 		exec_xml(
 			ty, 'proc' + ty.ucfirst() + 'Declare', params,
 			function(ret_obj) {
-				alert(ret_obj['message']);
-				if(ret_obj['error']=='0')
+				alert(ret_obj.message);
+				if(ret_obj.error === 0)
 				{
 					if(rec=='0') return location.reload() || false;
 					var t = '[Board DX] Declare, ' + ty + ':' + srl,
@@ -18,7 +18,7 @@ jQuery(function($)
 					var params2 = {receiver_srl : rec, title : t, content : c};
 					exec_xml('communication', 'procCommunicationSendMessage', params2,
 						function(ret_obj2) {
-							alert(ret_obj2['message']);
+							alert(ret_obj2.message);
 							location.reload();
 						}
 					);
@@ -34,8 +34,8 @@ jQuery(function($)
 		exec_xml(
 			ty, (hr == '#recommend' ? 'proc' + ty.ucfirst() + 'VoteUp' : 'proc' + ty.ucfirst() + 'VoteDown'), params,
 			function(ret_obj) {
-				alert(ret_obj['message']);
-				if(ret_obj['error']=='0')
+				alert(ret_obj.message);
+				if(ret_obj.error === 0)
 				{
 					var $e = $o.find('em.cnt');
 					$e.text((parseInt($e.text()) || 0) + (hr == '#recommend' ? 1 : -1));
@@ -56,7 +56,7 @@ jQuery(function($)
 				mid:current_mid
 			},
 			function(ret){
-				var $htm = $(ret['html']);
+				var $htm = $(ret.html);
 				$("#cl").remove();
 				$("#clpn").remove();
 				$("a.prev[data-page],a.next[data-page]", $htm).click(function(){

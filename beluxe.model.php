@@ -2,7 +2,7 @@
 
 /**
  * @class  beluxeModel
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @brief model class of the BoardDX module
  */
 

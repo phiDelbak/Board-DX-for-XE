@@ -38,11 +38,12 @@
 }
 
 <!--@if(__DEBUG__)-->
+	<load target="mboard.css" />
 	<load target="mboard.js" />
 <!--@else-->
-	<load target="mboard.min.js" />
+	<load target="mboard.min.css" />
+	<load target="common.min.js" />
 <!--@endif-->
-<load target="mboard.css" />
 
 <div cond="$XE_VALIDATOR_MESSAGE" id="xe_message" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>

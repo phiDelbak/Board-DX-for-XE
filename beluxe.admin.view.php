@@ -2,7 +2,7 @@
 
 /**
  * @class  beluxeAdminView
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @brief admin view class of the BoardDX module
  */
 

@@ -23,16 +23,17 @@
 	<!-- make public 2011-10-01 -->
 	<version>1.8</version>
 	<date>2013-01-11</date>
-
+	<!-- 
 	<history version="0.1" date="2011-10-01">
-		<author email_address="admin@foxb.kr" link="http://foxb.kr/">
+		<author email_address="xe.phidel@gmail.com">
 			<name>phiDel</name>
 		</author>
-		<!--<description></description>-->
-		<!--<log link="">보러가기.↗</log>-->
+		description></description>
+		<log link="">보러가기.↗</log>
 	</history>
+	-->
 
-	<author email_address="admin@foxb.kr" link="http://foxb.kr/">
+	<author email_address="xe.phidel@gmail.com">
 		<name>phiDel</name>
 	</author>
 

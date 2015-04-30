@@ -1,7 +1,7 @@
 <?php
 /**
  * @class  beluxeWAP
- * @author phiDel (phidel@foxb.kr)
+ * @author phiDel (xe.phidel@gmail.com)
  * @brief WAP class of the BoardDX module
  */
 

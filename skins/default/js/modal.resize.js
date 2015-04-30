@@ -43,7 +43,7 @@ jQuery(function($) {
                 'ks': 1000000
             },
             timeParse: function(value) {
-                if (value == undefined || value == null) return null;
+                if (value === undefined || value === null) return null;
                 var result = this.regex.exec($.trim(value.toString()));
                 if (result[2]) {
                     var num = parseFloat(result[1]);
@@ -87,9 +87,9 @@ jQuery(function($) {
                                 delete timers[label][fn.timerID];
                             }
                         } else {
-                            for (var fn in timers[label]) {
-                                window.clearInterval(timers[label][fn]);
-                                delete timers[label][fn];
+                            for (var f in timers[label]) {
+                                window.clearInterval(timers[label][f]);
+                                delete timers[label][f];
                             }
                         }
                         for (ret in timers[label]) break;
@@ -110,19 +110,18 @@ jQuery(function($) {
         });
     });
         
-    /** phiDel (www.foxb.kr, phidel@foxb.kr) **/
-    //$('#pidModalFrame', parent.document).each(function() {
+    /** phiDel (xe.phidel@gmail.com) **/
     $.fn.pidModalResize = function(resize){
-        var $modal = $(this), resize = resize || 'auto',
-            target = $modal.data('target') || '', 
+        var $modal = $(this), target = $modal.data('target') || '', 
             name = $modal.data('frame_id') || 'pidOframe';
+        resize = resize || 'auto';
 
         if (!target) {
             $('#' + name, $modal).each(function() {
                 var $this = $(this),
                     $parent = $(parent);
                 var doc = $this.get(0).contentDocument || $this.get(0).contentWindow.document;
-                if (doc == undefined) return;
+                if (doc === undefined) return;
                 var $body = $('body', doc),
                     $form = $('form:first', $body);
                 $body.css({
@@ -157,20 +156,20 @@ jQuery(function($) {
                     var t = (($parent.height() - $fg.outerHeight()) / 2) - 10;
                     c = {
                         top: (t > 10 ? t : 10) + 'px',
-                        left: (($parent.width() - $fg.outerWidth()) / 2) + 'px',
-                    }
-                    if ($fg.position().left < 0) {
-                        $fg.animate(c)
-                    } else {
-                        $fg.css(c)
+                        left: (($parent.width() - $fg.outerWidth()) / 2) + 'px'
                     };
+                    if ($fg.position().left < 0) {
+                        $fg.animate(c);
+                    } else {
+                        $fg.css(c);
+                    }
                 });
             });
         } else {
             $('#' + name, $modal).each(function() {
                 var $this = $(this);
                 var doc = $this.get(0).contentDocument || $this.get(0).contentWindow.document;
-                if (doc == undefined) return;
+                if (doc === undefined) return;
                 var $body = $('body', doc),
                     $form = $('form:first', $body);
                 $body.css({
@@ -197,7 +196,7 @@ jQuery(function($) {
         }
         
         $('[data-modal-child=message]', parent.document).fadeOut(2500, function() {
-            $(this).remove()
+            $(this).remove();
         });
     };
 });

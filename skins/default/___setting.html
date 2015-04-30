@@ -52,14 +52,15 @@
 }
 
 <!--// CSS,JS 파일 import -->
-<load target="css/common.css" />
-<load target="css/iefix.css" targetie="lte IE 9" />
-
 <!--@if(__DEBUG__)-->
-	<load target="js/common.js" />
-	<load cond="$us_modal" target="js/modal.win.js" />
-	<load cond="$us_modal" target="js/modal.resize.js" />
+	<load target="css/common.css" />
+	<load target="css/iefix.css" targetie="lte IE 9" />
+	<load target="js/board.js" />
+	<load target="js/modal.win.js" />
+	<load target="js/modal.resize.js" />
 <!--@else-->
+	<load target="css/common.min.css" />
+	<load target="css/iefix.min.css" targetie="lte IE 9" />
 	<load target="js/common.min.js" />
 <!--@endif-->
 
