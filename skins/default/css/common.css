@@ -328,6 +328,16 @@
 #pidModalFrame > .pid_modal-close {
     display: none
 }
+.scModalClose {
+    position: absolute;
+    right: 2px;
+    top: 0;
+}
+.scModalClose a{
+    padding: 2px;
+    height: 16px;
+    line-height: 16px
+}
 #pidModalFrame #pidOframe {
     min-width: 300px;
     max-width: 800px;

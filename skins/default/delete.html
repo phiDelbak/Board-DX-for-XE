@@ -7,6 +7,9 @@
 <div cond="$is_modal && $XE_VALIDATOR_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 	<p>{$XE_VALIDATOR_MESSAGE}</p>
 </div>
+		<span cond="$is_modal&&$act!='dispBoardDeleteComment'" class="scBtn scModalClose">
+			<a href="#pidModalFrame" class="pidModalChilds" data-modal-child="close">&times;</a>
+		</span>
 	{@
 		$oTemplate = &TemplateHandler::getInstance();
 		print $oTemplate->compile($tpl_path, '_tpl.'.($act=='dispBoardDeleteComment'?'c.delete':'delete').'.html');
