@@ -158,13 +158,13 @@
 				<input type="hidden" name="tags" value="{htmlspecialchars($oDocument->get('tags'))}" />
 			</li>
 			<li cond="$mi->use_mobile_uploader == 'Y'">
-				<div class="fsa">
+				<div id="siFileUploader" class="fsa">
 					<div class="scFpv"></div>
-					<div class="scFLst"><select id="siFiles" class="fl" onchange="sjFilePreview();"></select></div>
-					<div class="scFins">
-						<a href="#" onclick="return sjDeleteFile();">Delete</a>
-						<a href="#" onclick="return sjInsertFile();">Insert</a>
-						<p><button class="bn white" onclick="return sjClickFileUpload();">Upload <em id="siFileCnt">0</em></button></p>
+					<div class="scFLst"><select id="siFiles" class="fl" onchange="pidFilePreview();"></select></div>
+					<div class="scFctl">
+						<a href="#" class="scFcl">Delete</a>
+						<a href="#" class="scFin">Insert</a>
+						<p><button class="bn white scFup">Upload <em id="siFileCnt">0</em></button></p>
 					</div>
 				</div>
 			</li>
@@ -175,6 +175,6 @@
 		</div>
 	</form>
 	<div cond="$mi->use_mobile_uploader == 'Y'" class="scFiledata">
-		<form name="form" action="" method="POST" enctype="multipart/form-data"><input id="Filedata" type="file" name="Filedata" onchange="return ajaxFileUpload();"></form>
+		<form name="form" action="" method="POST" enctype="multipart/form-data"><input id="Filedata" type="file" name="Filedata" onchange="return pidAjaxFileUpload();"></form>
 	</div>
 <!--@endif-->

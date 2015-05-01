@@ -12,8 +12,9 @@ jQuery(function($) {
             };
             var c = (prompt('Please describe the reasons.', '') || '').trim();
             if (!c) return alert('Cancel') || false;
-            exec_xml(
-                ty, 'proc' + ty.ucfirst() + 'Declare', params,
+            exec_json(
+                ty+'.proc' + ty.ucfirst() + 'Declare', 
+                params,
                 function(ret_obj) {
                     alert(ret_obj.message);
                     if (ret_obj.error === 0) {
@@ -26,7 +27,7 @@ jQuery(function($) {
                             title: t,
                             content: c
                         };
-                        exec_xml('communication', 'procCommunicationSendMessage', params2,
+                        exec_json('communication.procCommunicationSendMessage', params2,
                             function(ret_obj2) {
                                 alert(ret_obj2.message);
                                 location.reload();
@@ -49,8 +50,9 @@ jQuery(function($) {
                 cur_mid: current_mid,
                 mid: current_mid
             };
-            exec_xml(
-                ty, (hr == '#recommend' ? 'proc' + ty.ucfirst() + 'VoteUp' : 'proc' + ty.ucfirst() + 'VoteDown'), params,
+            exec_json(
+                ty + '.proc' + ty.ucfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'), 
+                params,
                 function(ret_obj) {
                     alert(ret_obj.message);
                     if (ret_obj.error === 0) {
@@ -63,9 +65,9 @@ jQuery(function($) {
         });
     }
     pidLoadPage = function(r, z, c) {
-        exec_xml(
-            'beluxe',
-            'getBeluxeMobileCommentPage', {
+        exec_json(
+            'beluxe.getBeluxeMobileCommentPage', 
+            {
                 cpage: z,
                 document_srl: r,
                 clist_count: c,
@@ -84,7 +86,7 @@ jQuery(function($) {
                 $('a[href^=#][href$=recommend][data-type]', $htm).pidVoteBtninit();
                 $('a[href=#declare][data-type]', $htm).pidDeclareBtninit();
                 $("#clb").parent().after($htm);
-            }, ['html', 'error', 'message']
+            }
         );
     }
     $('a[href=#declare][data-type]').pidDeclareBtninit();

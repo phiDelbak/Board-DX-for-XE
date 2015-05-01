@@ -2,16 +2,16 @@
 * Copyright 2011 All rights reserved by phiDel (www.foxb.kr, phidel@foxb.kr)
 **/
 
-jQuery.fn.extend({
-	scrollIntoView: function(b) {
-		var $i = this.get(0);
-		if ($i !== undefined && $i.scrollIntoView) $i.scrollIntoView(b ? b : true);
-		return this;
-	}
-});
-
 jQuery(function($)
 {
+	$.fn.extend({
+		scrollIntoView: function(b) {
+			var $i = this.get(0);
+			if ($i !== undefined && $i.scrollIntoView) $i.scrollIntoView(b ? b : true);
+			return this;
+		}
+	});
+
 	// http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
 	String.prototype.updateQueryString = function(key, value)
 	{
@@ -86,7 +86,7 @@ jQuery(function($)
 			var v = $(this).val() || '', s = [];
 			$('input[name=cart]:checked').each(function(i) { s[i] = $(this).val(); });
 			if(s.length<1) return alert('Please select the items.') || false;
-			exec_xml('beluxe', 'procBeluxeChangeCustomStatus', {mid:current_mid,new_value:v,target_srls:s.join(',')}, completeCallModuleAction);
+			exec_json('beluxe.procBeluxeChangeCustomStatus', {mid:current_mid,new_value:v,target_srls:s.join(',')}, completeCallModuleAction);
 			return;
 		});
 
@@ -266,7 +266,7 @@ jQuery(function($)
 	{
 		if(!confirm('Do you want to delete the selected trackback?')) return false;
 		var srl = $(this).closest('li').find('a[name^=trackback_]').attr('name').replace(/.*_/g,'');
-		exec_xml('beluxe', 'procBeluxeDeleteTrackback', {mid:current_mid,trackback_srl:srl}, completeCallModuleAction);
+		exec_json('beluxe.procBeluxeDeleteTrackback', {mid:current_mid,trackback_srl:srl}, completeCallModuleAction);
 		return false;
 	});
 
@@ -283,7 +283,7 @@ jQuery(function($)
 	{
 		if(!confirm('Do you want to delete the selected history?')) return false;
 		var srl = $(this).attr('data-srl') || 0,doc = $(this).attr('data-doc') || 0;
-		exec_xml('beluxe', 'procBeluxeDeleteHistory', {mid:current_mid,history_srl:srl,document_srl:doc}, completeCallModuleAction);
+		exec_json('beluxe.procBeluxeDeleteHistory', {mid:current_mid,history_srl:srl,document_srl:doc}, completeCallModuleAction);
 		return false;
 	});
 
@@ -293,8 +293,9 @@ jQuery(function($)
 		var $i = $(this), hr = $i.attr('href'), ty = $i.attr('data-type'), srl = $i.attr('data-srl');
 		var params = {target_srl : srl, cur_mid : current_mid, mid : current_mid};
 
-		exec_xml(
-			ty, (hr == '#recommend' ? 'proc' + ty.ucfirst() + 'VoteUp' : 'proc' + ty.ucfirst() + 'VoteDown'), params,
+		exec_json(
+			ty + '.proc' + ty.ucfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'), 
+			params,
 			function(ret_obj) {
 				alert(ret_obj.message);
 				if(ret_obj.error === 0)
@@ -315,8 +316,9 @@ jQuery(function($)
 		var c = (prompt(sj_declare_message, '') || '').trim();
 		if(!c) return alert('Cancel') || false;
 
-		exec_xml(
-			ty, 'proc' + ty.ucfirst() + 'Declare', params,
+		exec_json(
+			ty + '.proc' + ty.ucfirst() + 'Declare', 
+			params,
 			function(ret_obj) {
 				alert(ret_obj.message);
 				if(ret_obj.error === 0)
@@ -326,7 +328,8 @@ jQuery(function($)
 						u = current_url.setQuery('comment_srl',('comment'?srl:''));
 						c = c + '<br /><br /><a href="' + u + '">'+u+'</a>';
 					var params2 = {receiver_srl : rec, title : t, content : c};
-					exec_xml('communication', 'procCommunicationSendMessage', params2,
+					exec_json('communication.procCommunicationSendMessage', 
+						params2,
 						function(ret_obj2) {
 							alert(ret_obj2.message);
 							location.reload();
@@ -456,53 +459,55 @@ jQuery(function($)
 			}
 		}
 
-		$('#siWrt select.scWcateList').change(function(){
-			var v = $(this).val(), k = $(this).data('key'),
-				$d = $('select.scWcateList[data-key='+k+']'),
-				$s = $('select.scWcateList[data-key='+v+']');
-			$(this).data('key', v);
-			$('input:hidden[name=category_srl]').val(v);
-			$('select.scWcateList[data-key='+$d.data('key')+']').hide('slow');
-			$d.hide('slow');
-			if($s.find('>option').length) $s.change().show('slow');
-		});
-		$('#siWrt input:hidden[name=category_srl]').each(function(){
-			var v = $(this).val(), i = 0, $s;
-			if(v !== undefined && v > 0){
-				$s = $('select.scWcateList option[value='+v+']').closest('select');
-				while ($s)
-				{
-					$s.data('key', v).val(v);
-					v = $s.show().attr('data-key');
-					if(v === undefined || !v || (i++ > 9)) break;
-				}
-				$s.change();
-			}else{
-				$('select.scWcateList:eq(0)').change();
-			}
-		});
-		$('#siWrt .scWul.extraKeys li.scWli:hidden:eq(0)').each(function(){
-			$('#siWrt .scExTog:hidden').show().click(function(){
-				$('#siWrt .scWul.extraKeys li.scWli:hidden').show('slow');
-				$(this).hide();
+		$('#siWrt').each(function(){
+			$('select.scWcateList', this).change(function(){
+				var v = $(this).val(), k = $(this).data('key'),
+					$d = $('select.scWcateList[data-key='+k+']'),
+					$s = $('select.scWcateList[data-key='+v+']');
+				$(this).data('key', v);
+				$('input:hidden[name=category_srl]').val(v);
+				$('select.scWcateList[data-key='+$d.data('key')+']').hide('slow');
+				$d.hide('slow');
+				if($s.find('>option').length) $s.change().show('slow');
 			});
-		});
-		$('#insert_filelink a[href=#insert_filelink]').click(function(){
-			var $p = $(this).closest('#insert_filelink').find('> input'),
-				v = $p.val(), q = $(this).attr('data-seq'), r = $(this).attr('data-srl');
-			if(v === undefined || !v){
-				alert('Please enter the file url.\nvirtual type example: http://... #.mov');
-				$p.focus();
+			$('input:hidden[name=category_srl]', this).each(function(){
+				var v = $(this).val(), i = 0, $s;
+				if(v !== undefined && v > 0){
+					$s = $('select.scWcateList option[value='+v+']').closest('select');
+					while ($s)
+					{
+						$s.data('key', v).val(v);
+						v = $s.show().attr('data-key');
+						if(v === undefined || !v || (i++ > 9)) break;
+					}
+					$s.change();
+				}else{
+					$('select.scWcateList:eq(0)').change();
+				}
+			});
+			$('.scWul.extraKeys li.scWli:hidden:eq(0)', this).each(function(){
+				$('#siWrt .scExTog:hidden').show().click(function(){
+					$('#siWrt .scWul.extraKeys li.scWli:hidden').show('slow');
+					$(this).hide();
+				});
+			});
+			$('a[href=#insert_filelink]', this).click(function(){
+				var $p = $(this).closest('#insert_filelink').find('> input'),
+					v = $p.val(), q = $(this).attr('data-seq'), r = $(this).attr('data-srl');
+				if(v === undefined || !v){
+					alert('Please enter the file url.\nvirtual type example: http://... #.mov');
+					$p.focus();
+					return false;
+				}
+				exec_json(
+					'Beluxe.procBeluxeInsertFileLink',
+					{ 'mid':current_mid,'sequence_srl':q,'document_srl':r,'filelink_url':v },
+					function(ret){
+						reloadFileList(uploaderSettings[ret.sequence_srl]);
+					}
+				);
 				return false;
-			}
-			exec_xml(
-				'Beluxe','procBeluxeInsertFileLink',
-				{ 'mid':current_mid,'sequence_srl':q,'document_srl':r,'filelink_url':v },
-				function(ret){
-					reloadFileList(uploaderSettings[ret.sequence_srl]);
-				}, ['error','message','sequence_srl']
-			);
-			return false;
+			});
 		});
 	});
 });

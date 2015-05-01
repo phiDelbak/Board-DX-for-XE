@@ -230,151 +230,159 @@ jQuery(function($)
 		}
 	});
 
-	sjReloadFileList();
-});
+	pidAjaxFileUpload = function() {
+		if(document.getElementById('Filedata').value === "") return alert("no file") || false;
 
-function ajaxFileUpload()
-{
-	if(document.getElementById('Filedata').value === "") return alert("no file") || false;
+		jQuery('.scFpv').empty();
+		jQuery('<img src="./common/img/msg.loading.gif" style="display:none;">').appendTo('.scFpv')
+		.ajaxStart(function(){jQuery(this).show();}).ajaxComplete(function(){jQuery(this).hide();});
 
-	jQuery('.scFpv').empty();
-	jQuery('<img src="./common/img/msg.loading.gif" style="display:none;">').appendTo('.scFpv')
-	.ajaxStart(function(){jQuery(this).show();}).ajaxComplete(function(){jQuery(this).hide();});
-
-	jQuery.ajaxFileUpload
-	(
-		{
-			url:'index.php?act=procFileIframeUpload',
-			secureuri:false,
-			fileElementId:'Filedata',
-			dataType: 'html',
-			data:{
-			mid: current_mid,
-			editor_sequence: '1',
-			uploadTargetSrl: '',
-			manual_insert: 'true'
-			},
-			success: function (id, data, status)
+		jQuery.ajaxFileUpload
+		(
 			{
-				if(typeof data.error != 'undefined')
+				url:'index.php?act=procFileIframeUpload',
+				secureuri:false,
+				fileElementId:'Filedata',
+				dataType: 'html',
+				data:{
+				mid: current_mid,
+				editor_sequence: '1',
+				uploadTargetSrl: '',
+				manual_insert: 'true'
+				},
+				success: function (id, data, status)
 				{
-					if(data.error !== '')
+					if(typeof data.error != 'undefined')
 					{
-						alert(data.error);
+						if(data.error !== '')
+						{
+							alert(data.error);
+						}
+						else alert(data.msg);
+					} else {
+						var io = document.getElementById(id);
+						io = io.contentWindow ? io.contentWindow : io.contentDocument;
+						pidReloadFileList(io.uploaded_fileinfo.file_srl);
 					}
-					else alert(data.msg);
-				} else {
-					var io = document.getElementById(id);
-					io = io.contentWindow ? io.contentWindow : io.contentDocument;
-					sjReloadFileList(io.uploaded_fileinfo.file_srl);
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
 				}
-			},
-			error: function (data, status, e)
-			{
-				alert(e);
 			}
-		}
-	);
-
-	return false;
-}
-
-function sjDeleteFile(){
-	var r = jQuery('#siFiles').val();
-
-	if(r && confirm('Do you want to delete a file?'))
-	{
-		exec_xml(
-			"file","procFileDelete",
-			{ file_srls:r, editor_sequence:'1' },
-			function() { sjReloadFileList(); }
 		);
+
+		return false;
 	}
 
-	return false;
-}
+	pidDeleteFile = function() {
+		var r = jQuery('#siFiles').val();
 
-function sjInsertFile(){
-	var r = jQuery('#siFiles').val();
+		if(r && confirm('Do you want to delete a file?'))
+		{
+			exec_json(
+				"file.procFileDelete",
+				{ file_srls:r, editor_sequence:'1' },
+				function() { pidReloadFileList(); }
+			);
+		}
 
-	if(r){
-		var t, m = jQuery('#sif'+r).text(),
+		return false;
+	}
+
+	pidInsertFile = function() {
+		var r = jQuery('#siFiles').val();
+
+		if(r){
+			var t, m = jQuery('#sif'+r).text(),
+				src = jQuery("#sif"+r).attr('data-src'),
+				u = src || '';
+
+			if(!u.match(/\.(?:(jpe?g|png|gif))$/i)) {
+				t = '<a href="'+u+'">'+m+'</a>';
+			} else {
+				t = '<img src="'+u+'" />';
+			}
+
+			jQuery('#siFf textarea[name=content]').insertAtCaret(t);
+			jQuery('#siFf input[name=use_html]').attr('checked','checked');
+		}
+
+		return false;
+	}
+
+	pidFilePreview = function() {
+		jQuery('.scFpv').empty();
+
+		var t, r = jQuery('#siFiles').val(),
 			src = jQuery("#sif"+r).attr('data-src'),
 			u = src || '';
 
 		if(!u.match(/\.(?:(jpe?g|png|gif))$/i)) {
-			t = '<a href="'+u+'">'+m+'</a>';
+			t = '<img src="./modules/editor/tpl/images/files.gif" />';
 		} else {
 			t = '<img src="'+u+'" />';
 		}
 
-		jQuery('#siFf textarea[name=content]').insertAtCaret(t);
-		jQuery('#siFf input[name=use_html]').attr('checked','checked');
+		jQuery(t).appendTo('.scFpv');
 	}
 
-	return false;
-}
-
-function sjFilePreview() {
-	jQuery('.scFpv').empty();
-
-	var t, r = jQuery('#siFiles').val(),
-		src = jQuery("#sif"+r).attr('data-src'),
-		u = src || '';
-
-	if(!u.match(/\.(?:(jpe?g|png|gif))$/i)) {
-		t = '<img src="./modules/editor/tpl/images/files.gif" />';
-	} else {
-		t = '<img src="'+u+'" />';
+	pidClickUpload = function() {
+		jQuery('.scFiledata input[type=file]:first').trigger('click');
+		return false;
 	}
 
-	jQuery(t).appendTo('.scFpv');
-}
+	pidReloadFileList = function(trl) {
+		var ps = {
+			mid : current_mid,
+			editor_sequence   : '1',
+			upload_target_srl : ''
+		};
 
-function sjClickFileUpload() {
-	jQuery('.scFiledata input[type=file]:first').trigger('click');
-	return false;
-}
+		function on_complete(ret) {
+			var o, i, c = 0, r, z, x, m, v, fs, ls;
 
-function sjReloadFileList(trl) {
-	var ps = {
-		mid : current_mid,
-		editor_sequence   : '1',
-		upload_target_srl : ''
-	};
+			o = document.getElementById('siFf');
+			o.document_srl.value = ret.upload_target_srl;
+			fs = ret.files;
 
-	function on_complete(ret, response_tags) {
-		var o, i, c = 0, r, z, x, m, s, v, fs, ls;
+			(ls = jQuery('#siFiles')).empty();
+			jQuery('.scFpv').empty();
 
-		o = document.getElementById('siFf');
-		o.document_srl.value = ret.upload_target_srl;
-		fs = ret.files;
+			if(fs && fs.length) {
+				for(i=0,c=fs.length; i < c; i++) {
+					v = fs[i];
+					m = v.source_filename;
+					x = v.download_url;
+					r = v.file_srl;
+					z = parseInt(v.file_size);
+					z = z > 1024 ? Math.round(z / 1024) + 'kb' : z + 'byte';
 
-		(ls = jQuery('#siFiles')).empty();
-		jQuery('.scFpv').empty();
+					jQuery('<option id="sif' + r + '" value="' + r + '" data-src="' + x + '"></option>')
+						.appendTo(ls).text(m + ' (' + z + ')').addClass(x !== "" ? 'success' : 'error');
+				}
 
-		if(fs && fs.item) {
-			s = fs.item;
-			if(!jQuery.isArray(s)) s = [s];
-
-			for(i=0,c=s.length; i < c; i++) {
-				v = s[i];
-				m = v.source_filename;
-				x = v.download_url;
-				r = v.file_srl;
-				z = parseInt(v.file_size);
-				z = z > 1024 ? Math.round(z / 1024) + 'kb' : z + 'byte';
-
-				jQuery('<option id="sif' + r + '" value="' + r + '" data-src="' + x + '"></option>')
-					.appendTo(ls).text(m + ' (' + z + ')').addClass(x !== "" ? 'success' : 'error');
+				if(trl !== undefined && trl) ls.val(trl);
+				pidFilePreview();
 			}
 
-			if(trl !== undefined && trl) ls.val(trl);
-			sjFilePreview();
+			jQuery('#siFileCnt').text(c);
 		}
 
-		jQuery('#siFileCnt').text(c);
+		exec_json("file.getFileList", ps, on_complete);
 	}
 
-	exec_xml("file","getFileList", ps, on_complete, 'error,message,files,upload_status,upload_target_srl,editor_sequence,left_size'.split(',') );
-}
+    $('#siFileUploader:eq(0)').each(function(){    	
+    	pidReloadFileList();
+
+    	$('.scFup', this).click(function(){
+    		return pidClickUpload();
+    	});
+    	$('.scFcl', this).click(function(){
+    		return pidDeleteFile();
+    	});
+    	$('.scFin', this).click(function(){
+    		return pidInsertFile();
+    	});
+    });
+});
