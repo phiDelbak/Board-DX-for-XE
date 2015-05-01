@@ -112,7 +112,7 @@ jQuery(function($) {
         
     /** phiDel (xe.phidel@gmail.com) **/
     $.fn.pidModalResize = function(resize){
-        var $modal = $(this), target = $modal.data('target') || '', 
+        var $modal = $(this), target = $modal.data('anchor').attr('data-target') || '', 
             name = $modal.data('frame_id') || 'pidOframe';
         resize = resize || 'auto';
 

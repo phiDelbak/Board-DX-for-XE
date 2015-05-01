@@ -28,8 +28,7 @@
 		<span class="scBtn black"><input type="password" name="password" /></span>
 		<span class="scBtn black"><input type="submit" value="{$lang->cmd_input}" onclick="setCookie('dx_write_mode','comment/update/{$comment_srl}',null,'/')" /></span>
 		<span class="scBtn">
-        	{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
-			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
 		</span>
 	</div>
 <!--@else-->
@@ -149,8 +148,7 @@
 			</div>
 			<div class="fr">
 				<span cond="!$is_modal||$is_cmt||$is_par" class="scBtn">
-	        		{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
-					<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+					<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
 				</span>
 				<span class="scBtn black"><button type="submit" accesskey="s">{$lang->comment} {Context::getLang('cmd_'.($is_cmt?'update':'registration'))}</button></span>
 			</div>

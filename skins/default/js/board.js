@@ -431,10 +431,14 @@ jQuery(function($)
 			// 로딩중 안보이게 처리
 	        $('.pid_modal-body', $($(this).attr('href'))).css({top:0,left:'-150%',height:0});
 		});
-
-		$('.pidModalChilds[data-modal-child=close]').click(function(){
-			var $modal = $($(this).attr('href'), (parent ? parent : self).document);
-			$modal.find('button.pid_modal-close:first').click();
+		$('[data-modal-hide]').click(function(){
+			$($(this).attr('href'), (parent ? parent : self).document)
+					.find('button.pid_modal-close:first').click();
+		}).closest('form').each(function(){	
+			$(this).prepend(
+				$('<button type="button" class="scModalClose"">&times;</button>')
+					.click(function(){$('[data-modal-hide]:eq(0)').click();})
+			);
 		});
 
 		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');

@@ -325,18 +325,18 @@
     -moz-box-shadow:0 0 10px #333;
     -webkit-box-shadow:0 0 10px #333
 }
-#pidModalFrame > .pid_modal-close {
-    display:none
-}
 .scModalClose {
     position:absolute;
-    right:2px;
-    top:0;
-}
-.scModalClose a{
-    padding:2px;
-    height:16px;
-    line-height:16px
+    right:1px;
+    top:1px;
+    padding:0 5px;
+    cursor: pointer;
+    font-size: 18px;
+    background: none repeat scroll 0% 0% transparent;
+    border:solid 1px #ddd;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px
 }
 #pidModalFrame #pidOframe {
     min-width:300px;
@@ -2208,12 +2208,9 @@ strong.sCkChr {
 /*ff*/
 
 @-moz-document url-prefix() {
-    #siFbk .scFbWt .scWopts {
-        padding-right:152px
-   }
-   #siFbk .scFbWt .cmtbtns {
-       padding:0 5px 0 0
-  }
+    #siFbk .scFbWt .scWopts {padding-right:152px}
+    #siFbk .scFbWt .cmtbtns {padding:0 5px 0 0}
+    .scModalClose {font-size: 16px}
 }
 /*op*/
 

@@ -22,8 +22,7 @@
 		<span class="scBtn black"><input type="password" name="password" /></span>
 		<span class="scBtn black"><input type="submit" value="{$lang->cmd_input}" onclick="setCookie('dx_write_mode','delete',null,'/')" /></span>
 		<span class="scBtn">
-        	{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
-			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
 		</span>
 	</div>
 <!--@else-->
@@ -56,8 +55,7 @@
 
 		<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
 			<span class="scBtn">
-        		{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
-				<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+				<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
 			</span>
 			<span cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scBtn blue"><button type="submit" name="multilingual" value="Y">{$lang->cmd_current_lang_delete}</button></span>
 			<span class="scBtn black"><button type="submit" accesskey="s">{$lang->document} {$lang->cmd_delete}</button></span>

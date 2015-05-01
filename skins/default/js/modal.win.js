@@ -1,5 +1,5 @@
 /* NHN (developers@xpressengine.com) Modal Window
- * @Optimizer for XE by phiDel (xe.phidel@gmail.com) */
+ * @Optimizer for BoardDX by phiDel (xe.phidel@gmail.com) */
 
 
 
@@ -16,7 +16,7 @@ jQuery(function($){
 	var pidModalInitailZIndex = 1040;
 
 	// modal backdrop
-	var $pidModalBackdrop = $('<div class="pid_modal-backdrop" style="width:100%;height:100%;display:none"></div>').appendTo('body').hide();
+	var $pidModalBackdrop = $('<div class="pid_modal-backdrop" style="width:100%;height:100%"></div>').appendTo('body').hide();
 
 	$.fn.pidModalWindow = function(){
 		this
@@ -26,7 +26,7 @@ jQuery(function($){
 				$( $(this).attr('href') ).hide();
 			})
 			.click(function(){
-				var $this = $(this), $modal, $btnClose, disabled;
+				var $this = $(this), $modal, disabled;
 
 				// get and initialize modal window
 				$modal = $( $this.attr('href') );
@@ -39,10 +39,11 @@ jQuery(function($){
 				return false;
 			})
 			.bind('open.mw', function(){
-				var $this = $(this), $modal, $btnClose, disabled, before_event, duration, target = $this.attr('data-target') || '';
+				var $this = $(this), $modal, $btnClose, disabled, before_event, duration, target;
 
 				// get modal window
 				$modal = $( $this.attr('href') );
+				target = $this.attr('data-target') || '';
 
 				// if stack top is this modal, ignore
 				if(pidModalStack.length && pidModalStack[pidModalStack.length - 1].get(0) == $modal.get(0)){
@@ -50,17 +51,16 @@ jQuery(function($){
 				}
 
 				if(!target && !$modal.parent('body').length) {
+					$modal.find('[data-modal-hide]').click(function(){ $modal.data('anchor').trigger('close.mw'); });
 					$btnClose = $('<button type="button" class="pid_modal-close">&times;</button>');
 					$btnClose.click(function(){ $modal.data('anchor').trigger('close.mw'); });
-					$modal.find('[data-modal-hide]').click(function(){ $modal.data('anchor').trigger('close.mw'); });
-					$('body').append($modal);
 					$modal.prepend($btnClose); // prepend close button
+					$('body').append($modal);
 				}
 				else if(target)
 				{
 					if($modal.data('state') == 'showing') $this.trigger('close.mw');
 					$(target).before($modal);
-					$modal.data('target', target);
 				}
 
 				// set the related anchor
@@ -95,11 +95,10 @@ jQuery(function($){
 					.fadeIn(duration, after)
 					.find('button.pid_modal-close:first').focus();
 
-				$('body').css('overflow','hidden');
-
 				if(target){
 					$(target).hide('fast');
 				}else{
+					$('body').css('overflow','hidden');
 					// push to stack
 					pidModalStack.push($modal);
 					// show backdrop and adjust z-index
@@ -144,14 +143,14 @@ jQuery(function($){
 				function after(){ $this.trigger('after-close.mw'); }
 
 				$modal.fadeOut(duration, after);
-				$('body').css('overflow','auto');
 				$this.focus();
 
-				target = $modal.data('target') || '';
+				target = $this.attr('data-target') || '';
 
 				if(target){
 					$(target).show('fast');
 				}else{
+					$('body').css('overflow','auto');
 					// pop from stack
 					pidModalStack.pop();
 					// hide backdrop and adjust z-index

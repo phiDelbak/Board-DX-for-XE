@@ -33,8 +33,7 @@
 		<span class="scBtn black"><input type="password" name="password" /></span>
 		<span class="scBtn black"><input type="submit" value="{$lang->cmd_input}" onclick="setCookie('dx_write_mode','update',null,'/')" /></span>
 		<span class="scBtn">
-        	{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
-			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
 		</span>
 	</div>
 <!--@else-->
@@ -233,8 +232,7 @@
 			</div>
 			<div class="fr">
 				<span class="scBtn">
-        			{@ $s = $is_modal?'class="pidModalChilds" data-modal-child="close"':''}
-					<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" {$s}>{$lang->cmd_back}</a>
+					<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
 				</span>
 				<span cond="!$is_doc&&$is_modal&&$grant->manager" class="scBtn black"><button type="submit" accesskey="r" onclick="setCookie('dx_write_mode','insert',null,'/');">{$lang->cmd_repeat_write}</button></span>
 				<span class="scBtn black"><button type="submit" accesskey="s" onclick="setCookie('dx_write_mode','',null,'/')">{$lang->document} {Context::getLang('cmd_'.($is_doc?'update':'registration'))}</button></span>
