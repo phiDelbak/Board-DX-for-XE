@@ -108,4 +108,6 @@ jQuery(function($)
 		// 	setTimeout(function(){return function(){$o.removeAttr('disabled');};}(), 3000);
 		// });
 	});
+
+	$('a[href=#beluxe]:eq(0)').text('Board DX').attr('href','https://github.com/phiDelbak/Board-DX-for-XE').attr('target','_blank');
 });

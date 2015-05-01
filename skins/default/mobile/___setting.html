@@ -1,7 +1,4 @@
 {@
-	Context::addJsFile("./common/js/jquery.min.js", false, '', -100000);
-	Context::addJsFile("./common/js/xe.min.js", false, '', -100000);
-
 	$ci = &$column_info;
 	$mi = &$module_info;
 
@@ -40,6 +37,7 @@
 <!--@if(__DEBUG__)-->
 	<load target="mboard.css" />
 	<load target="mboard.js" />
+	<load target="ajaxfileupload.js" />
 <!--@else-->
 	<load target="mboard.min.css" />
 	<load target="common.min.js" />
