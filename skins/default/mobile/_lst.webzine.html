@@ -19,7 +19,7 @@
 		$un_extra = ($is_rtrpt||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 	}
-		<a href="{$oEntry->getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
+		<a href="{getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
 			<span class="title"><span cond="$tlk" class="{$tlk}">{$tlk=='best'?'Best':$lang->notice}</span>
 				<span cond="!$tlk&&$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
 				<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->mobile_title_length)}</strong>
@@ -48,7 +48,7 @@
 		$un_extra = ($is_rtrpt||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 	}
-		<a href="{$oEntry->getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
+		<a href="{getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
 			<span class="fl thum">
 				<!--@if($is_blind || !$is_grant)-->
 					<img src="../img/common/thum_{$is_blind?'blind':'secret'}.png" alt="{$is_blind?'blind':'secret'}" title="{$is_blind?'blind':'secret'}" height="{$mi->thumbnail_height}" width="{$mi->thumbnail_width}"/>

@@ -16,7 +16,7 @@ jQuery(function($){
 	var pidModalInitailZIndex = 1040;
 
 	// modal backdrop
-	var $pidModalBackdrop = $('<div class="pid_modal-backdrop" style="width:100%;height:100%"></div>').appendTo('body').hide();
+	var $pidModalBackdrop = $('<div class="pid_modal-backdrop" style="width:100%;height:100%;display:none"></div>').appendTo('body').hide();
 
 	$.fn.pidModalWindow = function(){
 		this

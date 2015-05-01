@@ -6,11 +6,11 @@
 	<!--@else-->
 
 		<div class="hx h2">
-			<h2><a href="{$oEntry->getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> <em>[{number_format($total_count)}]</em></h2>
-			<a cond="$is_cts" href="{$oEntry->getUrl('page','','act','dispBeluxeMobileCategory','')}" class="ca">
+			<h2><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> <em>[{number_format($total_count)}]</em></h2>
+			<a cond="$is_cts" href="{getUrl('page','','act','dispBeluxeMobileCategory','')}" class="ca">
 				{$cts[(int)$category_srl]->title}
 			</a>
-			<a cond="$grant->write_document" href="{$oEntry->getUrl('act','dispBoardWrite','document_srl','')}" class="write">{$lang->cmd_write}</a>
+			<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="write">{$lang->cmd_write}</a>
 		</div>
 		<div cond="$mi->title||$mi->sub_title||$mi->board_desc" class="hx pn">
 			<block cond="$mi->title||$mi->sub_title">{$mi->title} | {$mi->sub_title}</block>
@@ -24,18 +24,18 @@
 		}
 
 		<div cond="$page_navigation" class="pn">
-			<a cond="$page != 1" href="{$oEntry->getUrl('document_srl','','comment_srl','','page',$page-1,'division',$division,'last_division',$last_division)}" accesskey="b" class="prev">{$lang->cmd_prev}</a>
+			<a cond="$page != 1" href="{getUrl('document_srl','','comment_srl','','page',$page-1,'division',$division,'last_division',$last_division)}" accesskey="b" class="prev">{$lang->cmd_prev}</a>
 			<strong>{$page} / {$page_navigation->last_page}</strong>
-			<a cond="$page != $page_navigation->last_page" href="{$oEntry->getUrl('document_srl','','comment_srl','','page',$page+1,'division',$division,'last_division',$last_division)}" accesskey="n" class="next">{$lang->cmd_next}</a>
+			<a cond="$page != $page_navigation->last_page" href="{getUrl('document_srl','','comment_srl','','page',$page+1,'division',$division,'last_division',$last_division)}" accesskey="n" class="next">{$lang->cmd_next}</a>
 			<a href="#beluxe" class="lic fr">Board DX</a>
 		</div>
 
 		<div class="sh">
-			<form action="{$oEntry->getUrl()}" method="get">
+			<form action="{getUrl()}" method="get">
 				<input type="hidden" name="vid" value="{$vid}" />
 				<input type="hidden" name="mid" value="{$mid}" />
 				<input type="hidden" name="category" value="{$category}" />
-				<span class="tgbn"><a href="{$oEntry->getUrl('act','dispBoardTagList')}" title="{$lang->tag}">&nbsp;</a></span>
+				<span class="tgbn"><a href="{getUrl('act','dispBoardTagList')}" title="{$lang->tag}">&nbsp;</a></span>
 				<select name="search_target">
 					<option loop="$ci=>$key,$val" cond="$val->search=='Y'" value="{$key}" selected="selected"|cond="$key==$search_target">{$val->name}</option>
 					<option cond="$search_target&&$ci[$search_target]->search!='Y'" value="{$search_target}" selected="selected">{Context::getLang($search_target)}</option>

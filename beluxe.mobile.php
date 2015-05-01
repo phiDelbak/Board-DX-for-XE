@@ -9,11 +9,12 @@ require_once(_XE_PATH_.'modules/beluxe/beluxe.view.php');
 
 class beluxeMobile extends beluxeView
 {
+    var $oScrt = NULL;
 
 	function init()
 	{
-		$oSecurity = new Security();
-		$oSecurity->encodeHTML('document_srl', 'comment_srl', 'vid', 'mid', 'page', 'category_srl', 'clist_count', 'search_target', 'search_keyword', 'sort_index', 'order_type', 'trackback_srl');
+        $this->oScrt = new Security();
+		$this->oScrt->encodeHTML('document_srl', 'comment_srl', 'vid', 'mid', 'page', 'category_srl', 'clist_count', 'search_target', 'search_keyword', 'sort_index', 'order_type', 'trackback_srl');
         
         // module_srl 체크
         if (!$this->module_srl || !$this->module_info->module_srl) {
