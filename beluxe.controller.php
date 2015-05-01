@@ -176,7 +176,7 @@ class beluxeController extends beluxe
 		$file_url = Context::get('filelink_url');
 		$mod_srl = $this->module_srl;
 
-		if(!preg_match("/^(https?|ftp|file|mms):[\/]{2,3}[A-Za-z0-9-]+.[A-Za-z0-9-]+[.A-Za-z0-9-]*\/.*[A-Za-z0-9]{1,}/i", $file_url))
+		if(!preg_match("/^(https?|ftp|file|mms):[\/]{2,3}[A-Za-z0-9-]+.[A-Za-z0-9-]+[.A-Za-z0-9-\:]*\/.*[A-Za-z0-9]{1,}/i", $file_url))
 			return new Object(-1, Context::getLang('msg_invalid_format') . "\r\nex: http, ftp, mms, file");
 
 		$filename = basename($file_url);
@@ -226,7 +226,7 @@ class beluxeController extends beluxe
 		if(!$out->toBool()) return $out;
 
 		$this->setMessage('success_registed');
-		$this->_setLocation('', 'sequence_srl', $seq, 'document_srl', $tar_srl, 'file_srl', $args->file_srl);
+		$this->_setLocation('', 'sequence_srl', $seq, 'document_srl', $tar_srl, 'file', $args);
 	}
 
 	function procBoardVerificationPassword()

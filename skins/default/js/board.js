@@ -238,13 +238,6 @@ jQuery(function($)
 		});
 	});
 
-	$('label p.scItemDesc[data-target]')
-	.each(function()
-	{
-		var $i = $(this), t = $i.attr('data-target'), $e = $('label #' + t);
-		$e.focusin(function(){$i.fadeOut('fast');}).focusout(function(){if($e.val()) $i.fadeIn('slow');});
-	});
-
 	$('.scSns a')
 	.click(function()
 	{
@@ -502,8 +495,10 @@ jQuery(function($)
 				exec_json(
 					'Beluxe.procBeluxeInsertFileLink',
 					{ 'mid':current_mid,'sequence_srl':q,'document_srl':r,'filelink_url':v },
-					function(ret){
-						reloadFileList(uploaderSettings[ret.sequence_srl]);
+					function(ret){		
+						var u = xe.getApp('xeuploader');
+						if(u.length===1) u[0].loadFilelist();
+						else var u = $('#xefu-container-'+ret.sequence_srl).xeUploader();
 					}
 				);
 				return false;

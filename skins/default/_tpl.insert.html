@@ -214,14 +214,12 @@
 		<div class="scWtag">
 			<label cond="$mi->use_input_link_file!='N'" class="scLaEt clearBar" id="insert_filelink">
 				<span>Link</span>
-				<input type="text" id="upload_filelink" value="" style="width:80%" />
+				<input type="text" id="upload_filelink" value="" style="width:80%" placeholder="{htmlspecialchars($lang->about_upload_filelink)}" />
 				<span class="scBtn blue small"><a href="#insert_filelink" data-seq="{$editor_sequence}" data-srl="{$document_srl}">{$lang->upload_filelink}</a></span>
-				<p class="scItemDesc" data-target="upload_filelink">{htmlspecialchars($lang->about_upload_filelink)}</p>
 			</label>
 			<label cond="$mi->use_input_tag!='N'" class="scLaEt clearBar <!--@if(!$is_modal)-->scNmodal<!--@endif-->">
 				<span>Tags</span>{@ $tag_tmp = htmlspecialchars($oDocument->get('tags'))}
-				<input type="text" name="tags" id="doc_tags" value="{$tag_tmp}" />
-				<p class="scItemDesc" data-target="doc_tags" style="display:none"|cond="$tag_tmp">{htmlspecialchars($lang->about_tag)}</p>
+				<input type="text" name="tags" id="doc_tags" value="{$tag_tmp}" placeholder="{htmlspecialchars($lang->about_tag)}" />
 			</label>
 		</div>
 
