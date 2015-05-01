@@ -500,9 +500,16 @@ jQuery(function($)
 					'Beluxe.procBeluxeInsertFileLink',
 					{ 'mid':current_mid,'sequence_srl':q,'document_srl':r,'filelink_url':v },
 					function(ret){		
-						var u = xe.getApp('xeuploader');
-						if(u.length===1) u[0].loadFilelist();
-						else u = $('#xefu-container-'+ret.sequence_srl).xeUploader();
+						// ckeditor
+						if($('[id^=ckeditor_instance_]').length) {
+							var u = xe.getApp('xeuploader');
+							if(u.length===1) u[0].loadFilelist();
+							else u = $('#xefu-container-'+ret.sequence_srl).xeUploader();
+
+						// xpresseditor
+						}else if($('.xpress-editor').length){							
+							reloadFileList(uploaderSettings[ret.sequence_srl]);
+						}
 					}
 				);
 				return false;
