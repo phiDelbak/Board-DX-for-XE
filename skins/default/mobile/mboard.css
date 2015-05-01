@@ -170,15 +170,15 @@ textarea{resize:vertical}
 .co .scVlng{text-align:right;margin-bottom:10px;*zoom:1}
 .co .scVlng:after{content:"";display:block;clear:both}
 .co .scVlng strong{display:inline-block;padding:0 8px 0 20px}
-.co .scVlng a.en strong{background:url(../../../../admin/tpl/img/flag.us.gif) no-repeat 0 4px}
-.co .scVlng a.ko strong{background:url(../../../../admin/tpl/img/flag.kr.gif) no-repeat 0 4px}
+.co .scVlng a.en strong{background:url(../../../../admin/tpl/img/flag.en.gif) no-repeat 0 4px}
+.co .scVlng a.ko strong{background:url(../../../../admin/tpl/img/flag.ko.gif) no-repeat 0 4px}
 .co .scVlng a.jp strong{background:url(../../../../admin/tpl/img/flag.jp.gif) no-repeat 0 4px}
 .co .scVlng a.fr strong{background:url(../../../../admin/tpl/img/flag.fr.gif) no-repeat 0 4px}
 .co .scVlng a.de strong{background:url(../../../../admin/tpl/img/flag.de.gif) no-repeat 0 4px}
 .co .scVlng a.ru strong{background:url(../../../../admin/tpl/img/flag.ru.gif) no-repeat 0 4px}
 .co .scVlng a.es strong{background:url(../../../../admin/tpl/img/flag.es.gif) no-repeat 0 4px}
 .co .scVlng a.tr strong{background:url(../../../../admin/tpl/img/flag.tr.gif) no-repeat 0 4px}
-.co .scVlng a.vi strong{background:url(../../../../admin/tpl/img/flag.vn.gif) no-repeat 0 4px}
+.co .scVlng a.vi strong{background:url(../../../../admin/tpl/img/flag.vi.gif) no-repeat 0 4px}
 .co .scVlng a.mn strong{background:url(../../../../admin/tpl/img/flag.mn.gif) no-repeat 0 4px}
 .co .scVlng a.zh-CN strong{background:url(../../../../admin/tpl/img/flag.cn.gif) no-repeat 0 4px}
 .co .scVlng a.zh-TW strong{background:url(../../../../admin/tpl/img/flag.tw.gif) no-repeat 0 4px}

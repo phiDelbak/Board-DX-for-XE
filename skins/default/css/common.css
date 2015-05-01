@@ -1,2233 +1,2233 @@
 @charset"utf-8";
 .fl {
-    float: left
+    float:left
 }
 .fr {
-    float: right
+    float:right
 }
 .colRed {
-    color: #FF4040!important
+    color:#FF4040!important
 }
 .colBlue {
-    color: #4040FF!important
+    color:#4040FF!important
 }
 .clearBar {
-    zoom: 1
+    zoom:1
 }
 .clearBar:after {
-    content: "";
-    display: block;
-    clear: both
+    content:"";
+    display:block;
+    clear:both
 }
 /* Button */
 
 .scBtn {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    border: 1px solid;
-    margin: 2px;
-    padding: 0;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    cursor: pointer
+    position:relative;
+    display:inline-block;
+    vertical-align:middle;
+    border:1px solid;
+    margin:2px;
+    padding:0;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    cursor:pointer
 }
 .scBtn {
-    border-color: #ccc;
-    background-color: #fff;
-    background-image: -moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: -o-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: -ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
+    border-color:#ccc;
+    background-color:#fff;
+    background-image:-moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:-webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:-o-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:-ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
 }
 .scBtn a, .scBtn * {
-    color: #555!important;
-    text-shadow: 0 1px rgba(255, 255, 255, .8);
-    overflow: visible;
-    display: inline-block;
-    margin: 0;
-    padding: 0 10px;
-    height: 29px;
-    line-height: 29px;
-    font-size: 15px;
-    font-weight: bold;
-    background-color: transparent!important;
-    border: 0!important;
-    white-space: nowrap!important;
-    text-decoration: none!important;
-    cursor: pointer
+    color:#555!important;
+    text-shadow:0 1px rgba(255, 255, 255, .8);
+    overflow:visible;
+    display:inline-block;
+    margin:0;
+    padding:0 10px;
+    height:29px;
+    line-height:29px;
+    font-size:15px;
+    font-weight:bold;
+    background-color:transparent!important;
+    border:0!important;
+    white-space:nowrap!important;
+    text-decoration:none!important;
+    cursor:pointer
 }
 .scBtn.black {
-    border-color: #4a4a4a;
-    background-color: #353535;
-    background-image: -moz-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
-    background-image: -webkit-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
-    background-image: -o-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
-    background-image: -ms-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
-    background-image: linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0))
+    border-color:#4a4a4a;
+    background-color:#353535;
+    background-image:-moz-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+    background-image:-webkit-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+    background-image:-o-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+    background-image:-ms-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+    background-image:linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0))
 }
 .scBtn.black a, .scBtn.black * {
-    color: #fff!important;
-    text-shadow: 0 1px rgba(0, 0, 0, .8)
+    color:#fff!important;
+    text-shadow:0 1px rgba(0, 0, 0, .8)
 }
 .scBtn.blue {
-    border-color: #4a4a4a;
-    background-color: #5034A0;
-    background-image: -moz-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
-    background-image: -webkit-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
-    background-image: -o-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
-    background-image: -ms-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
-    background-image: linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0))
+    border-color:#4a4a4a;
+    background-color:#5034A0;
+    background-image:-moz-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+    background-image:-webkit-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+    background-image:-o-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+    background-image:-ms-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+    background-image:linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0))
 }
 .scBtn.blue a, .scBtn.blue * {
-    color: #fff!important;
-    text-shadow: 0 1px rgba(0, 0, 0, .8)
+    color:#fff!important;
+    text-shadow:0 1px rgba(0, 0, 0, .8)
 }
 .scBtn.small, .scBtn.small * {
-    height: 18px;
-    line-height: 18px;
-    font-size: 12px;
-    font-weight: normal
+    height:18px;
+    line-height:18px;
+    font-size:12px;
+    font-weight:normal
 }
 .scBtn:hover, .scBtn.group a:hover {
-    box-shadow: 0 0 4px rgba(0, 0, 0, .3);
-    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
-    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .3)
+    box-shadow:0 0 4px rgba(0, 0, 0, .3);
+    -moz-box-shadow:0 0 4px rgba(0, 0, 0, .3);
+    -webkit-box-shadow:0 0 4px rgba(0, 0, 0, .3)
 }
 .scBtn.black:hover, .scBtn.black.group a:hover, .scBtn.blue:hover, .scBtn.blue.group a:hover {
-    box-shadow: 0 0 4px rgba(0, 0, 0, .8);
-    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .8);
-    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .8)
+    box-shadow:0 0 4px rgba(0, 0, 0, .8);
+    -moz-box-shadow:0 0 4px rgba(0, 0, 0, .8);
+    -webkit-box-shadow:0 0 4px rgba(0, 0, 0, .8)
 }
 .scBtn a:active, .scBtn button:active, .scBtn input[type="submit"]:active {
-    margin: 1px -1px -1px 1px!important
+    margin:1px -1px -1px 1px!important
 }
 .scBtn.group * {
-    padding: 0
+    padding:0
 }
 .scBtn.group:hover {
-    box-shadow: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none
 }
 .scBtn.group:active * {
-    margin: 0!important
+    margin:0!important
 }
 .scBtn.group a:active * {
-    transform: scale(0.9);
-    -webkit-transform: scale(0.9);
-    -moz-transform: scale(0.9);
-    -o-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    zoom: 0.9\9
+    transform:scale(0.9);
+    -webkit-transform:scale(0.9);
+    -moz-transform:scale(0.9);
+    -o-transform:scale(0.9);
+    -ms-transform:scale(0.9);
+    zoom:0.9\9
 }
 .scBtn.group a {
-    border-left: 1px solid #ccc!important
+    border-left:1px solid #ccc!important
 }
 .scBtn.group a:first-child {
-    border-left: 0!important
+    border-left:0!important
 }
 .scBtn input[type="text"], .scBtn input[type="password"] {
-    padding: 0 5px!important
+    padding:0 5px!important
 }
 .scBtn *[disabled=disabled] {
-    opacity: .5
+    opacity:.5
 }
 /* Vote */
 
 .scVoteArea a {
-    text-align: right
+    text-align:right
 }
 .scVoteArea em {
-    min-width: 11px;
-    font-style: normal;
-    font-family: Tahoma
+    min-width:11px;
+    font-style:normal;
+    font-family:Tahoma
 }
 .scVoteArea em.vote, .scVoteArea em.blame, .scVoteArea em.declare {
-    padding: 0 5px 0 22px;
-    background: url(../img/common/ico_set.gif) no-repeat 5px -268px
+    padding:0 5px 0 22px;
+    background:url(../img/common/ico_set.gif) no-repeat 5px -268px
 }
 .scVoteArea em.blame {
-    background-position: 5px -298px
+    background-position:5px -298px
 }
 .scVoteArea em.declare {
-    background-position: 5px -328px
+    background-position:5px -328px
 }
 .scVoteArea em.cnt {
-    padding-right: 5px
+    padding-right:5px
 }
 .scRdStar {
-    height: 12px!important;
-    line-height: 12px!important;
-    display: inline-block;
-    font-size: 12px;
-    font-family: Tahoma;
-    padding-left: 12px;
-    background: url(../img/common/star_set.gif) no-repeat -60px -18px
+    height:12px!important;
+    line-height:12px!important;
+    display:inline-block;
+    font-size:12px;
+    font-family:Tahoma;
+    padding-left:12px;
+    background:url(../img/common/star_set.gif) no-repeat -60px -18px
 }
 .scRdStar.colorR {
-    background-position: -60px -38px
+    background-position:-60px -38px
 }
 .scRdStar.colorB {
-    background-position: -60px -58px
+    background-position:-60px -58px
 }
 .scVtStar {
-    margin-left: 0!important;
-    width: 50px!important;
-    height: 10px!important;
-    display: inline-block;
-    background: url(../img/common/star_set.gif) no-repeat 0 0
+    margin-left:0!important;
+    width:50px!important;
+    height:10px!important;
+    display:inline-block;
+    background:url(../img/common/star_set.gif) no-repeat 0 0
 }
 .scVtStar em {
-    display: block;
-    width: 0px;
-    height: 10px!important;
-    background: url(../img/common/star_set.gif) no-repeat 0 -20px
+    display:block;
+    width:0px;
+    height:10px!important;
+    background:url(../img/common/star_set.gif) no-repeat 0 -20px
 }
 .scVtStar.colorR em {
-    background-position: 0 -40px
+    background-position:0 -40px
 }
 .scVtStar.colorB em {
-    background-position: 0 -60px
+    background-position:0 -60px
 }
 /* text ellipsis */
 
 .scElps {
-    position: relative;
-    overflow: hidden;
-    white-space: normal;
-    word-break: break-all;
-    display: block
+    position:relative;
+    overflow:hidden;
+    white-space:normal;
+    word-break:break-all;
+    display:block
 }
 .scElps ._first {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
-    -moz-binding: url(/ellipsis-xbl.xml#ellipsis);
-    display: inline-block;
-    white-space: nowrap
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    -ms-text-overflow:ellipsis;
+    -moz-binding:url(/ellipsis-xbl.xml#ellipsis);
+    display:inline-block;
+    white-space:nowrap
 }
 .scElps ._last {
-    position: absolute;
-    right: 0;
-    white-space: nowrap
+    position:absolute;
+    right:0;
+    white-space:nowrap
 }
 .scElps img {
-    vertical-align: text-bottom
+    vertical-align:text-bottom
 }
 /* Body */
 
 #siBody {
-    position: relative;
-    line-height: 1.5
+    position:relative;
+    line-height:1.5
 }
 #siBody a, #siBody a:link, #siBody a:visited {
-    color: #333;
-    text-decoration: none
+    color:#333;
+    text-decoration:none
 }
 #siBody a:hover, #siBody a:active, #siBody a:focus {
-    color: #111;
-    text-decoration: underline
+    color:#111;
+    text-decoration:underline
 }
 #siBody input[type="text"], #siBody input[type="password"], #siBody textarea, #siBody select {
-    padding: 2px;
-    border: 1px solid #bbb;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px
+    padding:2px;
+    border:1px solid #bbb;
+    border-radius:2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px
 }
 #siBody input[type="text"][readonly], #siBody input[type="password"][readonly], #siBody textarea[readonly], #siBody select[readonly] {
-    color: #7763EB;
-    background-color: #ddd
+    color:#7763EB;
+    background-color:#ddd
 }
 #siBody input[type="text"][disabled], #siBody input[type="password"][disabled], #siBody textarea[disabled], #siBody select[disabled] {
-    color: #909090;
-    background-color: #ddd
+    color:#909090;
+    background-color:#ddd
 }
 #siBody select, #siBody select option {
-    padding: 0;
-    white-space: nowrap
+    padding:0;
+    white-space:nowrap
 }
 #siBody img {
-    border: none
+    border:none
 }
 #siBody label {
-    cursor: pointer
+    cursor:pointer
 }
 #siBody form {
-    margin: 0;
-    padding: 0
+    margin:0;
+    padding:0
 }
 #siBody img.scIcoSet {
-    width: 11px;
-    height: 11px;
-    vertical-align: text-bottom;
-    background: url(../img/common/ico_set.gif) no-repeat
+    width:11px;
+    height:11px;
+    vertical-align:text-bottom;
+    background:url(../img/common/ico_set.gif) no-repeat
 }
 #siBody img.scIcoSet.secret {
-    height: 12px;
-    background-position: 0 -30px
+    height:12px;
+    background-position:0 -30px
 }
 #siBody img.scIcoSet.coin {
-    background-position: 0 0
+    background-position:0 0
 }
 #siBody img.scIcoSet.world {
-    background-position: -19px 0
+    background-position:-19px 0
 }
 #siBody ul.scFrm {
-    padding: 5px 10px;
-    margin: 0;
-    list-style: none
+    padding:5px 10px;
+    margin:0;
+    list-style:none
 }
 #siBody .scHeader, #siBody .scContent, #siBody .scFooter {
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    vertical-align: top
+    overflow:hidden;
+    margin:0;
+    padding:0;
+    width:100%;
+    vertical-align:top
 }
 /* Modal */
 
 #siBody .scLtitle {
-    text-align: left;
-    font-weight: bold;
-    margin: 0 0 10px;
-    padding-bottom: 5px;
-    border-bottom: 3px ridge #ddd;
-    font-size: 16px;
-    text-shadow: 0 1px #ccc
+    text-align:left;
+    font-weight:bold;
+    margin:0 0 10px;
+    padding-bottom:5px;
+    border-bottom:3px ridge #ddd;
+    font-size:16px;
+    text-shadow:0 1px #ccc
 }
 #pidModalFrame {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    line-height: 1.5
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    z-index:9999;
+    line-height:1.5
 }
 #pidModalFrame > .pid_modal-body {
-    position: absolute;
-    top: 0;
-    left: -150%;
-    overflow: hidden;
-    border: 5px solid #DDD;
-    margin: 0;
-    padding: 5px;
-    background-color: #fff;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    box-shadow: 0 0 10px #333;
-    -moz-box-shadow: 0 0 10px #333;
-    -webkit-box-shadow: 0 0 10px #333
+    position:absolute;
+    top:0;
+    left:-150%;
+    overflow:hidden;
+    border:5px solid #DDD;
+    margin:0;
+    padding:5px;
+    background-color:#fff;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    box-shadow:0 0 10px #333;
+    -moz-box-shadow:0 0 10px #333;
+    -webkit-box-shadow:0 0 10px #333
 }
 #pidModalFrame > .pid_modal-close {
-    display: none
+    display:none
 }
 .scModalClose {
-    position: absolute;
-    right: 2px;
-    top: 0;
+    position:absolute;
+    right:2px;
+    top:0;
 }
 .scModalClose a{
-    padding: 2px;
-    height: 16px;
-    line-height: 16px
+    padding:2px;
+    height:16px;
+    line-height:16px
 }
 #pidModalFrame #pidOframe {
-    min-width: 300px;
-    max-width: 800px;
-    width: 750px
+    min-width:300px;
+    max-width:800px;
+    width:750px
 }
 .pid_modal-backdrop {
-    position: fixed;
-    border: 0;
-    left: 0;
-    top: 0;
-    background-color: #000;
-    opacity: .3
+    position:fixed;
+    border:0;
+    left:0;
+    top:0;
+    background-color:#000;
+    opacity:.3
 }
 #pidCmtModalFrame > .pid_modal-body {
-    border: 0;
-    padding: 7px;
-    margin: 3px;
-    background-color: #f5f5f5
+    border:0;
+    padding:7px;
+    margin:3px;
+    background-color:#f5f5f5
 }
 #pidCmtModalFrame #pidOframe {
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden
+    width:100%;
+    overflow-x:hidden;
+    overflow-y:hidden
 }
 /* Category */
 
 #siCat .scCaNavi, #siCat .scCaLock {
-    position: absolute;
-    z-index: 1;
-    top: 5px;
-    right: 0;
-    height: 19px
+    position:absolute;
+    z-index:1;
+    top:5px;
+    right:0;
+    height:19px
 }
 #siCat .scCaNavi {
-    right: 15px
+    right:15px
 }
 #siCat .scCaNavi a, #siCat .scCaLock a {
-    padding: 0;
-    width: 9px;
-    height: 19px
+    padding:0;
+    width:9px;
+    height:19px
 }
 #siCat .scCaNavi a em, #siCat .scCaLock a em {
-    display: inline-block;
-    padding: 17px 0 0!important;
-    width: 9px;
-    height: 0;
-    overflow: hidden;
-    background: transparent url(../img/common/btn_nav.gif) no-repeat -39px 6px
+    display:inline-block;
+    padding:17px 0 0!important;
+    width:9px;
+    height:0;
+    overflow:hidden;
+    background:transparent url(../img/common/btn_nav.gif) no-repeat -39px 6px
 }
 #siCat .scCaNavi a em {
-    background-position: 2px -21px
+    background-position:2px -21px
 }
 #siCat .scCaNavi a+a em {
-    background-position: 2px 5px
+    background-position:2px 5px
 }
 #siCat .scCaNavi a em:active {
-    background-position: -17px -21px
+    background-position:-17px -21px
 }
 #siCat .scCaNavi a+a em:active {
-    background-position: -17px 5px
+    background-position:-17px 5px
 }
 #siCat .scCaLock.active a em {
-    background-position: -39px -22px
+    background-position:-39px -22px
 }
 #siCat.text ul {
-    padding: 0;
-    margin: 0 0 10px;
-    list-style: none;
-    border: 0;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd
+    padding:0;
+    margin:0 0 10px;
+    list-style:none;
+    border:0;
+    border-left:1px solid #ddd;
+    border-right:1px solid #ddd
 }
 #siCat.text li {
-    float: left;
-    padding: 3px 0;
-    display: inline-block
+    float:left;
+    padding:3px 0;
+    display:inline-block
 }
 #siCat.text li a {
-    padding: 0 8px;
-    border-right: 1px solid #ddd;
-    line-height: 12px;
-    white-space: nowrap
+    padding:0 8px;
+    border-right:1px solid #ddd;
+    line-height:12px;
+    white-space:nowrap
 }
 #siCat.text li.active a {
-    color: #000;
-    font-weight: bold;
-    letter-spacing: -1px
+    color:#000;
+    font-weight:bold;
+    letter-spacing:-1px
 }
 #siCat.tabn {
-    position: relative;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    height: 32px;
-    display: block
+    position:relative;
+    overflow:hidden;
+    padding:0;
+    margin:0;
+    height:32px;
+    display:block
 }
 #siCat.tabn ul {
-    padding: 0;
-    margin: 2px 28px 0 0;
-    font-size: 12px
+    padding:0;
+    margin:2px 28px 0 0;
+    font-size:12px
 }
 #siCat.tabn li {
-    float: left;
-    margin-bottom: 10px;
-    margin-right: -1px;
-    border: solid 1px #ddd;
-    border-radius: 5px 5px 0px 0px;
-    -moz-border-radius: 5px 5px 0px 0px;
-    -webkit-border-radius: 5px 5px 0px 0px
+    float:left;
+    margin-bottom:10px;
+    margin-right:-1px;
+    border:solid 1px #ddd;
+    border-radius:5px 5px 0px 0px;
+    -moz-border-radius:5px 5px 0px 0px;
+    -webkit-border-radius:5px 5px 0px 0px
 }
 #siCat.tabn li, #siCat.colm .cateArea {
-    text-shadow: 0 1px rgba(255, 255, 255, .8);
-    background-color: #fff;
-    background-image: -moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: -o-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: -ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
+    text-shadow:0 1px rgba(255, 255, 255, .8);
+    background-color:#fff;
+    background-image:-moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:-webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:-o-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:-ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
 }
 #siCat.tabn li a, #siCat.tabn li a:link, #siCat.tabn li a:visited {
-    color: #000;
-    position: relative;
-    height: 26px;
-    text-decoration: none;
-    line-height: 26px;
-    display: block;
-    margin: 0;
-    padding: 0 15px
+    color:#000;
+    position:relative;
+    height:26px;
+    text-decoration:none;
+    line-height:26px;
+    display:block;
+    margin:0;
+    padding:0 15px
 }
 #siCat.tabn li:hover, #siCat.tabn li.active {
-    line-height: 28px;
-    margin-top: -2px;
-    padding-bottom: 2px;
-    border-bottom: 0
+    line-height:28px;
+    margin-top:-2px;
+    padding-bottom:2px;
+    border-bottom:0
 }
 #siCat.tabn li.active a {
-    z-index: 1;
-    line-height: 29px;
-    padding: 0 15px;
-    color: #000;
-    font-weight: bold;
-    letter-spacing: -1px
+    z-index:1;
+    line-height:29px;
+    padding:0 15px;
+    color:#000;
+    font-weight:bold;
+    letter-spacing:-1px
 }
 #siCat.tabn li.active {
-    background-color: transparent!important;
-    background-image: none!important
+    background-color:transparent!important;
+    background-image:none!important
 }
 #siCat.tabn .scCaNavi {
-    top: 2px;
-    right: 0
+    top:2px;
+    right:0
 }
 #siCat.colm {
-    position: absolute;
-    left: -99;
-    margin: 0 5px;
-    visibility: hidden
+    position:absolute;
+    left:-99;
+    margin:0 5px;
+    visibility:hidden
 }
 #siCat.colm .cateArea {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    overflow: hidden;
-    margin: 1px 0 0;
-    padding: 8px 0 0;
-    height: 22px!important
+    position:relative;
+    z-index:1;
+    width:100%;
+    overflow:hidden;
+    margin:1px 0 0;
+    padding:8px 0 0;
+    height:22px!important
 }
 #siCat.colm ul {
-    padding: 0;
-    margin: 0 42px 0 2px;
-    border: 0
+    padding:0;
+    margin:0 42px 0 2px;
+    border:0
 }
 #siCat.colm li {
-    float: left;
-    font-size: 15px;
-    font-weight: normal;
-    line-height: 15px;
-    margin-bottom: 30px;
-    padding: 0 20px 0 5px;
-    background: transparent url(../img/common/nav_slant.gif) no-repeat right top
+    float:left;
+    font-size:15px;
+    font-weight:normal;
+    line-height:15px;
+    margin-bottom:30px;
+    padding:0 20px 0 5px;
+    background:transparent url(../img/common/nav_slant.gif) no-repeat right top
 }
 #siCat.colm li a, #siCat.colm li a:link, #siCat.colm li a:visited {
-    color: #4A4A4A;
-    display: block;
-    margin: 0;
-    white-space: nowrap;
-    text-decoration: none
+    color:#4A4A4A;
+    display:block;
+    margin:0;
+    white-space:nowrap;
+    text-decoration:none
 }
 #siCat.colm li a:hover, #siCat.colm li a:active, #siCat.colm li a:focus {
-    text-decoration: underline
+    text-decoration:underline
 }
 #siCat.colm li.active a {
-    color: #000;
-    font-weight: bold;
-    letter-spacing: -1px
+    color:#000;
+    font-weight:bold;
+    letter-spacing:-1px
 }
 #siCat.side {
-    position: absolute;
-    z-index: 99;
-    display: block
+    position:absolute;
+    z-index:99;
+    display:block
 }
 #siCat.side .cateArea {
-    position: fixed
+    position:fixed
 }
 #siCat.side .cateArea.right {
-    margin-left: -18px;
-    width: 18px
+    margin-left:-18px;
+    width:18px
 }
 #siCat.side ul.scFrm, #siCat.side .mubtn {
-    display: inline-block;
-    background-color: #fafafa;
-    box-shadow: 1px 1px 3px #000;
-    -moz-box-shadow: 1px 1px 3px #000;
-    -webkit-box-shadow: 1px 1px 3px #000;
-    border-radius: 0px 5px 5px 0px;
-    -moz-border-radius: 0px 5px 5px 0px;
-    -webkit-border-radius: 0px 5px 5px 0px;
-    border: 1px solid #000;
-    white-space: nowrap
+    display:inline-block;
+    background-color:#fafafa;
+    box-shadow:1px 1px 3px #000;
+    -moz-box-shadow:1px 1px 3px #000;
+    -webkit-box-shadow:1px 1px 3px #000;
+    border-radius:0px 5px 5px 0px;
+    -moz-border-radius:0px 5px 5px 0px;
+    -webkit-border-radius:0px 5px 5px 0px;
+    border:1px solid #000;
+    white-space:nowrap
 }
 #siCat.side ul.scFrm.fr, #siCat.side .mubtn.fr {
-    border-radius: 5px 0px 0px 5px;
-    -moz-border-radius: 5px 0px 0px 5px;
-    -webkit-border-radius: 5px 0px 0px 5px;
-    box-shadow: -1px 1px 3px #000;
-    -moz-box-shadow: -1px 1px 3px #000;
-    -webkit-box-shadow: -1px 1px 3px #000;
-    border: 1px solid #000
+    border-radius:5px 0px 0px 5px;
+    -moz-border-radius:5px 0px 0px 5px;
+    -webkit-border-radius:5px 0px 0px 5px;
+    box-shadow:-1px 1px 3px #000;
+    -moz-box-shadow:-1px 1px 3px #000;
+    -webkit-box-shadow:-1px 1px 3px #000;
+    border:1px solid #000
 }
 #siCat.side .mubtn {
-    width: 16px;
-    height: 52px;
-    background: url(../img/common/label_menu.gif) no-repeat left top
+    width:16px;
+    height:52px;
+    background:url(../img/common/label_menu.gif) no-repeat left top
 }
 #siCat.side .mubtn.active, #siCat.side .mubtn:hover {
-    opacity: .7
+    opacity:.7
 }
 #siCat.side ul.scFrm {
-    display: none;
-    border-left: 2px solid #000;
-    border-top: 2px solid #000;
-    border-radius: 0px 0px 5px 0px;
-    -moz-border-radius: 0px 0px 5px 0px;
-    -webkit-border-radius: 0px 0px 5px 0px
+    display:none;
+    border-left:2px solid #000;
+    border-top:2px solid #000;
+    border-radius:0px 0px 5px 0px;
+    -moz-border-radius:0px 0px 5px 0px;
+    -webkit-border-radius:0px 0px 5px 0px
 }
 #siCat.side ul.scFrm.fr {
-    border-radius: 0px 0px 0px 5px;
-    -moz-border-radius: 0px 0px 0px 5px;
-    -webkit-border-radius: 0px 0px 0px 5px;
-    border: 1px solid #000;
-    border-right: 2px solid #000;
-    border-top: 2px solid #000
+    border-radius:0px 0px 0px 5px;
+    -moz-border-radius:0px 0px 0px 5px;
+    -webkit-border-radius:0px 0px 0px 5px;
+    border:1px solid #000;
+    border-right:2px solid #000;
+    border-top:2px solid #000
 }
 #siCat.side ul.scFrm ul {
-    padding: 0;
-    margin: 0;
-    list-style: none
+    padding:0;
+    margin:0;
+    list-style:none
 }
 #siCat.side .cateArea li {
-    border-top: 1px solid #eee;
-    zoom: 1
+    border-top:1px solid #eee;
+    zoom:1
 }
 #siCat.side .cateArea li:after {
-    content: "";
-    display: block;
-    clear: both
+    content:"";
+    display:block;
+    clear:both
 }
 #siCat.side .cateArea li:first-child {
-    border: 0
+    border:0
 }
 #siCat.side .cateArea li a, #siCat.side .cateArea li a:link, #siCat.side .cateArea li a:visited {
-    color: #4A4A4A;
-    padding: 2px 5px;
-    display: block
+    color:#4A4A4A;
+    padding:2px 5px;
+    display:block
 }
 #siCat.side .cateArea li a:hover, #siCat.side .cateArea li a:active, #siCat.side .cateArea li a:focus {
-    text-decoration: underline
+    text-decoration:underline
 }
 #siCat.side .cateArea li.active a {
-    color: #000;
-    font-weight: bold;
-    letter-spacing: -1px
+    color:#000;
+    font-weight:bold;
+    letter-spacing:-1px
 }
 #siCat.side .cateArea li b {
-    color: #bbb;
-    font-size: 12px;
-    font-family: Tahoma;
-    padding: 0 3px 0 2px
+    color:#bbb;
+    font-size:12px;
+    font-family:Tahoma;
+    padding:0 3px 0 2px
 }
 #siCat.side .cateArea li b:first-child {
-    display: inline-block
+    display:inline-block
 }
 #siCat span.cnt {
-    line-height: 11px;
-    font-size: 10px;
-    font-family: Tahoma
+    line-height:11px;
+    font-size:10px;
+    font-family:Tahoma
 }
 /* header */
 
 #siHrm, #siLst thead {
-    position: relative;
-    vertical-align: middle
+    position:relative;
+    vertical-align:middle
 }
 #siHrm .scFrm, #siLst thead tr div {
-    vertical-align: middle;
-    border: 1px solid #ddd;
-    border-left-width: 0;
-    border-right-width: 0;
-    color: #555;
-    height: 19px;
-    line-height: 19px;
-    font-size: 15px;
-    padding: 7px 0!important;
-    text-shadow: 0 1px rgba(255, 255, 255, .8);
-    background-color: #fff;
-    background-image: -moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: -o-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: -ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
-    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
+    vertical-align:middle;
+    border:1px solid #ddd;
+    border-left-width:0;
+    border-right-width:0;
+    color:#555;
+    height:19px;
+    line-height:19px;
+    font-size:15px;
+    padding:7px 0!important;
+    text-shadow:0 1px rgba(255, 255, 255, .8);
+    background-color:#fff;
+    background-image:-moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:-webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:-o-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:-ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
+    background-image:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
 }
 #siHrm .scFrm {
-    padding: 7px 10px!important;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px
+    padding:7px 10px!important;
+    border:1px solid #ddd;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px
 }
 #siLst thead tr th:first-child div {
-    border-left-width: 1px;
-    border-radius: 3px 0 0 3px;
-    -moz-border-radius: 3px 0 0 3px;
-    -webkit-border-radius: 3px 0 0 3px
+    border-left-width:1px;
+    border-radius:3px 0 0 3px;
+    -moz-border-radius:3px 0 0 3px;
+    -webkit-border-radius:3px 0 0 3px
 }
-#siLst thead tr th: last-of-type div {
-    border-right-width: 1px;
-    border-radius: 0 3px 3px 0;
-    -moz-border-radius: 0 3px 3px 0;
-    -webkit-border-radius: 0 3px 3px 0
+#siLst thead tr th:last-of-type div {
+    border-right-width:1px;
+    border-radius:0 3px 3px 0;
+    -moz-border-radius:0 3px 3px 0;
+    -webkit-border-radius:0 3px 3px 0
 }
 #siLst thead th span {
-    height: 17px;
-    line-height: 17px;
-    font-size: 15px;
-    color: #555;
-    border-left: 1px solid #ddd;
-    background-image: none!important;
-    background-color: transparent!important
+    height:17px;
+    line-height:17px;
+    font-size:15px;
+    color:#555;
+    border-left:1px solid #ddd;
+    background-image:none!important;
+    background-color:transparent!important
 }
 #siLst thead th:first-child span:first-child {
-    border: 0
+    border:0
 }
 #siLst thead.scOneCol th span {
-    display: inline-block
+    display:inline-block
 }
 #siLst thead.scOneCol th div, #siLst thead .scCheck div {
-    text-align: right;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-radius: 3px!important;
-    -moz-border-radius: 3px!important;
-    -webkit-border-radius: 3px!important
+    text-align:right;
+    border-left-width:1px;
+    border-right-width:1px;
+    border-radius:3px!important;
+    -moz-border-radius:3px!important;
+    -webkit-border-radius:3px!important
 }
 #siLst thead .scCheck {
-    border: 0!important;
-    padding: 0 0 2px 3px!important
+    border:0!important;
+    padding:0 0 2px 3px!important
 }
 #siLst .scCheck {
-    display: none;
-    width: 13px;
-    padding: 0 0 0 3px!important
+    display:none;
+    width:13px;
+    padding:0 0 0 3px!important
 }
 /* List */
 
 #siLst {
-    border: 0;
-    margin: 0 0 5px;
-    border-bottom: 1px solid #ddd
+    border:0;
+    margin:0 0 5px;
+    border-bottom:1px solid #ddd
 }
 #siLst th, #siLst td {
-    text-align: center;
-    border: 0;
-    padding: 0 0 2px;
-    line-height: 15px;
-    white-space: nowrap
+    text-align:center;
+    border:0;
+    padding:0 0 2px;
+    line-height:15px;
+    white-space:nowrap
 }
 #siLst th span {
-    display: block;
-    padding: 0 10px
+    display:block;
+    padding:0 10px
 }
 #siLst td {
-    padding: 7px 10px;
-    border-bottom: 1px solid #e6e6e6
+    padding:7px 10px;
+    border-bottom:1px solid #e6e6e6
 }
 #siLst .notice td, #siLst .best td {
-    background-color: #fafafa
+    background-color:#fafafa
 }
 #siLst .readed_count, #siLst .voted_count, #siLst .blamed_count {
-    text-align: right
+    text-align:right
 }
 #siLst .no, #siLst .document_srl, #siLst .category_srl, #siLst .user_name, #siLst .nick_name, #siLst .last_updater, #siLst .title {
-    text-align: left
+    text-align:left
 }
 #siLst .user_name a, #siLst .nick_name a {
-    text-decoration: none
+    text-decoration:none
 }
 #siLst td.title, #siLst .content {
-    white-space: normal;
-    word-break: break-all;
-    width: 100%
+    white-space:normal;
+    word-break:break-all;
+    width:100%
 }
 #siLst .content {
-    width: inherit;
-    height: inherit;
-    float: inherit
+    width:inherit;
+    height:inherit;
+    float:inherit
 }
 #siLst td.no, #siLst td.document_srl, #siLst td.readed_count, #siLst td.regdate, #siLst td.last_update {
-    letter-spacing: -1px
+    letter-spacing:-1px
 }
 #siLst td.last_updater {
-    letter-spacing: -1px;
-    font-size: 10px;
-    font-family: Tahoma
+    letter-spacing:-1px;
+    font-size:10px;
+    font-family:Tahoma
 }
 #siLst td em.reply, #siLst td em.trackback {
-    font-style: normal;
-    font-size: 10px;
-    font-family: Tahoma
+    font-style:normal;
+    font-size:10px;
+    font-family:Tahoma
 }
 #siLst thead .sort em {
-    width: 4px;
-    height: 4px;
-    background: transparent url(../img/common/btn_nav.gif) no-repeat -60px 8px
+    width:4px;
+    height:4px;
+    background:transparent url(../img/common/btn_nav.gif) no-repeat -60px 8px
 }
 #siLst thead .sort em.asc {
-    background-position: -60px -28px
+    background-position:-60px -28px
 }
 #siLst.noheader {
-    border-top: 1px solid #ddd;
-    background-color: transparent
+    border-top:1px solid #ddd;
+    background-color:transparent
 }
 /* Common style*/
 
 #siLst.list td.thumbnail img, #siLst.webz .scItem a.thum, #siLst.gall .scItem, #siDoc .thmAx img.thum {
-    padding: 5px;
-    border: 1px solid #e6e6e6;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px
+    padding:5px;
+    border:1px solid #e6e6e6;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px
 }
 #siLst.list td.thumbnail img:hover, #siLst.webz .scItem a.thum:hover, #siLst.gall .scItem:hover {
-    box-shadow: 1px 1px 2px #e6e6e6;
-    -moz-box-shadow: 1px 1px 2px #e6e6e6;
-    -webkit-box-shadow: 1px 1px 2px #e6e6e6
+    box-shadow:1px 1px 2px #e6e6e6;
+    -moz-box-shadow:1px 1px 2px #e6e6e6;
+    -webkit-box-shadow:1px 1px 2px #e6e6e6
 }
 #siLst .scRibbon, #siDoc .scRibbon {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    color: #fff;
-    line-height: 15px;
-    font-size: 12px;
-    margin: 0 -10px;
-    padding: 5px;
-    text-shadow: 0 1px rgba(0, 0, 0, .8);
-    background-color: #5c5c5c;
-    background-image: -moz-linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
-    background-image: -webkit-linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
-    background-image: -o-linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
-    background-image: -ms-linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
-    background-image: linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
-    -moz-box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
-    -webkit-box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, .3)
+    position:absolute;
+    top:5px;
+    left:5px;
+    color:#fff;
+    line-height:15px;
+    font-size:12px;
+    margin:0 -10px;
+    padding:5px;
+    text-shadow:0 1px rgba(0, 0, 0, .8);
+    background-color:#5c5c5c;
+    background-image:-moz-linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
+    background-image:-webkit-linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
+    background-image:-o-linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
+    background-image:-ms-linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
+    background-image:linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
+    -moz-box-shadow:2px 2px 0 rgba(0, 0, 0, .3);
+    -webkit-box-shadow:2px 2px 0 rgba(0, 0, 0, .3);
+    box-shadow:2px 2px 0 rgba(0, 0, 0, .3)
 }
 #siLst .scRibbon:before, #siDoc .scRibbon:before, #siLst .scRibbon:after, #siDoc .scRibbon:after {
-    content: '';
-    position: absolute;
-    border-style: solid;
-    border-color: transparent
+    content:'';
+    position:absolute;
+    border-style:solid;
+    border-color:transparent
 }
 #siLst .scRibbon:before, #siDoc .scRibbon:before {
-    border-width: 0 5px 10px 0;
-    border-right-color: #222;
-    border-left-color: transparent!important;
-    bottom: -10px;
-    left: 0
+    border-width:0 5px 10px 0;
+    border-right-color:#222;
+    border-left-color:transparent!important;
+    bottom:-10px;
+    left:0
 }
 #siLst .scRibbon:after, #siDoc .scRibbon:after {
-    border-width: 0!important
+    border-width:0!important
 }
 #siLst .scRibbon .caption, #siDoc .scRibbon .caption {
-    color: #fff
+    color:#fff
 }
 #siLst .scRibbon.action .caption {
-    color: #000;
-    text-shadow: 2px 2px 5px #AAA
+    color:#000;
+    text-shadow:2px 2px 5px #AAA
 }
 #siLst.webz .scRibbon {
-    top: 10px;
-    left: 10px
+    top:10px;
+    left:10px
 }
 /* List style */
 
 #siLst.list td.thumbnail {
-    vertical-align: top
+    vertical-align:top
 }
 #siLst.list td.content {
-    text-align: left;
-    vertical-align: top;
-    color: #aaa
+    text-align:left;
+    vertical-align:top;
+    color:#aaa
 }
 /* Gallery style */
 
 #siLst.gall td.scBox {
-    white-space: normal;
-    padding: 0
+    white-space:normal;
+    padding:0
 }
 #siLst.gall .scItem {
-    position: relative;
-    display: inline-block;
-    margin: 15px
+    position:relative;
+    display:inline-block;
+    margin:15px
 }
 #siLst.gall .scItem a {
-    text-decoration: none
+    text-decoration:none
 }
 #siLst.gall .scInfo.aHide {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: .6
+    position:absolute;
+    bottom:0;
+    left:0;
+    overflow:hidden;
+    width:100%;
+    height:100%;
+    background-color:#000;
+    opacity:.6
 }
 #siLst.gall .scInfo.aHide ul {
-    position: absolute;
-    top: 0;
-    left: 0
+    position:absolute;
+    top:0;
+    left:0
 }
 #siLst.gall .scInfo.aHide li, #siLst.gall .scInfo.aHide li a {
-    color: #eee
+    color:#eee
 }
 #siLst.gall .scInfo ul {
-    width: 100%;
-    margin: 5px 0 0;
-    padding: 0;
-    list-style: none
+    width:100%;
+    margin:5px 0 0;
+    padding:0;
+    list-style:none
 }
 #siLst.gall .scInfo li, #siLst.gall .scInfo li a {
-    text-align: left;
-    white-space: nowrap
+    text-align:left;
+    white-space:nowrap
 }
 #siLst.gall .scInfo li {
-    margin: 2px 7px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    font-size: 12px;
-    line-height: 15px;
-    height: 15px
+    margin:2px 7px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    font-size:12px;
+    line-height:15px;
+    height:15px
 }
 #siLst.gall .scInfo li.scNbsp {
-    height: 33px;
-    line-height: 33px
+    height:33px;
+    line-height:33px
 }
 #siLst.gall .scInfo .nick_name {
-    z-index: 1;
-    padding: 0 7px;
-    white-space: nowrap
+    z-index:1;
+    padding:0 7px;
+    white-space:nowrap
 }
 #siLst.gall .scInfo.aHide .nick_name, #siLst.gall .prtImg {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    padding: 0;
-    color: #eee;
-    white-space: nowrap
+    position:absolute;
+    bottom:6px;
+    right:6px;
+    padding:0;
+    color:#eee;
+    white-space:nowrap
 }
 #siLst.gall .prtImg em {
-    font-size: 10px;
-    padding: 1px 3px;
-    color: #eee;
-    border: 0;
-    background-color: #000;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    opacity: .7
+    font-size:10px;
+    padding:1px 3px;
+    color:#eee;
+    border:0;
+    background-color:#000;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    opacity:.7
 }
 #siLst.gall .prtImg img {
-    vertical-align: text-bottom;
-    margin: 0 0 0 2px!important
+    vertical-align:text-bottom;
+    margin:0 0 0 2px!important
 }
 #siLst.gall .prtImg img[alt="file"] {
-    display: none
+    display:none
 }
 #siLst.gall .scItem .scCheck {
-    position: absolute;
-    z-index: 2;
-    bottom: 5px;
-    right: 10px
+    position:absolute;
+    z-index:2;
+    bottom:5px;
+    right:10px
 }
 #siLst.gall .scItem:hover {
-    border-width: 2px;
-    margin: 14px
+    border-width:2px;
+    margin:14px
 }
 /* Webzine style */
 
 #siLst.webz td.scBox {
-    margin: 0;
-    padding: 0 0 5px
+    margin:0;
+    padding:0 0 5px
 }
 #siLst.webz .scItem {
-    margin: 2px 0 0;
-    padding: 0;
-    position: relative;
-    text-align: left
+    margin:2px 0 0;
+    padding:0;
+    position:relative;
+    text-align:left
 }
 #siLst.webz .scItem .scInfo {
-    margin: 0;
-    padding: 3px 5px
+    margin:0;
+    padding:3px 5px
 }
 #siLst.webz .scItem .scFrm {
-    position: relative;
-    width: 100%;
-    padding: 0 0 15px;
-    border-top: 1px solid #e6e6e6
+    position:relative;
+    width:100%;
+    padding:0 0 15px;
+    border-top:1px solid #e6e6e6
 }
 #siLst.webz .scItem .scFrm li {
-    line-height: 18px;
-    padding: 0;
-    white-space: normal;
-    word-break: break-all
+    line-height:18px;
+    padding:0;
+    white-space:normal;
+    word-break:break-all
 }
 #siLst.webz .scItem .scFrm li:first-child {
-    padding: 4px 0 5px
+    padding:4px 0 5px
 }
 #siLst.webz .scItem .scFrm li.title {
-    white-space: normal;
-    word-break: break-all;
-    font-weight: bold;
-    font-size: 15px
+    white-space:normal;
+    word-break:break-all;
+    font-weight:bold;
+    font-size:15px
 }
 #siLst.webz .scItem .scFrm li.title img[alt="file"] {
-    display: none
+    display:none
 }
 #siLst.webz .scItem .scFrm li.content {
-    text-align: left;
-    color: #aaa;
-    vertical-align: top;
-    padding: 10px 0 2px
+    text-align:left;
+    color:#aaa;
+    vertical-align:top;
+    padding:10px 0 2px
 }
 #siLst.webz .scItem .scFrm li.content:first-letter {
-    font-size: 200%;
-    font-weight: bold;
-    float: left
+    font-size:200%;
+    font-weight:bold;
+    float:left
 }
 #siLst.webz .scItem .scFrm li.mbAifo + li[class^="extra_vars"], #siLst.webz .scItem .scFrm li.category_srl + li[class^="extra_vars"] {
-    margin-top: 8px
+    margin-top:8px
 }
 #siLst.webz .scItem .scFrm li.mbAifo a {
-    text-decoration: none
+    text-decoration:none
 }
 #siLst.webz .scItem .wzdate {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 5px 5px 0;
-    font: 11px Tahoma;
-    opacity: .8
+    position:absolute;
+    right:0;
+    bottom:0;
+    padding:5px 5px 0;
+    font:11px Tahoma;
+    opacity:.8
 }
 #siLst.webz .scItem .scCheck {
-    padding: 0
+    padding:0
 }
 #siLst.webz .scItem a.thum {
-    text-align: center;
-    float: left
+    text-align:center;
+    float:left
 }
 /* widget style */
 
 #siDoc.widg {
-    margin: 0 0 10px;
-    padding: 0
+    margin:0 0 10px;
+    padding:0
 }
 #siDoc.widg .notice, #siDoc.widg .best, #siDoc.widg .doct {
-    position: relative;
-    margin: 0 2px;
-    padding-right: 10px;
-    margin-right: 5px
+    position:relative;
+    margin:0 2px;
+    padding-right:10px;
+    margin-right:5px
 }
 #siDoc.widg ul {
-    margin: 0 0 5px 5px;
-    width: 100%;
-    border: 1px solid #ddd;
-    padding: 2px;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    box-shadow: 1px 1px 1px #efefef;
-    -moz-box-shadow: 1px 1px 1px #efefef;
-    -webkit-box-shadow: 1px 1px 1px #efefef;
-    background-color: transparent;
-    background-image: -moz-linear-gradient(#ffffff, #f7f7f7);
-    background-image: -webkit-linear-gradient(#ffffff, #f7f7f7);
-    background-image: -o-linear-gradient(#ffffff, #f7f7f7);
-    background-image: -ms-linear-gradient(#ffffff, #f7f7f7);
-    background-image: linear-gradient(#ffffff, #f7f7f7)
+    margin:0 0 5px 5px;
+    width:100%;
+    border:1px solid #ddd;
+    padding:2px;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    box-shadow:1px 1px 1px #efefef;
+    -moz-box-shadow:1px 1px 1px #efefef;
+    -webkit-box-shadow:1px 1px 1px #efefef;
+    background-color:transparent;
+    background-image:-moz-linear-gradient(#ffffff, #f7f7f7);
+    background-image:-webkit-linear-gradient(#ffffff, #f7f7f7);
+    background-image:-o-linear-gradient(#ffffff, #f7f7f7);
+    background-image:-ms-linear-gradient(#ffffff, #f7f7f7);
+    background-image:linear-gradient(#ffffff, #f7f7f7)
 }
 #siDoc.widg li {
-    line-height: 15px;
-    padding: 5px 10px 5px 112px;
-    border-bottom: 1px dotted #E8E8E8
+    line-height:15px;
+    padding:5px 10px 5px 112px;
+    border-bottom:1px dotted #E8E8E8
 }
 #siDoc.widg .notice .scRibbon, #siDoc.widg .best .scRibbon {
-    height: 14px;
-    text-transform: capitalize
+    height:14px;
+    text-transform:capitalize
 }
 #siDoc.widg .best .scRibbon .caption {
-    color: #BABAFF
+    color:#BABAFF
 }
 #siDoc.widg .scElps em {
-    font-style: normal;
-    font-size: 11px;
-    font-family: Tahoma;
-    border: 0;
-    color: #777
+    font-style:normal;
+    font-size:11px;
+    font-family:Tahoma;
+    border:0;
+    color:#777
 }
 #siDoc.widg .doct ul {
-    margin-top: 10px;
-    height: 70px
+    margin-top:10px;
+    height:70px
 }
 #siDoc.widg .doct li {
-    border: 0;
-    padding: 10px 10px 10px 110px
+    border:0;
+    padding:10px 10px 10px 110px
 }
 #siDoc.widg .doct .title a {
-    font-weight: bold
+    font-weight:bold
 }
 #siDoc.widg .doct .category_srl a {
-    font-weight: normal
+    font-weight:normal
 }
 #siDoc.widg .doct .nick_name {
-    margin: 10px 0 0;
-    padding: 5px 10px;
-    text-align: right;
-    border: 1px solid #e6e6e6;
-    background-color: #efefef;
-    opacity: .7
+    margin:10px 0 0;
+    padding:5px 10px;
+    text-align:right;
+    border:1px solid #e6e6e6;
+    background-color:#efefef;
+    opacity:.7
 }
 #siDoc.widg .scRibbon {
-    position: absolute;
-    left: 0;
-    top: 5px;
-    margin: 0;
-    padding: 5px 10px;
-    width: 85px;
-    height: 50px;
-    border: 0
+    position:absolute;
+    left:0;
+    top:5px;
+    margin:0;
+    padding:5px 10px;
+    width:85px;
+    height:50px;
+    border:0
 }
 #siDoc.widg .scRibbon dl {
-    padding: 3px 0;
-    margin: 0;
-    list-style: none
+    padding:3px 0;
+    margin:0;
+    list-style:none
 }
 #siDoc.widg .scRibbon dd {
-    padding: 0;
-    margin: 0;
-    font-size: 12px;
-    line-height: 14px
+    padding:0;
+    margin:0;
+    font-size:12px;
+    line-height:14px
 }
 #siDoc.widg .scRibbon .regdate .y {
-    font-weight: bold;
-    font-size: 15px;
-    color: #333;
-    text-shadow: 2px 2px 5px #aaa
+    font-weight:bold;
+    font-size:15px;
+    color:#333;
+    text-shadow:2px 2px 5px #aaa
 }
 #siDoc.widg .scRibbon .regdate .m {
-    text-align: center;
-    opacity: .6
+    text-align:center;
+    opacity:.6
 }
 #siDoc.widg .scRibbon .regdate .d {
-    text-align: right
+    text-align:right
 }
 /* View */
 
 #siDoc .mbAfrm {
-    background-color: #fafafa;
-    color: #4a4a4a;
-    margin: 2px!important;
-    border-bottom: 1px solid #e6e6e6
+    background-color:#fafafa;
+    color:#4a4a4a;
+    margin:2px!important;
+    border-bottom:1px solid #e6e6e6
 }
 #siDoc .mbAfrm li:first-child .fr span {
-    margin-left: 5px
+    margin-left:5px
 }
 #siDoc .scDocCon {
-    min-height: 80px;
-    margin: 15px 5px 20px;
-    white-space: normal;
-    overflow: hidden
+    min-height:80px;
+    margin:15px 5px 20px;
+    white-space:normal;
+    overflow:hidden
 }
 #siDoc .scDocCon.blind {
-    min-height: 100px;
-    background: url(../img/common/thum_blind.png) no-repeat right bottom
+    min-height:100px;
+    background:url(../img/common/thum_blind.png) no-repeat right bottom
 }
 #siDoc .scDocCon.secret {
-    min-height: 100px;
-    background: url(../img/common/thum_secret.png) no-repeat right bottom
+    min-height:100px;
+    background:url(../img/common/thum_secret.png) no-repeat right bottom
 }
 #siDoc .conSecret {
-    margin-bottom: 10px
+    margin-bottom:10px
 }
 #siDoc .scVext {
-    padding: 0;
-    margin: 5px 0 20px;
-    list-style: none
+    padding:0;
+    margin:5px 0 20px;
+    list-style:none
 }
 #siDoc .scVext li {
-    line-height: 18px;
-    position: relative;
-    padding-left: 145px;
-    border: 0 solid #e6e6e6;
-    border-bottom-width: 1px
+    line-height:18px;
+    position:relative;
+    padding-left:145px;
+    border:0 solid #e6e6e6;
+    border-bottom-width:1px
 }
 #siDoc .scVext li:first-child {
-    border-top-width: 1px
+    border-top-width:1px
 }
 #siDoc .scVext li label:first-child {
-    padding: 2px 5px;
-    display: inline-block;
-    margin: 2px 0 2px -145px;
-    width: 120px;
-    background-color: #fafafa
+    padding:2px 5px;
+    display:inline-block;
+    margin:2px 0 2px -145px;
+    width:120px;
+    background-color:#fafafa
 }
 #siDoc .thmAx {
-    position: relative;
-    margin-bottom: 15px
+    position:relative;
+    margin-bottom:15px
 }
 #siDoc .thmAx img.thum {
-    float: left
+    float:left
 }
 #siDoc .thmAx ul.scVext {
-    position: relative;
-    float: none;
-    width: 100%
+    position:relative;
+    float:none;
+    width:100%
 }
 #siDoc .actBtns {
-    margin-top: 10px;
-    text-align: right
+    margin-top:10px;
+    text-align:right
 }
 #siDoc .action {
-    display: inline-block;
-    line-height: 16px;
-    font-size: 11px;
-    margin: 0 5px 0 0
+    display:inline-block;
+    line-height:16px;
+    font-size:11px;
+    margin:0 5px 0 0
 }
 #siDoc .scSns {
-    display: inline;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    vertical-align: top
+    display:inline;
+    margin:0;
+    padding:0;
+    list-style:none;
+    vertical-align:top
 }
 #siDoc .scSns li {
-    display: inline;
-    vertical-align: top
+    display:inline;
+    vertical-align:top
 }
 #siDoc .scSns a {
-    display: inline-block;
-    height: 16px;
-    line-height: 16px
+    display:inline-block;
+    height:16px;
+    line-height:16px
 }
 #siDoc .scSns .link a {
-    width: 16px;
-    height: 0;
-    padding: 16px 0 0 0;
-    overflow: hidden;
-    background: url(../img/common/sns_set.gif) no-repeat
+    width:16px;
+    height:0;
+    padding:16px 0 0 0;
+    overflow:hidden;
+    background:url(../img/common/sns_set.gif) no-repeat
 }
 #siDoc .scSns .twitter a {
-    background-position: 0 0
+    background-position:0 0
 }
 #siDoc .scSns .me2day a {
-    background-position: 0 -30px
+    background-position:0 -30px
 }
 #siDoc .scSns .facebook a {
-    background-position: 0 -60px
+    background-position:0 -60px
 }
 #siDoc .scSns .delicious a {
-    background-position: 0 -90px
+    background-position:0 -90px
 }
 #siDoc .tags {
-    display: inline-block;
-    height: 16px;
-    font-size: 11px;
-    border: 0;
-    color: #666;
-    vertical-align: top;
-    margin-top: 5px;
-    padding: 0 15px 0 32px;
-    line-height: 16px;
-    background: url(../img/common/ico_set.gif) no-repeat 0 -58px
+    display:inline-block;
+    height:16px;
+    font-size:11px;
+    border:0;
+    color:#666;
+    vertical-align:top;
+    margin-top:5px;
+    padding:0 15px 0 32px;
+    line-height:16px;
+    background:url(../img/common/ico_set.gif) no-repeat 0 -58px
 }
 #siDoc .tags a:hover, #siDoc .tags a:active, #siDoc .tags a:focus {
-    text-decoration: underline
+    text-decoration:underline
 }
 #siDoc .tags a {
-    text-decoration: none;
-    border: 0;
-    color: #666
+    text-decoration:none;
+    border:0;
+    color:#666
 }
 #siDoc .sign {
-    clear: both;
-    border: 1px solid #ddd;
-    margin: 5px 0 -1px 0;
-    padding: 13px;
-    overflow: hidden;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px
+    clear:both;
+    border:1px solid #ddd;
+    margin:5px 0 -1px 0;
+    padding:13px;
+    overflow:hidden;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px
 }
 #siDoc .sign .pf {
-    float: left;
-    margin: 0 13px 0 0;
-    width: 80px;
-    height: 80px
+    float:left;
+    margin:0 13px 0 0;
+    width:80px;
+    height:80px
 }
 #siDoc .sign .tx {
-    white-space: normal;
-    word-break: break-all;
-    overflow: auto;
-    height: 80px;
-    line-height: 1.3em;
-    font-size: 11px;
-    border-left: 1px dotted #ddd;
-    padding: 0 0 0 13px;
-    color: #333
+    white-space:normal;
+    word-break:break-all;
+    overflow:auto;
+    height:80px;
+    line-height:1.3em;
+    font-size:11px;
+    border-left:1px dotted #ddd;
+    padding:0 0 0 13px;
+    color:#333
 }
 #siDoc .sign .tx * {
-    margin: 0
+    margin:0
 }
 /* feedback */
 
 #siDoc .ipAddress, #siFbk .time {
-    margin: 0;
-    font-weight: normal;
-    font: 10px Tahoma, Geneva, sans-serif;
-    opacity: .8
+    margin:0;
+    font-weight:normal;
+    font:10px Tahoma, Geneva, sans-serif;
+    opacity:.8
 }
 #siFbk {
-    border: 1px solid #ddd;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color: transparent!important
+    border:1px solid #ddd;
+    margin-top:15px;
+    margin-bottom:15px;
+    background-color:transparent!important
 }
 #siFbk .scFbH {
-    position: relative;
-    color: #333;
-    height: 30px;
-    padding: 0 0 0 35px;
-    line-height: 28px;
-    text-shadow: 0 1px #fff;
-    background: #f5f5f5 url(../img/common/ico_set.gif) no-repeat;
-    margin: 3px
+    position:relative;
+    color:#333;
+    height:30px;
+    padding:0 0 0 35px;
+    line-height:28px;
+    text-shadow:0 1px #fff;
+    background:#f5f5f5 url(../img/common/ico_set.gif) no-repeat;
+    margin:3px
 }
 #siFbk .scFbH h2 {
-    margin: 0;
-    font-size: 15px
+    margin:0;
+    font-size:15px
 }
 #siFbk .scFbH h2 em {
-    font-style: normal;
-    color: #4736ac
+    font-style:normal;
+    color:#4736ac
 }
 #siFbk .scFbH span {
-    margin-right: 10px
+    margin-right:10px
 }
 #siFbk .scFbH .trackbackURL {
-    margin-top: 8px;
-    line-height: 1;
-    font: 11px Tahoma, Geneva, sans-serif
+    margin-top:8px;
+    line-height:1;
+    font:11px Tahoma, Geneva, sans-serif
 }
 #siFbk .scFbt {
-    position: relative;
-    float: left;
-    color: #4a4a4a;
-    width: 184px;
-    padding: 0 0 0 6px
+    position:relative;
+    float:left;
+    color:#4a4a4a;
+    width:184px;
+    padding:0 0 0 6px
 }
 #siFbk .scFbt .profile {
-    float: left;
-    width: 38px;
-    height: 38px;
-    margin: 0 6px 5px 0;
-    border: 1px solid #ddd;
-    background: url(../img/common/profile.gif) no-repeat
+    float:left;
+    width:38px;
+    height:38px;
+    margin:0 6px 5px 0;
+    border:1px solid #ddd;
+    background:url(../img/common/profile.gif) no-repeat
 }
 #siFbk .scFbt .author {
-    margin: 0;
-    font-size: 12px
+    margin:0;
+    font-size:12px
 }
 #siFbk .action {
-    margin: 0;
-    padding: 5px 5px 0 0;
-    white-space: nowrap;
-    float: right
+    margin:0;
+    padding:5px 5px 0 0;
+    white-space:nowrap;
+    float:right
 }
 #siFbk .action a {
-    padding: 0 0 0 18px;
-    color: #767676;
-    background: url(../img/common/ico_set.gif) no-repeat
+    padding:0 0 0 18px;
+    color:#767676;
+    background:url(../img/common/ico_set.gif) no-repeat
 }
 #siFbk .action a.reply {
-    background-position: 0 -210px
+    background-position:0 -210px
 }
 #siFbk .action a.modify {
-    background-position: 0 -150px
+    background-position:0 -150px
 }
 #siFbk .action a.delete {
-    background-position: 0 -180px
+    background-position:0 -180px
 }
 #siFbk .action a.this {
-    background: none;
-    display: inline-block;
-    line-height: 16px;
-    font-size: 11px;
-    margin: 0 5px 0 0;
-    padding-left: 0
+    background:none;
+    display:inline-block;
+    line-height:16px;
+    font-size:11px;
+    margin:0 5px 0 0;
+    padding-left:0
 }
 #siFbk .indent {
-    padding-left: 17px;
-    background: url(../img/common/ico_set.gif) no-repeat 7px -375px
+    padding-left:17px;
+    background:url(../img/common/ico_set.gif) no-repeat 7px -375px
 }
 #siFbk .scIcoArea {
-    position: absolute;
-    left: 5px;
-    top: 0
+    position:absolute;
+    left:5px;
+    top:0
 }
 #siFbk .scFrm {
-    margin: 10px 10px 5px;
-    padding: 0;
-    text-shadow: none!important
+    margin:10px 10px 5px;
+    padding:0;
+    text-shadow:none!important
 }
 #siFbk .scFrm.best>li {
-    background-color: #fafafa
+    background-color:#fafafa
 }
 #siFbk .scFrm>li {
-    padding: 15px 0 10px;
-    border: 0 dashed #e6e6e6;
-    border-bottom-width: 1px;
-    margin: 0 0 -1px 0
+    padding:15px 0 10px;
+    border:0 dashed #e6e6e6;
+    border-bottom-width:1px;
+    margin:0 0 -1px 0
 }
 #siFbk .scCmtCon {
-    overflow: hidden;
-    min-height: 40px;
-    margin: 0 6px 5px 200px;
-    white-space: normal
+    overflow:hidden;
+    min-height:40px;
+    margin:0 6px 5px 200px;
+    white-space:normal
 }
 #siFbk .scCmtCon.blind {
-    min-height: 50px;
-    background: url(../img/common/thum_blind.png) no-repeat right bottom
+    min-height:50px;
+    background:url(../img/common/thum_blind.png) no-repeat right bottom
 }
 #siFbk .scCmtCon.secret {
-    min-height: 50px;
-    background: url(../img/common/thum_secret.png) no-repeat right bottom
+    min-height:50px;
+    background:url(../img/common/thum_secret.png) no-repeat right bottom
 }
 #siFbk.tbk .scFbH {
-    background-position: 11px -84px
+    background-position:11px -84px
 }
 #siFbk.cmt .scFbH {
-    background-position: 11px -112px
+    background-position:11px -112px
 }
 #siFbk.cmt .scVoteArea {
-    margin: 0;
-    padding: 5px 5px 0 0;
-    text-align: right
+    margin:0;
+    padding:5px 5px 0 0;
+    text-align:right
 }
 #siFbk.cmt .scVoteArea span.vote {
-    color: #767676;
-    font-size: 11px
+    color:#767676;
+    font-size:11px
 }
 #siFbk.cmt li.noPfile .scFbt {
-    width: 100px
+    width:100px
 }
 #siFbk.cmt li.noPfile .scCmtCon {
-    margin-left: 120px
+    margin-left:120px
 }
 #siFbk.cmt.web .scFbH {
-    padding: 0;
-    padding-left: 10px
+    padding:0;
+    padding-left:10px
 }
 #siFbk.cmt.web .scFbH span {
-    background: url(../img/common/ico_set.gif) no-repeat 0 -118px;
-    padding-left: 20px
+    background:url(../img/common/ico_set.gif) no-repeat 0 -118px;
+    padding-left:20px
 }
 #siFbk.cmt.web .scFbH span.fr {
-    background-position: 0 -112px
+    background-position:0 -112px
 }
 #siFbk.cmt.web .scFbt {
-    width: 100%;
-    padding: 0
+    width:100%;
+    padding:0
 }
 #siFbk.cmt.web .scFrm {
-    margin: 0!important;
-    width: 50%!important;
-    padding: 0!important
+    margin:0!important;
+    width:50%!important;
+    padding:0!important
 }
 #siFbk.cmt.web .scFrm>li {
-    margin: 0;
-    padding: 18px 15px 16px;
-    border-right-width: 1px
+    margin:0;
+    padding:18px 15px 16px;
+    border-right-width:1px
 }
 #siFbk.cmt.web .scFrm.fr>li {
-    border-right-width: 0;
-    border-left-width: 1px
+    border-right-width:0;
+    border-left-width:1px
 }
 #siFbk.cmt.web .scCmtCon {
-    margin: 10px 5px 5px!important
+    margin:10px 5px 5px!important
 }
 #siFbk.cmt.web .action, #siFbk.cmt.web .scVoteArea {
-    padding-right: 0
+    padding-right:0
 }
 #siFbk .scCmtCon, #siFbk .xe_content {
-    color: #666!important
+    color:#666!important
 }
 /* comment Write */
 
 #siFbk .scFbWt {
-    padding: 7px;
-    margin: 3px;
-    background-color: #f5f5f5
+    padding:7px;
+    margin:3px;
+    background-color:#f5f5f5
 }
 #siFbk .scFbWt .scWopts {
-    padding-right: 150px
+    padding-right:150px
 }
 #siFbk .scFbWt .scWopts label:first-child *:first-child {
-    margin-left: 0
+    margin-left:0
 }
 #siFbk .scFbWt .scWcont {
-    padding-right: 158px
+    padding-right:158px
 }
 #siFbk .scFbWt .scWcont textarea {
-    float: left;
-    display: inline-block;
-    margin: 0;
-    height: 54px;
-    width: 100%;
-    resize: vertical
+    float:left;
+    display:inline-block;
+    margin:0;
+    height:54px;
+    width:100%;
+    resize:vertical
 }
 #siFbk .scFbWt .cmtbtns {
-    display: inline-block;
-    margin: -2px -158px 0 0;
-    width: 146px;
-    text-align: right
+    display:inline-block;
+    margin:-2px -158px 0 0;
+    width:146px;
+    text-align:right
 }
 #siFbk .scFbWt .cmtbtns .scBtn.blue {
-    margin-top: 3px;
-    height: 56px
+    margin-top:3px;
+    height:56px
 }
 #siFbk .scFbWt .cmtbtns .scBtn.blue button {
-    height: 53px
+    height:53px
 }
 #siFbk .scFbWt .cmtbtns .scBtn.small+.scBtn.blue, #siFbk .scFbWt .cmtbtns .scBtn.small+.scBtn.blue button {
-    height: 32px
+    height:32px
 }
 #siFbk .scFbWt .cmtbtns .scBtn a {
-    width: 116px;
-    text-align: center
+    width:116px;
+    text-align:center
 }
 #siFbk .scFbWt .cmtbtns .scBtn button {
-    width: 136px
+    width:136px
 }
 #siFbk .scFbWt .scWusr {
-    margin-top: 5px;
-    display: none
+    margin-top:5px;
+    display:none
 }
 #siFbk .scFbWt .scWusr input {
-    margin: 0;
-    width: 16%;
-    max-width: 120px
+    margin:0;
+    width:16%;
+    max-width:120px
 }
 /* Write */
 
 #siWrt .scCpar {
-    position: relative;
-    overflow: hidden;
-    overflow-y: auto;
-    margin: 10px 0;
-    padding: 10px;
-    height: 100px;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border: 2px solid #ddd
+    position:relative;
+    overflow:hidden;
+    overflow-y:auto;
+    margin:10px 0;
+    padding:10px;
+    height:100px;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border:2px solid #ddd
 }
 #siWrt .scCpar .author {
-    margin-top: 0
+    margin-top:0
 }
 #siWrt .scCpar .content {
-    position: absolute;
-    white-space: normal
+    position:absolute;
+    white-space:normal
 }
 #siWrt .scWusr {
-    margin: 0 0 10px
+    margin:0 0 10px
 }
 #siWrt .scWusr input {
-    width: 16%;
-    max-width: 120px
+    width:16%;
+    max-width:120px
 }
 #siWrt .scWtag {
-    padding: 0 50px 0 0;
-    margin: 10px 0
+    padding:0 50px 0 0;
+    margin:10px 0
 }
 #siWrt .scWtag input[type="text"] {
-    width: 100%
+    width:100%
 }
 #siWrt .scWtag label {
-    line-height: inherit
+    line-height:inherit
 }
 #siWrt .scWtag span:first-child {
-    top: 0!important
+    top:0!important
 }
 #siWrt .scWtag .scLaEt.scNmodal input {
-    margin-right: -47px;
-    padding-left: 43px
+    margin-right:-47px;
+    padding-left:43px
 }
 #siWrt .scExTog button {
-    width: 100%;
-    height: 10px;
-    border: 1px solid #e6e6e6;
-    border-bottom: 0;
-    background-color: #fafafa;
-    cursor: pointer;
-    overflow: visible
+    width:100%;
+    height:10px;
+    border:1px solid #e6e6e6;
+    border-bottom:0;
+    background-color:#fafafa;
+    cursor:pointer;
+    overflow:visible
 }
 #siWrt .scExTog button:hover {
-    opacity: .6
+    opacity:.6
 }
 #siWrt .scExTog i {
-    display: inline-block;
-    width: 10px;
-    height: 7px;
-    line-height: 10px;
-    vertical-align: text-top;
-    background: transparent url(../img/common/btn_nav.gif) no-repeat -39px -29px
+    display:inline-block;
+    width:10px;
+    height:7px;
+    line-height:10px;
+    vertical-align:text-top;
+    background:transparent url(../img/common/btn_nav.gif) no-repeat -39px -29px
 }
 #siWrt .scWul, #siSimWrt .scWul {
-    padding: 0;
-    margin: 0 0 10px;
-    list-style: none
+    padding:0;
+    margin:0 0 10px;
+    list-style:none
 }
 #siWrt .scWul .scWli, #siSimWrt .scWul li {
-    line-height: 18px;
-    position: relative;
-    padding-left: 145px;
-    border: 0 solid #e6e6e6;
-    border-bottom-width: 1px
+    line-height:18px;
+    position:relative;
+    padding-left:145px;
+    border:0 solid #e6e6e6;
+    border-bottom-width:1px
 }
 #siWrt .scWul .scWli:first-child {
-    border-top-width: 1px
+    border-top-width:1px
 }
 #siWrt .scWul .scWli label:first-child, #siSimWrt .scWul label:first-child {
-    float: left;
-    padding: 2px 5px;
-    overflow: hidden;
-    display: inline-block;
-    margin: 2px 0 2px -145px;
-    width: 120px;
-    background-color: #fafafa
+    float:left;
+    padding:2px 5px;
+    overflow:hidden;
+    display:inline-block;
+    margin:2px 0 2px -145px;
+    width:120px;
+    background-color:#fafafa
 }
 #siWrt .scWul .scWli input[type="text"], #siWrt .scWul .scWli textarea, #siSimWrt .scWul input[type="text"], #siSimWrt .scWul textarea {
-    margin-left: -8px;
-    width: 100%;
-    resize: vertical
+    margin-left:-8px;
+    width:100%;
+    resize:vertical
 }
 #siWrt .scWul .scWli input.address[type="text"]:first-child, #siSimWrt .scWul input.address[type="text"]:first-child {
-    width: 70%
+    width:70%
 }
 #siWrt .scWul .scWli input.tel, #siWrt .scWul .scWli input.date, #siSimWrt .scWul input.tel, #siSimWrt .scWul input.date {
-    width: 20%!important;
-    margin-right: 10px
+    width:20%!important;
+    margin-right:10px
 }
 #siWrt .scWul .scWli a.button, #siSimWrt .scWul a.button {
-    margin-left: 5px
+    margin-left:5px
 }
 #siWrt .scWul .scWli ul, #siSimWrt .scWul .scWli ul {
-    padding: 0;
-    margin: 0 0 0 -10px;
-    list-style: none;
-    border: 0;
-    zoom: 1
+    padding:0;
+    margin:0 0 0 -10px;
+    list-style:none;
+    border:0;
+    zoom:1
 }
 #siWrt .scWul .scWli ul:after, #siSimWrt .scWul .scWli ul:after {
-    content: "";
-    display: block;
-    clear: both
+    content:"";
+    display:block;
+    clear:both
 }
 #siWrt .scWul .scWli li, #siSimWrt .scWul .scWli li {
-    float: left;
-    border: 0;
-    padding: 2px 5px 0 0
+    float:left;
+    border:0;
+    padding:2px 5px 0 0
 }
 #siWrt .scWul .scWli input, #siSimWrt .scWul input {
-    margin-top: 3px
+    margin-top:3px
 }
 #siWrt .scWul .scWli select, #siSimWrt .scWul select {
-    margin: 3px 8px 3px -8px
+    margin:3px 8px 3px -8px
 }
 #siWrt .scWul .scWli textarea, #siSimWrt .scWul textarea {
-    margin-top: 3px;
-    margin-bottom: 3px
+    margin-top:3px;
+    margin-bottom:3px
 }
 #siWrt .scWul .scWli p {
-    margin: 0 2px;
-    margin-left: -8px
+    margin:0 2px;
+    margin-left:-8px
 }
 #siWrt label.wrtTxt em, #siFbk label.wrtTxt em {
-    line-height: 20px;
-    font-size: 15px;
-    padding-right: 5px;
-    text-shadow: 0 1px #fff;
-    opacity: .6
+    line-height:20px;
+    font-size:15px;
+    padding-right:5px;
+    text-shadow:0 1px #fff;
+    opacity:.6
 }
 /* simple editor */
 
 #siSimWrt {
-    padding: 0;
-    margin-bottom: 20px
+    padding:0;
+    margin-bottom:20px
 }
 #siSimWrt #siHrm .scFrm li {
-    text-align: right;
-    padding-left: 130px!important
+    text-align:right;
+    padding-left:130px!important
 }
 #siSimWrt #siHrm .scFrm li input {
-    width: 100%;
-    margin-top: -4px
+    width:100%;
+    margin-top:-4px
 }
 #siSimWrt #siHrm .scFrm li strong.t {
-    position: absolute;
-    left: 10px
+    position:absolute;
+    left:10px
 }
 #siSimWrt .scWul {
-    padding: 0 10px
+    padding:0 10px
 }
 #siSimWrt .scWul .scWli {
-    padding-top: 5px;
-    padding-bottom: 2px
+    padding-top:5px;
+    padding-bottom:2px
 }
 #siSimWrt .scWul textarea {
-    margin: 2px 0;
-    padding: 2px;
-    margin-left: -9px;
-    width: 100%;
-    resize: vertical;
-    height: 80px;
-    border-width: 3px;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px
+    margin:2px 0;
+    padding:2px;
+    margin-left:-9px;
+    width:100%;
+    resize:vertical;
+    height:80px;
+    border-width:3px;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px
 }
 #siSimWrt .scInfo {
-    margin: 0 0 0 2px;
-    width: 100%
+    margin:0 0 0 2px;
+    width:100%
 }
 #siSimWrt .scInfo .fr {
-    position: absolute;
-    right: 0
+    position:absolute;
+    right:0
 }
 #siSimWrt .scInfo .scLaEt input {
-    width: 13%!important
+    width:13%!important
 }
 /* Navi */
 
 #siNavi h2 {
-    padding: 0;
-    margin: 10px 0 5px;
-    font-size: 15px;
-    font-weight: bold;
-    text-shadow: 0 1px #ccc
+    padding:0;
+    margin:10px 0 5px;
+    font-size:15px;
+    font-weight:bold;
+    text-shadow:0 1px #ccc
 }
 #siNavi ul {
-    padding: 0;
-    margin: 5px 0 10px;
-    list-style: none;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd
+    padding:0;
+    margin:5px 0 10px;
+    list-style:none;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd
 }
 #siNavi li {
-    line-height: 15px;
-    padding: 5px 10px;
-    color: #555;
-    border-bottom: 1px dotted #ddd
+    line-height:15px;
+    padding:5px 10px;
+    color:#555;
+    border-bottom:1px dotted #ddd
 }
 #siNavi li div.cate {
-    padding-right: 5px
+    padding-right:5px
 }
 #siNavi li div.cate a, #siNavi li div.no {
-    color: #555;
-    opacity: .7
+    color:#555;
+    opacity:.7
 }
 #siNavi li div.no {
-    width: 30px;
-    margin-right: 5px
+    width:30px;
+    margin-right:5px
 }
 #siNavi li div.scElps em {
-    font-style: normal;
-    font-size: 10px;
-    font-family: Tahoma
+    font-style:normal;
+    font-size:10px;
+    font-family:Tahoma
 }
 #siNavi.histories {
-    margin: 10px;
-    padding: 10px;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px
+    margin:10px;
+    padding:10px;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px
 }
 #siNavi.histories li div.no {
-    width: auto
+    width:auto
 }
 /* Page */
 
 #siBody .scPageArea {
-    position: relative;
-    text-align: left;
-    margin: 0;
-    padding: 1px 0;
-    font-size: 15px;
-    line-height: 17px
+    position:relative;
+    text-align:left;
+    margin:0;
+    padding:1px 0;
+    font-size:15px;
+    line-height:17px
 }
 #siBody .scPageArea a:hover, #siBody .scPageArea a:active, #siBody .scPageArea a:focus {
-    color: #333
+    color:#333
 }
 #siBody .scPage a, #siBody .scPage strong {
-    color: #555;
-    line-height: 14px;
-    height: 14px;
-    display: inline-block;
-    padding: 0 6px 0 8px;
-    margin: 0 -3px;
-    border-right: 1px solid #ddd
+    color:#555;
+    line-height:14px;
+    height:14px;
+    display:inline-block;
+    padding:0 6px 0 8px;
+    margin:0 -3px;
+    border-right:1px solid #ddd
 }
 #siBody .scPage .direction span {
-    position: relative;
-    top: 4px;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    font-size: 0;
-    line-height: 0;
-    vertical-align: top;
-    border: 4px solid;
-    border-top: solid transparent;
-    border-bottom: solid transparent
+    position:relative;
+    top:4px;
+    display:inline-block;
+    width:0;
+    height:0;
+    font-size:0;
+    line-height:0;
+    vertical-align:top;
+    border:4px solid;
+    border-top:solid transparent;
+    border-bottom:solid transparent
 }
 #siBody .scPage .prev {
-    border-left: 0;
-    padding-left: 3px
+    border-left:0;
+    padding-left:3px
 }
 #siBody .scPage .next {
-    border-right: 0;
-    padding-right: 3px
+    border-right:0;
+    padding-right:3px
 }
 #siBody .scPage .prev span {
-    border-left: 0;
-    margin-right: 1px
+    border-left:0;
+    margin-right:1px
 }
 #siBody .scPage .next span {
-    border-right: 0;
-    margin-left: 1px
+    border-right:0;
+    margin-left:1px
 }
 #siBody .scPage strong {
-    color: #333;
-    font-size: 15px;
-    text-decoration: line-through
+    color:#333;
+    font-size:15px;
+    text-decoration:line-through
 }
 #siFbk .scPageArea {
-    padding: 0 10px 3px;
-    margin: 5px 0;
-    height: 16px
+    padding:0 10px 3px;
+    margin:5px 0;
+    height:16px
 }
 #siFbk .scPageArea .scBtn {
-    position: absolute;
-    top: -5px;
-    right: 5px
+    position:absolute;
+    top:-5px;
+    right:5px
 }
 /* search */
 
 #siBody .scSchArea {
-    margin: 20px 0 0;
-    padding: 0
+    margin:20px 0 0;
+    padding:0
 }
 #siBody .scSch {
-    position: relative
+    position:relative
 }
 #siBody .scSch form {
-    display: block
+    display:block
 }
 #siBody .scSch select {
-    position: absolute;
-    z-index: 1;
-    top: 7px;
-    left: 43px;
-    height: 21px;
-    width: 65px;
-    border: 0!important
+    position:absolute;
+    z-index:1;
+    top:7px;
+    left:43px;
+    height:21px;
+    width:65px;
+    border:0!important
 }
 #siBody .scSch select, #siBody .scSch select option {
-    font-size: 13px;
-    color: #333;
-    background-color: #f2f2f2!important
+    font-size:13px;
+    color:#333;
+    background-color:#f2f2f2!important
 }
 #siBody .scSch input.keyword {
-    cursor: text!important;
-    width: 115px!important;
-    padding: 0 7px 0 74px!important;
-    font-weight: normal!important
+    cursor:text!important;
+    width:115px!important;
+    padding:0 7px 0 74px!important;
+    font-weight:normal!important
 }
 #siBody .scSch .tagBtn {
-    height: 29px;
-    width: 28px;
-    margin: 0;
-    padding: 0!important;
-    display: inline-block;
-    background: url(../img/common/ico_set.gif) no-repeat 6px -354px
+    height:29px;
+    width:28px;
+    margin:0;
+    padding:0!important;
+    display:inline-block;
+    background:url(../img/common/ico_set.gif) no-repeat 6px -354px
 }
 #siBody .scSch .tagBtn em {
-    position: relative;
-    padding: 0;
-    top: -26px!important
+    position:relative;
+    padding:0;
+    top:-26px!important
 }
 #siBody .scSch .scBtn.black {
-    overflow: hidden
+    overflow:hidden
 }
 /* file list */
 
 #siBody .scFiles span.fsize {
-    font-size: 10px;
-    font-family: Tahoma
+    font-size:10px;
+    font-family:Tahoma
 }
 #siBody .scFiles ul {
-    list-style: none;
-    overflow: hidden;
-    line-height: 16px;
-    border: 2px solid #e6e6e6;
-    margin: 5px 0 0;
-    padding: 5px 0 0 5px;
-    background-color: #fafafa
+    list-style:none;
+    overflow:hidden;
+    line-height:16px;
+    border:2px solid #e6e6e6;
+    margin:5px 0 0;
+    padding:5px 0 0 5px;
+    background-color:#fafafa
 }
 #siBody .scFiles li {
-    line-height: normal;
-    float: left;
-    padding: 0 5px 5px 17px;
-    white-space: nowrap;
-    background: url(../img/common/file_set.gif) no-repeat 0 1px
+    line-height:normal;
+    float:left;
+    padding:0 5px 5px 17px;
+    white-space:nowrap;
+    background:url(../img/common/file_set.gif) no-repeat 0 1px
 }
 #siBody .scFiles li a {
-    color: #767676;
-    text-decoration: none
+    color:#767676;
+    text-decoration:none
 }
 #siBody .scFiles li a:hover {
-    text-decoration: underline
+    text-decoration:underline
 }
 #siBody .scFiles li.direct {
-    background-position: 0 -25px
+    background-position:0 -25px
 }
 #siBody .scFiles li.notvalid {
-    background-position: 0 -77px;
-    text-decoration: line-through
+    background-position:0 -77px;
+    text-decoration:line-through
 }
 #siBody .scFiles li a.isdownpt {
-    font-weight: bold
+    font-weight:bold
 }
 #siFbk .scFiles {
-    position: relative;
-    margin: 0 0 0 190px;
-    padding: 0;
-    display: inline;
-    float: left;
-    clear: both
+    position:relative;
+    margin:0 0 0 190px;
+    padding:0;
+    display:inline;
+    float:left;
+    clear:both
 }
 #siFbk .scFiles ul {
-    position: absolute;
-    z-index: 2;
-    overflow: visible;
-    display: none;
-    margin: 0;
-    padding: 5px;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px
+    position:absolute;
+    z-index:2;
+    overflow:visible;
+    display:none;
+    margin:0;
+    padding:5px;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px
 }
 #siFbk .scFiles ul li {
-    float: none;
-    padding: 1px 0 1px 15px;
-    background-position: 0 -125px
+    float:none;
+    padding:1px 0 1px 15px;
+    background-position:0 -125px
 }
 #siFbk .scFiles .scToggle {
-    border: 0;
-    background: url(../img/common/file_set.gif) no-repeat 0 -102px;
-    cursor: pointer;
-    overflow: visible;
-    padding: 0 0 0 15px;
-    color: #767676
+    border:0;
+    background:url(../img/common/file_set.gif) no-repeat 0 -102px;
+    cursor:pointer;
+    overflow:visible;
+    padding:0 0 0 15px;
+    color:#767676
 }
 #siFbk.cmt.web .scFiles {
-    margin: 0
+    margin:0
 }
 /* Tag List */
 
 #siBody .scTags {
-    margin: 0;
-    padding: 25px;
-    border-bottom: 1px solid #ddd;
-    text-align: justify
+    margin:0;
+    padding:25px;
+    border-bottom:1px solid #ddd;
+    text-align:justify
 }
 #siBody .scTags a {
-    white-space: nowrap;
-    padding: 1px 2px;
-    margin: 1px 2px;
-    font-size: 12px;
-    text-decoration: none
+    white-space:nowrap;
+    padding:1px 2px;
+    margin:1px 2px;
+    font-size:12px;
+    text-decoration:none
 }
 #siBody .scTags a.rank {
-    color: #fff;
-    background-color: #000
+    color:#fff;
+    background-color:#000
 }
 #siBody .scTags a.rank.i1 {
-    font-size: 24px
+    font-size:24px
 }
 #siBody .scTags a.rank.i2 {
-    font-size: 18px;
-    opacity: .7
+    font-size:18px;
+    opacity:.7
 }
 #siBody .scTags a.rank.i3 {
-    font-size: 15px;
-    opacity: .4
+    font-size:15px;
+    opacity:.4
 }
 #siBody .scTags a.i4 {
-    text-decoration: underline
+    text-decoration:underline
 }
 /* input label */
 
 #siBody .scLaEt {
-    position: relative;
-    text-align: left;
-    line-height: 11px;
-    font-style: normal!important;
-    font-family: Tahoma!important;
-    text-shadow: none!important
+    position:relative;
+    text-align:left;
+    line-height:11px;
+    font-style:normal!important;
+    font-family:Tahoma!important;
+    text-shadow:none!important
 }
 #siBody .scLaEt input[type="text"], #siBody .scLaEt input[type="password"] {
-    padding: 2px 2px 2px 43px
+    padding:2px 2px 2px 43px
 }
 #siBody .scLaEt span:first-child {
-    position: absolute;
-    top: 0;
-    left: 3px;
-    font-size: 10px;
-    color: #fff;
-    overflow: hidden;
-    padding: 0 7px 0 3px;
-    line-height: 12px;
-    height: 14px;
-    width: 28px;
-    background: url(../img/common/label_tag.gif) no-repeat right top;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px
+    position:absolute;
+    top:0;
+    left:3px;
+    font-size:10px;
+    color:#fff;
+    overflow:hidden;
+    padding:0 7px 0 3px;
+    line-height:12px;
+    height:14px;
+    width:28px;
+    background:url(../img/common/label_tag.gif) no-repeat right top;
+    border-radius:2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px
 }
 #siBody .scLaEt .scItemDesc {
-    position: absolute;
-    top: -2px;
-    left: 44px;
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
-    color: #999;
-    white-space: nowrap;
-    cursor: text!important
+    position:absolute;
+    top:-2px;
+    left:44px;
+    margin:0;
+    padding:0;
+    font-size:12px;
+    color:#999;
+    white-space:nowrap;
+    cursor:text!important
 }
 #siBody .scLaEt .scBtn {
-    top: -2px
+    top:-2px
 }
 /* HotTrack */
 
 #siBody a.scHotTrack {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    background-color: transparent;
-    zoom: 1
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:2;
+    background-color:transparent;
+    zoom:1
 }
 #siBody a.scHotTrack:hover {
-    border: 2px solid #8A7ADB!important;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px
+    border:2px solid #8A7ADB!important;
+    border-radius:2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px
 }
 #siBody a.scHotTrack span.iefix {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-    background-color: #fff;
-    opacity: 0;
-    zoom: 1
+    position:absolute;
+    z-index:2;
+    top:0;
+    left:0;
+    cursor:pointer;
+    background-color:#fff;
+    opacity:0;
+    zoom:1
 }
 /* admin button */
 
 #siBody .scAdmActs {
-    position: absolute;
-    top: 0;
-    right: 0
+    position:absolute;
+    top:0;
+    right:0
 }
 #siBody .scAdmActs a {
-    color: #555
+    color:#555
 }
 .scHaDCnts {
-    text-align: right;
-    border: 0
+    text-align:right;
+    border:0
 }
 .scHaDCnts strong {
-    font-size: 15px;
-    color: #4736AC
+    font-size:15px;
+    color:#4736AC
 }
 .scHaDCnts em {
-    font-size: 12px;
-    font-family: Tahoma;
-    font-weight: normal
+    font-size:12px;
+    font-family:Tahoma;
+    font-weight:normal
 }
 /* etc */
 
 #siMaTitle {
-    margin: 0 0 15px
+    margin:0 0 15px
 }
 #siMaTitle h1.mai {
-    margin: 0;
-    padding: 0
+    margin:0;
+    padding:0
 }
 #siMaTitle h1.mai a {
-    text-shadow: 0 1px #dadada;
-    color: #333;
-    line-height: 22px;
-    font-size: 20px;
-    font-family: "Times New Roman", Times, serif;
-    text-decoration: none
+    text-shadow:0 1px #dadada;
+    color:#333;
+    line-height:22px;
+    font-size:20px;
+    font-family:"Times New Roman", Times, serif;
+    text-decoration:none
 }
 #siMaTitle h4.sub {
-    color: #aaa;
-    line-height: 14px;
-    font-size: 12px;
-    margin: 3px 0 0 2px;
-    padding: 0
+    color:#aaa;
+    line-height:14px;
+    font-size:12px;
+    margin:3px 0 0 2px;
+    padding:0
 }
 #siMaDesc {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border: 1px solid #ddd
+    margin-bottom:10px;
+    padding:5px;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border:1px solid #ddd
 }
 #siMaHtxt {
-    margin-bottom: 10px
+    margin-bottom:10px
 }
 #siMaFtxt, .scMbtTxt {
-    margin-top: 10px
+    margin-top:10px
 }
 #siBody em.usept {
-    margin: 0;
-    padding: 0 1px;
-    border: 1px solid #ddd;
-    background-color: #eee;
-    color: #777;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-    font-family: Tahoma;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px
+    margin:0;
+    padding:0 1px;
+    border:1px solid #ddd;
+    background-color:#eee;
+    color:#777;
+    font-style:normal;
+    font-weight:normal;
+    font-size:10px;
+    font-family:Tahoma;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px
 }
 #siBody div.scNoDocs {
-    text-align: center;
-    padding: 5px;
-    margin-bottom: 3px;
-    border-bottom: 1px solid #ddd
+    text-align:center;
+    padding:5px;
+    margin-bottom:3px;
+    border-bottom:1px solid #ddd
 }
 #restricted_view .msgArea {
-    border: 1px solid #EFDCDC;
-    background-color: #FFECEC;
-    padding: 5px 10px;
-    margin-bottom: 10px;
-    border-radius: 5px
+    border:1px solid #EFDCDC;
+    background-color:#FFECEC;
+    padding:5px 10px;
+    margin-bottom:10px;
+    border-radius:5px
 }
 #ui-datepicker-div {
-    z-index: 10000!important
+    z-index:10000!important
 }
 .scHLink, .scClipboard, .scToggle {
-    cursor: pointer
+    cursor:pointer
 }
 .scHLink:hover, .scClipboard:hover {
-    text-decoration: underline
+    text-decoration:underline
 }
 .message {
-    margin-top: 0
+    margin-top:0
 }
 .message.wait {
-    padding-top: 2em;
-    background: #FFFDEF url(../../../../../common/img/msg.loading.gif) no-repeat 1em 1em
+    padding-top:2em;
+    background:#FFFDEF url(../../../../../common/img/msg.loading.gif) no-repeat 1em 1em
 }
 strong.sCkChr {
-    font-family: Arial, "Courier New", Courier, monospace
+    font-family:Arial, "Courier New", Courier, monospace
 }
 /* flag */
 
 .scVlng {
-    text-align: right;
-    margin-bottom: 10px
+    text-align:right;
+    margin-bottom:10px
 }
 .scVlng strong {
-    display: inline-block;
-    padding: 0 8px 0 20px
+    display:inline-block;
+    padding:0 8px 0 20px
 }
 .scVlng a {
-    color: #333
+    color:#333
 }
 .scVlng a strong:hover {
-    text-decoration: underline
+    text-decoration:underline
 }
 .scVlng a.en strong {
-    background: url(../../../../admin/tpl/img/flag.us.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.en.gif) no-repeat 0 4px
 }
 .scVlng a.ko strong {
-    background: url(../../../../admin/tpl/img/flag.kr.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.ko.gif) no-repeat 0 4px
 }
 .scVlng a.jp strong {
-    background: url(../../../../admin/tpl/img/flag.jp.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.jp.gif) no-repeat 0 4px
 }
 .scVlng a.fr strong {
-    background: url(../../../../admin/tpl/img/flag.fr.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.fr.gif) no-repeat 0 4px
 }
 .scVlng a.de strong {
-    background: url(../../../../admin/tpl/img/flag.de.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.de.gif) no-repeat 0 4px
 }
 .scVlng a.ru strong {
-    background: url(../../../../admin/tpl/img/flag.ru.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.ru.gif) no-repeat 0 4px
 }
 .scVlng a.es strong {
-    background: url(../../../../admin/tpl/img/flag.es.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.es.gif) no-repeat 0 4px
 }
 .scVlng a.tr strong {
-    background: url(../../../../admin/tpl/img/flag.tr.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.tr.gif) no-repeat 0 4px
 }
 .scVlng a.vi strong {
-    background: url(../../../../admin/tpl/img/flag.vn.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.vi.gif) no-repeat 0 4px
 }
 .scVlng a.mn strong {
-    background: url(../../../../admin/tpl/img/flag.mn.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.mn.gif) no-repeat 0 4px
 }
 .scVlng a.zh-CN strong {
-    background: url(../../../../admin/tpl/img/flag.cn.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.cn.gif) no-repeat 0 4px
 }
 .scVlng a.zh-TW strong {
-    background: url(../../../../admin/tpl/img/flag.tw.gif) no-repeat 0 4px
+    background:url(../../../../admin/tpl/img/flag.tw.gif) no-repeat 0 4px
 }
 /*ie*/
 
 #siLst thead tr div {
-    padding: 9px 0 5px\9!important
+    padding:9px 0 5px\9!important
 }
 #siLst thead.scOneCol th div, #siLst thead .scCheck div {
-    padding: 6px 0 8px\9!important
+    padding:6px 0 8px\9!important
 }
 #siFbk .scFbWt .scWopts {
-    padding-right: 152px\9
+    padding-right:152px\9
 }
 /*ff*/
 
 @-moz-document url-prefix() {
     #siFbk .scFbWt .scWopts {
-        padding-right: 152px
+        padding-right:152px
    }
    #siFbk .scFbWt .cmtbtns {
-       padding: 0 5px 0 0
+       padding:0 5px 0 0
   }
 }
 /*op*/
 
-noindex: -o-prefocus, #siFbk .scFbWt .scWopts {
-    padding-right: 152px
+noindex:-o-prefocus, #siFbk .scFbWt .scWopts {
+    padding-right:152px
 }
