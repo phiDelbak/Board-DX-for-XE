@@ -1,13 +1,11 @@
 /* NHN (developers@xpressengine.com) Modal Window
  * @Optimizer for BoardDX by phiDel (xe.phidel@gmail.com) */
 
-
-
-	jQuery.fn.pidModalFlashFix = function(){
-		var $ = jQuery;
-		$('embed[type*=flash]',this).each(function(){var o=$(this);if(o.attr('wmode')!='transparent');o.attr('wmode', 'opaque');});
-		$('iframe[src*=youtube]',this).each(function(){var o=$(this);o.attr('src',(o.attr('src')).setQuery('wmode', 'opaque'));});
-	};
+jQuery.fn.pidModalFlashFix = function(){
+	var $ = jQuery;
+	$('embed[type*=flash]',this).each(function(){var o=$(this);if(o.attr('wmode')!='transparent');o.attr('wmode', 'opaque');});
+	$('iframe[src*=youtube]',this).each(function(){var o=$(this);o.attr('src',(o.attr('src')).setQuery('wmode', 'opaque'));});
+};
 
 // Modal Window
 jQuery(function($){	
@@ -185,7 +183,8 @@ jQuery(function($){
 		url = url.setQuery('is_modal','1');
 
 		// ie6~8 은 object 못씀
-		if(/msie|chromium/.test(navigator.userAgent.toLowerCase()) === true) {	
+		// ckeditor 드래그 첨부 기능이 chrome 에서 object 못씀, 고쳐질때 까지 iframe 사용하기로... 
+		if(/msie|chromium|chrome/.test(navigator.userAgent.toLowerCase()) === true) {	
 			return $('#'+frId, $modal).length ?
 				window.frames[frId].location.replace(url) :
 				$('<iframe id="'+frId+'" allowTransparency="true" frameborder="0" scrolling="'+(scroll ? scroll : 'auto')+'" />')
