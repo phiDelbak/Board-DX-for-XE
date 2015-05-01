@@ -273,7 +273,7 @@ jQuery(function($)
 		);
 
 		return false;
-	}
+	};
 
 	pidDeleteFile = function() {
 		var r = jQuery('#siFiles').val();
@@ -288,7 +288,7 @@ jQuery(function($)
 		}
 
 		return false;
-	}
+	};
 
 	pidInsertFile = function() {
 		var r = jQuery('#siFiles').val();
@@ -309,7 +309,7 @@ jQuery(function($)
 		}
 
 		return false;
-	}
+	};
 
 	pidFilePreview = function() {
 		jQuery('.scFpv').empty();
@@ -325,12 +325,12 @@ jQuery(function($)
 		}
 
 		jQuery(t).appendTo('.scFpv');
-	}
+	};
 
 	pidClickUpload = function() {
 		jQuery('.scFiledata input[type=file]:first').trigger('click');
 		return false;
-	}
+	};
 
 	pidReloadFileList = function(trl) {
 		var ps = {
@@ -370,7 +370,7 @@ jQuery(function($)
 		}
 
 		exec_json("file.getFileList", ps, on_complete);
-	}
+	};
 
     $('#siFileUploader:eq(0)').each(function(){    	
     	pidReloadFileList();

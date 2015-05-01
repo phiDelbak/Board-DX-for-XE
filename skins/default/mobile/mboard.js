@@ -38,7 +38,7 @@ jQuery(function($) {
             );
             return false;
         });
-    }
+    };
     $.fn.pidVoteBtninit = function() {
         this.click(function() {
             var $o = $(this),
@@ -63,7 +63,7 @@ jQuery(function($) {
             );
             return false;
         });
-    }
+    };
     pidLoadPage = function(r, z, c) {
         exec_json(
             'beluxe.getBeluxeMobileCommentPage', 
@@ -88,7 +88,7 @@ jQuery(function($) {
                 $("#clb").parent().after($htm);
             }
         );
-    }
+    };
     $('a[href=#declare][data-type]').pidDeclareBtninit();
     $('a[href^=#][href$=recommend][data-type]').pidVoteBtninit();
     $('#xe_message:eq(0)').each(function() {

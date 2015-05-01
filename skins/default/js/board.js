@@ -498,7 +498,7 @@ jQuery(function($)
 					function(ret){		
 						var u = xe.getApp('xeuploader');
 						if(u.length===1) u[0].loadFilelist();
-						else var u = $('#xefu-container-'+ret.sequence_srl).xeUploader();
+						else u = $('#xefu-container-'+ret.sequence_srl).xeUploader();
 					}
 				);
 				return false;
