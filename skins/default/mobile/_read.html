@@ -42,7 +42,7 @@ $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDoc
         <dd>{$val->getValueHTML()}</dd>
         </block>
     </dl>
-    <div cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scVlng">
+    <div cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="vln">
         <a loop="$un_extra->beluxe->langs => $vlnc" href="#" onclick="doChangeLangType('{$vlnc}');return false;" class="{$vlnc}"><strong>{$lang_supported[$vlnc]}</strong></a>
     </div>
     <div class="doc {$is_blind?'blind':($is_secret?'secret':'')}">
@@ -53,8 +53,8 @@ $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDoc
             <input type="submit" value="{$lang->cmd_input}" class="bn dark" />
         </form>
         <!--@if($is_restrict)-->
-        <div id="restricted_view">
-            <div class="msgArea">
+        <div id="rsv">
+            <div class="msa">
                 {sprintf(Context::getLang('msg_restricted_view'), 100)}
                 <br />
                 {Context::getLang($mi->use_restrict_view == 'P' ? 'msg_required_point' : 'msg_required_comment')}
@@ -82,8 +82,8 @@ $ds_declare = strpos($mi->use_vote, 'declare')!==false;
 $adm_id = $ds_declare ? $oThis->getAdminId() : array();
 }
 <div cond="$ds_voteup||$ds_votedown||$ds_declare" class="bna">
-    <a cond="$ds_voteup" class="bn white" style="color:#AA3300" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->short_voted_count}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a>
-    <a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->short_blamed_count}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a>
+    <a cond="$ds_voteup" class="bn white" style="color:#AA3300" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_vote}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a>
+    <a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_vote_down}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a>
     <a cond="$ds_declare" href="#declare" class="bn white" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$oDocument->get('member_srl')}"><em class="declare">{$lang->cmd_declare}</em></a>
 </div>
 </block>
@@ -124,10 +124,10 @@ $t_pagen = $t_pagec + 1;
         {$val->getTitle($mi->mobile_title_length)}
         <span>
         <em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
-        {$val->printExtraImages(60*60*$mi->duration_new)}<img class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
+        {$val->printExtraImages(60*60*$mi->duration_new)}<img class="ise world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
         <block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">
         {@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}
-        <img class="scIcoSet coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}" />
+        <img class="ise coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}" />
         </block>
         </span>
         </span>
@@ -147,13 +147,13 @@ $ds_flsgn = $mi->display_attached_files=='Y'||$mi->display_attached_files=='G';
 $ds_flsmd = $mi->display_attached_files=='Y'||$mi->display_attached_files=='M';
 }
 <ul class="file tgo">
-    <li loop="$ufls=>$key,$file" cond="($ds_flsgn&&$file->direct_download!='Y')||($ds_flsmd&&$file->direct_download=='Y')" class="notvalid"|cond="$file->isvalid!='Y'" class="direct"|cond="$file->isvalid=='Y'&&$file->direct_download=='Y'">
+    <li loop="$ufls=>$key,$file" cond="($ds_flsgn&&$file->direct_download!='Y')||($ds_flsmd&&$file->direct_download=='Y')" class="notvalid"|cond="$file->iva!='Y'" class="direct"|cond="$file->iva=='Y'&&$file->direct_download=='Y'">
         {@
         $t_down_pt = $pt_dtype == 'P' && (!$lg || $lg->member_srl != $file->member_srl);
         $t_down_pt = $t_down_pt && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
         }
-        <a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="size">(link)</span></a>
-        <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" class="isdownpt"|cond="$t_down_pt">{$file->source_filename}<span class="size">({$t_down_pt?'-$'.$t_down_pt.'/':''}{FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
+        <a cond="!$file->file_size" href="{$file->iva=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->iva=='Y'">{$file->source_filename}<span class="size">(link)</span></a>
+        <a cond="$file->file_size" href="{$file->iva=='Y'?getUrl('').$file->download_url:'#'}" class="idw"|cond="$t_down_pt">{$file->source_filename}<span class="size">({$t_down_pt?'-$'.$t_down_pt.'/':''}{FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
     </li>
 </ul>
 </block>

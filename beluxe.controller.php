@@ -1154,15 +1154,13 @@ class beluxeController extends beluxe
         $beluxe = $ex_vars->beluxe ? $ex_vars->beluxe : array();
 
         $use_point = (int) $beluxe->use_point;
-        $adopt_srl = (int) $beluxe->field->adopt_srl ?  $beluxe->field->adopt_srl : 0;
+        $adopt_srl = (int) $beluxe->adopt_srl ?  $beluxe->adopt_srl : 0;
 
         // 이미 채택된 답글이 있다면 중단
         if($adopt_srl){
-            $oTmp = $cmComment->getComment($adopt_srl);
+            $oTmp = $cmComment->getComment($adopt_srl, $colLst);
             if($oTmp->isExists()) return new Object(-1, 'msg_invalid_request');
         }
-
-        $beluxe->field->adopt_srl = $cmt_srl;
         
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
@@ -1171,11 +1169,13 @@ class beluxeController extends beluxe
 		}
 
         // 확장 필드 저장 
+        $beluxe->adopt_srl = $cmt_srl;
         $ex_vars->beluxe = $beluxe;
         $args->extra_vars = serialize($ex_vars);        
         // 채택된 답글번호 입력
-        $args->document_srl = $document_srl;
-        $output = executeQuery('bodex.updateExtraField', $args);
+        $args->document_srl = $doc_srl;
+        $output = executeQuery('beluxe.updateExtraField', $args);
+        if(!$output->toBool()) return $output;
 
         if($use_point > 0) {
 	        // 채택시 포인트 갱신을 위해

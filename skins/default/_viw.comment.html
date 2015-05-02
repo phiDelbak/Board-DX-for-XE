@@ -91,7 +91,11 @@
 					</div>
 
 					<div cond="$show_btnAdopt" class="btnArea btnAdopt">
+						<!--@if(!$un_extra->beluxe->adopt_srl)-->
 						<span class="scBtn"><button type="button" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</button></span>
+						<!--@elseif($un_extra->beluxe->adopt_srl==$cmt_srl)-->
+						<span class="scBtn blue"><button type="button" onclick="return false">{$lang->adopted_comment}</button></span>
+						<!--@endif-->
 					</div>
 
 					{@ $ds_vtxt = !($ds_cvoteup||$ds_cvotedown) && ($comment->get('voted_count')!='0'||$comment->get('blamed_count')!='0')}

@@ -233,8 +233,8 @@ jQuery(function($)
 	pidAjaxFileUpload = function() {
 		if(document.getElementById('Filedata').value === "") return alert("no file") || false;
 
-		jQuery('.scFpv').empty();
-		jQuery('<img src="./common/img/msg.loading.gif" style="display:none;">').appendTo('.scFpv')
+		jQuery('#fUloader .fpv').empty();
+		jQuery('<img src="./common/img/msg.loading.gif" style="display:none;">').appendTo('#fUloader .fpv')
 		.ajaxStart(function(){jQuery(this).show();}).ajaxComplete(function(){jQuery(this).hide();});
 
 		jQuery.ajaxFileUpload
@@ -312,7 +312,7 @@ jQuery(function($)
 	};
 
 	pidFilePreview = function() {
-		jQuery('.scFpv').empty();
+		jQuery('#fUloader .fpv').empty();
 
 		var t, r = jQuery('#siFiles').val(),
 			src = jQuery("#sif"+r).attr('data-src'),
@@ -324,11 +324,11 @@ jQuery(function($)
 			t = '<img src="'+u+'" />';
 		}
 
-		jQuery(t).appendTo('.scFpv');
+		jQuery(t).appendTo('#fUloader .fpv');
 	};
 
 	pidClickUpload = function() {
-		jQuery('.scFiledata input[type=file]:first').trigger('click');
+		jQuery('.fd input[type=file]:first').trigger('click');
 		return false;
 	};
 
@@ -347,7 +347,7 @@ jQuery(function($)
 			fs = ret.files;
 
 			(ls = jQuery('#siFiles')).empty();
-			jQuery('.scFpv').empty();
+			jQuery('#fUloader .fpv').empty();
 
 			if(fs && fs.length) {
 				for(i=0,c=fs.length; i < c; i++) {
@@ -372,7 +372,7 @@ jQuery(function($)
 		exec_json("file.getFileList", ps, on_complete);
 	};
 
-    $('#siFileUploader:eq(0)').each(function(){    	
+    $('#fUloader:eq(0)').each(function(){    	
     	pidReloadFileList();
 
     	$('.scFup', this).click(function(){

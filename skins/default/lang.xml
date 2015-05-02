@@ -24,11 +24,6 @@
 		<value xml:lang="jp"><![CDATA[反対]]></value>
 		<value xml:lang="en"><![CDATA[Disagree]]></value>
 	</item>
-	<item name="cmd_adopt">
-		<value xml:lang="ko"><![CDATA[답변 채택]]></value>
-		<value xml:lang="jp"><![CDATA[답변 채택]]></value>
-		<value xml:lang="en"><![CDATA[답변 채택]]></value>
-	</item>
 	<item name="use_wysiwyg">
 		<value xml:lang="ko"><![CDATA[위지윅 사용]]></value>
 		<value xml:lang="jp"><![CDATA[エディタ使用]]></value>

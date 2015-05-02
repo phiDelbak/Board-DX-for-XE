@@ -84,6 +84,16 @@
 		<value xml:lang="jp"><![CDATA[채택하였습니다.]]></value>
 		<value xml:lang="en"><![CDATA[채택하였습니다.]]></value>
 	</item>	
+	<item name="cmd_adopt">
+		<value xml:lang="ko"><![CDATA[답변 채택]]></value>
+		<value xml:lang="jp"><![CDATA[답변 채택]]></value>
+		<value xml:lang="en"><![CDATA[답변 채택]]></value>
+	</item>
+	<item name="adopted_comment">
+		<value xml:lang="ko"><![CDATA[채택된 댓글]]></value>
+		<value xml:lang="jp"><![CDATA[채택된 댓글]]></value>
+		<value xml:lang="en"><![CDATA[채택된 댓글]]></value>
+	</item>	
 	<item name="msg_restricted_view">
 		<value xml:lang="ko"><![CDATA[이 문서의 내용은 %s자로 제한되있습니다.]]></value>
 		<value xml:lang="jp"><![CDATA[この文書の内容は %s文字に制限されています.]]></value>

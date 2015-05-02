@@ -58,9 +58,9 @@
 		<!--@endif-->
 
 		<div class="bna">
+			<a href="{getUrl('','mid',$mid,'document_srl',$document_srl,'comment_srl',($parent_srl?$parent_srl:$comment_srl),'parent_srl','')}" class="bn white"><span>{$lang->cmd_back}</span></a>
 			<button cond="$ds_mtlng&&count($un_extra->beluxe->langs)" type="submit" name="multilingual" value="Y" class="bn dark">{$lang->cmd_current_lang_delete}</button>
 			<button type="submit" accesskey="s" class="bn dark">{$lang->cmd_delete}</button>
-			<a href="{getUrl('','mid',$mid,'document_srl',$document_srl,'comment_srl',($parent_srl?$parent_srl:$comment_srl),'parent_srl','')}" class="bn white"><span>{$lang->cmd_back}</span></a>
 		</div>
 	</form>
 <!--@endif-->
