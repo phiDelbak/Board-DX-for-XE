@@ -1,4 +1,4 @@
-<query id="updateExtraField" action="update">
+<query id="updateExtraVars" action="update">
 	<tables>
 		<table name="documents" />
 	</tables>

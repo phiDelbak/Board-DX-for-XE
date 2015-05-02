@@ -825,7 +825,7 @@ class beluxeAdminController extends beluxe
 				{
 					// 업데이트
 					$args->var_idx = $var_idx;
-					$out = executeQuery('beluxe.updateExtraKey', $args);
+					$out = executeQuery('beluxe.updateExtraKeys', $args);
 					if($out->toBool())
 					{
 						// Vars 값의 idx 새로 저장

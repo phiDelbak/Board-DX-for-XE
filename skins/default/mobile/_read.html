@@ -57,10 +57,10 @@ $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDoc
             <div class="msa">
                 {sprintf(Context::getLang('msg_restricted_view'), 100)}
                 <br />
-                {Context::getLang($mi->use_restrict_view == 'P' ? 'msg_required_point' : 'msg_required_comment')}
+                {Context::getLang($pt_vtype == 'P' ? 'msg_required_point' : 'msg_required_comment')}
             </div>
             {$oDocument->getSummary(100)}
-            <div cond="$mi->use_restrict_view == 'P'" class="bna">
+            <div cond="$pt_vtype == 'P'" class="bna">
                 <a class="bn dark" href="#" onclick="doCallModuleAction('beluxe','procBeluxePayPoint','{$doc_srl}');return false">
                 {sprintf(Context::getLang('msg_point_is_used'), $un_extra->beluxe->use_point?$un_extra->beluxe->use_point:'0')}
                 </a>

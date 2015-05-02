@@ -775,7 +775,7 @@ class beluxeController extends beluxe
 
 						$ex_args->document_srl = $doc_srl;
 						$ex_args->extra_vars = serialize($uns_extra);
-						$out = executeQuery('beluxe.updateExtraField', $ex_args);
+						$out = executeQuery('beluxe.updateExtraVars', $ex_args);
 
 						$re_doc_srl = $doc_srl;
 					}
@@ -1174,7 +1174,7 @@ class beluxeController extends beluxe
         $args->extra_vars = serialize($ex_vars);        
         // 채택된 답글번호 입력
         $args->document_srl = $doc_srl;
-        $output = executeQuery('beluxe.updateExtraField', $args);
+        $output = executeQuery('beluxe.updateExtraVars', $args);
         if(!$output->toBool()) return $output;
 
         if($use_point > 0) {

@@ -662,7 +662,7 @@ class beluxeModel extends beluxe
         
         $args->document_srl = $a_docsrl;
         $args->extra_vars = serialize($dx_exv);
-        return executeQuery('beluxe.updateExtraField', $args);
+        return executeQuery('beluxe.updateExtraVars', $args);
     }
     
     function isBlind($a_docsrl, $a_type = 'doc') {
