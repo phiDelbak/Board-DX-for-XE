@@ -69,15 +69,15 @@ jQuery(function($)
 
 		$('a[href=#addMenu]', $this).click(function()
 		{
-			var $ul = $('ul#nav_category', $this);
-			$ul.find('._template').clone(true)
+			var $ul = $('ul._template', $this);
+			$ul.find('li').clone(true)
 				.removeClass('_template')
 				.find('input,select').removeAttr('disabled').end()
 				.find('label').removeAttr('for','').end()
 				.find('label>input').removeAttr('id','').end()
 				.find('input._item_key').val(sjAdmTempKey--).end()
 				.show()
-				.appendTo($ul)
+				.appendTo($('ul#nav_category', $this))
 				.find('._lang_code').xeApplyMultilingualUI();
 			return false;
 		});

@@ -1,5 +1,5 @@
 /**
-* Copyright 2011 All rights reserved by phiDel (www.foxb.kr, phidel@foxb.kr)
+* Copyright 2011 All rights reserved by phiDel (https://github.com/phiDelbak/Board-DX-for-XE, xe.phidel@gmail.com)
 **/
 
 jQuery(function($)

@@ -17,37 +17,39 @@
 		<div class="default_title">
 			<input class="lang_code" type="text" name="default_category_title" placeholder="{$lang->category}" id="default_category_title" value="{htmlspecialchars($module_info->default_category_title)}" />
 		</div>
+		<ul style="display:none" class="_template">
+			<li>
+				<input type="hidden" name="parent_key[]" value="0" class="_parent_key" disabled="disabled" />
+				<input type="hidden" name="item_key[]" value="0" class="_item_key" disabled="disabled" />
+				<input type="text" name="item_title[]" value="" placeholder="{$lang->title}" class="_lang_code _item_title" disabled="disabled" />
+				<div class="side">
+					<span class="cbSelect" data-index="0">
+						<input type="hidden" name="item_type[]" value="" class="_value" disabled="disabled" />
+						<label class="_title">{$lang->is_default}</label>
+						<dl class="cbLayer"></dl>
+					</span>
+					<span class="cbSelect" data-type="panel" data-index="1">
+						<input type="hidden" name="item_color[]" value="" class="_item_color" disabled="disabled" />
+						<input type="hidden" name="item_opts[]" value="N|@||@||@||@||@|" class="_value" disabled="disabled" />
+						<label class="_title">{$lang->cmd_option}</label>
+						<dl class="cbLayer"></dl>
+					</span>
+					<span cond="count($group_list)" class="cbSelect" data-type="array">
+						<input type="hidden" name="group_srls[]" value="" class="_value" disabled="disabled" />
+						<label class="_title">{$lang->category_group_srls}</label>
+						<dl class="cbLayer _groupList">
+							<dt loop="$group_list=>$g_val" data-val="{$g_val->group_srl}">
+							<label><input type="checkbox" value="{$g_val->group_srl}" disabled="disabled" /> {$g_val->title}</label>
+							</dt>
+						</dl>
+					</span>
+					<a href="#delete" class="_delete x_icon-remove" title="{$lang->cmd_delete}"><em>X</em></a>
+				</div>
+			</li>
+		</ul>
 
 		<div class="lined">
 			<ul id="nav_category">
-				<li style="display:none" class="_template">
-					<input type="hidden" name="parent_key[]" value="0" class="_parent_key" disabled="disabled" />
-					<input type="hidden" name="item_key[]" value="0" class="_item_key" disabled="disabled" />
-					<input type="text" name="item_title[]" value="" placeholder="{$lang->title}" class="_lang_code _item_title" disabled="disabled" />
-					<div class="side">
-						<span class="cbSelect" data-index="0">
-							<input type="hidden" name="item_type[]" value="" class="_value" disabled="disabled" />
-							<label class="_title">{$lang->is_default}</label>
-							<dl class="cbLayer"></dl>
-						</span>
-						<span class="cbSelect" data-type="panel" data-index="1">
-							<input type="hidden" name="item_color[]" value="" class="_item_color" disabled="disabled" />
-							<input type="hidden" name="item_opts[]" value="N|@||@||@||@||@|" class="_value" disabled="disabled" />
-							<label class="_title">{$lang->cmd_option}</label>
-							<dl class="cbLayer"></dl>
-						</span>
-						<span cond="count($group_list)" class="cbSelect" data-type="array">
-							<input type="hidden" name="group_srls[]" value="" class="_value" disabled="disabled" />
-							<label class="_title">{$lang->category_group_srls}</label>
-							<dl class="cbLayer _groupList">
-								<dt loop="$group_list=>$g_val" data-val="{$g_val->group_srl}">
-								<label><input type="checkbox" value="{$g_val->group_srl}" disabled="disabled" /> {$g_val->title}</label>
-								</dt>
-							</dl>
-						</span>
-						<a href="#delete" class="_delete x_icon-remove" title="{$lang->cmd_delete}"><em>X</em></a>
-					</div>
-				</li>
 				<block cond="count($menu)">
 					{@
 						$depth = 0;
