@@ -399,6 +399,14 @@ jQuery(function($)
 		});
 	});
 
+	$('[name=use_point_type]').click(function() {
+		if($(this).val()=='A'){
+			$('[data-control-type=restrict]').prop( 'disabled', true );
+		}else{
+			$('[data-control-type=restrict]').prop( 'disabled', false );
+		}
+	});
+
 	$('#siteMapFrame').bdxSiteMapinit();
 	$('#columnFrame').bdxColumninit();
 	$('#extraKeyFrame').bdxExtraKeyinit();

@@ -33,7 +33,7 @@
 			<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}"><span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <span cond="$val->category_srl" class="cnt">({$val->total_document_count})</span></a>
 		</li>
 	</ul>
-	<span class="scBtn small group scCaNavi"><a href="#" title="{$lang->cmd_prev}"><em>&lt;</em></a><a href="#" title="{$lang->cmd_next}"><em>&gt;</em></a></span>
+	<span class="scBtn small group scCaNavi" style="display:none"><a href="#" title="{$lang->cmd_prev}"><em>&lt;</em></a><a href="#" title="{$lang->cmd_next}"><em>&gt;</em></a></span>
 </div>
 
 <div cond="($s_cate == 'Y' && count($sub_cts)) || $s_cate == 'H'" id="siCat" class="colm" data-autohide="true">

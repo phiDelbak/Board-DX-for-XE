@@ -38,7 +38,7 @@
 	</div>
 <!--@else-->
 	{@
-		$un_extra = $is_rtrpt?$oDocument->get('extra_vars'):null;
+		$un_extra = ($pt_vtype!='N'||$pt_dtype!='N')?$oDocument->get('extra_vars'):null;
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 		$us_point = $un_extra?$un_extra->beluxe->use_point:0;
 	}
@@ -176,7 +176,7 @@
 			<input type="hidden" name="password" value="1" />
 		</block>
 
-		<ul cond="$is_logged && $is_rtrpt" class="scWul">
+		<ul cond="$is_logged && ($pt_vtype!='N'||$pt_dtype!='N')" class="scWul">
 			<li class="scWli clearBar">
 				<label>{$lang->point}</label>
 				{@
@@ -192,7 +192,7 @@
 				<p cond="$us_point<0" style="margin-top:3px">
 					<strong>{abs($us_point)}</strong> - {sprintf($lang->my_point,$my_point)}
 				</p>
-				<p>{sprintf($lang->about_use_point,$mi->restrict_option.'%')}</p>
+				<p>{sprintf($pt_vtype=='A'?$lang->about_use_adopt:$lang->about_use_point,$mi->use_point_percent.'%')}</p>
 			</li>
 		</ul>
 
@@ -241,5 +241,3 @@
 	</div>
 <!--@endif-->
 </form>
-
-<script type="text/javascript" src="js/write.js"></script>

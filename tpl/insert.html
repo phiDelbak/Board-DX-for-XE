@@ -328,7 +328,7 @@
 			<div class="x_controls {$compulsory_options['use_blind']?'opt_cps':''} {$module_backup_options['use_blind']?'opt_bks':''}">
 				<label for="use_blind">
 					<input type="checkbox" name="use_blind" id="use_blind" value="Y" checked="checked"|cond="$module_info->use_blind=='Y'" />
-					{$lang->document} {$lang->cmd_option}
+					{$lang->document}
 				</label>
 				<div>
 					<select name="blind_index" style="min-width:122px;width:122px">
@@ -344,7 +344,7 @@
 			<div class="x_controls {$compulsory_options['use_c_blind']?'opt_cps':''} {$module_backup_options['use_c_blind']?'opt_bks':''}">
 				<label for="use_c_blind">
 					<input type="checkbox" name="use_c_blind" id="use_c_blind" value="Y" checked="checked"|cond="$module_info->use_c_blind=='Y'" />
-					{$lang->comment} {$lang->cmd_option}
+					{$lang->comment}
 				</label>
 				<div>
 					<select name="blind_c_index" style="min-width:122px;width:122px">
@@ -366,7 +366,7 @@
 			<div class="x_controls {$compulsory_options['use_lock_document']?'opt_cps':''} {$module_backup_options['use_lock_document']?'opt_bks':''}">
 				<label for="tmp_lock_document">
 					<input type="checkbox" name="tmp_lock_document" id="tmp_lock_document" value="Y" checked="checked"|cond="$module_info->use_lock_document=='Y'||$module_info->use_lock_document=='T'||$module_info->use_lock_document=='C'" />
-					{$lang->document} {$lang->cmd_option}
+					{$lang->document}
 				</label>
 				<div>
 					<select name="use_lock_document" style="min-width:122px;width:122px">
@@ -382,21 +382,26 @@
 			</div>
 		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->restriction}</label>
-			<div class="x_controls">
-				<select name="restrict_option">
-					{@ $point_list = array('10','30','50','70','90','100')}
-					<option loop="$point_list=>$val" value="{$val}" selected="selected"|cond="$module_info->restrict_option == $val">{$val}% {$lang->point}</option>
-				</select>
-				<p class="x_help-block">{$lang->about_restriction}</p>
+			<label class="x_control-label">{$lang->point}</label>
+			<div class="x_controls {$compulsory_options['use_point_type']?'opt_cps':''} {$module_backup_options['use_point_type']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="use_point_type" value="R" checked="checked"|cond="$module_info->use_point_type!='A'" /> {$lang->restriction}</label>
+				<label class="x_inline"><input type="radio" name="use_point_type" value="A" checked="checked"|cond="$module_info->use_point_type=='A'" /> {$lang->adopt}</label>
+				<a href="#about_use_restrict_type" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_use_restrict_type" class="x_help-block" hidden>{$lang->about_use_restrict_type}</p>
 			</div>
-			<div class="x_controls {$compulsory_options['use_restrict_view']?'opt_cps':''} {$module_backup_options['use_restrict_view']?'opt_bks':''}">
+			<div class="x_controls">
+				<select name="use_point_percent">
+					{@ $point_list = array('10','30','50','70','90','100')}
+					<option loop="$point_list=>$val" value="{$val}" selected="selected"|cond="$module_info->use_point_percent == $val">{$val}% {$lang->point}</option>
+				</select>
+			</div>
+			<div class="x_controls {$compulsory_options['use_restrict_view']?'opt_cps':''} {$module_backup_options['use_restrict_view']?'opt_bks':''}" style="margin-top:10px">
 				<label for="tmp_restrict_view">
-					<input type="checkbox" name="tmp_restrict_view" id="tmp_restrict_view" value="Y" checked="checked"|cond="$module_info->use_restrict_view=='Y'||$module_info->use_restrict_view=='P'" />
-					{$lang->cmd_view} {$lang->cmd_option}
+					<input type="checkbox" name="tmp_restrict_view" data-control-type="restrict" disabled="disabled"|cond="$module_info->use_point_type=='A'" id="tmp_restrict_view" value="Y" checked="checked"|cond="$module_info->use_restrict_view=='Y'||$module_info->use_restrict_view=='P'" />
+					{$lang->restriction} - {$lang->cmd_view}
 				</label>
 				<div>
-					<select name="use_restrict_view">
+					<select name="use_restrict_view" data-control-type="restrict" disabled="disabled"|cond="$module_info->use_point_type=='A'">
 						<option value="Y">{$lang->comment}</option>
 						<option value="P" selected="selected"|cond="$module_info->use_restrict_view=='P'">{$lang->point}</option>
 					</select>
@@ -404,13 +409,14 @@
 			</div>
 			<div class="x_controls {$compulsory_options['use_restrict_down']?'opt_cps':''} {$module_backup_options['use_restrict_down']?'opt_bks':''}">
 				<label for="tmp_restrict_down">
-					<input type="checkbox" name="tmp_restrict_down" id="tmp_restrict_down" value="Y" checked="checked"|cond="$module_info->use_restrict_down=='Y'||$module_info->use_restrict_down=='P'" onclick="alert('Please Install the db table for this feature.');return false"|cond="!file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')" />
-					{$lang->cmd_download} {$lang->cmd_option}
+					<input type="checkbox" name="tmp_restrict_down" data-control-type="restrict" disabled="disabled"|cond="$module_info->use_point_type=='A'" id="tmp_restrict_down" value="Y" checked="checked"|cond="$module_info->use_restrict_down=='Y'||$module_info->use_restrict_down=='P'" onclick="alert('Please Install the db table for this feature.');return false"|cond="!file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')" />
+					{$lang->restriction} - {$lang->cmd_download}
 				</label>
-				<select name="use_restrict_down">
+				<select name="use_restrict_down" data-control-type="restrict" disabled="disabled"|cond="$module_info->use_point_type=='A'">
 					<option value="Y">{$lang->comment}</option>
 					<option value="P" selected="selected"|cond="$module_info->use_restrict_down=='P'">{$lang->point}</option>
 				</select>
+				<p class="x_help-block">{$lang->about_restriction}</p>
 				<p class="x_help-block">{$lang->about_restriction_download}</p>
 			</div>
 		</div>

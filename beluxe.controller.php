@@ -12,22 +12,6 @@ class beluxeController extends beluxe
 
 	function init()
 	{
-		if(!$this->module_srl || $this->module_srl != $this->module_info->module_srl)
-		{
-			$this->mid = Context::get('mid');
-			if($this->mid)
-			{
-				$cmModule = &getModel('module');
-				$oModIfo = $cmModule->getModuleInfoByMid($this->mid);
-
-				if($oModIfo)
-				{
-					$this->module_info = $oModIfo;
-					$this->module_srl = $oModIfo->module_srl;
-				}
-				else return $this->stop('error');
-			}
-		}		
 	}
 
 	/**************************************************************/
@@ -96,7 +80,6 @@ class beluxeController extends beluxe
 
 	function _arrangeExtraField($a_dx_exv, &$pObj)
 	{
-		$oModIfo = $this->module_info;
 		$is_exv = $a_dx_exv ? TRUE : FALSE;
 		$dx_exv = is_string($a_dx_exv) ? unserialize($a_dx_exv) : $a_dx_exv;
 
@@ -110,6 +93,14 @@ class beluxeController extends beluxe
 				$pObj->use_point = $pObj->use_point - $dxpoint;
 			}
 			else $pObj->use_point = 0;
+		}
+
+		// 모달정보없으면 구함
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo();
+			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}
 
 		if(is_string($oModIfo->extra_fields))
@@ -271,9 +262,16 @@ class beluxeController extends beluxe
 		if(!$mod_srl || $this->module_srl != $mod_srl) return new Object(-1,'msg_invalid_request');
 		if(!$this->grant->write_document) return new Object(-1, 'msg_not_permitted');
 
-		$oModIfo = $this->module_info;
 		$oLogIfo = Context::get('logged_info');
 		$log_mbr_srl = $oLogIfo->member_srl;
+
+		// 모달정보없으면 구함
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
+			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
+		}
 
 		// 회원이라면 닉,암호 제거, 상담 기능시 비회원 에러
 		if(Context::get('is_logged'))
@@ -332,7 +330,8 @@ class beluxeController extends beluxe
 
 		// 포인트 사용이 아니면 포인트 값 제거
 		$args->use_point = (int) $args->use_point;
-		$is_use_point = Context::get('is_logged') && ($oModIfo->use_restrict_view == 'P' || $oModIfo->use_restrict_down == 'P');
+		$is_use_point = $oModIfo->use_point_type != 'A' && ($oModIfo->use_restrict_view == 'P' || $oModIfo->use_restrict_down == 'P');
+		$is_use_point = Context::get('is_logged') && ($oModIfo->use_point_type == 'A' || $is_use_point);
 		if(!$is_use_point) unset($args->use_point);
 
 		// document module의 객체 생성
@@ -500,10 +499,17 @@ class beluxeController extends beluxe
 		if(!$doc_srl || !$mod_srl || $this->module_srl != $mod_srl) return new Object(-1, 'msg_invalid_request');
 		if(!$this->grant->write_comment) return new Object(-1, 'msg_not_permitted');
 
-		$oModIfo = $this->module_info;
 		$oLogIfo = Context::get('logged_info');
 		$log_mbr_srl = (int) $oLogIfo->member_srl;
 		$cpage = $args->cpage;
+
+		// 모달정보없으면 구함
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
+			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
+		}
 
 		// 회원이라면 닉,암호 제거, 상담기능 사용시 비회원 에러
 		if(Context::get('is_logged'))
@@ -702,7 +708,13 @@ class beluxeController extends beluxe
 		if(!$oDocIfo->isExists()) return new Object(-1, 'msg_invalid_document');
 		if(!$oDocIfo->isGranted()) return new Object(-1, 'msg_not_permitted');
 
-		$oModIfo = $this->module_info;
+		// 모달정보없으면 구함
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
+			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
+		}
 
 		if(!$this->grant->manager && $oModIfo->use_lock_document != 'N')
 		{
@@ -928,15 +940,23 @@ class beluxeController extends beluxe
 
 	function procBeluxePayPoint()
 	{
-		$oModIfo = $this->module_info;
 		$doc_srl = Context::get('document_srl');
 		if(!$doc_srl) $doc_srl = Context::get('target_srl');
-		$pt_restrict = $oModIfo->use_restrict_view == 'P';
-		if(!$pt_restrict || !$doc_srl) return new Object(-1,'msg_invalid_request');
 
 		$oLogIfo = Context::get('logged_info');
 		$mbr_srl = $oLogIfo->member_srl;
 		if(!$mbr_srl) return new Object(-1,'msg_not_permitted');
+
+		// 모달정보없으면 구함
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo();
+			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
+		}
+		
+		$pt_restrict = $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view == 'P';
+		if(!$pt_restrict || !$doc_srl) return new Object(-1,'msg_invalid_request');
 
 		// 문서번호에 해당하는 글이 있는지 확인
 		$colLst = array('document_srl','module_srl','member_srl','extra_vars');
@@ -963,7 +983,7 @@ class beluxeController extends beluxe
 				$args->member_srl = $mbr_srl;
 				$args->owner_srl = $doc_member_srl;
 				$args->use_point = $use_point;
-				$args->percent = (int) $oModIfo->restrict_option;
+				$args->percent = (int) $oModIfo->use_point_percent;
 				$args->extra_vars = $dx_exv;
 
 				$out = $this->_setUsePoint($args);
@@ -981,15 +1001,23 @@ class beluxeController extends beluxe
 
 	function procBeluxeRecoverPoint()
 	{
-		$oModIfo = $this->module_info;
 		$doc_srl = Context::get('document_srl');
 		if(!$doc_srl) $doc_srl = Context::get('target_srl');
-		$re_point = explode(':', $oModIfo->use_recover_vote_point);
-		if($re_point[0] != 'Y' || !$doc_srl) return new Object(-1,'msg_invalid_request');
 
 		$oLogIfo = Context::get('logged_info');
 		$mbr_srl = $oLogIfo->member_srl;
 		if(!$mbr_srl) return new Object(-1,'msg_not_permitted');
+
+		// 모달정보없으면 구함
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo();
+			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
+		}
+
+		$re_point = explode(':', $oModIfo->use_recover_vote_point);
+		if($re_point[0] != 'Y' || !$doc_srl) return new Object(-1,'msg_invalid_request');
 
 		$cmThis = &getModel(__XEFM_NAME__);
 		$args->member_srl = $mbr_srl;
@@ -1045,7 +1073,16 @@ class beluxeController extends beluxe
 			return new Object(-1,'msg_invalid_document');
 		}
 
-		$oModIfo = $this->module_info;
+		$mod_srl = $oDocIfo->get('module_srl');
+
+		// 모달정보없으면 구함
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
+			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
+		}
+
 		if(!$oModIfo || $oModIfo->module_srl != $pObj->module_srl)
 		{
 			$cmModule = &getModel('module');
@@ -1054,13 +1091,13 @@ class beluxeController extends beluxe
 
 		$cmThis = &getModel(__XEFM_NAME__);
 
-		if($oModIfo->use_restrict_down == 'Y')
+		if($oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_down == 'Y')
 		{
 			if($cmThis->isWrote($pObj->upload_target_srl, $mbr_srl, TRUE, 'cmt'))
 				return new Object();
 			else return new Object(-1,'msg_required_comment');
 		}
-		else if($oModIfo->use_restrict_down == 'P')
+		else if($oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_down == 'P')
 		{
 			// 포인트 사용시 맴버가 아니면 오류
 			if(!$mbr_srl) return new Object(-1,'msg_not_permitted');
@@ -1078,7 +1115,7 @@ class beluxeController extends beluxe
 				$args->member_srl = $mbr_srl;
 				$args->owner_srl = $pObj->member_srl;
 				$args->use_point = $use_point;
-				$args->percent = (int) $oModIfo->restrict_option;
+				$args->percent = (int) $oModIfo->use_point_percent;
 				$args->extra_vars = $dx_exv;
 
 				$out = $this->_setUsePoint($args);
@@ -1090,6 +1127,65 @@ class beluxeController extends beluxe
 				$_SESSION['BELUXE_IS_DOWNLOADED'][$pObj->file_srl] = TRUE;
 			}
 		}
+	}
+
+	function procBeluxeAdoptComment()
+	{		
+		$cmt_srl = Context::get('comment_srl');
+        if(!$cmt_srl) return new Object(-1, 'msg_invalid_request');
+
+		$send_message = Context::get('send_message');
+
+		$cmComment = &getModel('comment');
+		$colLst = array('module_srl','comment_srl','parent_srl','member_srl','document_srl');
+
+		// 존재하는 글인지 체크
+		$oComIfo = $cmComment->getComment($cmt_srl, FALSE, $colLst);
+        if(!$oComIfo->isExists()) return new Object(-1, 'msg_invalid_request');
+
+        $doc_srl = $oComIfo->get('document_srl');
+        $cmDocument = &getModel('document');
+        $oDocIfo = $cmDocument->getDocument($doc_srl, false, false);
+        if(!$oDocIfo->isExists()) return new Object(-1, 'msg_not_founded');
+
+        // 확장 필드 사용
+        $ex_vars = $oDocIfo->get('extra_vars');
+        $ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
+        $beluxe = $ex_vars->beluxe ? $ex_vars->beluxe : array();
+
+        $use_point = (int) $beluxe->use_point;
+        $adopt_srl = (int) $beluxe->field->adopt_srl ?  $beluxe->field->adopt_srl : 0;
+
+        // 이미 채택된 답글이 있다면 중단
+        if($adopt_srl){
+            $oTmp = $cmComment->getComment($adopt_srl);
+            if($oTmp->isExists()) return new Object(-1, 'msg_invalid_request');
+        }
+
+        $beluxe->field->adopt_srl = $cmt_srl;
+        
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo($oComIfo->get('module_srl'));
+		}
+
+        // 확장 필드 저장 
+        $ex_vars->beluxe = $beluxe;
+        $args->extra_vars = serialize($ex_vars);        
+        // 채택된 답글번호 입력
+        $args->document_srl = $document_srl;
+        $output = executeQuery('bodex.updateExtraField', $args);
+
+        if($use_point > 0) {
+	        // 채택시 포인트 갱신을 위해
+	        $point = round(($use_point * (int)$oModIfo->use_point_percent) / 100);
+	        // 성공하면 포인트 지급
+	        $ccPoint = &getController('point');
+	        $ccPoint->setPoint(abs($oComIfo->get('member_srl')), $point, 'add');
+	    }
+
+        return new Object(0, 'success_adopted');
 	}
 
 	function triggerDownloadFile(&$pObj)

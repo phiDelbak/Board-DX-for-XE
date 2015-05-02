@@ -239,12 +239,6 @@ class BeluxeItem extends Object
 		return $cmThis->isLocked($a_docsrl, $a_type);
 	}
 
-	function isRestrict($a_docsrl, $a_ismbr = TRUE, $a_type = 'doc')
-	{
-		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->isRestrict($a_docsrl, $this->member_srl, $a_ismbr, $a_type);
-	}
-
 	function isWrote($a_docsrl, $a_ismbr = TRUE, $a_type = 'doc')
 	{
 		$cmThis = &getModel(__XEFM_NAME__);

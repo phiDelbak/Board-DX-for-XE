@@ -304,25 +304,24 @@ jQuery(function($)
 	$('a[href=#declare][data-type]')
 	.click(function()
 	{
-		var $i = $(this), ty = $i.attr('data-type'), srl = $i.attr('data-srl'), rec = $i.attr('data-rec') || '0';
-		var params = {target_srl : srl, cur_mid : current_mid, mid : current_mid};
-		var c = (prompt(sj_declare_message, '') || '').trim();
-		if(!c) return alert('Cancel') || false;
+		var $i = $(this), ty = $i.attr('data-type'), srl = $i.attr('data-srl'),
+			rec = $i.attr('data-rec') || '0', c = (prompt(sj_declare_message, '') || '').trim();
+
+		if(!c) return false;
 
 		exec_json(
 			ty + '.proc' + ty.ucfirst() + 'Declare', 
-			params,
+			{target_srl: srl, cur_mid: current_mid, mid: current_mid},
 			function(ret_obj) {
 				alert(ret_obj.message);
 				if(ret_obj.error === 0)
 				{
 					if(rec=='0') return location.reload() || false;
-					var t = '[Board DX] Declare, ' + ty + ':' + srl,
+					var t = '[Board DX] Declare, ' + ty + ': ' + srl,
 						u = current_url.setQuery('comment_srl',('comment'?srl:''));
 						c = c + '<br /><br /><a href="' + u + '">'+u+'</a>';
-					var params2 = {receiver_srl : rec, title : t, content : c};
 					exec_json('communication.procCommunicationSendMessage', 
-						params2,
+						{receiver_srl: rec, title: t, content: c},
 						function(ret_obj2) {
 							alert(ret_obj2.message);
 							location.reload();
@@ -331,6 +330,29 @@ jQuery(function($)
 				}
 			}
 		);
+		return false;
+	});
+
+	$('.btnAdopt button[data-adopt-srl]')
+	.click(function()
+	{
+		var srl = $(this).attr('data-adopt-srl') || '', name = $(this).attr('data-adopt-name') || '',
+			c = (prompt('Send thanks message to ' + name, '') || '').trim();
+
+		if(!c) return false;
+
+		exec_json(
+			'beluxe.procBeluxeAdoptComment', 
+			{comment_srl: srl, send_message: c},
+			function(ret_obj) {
+				alert(ret_obj.message);
+				if(ret_obj.error === 0)
+				{
+					location.reload();
+				}
+			}
+		);
+
 		return false;
 	});
 

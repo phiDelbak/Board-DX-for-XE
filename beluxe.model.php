@@ -729,24 +729,6 @@ class beluxeModel extends beluxe
         return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_lock;
     }
     
-    function isRestrict($a_docsrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
-        if (!$a_docsrl || ($a_ismbr && !$a_mbrsrl)) return true;
-        $t = 'BELUXE_NOT_RESTRICT';
-        $x = $a_docsrl;
-        
-        if ($_SESSION[$t][$x]) return false;
-        if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
-        
-        $oModIfo = $this->_getModuleInfo();
-        if (!$oModIfo->module_srl) return true;
-        
-        $_SESSION[$t][$x] = FALSE;
-        if ($oModIfo->use_restrict_view == 'P') $_SESSION[$t][$x] = $this->isReaded($a_docsrl, $a_mbrsrl);
-        else if ($oModIfo->use_restrict_view == 'Y') $_SESSION[$t][$x] = $this->isWrote($a_docsrl, $a_mbrsrl, TRUE, 'cmt');
-        
-        return $GLOBALS[$t][$x] = !$_SESSION[$t][$x];
-    }
-    
     function isWrote($a_docsrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
         if (!$a_docsrl || ($a_ismbr && !$a_mbrsrl)) return;
         $t = 'BELUXE_IS_WROTE';

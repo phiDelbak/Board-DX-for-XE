@@ -2,9 +2,9 @@
 	{$mi->footer_text}
 </div>
 
-<script cond="$is_doc&&($us_modal||$mi->use_restrict_down=='P'||$ds_declare||$ds_cdeclare)" type="text/javascript">
+<script cond="$is_doc" type="text/javascript">
 //<![CDATA[
-	<!--@if($mi->use_restrict_down=='P')-->
+	<!--@if($pt_dtype=='P')-->
 	var sj_download_message = '{$lang->confirm_download_point}';
 	<!--@endif-->
 	<!--@if($ds_declare||$ds_cdeclare)-->

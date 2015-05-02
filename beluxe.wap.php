@@ -87,10 +87,10 @@ class beluxeWAP extends beluxe
 						$is_grant = $oDocIfo->isGranted();
 						$is_secret = $oDocIfo->isSecret();
 
-						if(!$is_secret && !$is_grant && $oModIfo->use_restrict_view!='N')
+						if(!$is_secret && !$is_grant && ($oModIfo->use_point_type == 'A' || ($oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view!='N')))
 						{
 							if(!$cmThis) $cmThis = &getModel(__XEFM_NAME__);
-							$is_rsrit = $cmThis->isRestrict($doc_srl, $mbr_srl);
+							$is_rsrit = $cmThis->isReaded($doc_srl, $mbr_srl);
 						}
 
 						if($is_rsrit)

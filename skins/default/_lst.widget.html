@@ -56,7 +56,7 @@
 		$is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
 		$is_blind = $mi->use_blind=='Y'?$oThis->isBlind($document->document_srl):0;
 		$purl = getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage);
-		$un_extra = ($is_rtrpt||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
+		$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 	}
 	<div class="doct clearBar" <!--@if($us_hottrack)-->data-hottrack="{$purl}" data-type="widg"<!--@endif-->>

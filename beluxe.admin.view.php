@@ -6,6 +6,8 @@
  * @brief admin view class of the BoardDX module
  */
 
+define('__XEFM_ORDER__', 'list_order,update_order,regdate,voted_count,readed_count,comment_count,title');
+
 class beluxeAdminView extends beluxe
 {
     
@@ -154,19 +156,19 @@ class beluxeAdminView extends beluxe
             
             if (is_string($this->module_info->backup_options)) {
                 $tmp = unserialize($this->module_info->backup_options);
-                $compulsory = array();
-                foreach ($tmp as $key => $val) $compulsory[$key] = $val;
-                Context::set('compulsory_options', $compulsory);
+                $a = array();
+                foreach ($tmp as $key => $val) $a[$key] = $val;
+                Context::set('compulsory_options', $a);
             }
             
             if (is_string($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS'])) {
                 $tmp = unserialize($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS']);
-                $compulsory = array();
-                foreach ($tmp as $key => $val) $compulsory[$key] = $val;
-                Context::set('module_backup_options', $compulsory);
+                $a = array();
+                foreach ($tmp as $key => $val) $a[$key] = $val;
+                Context::set('module_backup_options', $a);
                 unset($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS']);
             }
-            
+
             if ($this->module_srl) {
                 $doc_cfg = $cmModule->getModulePartConfig('document', $this->module_srl);
                 $part_config->use_history = $doc_cfg->use_history;

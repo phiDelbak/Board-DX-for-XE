@@ -54,6 +54,11 @@
 		<value xml:lang="jp"><![CDATA[制限]]></value>
 		<value xml:lang="en"><![CDATA[Restriction]]></value>
 	</item>
+	<item name="adopt">
+		<value xml:lang="ko"><![CDATA[채택]]></value>
+		<value xml:lang="jp"><![CDATA[채택]]></value>
+		<value xml:lang="en"><![CDATA[Adopt]]></value>
+	</item>
 	<item name="thumbnail">
 		<value xml:lang="ko"><![CDATA[썸네일]]></value>
 		<value xml:lang="jp"><![CDATA[サムネール]]></value>
@@ -74,6 +79,11 @@
 		<value xml:lang="jp"><![CDATA[該当の言語のみ削除]]></value>
 		<value xml:lang="en"><![CDATA[delete the current language]]></value>
 	</item>
+	<item name="success_adopted">
+		<value xml:lang="ko"><![CDATA[채택하였습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[채택하였습니다.]]></value>
+		<value xml:lang="en"><![CDATA[채택하였습니다.]]></value>
+	</item>	
 	<item name="msg_restricted_view">
 		<value xml:lang="ko"><![CDATA[이 문서의 내용은 %s자로 제한되있습니다.]]></value>
 		<value xml:lang="jp"><![CDATA[この文書の内容は %s文字に制限されています.]]></value>

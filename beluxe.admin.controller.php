@@ -5,6 +5,8 @@
  * @brief admin controller class of the BoardDX module
  */
 
+define('__XEFM_ORDER__', 'list_order,update_order,regdate,voted_count,readed_count,comment_count,title');
+
 class beluxeAdminController extends beluxe
 {
 
@@ -225,10 +227,11 @@ class beluxeAdminController extends beluxe
 				$chks->custom_status[] = substr($val, 0, 100);
 				if(count($chks->custom_status) > 8) break;
 			}
-
 			$chks->custom_status = implode(',', $chks->custom_status);
 
-			if(isset($chks->restrict_option)) $chks->restrict_option = (int) $chks->restrict_option;
+			if(isset($chks->use_point_percent)) $chks->use_point_percent = (int) $chks->use_point_percent;
+			if(isset($chks->use_point_type) && !in_array($chks->use_point_type, array('R','A')))  $chks->use_point_type = 'R';
+
 			if(isset($chks->use_restrict_view) && !in_array($chks->use_restrict_view, array('Y','P')))  $chks->use_restrict_view = 'N';
 			if(isset($chks->use_restrict_down) && !in_array($chks->use_restrict_down, array('Y','P')))  $chks->use_restrict_down = 'N';
 

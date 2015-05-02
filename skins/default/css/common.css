@@ -1288,6 +1288,9 @@
     opacity:.8
 }
 #siFbk {
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
     border:1px solid #ddd;
     margin-top:15px;
     margin-bottom:15px;
@@ -1327,6 +1330,9 @@
     padding:0 0 0 6px
 }
 #siFbk .scFbt .profile {
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
     float:left;
     width:38px;
     height:38px;
@@ -1384,6 +1390,7 @@
     background-color:#fafafa
 }
 #siFbk .scFrm>li {
+    position:relative;
     padding:15px 0 10px;
     border:0 dashed #e6e6e6;
     border-bottom-width:1px;
@@ -1391,7 +1398,7 @@
 }
 #siFbk .scCmtCon {
     overflow:hidden;
-    min-height:40px;
+    min-height:50px;
     margin:0 6px 5px 200px;
     white-space:normal
 }
@@ -1402,6 +1409,11 @@
 #siFbk .scCmtCon.secret {
     min-height:50px;
     background:url(../img/common/thum_secret.png) no-repeat right bottom
+}
+#siFbk .btnAdopt{    
+    position:absolute;
+    top:0;
+    right:0;
 }
 #siFbk.tbk .scFbH {
     background-position:11px -84px
@@ -2097,9 +2109,9 @@
     margin-top:10px
 }
 #siBody em.usept {
-    margin:0;
-    padding:0 1px;
-    border:1px solid #ddd;
+    margin:0 5px 0 0;
+    padding:1px 3px;
+    border:1px solid #ccc;
     background-color:#eee;
     color:#777;
     font-style:normal;

@@ -16,7 +16,10 @@
 
 		$cmts = $oThis->getCommentList($doc_srl, $cpage, $cmt_lstcnt);
 		$bscmts = $mi->use_c_best=='Y' ? $oThis->getBestCommentList($doc_srl) : array();
-		$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);
+		$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);	
+
+		$doc_mb_srl = $oDocument->get('member_srl');
+		$lg_mb_srl = $lg?$lg->member_srl:0;
 	}
 
 	<div id="siFbk" class="cmt clearBar"><a name="comment" data-scroll="true"|cond="$comment_srl"></a>
@@ -39,6 +42,7 @@
 			<block loop="$p_list=>$key,$comment">
 				{@
 					$cmt_srl = $comment->comment_srl;
+					$mbsl = $comment->get('member_srl');
 					$depth = $comment->get('depth');
 				}
 				<li class="{$depth?'indent':''} {($mi->display_profile!='N'&&$mi->display_profile!='D')?'':'noPfile'} clearBar" style="padding-left:{((int)$depth*17+3)}px;background-position:{((int)$depth*17-10)}px -375px"|cond="$depth"><a name="comment_{$cmt_srl}" data-scroll="true"|cond="$comment_srl&&$comment_srl==$cmt_srl"></a>
@@ -54,8 +58,7 @@
 							<span cond="!$comment->getProfileImage()" class="profile"></span>
 						</block>
 						<h3 class="author">
-							{@
-								$mbsl = $comment->get('member_srl');
+							{@								
 								$home = $comment->get('homepage');
 								$nick = cut_str((!$mbsl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length);
 							}
@@ -73,7 +76,9 @@
 						</span>
 					</div>
 
-					<div class="scCmtCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}">
+					{@ $show_btnAdopt = $pt_vtype=='A'&&$doc_mb_srl&&$doc_mb_srl==$lg_mb_srl&&$mbsl&&$mbsl!=$lg_mb_srl}
+
+					<div class="scCmtCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}" style="margin-right:150px"|cond="$show_btnAdopt">
 						<form cond="$is_secret && !$is_granted" ruleset="checkPassword" action="./" method="post" class="conSecret">
 							<input type="hidden" name="comment_srl" value="{$cmt_srl}" />
 							<input type="hidden" name="act" value="procBoardVerificationPassword" />
@@ -82,8 +87,11 @@
 								<span class="scBtn black"><input type="submit" value="{$lang->cmd_input}" /></span>
 							</div>
 						</form>
-
 						{$is_blind&&!$grant->manager?$lang->msg_is_blind:$comment->getContent(false)}
+					</div>
+
+					<div cond="$show_btnAdopt" class="btnArea btnAdopt">
+						<span class="scBtn"><button type="button" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</button></span>
 					</div>
 
 					{@ $ds_vtxt = !($ds_cvoteup||$ds_cvotedown) && ($comment->get('voted_count')!='0'||$comment->get('blamed_count')!='0')}

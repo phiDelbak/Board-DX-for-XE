@@ -1,8 +1,9 @@
 {@
+$lg = $logged_info ? $logged_info : array();
 $doc_srl = $oDocument->document_srl;
 $ds_nick = $ci['nick_name']->display == 'Y';
 $ds_user =	$ci['user_name']->display == 'Y';
-$un_extra = ($is_rtrpt||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
+$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
 $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 }
 <block cond="$mi->view_comment_style == 'webzine'">
@@ -29,7 +30,7 @@ $is_granted = $oDocument->isGranted();
 $is_secret = $grant->view && $oDocument->isSecret();
 $is_locked = $is_cklok?$oThis->isLocked($doc_srl):0;
 $is_blind = $mi->use_blind=='Y'?$oThis->isBlind($doc_srl):0;
-$is_restrict = $mi->use_restrict_view!='N'&&!$is_granted&&!$is_secret?$oThis->isRestrict($doc_srl):0;
+$is_restrict = ($pt_vtype=='Y'&&!$is_granted&&!$is_secret)?!$oThis->isReaded($doc_srl):0;
 $exks = ((!$is_secret || $is_granted) && $oDocument->isExtraVarsExists()) ? $oDocument->getExtraVars() : array();
 $tags = (!$is_secret || $is_granted) ? $oDocument->get('tag_list') : array();
 $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDocument->getUploadedFiles() : array();
@@ -110,7 +111,7 @@ $t_pagen = $t_pagec + 1;
         {@
         $t_cmtn = $val->getCommentCount();
         $t_tbkn = $val->getTrackbackCount();
-        $un_extra = ($is_rtrpt||$ao_ppang||$ds_mtlng)?$val->get('extra_vars'):null;
+        $un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$val->get('extra_vars'):null;
         $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
         }
         <a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
@@ -119,7 +120,7 @@ $t_pagen = $t_pagec + 1;
         </span>
         <span class="cate">[{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]</span>
         <span class="scElps">
-        <em cond="$is_rtrpt" class="usept" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
+        <em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
         {$val->getTitle($mi->mobile_title_length)}
         <span>
         <em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
@@ -137,7 +138,7 @@ $t_pagen = $t_pagec + 1;
 <!-- /NAVIGATION -->
 <block cond="$mi->display_attached_files!='N'&&count($ufls)">
 <div class="hx h3">
-    <h3>{$lang->uploaded_file} <em>[{count($ufls)}]</em><em cond="$mi->use_restrict_down=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, $un_extra->beluxe->use_point?$un_extra->beluxe->use_point:"0")} (Once)</em></h3>
+    <h3>{$lang->uploaded_file} <em>[{count($ufls)}]</em><em cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, $un_extra->beluxe->use_point?$un_extra->beluxe->use_point:"0")} (Once)</em></h3>
     <button type="button" class="tg" title="open/close"></button>
 </div>
 {@
@@ -148,7 +149,7 @@ $ds_flsmd = $mi->display_attached_files=='Y'||$mi->display_attached_files=='M';
 <ul class="file tgo">
     <li loop="$ufls=>$key,$file" cond="($ds_flsgn&&$file->direct_download!='Y')||($ds_flsmd&&$file->direct_download=='Y')" class="notvalid"|cond="$file->isvalid!='Y'" class="direct"|cond="$file->isvalid=='Y'&&$file->direct_download=='Y'">
         {@
-        $t_down_pt = $mi->use_restrict_down == 'P' && (!$logged_info || $logged_info->member_srl != $file->member_srl);
+        $t_down_pt = $pt_dtype == 'P' && (!$lg || $lg->member_srl != $file->member_srl);
         $t_down_pt = $t_down_pt && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
         }
         <a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="size">(link)</span></a>

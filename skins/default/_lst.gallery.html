@@ -163,7 +163,7 @@
 			$is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
 			$is_blind = $mi->use_blind=='Y'?$oThis->isBlind($document->document_srl):0;
 			$purl = getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage);
-			$un_extra = ($is_rtrpt||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
+			$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
 			$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 		}
 			<div class="scItem" <!--@if($us_hottrack)-->data-hottrack="{$purl}" data-type="gall"<!--@endif-->>
@@ -189,7 +189,7 @@
 							<img class="scIcoSet coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}" />
 						</block>
 						<em cond="$t_cmtn || $t_tbkn" class="reply" title="Replies">+{(int)$t_cmtn}<block cond="$t_tbkn">.{$t_tbkn}</block></em>
-						<em cond="$is_rtrpt" class="usept" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
+						<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
 					</span>
 					<div <!--@if($mi->display_thumbnail_info != 'N')-->class="scInfo aHide" style="display:none" data-autohide="true"<!--@else-->class="scInfo"<!--@endif--> data-fade="true"|cond="$mi->display_thumbnail_info == 'F'">
 						<ul style="width:{(int)$mi->thumbnail_width}px;"|cond="$mi->display_thumbnail_info=='N'||$mi->thumbnail_type!='ratio'">

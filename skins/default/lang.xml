@@ -24,6 +24,11 @@
 		<value xml:lang="jp"><![CDATA[反対]]></value>
 		<value xml:lang="en"><![CDATA[Disagree]]></value>
 	</item>
+	<item name="cmd_adopt">
+		<value xml:lang="ko"><![CDATA[답변 채택]]></value>
+		<value xml:lang="jp"><![CDATA[답변 채택]]></value>
+		<value xml:lang="en"><![CDATA[답변 채택]]></value>
+	</item>
 	<item name="use_wysiwyg">
 		<value xml:lang="ko"><![CDATA[위지윅 사용]]></value>
 		<value xml:lang="jp"><![CDATA[エディタ使用]]></value>
@@ -90,9 +95,14 @@
 		<value xml:lang="en"><![CDATA[Please describe the reasons to %s.]]></value>
 	</item>
 	<item name="about_use_point">
-		<value xml:lang="ko"><![CDATA[내 포인트를 걸고 사용자에게 포인트의 %s씩 받을 수 있습니다. (수정 불가)]]></value>
-		<value xml:lang="jp"><![CDATA[私のポイントをかけて使用者にポイントの %sづつ貰うことができます. (修正不可)]]></value>
-		<value xml:lang="en"><![CDATA[use your points to get user's %s points. (No modify)]]></value>
+		<value xml:lang="ko"><![CDATA[내 포인트를 걸고 사용자에게 포인트의 %s씩 받을 수 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[私のポイントをかけて使用者にポイントの %sづつ貰うことができます.]]></value>
+		<value xml:lang="en"><![CDATA[use your points to get user's %s points.]]></value>
+	</item>
+	<item name="about_use_adopt">
+		<value xml:lang="ko"><![CDATA[답변이 달리면 채택해주세요. 미채택이 3개 이상이면 글쓰기가 제한됩니다.]]></value>
+		<value xml:lang="jp"><![CDATA[답변이 달리면 채택해주세요. 미채택이 3개 이상이면 글쓰기가 제한됩니다.]]></value>
+		<value xml:lang="en"><![CDATA[답변이 달리면 채택해주세요. 미채택이 3개 이상이면 글쓰기가 제한됩니다.]]></value>
 	</item>
 	<item name="extra_toggle">
 		<value xml:lang="ko"><![CDATA[추가 입력항목 보기]]></value>
