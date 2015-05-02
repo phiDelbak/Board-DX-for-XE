@@ -1137,10 +1137,10 @@ class beluxeController extends beluxe
 		$send_message = Context::get('send_message');
 
 		$cmComment = &getModel('comment');
-		$colLst = array('module_srl','comment_srl','parent_srl','member_srl','document_srl');
+		$colLst = array('module_srl','document_srl','comment_srl','parent_srl','member_srl');
 
 		// 존재하는 글인지 체크
-		$oComIfo = $cmComment->getComment($cmt_srl, FALSE, $colLst);
+		$oComIfo = $cmComment->getComment($cmt_srl, false, $colLst);
         if(!$oComIfo->isExists()) return new Object(-1, 'msg_invalid_request');
 
         $doc_srl = $oComIfo->get('document_srl');
@@ -1151,14 +1151,15 @@ class beluxeController extends beluxe
         // 확장 필드 사용
         $ex_vars = $oDocIfo->get('extra_vars');
         $ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
-        $beluxe = $ex_vars->beluxe ? $ex_vars->beluxe : array();
+        if(!$ex_vars->beluxe) return new Object(-1, 'msg_invalid_request');
 
+        $beluxe = $ex_vars->beluxe;
         $use_point = (int) $beluxe->use_point;
         $adopt_srl = (int) $beluxe->adopt_srl ?  $beluxe->adopt_srl : 0;
 
         // 이미 채택된 답글이 있다면 중단
         if($adopt_srl){
-            $oTmp = $cmComment->getComment($adopt_srl, $colLst);
+            $oTmp = $cmComment->getComment($adopt_srl, false, $colLst);
             if($oTmp->isExists()) return new Object(-1, 'msg_invalid_request');
         }
         
@@ -1184,6 +1185,18 @@ class beluxeController extends beluxe
 	        $ccPoint = &getController('point');
 	        $ccPoint->setPoint(abs($oComIfo->get('member_srl')), $point, 'add');
 	    }
+					
+	    if($send_message){
+			$t = '[Board DX] Adopted, thanks message: ' . $cmt_srl;
+			$u = getFullUrl('', 'document_srl',$doc_srl,'comment_srl',$cmt_srl);
+			$send_message = $send_message . '<br /><br /><a href="' . $u . '">'. $u .'</a>';	
+
+		    $ccCommuni = &getController('communication');
+		    $ccCommuni->sendMessage(
+		    	$oDocIfo->get('member_srl'), $oComIfo->get('member_srl'), 
+		    	$t, $send_message
+		    );
+		}
 
         return new Object(0, 'success_adopted');
 	}

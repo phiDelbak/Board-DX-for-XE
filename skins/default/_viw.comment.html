@@ -76,7 +76,7 @@
 						</span>
 					</div>
 
-					{@ $show_btnAdopt = $pt_vtype=='A'&&$doc_mb_srl&&$doc_mb_srl==$lg_mb_srl&&$mbsl&&$mbsl!=$lg_mb_srl}
+					{@ $show_btnAdopt = $pt_vtype=='A'&&$un_extra->beluxe->use_point&&$doc_mb_srl&&$doc_mb_srl==$lg_mb_srl&&$mbsl&&$mbsl!=$lg_mb_srl}
 
 					<div class="scCmtCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}" style="margin-right:150px"|cond="$show_btnAdopt">
 						<form cond="$is_secret && !$is_granted" ruleset="checkPassword" action="./" method="post" class="conSecret">

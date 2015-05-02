@@ -52,7 +52,7 @@
 			<span cond="$tlk" class="{$tlk}">Best</span>
 			<span cond="$is_webzine&&!$comment->get('depth')" class="best agree">{$is_chk ? $lang->cmd_agree : $lang->cmd_disagree }</span>
 
-			{@ $show_btnAdopt = $pt_vtype=='A'&&$doc_mb_srl&&$doc_mb_srl==$lg_mb_srl&&$mbsl&&$mbsl!=$lg_mb_srl}
+			{@ $show_btnAdopt = $pt_vtype=='A'&&$un_extra->beluxe->use_point&&$doc_mb_srl&&$doc_mb_srl==$lg_mb_srl&&$mbsl&&$mbsl!=$lg_mb_srl}
 
 			<div class="cmt {$is_blind?'blind':($is_secret?'secret':'')}">
 				<form cond="$is_secret && !$is_granted" action="./" method="post" class="ff secret" onsubmit="if(!this.password.value){ alert('Input password'); this.password.focus(); return false;}else return true;">

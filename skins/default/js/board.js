@@ -306,9 +306,7 @@ jQuery(function($)
 	{
 		var $i = $(this), ty = $i.attr('data-type'), srl = $i.attr('data-srl'),
 			rec = $i.attr('data-rec') || '0', c = (prompt(sj_declare_message, '') || '').trim();
-
 		if(!c) return false;
-
 		exec_json(
 			ty + '.proc' + ty.ucfirst() + 'Declare', 
 			{target_srl: srl, cur_mid: current_mid, mid: current_mid},
@@ -338,9 +336,7 @@ jQuery(function($)
 	{
 		var srl = $(this).attr('data-adopt-srl') || '', name = $(this).attr('data-adopt-name') || '',
 			c = (prompt('Send thanks message to ' + name, '') || '').trim();
-
 		if(!c) return false;
-
 		exec_json(
 			'beluxe.procBeluxeAdoptComment', 
 			{comment_srl: srl, send_message: c},
