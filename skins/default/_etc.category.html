@@ -52,9 +52,9 @@
 	<span class="scBtn small scCaLock active"><a href="#" title="{$lang->cmd_lock}"><em>&amp;</em></a></span>
 </div>
 
-<div cond="$s_cate == 'L' || $s_cate == 'R'" id="siCat" class="side" style="{$s_cate=='R'?'right:0':'left:0'}">
-	<div class="cateArea {$s_cate=='R'?'right':''}">
-		<ul class="scFrm {$s_cate=='R'?'fr':'fl'}">
+<div cond="$s_cate == 'S'" id="siCat" class="side" style="left:{$mi->category_option?$mi->category_option:0}px">
+	<div class="cateArea">
+		<ul class="scFrm">
 			{@ $depth=0}
 			<block loop="$cts => $key,$val">
 				<block cond="$depth < $val->depth">
@@ -76,7 +76,6 @@
 			</block>
 			<block cond="$depth">{str_repeat('</ul></li>', $depth)}</block>
 		</ul>
-		<a class="mubtn {$s_cate=='R'?'fr':'fl'}" href="#"></a>
 	</div>
 </div>
 <!-- /CATEGORY -->

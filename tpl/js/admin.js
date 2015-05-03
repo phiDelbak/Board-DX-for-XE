@@ -407,6 +407,28 @@ jQuery(function($)
 		}
 	});
 
+	$(".dx_skininfo input[type=radio]").click(function(){
+		var t = $(this).attr('data-info-target')||'';
+		$('[data-info-target]', $(this).closest('.x_controls')).each(function(){
+			var s = $(this).attr('data-info-target')||'';
+			$('[name='+s+']', 'form').closest('.x_control-group').hide();
+		});
+		$('[name='+t+']', 'form').closest('.x_control-group').show();
+	});
+
+	// $('.dx_skininfo input[type=radio][data-info-target]').each(function() {
+	// 	var t = $(this).attr('data-info-target')||'';
+	// 		if(!t) return;
+	// 		alert('uncheckd ' + $(this).val());
+	// 	
+	// 	$(this).on('change', function()
+	// 	{
+	// 		//if(!$(this).is(':checked'))
+	// 		alert('uncheckd ' + $(this).val());
+	// 	}); 
+	// });
+
+
 	$('#siteMapFrame').bdxSiteMapinit();
 	$('#columnFrame').bdxColumninit();
 	$('#extraKeyFrame').bdxExtraKeyinit();

@@ -1,6 +1,6 @@
 <include target="header.html" />
 
-<form action="./" method="post" enctype="multipart/form-data" class="x_form-horizontal">
+<form action="./" method="post" enctype="multipart/form-data" class="x_form-horizontal dx_skininfo">
 	<input cond="$module=='admin'" type="hidden" name="module" value="{$module}" />
 	<input type="hidden" name="act" value="procBeluxeAdminUpdateSkinInfo" />
 	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
@@ -61,6 +61,8 @@
 			</div>
 	</block>
 
+	{@ $hide_list = array()}
+
 	<block loop="$skin_info->extra_vars => $key, $val">
 		<block cond="$val->group && ((!$group) || $group != $val->group)">
 			{@$group = $val->group}
@@ -72,7 +74,7 @@
 			$value = $skin_vars[$val->name] ? $skin_vars[$val->name]->value : '';
 			$value = empty($value) ? $val->default : $value;
 		}
-		<div class="x_control-group">
+		<div class="x_control-group" style="display:none"|cond="$hide_list[$val->name]">
 		<label class="x_control-label">{$val->title}</label>
 		<div class="x_controls">
 			<block cond="$val->type == 'text'">
@@ -97,7 +99,15 @@
 			</block>
 			<block cond="$val->type == 'radio'">
 				<label loop="$val->options => $k, $v" class="x_inline">
-					<input type="radio" name="{$val->name}" value="{$v->value}" checked="checked"|cond="$v->value==$value" />
+					{@ $a = array()}
+					<!--@if(strpos($v->value, '|_TARGET_|')!==false)-->
+					{@
+						$a = explode('|_TARGET_|', $v->value);
+						$v->value = $a[0];
+						$hide_list[$a[1]] = $v->value==$value ? 0:1;
+					}
+					<!--@end-->
+					<input type="radio" name="{$val->name}" value="{$v->value}" checked="checked"|cond="$v->value==$value" data-info-target="{$a[1]}"|cond="$a[1]" />
 					{$v->title}
 				</label>
 			</block>

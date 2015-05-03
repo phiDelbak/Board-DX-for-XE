@@ -180,44 +180,45 @@ jQuery(function($)
 		}
 	});
 
-	$('#siCat.side')
-	.each(function()
-	{
-		var $pr = $(this), $ca = $('.cateArea',$pr), $ul = $('ul.scFrm',$pr), $bt = $('.mubtn', $pr);
+	// 다른 방법 사용으로 제거
+	// $('#siCat.side')
+	// .each(function()
+	// {
+	// 	var $pr = $(this), $ca = $('.cateArea',$pr), $ul = $('ul.scFrm',$pr), $bt = $('.mubtn', $pr);
 
-		$bt.click(function(){
-			var uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
-			// right 이면 범위를 벗어나기 때문에 크기 계산
-			if($ca.hasClass('right')) $ca.css({'margin-left':-(uw+bw)+'px','width':(uw+bw)+'px'});
-			$ul.animate(
-				{"width": "toggle", "opacity": "toggle"}, "slow",
-				function(){
-					if($ul.is(':hidden')){
-						$bt.removeClass('active');
-						if($ca.hasClass('right')) $ca.css({'margin-left':-bw+'px','width':bw+'px'});
-					}
-					else $bt.addClass('active');
-				}
-			);
-			return false;
-		});
+	// 	$bt.click(function(){
+	// 		var uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
+	// 		// right 이면 범위를 벗어나기 때문에 크기 계산
+	// 		if($ca.hasClass('right')) $ca.css({'margin-left':-(uw+bw)+'px','width':(uw+bw)+'px'});
+	// 		$ul.animate(
+	// 			{"width": "toggle", "opacity": "toggle"}, "slow",
+	// 			function(){
+	// 				if($ul.is(':hidden')){
+	// 					$bt.removeClass('active');
+	// 					if($ca.hasClass('right')) $ca.css({'margin-left':-bw+'px','width':bw+'px'});
+	// 				}
+	// 				else $bt.addClass('active');
+	// 			}
+	// 		);
+	// 		return false;
+	// 	});
 
-		$('ul.scFrm li[data-child]', $pr).each(function() {
-			var key = $(this).attr('data-child'), $to = $('ul.scFrm li[data-parent='+key+']', $pr);
+	// 	$('ul.scFrm li[data-child]', $pr).each(function() {
+	// 		var key = $(this).attr('data-child'), $to = $('ul.scFrm li[data-parent='+key+']', $pr);
 
-			$('a b:first', this).click(function(){
-				if($ca.hasClass('right')) $ca.css({'margin-left':'-1000px','width':'1000px'});
-				$(this).html($to.is(':hidden')?'&rsaquo;':'&lsaquo;');
-				$to.slideToggle();
+	// 		$('a b:first', this).click(function(){
+	// 			if($ca.hasClass('right')) $ca.css({'margin-left':'-1000px','width':'1000px'});
+	// 			$(this).html($to.is(':hidden')?'&rsaquo;':'&lsaquo;');
+	// 			$to.slideToggle();
 
-				if($ca.hasClass('right')){
-					var uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
-					$ca.css({'margin-left':-(uw+bw)+'px','width':(uw+bw)+'px'});
-				}
-				return false;
-			}).css('color','black').html($to.css('display')=='none'?'&lsaquo;':'&rsaquo;');
-		});
-	});
+	// 			if($ca.hasClass('right')){
+	// 				var uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
+	// 				$ca.css({'margin-left':-(uw+bw)+'px','width':(uw+bw)+'px'});
+	// 			}
+	// 			return false;
+	// 		}).css('color','black').html($to.css('display')=='none'?'&lsaquo;':'&rsaquo;');
+	// 	});
+	// });
 
 	$('#siLst.gall .scInfo[data-autohide=true]')
 	.each(function()

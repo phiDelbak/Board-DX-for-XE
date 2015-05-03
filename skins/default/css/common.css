@@ -545,13 +545,9 @@
 #siCat.side .cateArea {
     position:fixed
 }
-#siCat.side .cateArea.right {
-    margin-left:-18px;
-    width:18px
-}
-#siCat.side ul.scFrm, #siCat.side .mubtn {
+#siCat.side ul.scFrm {
     display:inline-block;
-    background-color:#fafafa;
+    background-color:#fff;
     box-shadow:1px 1px 3px #000;
     -moz-box-shadow:1px 1px 3px #000;
     -webkit-box-shadow:1px 1px 3px #000;
@@ -561,38 +557,12 @@
     border:1px solid #000;
     white-space:nowrap
 }
-#siCat.side ul.scFrm.fr, #siCat.side .mubtn.fr {
-    border-radius:5px 0px 0px 5px;
-    -moz-border-radius:5px 0px 0px 5px;
-    -webkit-border-radius:5px 0px 0px 5px;
-    box-shadow:-1px 1px 3px #000;
-    -moz-box-shadow:-1px 1px 3px #000;
-    -webkit-box-shadow:-1px 1px 3px #000;
-    border:1px solid #000
-}
-#siCat.side .mubtn {
-    width:16px;
-    height:52px;
-    background:url(../img/common/label_menu.gif) no-repeat left top
-}
-#siCat.side .mubtn.active, #siCat.side .mubtn:hover {
-    opacity:.7
-}
 #siCat.side ul.scFrm {
-    display:none;
     border-left:2px solid #000;
     border-top:2px solid #000;
     border-radius:0px 0px 5px 0px;
     -moz-border-radius:0px 0px 5px 0px;
     -webkit-border-radius:0px 0px 5px 0px
-}
-#siCat.side ul.scFrm.fr {
-    border-radius:0px 0px 0px 5px;
-    -moz-border-radius:0px 0px 0px 5px;
-    -webkit-border-radius:0px 0px 0px 5px;
-    border:1px solid #000;
-    border-right:2px solid #000;
-    border-top:2px solid #000
 }
 #siCat.side ul.scFrm ul {
     padding:0;

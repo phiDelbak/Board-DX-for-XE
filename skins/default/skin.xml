@@ -115,15 +115,10 @@
 					<title xml:lang="jp">コラム</title>
 					<title xml:lang="en">column</title>
 				</options>
-				<options value="L">
-					<title xml:lang="ko">좌측</title>
-					<title xml:lang="jp">左側 </title>
-					<title xml:lang="en">left</title>
-				</options>
-				<options value="R">
-					<title xml:lang="ko">우측</title>
-					<title xml:lang="jp">右側</title>
-					<title xml:lang="en">right</title>
+				<options value="S|_TARGET_|category_option">
+					<title xml:lang="ko">사이드</title>
+					<title xml:lang="jp">side</title>
+					<title xml:lang="en">side</title>
 				</options>
 				<options value="X">
 					<title xml:lang="ko">텍스트</title>
@@ -133,6 +128,14 @@
 				<description xml:lang="ko">분류의 모양을 설정합니다. (혼합: 탭+컬럼)</description>
 				<description xml:lang="jp">分類のスタイルを設定します. (混合: タップ+コラム)</description>
 				<description xml:lang="en">Set the appearance of the category. (mix: tab+column)</description>
+			</var>
+			<var name="category_option" type="text" default="">
+				<title xml:lang="ko">분류 옵션</title>
+				<title xml:lang="jp">분류 옵션</title>
+				<title xml:lang="en">분류 옵션</title>
+				<description xml:lang="ko">사이드 위치를 설정합니다. -일수록 왼쪽 +일수록 오른쪽입니다 (ex. -25)</description>
+				<description xml:lang="jp">사이드 위치를 설정합니다. -일수록 왼쪽 +일수록 오른쪽입니다 (ex. -25)</description>
+				<description xml:lang="en">사이드 위치를 설정합니다. -일수록 왼쪽 +일수록 오른쪽입니다 (ex. -25)</description>
 			</var>
 			<var name="use_notice_widget" type="radio" default="default">
 				<title xml:lang="ko">공지사항 모양</title>
