@@ -138,11 +138,11 @@
 				<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
 					<li>
 						<label for="uMail">{$lang->email_address}</label>
-						<input name="email_address" type="text" id="uMail" maxlength="250" value="{htmlspecialchars($oDocument->get('email_address'))}" />
+						<input name="email_address" type="email" id="uMail" maxlength="250" value="{htmlspecialchars($oDocument->get('email_address'))}" />
 					</li>
 					<li>
 						<label for="uSite">{$lang->homepage}</label>
-						<input name="homepage" type="text" id="uSite" maxlength="250" value="{htmlspecialchars($oDocument->get('homepage'))}" />
+						<input name="homepage" type="url" id="uSite" maxlength="250" value="{htmlspecialchars($oDocument->get('homepage'))}" />
 					</li>
 				</block>
 				<li class="hr"><hr /></li>
@@ -155,7 +155,6 @@
 				<label for="nText">{$lang->content}</label>
 				<label><input type="checkbox" name="use_html" value="Y" /> HTML</label>
 				<textarea name="content" cols="20" rows="8" id="nText">{$is_doc?$oDocument->getContentText():htmlspecialchars($mi->document_default_content)}</textarea>
-				<input type="hidden" name="tags" value="{htmlspecialchars($oDocument->get('tags'))}" />
 			</li>
 			<li cond="$mi->use_mobile_uploader == 'Y'">
 				<div id="fUloader" class="fsa">
@@ -167,6 +166,10 @@
 						<p><button class="bn white scFup">Upload <em id="siFileCnt">0</em></button></p>
 					</div>
 				</div>
+			</li>
+			<li cond="$mi->use_input_tag!='N'">
+				<label for="nTitle">{$lang->tag}</label>
+				<input name="tags" type="text" value="{htmlspecialchars($oDocument->get('tags'))}" placeholder="{htmlspecialchars($lang->about_tag)}" />
 			</li>
 		</ul>
 		<div class="bna">

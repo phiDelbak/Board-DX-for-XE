@@ -70,27 +70,36 @@ $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDoc
         {$oDocument->getContent(false)}
         <!--@endif-->
     </div>
+    <block cond="$mi->view_comment_style!='webzine'&&$is_logged">
+    {@
+    $ds_voteup = strpos($mi->use_d_vote, 'up')!==false;
+    $ds_votedown = strpos($mi->use_d_vote, 'down')!==false;
+    $ds_declare = strpos($mi->use_d_vote, 'declare')!==false;
+    $adm_id = $ds_declare ? $oThis->getAdminId() : array();
+    }
+    <div cond="$ds_voteup||$ds_votedown||$ds_declare" class="bna">
+        <a cond="$ds_voteup" class="bn white" style="color:#AA3300" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_vote}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a>
+        <a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_vote_down}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a>
+        <a cond="$ds_declare" href="#declare" class="bn white" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$oDocument->get('member_srl')}"><em class="declare">{$lang->cmd_declare}</em></a>
+    </div>
+    </block>
+    <div cond="$tag_cnt = count($tags)" class="tags">
+        <block loop="$i=0;$i<$tag_cnt;$i++"> {@ $tag = $tags[$i]}
+        <span cond="$i">, </span><a href="{getUrl('', 'mid',$mid,'search_target','tag','search_keyword',$tag,'document_srl','')}" class="tag" rel="tag">{htmlspecialchars($tag)}</a>
+        </block>
+    </div>
+    <div class="lic fr">
+        <a cond="$mi->display_document_do!='N'" class="document_{$doc_srl} action" href="#popup_menu_area" onclick="return false">{$lang->cmd_document_do}</a>
+        <block cond="$mi->display_button_sns != 'N'">
+            <a href="http://twitter.com/" target="_blank" data-type="tw" title="Twitter">Twitter</a>
+            <a href="http://me2day.net/" target="_blank" data-type="me" title="Me2day">Me2day</a>
+            <a href="http://facebook.com/" target="_blank" data-type="fa" title="Facebook">Facebook</a>
+            <a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a>
+        </block>
+    </div>
 </div>
 <div cond="$mi->document_bottom_text" class="co">
     {$mi->document_bottom_text}
-</div>
-<block cond="$mi->view_comment_style!='webzine'&&$is_logged">
-{@
-$ds_voteup = strpos($mi->use_d_vote, 'up')!==false;
-$ds_votedown = strpos($mi->use_d_vote, 'down')!==false;
-$ds_declare = strpos($mi->use_d_vote, 'declare')!==false;
-$adm_id = $ds_declare ? $oThis->getAdminId() : array();
-}
-<div cond="$ds_voteup||$ds_votedown||$ds_declare" class="bna">
-    <a cond="$ds_voteup" class="bn white" style="color:#AA3300" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_vote}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a>
-    <a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_vote_down}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a>
-    <a cond="$ds_declare" href="#declare" class="bn white" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$oDocument->get('member_srl')}"><em class="declare">{$lang->cmd_declare}</em></a>
-</div>
-</block>
-<div cond="$tag_cnt = count($tags)" class="tags">
-    <block loop="$i=0;$i<$tag_cnt;$i++"> {@ $tag = $tags[$i]}
-    <span cond="$i">, </span><a href="{getUrl('', 'mid',$mid,'search_target','tag','search_keyword',$tag,'document_srl','')}" class="tag" rel="tag">{htmlspecialchars($tag)}</a>
-    </block>
 </div>
 <div id="skip_co"></div>
 <!-- NAVIGATION -->

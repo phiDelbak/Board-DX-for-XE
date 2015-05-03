@@ -40,7 +40,7 @@
 					<option loop="$ci=>$key,$val" cond="$val->search=='Y'" value="{$key}" selected="selected"|cond="$key==$search_target">{$val->name}</option>
 					<option cond="$search_target&&$ci[$search_target]->search!='Y'" value="{$search_target}" selected="selected">{Context::getLang($search_target)}</option>
 				</select>
-				<input type="text" name="search_keyword" value="{htmlspecialchars($search_keyword)}" title="{$lang->cmd_search}" />
+				<input type="search" name="search_keyword" value="{htmlspecialchars($search_keyword)}" title="{$lang->cmd_search}" />
 				<button type="submit" class="shbn" title="{$lang->cmd_search}">Search</button>
 			</form>
 		</div>

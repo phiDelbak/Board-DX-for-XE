@@ -54,11 +54,11 @@
 			<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
 				<li>
 					<label for="uMail">{$lang->email_address}</label>
-					<input name="email_address" type="text" id="uMail" maxlength="250" value="{htmlspecialchars($oComment->get('email_address'))}" />
+					<input name="email_address" type="email" id="uMail" maxlength="250" value="{htmlspecialchars($oComment->get('email_address'))}" />
 				</li>
 				<li>
 					<label for="uSite">{$lang->homepage}</label>
-					<input name="homepage" type="text" id="uSite" maxlength="250" value="{htmlspecialchars($oComment->get('homepage'))}" />
+					<input name="homepage" type="url" id="uSite" maxlength="250" value="{htmlspecialchars($oComment->get('homepage'))}" />
 				</li>
 			</block>
 			<li class="hr"><hr /></li>

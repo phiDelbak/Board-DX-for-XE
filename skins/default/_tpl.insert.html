@@ -163,11 +163,11 @@
 			<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
 				<label class="scLaEt">
 					<span>Email</span>
-					<input type="text" name="email_address" maxlength="250" value="{htmlspecialchars($oDocument->get('email_address'))}" />
+					<input type="email" name="email_address" maxlength="250" value="{htmlspecialchars($oDocument->get('email_address'))}" />
 				</label>
 				<label class="scLaEt">
 					<span>Home</span>
-					<input type="text" name="homepage" maxlength="250" value="{htmlspecialchars($oDocument->get('homepage'))}" />
+					<input type="url" name="homepage" maxlength="250" value="{htmlspecialchars($oDocument->get('homepage'))}" />
 				</label>
 			</block>
 		</div>
