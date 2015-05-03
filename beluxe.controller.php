@@ -235,9 +235,9 @@ class beluxeController extends beluxe
 			// 문서번호에 해당하는 글이 있는지 확인
 			$cmComment = &getModel('comment');
 			$oComIfo = $cmComment->getComment($cmt_srl, FALSE, array('comment_srl', 'password'));
-			if(!$oComIfo->isExists()) return new Object(-1380, 'msg_not_founded');
+			if(!$oComIfo->isExists()) return new Object(-1, 'msg_not_founded');
 			// 문서의 비밀번호와 입력한 비밀번호의 비교
-			if(!$cmMember->isValidPassword($oComIfo->get('password'), $password)) return new Object(-1380, 'msg_invalid_password');
+			if(!$cmMember->isValidPassword($oComIfo->get('password'), $password)) return new Object(-1, 'msg_invalid_password');
 
 			$oComIfo->setGrant();
 		}
@@ -246,9 +246,9 @@ class beluxeController extends beluxe
 			// 문서번호에 해당하는 글이 있는지 확인
 			$cmDocument = &getModel('document');
 			$oDocIfo = $cmDocument->getDocument($doc_srl, FALSE, FALSE, array('document_srl', 'password'));
-			if(!$oDocIfo->isExists()) return new Object(-1380, 'msg_not_founded');
+			if(!$oDocIfo->isExists()) return new Object(-1, 'msg_not_founded');
 			// 문서의 비밀번호와 입력한 비밀번호의 비교
-			if(!$cmMember->isValidPassword($oDocIfo->get('password'), $password)) return new Object(-1380, 'msg_invalid_password');
+			if(!$cmMember->isValidPassword($oDocIfo->get('password'), $password)) return new Object(-1, 'msg_invalid_password');
 
 			$oDocIfo->setGrant();
 		}

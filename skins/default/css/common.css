@@ -24,7 +24,6 @@
     clear:both
 }
 /* Button */
-
 .scBtn {
     position:relative;
     display:inline-block;
@@ -133,7 +132,10 @@
 .scBtn.group a:first-child {
     border-left:0!important
 }
-.scBtn input[type="text"], .scBtn input[type="password"] {
+.scBtn input[type="text"], 
+.scBtn input[type="password"], 
+.scBtn input[type="email"], 
+.scBtn input[type="url"] {
     padding:0 5px!important
 }
 .scBtn *[disabled=disabled] {
@@ -236,18 +238,32 @@
     color:#111;
     text-decoration:underline
 }
-#siBody input[type="text"], #siBody input[type="password"], #siBody textarea, #siBody select {
+#siBody input[type="text"], 
+#siBody input[type="password"], 
+#siBody input[type="email"], 
+#siBody input[type="url"] , 
+#siBody textarea, #siBody select {
     padding:2px;
     border:1px solid #bbb;
     border-radius:2px;
     -moz-border-radius:2px;
     -webkit-border-radius:2px
 }
-#siBody input[type="text"][readonly], #siBody input[type="password"][readonly], #siBody textarea[readonly], #siBody select[readonly] {
+#siBody input[type="text"][readonly], 
+#siBody input[type="password"][readonly], 
+#siBody input[type="email"][readonly], 
+#siBody input[type="url"][readonly], 
+#siBody textarea[readonly], 
+#siBody select[readonly] {
     color:#7763EB;
     background-color:#ddd
 }
-#siBody input[type="text"][disabled], #siBody input[type="password"][disabled], #siBody textarea[disabled], #siBody select[disabled] {
+#siBody input[type="text"][disabled], 
+#siBody input[type="password"][disabled], 
+#siBody input[type="email"][disabled], 
+#siBody input[type="url"][disabled], 
+#siBody textarea[disabled], 
+#siBody select[disabled] {
     color:#909090;
     background-color:#ddd
 }
@@ -722,6 +738,8 @@
 #siLst .content {
     width:inherit;
     height:inherit;
+    min-width:inherit;
+    min-height:inherit;
     float:inherit
 }
 #siLst td.no, #siLst td.document_srl, #siLst td.readed_count, #siLst td.regdate, #siLst td.last_update {
@@ -867,6 +885,8 @@
     overflow:hidden;
     text-overflow:ellipsis;
     -o-text-overflow:ellipsis;
+    -ms-text-overflow:ellipsis;
+    -moz-binding:url(/ellipsis-xbl.xml#ellipsis);
     font-size:12px;
     line-height:15px;
     height:15px
@@ -1831,9 +1851,9 @@
     color:#333;
     background-color:#f2f2f2!important
 }
-#siBody .scSch input.keyword {
+#siBody .scSch .keyword {
     cursor:text!important;
-    width:115px!important;
+    width:125px!important;
     padding:0 7px 0 74px!important;
     font-weight:normal!important
 }
@@ -1970,7 +1990,10 @@
     font-family:Tahoma!important;
     text-shadow:none!important
 }
-#siBody .scLaEt input[type="text"], #siBody .scLaEt input[type="password"] {
+#siBody .scLaEt input[type="text"], 
+#siBody .scLaEt input[type="password"], 
+#siBody .scLaEt input[type="email"], 
+#siBody .scLaEt input[type="url"] {
     padding:2px 2px 2px 43px
 }
 #siBody .scLaEt span:first-child {
@@ -2178,7 +2201,6 @@ strong.sCkChr {
     background:url(../../../../admin/tpl/img/flag.tw.gif) no-repeat 0 4px
 }
 /*ie*/
-
 #siLst thead tr div {
     padding:9px 0 5px\9!important
 }
@@ -2188,15 +2210,19 @@ strong.sCkChr {
 #siFbk .scFbWt .scWopts {
     padding-right:152px\9
 }
+/*cr*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #siBody .scSch .keyword {
+        width:200px!important;
+    }
+}
 /*ff*/
-
 @-moz-document url-prefix() {
     #siFbk .scFbWt .scWopts {padding-right:152px}
     #siFbk .scFbWt .cmtbtns {padding:0 5px 0 0}
     .scModalClose {font-size: 16px}
 }
 /*op*/
-
 noindex:-o-prefocus, #siFbk .scFbWt .scWopts {
     padding-right:152px
 }

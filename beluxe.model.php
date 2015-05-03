@@ -159,7 +159,7 @@ class beluxeModel extends beluxe
     }
     
     /**
-     * fruleset 사용시 클라이언트는 지원 안해주니 어쩔수없다. 이렇게 해야지
+     * ruleset 사용시 클라이언트는 지원 안해주니 어쩔수없다. 이렇게 해야지
      * modules/document/document.controller.php
      * Add javascript codes into the header by checking values of document_extra_keys type, required and others
      * @param int $module_srl
