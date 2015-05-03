@@ -56,11 +56,7 @@ class beluxeMobile extends beluxeView
 
 		// 스킨 경로를 미리 template_path 라는 변수로 설정함
         if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') $oModIfo->skin = 'default';
-		$tpl_path = sprintf('%sskins/%s/', $this->module_path, $oModIfo->skin);
-		if(!is_dir($tpl_path)) return $this->stop('msg_skin_does_not_exist');
-
-		$oModIfo->mskin = 'mobile';
-		$tpl_path = $tpl_path . 'mobile/';
+		$tpl_path = sprintf('%sskins/%s/mobile/', $this->module_path, $oModIfo->skin);
 		if(!is_dir($tpl_path)) return $this->stop('msg_skin_does_not_exist');
         
         $this->setTemplatePath($tpl_path);  

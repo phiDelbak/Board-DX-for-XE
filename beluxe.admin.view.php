@@ -219,7 +219,27 @@ class beluxeAdminView extends beluxe
         $skin_info = $cmModule->loadSkinInfo($this->module_path, $this->module_info->skin);
         $skin_vars = $cmModule->getModuleSkinVars($this->module_srl);
         
-        Context::set('mid', $module_info->mid);
+        Context::set('mid', $this->module_info->mid);
+        Context::set('skin_info', $skin_info);
+        Context::set('skin_vars', $skin_vars);
+        
+        $this->setTemplateFile('skin');
+    }
+
+    function dispBeluxeAdminMobileSkinInfo() {
+        if (!$this->module_info->skin || $this->module_info->skin == '/USE_DEFAULT/') {
+            Context::set('XE_VALIDATOR_MESSAGE_TYPE', 'error');
+            Context::set('XE_VALIDATOR_MESSAGE', Context::getLang('msg_skin_does_not_exist'));
+        }
+
+        $skin = $this->module_info->mskin;
+        $module_path = _XE_PATH_ . 'modules/'.$this->module_info->module;
+
+        $cmModule = & getModel('module');        
+        $skin_info = $cmModule->loadSkinInfo($module_path, $skin, 'm.skins');
+        $skin_vars = $cmModule->getModuleMobileSkinVars($this->module_srl);
+
+        Context::set('mid', $this->module_info->mid);
         Context::set('skin_info', $skin_info);
         Context::set('skin_vars', $skin_vars);
         

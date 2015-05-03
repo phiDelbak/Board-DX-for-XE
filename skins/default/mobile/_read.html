@@ -121,7 +121,7 @@ $t_pagen = $t_pagec + 1;
         <span class="cate">[{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]</span>
         <span class="scElps">
         <em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
-        {$val->getTitle($mi->mobile_title_length)}
+        {$val->getTitle($mi->title_length)}
         <span>
         <em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
         {$val->printExtraImages(60*60*$mi->duration_new)}<img class="ise world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />

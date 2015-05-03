@@ -5,7 +5,7 @@
 	$ds_update = $ci['last_update']->display == 'Y';
 	$ds_cstus = $ci['custom_status']->display == 'Y'?1:0;
 
-	$ds_summary = $mi->mobile_summary_length != '-1';
+	$ds_summary = $mi->summary_length != '-1';
 
 	$notice_list = $oThis->getNoticeList();
 	$best_list = $mi->use_best=='Y'?$oThis->getBestList():array();
@@ -22,7 +22,7 @@
 		<a href="{getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
 			<span class="title"><span cond="$tlk" class="{$tlk}">{$tlk=='best'?'Best':$lang->notice}</span>
 				<span cond="!$tlk&&$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
-				<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->mobile_title_length)}</strong>
+				<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
 				{@
 					$t_cmtn = $document->getCommentCount();
 					$t_tbkn = $document->getTrackbackCount();
@@ -32,7 +32,7 @@
 			</span>
 			<span class="auth">
 				<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
-				<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->mobile_nickname_length)}</span>
+				<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span>
 				<span class="time">{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</span>
 			</span>
 		</a>
@@ -63,7 +63,7 @@
 				<li>
 					<span class="title">
 						<span cond="$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
-						<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->mobile_title_length)}</strong>
+						<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
 						{@
 							$t_cmtn = $document->getCommentCount();
 							$t_tbkn = $document->getTrackbackCount();
@@ -76,11 +76,11 @@
 					<span class="auth">
 						<span cond="!$tlk&&($pt_vtype!='N'||$pt_dtype!='N')" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</span>
 						<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
-						<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->mobile_nickname_length)}</span>
+						<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span>
 					</span>
 				</li>
 				<li><span class="time">{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d H:i")}</span></li>
-				<li cond="$ds_summary"><span class="summary">{$is_blind?$lang->msg_is_blind:$document->getSummary($mi->mobile_summary_length)}</span></li>
+				<li cond="$ds_summary"><span class="summary">{$is_blind?$lang->msg_is_blind:$document->getSummary($mi->summary_length)}</span></li>
 			</ul>
 		</a>
 	</li>
