@@ -21,9 +21,12 @@
 	$mi->thumbnail_height?0:$mi->thumbnail_height = '100';
 	$mi->display_thumbnail_info?0:$mi->display_thumbnail_info = 'N';
 	$mi->display_attached_files?0:$mi->display_attached_files = 'Y';
+
+    $sedt_wbtn = strpos($mi->simple_editor_option, 'wrtbtn')!==false;
+    $sedt_hide = strpos($mi->simple_editor_option, 'dochide')!==false;
 	$mi->consultation == 'Y' ? $mi->use_input_simple_editor = 'C' : 0;
 
-	$is_sedt = $mi->use_input_simple_editor;
+	$is_sedt = $mi->use_input_simple_editor != 'N'&&(!$is_doc || ($is_doc&&!$sedt_hide)) ? $mi->use_input_simple_editor : 'N';
 	$is_sedt = $is_sedt == 'C' && $grant->manager ? '' : ($is_sedt != 'N' ? $is_sedt : '');
 	$is_sedt = $is_sedt == 'C' && $mi->consultation == 'Y' ? 'T' : $is_sedt;
 
@@ -40,8 +43,6 @@
 	$pt_dtype = $mi->use_point_type != 'A' && ($mi->use_restrict_down == 'P' ? 'P' : ($mi->use_restrict_down == 'Y' ? 'Y' : 'N'));
 	$is_cklok = !$grant->manager && $mi->use_lock_document && $mi->use_lock_document != 'N';
 	$cmt_lstcnt = $is_cts?$cts[(int)$category_srl]->navigation->clist_count:$navigation_info->clist_count;
-
-	$is_doc ? $mi->use_input_simple_editor = 'N' : 0;
 
 	$tmp1 = array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/');
 	$tmp2 = array($mid,($logged_info?$logged_info->nick_name:'Guest'),$is_doc?$oDocument->getPermanentUrl():'',$is_doc?$oDocument->getTitle():'',$is_doc?$oDocument->getNickName():'',$is_doc?$oDocument->document_srl:'');

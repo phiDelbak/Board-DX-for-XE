@@ -407,14 +407,24 @@ jQuery(function($)
 		}
 	});
 
-	$(".dx_skininfo input[type=radio]").click(function(){
-		var t = $(this).attr('data-info-target')||'';
-		$('[data-info-target]', $(this).closest('.x_controls')).each(function(){
-			var s = $(this).attr('data-info-target')||'';
-			$('[name='+s+']', 'form').closest('.x_control-group').hide();
+	$('form.dx_skininfo:eq(0)').each(function(){
+		var a = [];
+		$('[data-info-target]', this).each(function(){
+			var n = $(this).attr('name'), t = $(this).attr('data-info-target')||'';
+				if(!a[n]) a[n] = [];
+				a[n][t] = $('[name^='+t+']', '.dx_skininfo').closest('.x_control-group');
+			if($(this).is(':checked')) a[n][t].show();
 		});
-		$('[name='+t+']', 'form').closest('.x_control-group').show();
+		$('[type=radio]', $('[data-info-target]', this).closest('.x_controls')).click(function(){
+			var n = $(this).attr('name'), t = $(this).attr('data-info-target')||'';
+			for(var i in a[n]) a[n][i].hide();
+			if(t) a[n][t].show();
+		});
 	});
+
+	// $(".dx_skininfo input[type=radio]").click(function(){
+	// 	var t = $(this).attr('data-info-target')||'';
+	// });, $(this).closest('.x_controls')
 
 	// $('.dx_skininfo input[type=radio][data-info-target]').each(function() {
 	// 	var t = $(this).attr('data-info-target')||'';

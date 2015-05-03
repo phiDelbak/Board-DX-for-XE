@@ -476,29 +476,25 @@ jQuery(function($)
 		}
 
 		$('#siWrt').each(function(){
-			$('select.scWcateList', this).change(function(){
+			$('.scWcateList', this).change(function(){
 				var v = $(this).val(), k = $(this).data('key'),
-					$d = $('select.scWcateList[data-key='+k+']'),
-					$s = $('select.scWcateList[data-key='+v+']');
+					$d = $('.scWcateList[data-key='+k+']').hide('slow'),
+					$s = $('.scWcateList[data-key='+v+']');
 				$(this).data('key', v);
 				$('input:hidden[name=category_srl]').val(v);
-				$('select.scWcateList[data-key='+$d.data('key')+']').hide('slow');
-				$d.hide('slow');
+				$('.scWcateList[data-key='+$d.data('key')+']').hide('slow');
 				if($s.find('>option').length) $s.change().show('slow');
 			});
-			$('input:hidden[name=category_srl]', this).each(function(){
-				var v = $(this).val(), i = 0, $s;
-				if(v !== undefined && v > 0){
-					$s = $('select.scWcateList option[value='+v+']').closest('select');
-					while ($s)
-					{
-						$s.data('key', v).val(v);
-						v = $s.show().attr('data-key');
-						if(v === undefined || !v || (i++ > 9)) break;
+			$('input:hidden[name=category_srl]:eq(0)', this).each(function(){
+				var v = $(this).val() || 0, j, i = 0, $s;
+				if(v > 0){					
+					for(j=0;j<3;j++) {
+						$s = $('.scWcateList option[value='+v+']').closest('select').val(v).data('key', v).change();
+						if(!$s||!$s.attr('data-key')) break;
+						v = $s.show('slow').attr('data-key');
 					}
-					$s.change();
 				}else{
-					$('select.scWcateList:eq(0)').change();
+					$('.scWcateList:eq(0)').change();
 				}
 			});
 			$('.scWul.extraKeys li.scWli:hidden:eq(0)', this).each(function(){

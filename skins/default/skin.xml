@@ -493,6 +493,65 @@
 			<title xml:lang="ko">입력기</title>
 			<title xml:lang="jp">入力機</title>
 			<title xml:lang="en">Input devices</title>
+			<var name="use_input_guest_info" type="radio" default="Y">
+				<title xml:lang="ko">비회원 정보</title>
+				<title xml:lang="jp">非会員情報</title>
+				<title xml:lang="en">Guest info</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">모두</title>
+					<title xml:lang="jp">すべて</title>
+					<title xml:lang="en">all</title>
+				</options>
+				<options value="S">
+					<title xml:lang="ko">닉네임</title>
+					<title xml:lang="jp">ニックネーム</title>
+					<title xml:lang="en">nickname</title>
+				</options>
+				<description xml:lang="ko">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
+				<description xml:lang="jp">非会員が文書作成の時入力情報を設定します.</description>
+				<description xml:lang="en">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
+			</var>
+			<var name="use_step_category" type="radio" default="Y">
+				<title xml:lang="ko">단계형 분류</title>
+				<title xml:lang="jp">段階型分類</title>
+				<title xml:lang="en">Step category</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+				<description xml:lang="ko">글쓰기시 하위 분류를 단계별로 선택할 수 있게 표시해줍니다.</description>
+				<description xml:lang="jp">書き込みの時サブ分類を段階的に選択できるように表示されます。</description>
+				<description xml:lang="en">When creating a document, it will allow selection of sub categories.</description>
+			</var>
+			<var name="use_auto_hide_extra_vars" type="radio" default="N">
+				<title xml:lang="ko">추가 입력 숨김</title>
+				<title xml:lang="jp">追加入力非表示</title>
+				<title xml:lang="en">추가 입력 숨김</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">사용</title>
+					<title xml:lang="jp">使用</title>
+					<title xml:lang="en">use</title>
+				</options>
+				<description xml:lang="ko">추가 입력(확장변수) 항목이 필수가 아닐때 자동으로 숨겨줍니다.</description>
+				<description xml:lang="jp">追加入力(拡張変数) 項目が必須ではない時自動で非表示にします.</description>
+				<description xml:lang="en">추가 입력(확장변수) 항목이 필수가 아닐때 자동으로 숨겨줍니다.</description>
+			</var>
 			<var name="use_input_tag" type="radio" default="Y">
 				<title xml:lang="ko">태그</title>
 				<title xml:lang="jp">タッグ</title>
@@ -558,17 +617,17 @@
 					<title xml:lang="jp">使用しない</title>
 					<title xml:lang="en">not use</title>
 				</options>
-				<options value="T">
+				<options value="T|_TARGET_|simple_editor_option">
 					<title xml:lang="ko">상단 표시</title>
 					<title xml:lang="jp">上端に表示</title>
 					<title xml:lang="en">display top</title>
 				</options>
-				<options value="B">
+				<options value="B|_TARGET_|simple_editor_option">
 					<title xml:lang="ko">하단 표시</title>
 					<title xml:lang="jp">下端に表示</title>
 					<title xml:lang="en">display bottom</title>
 				</options>
-				<options value="C">
+				<options value="C|_TARGET_|simple_editor_option">
 					<title xml:lang="ko">중앙 표시</title>
 					<title xml:lang="jp">中央表示</title>
 					<title xml:lang="en">display center</title>
@@ -577,64 +636,23 @@
 				<description xml:lang="jp">簡単入力機をリストに表示するか設定します. (中央表示の時管理者はリストに表示)</description>
 				<description xml:lang="en">Set whether to display the simple editor. (중앙 표시시 관리자는 목록으로 표시)</description>
 			</var>
-			<var name="use_input_guest_info" type="radio" default="Y">
-				<title xml:lang="ko">비회원 정보</title>
-				<title xml:lang="jp">非会員情報</title>
-				<title xml:lang="en">Guest info</title>
-				<options value="N">
-					<title xml:lang="ko">사용 안함</title>
-					<title xml:lang="jp">使用しない</title>
-					<title xml:lang="en">not use</title>
+			<var name="simple_editor_option" type="checkbox" default="N">
+				<title xml:lang="ko">간단 글쓰기 옵션</title>
+				<title xml:lang="jp">간단 글쓰기 옵션</title>
+				<title xml:lang="en">간단 글쓰기 옵션</title>
+				<options value="wrtbtn">
+					<title xml:lang="ko">일반 글쓰기 버튼 표시</title>
+					<title xml:lang="jp">일반 글쓰기 버튼 표시</title>
+					<title xml:lang="en">일반 글쓰기 버튼 표시</title>
 				</options>
-				<options value="Y">
-					<title xml:lang="ko">모두</title>
-					<title xml:lang="jp">すべて</title>
-					<title xml:lang="en">all</title>
+				<options value="dochide">
+					<title xml:lang="ko">문서안에선 입력창 감추기</title>
+					<title xml:lang="jp">문서안에선 입력창 감추기</title>
+					<title xml:lang="en">문서안에선 입력창 감추기</title>
 				</options>
-				<options value="S">
-					<title xml:lang="ko">닉네임</title>
-					<title xml:lang="jp">ニックネーム</title>
-					<title xml:lang="en">nickname</title>
-				</options>
-				<description xml:lang="ko">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
-				<description xml:lang="jp">非会員が文書作成の時入力情報を設定します.</description>
-				<description xml:lang="en">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
-			</var>
-			<var name="use_step_category" type="radio" default="Y">
-				<title xml:lang="ko">단계형 분류</title>
-				<title xml:lang="jp">段階型分類</title>
-				<title xml:lang="en">Step category</title>
-				<options value="N">
-					<title xml:lang="ko">사용 안함</title>
-					<title xml:lang="jp">使用しない</title>
-					<title xml:lang="en">not use</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">사용</title>
-					<title xml:lang="jp">使用</title>
-					<title xml:lang="en">use</title>
-				</options>
-				<description xml:lang="ko">글쓰기시 하위 분류를 단계별로 선택할 수 있게 표시해줍니다.</description>
-				<description xml:lang="jp">書き込みの時サブ分類を段階的に選択できるように表示されます。</description>
-				<description xml:lang="en">When creating a document, it will allow selection of sub categories.</description>
-			</var>
-			<var name="use_auto_hide_extra_vars" type="radio" default="N">
-				<title xml:lang="ko">추가 입력 숨김</title>
-				<title xml:lang="jp">追加入力非表示</title>
-				<title xml:lang="en">추가 입력 숨김</title>
-				<options value="N">
-					<title xml:lang="ko">사용 안함</title>
-					<title xml:lang="jp">使用しない</title>
-					<title xml:lang="en">not use</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">사용</title>
-					<title xml:lang="jp">使用</title>
-					<title xml:lang="en">use</title>
-				</options>
-				<description xml:lang="ko">추가 입력(확장변수) 항목이 필수가 아닐때 자동으로 숨겨줍니다.</description>
-				<description xml:lang="jp">追加入力(拡張変数) 項目が必須ではない時自動で非表示にします.</description>
-				<description xml:lang="en">추가 입력(확장변수) 항목이 필수가 아닐때 자동으로 숨겨줍니다.</description>
+				<description xml:lang="ko">같단 글쓰기 사용시 필요한 옵션들입니다.</description>
+				<description xml:lang="jp">같단 글쓰기 사용시 필요한 옵션들입니다.</description>
+				<description xml:lang="en">같단 글쓰기 사용시 필요한 옵션들입니다.</description>
 			</var>
 		</group>
 		<group>

@@ -181,7 +181,7 @@ $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 <!-- /DOCUMENT -->
 <include cond="$is_doc&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
 <div class="btnArea">
-    <span class="scBtn black fl" cond="!$is_sedt&&$is_btlst!='N'&&$grant->write_document">
+    <span class="scBtn black fl" cond="$grant->write_document&&$is_btlst!='N'&&($sedt_wbtn||!$is_sedt)">
     {@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWrite" data-modal-param="document_srl,"':''}
     <a href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardWrite','document_srl','')}" accesskey="w" {$s}>{$lang->document_write}</a>
     </span>

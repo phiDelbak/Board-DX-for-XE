@@ -2,7 +2,7 @@
 $ccDocument = &getController('document');
 $ccDocument->addXmlJsFilter($mi->module_srl);
 }
-<div id="siSimWrt" class="clearBar" style="margin:0;margin-top:20px"|cond="$mi->use_input_simple_editor == 'B'">
+<div id="siSimWrt" class="clearBar" style="margin:0;margin-top:20px"|cond="$is_sedt == 'B'">
 	<form ruleset="insertDocument" action="./" method="post">
 		<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 		<input type="hidden" name="act" value="procBoardInsertDocument" />
@@ -12,14 +12,14 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 		<div id="siHrm" class="clearBar noheader">
 			<ul class="scFrm">
 			<li>
-				<block cond="$mi->use_input_simple_editor=='C'">
+				<block cond="$is_sedt=='C'">
 					<span cond="$mi->consultation == 'Y'" class="scHaDCnts">
 						<em>Today</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd"))}</strong>,
 						<em>Yesterday</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd",strtotime("-1 day", time())))}</strong>,
 						<em>Total</em> <strong>{$total_count}</strong>
 					</span>
 				</block>
-				<block cond="$mi->use_input_simple_editor!='C'">
+				<block cond="$is_sedt!='C'">
 					<strong class="t">{$lang->title}</strong>
 					<input type="text" name="title" value="{htmlspecialchars($mi->document_default_title)}" <!--@if(!$grant->write_document)-->class="scGotoLoginPage" readonly="readonly" placeholder="{$lang->msg_not_permitted}"<!--@endif--> />
 				</block>
@@ -35,13 +35,13 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 					{$val->getFormHTML()}
 				</li>
 			</block>
-			<li cond="$mi->use_input_simple_editor == 'C'" class="scWli">
+			<li cond="$is_sedt == 'C'" class="scWli">
 				<label>{$lang->title} <span class="required">*</span></label>
 				<input type="text" name="title" value="{htmlspecialchars($mi->document_default_title)}" <!--@if(!$grant->write_document)-->class="scGotoLoginPage" readonly="readonly" placeholder="{$lang->msg_not_permitted}"<!--@endif--> />
 			</li>
 			<li class="scWli">
 				<label>{$lang->content} <span class="required">*</span></label>
-				<textarea name="content" disabled="disabled"|cond="!$grant->write_document" style="height:{$mi->consultation=='Y'?'15':'30'}0px"|cond="$mi->use_input_simple_editor == 'C'">{htmlspecialchars($mi->document_default_content)}</textarea>
+				<textarea name="content" disabled="disabled"|cond="!$grant->write_document" style="height:{$mi->consultation=='Y'?'15':'30'}0px"|cond="$is_sedt == 'C'">{htmlspecialchars($mi->document_default_content)}</textarea>
 			</li>
 		</ul>
 

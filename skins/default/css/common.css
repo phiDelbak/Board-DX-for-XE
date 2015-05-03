@@ -539,11 +539,8 @@
 }
 #siCat.side {
     position:absolute;
-    z-index:99;
+    z-index:2;
     display:block
-}
-#siCat.side .cateArea {
-    position:fixed
 }
 #siCat.side ul.scFrm {
     display:inline-block;
