@@ -125,9 +125,9 @@ $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
             <div class="actBtns clearBar">
                 <block cond="$mi->view_comment_style!='webzine'&&$is_logged">
                 {@
-                $ds_voteup = strpos($mi->use_vote, 'up')!==false;
-                $ds_votedown = strpos($mi->use_vote, 'down')!==false;
-                $ds_declare = strpos($mi->use_vote, 'declare')!==false;
+                $ds_voteup = strpos($mi->use_d_vote, 'up')!==false;
+                $ds_votedown = strpos($mi->use_d_vote, 'down')!==false;
+                $ds_declare = strpos($mi->use_d_vote, 'declare')!==false;
                 $adm_id = $ds_declare ? $oThis->getAdminId() : array();
                 }
                 <span cond="$ds_voteup||$ds_votedown||$ds_declare" class="scVoteArea fl">

@@ -452,55 +452,6 @@
 			</div>
 		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->cmd_vote} / {$lang->cmd_vote_down}</label>
-			{@
-				$use_vote = explode(',', $module_info->use_vote);
-				$tmp = ($part_config->use_vote_up=='N' && in_array('up', $use_vote))||($part_config->use_vote_up!='N' && !in_array('up', $use_vote));
-				$tmp ? 0 : $tmp = $part_config->use_vote_down=='N' && in_array('down', $use_vote);
-				($tmp&&!$module_info->module_srl)||$m_copy_target ? $tmp = 0 : 0;
-			}
-			<div class="x_controls {$compulsory_options['use_vote']?'opt_cps':''} {($module_info->use_vote&&$tmp)||$module_backup_options['use_vote']?'opt_bks':''}">
-				<label class="x_inline">{$lang->document}:</label>
-				<label class="x_inline">
-					<input type="checkbox" name="use_vote[]" value="up" checked="checked"|cond="in_array('up', $use_vote)" />
-					{$lang->cmd_vote}
-				</label>
-				<label class="x_inline">
-					<input type="checkbox" name="use_vote[]" value="down" checked="checked"|cond="in_array('down', $use_vote)" />
-					{$lang->cmd_vote_down}
-				</label>
-				<label class="x_inline">
-					<input type="checkbox" name="use_vote[]" value="declare" checked="checked"|cond="in_array('declare', $use_vote)" />
-					{$lang->cmd_declare}
-				</label>
-				<span cond="$module_info->use_vote&&$tmp" class="x_help-inline">Warning : please save the new value.</span>
-			</div>
-			{@
-				$use_c_vote = explode(',', $module_info->use_c_vote);
-				$tmp = ($part_config->use_c_vote_up=='N' && in_array('up', $use_c_vote))||($part_config->use_c_vote_up!='N' && !in_array('up', $use_c_vote));
-				$tmp ? 0 : $tmp = $part_config->use_c_vote_down=='N' && in_array('down', $use_c_vote);
-				($tmp&&!$module_info->module_srl)||$m_copy_target ? $tmp = 0 : 0;
-			}
-			<div class="x_controls {$compulsory_options['use_c_vote']?'opt_cps':''} {($module_info->use_c_vote&&$tmp)||$module_backup_options['use_c_vote']?'opt_bks':''}">
-				<label class="x_inline">{$lang->comment}:</label>
-				<label class="x_inline">
-					<input type="checkbox" name="use_c_vote[]" value="up" checked="checked"|cond="in_array('up', $use_c_vote)" />
-					{$lang->cmd_vote}
-				</label>
-				<label class="x_inline">
-					<input type="checkbox" name="use_c_vote[]" value="down" checked="checked"|cond="in_array('down', $use_c_vote)" />
-					{$lang->cmd_vote_down}
-				</label>
-				<label class="x_inline">
-					<input type="checkbox" name="use_c_vote[]" value="declare" checked="checked"|cond="in_array('declare', $use_c_vote)" />
-					{$lang->cmd_declare}
-				</label>
-				<a href="#about_use_vote" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="about_use_vote" class="x_help-block" hidden>{$lang->about_use_vote}</p>
-				<span cond="$module_info->use_c_vote&&$tmp" class="x_help-inline">Warning : please save the new value.</span>
-			</div>
-		</div>
-		<div class="x_control-group {$m_copy_target?'x_info':''}">
 			<label class="x_control-label">{$lang->allow_comment}</label>
 			<div class="x_controls {$compulsory_options['allow_comment']?'opt_cps':''} {$module_backup_options['allow_comment']?'opt_bks':''}">
 				<label class="x_inline"><input type="radio" name="allow_comment" value="N" checked="checked"|cond="$module_info->allow_comment=='N'" /> {$lang->notuse}</label>

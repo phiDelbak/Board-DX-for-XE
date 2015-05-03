@@ -214,8 +214,6 @@ class beluxeAdminController extends beluxe
 
 			if(isset($chks->use_status) && is_array($chks->use_status)) $chks->use_status = implode(',', $chks->use_status);
 			if(isset($chks->use_c_status) && is_array($chks->use_c_status)) $chks->use_c_status = implode(',', $chks->use_c_status);
-			if(isset($chks->use_vote) && is_array($chks->use_vote)) $chks->use_vote = implode(',', $chks->use_vote);
-			if(isset($chks->use_c_vote) && is_array($chks->use_c_vote)) $chks->use_c_vote = implode(',', $chks->use_c_vote);
 
 			// 9 개만 받고 빈것들 제거, 100자 제한
 			$custom_status = explode(',', $chks->custom_status);
@@ -357,10 +355,6 @@ class beluxeAdminController extends beluxe
 
 		$t_cfgs = array('document'=>array(), 'comment'=>array(), 'trackback'=>array());
 		$t_cfgs['document']['use_history'] = $args->use_history;
-		$t_cfgs['document']['use_vote_up'] = strpos($args->use_vote, 'up')===false?'N':'Y';
-		$t_cfgs['document']['use_vote_down'] = strpos($args->use_vote, 'down')===false?'N':'Y';
-		$t_cfgs['comment']['use_vote_up'] = strpos($args->use_c_vote, 'up')===false?'N':'Y';
-		$t_cfgs['comment']['use_vote_down'] = strpos($args->use_c_vote, 'down')===false?'N':'Y';
 		$t_cfgs['comment']['comment_count'] = $comment_count ? $comment_count : '50';
 		$t_cfgs['trackback']['enable_trackback'] = $args->allow_trackback == 'N' ? 'N' : 'Y';
 

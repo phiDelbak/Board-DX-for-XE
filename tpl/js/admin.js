@@ -393,7 +393,7 @@ jQuery(function($)
 	});
 
 	$('#addition').each(function() {
-		$('select[name^=use_vote_],select[name=use_history],input[name=comment_count],input[name=enable_trackback]', this).closest('tr').css({position:'absolute',overflow:'hidden',width:'1px'});
+		$('select[name=use_history],input[name=comment_count],input[name=enable_trackback]', this).closest('tr').css({position:'absolute',overflow:'hidden',width:'1px'});
 		$('form table', this).each(function() {
 			if(($(this).height() || 0) < 5) $(this).closest('form').css({position:'absolute',overflow:'hidden',width:'1px'});
 		});

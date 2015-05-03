@@ -261,6 +261,14 @@
 				<description xml:lang="jp">使われるポイントリストを設定します. (基本: 10,50,100,500,1000)</description>
 				<description xml:lang="en">사용될 포인트 목록을 설정합니다. (기본: 10,50,100,500,1000)</description>
 			</var>
+			<var name="navigation_bottom_list_count" type="text" default="">
+				<title xml:lang="ko">이전/다음 목록 수</title>
+				<title xml:lang="jp">이전/다음 목록 수</title>
+				<title xml:lang="en">이전/다음 목록 수</title>
+				<description xml:lang="ko">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
+				<description xml:lang="jp">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
+				<description xml:lang="en">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
+			</var>
 		</group>
 		<group>
 			<title xml:lang="ko">표시</title>
@@ -435,13 +443,51 @@
 				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
 				<description xml:lang="en">Set whether to display the attached files.</description>
 			</var>
-			<var name="navigation_bottom_list_count" type="text" default="">
-				<title xml:lang="ko">이전/다음 목록 수</title>
-				<title xml:lang="jp">이전/다음 목록 수</title>
-				<title xml:lang="en">이전/다음 목록 수</title>
-				<description xml:lang="ko">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
-				<description xml:lang="jp">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
-				<description xml:lang="en">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
+			<var name="use_d_vote" type="checkbox">
+				<title xml:lang="ko">문서 추천 버튼</title>
+				<title xml:lang="jp">문서 推薦 ボタン</title>
+				<title xml:lang="en">문서 Vote Button</title>
+				<options value="up">
+					<title xml:lang="ko">추천</title>
+					<title xml:lang="jp">推薦</title>
+					<title xml:lang="en">Vote</title>
+				</options>
+				<options value="down">
+					<title xml:lang="ko">비추천</title>
+					<title xml:lang="jp">非推薦</title>
+					<title xml:lang="en">UnVote</title>
+				</options>
+				<options value="declare">
+					<title xml:lang="ko">신고</title>
+					<title xml:lang="jp">신고</title>
+					<title xml:lang="en">Report</title>
+				</options>
+				<description xml:lang="ko">추천/비추천/신고 버튼을 표시할지 선택합니다.</description>
+				<description xml:lang="jp">推薦/非推薦/申告ボタンを表示するかを選択します。</description>
+				<description xml:lang="en">Decide whether to display "Vote/UnVote/Report" buttons if a moderator is registered in the authorization tab,</description>
+			</var>
+			<var name="use_c_vote" type="checkbox">
+				<title xml:lang="ko">댓글 추천 버튼</title>
+				<title xml:lang="jp">댓글 推薦 ボタン</title>
+				<title xml:lang="en">댓글 Vote Button</title>
+				<options value="up">
+					<title xml:lang="ko">추천</title>
+					<title xml:lang="jp">推薦</title>
+					<title xml:lang="en">Vote</title>
+				</options>
+				<options value="down">
+					<title xml:lang="ko">비추천</title>
+					<title xml:lang="jp">非推薦</title>
+					<title xml:lang="en">UnVote</title>
+				</options>
+				<options value="declare">
+					<title xml:lang="ko">신고</title>
+					<title xml:lang="jp">신고</title>
+					<title xml:lang="en">Report</title>
+				</options>
+				<description xml:lang="ko">권한 관리에 관리자를 등록하면 신고시 관리자에게 쪽지가 발송됩니다. (기본값: 작성자)</description>
+				<description xml:lang="jp">権管理に管理者を登録すると申告時の管理者にメッセージが送信されます。 （デフォルト：作成者）</description>
+				<description xml:lang="en">a message will be sent to the moderator at the time of report. (default: author)</description>
 			</var>
 		</group>
 		<group>

@@ -90,7 +90,8 @@
 			</block>
 			<block cond="$val->type == 'checkbox'">
 				<label loop="$val->options => $k, $v" class="x_inline">
-					<input type="checkbox" name="{$val->name}[]" value="{$v->value}" id="ch_{$key}_{$k}" checked="checked"|cond="@in_array($v->value, $val->value)" class="checkbox" />
+					{@ $is_check = strpos($value, '"'.$v->value.'"')!==false}
+					<input type="checkbox" name="{$val->name}[]" value="{$v->value}" id="ch_{$key}_{$k}" checked="checked"|cond="$is_check" class="checkbox" />
 					{$v->title}
 				</label>
 			</block>

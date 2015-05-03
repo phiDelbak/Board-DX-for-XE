@@ -489,11 +489,6 @@
 		<value xml:lang="jp"><![CDATA[ドキュメントの選択時に、その文書の分類を自動的に見つけて選択します。]]></value>
 		<value xml:lang="en"><![CDATA[When selecting a document, categories will be selected automatically]]></value>
 	</item>
-	<item name="about_use_vote">
-		<value xml:lang="ko"><![CDATA[추천/비추천/신고 버튼을 표시할지 선택합니다.<br />권한 관리에 관리자를 등록하면 신고시 관리자에게 쪽지가 발송됩니다. (기본값: 작성자)]]></value>
-		<value xml:lang="jp"><![CDATA[推薦/非推薦/申告ボタンを表示するかを選択します。<br/>権管理に管理者を登録すると申告時の管理者にメッセージが送信されます。 （デフォルト：作成者）]]></value>
-		<value xml:lang="en"><![CDATA[Decide whether to display "Vote/UnVote/Report" buttons <br /> if a moderator is registered in the authorization tab, a message will be sent to the moderator at the time of report. (default: author)]]></value>
-	</item>
 	<item name="about_skin_type">
 		<value xml:lang="ko"><![CDATA[이 옵션은 모든 분류의 기본값이며 <a href="%s">분류 관리</a>에서 분류별로 따로 설정이 가능합니다.]]></value>
 		<value xml:lang="jp"><![CDATA[このオプションは、すべての分類の基本値であり、<a href="%s">分類管理</a>で分類別に個別に設定が可能です。]]></value>

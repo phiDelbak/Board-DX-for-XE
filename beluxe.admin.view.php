@@ -172,11 +172,7 @@ class beluxeAdminView extends beluxe
             if ($this->module_srl) {
                 $doc_cfg = $cmModule->getModulePartConfig('document', $this->module_srl);
                 $part_config->use_history = $doc_cfg->use_history;
-                $part_config->use_vote_up = $doc_cfg->use_vote_up;
-                $part_config->use_vote_down = $doc_cfg->use_vote_down;
                 $doc_cfg = $cmModule->getModulePartConfig('comment', $this->module_srl);
-                $part_config->use_c_vote_up = $doc_cfg->use_vote_up;
-                $part_config->use_c_vote_down = $doc_cfg->use_vote_down;
                 $doc_cfg = $cmModule->getModulePartConfig('trackback', $this->module_srl);
                 $part_config->enable_trackback = $doc_cfg->enable_trackback != 'N' ? 'Y' : 'N';
                 Context::set('part_config', $part_config);
