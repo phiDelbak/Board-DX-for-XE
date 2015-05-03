@@ -11,6 +11,10 @@
 .colBlue {
     color:#4040FF!important
 }
+.colBgBlue{
+    background-color:#D4F4FA!important;
+    border:1px solid #5CD1E5!important
+}
 .clearBar {
     zoom:1
 }

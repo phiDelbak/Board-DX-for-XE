@@ -31,7 +31,6 @@
 				{$document->printExtraImages(60*60*$mi->duration_new)}<img class="ise world" src="../img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
 			</span>
 			<span class="auth">
-				<span cond="!$tlk&&($pt_vtype!='N'||$pt_dtype!='N')" class="usept">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</span>
 				<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
 				<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->mobile_nickname_length)}</span>
 				<span class="time">{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</span>
@@ -75,7 +74,7 @@
 				</li>
 				<li>
 					<span class="auth">
-						<span cond="!$tlk&&($pt_vtype!='N'||$pt_dtype!='N')" class="usept">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</span>
+						<span cond="!$tlk&&($pt_vtype!='N'||$pt_dtype!='N')" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</span>
 						<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
 						<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->mobile_nickname_length)}</span>
 					</span>

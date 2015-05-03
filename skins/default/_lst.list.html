@@ -100,7 +100,7 @@
 				<!--@case('title')-->
 					<div class="scElps" data-active="true"|cond="$is_elips">
 						<a href="{$purl}">
-							<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
+							<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
 							{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}
 						</a>
 						<span>

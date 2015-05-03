@@ -71,6 +71,7 @@ textarea{resize:vertical}
 .lt .title em{font-size:12px;color:#333;color:#6352d2;font-style:normal}
 .lt .auth,.rp .auth{display:block;font-size:12px}
 .lt .auth .usept{padding:0 1px;border:1px solid #bfbfbf;font-size:8px;font-family:Tahoma}
+.lt .auth .usept.blue{background-color:#D4F4FA;border:1px solid #5CD1E5}
 .lt.gall li.doc{position:relative;padding:5px;display:block;zoom:1}
 .lt.gall li.doc:after{content:"";display:block;clear:both}
 .lt.gall li.doc ul.ifo{position:relative;padding:0;margin:0 10px;list-style:none}

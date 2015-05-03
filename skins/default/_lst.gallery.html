@@ -189,7 +189,7 @@
 							<img class="scIcoSet coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}" />
 						</block>
 						<em cond="$t_cmtn || $t_tbkn" class="reply" title="Replies">+{(int)$t_cmtn}<block cond="$t_tbkn">.{$t_tbkn}</block></em>
-						<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
+						<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
 					</span>
 					<div <!--@if($mi->display_thumbnail_info != 'N')-->class="scInfo aHide" style="display:none" data-autohide="true"<!--@else-->class="scInfo"<!--@endif--> data-fade="true"|cond="$mi->display_thumbnail_info == 'F'">
 						<ul style="width:{(int)$mi->thumbnail_width}px;"|cond="$mi->display_thumbnail_info=='N'||$mi->thumbnail_type!='ratio'">
