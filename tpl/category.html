@@ -1,10 +1,6 @@
 <include target="header.html" />
 
-<!--@if(__DEBUG__)-->
-	<load target="js/sitemap.js" />
-<!--@else-->
-	<load target="js/sitemap.min.js" />
-<!--@endif-->
+<load target="js/sitemap.js" />
 
 {@ $module_info->default_category_title ? 0 : $module_info->default_category_title = Context::getLang('category')}
 
