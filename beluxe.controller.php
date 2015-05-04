@@ -50,7 +50,7 @@ class beluxeController extends beluxe
 		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON'))) 
 		{	//filte 사용시
 			//$this->add('is_modal',  Context::get('is_modal')? '1' : '');			
-			$this->add('url', $retUrl);
+			//$this->add('url', $retUrl);
 		}// ruleset 사용시
 		else 
 			$this->setRedirectUrl($retUrl);

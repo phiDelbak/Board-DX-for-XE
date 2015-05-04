@@ -36,7 +36,9 @@
 <ul id="cl" class="rp tgo open">
 <li>
 	<ul loop="$a_clsttp => $tlk,$p_list" cond="count($p_list)">
-		<li loop="$p_list=>$key,$comment" style="padding-left:{((int)$comment->get('depth')*20+5)}px;background-position:{((int)$comment->get('depth')*15-10)}px -218px"|cond="$comment->get('depth')">
+	<block loop="$p_list=>$key,$comment"> 
+		{@ $depth = $comment->get('depth') }
+		<li style="padding-left:{($depth*20+5)}px;background-position:{($depth*15-10)}px -218px"|cond="$depth">
 		<a name="comment_{$comment->comment_srl}"></a>
 			{@
 				$cmt_srl = $comment->get('comment_srl');
@@ -47,10 +49,10 @@
 				$is_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($comment->comment_srl, 'cmt'):0;
 
 				$tmp = $cmb_srl?$cmb_srl:$comment->get('ipaddress');
-				$is_chk = !$comment->get('depth') ? (int) $voted_list[$tmp]->point > -1 : $is_chk;
+				$is_chk = !$depth ? (int) $voted_list[$tmp]->point > -1 : $is_chk;
 			}
 			<span cond="$tlk" class="{$tlk}">Best</span>
-			<span cond="$is_webzine&&!$comment->get('depth')" class="best agree">{$is_chk ? $lang->cmd_agree : $lang->cmd_disagree }</span>
+			<span cond="$is_webzine&&!$depth" class="best agree">{$is_chk ? $lang->cmd_agree : $lang->cmd_disagree }</span>
 
 			{@ $show_btnAdopt = $pt_vtype=='A'&&$un_extra->beluxe->use_point}
 
@@ -87,11 +89,11 @@
 			</p>
 
 			<ul cond="$comment->hasUploadedFiles()" class="fil">
-				<li loop="$comment->getUploadedFiles()=>$key,$file"><a href="{$file->iva=='Y'?getUrl('').$file->download_url:'#'}">{$file->source_filename}<span>({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>,</li>
+				<li loop="$comment->getUploadedFiles()=>$key,$file"><a href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}">{$file->source_filename}<span>({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>,</li>
 			</ul>
 
 			<div class="auth fl">
-				<span class="fsi"|cond="!$cmb_srl">{cut_str((!$cmb_srl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length)}</span>
+				<span class="{$cmb_srl?'member_'.$cmb_srl:'fsi'}">{cut_str((!$cmb_srl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length)}</span>
 				<span class="time">| {$comment->getRegdate("Y.m.d")}</span>
 			</div>
 			<div class="cba fr">
@@ -101,9 +103,9 @@
 				</block>
 				<a cond="$grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()" href="{getUrl('','mid',$mid,'act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl, 'document_srl',$document_srl)}" class="cb re">{$lang->cmd_reply}</a>
 				{@ $start = false }
-				{@ $depth = $comment->get('depth') }
 			</div>
 		</li>
+	</block>
 	</ul>
 </li>
 </ul>
