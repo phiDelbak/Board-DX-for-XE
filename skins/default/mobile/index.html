@@ -27,7 +27,9 @@
 			<a cond="$page != 1" href="{getUrl('document_srl','','comment_srl','','page',$page-1,'division',$division,'last_division',$last_division)}" accesskey="b" class="prev">{$lang->cmd_prev}</a>
 			<strong>{$page} / {$page_navigation->last_page}</strong>
 			<a cond="$page != $page_navigation->last_page" href="{getUrl('document_srl','','comment_srl','','page',$page+1,'division',$division,'last_division',$last_division)}" accesskey="n" class="next">{$lang->cmd_next}</a>
-			<a href="#beluxe" class="lic fr">Board DX</a>
+			{@ $copyright_text = $mi->copyright_text ? explode(',', $mi->copyright_text):''}
+			<a cond="!$copyright_text" href="#beluxe" class="lic fr"></a>
+			<a cond="$copyright_text" href="{$copyright_text[1]}" target="_blank" class="lic fr">{$copyright_text[0]}</a>
 		</div>
 
 		<div class="sh">

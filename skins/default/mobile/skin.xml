@@ -394,6 +394,19 @@
 				<description xml:lang="en">This description is displayed of the board top. (Available the HTML, [help]substitution?||Module ID = %MID%\nMember nick = %LOGIN%[/help])</description>
 			</var>
 		</group>
+		<group>
+			<title xml:lang="ko">기타</title>
+			<title xml:lang="jp">その他</title>
+			<title xml:lang="en">Etc</title>
+			<var name="copyright_text" type="text" default="">
+				<title xml:lang="ko">카피라이트</title>
+				<title xml:lang="jp">카피라이트</title>
+				<title xml:lang="en">Copyright</title>
+				<description xml:lang="ko">게시판의 하단에 카피라이트 Board DX의 텍스트와 링크를 바꿉니다. (ex. Board DX,http://link)</description>
+				<description xml:lang="jp">게시판의 하단에 카피라이트 Board DX의 텍스트와 링크를 바꿉니다. (ex. Board DX,http://link)</description>
+				<description xml:lang="en">게시판의 하단에 카피라이트 Board DX의 텍스트와 링크를 바꿉니다. (ex. Board DX,http://link)</description>
+			</var>
+		</group>
 	</extra_vars>
 </skin>
 
