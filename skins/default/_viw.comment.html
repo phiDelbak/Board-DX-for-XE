@@ -18,8 +18,8 @@
 		$bscmts = $mi->use_c_best=='Y' ? $oThis->getBestCommentList($doc_srl) : array();
 		$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);	
 
-		$doc_mb_srl = $oDocument->get('member_srl');
-		$lg_mb_srl = $lg?$lg->member_srl:0;
+		$dmb_srl = $oDocument->get('member_srl');
+		$lmb_srl = $lg?$lg->member_srl:0;
 	}
 
 	<div id="siFbk" class="cmt clearBar"><a name="comment" data-scroll="true"|cond="$comment_srl"></a>
@@ -42,7 +42,7 @@
 			<block loop="$p_list=>$key,$comment">
 				{@
 					$cmt_srl = $comment->comment_srl;
-					$mbsl = $comment->get('member_srl');
+					$cmb_srl = $comment->get('member_srl');
 					$depth = $comment->get('depth');
 				}
 				<li class="{$depth?'indent':''} {($mi->display_profile!='N'&&$mi->display_profile!='D')?'':'noPfile'} clearBar" style="padding-left:{((int)$depth*17+3)}px;background-position:{((int)$depth*17-10)}px -375px"|cond="$depth"><a name="comment_{$cmt_srl}" data-scroll="true"|cond="$comment_srl&&$comment_srl==$cmt_srl"></a>
@@ -60,11 +60,11 @@
 						<h3 class="author">
 							{@								
 								$home = $comment->get('homepage');
-								$nick = cut_str((!$mbsl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length);
+								$nick = cut_str((!$cmb_srl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length);
 							}
-							<i cond="!$mbsl && !$home">{$nick}</i>
-							<span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
-							<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
+							<i cond="!$cmb_srl && !$home">{$nick}</i>
+							<span cond="$cmb_srl" class="scHLink member_{$cmb_srl}">{$nick}</span>
+							<i cond="!$cmb_srl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
 						</h3>
 						<p class="time">{$comment->getRegdate('Y.m.d H:i')}<br /><span cond="$mi->display_ip_address == 'Y'||($mi->display_ip_address == 'A' && $grant->manager)" class="ipAddress">(IP: {$comment->getIpaddress()})</span></p>
 						<span cond="$is_secret||$mi->addon_pang_pang == 'Y'" class="scIcoArea">
@@ -76,7 +76,17 @@
 						</span>
 					</div>
 
-					{@ $show_btnAdopt = $pt_vtype=='A'&&$un_extra->beluxe->use_point&&$doc_mb_srl&&$doc_mb_srl==$lg_mb_srl&&$mbsl&&$mbsl!=$lg_mb_srl}
+					{@ $show_btnAdopt = $pt_vtype=='A'&&$un_extra->beluxe->use_point}
+
+					<div cond="$show_btnAdopt" class="btnArea btnAdopt">
+						<!--@if(!$un_extra->beluxe->adopt_srl&&$dmb_srl&&$dmb_srl==$lmb_srl&&$cmb_srl&&$cmb_srl!=$lmb_srl)-->
+						<span class="scBtn"><button type="button" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</button></span>
+						<!--@elseif($un_extra->beluxe->adopt_srl==$cmt_srl)-->
+						<span class="scBtn blue"><button type="button" onclick="return false">{$lang->adopted_comment}</button></span>
+						<!--@else-->
+							{@ $show_btnAdopt = 0}
+						<!--@endif-->
+					</div>
 
 					<div class="scCmtCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}" style="margin-right:150px"|cond="$show_btnAdopt">
 						<form cond="$is_secret && !$is_granted" ruleset="checkPassword" action="./" method="post" class="conSecret">
@@ -88,14 +98,6 @@
 							</div>
 						</form>
 						{$is_blind&&!$grant->manager?$lang->msg_is_blind:$comment->getContent(false)}
-					</div>
-
-					<div cond="$show_btnAdopt" class="btnArea btnAdopt">
-						<!--@if(!$un_extra->beluxe->adopt_srl)-->
-						<span class="scBtn"><button type="button" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</button></span>
-						<!--@elseif($un_extra->beluxe->adopt_srl==$cmt_srl)-->
-						<span class="scBtn blue"><button type="button" onclick="return false">{$lang->adopted_comment}</button></span>
-						<!--@endif-->
 					</div>
 
 					{@ $ds_vtxt = !($ds_cvoteup||$ds_cvotedown) && ($comment->get('voted_count')!='0'||$comment->get('blamed_count')!='0')}

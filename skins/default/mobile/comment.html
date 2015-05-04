@@ -1,7 +1,7 @@
 {@
 	$doc_srl = $oDocument->document_srl;
-	$doc_mb_srl = $oDocument->get('member_srl');
-	$lg_mb_srl = $logged_info?$logged_info->member_srl:0;
+	$dmb_srl = $oDocument->get('member_srl');
+	$lmb_srl = $logged_info?$logged_info->member_srl:0;
 
 	$ci = &$column_info;
 	$mi = &$module_info;
@@ -40,19 +40,19 @@
 		<a name="comment_{$comment->comment_srl}"></a>
 			{@
 				$cmt_srl = $comment->get('comment_srl');
-				$mbsl = $comment->get('member_srl');
+				$cmb_srl = $comment->get('member_srl');
 
 				$is_granted = $comment->isGranted();
 				$is_secret = $grant->view && $comment->isSecret();
 				$is_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($comment->comment_srl, 'cmt'):0;
 
-				$tmp = $mbsl?$mbsl:$comment->get('ipaddress');
+				$tmp = $cmb_srl?$cmb_srl:$comment->get('ipaddress');
 				$is_chk = !$comment->get('depth') ? (int) $voted_list[$tmp]->point > -1 : $is_chk;
 			}
 			<span cond="$tlk" class="{$tlk}">Best</span>
 			<span cond="$is_webzine&&!$comment->get('depth')" class="best agree">{$is_chk ? $lang->cmd_agree : $lang->cmd_disagree }</span>
 
-			{@ $show_btnAdopt = $pt_vtype=='A'&&$un_extra->beluxe->use_point&&$doc_mb_srl&&$doc_mb_srl==$lg_mb_srl&&$mbsl&&$mbsl!=$lg_mb_srl}
+			{@ $show_btnAdopt = $pt_vtype=='A'&&$un_extra->beluxe->use_point}
 
 			<div class="cmt {$is_blind?'blind':($is_secret?'secret':'')}">
 				<form cond="$is_secret && !$is_granted" action="./" method="post" class="ff secret" onsubmit="if(!this.password.value){ alert('Input password'); this.password.focus(); return false;}else return true;">
@@ -69,10 +69,12 @@
 			</div>
 
 			<div cond="$show_btnAdopt" class="bna btnAdopt">
-				<!--@if(!$un_extra->beluxe->adopt_srl)-->				
-    				<a class="bn white" href="#" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</a>
+				<!--@if(!$un_extra->beluxe->adopt_srl&&$dmb_srl&&$dmb_srl==$lmb_srl&&$cmb_srl&&$cmb_srl!=$lmb_srl)-->
+					<a class="bn white" href="#" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</a>
 				<!--@elseif($un_extra->beluxe->adopt_srl==$cmt_srl)-->
-    				<a class="bn white" href="#" onclick="return false">{$lang->adopted_comment}</a>
+					<a class="bn white" href="#" onclick="return false">{$lang->adopted_comment}</a>
+				<!--@else-->
+					{@ $show_btnAdopt = 0}
 				<!--@endif-->
 			</div>
 
@@ -81,7 +83,7 @@
 				<span cond="$ds_vtxt">{$lang->cmd_vote}: {(int)$comment->get('voted_count')} / {(int)$comment->get('blamed_count')}&nbsp;&nbsp;</span>
 				<a cond="$ds_voteup" class="bn small white" style="color:#AA3300" href="#recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_vote}"><em class="vote">&uarr;</em><em class="cnt">{$comment->get('voted_count')}</em></a>
 				<a cond="$ds_votedown" class="bn small white" style="color:#0000AA" href="#not_recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_vote_down}"><em class="blame">&darr;</em><em class="cnt">{$comment->get('blamed_count')}</em></a>
-				<a cond="$ds_declare" class="bn small white" href="#declare" data-type="comment" data-srl="{$cmt_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$mbsl}"><em class="declare">{$lang->cmd_declare}</em></a>
+				<a cond="$ds_declare" class="bn small white" href="#declare" data-type="comment" data-srl="{$cmt_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$cmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a>
 			</p>
 
 			<ul cond="$comment->hasUploadedFiles()" class="fil">
@@ -89,7 +91,7 @@
 			</ul>
 
 			<div class="auth fl">
-				<span class="fsi"|cond="!$mbsl">{cut_str((!$mbsl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length)}</span>
+				<span class="fsi"|cond="!$cmb_srl">{cut_str((!$cmb_srl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length)}</span>
 				<span class="time">| {$comment->getRegdate("Y.m.d")}</span>
 			</div>
 			<div class="cba fr">
