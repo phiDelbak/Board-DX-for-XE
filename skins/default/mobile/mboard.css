@@ -92,7 +92,7 @@ textarea{resize:vertical}
 .rp li{border-bottom:1px solid #c9c9c9;padding:10px;margin:0 0 -1px 0;background-position:-30px -218px}
 .rp .xe_content, .rp p{margin:0 0 5px 0}
 .rp ul li:after{content:"";display:block;clear:both}
-.rp .cb{display:inline-block;width:22px;height:22px;text-indent:-28px;overflow:hidden;vertical-align:middle;background-image:url(mx.png)}
+.rp .cb{display:inline-block;width:20px;height:20px;text-indent:-28px;overflow:hidden;vertical-align:middle;background-image:url(mx.png)}
 .rp .cb.de{background-position:0 -168px}
 .rp .cb.ed{background-position:0 -140px}
 .rp .cb.re{background-position:0 -196px}
