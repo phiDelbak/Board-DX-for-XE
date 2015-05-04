@@ -2,8 +2,8 @@
 jQuery(function($){
 
 var
-	dragging = false,
-	$holder  = $('<li class="placeholder">');
+	pid_dragging = false,
+	$pidPholder  = $('<li class="placeholder">');
 
 $('form.siteMap')
 	.delegate('li:not(.placeholder)', {
@@ -12,7 +12,7 @@ $('form.siteMap')
 
 			if($(event.target).is('a,input,label,textarea') || event.which != 1) return;
 
-			dragging = true;
+			pid_dragging = true;
 
 			$this  = $(this);
 			height = $this.height();
@@ -23,7 +23,7 @@ $('form.siteMap')
 			$ul.css('position', 'relative');
 
 			position = {x:event.pageX, y:event.pageY};
-			offset   = getOffset(this, $ul.get(0));
+			offset   = getPidOffset(this, $ul.get(0));
 
 			$clone = $this.clone(true).attr('target', true);
 
@@ -36,7 +36,7 @@ $('form.siteMap')
 			$ul.find('li').each(function(idx) {
 				if($this[0] === this || $this.has(this).length) return true;
 
-				var o = getOffset(this, $ul.get(0));
+				var o = getPidOffset(this, $ul.get(0));
 				offsets.push({top:o.top, bottom:o.top+32, item:this});
 			});
 
@@ -57,7 +57,7 @@ $('form.siteMap')
 				.appendTo($ul.eq(0));
 
 			// Set a place holder
-			$holder
+			$pidPholder
 				.css({
 					position:'absolute',
 					opacity : .6,
@@ -89,7 +89,7 @@ $('form.siteMap')
 						if(i == c-1 && t > o.bottom) t = o.bottom;
 
 						if(o.top <= t && o.bottom >= t) {
-							dropzone = {element:o.item, state:setHolder(o,t)};
+							dropzone = {element:o.item, state:setPidHolder(o,t)};
 							break;
 						}
 					}
@@ -99,12 +99,12 @@ $('form.siteMap')
 				.bind('mouseup.st', function(event) {
 					var $dropzone, $li;
 
-					dragging = false;
+					pid_dragging = false;
 
 					$(document).unbind('mousemove.st mouseup.st');
 					$this.css('opacity', '');
 					$clone.remove();
-					$holder.remove();
+					$pidPholder.remove();
 
 					// dummy list item for animation
 					$li = $('<li />').height($this.height());
@@ -131,11 +131,11 @@ $('form.siteMap')
 			return false;
 		},
 		'mouseover.st' : function() {
-			if(!dragging) $(this).addClass('active');
+			if(!pid_dragging) $(this).addClass('active');
 			return false;
 		},
 		'mouseout.st' : function() {
-			if(!dragging) $(this).removeClass('active');
+			if(!pid_dragging) $(this).removeClass('active');
 			return false;
 		}
 	})
@@ -170,7 +170,7 @@ $('form.siteMap')
 		.end()
 	.end()
 
-function getOffset(elem, offsetParent) {
+function getPidOffset(elem, offsetParent) {
 	var top = 0, left = 0;
 
 	while(elem && elem != offsetParent) {
@@ -183,15 +183,15 @@ function getOffset(elem, offsetParent) {
 	return {top:top, left:left};
 }
 
-function setHolder(info, yPos) {
+function setPidHolder(info, yPos) {
 	if(Math.abs(info.top-yPos) <= 3) {
-		$holder.css({top:info.top-3,height:'5px'});
+		$pidPholder.css({top:info.top-3,height:'5px'});
 		return 'before';
 	} else if(Math.abs(info.bottom-yPos) <= 3) {
-		$holder.css({top:info.bottom-3,height:'5px'});
+		$pidPholder.css({top:info.bottom-3,height:'5px'});
 		return 'after';
 	} else {
-		$holder.css({top:info.top+3,height:'27px'});
+		$pidPholder.css({top:info.top+3,height:'27px'});
 		return 'prepend';
 	}
 }
