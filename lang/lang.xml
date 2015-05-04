@@ -24,6 +24,16 @@
 		<value xml:lang="jp"><![CDATA[閉じる]]></value>
 		<value xml:lang="en"><![CDATA[Lock]]></value>
 	</item>
+	<item name="expand">
+		<value xml:lang="ko"><![CDATA[펼침]]></value>
+		<value xml:lang="en"><![CDATA[Expand]]></value>
+		<value xml:lang="jp"><![CDATA[展開]]></value>
+	</item>
+	<item name="collapse">
+		<value xml:lang="ko"><![CDATA[접기]]></value>
+		<value xml:lang="en"><![CDATA[Collapse]]></value>
+		<value xml:lang="jp"><![CDATA[접기]]></value>
+	</item>
 	<item name="blamed_count">
 		<value xml:lang="ko"><![CDATA[비추천 수]]></value>
 		<value xml:lang="jp"><![CDATA[非推薦数]]></value>

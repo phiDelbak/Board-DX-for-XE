@@ -561,18 +561,18 @@
 #siCat.side ul.scFrm {
     display:inline-block;
     background-color:#fff;
-    box-shadow:1px 1px 3px #000;
-    -moz-box-shadow:1px 1px 3px #000;
-    -webkit-box-shadow:1px 1px 3px #000;
+    box-shadow:1px 1px 3px #333;
+    -moz-box-shadow:1px 1px 3px #333;
+    -webkit-box-shadow:1px 1px 3px #333;
     border-radius:0px 5px 5px 0px;
     -moz-border-radius:0px 5px 5px 0px;
     -webkit-border-radius:0px 5px 5px 0px;
-    border:1px solid #000;
+    border:1px solid #777;
     white-space:nowrap
 }
 #siCat.side ul.scFrm {
-    border-left:2px solid #000;
-    border-top:2px solid #000;
+    border-left:2px solid #777;
+    border-top:2px solid #777;
     border-radius:0px 0px 5px 0px;
     -moz-border-radius:0px 0px 5px 0px;
     -webkit-border-radius:0px 0px 5px 0px
@@ -595,17 +595,17 @@
     border:0
 }
 #siCat.side .cateArea li a, #siCat.side .cateArea li a:link, #siCat.side .cateArea li a:visited {
-    color:#4A4A4A;
+    color:#666;
     padding:2px 5px;
+    font-size:14px;
     display:block
 }
 #siCat.side .cateArea li a:hover, #siCat.side .cateArea li a:active, #siCat.side .cateArea li a:focus {
     text-decoration:underline
 }
 #siCat.side .cateArea li.active a {
-    color:#000;
-    font-weight:bold;
-    letter-spacing:-1px
+    color:#333;
+    font-weight:bold
 }
 #siCat.side .cateArea li b {
     color:#bbb;

@@ -69,7 +69,7 @@
 					$is_p_key = $key;
 				}
 				<li class="active"|cond="$val->selected" data-child="toggle_{$key}"|cond="count($val->childs)" style="font-weight:bold"|cond="!$val->category_srl">
-					<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{str_repeat('<b>&rsaquo;</b>',$val->category_srl?($val->depth+1):0)}
+					<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{str_repeat('<span>&rsaquo;</span>',$val->category_srl?($val->depth+1):0)}
 						<span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <span cond="$val->category_srl" class="cnt">({$val->total_document_count})</span>
 					</a>
 				</li>

@@ -174,7 +174,7 @@ jQuery(function($){
 	    if(!$('.wait[data-modal-child=message]').length)
 	    {
 	        waitmsg = $('<div class="message update wait">').html(
-	            '<p>' + waiting_message + '<br />If time delays continue, <a href="' + url.setQuery('is_modal','0') + '"><b>click here</b></a>.</p>'
+	            '<p>' + waiting_message + '<br />If time delays continue, <a href="' + url.setQuery('is_modal','0') + '"><span>click here</span></a>.</p>'
 	        ).attr('data-modal-child','message').css({'position':'absolute','left':'10px','z-index':'9'}).css('top', (sctop+10)+'px');
 	     	$modal.append(waitmsg);
 	    }
