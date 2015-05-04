@@ -463,18 +463,6 @@ jQuery(function($)
 		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
 		$('#siFbk a[name^=comment][data-scroll=true]').last().parent().scrollIntoView();
 
-		var wmd = (getCookie('dx_write_mode') || '').split('/');
-		if(wmd.length) {
-			setCookie('dx_write_mode','',null,'/');
-			var tmp = 'a.pidModalAnchor[href=#siModalWin][data-mode=';
-
-			if(wmd[0] == 'comment') {
-				$(tmp + wmd[1] + '][data-type=comment]', $('a[name=comment_'+wmd[2]+']').closest('li')).click();
-			} else if(wmd[0] == 'insert' || wmd[0] == 'update' || wmd[0] == 'delete'){
-				$(tmp + wmd[0] + '][data-type!=comment]').click();
-			}
-		}
-
 		$('#siWrt').each(function(){
 			$('.scWcateList', this).change(function(){
 				var v = $(this).val(), k = $(this).data('key'),
