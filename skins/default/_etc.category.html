@@ -51,10 +51,10 @@
 	<span class="scBtn small group scCaNavi"><a href="#" title="{$lang->cmd_prev}"><em>&lt;</em></a><a href="#" title="{$lang->cmd_next}"><em>&gt;</em></a></span>
 	<span class="scBtn small scCaLock active"><a href="#" title="{$lang->cmd_lock}"><em>&amp;</em></a></span>
 </div>
-
-<div cond="$s_cate == 'S'" id="siCat" class="side" style="left:{$mi->category_option?$mi->category_option:0}px">
-	<div class="cateArea">
-		<ul class="scFrm">
+{@ $cate_option = $mi->category_option?explode(',',$mi->category_option):array()}
+<div cond="$s_cate == 'S'" id="siCat" class="side" style="left:{$cate_option[1]}px"|cond="(int)$cate_option[1]>0">
+	<div class="cateArea" style="position:fixed"|cond="$cate_option[0]=='Y'">
+		<ul class="scFrm" style="width:{$cate_option[2]}px"|cond="(int)$cate_option[2]>0">
 			{@ $depth=0}
 			<block loop="$cts => $key,$val">
 				<block cond="$depth < $val->depth">

@@ -571,6 +571,7 @@
     white-space:nowrap
 }
 #siCat.side ul.scFrm {
+    padding:15px;
     border-left:2px solid #777;
     border-top:2px solid #777;
     border-radius:0px 0px 5px 0px;
