@@ -139,6 +139,11 @@
 		<value xml:lang="jp"><![CDATA[文書が掛かっています.]]></value>
 		<value xml:lang="en"><![CDATA[document is locked.]]></value>
 	</item>
+	<item name="msg_is_locked_comment">
+		<value xml:lang="ko"><![CDATA[댓글이 잠겨 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[댓글が掛かっています.]]></value>
+		<value xml:lang="en"><![CDATA[comment is locked.]]></value>
+	</item>
 	<item name="msg_is_blind">
 		<value xml:lang="ko"><![CDATA[블라인드 되었습니다.]]></value>
 		<value xml:lang="jp"><![CDATA[ブラインドされました.]]></value>

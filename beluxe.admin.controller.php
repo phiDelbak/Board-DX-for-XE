@@ -332,6 +332,12 @@ class beluxeAdminController extends beluxe
         }
         
         $args = __checkArgs($args);
+
+        // 채택 기능 사용시 제한 기능 해제
+        if($args->use_point_type == 'A') {
+            $args->use_restrict_view = 'N';
+            $args->use_restrict_down = 'N';
+        }
         
         if (count($bk_opts)) $args->backup_options = serialize($bk_opts);
         if (count($ex_fields)) $args->extra_fields = serialize($ex_fields);

@@ -227,34 +227,34 @@ class BeluxeItem extends Object
 		return $cmThis->setCustomActions($a_docsrl, $a_acts);
 	}
 
-	function isBlind($a_docsrl, $a_type = 'doc')
+	function isBlind($a_consrl, $a_type = 'doc')
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->isBlind($a_docsrl, $a_type);
+		return $cmThis->isBlind($a_consrl, $a_type);
 	}
 
-	function isLocked($a_docsrl, $a_type = 'doc')
+	function isLocked($a_consrl, $a_type = 'doc')
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->isLocked($a_docsrl, $a_type);
+		return $cmThis->isLocked($a_consrl, $a_type);
 	}
 
-	function isWrote($a_docsrl, $a_ismbr = TRUE, $a_type = 'doc')
+	function isWrote($a_consrl, $a_ismbr = TRUE, $a_type = 'doc')
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->isWrote($a_docsrl, $this->member_srl, $a_ismbr, $a_type);
+		return $cmThis->isWrote($a_consrl, $this->member_srl, $a_ismbr, $a_type);
 	}
 
-	function isReaded($a_docsrl, $a_ismbr = TRUE, $a_type = 'doc')
+	function isReaded($a_consrl, $a_ismbr = TRUE, $a_type = 'doc')
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->isReaded($a_docsrl, $this->member_srl, $a_ismbr, $a_type);
+		return $cmThis->isReaded($a_consrl, $this->member_srl, $a_ismbr, $a_type);
 	}
 
-	function isVoted($a_docsrl, $a_ismbr = TRUE, $a_type = 'doc')
+	function isVoted($a_consrl, $a_ismbr = TRUE, $a_type = 'doc')
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->isVoted($a_docsrl, $this->member_srl, $a_ismbr, $a_type);
+		return $cmThis->isVoted($a_consrl, $this->member_srl, $a_ismbr, $a_type);
 	}
 
 	function isDownloaded($a_filesrl, $a_ismbr = TRUE, $a_type = 'doc')

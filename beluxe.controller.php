@@ -265,7 +265,7 @@ class beluxeController extends beluxe
 		$oLogIfo = Context::get('logged_info');
 		$log_mbr_srl = $oLogIfo->member_srl;
 
-		// 모달정보없으면 구함
+		// 모듈정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
 			$cmThis = &getModel('beluxe');
@@ -373,10 +373,9 @@ class beluxeController extends beluxe
 					return new Object(-1,'msg_not_permitted');
 				}
 
-				if(!$this->grant->manager && $oModIfo->use_lock_document != 'N')
+				if(!$this->grant->manager && ($oModIfo->use_lock_document != 'N' || $oModIfo->use_point_type == 'A'))
 				{
-					//값이없으면 새로 db 읽는거 방지를 위해 값 저장
-					//todo 이게 의미있는지 확인하자
+					// 값이없으면 새로 db 읽는거 방지를 위해 값 저장
 					if(!$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl])
 					{
 						$tmp->variables = array(
@@ -503,7 +502,7 @@ class beluxeController extends beluxe
 		$log_mbr_srl = (int) $oLogIfo->member_srl;
 		$cpage = $args->cpage;
 
-		// 모달정보없으면 구함
+		// 모듈정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
 			$cmThis = &getModel('beluxe');
@@ -624,6 +623,13 @@ class beluxeController extends beluxe
 					return new Object(-1,'msg_not_permitted');
 				}
 
+				if(!$this->grant->manager && $oModIfo->use_point_type == 'A')
+				{
+					$cmThis = &getModel('beluxe');
+					$is_lock = $cmThis->isLocked($cmt_srl, 'cmt');
+					if($is_lock) return new Object(-1,'msg_is_locked_comment');
+				}
+
 				$args->parent_srl = $oComIfo->parent_srl;
 				$out = $ccComment->updateComment($args, $this->grant->manager);
 
@@ -708,7 +714,7 @@ class beluxeController extends beluxe
 		if(!$oDocIfo->isExists()) return new Object(-1, 'msg_invalid_document');
 		if(!$oDocIfo->isGranted()) return new Object(-1, 'msg_not_permitted');
 
-		// 모달정보없으면 구함
+		// 모듈정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
 			$cmThis = &getModel('beluxe');
@@ -716,7 +722,7 @@ class beluxeController extends beluxe
 			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}
 
-		if(!$this->grant->manager && $oModIfo->use_lock_document != 'N')
+		if(!$this->grant->manager && ($oModIfo->use_lock_document != 'N' || $oModIfo->use_point_type == 'A'))
 		{
 			//값이없으면 새로 db 읽는거 방지를 위해 값 저장
 			if(!$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl])
@@ -836,6 +842,21 @@ class beluxeController extends beluxe
 		$oComIfo = $cmComment->getComment($cmt_srl, FALSE, $colLst);
 		if(!$oComIfo->isExists()) return new Object(-1, 'msg_invalid_document');
 		if(!$oComIfo->isGranted()) return new Object(-1,'msg_not_permitted');
+
+		// 모듈정보없으면 구함
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
+			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
+		}
+
+		if(!$this->grant->manager && $oModIfo->use_point_type == 'A')
+		{
+			$cmThis = &getModel('beluxe');
+			$is_lock = $cmThis->isLocked($cmt_srl, 'cmt');
+			if($is_lock) return new Object(-1,'msg_is_locked_comment');
+		}
 
 		// 삭제 시도
 		$ccComment = &getController('comment');
@@ -1183,7 +1204,9 @@ class beluxeController extends beluxe
 	        $point = round(($use_point * (int)$oModIfo->use_point_percent) / 100);
 	        // 성공하면 포인트 지급
 	        $ccPoint = &getController('point');
-	        $ccPoint->setPoint(abs($oComIfo->get('member_srl')), $point, 'add');
+	        if($point > 0) $ccPoint->setPoint(abs($oComIfo->get('member_srl')), $point, 'add');
+	        // 나머지는 돌려줌
+	        if(($use_point-$point) > 0) $ccPoint->setPoint(abs($oDocIfo->get('member_srl')), $use_point-$point, 'add');
 	    }
 					
 	    if($send_message){

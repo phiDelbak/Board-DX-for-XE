@@ -162,7 +162,7 @@ $ds_flsmd = $mi->display_attached_files=='Y'||$mi->display_attached_files=='M';
         $t_down_pt = $t_down_pt && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
         }
         <a cond="!$file->file_size" href="{$file->iva=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->iva=='Y'">{$file->source_filename}<span class="size">(link)</span></a>
-        <a cond="$file->file_size" href="{$file->iva=='Y'?getUrl('').$file->download_url:'#'}" class="idw"|cond="$t_down_pt">{$file->source_filename}<span class="size">({$t_down_pt?'-$'.$t_down_pt.'/':''}{FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
+        <a cond="$file->file_size" href="{$file->iva=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(('use %s point').replace('%s','{$t_down_pt}'))"|cond="$t_down_pt" class="idw"|cond="$t_down_pt">{$file->source_filename}<span class="size">({$t_down_pt?'-$'.$t_down_pt.'/':''}{FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
     </li>
 </ul>
 </block>
@@ -266,7 +266,9 @@ $ds_flsmd = $mi->display_attached_files=='Y'||$mi->display_attached_files=='M';
 <div class="bna">
     <span class="fr">
     <a href="{getUrl('act', '','document_srl', '')}" class="bn white">{$lang->cmd_list}</a>
-    <a cond="!$is_locked && $oDocument->isEditable()" href="{getUrl('act','dispBoardWrite','document_srl',$doc_srl,'comment_srl','')}" class="bn dark">{$lang->cmd_modify}</a>
-    <a cond="!$is_locked && $oDocument->isEditable()" href="{getUrl('act','dispBoardDelete','document_srl',$doc_srl,'comment_srl','')}" class="bn dark">{$lang->cmd_delete}</a>
+    <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
+        <a href="{getUrl('act','dispBoardWrite','document_srl',$doc_srl,'comment_srl','')}" class="bn dark">{$lang->cmd_modify}</a>
+        <a href="{getUrl('act','dispBoardDelete','document_srl',$doc_srl,'comment_srl','')}" class="bn dark">{$lang->cmd_delete}</a>
+    </block>
     </span>
 </div>

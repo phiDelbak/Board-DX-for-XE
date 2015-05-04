@@ -192,7 +192,7 @@
 				<p cond="$us_point<0" style="margin-top:3px">
 					<strong>{abs($us_point)}</strong> - {sprintf($lang->my_point,$my_point)}
 				</p>
-				<p>{sprintf($pt_vtype=='A'?$lang->about_use_adopt:$lang->about_use_point,$mi->use_point_percent.'%')}</p>
+				<p>{$pt_vtype=='A'?sprintf($lang->about_use_adopt,(100-$mi->use_point_percent).'%'):sprintf($lang->about_use_point,$mi->use_point_percent.'%')}</p>
 			</li>
 		</ul>
 

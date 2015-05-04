@@ -665,10 +665,10 @@ class beluxeModel extends beluxe
         return executeQuery('beluxe.updateExtraVars', $args);
     }
     
-    function isBlind($a_docsrl, $a_type = 'doc') {
-        if (!$a_docsrl) return true;
+    function isBlind($a_consrl, $a_type = 'doc') {
+        if (!$a_consrl) return true;
         $t = 'BELUXE_IS_BLIND';
-        $x = $a_docsrl;
+        $x = $a_type.$a_consrl;
         
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
@@ -688,15 +688,15 @@ class beluxeModel extends beluxe
         }
         
         if ($index == 'vote_down_count') {
-            if ($a_type == 'cmt') $t_vals = $this->_getCommentColumns($a_docsrl, array('blamed_count'));
-            else $t_vals = $this->_getDocumentColumns($a_docsrl, array('blamed_count'));
+            if ($a_type == 'cmt') $t_vals = $this->_getCommentColumns($a_consrl, array('blamed_count'));
+            else $t_vals = $this->_getDocumentColumns($a_consrl, array('blamed_count'));
             if (!count($t_vals)) return true;
             
             $a_downcnt = $t_vals['blamed_count'];
             $is_blind = abs($a_downcnt) >= $count;
         } 
         else {
-            $args->document_srl = $args->comment_srl = $a_docsrl;
+            $args->document_srl = $args->comment_srl = $a_consrl;
             $out = executeQuery($a_type == 'cmt' ? 'comment.getDeclaredComment' : 'document.getDeclaredDocument', $args);
             $is_blind = ($out->toBool() && $out->data) ? ((int)$out->data->declared_count >= $count) : FALSE;
         }
@@ -704,73 +704,88 @@ class beluxeModel extends beluxe
         return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_blind;
     }
     
-    function isLocked($a_docsrl, $a_type = 'doc') {
-        if (!$a_docsrl) return true;
+    function isLocked($a_consrl, $a_type = 'doc') {
+        if (!$a_consrl) return true;
         $t = 'BELUXE_IS_LOCKED';
-        $x = $a_docsrl;
+        $x = $a_type.$a_consrl;
         
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
         
         $oModIfo = $this->_getModuleInfo();
         if (!$oModIfo->module_srl) return true;
-        
-        $t_vals = $this->_getDocumentColumns($a_docsrl, array('comment_count', 'regdate'));
-        if (count($t_vals) != 2) return true;
-        
-        $a_comcnt = $t_vals['comment_count'];
-        $a_comcnt = $t_vals['regdate'];
-        
+
         $is_lock = FALSE;
-        if ($oModIfo->use_lock_document == 'Y') $is_lock = TRUE;
-        else if ($oModIfo->use_lock_document == 'C') $is_lock = (int)$oModIfo->use_lock_document_option <= $a_comcnt;
-        else if ($oModIfo->use_lock_document == 'T') $is_lock = (time() - ztime($a_regdate)) > ((int)$oModIfo->use_lock_document_option * 60 * 60 * 24);
+
+        if($a_type == 'cmt') {
+            $t_vals = $this->_getCommentColumns($a_consrl, array('document_srl'));
+            $t_vals = $this->_getDocumentColumns((int)$t_vals['document_srl'], array('extra_vars'));
+
+            $ex_vars = $t_vals['extra_vars'];
+            $ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
+            if(!$ex_vars->beluxe) return true;
+
+            $adopt_srl = (int) $ex_vars->beluxe->adopt_srl ?  $ex_vars->beluxe->adopt_srl : 0;
+            if ($oModIfo->use_point_type == 'A') $is_lock = $adopt_srl == $a_consrl; 
+
+        } else {        
+            $t_vals = $this->_getDocumentColumns($a_consrl, array('comment_count', 'regdate'));
+            if (count($t_vals) != 2) return true;
+            
+            $a_comcnt = $t_vals['comment_count'];
+            $a_regdate = $t_vals['regdate'];
+            
+            if ($oModIfo->use_lock_document == 'Y') $is_lock = TRUE;
+            else if ($oModIfo->use_lock_document == 'C') $is_lock = (int)$oModIfo->use_lock_document_option <= $a_comcnt;
+            else if ($oModIfo->use_lock_document == 'T') $is_lock = (time() - ztime($a_regdate)) > ((int)$oModIfo->use_lock_document_option * 60 * 60 * 24);
+            else if ($oModIfo->use_point_type == 'A') $is_lock = 0 < $a_comcnt;
+        }
         
         return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_lock;
     }
     
-    function isWrote($a_docsrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
-        if (!$a_docsrl || ($a_ismbr && !$a_mbrsrl)) return;
+    function isWrote($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
+        if (!$a_consrl || ($a_ismbr && !$a_mbrsrl)) return;
         $t = 'BELUXE_IS_WROTE';
-        $x = $a_docsrl;
+        $x = $a_type.$a_consrl;
         
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
         
         $a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
-        $args->document_srl = $a_docsrl;
+        $args->document_srl = $a_consrl;
         $out = executeQuery('beluxe.getCommentCount', $args);
         $is_wrote = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
         
         return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_wrote;
     }
     
-    function isReaded($a_docsrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
-        if (!$a_docsrl || ($a_ismbr && !$a_mbrsrl)) return;
+    function isReaded($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
+        if (!$a_consrl || ($a_ismbr && !$a_mbrsrl)) return;
         $t = 'BELUXE_IS_READED';
-        $x = $a_docsrl;
+        $x = $a_type.$a_consrl;
         
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
         
         $a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
-        $args->document_srl = $a_docsrl;
+        $args->document_srl = $a_consrl;
         $out = executeQuery('beluxe.getReadedCount', $args);
         $is_readed = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
         
         return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_readed;
     }
     
-    function isVoted($a_docsrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
-        if (!$a_docsrl || ($a_ismbr && !$a_mbrsrl)) return;
+    function isVoted($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
+        if (!$a_consrl || ($a_ismbr && !$a_mbrsrl)) return;
         $t = 'BELUXE_IS_VOTED';
-        $x = $a_docsrl;
+        $x = $a_type.$a_consrl;
         
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
         
         $a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
-        $args->document_srl = $a_docsrl;
+        $args->document_srl = $a_consrl;
         $out = executeQuery('document.getDocumentVotedLogInfo', $args);
         $is_voted = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
         
@@ -780,7 +795,7 @@ class beluxeModel extends beluxe
     function isDownloaded($a_filesrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
         if (!$a_filesrl || ($a_ismbr && !$a_mbrsrl)) return;
         $t = 'BELUXE_IS_DOWNLOADED';
-        $x = $a_filesrl;
+        $x = $a_type.$a_filesrl;
         
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
