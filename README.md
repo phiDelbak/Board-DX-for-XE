@@ -1,9 +1,12 @@
 # Board-DX-for-XE
 
-XpressEngine(XE) 에서 사용하는 게시판 모듈
+[XpressEngine(XE)](http://www.xpressengine.com/) 에서 사용하는 게시판 모듈
 
 * 버전
  * 1.8.5.5 베타 
+
+* 라이센스
+ * [GNU GPL](http://www.gnu.org/licenses/gpl.html)
 
 * 설명
  * XE 게시판 모듈입니다.
