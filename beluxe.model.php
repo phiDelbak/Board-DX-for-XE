@@ -735,10 +735,10 @@ class beluxeModel extends beluxe
             $a_comcnt = $t_vals['comment_count'];
             $a_regdate = $t_vals['regdate'];
             
-            if ($oModIfo->use_lock_document == 'Y') $is_lock = TRUE;
+            if ($oModIfo->use_point_type == 'A') $is_lock = 0 < $a_comcnt;
+            else if ($oModIfo->use_lock_document == 'Y') $is_lock = TRUE;
             else if ($oModIfo->use_lock_document == 'C') $is_lock = (int)$oModIfo->use_lock_document_option <= $a_comcnt;
             else if ($oModIfo->use_lock_document == 'T') $is_lock = (time() - ztime($a_regdate)) > ((int)$oModIfo->use_lock_document_option * 60 * 60 * 24);
-            else if ($oModIfo->use_point_type == 'A') $is_lock = 0 < $a_comcnt;
         }
         
         return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_lock;
