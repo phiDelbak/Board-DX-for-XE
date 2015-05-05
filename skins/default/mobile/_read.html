@@ -126,7 +126,7 @@
         $t_pagen = $t_pagec + 1;
     }
 
-    <button type="button" class="tbn" title="open/close">{sprintf($lang->nav_caption, $is_cts?$cts[(int)$category_srl]->title:'ALL')}</button>
+    <button type="button" class="tbn cb" title="open/close">{sprintf($lang->nav_caption, $is_cts?$cts[(int)$category_srl]->title:'ALL')}</button>
     <ul class="file nav tgo open">
         <li loop="$nav_list => $key,$val">
             {@
@@ -163,7 +163,7 @@
         $ds_flsgn = $mi->display_attached_files=='Y'||$mi->display_attached_files=='G';
         $ds_flsmd = $mi->display_attached_files=='Y'||$mi->display_attached_files=='M';
     }
-    <button type="button" class="tbn" title="open/close">{$lang->uploaded_file} <span>[{count($ufls)}]</span><span cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, $un_extra->beluxe->use_point?$un_extra->beluxe->use_point:"0")} (Once)</span></button>
+    <button type="button" class="tbn cb" title="open/close">{$lang->uploaded_file} <span>[{count($ufls)}]</span><span cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, $un_extra->beluxe->use_point?$un_extra->beluxe->use_point:"0")} (Once)</span></button>
     <ul class="file tgo">
         <li loop="$ufls=>$key,$file" cond="($ds_flsgn&&$file->direct_download!='Y')||($ds_flsmd&&$file->direct_download=='Y')" class="notvalid"|cond="$file->isvalid!='Y'" class="direct"|cond="$file->isvalid=='Y'&&$file->direct_download=='Y'">
             {@
@@ -177,7 +177,7 @@
 </block>
 
 <block cond="$oDocument->allowTrackback() || $oDocument->getTrackbackCount()">
-    <button type="button" class="tbn" title="open/close">{$lang->trackback} <span>[{$oDocument->getTrackbackCount()}]</span></button>
+    <button type="button" class="tbn cb" title="open/close">{$lang->trackback} <span>[{$oDocument->getTrackbackCount()}]</span></button>
     <ul class="rp tgo">
         {@ $_trackback_list = $oDocument->getTrackbacks() }
         <li loop="$_trackback_list => $key,$val">
@@ -191,11 +191,11 @@
 </block>
 
 <block cond="$oDocument->allowComment() || $oDocument->getCommentCount()">
-    <button id="clst" type="button" class="tbn tgr" title="open/close" data-srl="{$doc_srl}" data-page="{$cpage}" data-count="{$cmt_lstcnt}" data-load="Y"|cond="$comment_srl&&$XE_VALIDATOR_MESSAGE_TYPE!='error'">{$lang->comment} <span>[{$oDocument->getCommentCount()}]</span></button>
+    <button id="clst" type="button" class="tbn tgr cb" title="open/close" data-srl="{$doc_srl}" data-page="{$cpage}" data-count="{$cmt_lstcnt}" data-load="Y"|cond="$comment_srl&&$XE_VALIDATOR_MESSAGE_TYPE!='error'">{$lang->comment} <span>[{$oDocument->getCommentCount()}]</span></button>
 </block>
 
 <block cond="$mi->use_input_comment_writer != 'N' && !$is_voted && $grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()">
-    <button type="button" class="tbn" title="open/close">{$lang->comment} {$lang->cmd_write}</button>
+    <button type="button" class="tbn cb" title="open/close">{$lang->comment} {$lang->cmd_write}</button>
     <form ruleset="insertComment" action="./" method="post" class="ff tgo">
         <input type="hidden" name="mid" value="{$mid}" />
         <input type="hidden" name="entry" value="{$entry}" />
