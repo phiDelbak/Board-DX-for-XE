@@ -571,7 +571,7 @@
     white-space:nowrap
 }
 #siCat.side ul.scFrm {
-    padding:15px;
+    padding:12px 15px;
     border-left:2px solid #777;
     border-top:2px solid #777;
     border-radius:0px 0px 5px 0px;
@@ -597,7 +597,7 @@
 }
 #siCat.side .cateArea li a, #siCat.side .cateArea li a:link, #siCat.side .cateArea li a:visited {
     color:#666;
-    padding:2px 5px;
+    padding:3px 5px;
     font-size:14px;
     display:block
 }
@@ -896,12 +896,7 @@
     height:33px;
     line-height:33px
 }
-#siLst.gall .scInfo .nick_name {
-    z-index:1;
-    padding:0 7px;
-    white-space:nowrap
-}
-#siLst.gall .scInfo.aHide .nick_name, #siLst.gall .prtImg {
+#siLst.gall .prtImg {
     position:absolute;
     bottom:6px;
     right:6px;

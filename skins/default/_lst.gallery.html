@@ -217,15 +217,15 @@
 										<span>{($ci[$key]->idx > 0)?strip_tags($document->getExtraValueHTML($ci[$key]->idx)):$document->get($key)}</span>
 								<!--@endswitch-->
 							</li>
+							<li cond="$ds_nick || $ds_user" class="nick_name">
+								{@
+									$mbsl = $document->get('member_srl');
+									$home = $document->get('homepage');
+									$nick = cut_str((!$mbsl||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length);
+								}
+								by <!--@if(!$mbsl)--><i>{$nick}</i><!--@else--><span>{$nick}</span><!--@endif-->
+							</li>
 						</ul>
-						<div cond="$ds_nick || $ds_user" class="nick_name">
-							{@
-								$mbsl = $document->get('member_srl');
-								$home = $document->get('homepage');
-								$nick = cut_str((!$mbsl||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length);
-							}
-							by <!--@if(!$mbsl)--><i>{$nick}</i><!--@else--><span>{$nick}</span><!--@endif-->
-						</div>
 					</div>
 					<strong cond="$ds_regdate || $ds_update" class="scRibbon {($document->document_srl==$document_srl)?'action':''}"><span class="caption">{$ds_regdate ? $document->getRegdate('M.d') : zdate($document->get('last_update'),'M.d')}</span></strong>
 				</a>
