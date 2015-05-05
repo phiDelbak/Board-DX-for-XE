@@ -1,20 +1,24 @@
 <include target="___setting.html" />
 
-<div class="bd" id="read"|cond="$is_doc">
-	<!--@if($is_doc)-->
-	<include target="_read.html" />
-	<!--@else-->
+<article class="bd" id="{$is_doc?'read':'list'}">
+	<section class="st">
 
-		<div class="hx h2">
-			<h2><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> <em>[{number_format($total_count)}]</em></h2>
-			<a cond="$is_cts" href="{getUrl('page','','act','dispBeluxeMobileCategory','')}" class="ca">
-				{$cts[(int)$category_srl]->title}
-			</a>
-			<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="write">{$lang->cmd_write}</a>
-		</div>
-		<div cond="$mi->title||$mi->sub_title||$mi->board_desc" class="hx pn">
-			<block cond="$mi->title||$mi->sub_title">{$mi->title} | {$mi->sub_title}</block>
-			<div cond="$mi->board_desc" class="dc">{$mi->board_desc}</div>
+	<div cond="$XE_VALIDATOR_MESSAGE" id="xe_message" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
+
+	<!--@if($is_doc)-->
+		<include target="_read.html" />
+	<!--@else-->
+		<h2 class="cb">
+			<span><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> <em>[{number_format($total_count)}]</em></span>
+			<a cond="$is_cts" href="{getUrl('page','','act','dispBeluxeMobileCategory','')}" class="ca">{$cts[(int)$category_srl]->title}</a>
+			<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="wt">{$lang->cmd_write}</a>
+		</h2>
+
+		<div cond="$mi->title||$mi->sub_title||$mi->board_desc" class="pn cb ts">
+			<h3 cond="$mi->title||$mi->sub_title">{$mi->title} - {$mi->sub_title}</h3>
+			<p cond="$mi->board_desc">{$mi->board_desc}</p>
 		</div>
 
 		{@
@@ -23,7 +27,7 @@
 			print $oTemplate->compile($tpl_path, '_lst.'.$lsttp.'.html');
 		}
 
-		<div cond="$page_navigation" class="pn">
+		<div cond="$page_navigation" class="pn cb">
 			<a cond="$page != 1" href="{getUrl('document_srl','','comment_srl','','page',$page-1,'division',$division,'last_division',$last_division)}" accesskey="b" class="prev">{$lang->cmd_prev}</a>
 			<strong>{$page} / {$page_navigation->last_page}</strong>
 			<a cond="$page != $page_navigation->last_page" href="{getUrl('document_srl','','comment_srl','','page',$page+1,'division',$division,'last_division',$last_division)}" accesskey="n" class="next">{$lang->cmd_next}</a>
@@ -37,15 +41,16 @@
 				<input type="hidden" name="vid" value="{$vid}" />
 				<input type="hidden" name="mid" value="{$mid}" />
 				<input type="hidden" name="category" value="{$category}" />
-				<span class="tgbn"><a href="{getUrl('act','dispBoardTagList')}" title="{$lang->tag}">&nbsp;</a></span>
+				<span class="tgb"><a href="{getUrl('act','dispBoardTagList')}" title="{$lang->tag}">&nbsp;</a></span>
 				<select name="search_target">
 					<option loop="$ci=>$key,$val" cond="$val->search=='Y'" value="{$key}" selected="selected"|cond="$key==$search_target">{$val->name}</option>
 					<option cond="$search_target&&$ci[$search_target]->search!='Y'" value="{$search_target}" selected="selected">{Context::getLang($search_target)}</option>
 				</select>
 				<input type="search" name="search_keyword" value="{htmlspecialchars($search_keyword)}" title="{$lang->cmd_search}" />
-				<button type="submit" class="shbn" title="{$lang->cmd_search}">Search</button>
+				<button type="submit" class="sb" title="{$lang->cmd_search}">Search</button>
 			</form>
 		</div>
-
 	<!--@endif-->
-</div>
+	
+	</section>
+</article>

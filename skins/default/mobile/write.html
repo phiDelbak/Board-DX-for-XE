@@ -1,6 +1,10 @@
 <include target="___setting.html" />
 
-<div class="bd">
-	<include cond="$act!='dispBoardWriteComment'" target="_tpl.insert.html" />
-	<include cond="$act=='dispBoardWriteComment'" target="_tpl.c.insert.html" />
-</div>
+<article class="bd">
+	<section class="st">
+
+		<include cond="$act!='dispBoardWriteComment'" target="_tpl.insert.html" />
+		<include cond="$act=='dispBoardWriteComment'" target="_tpl.c.insert.html" />
+
+	</section>
+</article>

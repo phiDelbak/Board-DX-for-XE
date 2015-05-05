@@ -217,6 +217,7 @@
 									</div>
 								<!--@break-->
 								<!--@case('mbAifo')-->
+									<label>{$ds_nick?$lang->nick_name:$lang->user_name}:</label> 
 									<block cond="$ds_nick||$ds_user">
 										{@
 											$mbsl = $document->get('member_srl');

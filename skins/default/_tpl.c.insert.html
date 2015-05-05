@@ -15,7 +15,7 @@
 <input type="hidden" name="act" value="{$not_permitted?'procBoardVerificationPassword':'procBoardInsertComment'}" />
 <input type="hidden" name="cpage" value="{$cpage}" />
 
-<div cond="!$is_modal||$is_cmt||$is_par||$not_permitted||$mi->use_input_comment_writer=='N'" class="scLtitle">
+<div cond="!$is_modal||$is_cmt||$is_par||$not_permitted" class="scLtitle">
 	<span cond="$is_cmt || $is_par">{$lang->comment.' '.$lang->no}: {$is_par?$oSourceComment->comment_srl.' - ':$comment_srl}</span>
 	<span cond="!$is_cmt">{$not_permitted?$lang->msg_input_password:$lang->new_comment}</span>
 	<span cond="$is_topic_vote" class="col{$is_topic_vote=='disagree'?'Red':'Blue'}"> - {$is_topic_vote=='agree'?$lang->cmd_agree:$lang->cmd_disagree}</span>

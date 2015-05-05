@@ -1,67 +1,71 @@
 <include target="___setting.html" />
 
-{@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
+<article class="bd">
+	<section class="st">
 
-<div class="bd">
-	<div class="hx h2">
-		<h2>{$lang->confirm_delete}</h2>
-	</div>
+		{@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
 
-<!--@if($not_permitted)-->
-	<form ruleset="checkPassword" action="./" method="post" class="ff secret">
-		<input cond="$act!='dispBoardDeleteComment'" type="hidden" name="document_srl" value="{$document_srl}" />
-		<input cond="$act=='dispBoardDeleteComment'" type="hidden" name="comment_srl" value="{$comment_srl}" />
-		<input type="hidden" name="act" value="procBoardVerificationPassword" />
-		<div class="origin">
-			<input type="password" name="password" id="cpw" />
-			<input type="submit" value="{$lang->cmd_input}" class="bn dark" />
-			<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl',($parent_srl?$parent_srl:$comment_srl),'parent_srl','')}">{$lang->cmd_back}</a>
-			<div>{$XE_VALIDATOR_MESSAGE}</div>
-		</div>
-	</form>
-<!--@else-->
-	{@
-		$rulepath = $tpl_path.'../../../ruleset/'.($act=='dispBoardDeleteComment'?'deleteComment':'deleteDocument').'.xml';
-		Context::addJsFile($rulepath, false, '', 0, 'head', true);
+		<h2 class="cb">
+			{$lang->confirm_delete}
+		</h2>
 
-		$ds_nick = $ci['nick_name']->display == 'Y';
-		$ds_user =	$ci['user_name']->display == 'Y';
-
-		$act=='dispBoardDeleteComment'?$ds_mtlng=false:0;
-		$un_extra = $ds_mtlng?$oDocument->get('extra_vars'):null;
-		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
-	}
-	<form action="./" method="post" class="ff">
-		<input type="hidden" name="entry" value="{$entry}" />
-		<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
-		<input type="hidden" name="ruleset" value="{$act=='dispBoardDeleteComment'?'deleteComment':'deleteDocument'}" />
-		<input type="hidden" name="act" value="{$act=='dispBoardDeleteComment'?'procBoardDeleteComment':'procBoardDeleteDocument'}" />
-		<input type="hidden" name="category_srl" value="{$category_srl}" />
-
-		<!--@if($act=='dispBoardDeleteComment')-->
-		<block cond="$oComment->isExists()">
-			<div class="origin">{$lang->comment}:
-				<strong>{cut_str((!$oComment->get('member_srl')||$ds_nick||!$ds_user)?$oComment->getNickName():$oComment->getUserName(), $mi->nickname_length)}</strong>
-			</div>
-			<div class="origin">{$oComment->getContentText(255)}</div>
-		</block>
-			<input type="hidden" name="comment_srl" value="{$oComment->comment_srl}" />
+		<!--@if($not_permitted)-->
+			<form ruleset="checkPassword" action="./" method="post" class="ff secret">
+				<input cond="$act!='dispBoardDeleteComment'" type="hidden" name="document_srl" value="{$document_srl}" />
+				<input cond="$act=='dispBoardDeleteComment'" type="hidden" name="comment_srl" value="{$comment_srl}" />
+				<input type="hidden" name="act" value="procBoardVerificationPassword" />
+				<div class="origin">
+					<input type="password" name="password" id="cpw" />
+					<input type="submit" value="{$lang->cmd_input}" class="bn dark" />
+					<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl',($parent_srl?$parent_srl:$comment_srl),'parent_srl','')}">{$lang->cmd_back}</a>
+					<div>{$XE_VALIDATOR_MESSAGE}</div>
+				</div>
+			</form>
 		<!--@else-->
-		<block cond="$oDocument->isExists()">
-			<div class="origin">{$lang->document}:
-				<strong>{cut_str((!$oDocument->get('member_srl')||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}</strong>
-			</div>
-			<div class="origin">{$oDocument->getTitle()}</div>
-			<div class="origin">{$oDocument->getContentText(255)}</div>
-		</block>
-			<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+			{@
+				$rulepath = $tpl_path.'../../../ruleset/'.($act=='dispBoardDeleteComment'?'deleteComment':'deleteDocument').'.xml';
+				Context::addJsFile($rulepath, false, '', 0, 'head', true);
+
+				$ds_nick = $ci['nick_name']->display == 'Y';
+				$ds_user =	$ci['user_name']->display == 'Y';
+
+				$act=='dispBoardDeleteComment'?$ds_mtlng=false:0;
+				$un_extra = $ds_mtlng?$oDocument->get('extra_vars'):null;
+				$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+			}
+			<form action="./" method="post" class="ff">
+				<input type="hidden" name="entry" value="{$entry}" />
+				<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+				<input type="hidden" name="ruleset" value="{$act=='dispBoardDeleteComment'?'deleteComment':'deleteDocument'}" />
+				<input type="hidden" name="act" value="{$act=='dispBoardDeleteComment'?'procBoardDeleteComment':'procBoardDeleteDocument'}" />
+				<input type="hidden" name="category_srl" value="{$category_srl}" />
+
+				<!--@if($act=='dispBoardDeleteComment')-->
+				<block cond="$oComment->isExists()">
+					<div class="origin">{$lang->comment}:
+						<strong>{cut_str((!$oComment->get('member_srl')||$ds_nick||!$ds_user)?$oComment->getNickName():$oComment->getUserName(), $mi->nickname_length)}</strong>
+					</div>
+					<div class="origin">{$oComment->getContentText(255)}</div>
+				</block>
+					<input type="hidden" name="comment_srl" value="{$oComment->comment_srl}" />
+				<!--@else-->
+				<block cond="$oDocument->isExists()">
+					<div class="origin">{$lang->document}:
+						<strong>{cut_str((!$oDocument->get('member_srl')||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}</strong>
+					</div>
+					<div class="origin">{$oDocument->getTitle()}</div>
+					<div class="origin">{$oDocument->getContentText(255)}</div>
+				</block>
+					<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
+				<!--@endif-->
+
+				<div class="bna">
+					<a href="{getUrl('','mid',$mid,'document_srl',$document_srl,'comment_srl',($parent_srl?$parent_srl:$comment_srl),'parent_srl','')}" class="bn white"><span>{$lang->cmd_back}</span></a>
+					<button cond="$ds_mtlng&&count($un_extra->beluxe->langs)" type="submit" name="multilingual" value="Y" class="bn dark">{$lang->cmd_current_lang_delete}</button>
+					<button type="submit" accesskey="s" class="bn dark">{$lang->cmd_delete}</button>
+				</div>
+			</form>
 		<!--@endif-->
 
-		<div class="bna">
-			<a href="{getUrl('','mid',$mid,'document_srl',$document_srl,'comment_srl',($parent_srl?$parent_srl:$comment_srl),'parent_srl','')}" class="bn white"><span>{$lang->cmd_back}</span></a>
-			<button cond="$ds_mtlng&&count($un_extra->beluxe->langs)" type="submit" name="multilingual" value="Y" class="bn dark">{$lang->cmd_current_lang_delete}</button>
-			<button type="submit" accesskey="s" class="bn dark">{$lang->cmd_delete}</button>
-		</div>
-	</form>
-<!--@endif-->
-</div>
+	</section>
+</article>

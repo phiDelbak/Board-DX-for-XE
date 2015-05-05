@@ -1,9 +1,10 @@
 {@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
 
-<div class="hx h2">
-	<h2 cond="$is_doc"><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> - {$lang->document.' '.$lang->no}: {$document_srl}</h2>
-	<h2 cond="!$is_doc"><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> - {$not_permitted?$lang->msg_input_password:$lang->new_document}</h2>
-</div>
+<h2 class="cb">
+	<block cond="$is_doc"><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> - {$lang->document.' '.$lang->no}: {$document_srl}</block>
+	<block cond="!$is_doc"><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> - {$not_permitted?$lang->msg_input_password:$lang->new_document}</block>
+</h2>
+
 <!--@if($not_permitted)-->
 	<form ruleset="checkPassword" action="./" method="post" class="ff secret">
 		<input type="hidden" name="document_srl" value="{$document_srl}" />
@@ -173,8 +174,8 @@
 			</li>
 		</ul>
 		<div class="bna">
-			<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','')}" onclick="history.back(-1);return false;"|cond="!$is_doc">{$is_doc?$lang->cmd_back:$lang->cmd_cancel}</a>
-			<button type="submit" accesskey="s" class="bn dark">{Context::getLang('cmd_'.($is_doc?'update':'registration'))}</button>
+			<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','')}" onclick="history.back(-1);return false;"|cond="!$is_doc">{$lang->cmd_back}</a>
+			<button type="submit" accesskey="s" class="bn dark">{$is_doc?'':$lang->document.' '}{Context::getLang('cmd_'.($is_doc?'update':'registration'))}</button>
 		</div>
 	</form>
 	<div cond="$mi->use_mobile_uploader == 'Y'" class="fd">

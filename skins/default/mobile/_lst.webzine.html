@@ -12,7 +12,7 @@
 	$a_lsttp = array('notice'=>&$notice_list,'best'=>&$best_list);
 }
 
-<ul loop="$a_lsttp => $tlk,$p_list" cond="count($p_list)" class="lt">
+<ul loop="$a_lsttp => $tlk,$p_list" cond="count($p_list)" class="lt wz">
 	<li loop="$p_list => $no,$document">
 	{@
 		$is_blind = ($tlk!='notice'&&$mi->use_blind=='Y')?$oThis->isBlind($document->document_srl):0;
@@ -21,7 +21,6 @@
 	}
 		<a href="{getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
 			<span class="title"><span cond="$tlk" class="{$tlk}">{$tlk=='best'?'Best':$lang->notice}</span>
-				<span cond="!$tlk&&$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
 				<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
 				{@
 					$t_cmtn = $document->getCommentCount();
@@ -32,15 +31,16 @@
 			</span>
 			<span class="auth">
 				<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
-				<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span>
-				<span class="time">{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</span>
+				<span cond="!$tlk&&$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
+				<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span> &rsaquo;
+				<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
 			</span>
 		</a>
 	</li>
 </ul>
 
-<ul class="lt gall">
-	<li loop="$document_list => $no,$document" class="doc">
+<ul class="lt wz">
+	<li loop="$document_list => $no,$document" class="cb">
 	{@
 		$is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
 		$is_blind = $mi->use_blind=='Y'?$oThis->isBlind($document->document_srl):0;
@@ -61,8 +61,8 @@
 			</span>
 			<ul class="ifo" style="margin-left:{(int)$mi->thumbnail_width+13}px;">
 				<li>
-					<span class="title">
-						<span cond="$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
+					<div class="title">
+						<span cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</span>
 						<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
 						{@
 							$t_cmtn = $document->getCommentCount();
@@ -70,17 +70,19 @@
 						}
 						<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
 						{$document->printExtraImages(60*60*$mi->duration_new)}<img class="ise world" src="../img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
-					</span>
+					</div>
+				</li>
+				<li>
+					<span cond="$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
+					<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
 				</li>
 				<li>
 					<span class="auth">
-						<span cond="!$tlk&&($pt_vtype!='N'||$pt_dtype!='N')" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</span>
 						<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
 						<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span>
 					</span>
 				</li>
-				<li><span class="time">{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d H:i")}</span></li>
-				<li cond="$ds_summary"><span class="summary">{$is_blind?$lang->msg_is_blind:$document->getSummary($mi->summary_length)}</span></li>
+				<li cond="$ds_summary"><span class="summary">&deg; {$is_blind?$lang->msg_is_blind:$document->getSummary($mi->summary_length)}</span></li>
 			</ul>
 		</a>
 	</li>

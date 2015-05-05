@@ -85,7 +85,7 @@ jQuery(function($) {
                 });
                 $('a[href^=#][href$=recommend][data-type]', $htm).pidVoteBtninit();
                 $('a[href=#declare][data-type]', $htm).pidDeclareBtninit();
-                $("#clb").parent().after($htm);
+                $("#clst").after($htm);
             }
         );
     };
@@ -96,7 +96,7 @@ jQuery(function($) {
     });
     $('#read:first').each(function() {
         var g = false;
-        $('.tgr').click(function() {
+        $('.tgr[data-srl]').click(function() {
             if (!g) {
                 g = true;
                 var r = $(this).attr('data-srl'),
@@ -109,8 +109,8 @@ jQuery(function($) {
         $('.mm').click(function() {
             $(this).hide().next().show();
         });
-        $('.tg').click(function() {
-            $(this).parent('.h3').next('.tgo').toggleClass('open');
+        $('.tbn').click(function() {
+            $(this).next('.tgo').toggleClass('open');
         });
         $('.tgr[data-load=Y]').each(function() {
             $(this).click();
