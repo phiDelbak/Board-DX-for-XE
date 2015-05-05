@@ -39,10 +39,10 @@
 	$ao_ppang = $mi->addon_pang_pang == 'Y';
 	$ds_mtlng = $mi->display_lang_code == 'Y';
 	$is_btlst = $mi->document_bottom_list?$mi->document_bottom_list:'Y';
-	$pt_vtype = $mi->use_point_type == 'A' ? 'A' : ($mi->use_restrict_view == 'P' ? 'P' : ($mi->use_restrict_view == 'Y' ? 'Y' : 'N'));
-	$pt_dtype = $mi->use_point_type != 'A' && ($mi->use_restrict_down == 'P' ? 'P' : ($mi->use_restrict_down == 'Y' ? 'Y' : 'N'));
 	$is_cklok = !$grant->manager && $mi->use_lock_document && $mi->use_lock_document != 'N';
 	$cmt_lstcnt = $is_cts?$cts[(int)$category_srl]->navigation->clist_count:$navigation_info->clist_count;
+	$pt_vtype = $mi->use_point_type == 'A' ? 'A' : ($mi->use_restrict_view == 'P' ? 'P' : ($mi->use_restrict_view == 'Y' ? 'Y' : 'N'));
+	$pt_dtype = ($pt_vtype != 'A' && $mi->use_restrict_down == 'P') ? 'P' : ($pt_vtype != 'A' && $mi->use_restrict_down == 'Y' ? 'Y' : 'N');
 
 	$tmp1 = array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/');
 	$tmp2 = array($mid,($logged_info?$logged_info->nick_name:'Guest'),$is_doc?$oDocument->getPermanentUrl():'',$is_doc?$oDocument->getTitle():'',$is_doc?$oDocument->getNickName():'',$is_doc?$oDocument->document_srl:'');
