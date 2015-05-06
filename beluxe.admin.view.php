@@ -213,7 +213,9 @@ class beluxeAdminView extends beluxe
     function dispBeluxeAdminSkinInfo() {
         $oModIfo = $this->module_info;
         // 스킨이 없으면 기본으로 설정
-        if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') $oModIfo->skin = 'default';
+        if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
+            $oModIfo->skin = 'default';
+        }
 
         $skin = $oModIfo->skin;
         $module_path = _XE_PATH_ . 'modules/'.$oModIfo->module;
@@ -237,6 +239,11 @@ class beluxeAdminView extends beluxe
 
     function dispBeluxeAdminMobileSkinInfo() {
         $oModIfo = $this->module_info;
+        // 스킨이 없으면 기본으로 설정
+        if (!$oModIfo->mskin || $oModIfo->mskin == '/USE_DEFAULT/') {
+            $oModIfo->mskin = '../skins/default/mobile';
+        }
+
         $skin = $oModIfo->mskin;
         $module_path = _XE_PATH_ . 'modules/'.$oModIfo->module;
 
