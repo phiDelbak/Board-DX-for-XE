@@ -268,7 +268,7 @@ class beluxeController extends beluxe
 		// 모듈정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
 			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}
@@ -386,7 +386,7 @@ class beluxeController extends beluxe
 						$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl] = $tmp;
 					}
 
-					$cmThis = &getModel('beluxe');
+					$cmThis = &getModel(__XEFM_NAME__);
 					$is_lock = $cmThis->isLocked($doc_srl);
 					if($is_lock)
 					{
@@ -505,7 +505,7 @@ class beluxeController extends beluxe
 		// 모듈정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
 			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}
@@ -625,7 +625,7 @@ class beluxeController extends beluxe
 
 				if(!$this->grant->manager && $oModIfo->use_point_type == 'A')
 				{
-					$cmThis = &getModel('beluxe');
+					$cmThis = &getModel(__XEFM_NAME__);
 					$is_lock = $cmThis->isLocked($cmt_srl, 'cmt');
 					if($is_lock) return new Object(-1,'msg_is_locked_comment');
 				}
@@ -717,7 +717,7 @@ class beluxeController extends beluxe
 		// 모듈정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
 			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}
@@ -735,7 +735,7 @@ class beluxeController extends beluxe
 				$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl] = $tmp;
 			}
 
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$is_lock = $cmThis->isLocked($doc_srl);
 			if($is_lock) return new Object(-1,'msg_is_locked_document');
 		}
@@ -846,14 +846,14 @@ class beluxeController extends beluxe
 		// 모듈정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
 			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}
 
 		if(!$this->grant->manager && $oModIfo->use_point_type == 'A')
 		{
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$is_lock = $cmThis->isLocked($cmt_srl, 'cmt');
 			if($is_lock) return new Object(-1,'msg_is_locked_comment');
 		}
@@ -971,7 +971,7 @@ class beluxeController extends beluxe
 		// 모달정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$oModIfo = $cmThis->_getModuleInfo();
 			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}
@@ -1032,7 +1032,7 @@ class beluxeController extends beluxe
 		// 모달정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$oModIfo = $cmThis->_getModuleInfo();
 			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}
@@ -1072,7 +1072,7 @@ class beluxeController extends beluxe
 	}
 
 	function procBeluxeAdoptComment()
-	{		
+	{
 		$cmt_srl = Context::get('comment_srl');
         if(!$cmt_srl) return new Object(-1, 'msg_invalid_request');
 
@@ -1107,7 +1107,7 @@ class beluxeController extends beluxe
         
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$oModIfo = $cmThis->_getModuleInfo($oComIfo->get('module_srl'));
 		}
 
@@ -1173,7 +1173,7 @@ class beluxeController extends beluxe
 		// 모달정보없으면 구함
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
+			$cmThis = &getModel(__XEFM_NAME__);
 			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
 			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}

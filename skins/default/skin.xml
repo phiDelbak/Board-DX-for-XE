@@ -305,9 +305,9 @@
 					<title xml:lang="jp">表示</title>
 					<title xml:lang="en">display</title>
 				</options>
-				<description xml:lang="ko">목록 헤더에 총 문서 수를 표시할지 설정합니다. (빈 헤더일 경우에만 표시)</description>
-				<description xml:lang="jp">リストヘッダーにすべての文書数の表示、非表示を設定します. (空のヘッダーの場合のみ表示)</description>
-				<description xml:lang="en">Set whether to display the document count. (If the header is empty)</description>
+				<description xml:lang="ko">목록 헤더에 총 문서 수를 표시할지 설정합니다. (정렬 헤더가 없을 경우만 표시)</description>
+				<description xml:lang="jp">リストヘッダーにすべての文書数の表示、非表示を設定します. (정렬 헤더가 없을 경우만 표시)</description>
+				<description xml:lang="en">Set whether to display the document count. (정렬 헤더가 없을 경우만 표시)</description>
 			</var>
 			<var name="display_button_sns" type="radio" default="Y">
 				<title xml:lang="ko">SNS 버튼</title>

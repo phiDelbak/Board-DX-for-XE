@@ -1,6 +1,8 @@
 /**
-* Copyright 2011 All rights reserved by phiDel (https://github.com/phiDelbak/Board-DX-for-XE, xe.phidel@gmail.com)
-**/
+ * @js  beluxe skin
+ * @author phiDel (https://github.com/phiDelbak/Board-DX-for-XE, xe.phidel@gmail.com)
+ * @brief Js of the BoardDX skin
+ */
 
 jQuery(function($)
 {
@@ -28,9 +30,40 @@ jQuery(function($)
 		}
 	};
 
+	// 전체 메세지를 제어하려했으나 오바같아 에드온 대처...
+	// window.alert = function(message, obj) {
+	//    if(obj) $(obj).pidShowTooltip(message);
+	//    else {
+
+	//    }
+	// };
+
+	// 브라우저의 메세지 블럭 옵션 뜨는거 방지를 위해...
+	$.fn.pidShowTooltip = function(str) {
+		var $this = $(this), $sb = $('#siBody'), $msg, t, l, w, r;
+
+		$msg = $('<div class="scTooltip">');
+		$('body').append($msg.html(str));
+
+		r = $sb.offset().left + $sb.outerWidth();
+		t = $this.offset().top - $msg.outerHeight() - 25;
+		l = $this.offset().left;
+		w = $msg.outerWidth();
+		if(r < (l + w)) {
+			$msg.addClass('right');
+			l = (l - w) + $this.width();
+		}
+
+		$msg.css({'top':t,'left':l})
+			.fadeIn('show').delay(2500).fadeOut(1500, function(){
+			$(this).remove();
+		});
+	};
+
 	var pidCallbackError = function(data) {
 
 	};
+
 	var pidCallbackSucess = function(data) {
 		var wl = (parent ? parent : self).location, url='';
 		if(data.success_return_url){
@@ -85,7 +118,7 @@ jQuery(function($)
 		$('select', $a).change(function() {
 			var v = $(this).val() || '', s = [];
 			$('input[name=cart]:checked').each(function(i) { s[i] = $(this).val(); });
-			if(s.length<1) return alert('Please select the items.') || false;
+			if(s.length<1) return alert('Please select the items.', this) || false;
 			exec_json('beluxe.procBeluxeChangeCustomStatus', {mid:current_mid,new_value:v,target_srls:s.join(',')}, completeCallModuleAction);
 			return;
 		});
@@ -306,24 +339,22 @@ jQuery(function($)
 	.click(function()
 	{
 		var $i = $(this), ty = $i.attr('data-type'), srl = $i.attr('data-srl'),
-			rec = $i.attr('data-rec') || '0', c = (prompt(sj_declare_message, '') || '').trim();
-        if (!c) return alert('Cancel') || false;
+			rec = $i.attr('data-rec') || '0', c = prompt(_PID_MSGS_.declare, '');
+        if(typeof c != 'string' || !c.trim()) return $i.pidShowTooltip(_PID_MSGS_.canceled) || false;
 		exec_json(
 			ty + '.proc' + ty.ucfirst() + 'Declare', 
 			{target_srl: srl, cur_mid: current_mid, mid: current_mid},
 			function(ret_obj) {
 				alert(ret_obj.message);
-				if(ret_obj.error === 0)
+				if(ret_obj.error === 0 && rec != '0')
 				{
-					if(rec=='0') return location.reload() || false;
 					var t = '[Board DX] Declare, ' + ty + ': ' + srl,
 						u = current_url.setQuery('comment_srl',('comment'?srl:''));
 						c = c + '<br /><br /><a href="' + u + '">'+u+'</a>';
 					exec_json('communication.procCommunicationSendMessage', 
 						{receiver_srl: rec, title: t, content: c},
 						function(ret_obj2) {
-							alert(ret_obj2.message);
-							location.reload();
+							if(ret_obj2.error !== 0) alert(ret_obj2.message);
 						}
 					);
 				}
@@ -336,8 +367,8 @@ jQuery(function($)
 	.click(function()
 	{
 		var srl = $(this).attr('data-adopt-srl') || '', name = $(this).attr('data-adopt-name') || '',
-			c = (prompt('Send thanks message to ' + name, '') || '').trim();
-        if (!c) return alert('Cancel') || false;
+			c = prompt('Send thanks message to ' + name, '');
+        if(typeof c != 'string' || !c.trim()) return $(this).pidShowTooltip(_PID_MSGS_.canceled) || false;
 		exec_json(
 			'beluxe.procBeluxeAdoptComment', 
 			{comment_srl: srl, send_message: c},
@@ -495,7 +526,7 @@ jQuery(function($)
 				var $p = $(this).closest('#insert_filelink').find('> input'),
 					v = $p.val(), q = $(this).attr('data-seq'), r = $(this).attr('data-srl');
 				if(v === undefined || !v){
-					alert('Please enter the file url.\nvirtual type example: http://... #.mov');
+					$(this).pidShowTooltip('Please enter the file url.\nvirtual type example: http://... #.mov');
 					$p.focus();
 					return false;
 				}

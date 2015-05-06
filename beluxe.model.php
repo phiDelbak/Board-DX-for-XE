@@ -813,7 +813,7 @@ class beluxeModel extends beluxe
      *
      */
     function triggerModuleListInSitemap(&$obj) {
-        array_push($obj, 'beluxe');
+        array_push($obj, __XEFM_NAME__);
     }
 }
 

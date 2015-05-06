@@ -172,7 +172,7 @@ $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
                         $t_down_pt = $t_down_pt && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
                         }
                         <a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="fsize">(link)</span></a>
-                        <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(sj_download_message.replace('%s','{$t_down_pt}'))"|cond="$t_down_pt" class="isdownpt"|cond="$t_down_pt">{$file->source_filename}<span class="fsize">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
+                        <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(_PID_MSGS_.use_d_point.replace('%s','{$t_down_pt}'))"|cond="$t_down_pt" class="isdownpt"|cond="$t_down_pt">{$file->source_filename}<span class="fsize">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
                     </li>
                 </ul>
             </div>

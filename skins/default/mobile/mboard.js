@@ -11,7 +11,7 @@ jQuery(function($) {
                 mid: current_mid
             };
             var c = (prompt('Please describe the reasons.', '') || '').trim();
-            if (!c) return alert('Cancel') || false;
+            if (!c) return alert('Canceled to successfully.') || false;
             exec_json(
                 ty+'.proc' + ty.ucfirst() + 'Declare', 
                 params,
