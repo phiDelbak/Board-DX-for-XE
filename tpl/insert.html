@@ -6,8 +6,8 @@
 </div>
 
 <form ruleset="insertBeluxe" action="./" method="post" enctype="multipart/form-data" class="x_form-horizontal" id="insertFrame">
-<input cond="$module=='admin'" type="hidden" name="module" value="{$module}" />
 <input cond="!$m_allset_targets&&!$m_copy_target" type="hidden" name="module_srl" value="{$module_info->module_srl}" />
+<input type="hidden" name="module" value="{$module=='admin'?'admin':$module_info->module}" />
 <input type="hidden" name="act" value="procBeluxeAdminInsert" />
 <input type="hidden" name="site_srl" value="{$module_info->site_srl}" />
 <input type="hidden" name="use_update_vote_count" value="Y" />

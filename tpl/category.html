@@ -6,6 +6,7 @@
 
 <div id="siteMapFrame">
 	<form  class="x_form-horizontal siteMap" id="menu_{$menuSrl}" method="post">
+	<input type="hidden" name="module" value="{$module=='admin'?'admin':$module_info->module}" />
 	<input type="hidden" name="act" value="procBeluxeAdminInsertCategory" />
 	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
 	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
