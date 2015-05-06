@@ -263,9 +263,9 @@ jQuery(function($)
 		{
 			var $par = $(this).closest('div.wrap'),
 				option = new Array();
-			option[0] = $('input:checkbox#column_display', $par).is(':checked')?'Y':'N';
-			option[1] = $('input:checkbox#column_sort', $par).is(':checked')?'Y':'N';
-			option[2] = $('input:checkbox#column_search', $par).is(':checked')?'Y':'N';
+			option[0] = $('input:checkbox.column_display', $par).is(':checked')?'Y':'N';
+			option[1] = $('input:checkbox.column_sort', $par).is(':checked')?'Y':'N';
+			option[2] = $('input:checkbox.column_search', $par).is(':checked')?'Y':'N';
 			$('input:hidden#column_option', $par).val(option.join('|@|'));
 		});
 	};
