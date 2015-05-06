@@ -1071,6 +1071,80 @@ class beluxeController extends beluxe
 		}
 	}
 
+	function procBeluxeAdoptComment()
+	{		
+		$cmt_srl = Context::get('comment_srl');
+        if(!$cmt_srl) return new Object(-1, 'msg_invalid_request');
+
+		$send_message = Context::get('send_message');
+
+		$cmComment = &getModel('comment');
+		$colLst = array('module_srl','document_srl','comment_srl','parent_srl','member_srl');
+
+		// 존재하는 글인지 체크
+		$oComIfo = $cmComment->getComment($cmt_srl, false, $colLst);
+        if(!$oComIfo->isExists()) return new Object(-1, 'msg_invalid_request');
+
+        $doc_srl = $oComIfo->get('document_srl');
+        $cmDocument = &getModel('document');
+        $oDocIfo = $cmDocument->getDocument($doc_srl, false, false);
+        if(!$oDocIfo->isExists()) return new Object(-1, 'msg_not_founded');
+
+        // 확장 필드 사용
+        $ex_vars = $oDocIfo->get('extra_vars');
+        $ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
+        if(!$ex_vars->beluxe) return new Object(-1, 'msg_invalid_request');
+
+        $beluxe = $ex_vars->beluxe;
+        $use_point = (int) $beluxe->use_point;
+        $adopt_srl = (int) $beluxe->adopt_srl ?  $beluxe->adopt_srl : 0;
+
+        // 이미 채택된 답글이 있다면 중단
+        if($adopt_srl){
+            $oTmp = $cmComment->getComment($adopt_srl, false, $colLst);
+            if($oTmp->isExists()) return new Object(-1, 'msg_invalid_request');
+        }
+        
+		$oModIfo = $this->module_info ? $this->module_info : array();
+		if(!$oModIfo->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$oModIfo = $cmThis->_getModuleInfo($oComIfo->get('module_srl'));
+		}
+
+        // 확장 필드 저장 
+        $beluxe->adopt_srl = $cmt_srl;
+        $ex_vars->beluxe = $beluxe;
+        $args->extra_vars = serialize($ex_vars);        
+        // 채택된 답글번호 입력
+        $args->document_srl = $doc_srl;
+        $output = executeQuery('beluxe.updateExtraVars', $args);
+        if(!$output->toBool()) return $output;
+
+        if($use_point > 0) {
+	        // 채택시 포인트 갱신을 위해
+	        $point = round(($use_point * (int)$oModIfo->use_point_percent) / 100);
+	        // 성공하면 포인트 지급
+	        $ccPoint = &getController('point');
+	        if($point > 0) $ccPoint->setPoint(abs($oComIfo->get('member_srl')), $point, 'add');
+	        // 나머지는 돌려줌
+	        if(($use_point-$point) > 0) $ccPoint->setPoint(abs($oDocIfo->get('member_srl')), $use_point-$point, 'add');
+	    }
+					
+	    if($send_message){
+			$t = '[Board DX] Adopted, thanks message: ' . $cmt_srl;
+			$u = getFullUrl('', 'document_srl',$doc_srl,'comment_srl',$cmt_srl);
+			$send_message = $send_message . '<br /><br /><a href="' . $u . '">'. $u .'</a>';	
+
+		    $ccCommuni = &getController('communication');
+		    $ccCommuni->sendMessage(
+		    	$oDocIfo->get('member_srl'), $oComIfo->get('member_srl'), 
+		    	$t, $send_message
+		    );
+		}
+
+        return new Object(0, 'success_adopted');
+	}
+
 	function triggerBeforeDownloadFile(&$pObj)
 	{
 		$oLogIfo = Context::get('logged_info');
@@ -1148,80 +1222,6 @@ class beluxeController extends beluxe
 				$_SESSION['BELUXE_IS_DOWNLOADED'][$pObj->file_srl] = TRUE;
 			}
 		}
-	}
-
-	function procBeluxeAdoptComment()
-	{		
-		$cmt_srl = Context::get('comment_srl');
-        if(!$cmt_srl) return new Object(-1, 'msg_invalid_request');
-
-		$send_message = Context::get('send_message');
-
-		$cmComment = &getModel('comment');
-		$colLst = array('module_srl','document_srl','comment_srl','parent_srl','member_srl');
-
-		// 존재하는 글인지 체크
-		$oComIfo = $cmComment->getComment($cmt_srl, false, $colLst);
-        if(!$oComIfo->isExists()) return new Object(-1, 'msg_invalid_request');
-
-        $doc_srl = $oComIfo->get('document_srl');
-        $cmDocument = &getModel('document');
-        $oDocIfo = $cmDocument->getDocument($doc_srl, false, false);
-        if(!$oDocIfo->isExists()) return new Object(-1, 'msg_not_founded');
-
-        // 확장 필드 사용
-        $ex_vars = $oDocIfo->get('extra_vars');
-        $ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
-        if(!$ex_vars->beluxe) return new Object(-1, 'msg_invalid_request');
-
-        $beluxe = $ex_vars->beluxe;
-        $use_point = (int) $beluxe->use_point;
-        $adopt_srl = (int) $beluxe->adopt_srl ?  $beluxe->adopt_srl : 0;
-
-        // 이미 채택된 답글이 있다면 중단
-        if($adopt_srl){
-            $oTmp = $cmComment->getComment($adopt_srl, false, $colLst);
-            if($oTmp->isExists()) return new Object(-1, 'msg_invalid_request');
-        }
-        
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
-			$oModIfo = $cmThis->_getModuleInfo($oComIfo->get('module_srl'));
-		}
-
-        // 확장 필드 저장 
-        $beluxe->adopt_srl = $cmt_srl;
-        $ex_vars->beluxe = $beluxe;
-        $args->extra_vars = serialize($ex_vars);        
-        // 채택된 답글번호 입력
-        $args->document_srl = $doc_srl;
-        $output = executeQuery('beluxe.updateExtraVars', $args);
-        if(!$output->toBool()) return $output;
-
-        if($use_point > 0) {
-	        // 채택시 포인트 갱신을 위해
-	        $point = round(($use_point * (int)$oModIfo->use_point_percent) / 100);
-	        // 성공하면 포인트 지급
-	        $ccPoint = &getController('point');
-	        if($point > 0) $ccPoint->setPoint(abs($oComIfo->get('member_srl')), $point, 'add');
-	        // 나머지는 돌려줌
-	        if(($use_point-$point) > 0) $ccPoint->setPoint(abs($oDocIfo->get('member_srl')), $use_point-$point, 'add');
-	    }
-					
-	    if($send_message){
-			$t = '[Board DX] Adopted, thanks message: ' . $cmt_srl;
-			$u = getFullUrl('', 'document_srl',$doc_srl,'comment_srl',$cmt_srl);
-			$send_message = $send_message . '<br /><br /><a href="' . $u . '">'. $u .'</a>';	
-
-		    $ccCommuni = &getController('communication');
-		    $ccCommuni->sendMessage(
-		    	$oDocIfo->get('member_srl'), $oComIfo->get('member_srl'), 
-		    	$t, $send_message
-		    );
-		}
-
-        return new Object(0, 'success_adopted');
 	}
 
 	function triggerDownloadFile(&$pObj)
