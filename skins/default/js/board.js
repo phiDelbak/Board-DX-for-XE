@@ -30,36 +30,6 @@ jQuery(function($)
 		}
 	};
 
-	// 전체 메세지를 제어하려했으나 오바같아 에드온 대처...
-	// window.alert = function(message, obj) {
-	//    if(obj) $(obj).pidShowTooltip(message);
-	//    else {
-
-	//    }
-	// };
-
-	// 브라우저의 메세지 블럭 옵션 뜨는거 방지를 위해...
-	$.fn.pidShowTooltip = function(str) {
-		var $this = $(this), $sb = $('#siBody'), $msg, t, l, w, r;
-
-		$msg = $('<div class="scTooltip">');
-		$('body').append($msg.html(str));
-
-		r = $sb.offset().left + $sb.outerWidth();
-		t = $this.offset().top - $msg.outerHeight() - 25;
-		l = $this.offset().left;
-		w = $msg.outerWidth();
-		if(r < (l + w)) {
-			$msg.addClass('right');
-			l = (l - w) + $this.width();
-		}
-
-		$msg.css({'top':t,'left':l})
-			.fadeIn('show').delay(2500).fadeOut(1500, function(){
-			$(this).remove();
-		});
-	};
-
 	var pidCallbackError = function(data) {
 
 	};
@@ -213,46 +183,6 @@ jQuery(function($)
 		}
 	});
 
-	// 다른 방법 사용으로 제거
-	// $('#siCat.side')
-	// .each(function()
-	// {
-	// 	var $pr = $(this), $ca = $('.cateArea',$pr), $ul = $('ul.scFrm',$pr), $bt = $('.mubtn', $pr);
-
-	// 	$bt.click(function(){
-	// 		var uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
-	// 		// right 이면 범위를 벗어나기 때문에 크기 계산
-	// 		if($ca.hasClass('right')) $ca.css({'margin-left':-(uw+bw)+'px','width':(uw+bw)+'px'});
-	// 		$ul.animate(
-	// 			{"width": "toggle", "opacity": "toggle"}, "slow",
-	// 			function(){
-	// 				if($ul.is(':hidden')){
-	// 					$bt.removeClass('active');
-	// 					if($ca.hasClass('right')) $ca.css({'margin-left':-bw+'px','width':bw+'px'});
-	// 				}
-	// 				else $bt.addClass('active');
-	// 			}
-	// 		);
-	// 		return false;
-	// 	});
-
-	// 	$('ul.scFrm li[data-child]', $pr).each(function() {
-	// 		var key = $(this).attr('data-child'), $to = $('ul.scFrm li[data-parent='+key+']', $pr);
-
-	// 		$('a b:first', this).click(function(){
-	// 			if($ca.hasClass('right')) $ca.css({'margin-left':'-1000px','width':'1000px'});
-	// 			$(this).html($to.is(':hidden')?'&rsaquo;':'&lsaquo;');
-	// 			$to.slideToggle();
-
-	// 			if($ca.hasClass('right')){
-	// 				var uw = $ul.outerWidth(true), bw = $bt.outerWidth(true) + 1;
-	// 				$ca.css({'margin-left':-(uw+bw)+'px','width':(uw+bw)+'px'});
-	// 			}
-	// 			return false;
-	// 		}).css('color','black').html($to.css('display')=='none'?'&lsaquo;':'&rsaquo;');
-	// 	});
-	// });
-
 	$('#siLst.gall .scInfo[data-autohide=true]')
 	.each(function()
 	{
@@ -339,8 +269,19 @@ jQuery(function($)
 	.click(function()
 	{
 		var $i = $(this), ty = $i.attr('data-type'), srl = $i.attr('data-srl'),
-			rec = $i.attr('data-rec') || '0', c = prompt(_PID_MSGS_.declare, '');
-        if(typeof c != 'string' || !c.trim()) return $i.pidShowTooltip(_PID_MSGS_.canceled) || false;
+			c, tmp, rec = $i.attr('data-rec') || '0';
+
+		c = prompt(_PID_MSGS_.declare, '');
+		// 브라우저에서 블럭 옵션이 떠서 다른 방법 씀
+	    //if(typeof c != 'string' || !c.trim()) return alert(_PID_MSGS_.canceled) || false;
+		if(typeof c != 'string')  return false;
+		if(!c.trim())
+		{
+			tmp = $('<div>').html('Please enter the message.');
+			$i.parent().after(tmp);
+			tmp.delay(2000).fadeOut(2500, function() {$(this).remove();});
+			return false;
+		}
 		exec_json(
 			ty + '.proc' + ty.ucfirst() + 'Declare', 
 			{target_srl: srl, cur_mid: current_mid, mid: current_mid},
@@ -360,15 +301,26 @@ jQuery(function($)
 				}
 			}
 		);
+
 		return false;
 	});
 
 	$('.btnAdopt button[data-adopt-srl]')
 	.click(function()
 	{
-		var srl = $(this).attr('data-adopt-srl') || '', name = $(this).attr('data-adopt-name') || '',
-			c = prompt('Send thanks message to ' + name, '');
-        if(typeof c != 'string' || !c.trim()) return $(this).pidShowTooltip(_PID_MSGS_.canceled) || false;
+		var $i = $(this), c, srl = $i.attr('data-adopt-srl') || '', name = $i.attr('data-adopt-name') || '';
+
+		c = prompt('Send thanks message to ' + name, '');
+		// 브라우저에서 블럭 옵션이 떠서 다른 방법 씀
+		// if(typeof c != 'string' || !c.trim()) return alert(_PID_MSGS_.canceled) || false;
+		if(typeof c != 'string')  return false;
+		if(!c.trim())
+		{
+			tmp = $('<div>').html('Please enter the message.');
+			$i.parent().after(tmp);
+			tmp.delay(2000).fadeOut(2500, function() {$(this).remove();});
+			return false;
+		}
 		exec_json(
 			'beluxe.procBeluxeAdoptComment', 
 			{comment_srl: srl, send_message: c},
@@ -526,7 +478,7 @@ jQuery(function($)
 				var $p = $(this).closest('#insert_filelink').find('> input'),
 					v = $p.val(), q = $(this).attr('data-seq'), r = $(this).attr('data-srl');
 				if(v === undefined || !v){
-					$(this).pidShowTooltip('Please enter the file url.\nvirtual type example: http://... #.mov');
+					alert('Please enter the file url.\nvirtual type example: http://... #.mov');
 					$p.focus();
 					return false;
 				}

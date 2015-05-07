@@ -110,7 +110,7 @@ jQuery(function($) {
         });
     });
         
-    /** phiDel (xe.phidel@gmail.com) **/
+    /** phiDel (xe.phidel@gmail.com) // onresize는 혹시 몰라서 그냥 타이머로 **/
     $.fn.pidModalResize = function(resize){
         var $modal = $(this), target = $modal.data('anchor').attr('data-target') || '', 
             name = $modal.data('frame_id') || 'pidOframe';

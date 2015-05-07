@@ -141,42 +141,6 @@
 .scBtn *[disabled=disabled] {
     opacity:.5
 }
-/* Tooltip */
-.scTooltip{
-    display: none;
-    position: absolute;
-    z-index: 9;
-    pointer-events: none;
-    padding:10px 15px;
-    margin:1em 0 3em;
-    border: 1px solid #BCE8F1;
-    -webkit-border-radius:10px;
-    -moz-border-radius:10px;border-radius:10px;
-    background:#f3961c;
-    background:-webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#D9EDF7));
-    background:-moz-linear-gradient(#fff, #D9EDF7);
-    background:-o-linear-gradient(#fff, #D9EDF7);
-    background:linear-gradient(#fff, #D9EDF7);
-    color:#3A87AD;
-    -webkit-box-shadow: 6px 5px 9px -9px #3A87AD, 5px 6px 9px -9px #3A87AD;
-    -moz-box-shadow: 6px 5px 9px -9px #3A87AD, 5px 6px 9px -9px #3A87AD;
-    box-shadow: 6px 5px 9px -9px #3A87AD, 5px 6px 9px -9px #3A87AD;
-}
-.scTooltip:after{
-    content:"";
-    position:absolute;
-    bottom:-10px;
-    left:10px;
-    border-width:10px 10px 0;
-    border-style:solid;
-    border-color:#BCE8F1 transparent;
-    display:block;
-    width:0;
-}
-.scTooltip.right:after{
-    right:10px;
-    left:auto;
-}
 /* Vote */
 .scVoteArea a {
     text-align:right
