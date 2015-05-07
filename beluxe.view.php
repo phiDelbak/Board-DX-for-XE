@@ -284,12 +284,13 @@ class beluxeView extends beluxe
                     $this->_setXeValidatorMessage(-1380, $b_title, 'error');
                 } 
                 else {
-                    // 권한이 있고 제한 기능 사용시
+                    $is_read = true;
+                    // 권한이 있고 제한 기능 사용시                    
                     if($oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view != 'N')
                     {
                         if(!$cmThis) $cmThis = &getModel(__XEFM_NAME__);
-                        $is_rsrit = $cmThis->isReaded($doc_srl, $mbr_srl);
-                        if(!$is_rsrit) {
+                        $is_read = $cmThis->isReaded($doc_srl, $mbr_srl);
+                        if(!$is_read) {
                             //$content = sprintf(Context::getLang('msg_restricted_view'), 100);
                             $content .= $out->getSummary(100);
                             $out->variables['content'] = $content;
@@ -297,7 +298,7 @@ class beluxeView extends beluxe
                     }
                     
                     // 조회수 증가
-                    if (!$is_secret || $is_grant) $out->updateReadedCount();
+                    if ($is_read && (!$is_secret || $is_grant)) $out->updateReadedCount();
                     
                     $b_title = $out->getTitleText();
                     

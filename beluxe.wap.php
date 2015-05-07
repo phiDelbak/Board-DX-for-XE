@@ -84,17 +84,17 @@ class beluxeWAP extends beluxe
 					}
 					else
 					{
-						$is_rsrit = true;
+						$is_read = true;
 						$is_grant = $oDocIfo->isGranted();
 						$is_secret = $oDocIfo->isSecret();
 
 						if(!$is_secret && !$is_grant && $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view!='N')
 						{
 							if(!$cmThis) $cmThis = &getModel(__XEFM_NAME__);
-							$is_rsrit = $cmThis->isReaded($doc_srl, $mbr_srl);
+							$is_read = $cmThis->isReaded($doc_srl, $mbr_srl);
 						}
 
-						if(!$is_rsrit)
+						if(!$is_read)
 						{
 							$content = sprintf(Context::getLang('msg_restricted_view'), 0);
 						}
@@ -109,7 +109,7 @@ class beluxeWAP extends beluxe
 						}
 
 						// 조회수 증가
-						if(!$is_secret || $is_grant) $oDocIfo->updateReadedCount();
+						if($is_read && (!$is_secret || $is_grant)) $oDocIfo->updateReadedCount();
 					}
 
 					// 내용 설정
