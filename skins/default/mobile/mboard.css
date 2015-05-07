@@ -69,7 +69,7 @@ a {
 	font-style: normal;
 }
 .st > h2 > .ca{
-	font-size: 12px;
+	font-size: 14px;
 }
 .st > h2 > .ca:after{
 	content:"";
@@ -530,7 +530,7 @@ color:#fff;
 .ff label{
 margin-right:5px
 }
-.ff label+input[type=text],.ff label+input[type=password],.ff label+textarea,.ff label+select{
+.ff label+input[type=text],.ff label+input[type=password],.ff label+input[type=url],.ff label+input[type=email],.ff.secret input[type=password],.ff label+textarea,.ff label+select{
 display:block;
 width:100%;
 font-size:14px;
@@ -540,10 +540,6 @@ padding:5px
 .ff label+select{
 padding:0;
 height:30px
-}
-.ff.secret input[type=password]{
-max-width:100px;
-_width:100px
 }
 .ff .exvar .exnm{
 display:block;

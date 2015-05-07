@@ -10,15 +10,20 @@
 		</h2>
 
 		<!--@if($not_permitted)-->
-			<form ruleset="checkPassword" action="./" method="post" class="ff secret">
+			<div>{$XE_VALIDATOR_MESSAGE}</div>
+			<form ruleset="checkPassword" action="./" method="post" class="ff tgo open">
 				<input cond="$act!='dispBoardDeleteComment'" type="hidden" name="document_srl" value="{$document_srl}" />
 				<input cond="$act=='dispBoardDeleteComment'" type="hidden" name="comment_srl" value="{$comment_srl}" />
 				<input type="hidden" name="act" value="procBoardVerificationPassword" />
-				<div class="origin">
-					<input type="password" name="password" id="cpw" />
-					<input type="submit" value="{$lang->cmd_input}" class="bn dark" />
+				<ul>
+					<li>
+						<label for="cpw">{$lang->password}</label>
+						<input type="password" name="password" id="cpw" />
+					</li>
+				</ul>
+				<div class="bna">
 					<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl',($parent_srl?$parent_srl:$comment_srl),'parent_srl','')}">{$lang->cmd_back}</a>
-					<div>{$XE_VALIDATOR_MESSAGE}</div>
+					<input type="submit" value="{$lang->cmd_input}" class="bn dark" />
 				</div>
 			</form>
 		<!--@else-->
