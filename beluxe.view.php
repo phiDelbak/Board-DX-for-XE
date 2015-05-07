@@ -286,14 +286,22 @@ class beluxeView extends beluxe
                 else {
                     $is_read = true;
                     // 권한이 있고 제한 기능 사용시                    
-                    if($oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view != 'N')
+                    if(!$is_grant && !$is_secret && $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view != 'N')
                     {
-                        if(!$cmThis) $cmThis = &getModel(__XEFM_NAME__);
-                        $is_read = $cmThis->isReaded($doc_srl, $mbr_srl);
+                        $is_read = $oModIfo->use_restrict_view=='Y'&&$this->cmThis->isWrote($doc_srl, $mbr_srl, true, 'cmt')
+                                || $oModIfo->use_restrict_view=='P'&&$this->cmThis->isReaded($doc_srl, $mbr_srl);
+
+                        // 포인트가 0인것은 패스
+                        if(!$is_read) {
+                            $un_extra = $out->get('extra_vars');
+                            $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+                            $is_read = !(int)$un_extra->beluxe->use_point;
+                        }
+
                         if(!$is_read) {
                             //$content = sprintf(Context::getLang('msg_restricted_view'), 100);
                             $content .= $out->getSummary(100);
-                            $out->variables['content'] = $content;
+                            $out->variables['content'] = Context::getLang('restriction').': '.$content.'...';
                         }
                     }
                     

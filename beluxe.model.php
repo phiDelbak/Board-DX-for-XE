@@ -749,7 +749,7 @@ class beluxeModel extends beluxe
         $t = 'BELUXE_IS_WROTE';
         $x = $a_type.$a_consrl;
         
-        if ($_SESSION[$t][$x]) return true;
+        //if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
         
         $a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
