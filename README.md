@@ -3,7 +3,7 @@
 [XpressEngine(XE)](http://www.xpressengine.com/) 에서 사용하는 게시판 모듈
 
 * 버전
- * 1.9.1
+ * 1.9.5
 
 * 라이센스
  * [GNU GPL](http://www.gnu.org/licenses/gpl.html)
@@ -20,3 +20,5 @@
 
 * 주의 사항
  * 업데이트 후 [캐시파일 재생성] 해주세요.
+
+* [게시판 DX 도움말](https://github.com/phiDelbak/Board-DX-for-XE/wiki)
