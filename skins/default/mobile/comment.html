@@ -17,7 +17,7 @@
 	$start = true;
 	$depth = 0;
 
-	$cmts = $oThis->getCommentList($doc_srl, $cpage, $clist_count);
+	$cmts = $oThis->getCommentList($doc_srl, $cpage, (int) $mi->default_clist_count);
 	$bscmts = $mi->use_c_best=='Y' ? $oThis->getBestCommentList($document_srl) : array();
 	$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);
 

@@ -43,9 +43,9 @@ class beluxeMobile extends beluxeView
 		$navi = explode('|@|', $oModIfo->default_type_option);
 		$oModIfo->default_sort_index = $navi[0] ? $navi[0] : 'list_order';
 		$oModIfo->default_order_type = $navi[1] ? $navi[1] : 'asc';
-		$oModIfo->default_list_count = $navi[2] ? $navi[2] : 20;
-		$oModIfo->default_page_count = $navi[3] ? $navi[3] : 10;
-		$oModIfo->default_clist_count = $navi[4] ? $navi[4] : 50;
+		$oModIfo->default_list_count = (int) $oModIfo->mobile_list_count ? $oModIfo->mobile_list_count : ($navi[2] ? $navi[2] : 20);
+		$oModIfo->default_page_count = (int) $oModIfo->mobile_page_count ? $oModIfo->mobile_page_count : ($navi[3] ? $navi[3] : 10);
+		$oModIfo->default_clist_count = (int) $oModIfo->mobile_clist_count ? $oModIfo->mobile_clist_count : ($navi[4] ? $navi[4] : 50);
 		Context::set('module_info', $oModIfo);
 
 		// 상담 기능 체크. 현재 게시판의 관리자이면 상담기능을 off시킴, 현재 사용자가 비로그인 사용자라면 글쓰기/댓글쓰기/목록보기/글보기 권한을 제거
@@ -81,7 +81,6 @@ class beluxeMobile extends beluxeView
 
 	function getBeluxeMobileCommentPage()
 	{
-		$clist_count = Context::get('clist_count');
 		$doc_srl = Context::get('document_srl');
 		$cmDocument = &getModel('document');
 		if(!$doc_srl) return new Object(-1, "msg_invalid_request");

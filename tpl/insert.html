@@ -203,6 +203,20 @@
 				<input name="default_clist_count" id="id_default_clist_count" type="number" value="{(int)$t_dftype->clist_count}" maxlength="10" style="width:50px;margin-left:22px" />
 			</div>
 		</div>
+		<div cond="count($skin_list)&&count($default_type_list)" class="x_control-group {$module_info->module_srl&&!$module_info->default_type?'opt_bks':''}">
+			<label class="x_control-label">{$lang->mobile}</label>
+			<div class="x_controls">
+				<label class="x_inline" style="width:70px" for="id_default_mobile_list_count">{$lang->list_count}:</label>
+				<label class="x_inline" style="width:70px" for="id_default_mobile_page_count">{$lang->page_count}:</label>
+				<label class="x_inline" style="width:70px" for="id_default_mobile_clist_count">{$lang->comment_count}:</label>
+				<br />
+				<input name="mobile_list_count" id="id_default_mobile_list_count" type="number" value="{(int)$module_info->mobile_list_count}" maxlength="10" style="width:50px" />
+				<input name="mobile_page_count" id="id_default_mobile_page_count" type="number" value="{(int)$module_info->mobile_page_count}" maxlength="10" style="width:50px;margin-left:22px" />
+				<input name="mobile_clist_count" id="id_default_mobile_clist_count" type="number" value="{(int)$module_info->mobile_clist_count}" maxlength="10" style="width:50px;margin-left:22px" />
+				<a href="#about_mobile_list_count" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_mobile_list_count" class="x_help-block" hidden>{$lang->about_mobile_list_count}</p>
+			</div>
+		</div>
 	</section>
 
 	<section class="section {$m_copy_target?'collapsed':''}">
