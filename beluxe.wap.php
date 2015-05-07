@@ -84,18 +84,19 @@ class beluxeWAP extends beluxe
 					}
 					else
 					{
+						$is_rsrit = true;
 						$is_grant = $oDocIfo->isGranted();
 						$is_secret = $oDocIfo->isSecret();
 
-						if(!$is_secret && !$is_grant && ($oModIfo->use_point_type == 'A' || ($oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view!='N')))
+						if(!$is_secret && !$is_grant && $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view!='N')
 						{
 							if(!$cmThis) $cmThis = &getModel(__XEFM_NAME__);
 							$is_rsrit = $cmThis->isReaded($doc_srl, $mbr_srl);
 						}
 
-						if($is_rsrit)
+						if(!$is_rsrit)
 						{
-							$content = sprintf(Context::getLang('msg_restricted_view'), 100);
+							$content = sprintf(Context::getLang('msg_restricted_view'), 0);
 						}
 						else
 						{

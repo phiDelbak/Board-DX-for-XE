@@ -13,7 +13,7 @@ $is_granted = $grant->view && $oDocument->isGranted();
 $is_secret = $oDocument->isSecret();
 $is_locked = $is_cklok?$oThis->isLocked($doc_srl):0;
 $is_blind = $mi->use_blind=='Y'?$oThis->isBlind($doc_srl):0;
-$is_restrict = ($pt_vtype=='Y'&&!$is_granted&&!$is_secret)?!$oThis->isReaded($doc_srl):0;
+$is_restrict = ($pt_vtype!='N'&&!$is_granted&&!$is_secret)?!$oThis->isReaded($doc_srl):0;
 $exks = ((!$is_secret || $is_granted) && $oDocument->isExtraVarsExists()) ? $oDocument->getExtraVars() : array();
 $tags = (!$is_secret || $is_granted) ? $oDocument->get('tag_list') : array();
 $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDocument->getUploadedFiles() : array();
