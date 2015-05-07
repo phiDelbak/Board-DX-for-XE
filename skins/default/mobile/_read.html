@@ -167,11 +167,12 @@
     <ul class="file tgo">
         <li loop="$ufls=>$key,$file" cond="($ds_flsgn&&$file->direct_download!='Y')||($ds_flsmd&&$file->direct_download=='Y')" class="notvalid"|cond="$file->isvalid!='Y'" class="direct"|cond="$file->isvalid=='Y'&&$file->direct_download=='Y'">
             {@
-            $t_down_pt = $pt_dtype == 'P' && (!$lg || $lg->member_srl != $file->member_srl);
-            $t_down_pt = $t_down_pt && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
+                $t_down_cm = $pt_dtype != 'N' && (!$lg || $lg->member_srl != $file->member_srl);
+                $t_down_pt = $t_down_cm && $pt_dtype == 'P' && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
+                $t_down_cm = !$t_down_pt && $t_down_cm && !$oThis->isWrote($doc_srl, true, 'cmt');
             }
             <a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="size">(link)</span></a>
-            <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(('use %s point').replace('%s','{$t_down_pt}'))"|cond="$t_down_pt" class="idw"|cond="$t_down_pt">{$file->source_filename}<span class="size">({$t_down_pt?'-$'.$t_down_pt.'/':''}{FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
+            <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(_PID_MSGS_.use_d_point.replace('%s','{$t_down_pt}'))"|cond="$t_down_pt&&$lg" class="idw"|cond="$t_down_pt" onclick="return alert('{$lang->msg_required_comment}') || false"|cond="$t_down_cm&&$lg" onclick="return alert('{$lang->msg_not_permitted}') || false"|cond="($t_down_pt||$t_down_cm)&&!$lg">{$file->source_filename}<span class="size">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
         </li>
     </ul>
 </block>
