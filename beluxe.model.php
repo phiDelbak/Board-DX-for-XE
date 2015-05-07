@@ -230,6 +230,7 @@ class beluxeModel extends beluxe
             $obj->child_count = 0;
             $obj->childs = array();
             $obj->total_document_count = $obj->document_count = (int)$val['document_count'];
+            $p_lst[0]->total_document_count += $obj->document_count;
             
             $t_prsrl = (int)$obj->parent_srl;
             $list_order[$idx++] = $obj->category_srl;
@@ -257,7 +258,7 @@ class beluxeModel extends beluxe
                     $parent_srl = $p_lst[$parent_srl]->parent_srl;
                 }
             }
-            
+
             $p_lst[$key] = $obj;
             if (count($val['list'])) $this->_arrangeCategory($p_lst, $val['list'], $depth + 1);
         }
@@ -294,6 +295,7 @@ class beluxeModel extends beluxe
                 $tmp->navigation = (object)array('sort_index' => $navi[0] ? $navi[0] : 'list_order', 'order_type' => $navi[1] ? $navi[1] : 'asc', 'list_count' => $navi[2] ? $navi[2] : 20, 'page_count' => $navi[3] ? $navi[3] : 10, 'clist_count' => $navi[4] ? $navi[4] : 50);
                 $tmp->selected = !Context::get('category_srl');
                 $tmp->expand = true;
+                $tmp->total_document_count = 0;
                 $cate_list[0] = $tmp;
             }
             

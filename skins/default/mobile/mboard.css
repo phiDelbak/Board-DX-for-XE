@@ -35,7 +35,6 @@ a {
     display:block;
     clear:both;
 }
-.lt a:after,
 .st .tbn:after,
 .gn li a:after{
 	position:absolute;
@@ -53,12 +52,13 @@ a {
 }
 /* head */
 .st > h2 {
-	background: #dadada;
+	background: #CECECE;
 	border-bottom:1px solid #bfbfbf;
 	text-shadow: 1px 1px 0 #fff;
-	margin: 0;
-	padding: 7px 10px;
-	font-size: 16px;
+	margin:0;
+	padding: 10px 7px;
+	font-size: 15px;
+	color:#333;
 }
 .st > h2 > * {
 	margin-right: 10px;
@@ -68,8 +68,9 @@ a {
 	font-size: 12px;
 	font-style: normal;
 }
-.st > h2 > .ca{
-	font-size: 14px;
+.st > h2 > .ca a{
+	font-size: 15px;
+	color:#333;
 }
 .st > h2 > .ca:after{
 	content:"";
@@ -85,8 +86,8 @@ a {
 }
 .st > h2 > .wt {
 	position:absolute;
-	top:5px;
-	right:0;
+	top:6px;
+	right:-3px;
 	background-position:0 0;
 	display:inline-block;
 	width:28px;
@@ -123,6 +124,11 @@ a {
 	background:#f2f0ec;
 	padding:13px 0;
 	border-top:1px solid #fff;
+	color:#555;
+}
+.pn.ts h2 {
+	margin: 0 0 5px;
+	color: #000;
 }
 /* Pagination */
 .pn .prev,
@@ -172,30 +178,27 @@ a {
 	border-left:0;
 	border-right:0;
 	background:#dadada;
-	padding:10px;
+	padding:8px 100px;
 	text-align:center;
 }
-.sh *{
-	vertical-align:middle;
-	font-size:14px;
-}
 .sh select{
-	width:70px;
+	width:80px;
 	margin:0;
 	height:24px;
+    position:absolute;
+    left:10px;
+    top:8px;
 }
-.sh input[type=text]{
-	width:30%;
-	margin:0;
-	padding:2px;
-	height:16px;
+.sh input[type=search]{
+	width:100%;
+	height:24px;
 }
-.sh .sb,
-.sh .tgb{
-	width:65px;
+.sh .sb{
+	width:80px;
 	height:24px;
 	border:1px solid #666;
 	color:#eee;
+	font-size:12px;
 	padding:0 2px;
 	background-color:#777;
 	box-shadow:0 0 1px #fff inset;
@@ -205,19 +208,10 @@ a {
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	cursor:pointer;
+    position:absolute;
+    right:10px;
+    top:8px;
 }
-.sh .tgb{
-	padding:3px;
-	border:0;
-	background-position:5px -52px;
-}
-.sh .tgb a{
-	line-height:20px;
-	width:22px;
-	padding:0 14px 0 0;
-	text-decoration:none;
-}
-
 /* Body */
 #xe_message{
 	display:none
@@ -235,10 +229,12 @@ a {
 }
 .co .xv{
 	border-bottom:1px solid #ccc8be;
-	padding-bottom:10px
+	padding-bottom:10px;
+	color:#555;
 }
 .co .xv dt{
-	font-weight:bold
+	font-weight:bold;
+	color:#333;
 }
 .bd .tags{
 	margin:0 10px 10px
@@ -278,6 +274,9 @@ a {
 }
 
 /* Global Navigation */
+h2.gn{
+	padding:0;
+}
 .gn{
 margin:0;
 padding:0;
@@ -349,7 +348,7 @@ padding-left:60px
 	margin:0;
 	padding:0;
 	list-style:none;
-	background:#f8f8f8;
+	background:#fff;
 	font-size:14px
 }
 .lt li{
@@ -372,13 +371,13 @@ font-weight:bold
 }
 .lt .title em{
 font-size:12px;
-color:#333;
 color:#6352d2;
 font-style:normal
 }
 .lt .auth,.rp .auth{
 display:block;
-font-size:12px
+font-size:12px;
+color:#555;
 }
 .lt .usept{
 	padding:0 1px;
@@ -404,7 +403,7 @@ letter-spacing:-1px
 .lt.wz li.cb ul.ifo{
 	position:relative;
 	padding:0;
-	margin:0 10px;
+	margin:0;
 	list-style:none
 }
 .lt.wz li.cb ul.ifo li{
@@ -422,7 +421,7 @@ margin-right:10px
 }
 .lt.wz li.cb .summary{
 display:block;
- color:#777;
+color:#555;
 padding-top:2px
 }
 .lt.wz li.cb .title img[alt="file"]{
@@ -568,7 +567,7 @@ padding:0
 .fsa{
 position:relative;
 height:50px;
-margin:10px 150px 0 0;
+margin:10px 150px 10px 0;
 clear:both;
 }
 .fsa:after{
@@ -839,4 +838,9 @@ color:#999
 /* member */
 span[class^="member_"]{
 cursor:pointer
+}
+/*ff*/
+@-moz-document url-prefix() {
+	.sh {padding-right:107px;}
+    .sh input[type="search"] {height:18px}
 }

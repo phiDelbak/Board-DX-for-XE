@@ -5,19 +5,21 @@
 	<div cond="$XE_VALIDATOR_MESSAGE" id="xe_message" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
+	{@ 
+		$start = true;
+		$depth = 0;
+		$cts = &$category_list;
+	}
 
 	<section class="st">
-		<h2 class="cb">
-			<a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a>
-			<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="wt">{$lang->cmd_write}</a>
+		<h2 class="cb gn">
+			<a href="{getUrl('','vid',$vid,'mid',$mid)}">
+				{$mi->browser_title}
+				<em cond="count($cts)">[{number_format($cts[0]->total_document_count)}]</em>
+			</a>
 		</h2>
 
 		<ul class="gn">
-			{@ 
-				$start = true;
-				$depth = 0;
-				$cts = &$category_list;
-			}
 			<!--@foreach($cts as $val)-->
 			<block cond="$val->category_srl">
 				<!--@if(!$start && $val->depth == $depth)-->
@@ -32,7 +34,7 @@
 				{@ $depth -= 1}
 				<!--@end-->
 				<!--@endif-->
-				<li><a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{$val->title} <em>[{$val->document_count}]</em></a>
+				<li><a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{$val->title} <em>[{number_format($val->total_document_count)}]</em></a>
 				{@ $start = false }
 				{@ $depth = $val->depth }
 			</block>

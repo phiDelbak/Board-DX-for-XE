@@ -14,18 +14,12 @@
 }
 </block>
 
-<h2 class="cb">
-    <block cond="$is_cts && $oDocument->get('category_srl')">
-        <a href="{getUrl('page','','act','','document_srl','','category_srl',$oDocument->get('category_srl'))}">{$cts[$oDocument->get('category_srl')]->title}</a>
-    </block>
-    &rsaquo; {$oDocument->getTitle()}
-    <a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="wt">{$lang->cmd_write}</a>
-</h2>
-
 <div class="pn cb ts">
-    <span class="{$dmb_srl?'member_'.$dmb_srl:'fsi'} ex">{cut_str((!$dmb_srl||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}</span>
-    &rsaquo; <time class="ex">{$oDocument->getRegdate()}</time> &rsaquo;
-    <a href="#skip_co" class="ex">{$lang->skip_content}</a>
+    <h2>{$oDocument->getTitle()}</h2>
+    <div>
+        <span class="{$dmb_srl?'member_'.$dmb_srl:'fsi'} ex">{cut_str((!$dmb_srl||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}</span>
+        &rsaquo; <time class="ex">{$oDocument->getRegdate()}</time>
+    </div>
 </div>
 
 {@

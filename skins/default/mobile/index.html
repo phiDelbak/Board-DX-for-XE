@@ -7,14 +7,36 @@
 		<p>{$XE_VALIDATOR_MESSAGE}</p>
 	</div>
 
+	<h2 class="cb">
+		<block cond="$is_cts">
+			{@ $pcatlst = array()}
+			<!--@if($category_srl)-->
+				{@ $psrl = $cts[$category_srl]->parent_srl}
+				<!--@for($i=0;$i<999;$i++)-->
+					<!--@if(!$psrl)-->{@ break;}<!--@endif-->
+					{@ 
+						$pcatlst[] = $cts[$psrl]->title;
+						$psrl = $cts[$psrl]->parent_srl;
+					}	
+				<!--@endfor-->
+			<!--@endif-->
+			<block cond="count($pcatlst)">
+				{@ $pcatlst = array_reverse($pcatlst)}
+				<span loop="$pcatlst=>$key,$val">{$key>0?'..':$val} &rsaquo;</span>
+			</block>
+			<span class="ca">
+				<a href="{getUrl('page','','act','dispBeluxeMobileCategory','')}">
+					{$category_srl?$cts[$category_srl]->title:$mi->browser_title}</a>
+				<em>[{number_format($category_srl?$cts[$category_srl]->total_document_count:$cts[0]->total_document_count)}]</em>
+			</span>
+		</block>
+    	<span cond="!$is_cts">{$mi->browser_title}</span>
+		<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="wt">{$lang->cmd_write}</a>
+	</h2>
+
 	<!--@if($is_doc)-->
 		<include target="_read.html" />
 	<!--@else-->
-		<h2 class="cb">
-			<span><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> <em>[{number_format($total_count)}]</em></span>
-			<a cond="$is_cts" href="{getUrl('page','','act','dispBeluxeMobileCategory','')}" class="ca">{$cts[(int)$category_srl]->title}</a>
-			<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="wt">{$lang->cmd_write}</a>
-		</h2>
 
 		<div cond="$mi->title||$mi->sub_title||$mi->board_desc" class="pn cb ts">
 			<h3 cond="$mi->title||$mi->sub_title">{$mi->title} - {$mi->sub_title}</h3>
@@ -36,12 +58,11 @@
 			<a cond="$copyright_text" href="{$copyright_text[1]}" target="_blank" class="lic fr">{$copyright_text[0]}</a>
 		</div>
 
-		<div class="sh">
+		<div class="sh cb">
 			<form action="{getUrl()}" method="get">
 				<input type="hidden" name="vid" value="{$vid}" />
 				<input type="hidden" name="mid" value="{$mid}" />
 				<input type="hidden" name="category" value="{$category}" />
-				<span class="tgb"><a href="{getUrl('act','dispBoardTagList')}" title="{$lang->tag}">&nbsp;</a></span>
 				<select name="search_target">
 					<option loop="$ci=>$key,$val" cond="$val->search=='Y'" value="{$key}" selected="selected"|cond="$key==$search_target">{$val->name}</option>
 					<option cond="$search_target&&$ci[$search_target]->search!='Y'" value="{$search_target}" selected="selected">{Context::getLang($search_target)}</option>
