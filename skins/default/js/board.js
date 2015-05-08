@@ -51,14 +51,17 @@ jQuery(function($)
 	$('form.pid_ajax-form')
 	.submit(function()
 	{
-		var params = {};
-		$(this).find(':input[name]').each(function() {
-			var $this = $(this), name = $this.attr('name');
-			switch($this.attr('type')) {
-				case 'checkbox': params[name] = $this.is(":checked")?'Y':'N';	
-					break;
-				default: params[name] = $this.val();
-					break;
+		var params = {}, data = $(this).serializeArray();
+
+		$.each(data, function(i, field) {
+			var v = $.trim(field.value), n = field.name;
+			if(!v || !n) return true;
+
+			if(/\[\]$/.test(n)) n = n.replace(/\[\]$/, '');
+			if(params[n]) {
+				params[n] += '|@|'+v;
+			} else {
+				params[n] = field.value;
 			}
 		});
 
