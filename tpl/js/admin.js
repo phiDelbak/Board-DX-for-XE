@@ -3,8 +3,6 @@
  * @update 2011/08/08
  **/
 
-var __XEFM_NAME__ = 'beluxe';
-
 String.prototype.ucfirst = function()
 {
 	var s=this;return s.charAt(0).toUpperCase() + s.slice(1);
@@ -12,36 +10,7 @@ String.prototype.ucfirst = function()
 
 jQuery(function($)
 {
-	var sjAdmTempKey = -1;
-
-/*
- * 	구버전용 언어 코드 찾기 (xe.1.5.x)
-	function open_find_langcode(tar)
-	{
-		if(tar == undefined || !tar) return false;
-		var url = request_uri.setQuery('module','module').setQuery('act','dispModuleAdminLangcode').setQuery('target',tar);
-		// ie error prevention
-		var iefix = tar.replace(/-/gi,'_');
-		try {
-			if(typeof(winopen_list[iefix]) != 'undefined' && winopen_list[iefix]) {
-				winopen_list[iefix].close();
-				winopen_list[iefix] = null;
-			}
-		} catch(e) {
-		}
-		var win = window.open(url, iefix, "width=650,height=500,scrollbars=yes,resizable=yes,toolbars=no");
-		winopen_list[iefix] = win;
-		// ie not working
-		//$(win).unload(function() {$('#' + tar, parent.document).focus();});
-		var timer = setInterval(function() {
-			if(win != undefined && win.closed) {
-				clearInterval(timer);
-				$('#' + tar).focus();
-			}
-		}, 500);
-		return false;
-	}
-*/
+	var dxvAdmTempKey = -1;
 
 	$.fn.dxfStMapinit = function()
 	{
@@ -58,7 +27,7 @@ jQuery(function($)
 			var $th = $(this), $pkey, is_child;
 
 			$pkey = $th.find('>input._parent_key');
-			is_child = !!$th.parent('ul').parent('li').length;
+			is_child = $th.parent('ul').parent('li').length;
 
 			if(is_child) {
 				$pkey.val($th.parent('ul').parent('li').find('>input._item_key').val());
@@ -75,7 +44,7 @@ jQuery(function($)
 				.find('input,select').removeAttr('disabled').end()
 				.find('label').removeAttr('for','').end()
 				.find('label>input').removeAttr('id','').end()
-				.find('input._item_key').val(sjAdmTempKey--).end()
+				.find('input._item_key').val(dxvAdmTempKey--).end()
 				.show()
 				.appendTo($('ul#nav_category', $this))
 				.find('._lang_code').xeApplyMultilingualUI();
@@ -88,10 +57,10 @@ jQuery(function($)
 			var module_srl = $(this).closest('form').find('>input[name=module_srl]').val(),
 				category_srl = $(this).closest('li').find('>input._item_key').val(),
 				params = {'module_srl':module_srl,'category_srl':category_srl},
-				cateFuncDel = 'proc' + (__XEFM_NAME__).ucfirst() + 'AdminDeleteCategory';
+				cateFuncDel = 'beluxe.procBeluxeAdminDeleteCategory';
 
 			if(category_srl > 0){
-				exec_xml(__XEFM_NAME__, cateFuncDel, params, completeCallModuleAction);
+				exec_json(cateFuncDel, params, completeCallModuleAction);
 			}else{
 				$(this).closest('li').remove();
 			}
@@ -249,9 +218,9 @@ jQuery(function($)
 			var module_srl = $(this).closest('form').find('>input[name=module_srl]').val(),
 				extra_idx = $(this).closest('.wrap').find('>input._extra_idx').val(),
 				params = {'module_srl':module_srl,'extra_idx':extra_idx},
-				cateFuncDel = 'proc' + (__XEFM_NAME__).ucfirst() + 'AdminDeleteExtraKey';
+				cateFuncDel = 'beluxe.procBeluxeAdminDeleteExtraKey';
 			if(extra_idx != undefined && extra_idx !== 0)
-				exec_xml(__XEFM_NAME__, cateFuncDel, params, completeCallModuleAction);
+				exec_json(cateFuncDel, params, completeCallModuleAction);
 			else $(this).closest('tr').remove();
 			return false;
 		});
@@ -309,7 +278,7 @@ jQuery(function($)
 			}
 			else
 			{
-				exec_xml('beluxe', 'getBeluxeAdminSkinTypes',  {skin : skin},
+				exec_json('beluxe.getBeluxeAdminSkinTypes',  {skin : skin},
 					function(ret) {
 						if(ret['error']=='0')
 						{
@@ -322,8 +291,7 @@ jQuery(function($)
 
 						$li.find('> p.msg_call_server').hide();
 						$li.next().show();
-					},
-					['html','error','message']
+					}
 				);
 			}
 		});
@@ -334,8 +302,8 @@ jQuery(function($)
 			opt = $(this).attr('data-option') || '',
 			module_srl = $(this).closest('form').find('>input[name=module_srl]').val(),
 			params = {'module_srl':module_srl,'option':opt},
-			cateFuncMake = 'proc' + (__XEFM_NAME__).ucfirst() + 'AdminMake' + mode.ucfirst() + 'Cache';
-		exec_xml(__XEFM_NAME__, cateFuncMake, params, completeCallModuleAction);
+			cateFuncMake = 'beluxe.procBeluxeAdminMake' + mode.ucfirst() + 'Cache';
+		exec_json(cateFuncMake, params, completeCallModuleAction);
 		return false;
 	});
 
@@ -421,22 +389,6 @@ jQuery(function($)
 			if(t) a[n][t].show();
 		});
 	});
-
-	// $(".dx_skininfo input[type=radio]").click(function(){
-	// 	var t = $(this).attr('data-info-target')||'';
-	// });, $(this).closest('.x_controls')
-
-	// $('.dx_skininfo input[type=radio][data-info-target]').each(function() {
-	// 	var t = $(this).attr('data-info-target')||'';
-	// 		if(!t) return;
-	// 		alert('uncheckd ' + $(this).val());
-	// 	
-	// 	$(this).on('change', function()
-	// 	{
-	// 		//if(!$(this).is(':checked'))
-	// 		alert('uncheckd ' + $(this).val());
-	// 	}); 
-	// });
 
 
 	$('#dxiStMapFrm').dxfStMapinit();

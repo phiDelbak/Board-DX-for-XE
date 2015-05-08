@@ -76,7 +76,7 @@ jQuery(function($)
 			}
 		}
 
-		$.exec_json(params.mid+'.'+params.act, params, pidCallbackSucess, pidCallbackError);
+		exec_json(params.mid+'.'+params.act, params, pidCallbackSucess, pidCallbackError);
 		return false;
 	});
 
