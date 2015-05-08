@@ -35,7 +35,7 @@
 						<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
 						<span cond="$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
 						<!--@else-->
-						<span cond="$t_cmtn || $t_tbkn">{$lang->comment_count}</span>
+						<span>{$t_cmtn||$t_tbkn?$lang->comment_count:'&nbsp;'}</span>
 						<!--@endif-->
 						<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
 					</div>

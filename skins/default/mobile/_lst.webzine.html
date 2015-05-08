@@ -30,7 +30,7 @@
 						$t_cmtn = $document->getCommentCount();
 						$t_tbkn = $document->getTrackbackCount();
 					}
-					<span cond="$t_cmtn || $t_tbkn">{$lang->comment_count}</span>
+					<span>{$t_cmtn||$t_tbkn?$lang->comment_count:'&nbsp;'}</span>
 					<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
 				</div>
 				<div class="nick">						
