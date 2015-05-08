@@ -4,8 +4,8 @@
 
 {@ $module_info->default_category_title ? 0 : $module_info->default_category_title = Context::getLang('category')}
 
-<div id="siteMapFrame">
-	<form  class="x_form-horizontal siteMap" id="menu_{$menuSrl}" method="post">
+<div id="dxiStMapFrm">
+	<form  class="x_form-horizontal dxcStMap" id="menu_{$menuSrl}" method="post">
 	<input type="hidden" name="module" value="{$module=='admin'?'admin':$module_info->module}" />
 	<input type="hidden" name="act" value="procBeluxeAdminInsertCategory" />
 	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />
@@ -70,9 +70,9 @@
 <script type="text/javascript">
 //<![CDATA[
 xe.lang.confirm_delete = "{$lang->confirm_delete}";
-var addSitemapMenuSampleOption = [];
-addSitemapMenuSampleOption['0'] = '<dt data-val="" class="defi">{$lang->is_default}</dt><dt loop="$type_list=>$g_key,$g_val" data-val="{$g_key}">{$g_val->title}</dt>';
-addSitemapMenuSampleOption['1'] = '<dt class="defi text"><select><option value="N">{$lang->collapse}</option><option value="Y">{$lang->expand}</option></select></dt> \
+var dxvAddStmapMenuSample = [];
+dxvAddStmapMenuSample['0'] = '<dt data-val="" class="defi">{$lang->is_default}</dt><dt loop="$type_list=>$g_key,$g_val" data-val="{$g_key}">{$g_val->title}</dt>';
+dxvAddStmapMenuSample['1'] = '<dt class="defi text"><select><option value="N">{$lang->collapse}</option><option value="Y">{$lang->expand}</option></select></dt> \
 <dt class="defi"><input type="text" id="item_color" value="" class="color-indicator" /></dt> \
 <dt>-- navigation ---</dt> \
 <dt class="text"><label><select> \

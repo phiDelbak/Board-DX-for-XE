@@ -43,18 +43,18 @@ jQuery(function($)
 	}
 */
 
-	$.fn.bdxSiteMapinit = function()
+	$.fn.dxfStMapinit = function()
 	{
 		var $this = $(this);
 
-		$('form.siteMap', $this).delegate('li:not(.placeholder)', {'mousedown.st' : function(event) {
+		$('form.dxcStMap', $this).delegate('li:not(.placeholder)', {'mousedown.st' : function(event) {
 			if($(event.target).is('.side .cbSelect,span.x_input-append *')) {
 				event['which'] = 0;
 			}
 			return;
 		}});
 
-		$('form.siteMap', $this).delegate('li:not(.placeholder)', 'dropped.st', function() {
+		$('form.dxcStMap', $this).delegate('li:not(.placeholder)', 'dropped.st', function() {
 			var $th = $(this), $pkey, is_child;
 
 			$pkey = $th.find('>input._parent_key');
@@ -144,7 +144,7 @@ jQuery(function($)
 					$dl.appendTo('body');
 
 					if(oidx != undefined) {
-						$dl.html(addSitemapMenuSampleOption[oidx]);
+						$dl.html(dxvAddStmapMenuSample[oidx]);
 						if($dl.attr('default')=='default') $('dt.defi,option.defi',$dl).remove();
 						if(oidx=='1') {
 							var col = $('._item_color', $th).val() || '', tval = $('._value', $th).val();
@@ -186,7 +186,7 @@ jQuery(function($)
 					}
 				}
 
-				var $ch = $('#siteMapFrame');
+				var $ch = $('#dxiStMapFrm');
 				$dl.css('left', ($th.offset().left - 8) + 'px');
 
 				if(
@@ -203,7 +203,7 @@ jQuery(function($)
 		});
 	};
 
-	$.fn.bdxExtraKeyinit = function()
+	$.fn.dxfExtraKeyinit = function()
 	{
 		var $this = $(this);
 
@@ -257,7 +257,7 @@ jQuery(function($)
 		});
 	};
 
-	$.fn.bdxColumninit = function()
+	$.fn.dxfColumninit = function()
 	{
 		$('input:checkbox.column_option', this).click(function()
 		{
@@ -270,7 +270,7 @@ jQuery(function($)
 		});
 	};
 
-	$.fn.bdxInsertinit = function()
+	$.fn.dxfInsertinit = function()
 	{
 		var f = this;
 
@@ -439,8 +439,8 @@ jQuery(function($)
 	// });
 
 
-	$('#siteMapFrame').bdxSiteMapinit();
-	$('#columnFrame').bdxColumninit();
-	$('#extraKeyFrame').bdxExtraKeyinit();
-	$('form#insertFrame').bdxInsertinit();
+	$('#dxiStMapFrm').dxfStMapinit();
+	$('#dxiColumnFrm').dxfColumninit();
+	$('#dxiExtraKeyFrm').dxfExtraKeyinit();
+	$('#dxiInsertFrm').dxfInsertinit();
 });
