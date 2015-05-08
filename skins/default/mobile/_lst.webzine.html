@@ -20,21 +20,24 @@
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 	}
 		<a href="{getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
-			<span class="title"><span cond="$tlk" class="{$tlk}">{$tlk=='best'?'Best':$lang->notice}</span>
+			<div class="title"><span cond="$tlk" class="{$tlk}">{$tlk=='best'?'Best':$lang->notice}</span>
 				<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
 				{$document->printExtraImages(60*60*$mi->duration_new)}<img class="ise world" src="../img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
-			</span>
-			<span class="auth">
-				<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
-				<span cond="!$tlk&&$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
-				<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span> &rsaquo;
-				<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
-				{@
-					$t_cmtn = $document->getCommentCount();
-					$t_tbkn = $document->getTrackbackCount();
-				}
-				<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
-			</span>
+			</div>
+			<div class="auth cb">
+				<div class="fl">	
+					{@
+						$t_cmtn = $document->getCommentCount();
+						$t_tbkn = $document->getTrackbackCount();
+					}
+					<span cond="$t_cmtn || $t_tbkn">{$lang->comment_count}</span>
+					<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
+				</div>
+				<div class="nick">						
+					<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span> &rsaquo;
+					<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
+				</div>
+			</div>
 		</a>
 	</li>
 </ul>
@@ -68,8 +71,12 @@
 					</div>
 				</li>
 				<li class="auth">
-					<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span> &rsaquo;
-					<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
+					<!--@if($is_cts || $ds_cstus)-->
+					<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
+					<span cond="$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
+					<!--@else-->
+					<span>{$lang->comment_count}</span>
+					<!--@endif-->
 					{@
 						$t_cmtn = $document->getCommentCount();
 						$t_tbkn = $document->getTrackbackCount();
@@ -78,9 +85,11 @@
 				</li>
 				<li cond="$ds_summary"><span class="summary">&deg; {$is_blind?$lang->msg_is_blind:$document->getSummary($mi->summary_length)}</span></li>
 				<li cond="$ds_cstus||$is_cts" class="auth cb">
-					<div class="fr">
-						<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
-						<span cond="$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
+					<div class="nick">
+						<block cond="$ds_nick||$ds_user">
+						<span class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span> &rsaquo;
+						</block> 
+						<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
 					</div>
 				</li>
 			</ul>

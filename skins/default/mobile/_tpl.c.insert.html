@@ -7,6 +7,7 @@
 <h2 class="cb">
 	<block cond="$is_cmt || $is_par">{$lang->comment.' '.$lang->no}: {$is_par?$oSourceComment->comment_srl.' - ':$comment_srl}</block>
 	<block cond="!$is_cmt">{$not_permitted?$lang->msg_input_password:$lang->new_comment}</block>
+	<a href="#" onclick="history.back(-1);return false;" class="wt bk">{$lang->cmd_back}</a>
 </h2>
 
 <!--@if($not_permitted)-->
@@ -31,13 +32,6 @@
 		$ds_user =	$ci['user_name']->display == 'Y';
 	}
 
-<block cond="$oSourceComment->isExists()">
-	<div class="origin">{$lang->comment}:
-		<strong>{cut_str((!$oSourceComment->get('member_srl')||$ds_nick||!$ds_user)?$oSourceComment->getNickName():$oSourceComment->getUserName(), $mi->nickname_length)}</strong>
-	</div>
-	<div class="origin">{$oSourceComment->getContentText(255)}</div>
-</block>
-
 <form ruleset="insertComment" action="./" method="post" class="ff tgo open">
 	<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 	<input type="hidden" name="act" value="procBoardInsertComment" />
@@ -45,6 +39,16 @@
 	<input type="hidden" name="document_srl" value="{$document_srl}" />
 	<input type="hidden" name="comment_srl" value="{$oComment->comment_srl}" />
 	<ul>
+
+		<li cond="$oSourceComment->isExists()">
+			<h3>{$lang->comment}:
+				{cut_str((!$oSourceComment->get('member_srl')||$ds_nick||!$ds_user)?$oSourceComment->getNickName():$oSourceComment->getUserName(), $mi->nickname_length)}
+			</h3>
+			<hr />
+			<p>{$oSourceComment->getContentText(255)}</p>
+			<hr />
+		</li>
+
 		<block cond="!$is_logged">
 			<li cond="$mi->use_input_guest_info != 'N'">
 				<label for="uName">{$lang->writer}</label>
@@ -67,7 +71,7 @@
 					<input name="homepage" type="url" id="uSite" maxlength="250" value="{htmlspecialchars($oComment->get('homepage'))}" />
 				</li>
 			</block>
-			<li class="hr"><hr /></li>
+			<li><hr /></li>
 		</block>
 		<block cond="$is_logged">
 			<input type="hidden" name="nick_name" value="1" />

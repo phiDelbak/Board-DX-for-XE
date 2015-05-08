@@ -1,8 +1,9 @@
 {@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
 
 <h2 class="cb">
-	<block cond="$is_doc"><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> - {$lang->document.' '.$lang->no}: {$document_srl}</block>
-	<block cond="!$is_doc"><a href="{getUrl('','vid',$vid,'mid',$mid)}">{$mi->browser_title}</a> - {$not_permitted?$lang->msg_input_password:$lang->new_document}</block>
+	<block cond="$is_doc">{$lang->document.' '.$lang->no}: {$document_srl}</block>
+	<block cond="!$is_doc">{$not_permitted?$lang->msg_input_password:$lang->new_document}</block>
+	<a href="#" onclick="history.back(-1);return false;" class="wt bk">{$lang->cmd_back}</a>
 </h2>
 
 <!--@if($not_permitted)-->
@@ -100,6 +101,7 @@
 				</label>
 			</li>
 			<block cond="$is_logged && ($pt_vtype!='N'||$pt_dtype!='N')">
+				<li><hr /></li>
 				<li>
 					<label>
 						{$lang->point}
@@ -122,12 +124,12 @@
 			</block>
 			{@ $extra_keys = $oThis->getDocumentExtraVars($is_doc?$oDocument->document_srl:0)}
 			<block cond="count($extra_keys)">
-				<li class="hr"><hr /></li>
+				<li><hr /></li>
 				<li loop="$extra_keys => $key,$val" class="exvar">
 					<label for="ex_{$val->name}" class="exnm">{$val->name} <span cond="$val->is_required=='Y'" class="required">*</span></label>
 					{$val->getFormHTML()}
 				</li>
-				<li class="hr"><hr /></li>
+				<li><hr /></li>
 			</block>
 			<block cond="!$is_logged">
 				<li cond="$mi->use_input_guest_info != 'N'">
@@ -151,7 +153,7 @@
 						<input name="homepage" type="url" id="uSite" maxlength="250" value="{htmlspecialchars($oDocument->get('homepage'))}" />
 					</li>
 				</block>
-				<li class="hr"><hr /></li>
+				<li><hr /></li>
 			</block>
 			<block cond="$is_logged">
 				<input type="hidden" name="nick_name" value="1" />
@@ -163,7 +165,7 @@
 				<textarea name="content" cols="20" rows="8" id="nText">{$is_doc?$oDocument->getContentText():htmlspecialchars($mi->document_default_content)}</textarea>
 			</li>
 			<li cond="$mi->use_mobile_uploader == 'Y'">
-				<div id="fUloader" class="fsa">
+				<div id="fUloader">
 					<div class="fpv"></div>
 					<div class="fls"><select id="siFiles" class="fl" onchange="pidFilePreview();"></select></div>
 					<div class="fct">
