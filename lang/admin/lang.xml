@@ -215,9 +215,9 @@
 			<value xml:lang="en"><![CDATA[list count]]></value>
 		</item>
 		<item name="date_list">
-			<value xml:lang="ko"><![CDATA[1,3,7,15,30,60,90,180]]></value>
-			<value xml:lang="jp"><![CDATA[1,3,7,15,30,60,90,180]]></value>
-			<value xml:lang="en"><![CDATA[1,3,7,15,30,60,90,180]]></value>
+			<value xml:lang="ko"><![CDATA[1,3,7,15,30,60,90,180,360]]></value>
+			<value xml:lang="jp"><![CDATA[1,3,7,15,30,60,90,180,360]]></value>
+			<value xml:lang="en"><![CDATA[1,3,7,15,30,60,90,180,360]]></value>
 		</item>
 		<item name="more_list">
 			<value xml:lang="ko"><![CDATA[1,3,5,10,15,30,50,100,300,500,1000]]></value>
@@ -320,7 +320,11 @@
 		<value xml:lang="ko"><![CDATA[메뉴 추가]]></value>
 		<value xml:lang="en"><![CDATA[Add Menu Item]]></value>
 		<value xml:lang="jp"><![CDATA[メニュー追加]]></value>
-		<value xml:lang="zh-TW"><![CDATA[追加選單]]></value>
+	</item>
+	<item name="full_search">
+		<value xml:lang="ko"><![CDATA[전부 검색]]></value>
+		<value xml:lang="en"><![CDATA[전부 검색]]></value>
+		<value xml:lang="jp"><![CDATA[전부 검색]]></value>
 	</item>
 	<item name="use_robots_meta">
 		<value xml:lang="ko"><![CDATA[검색 로봇 제한]]></value>

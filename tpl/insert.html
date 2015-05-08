@@ -289,6 +289,7 @@
 					<select name="best_c_date">
 						{@ $date_count = explode(',',$lang->best_options['date_list'])}
 						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->best_c_date == $val">{$val} before</option>
+						<option value="-1" selected="selected"|cond="$module_info->best_c_date == '-1'">{$lang->full_search}</option>
 					</select>
 					{$lang->best_options['date']}
 				</label>

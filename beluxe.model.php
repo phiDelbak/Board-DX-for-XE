@@ -489,8 +489,11 @@ class beluxeModel extends beluxe
             $cache_key = $oCacheNew->getGroupKey('bestCommentList', $object_key);
             if ($oCacheNew->isValid($cache_key)) return $oCacheNew->get($cache_key);
         }
-        
-        $start_date = date('YmdHis', time() - (60 * 60 * 24 * (int)$oModIfo->best_c_date));
+
+        if((int)$oModIfo->best_c_date != -1)        
+        {
+            $start_date = date('YmdHis', time() - (60 * 60 * 24 * (int)$oModIfo->best_c_date));
+        } 
         
         $args->document_srl = $a_docsrl;
         $args->list_count = $list_count;
@@ -500,7 +503,6 @@ class beluxeModel extends beluxe
         $args->order_type = 'desc';
         $out = executeQueryArray('beluxe.getBestCommentList', $args, $a_collst);
         if (!$out->toBool() || !$out->data) return;
-        
         $out->data = $this->_setCommentItem($out->data);
         
         //insert in cache
