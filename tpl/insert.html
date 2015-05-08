@@ -5,7 +5,7 @@
 	<p cond="count($module_backup_options)">{$lang->msg_module_backup_options}</p>
 </div>
 
-<form ruleset="insertBeluxe" action="./" method="post" enctype="multipart/form-data" class="x_form-horizontal" id="insertFrame">
+<form ruleset="insertBeluxe" action="./" method="post" enctype="multipart/form-data" class="x_form-horizontal" id="dxiInsertFrm">
 <input cond="!$m_allset_targets&&!$m_copy_target" type="hidden" name="module_srl" value="{$module_info->module_srl}" />
 <input type="hidden" name="module" value="{$module=='admin'?'admin':$module_info->module}" />
 <input type="hidden" name="act" value="procBeluxeAdminInsert" />

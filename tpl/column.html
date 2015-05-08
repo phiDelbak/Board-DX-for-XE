@@ -3,7 +3,7 @@
 	$dis_sort = array('comment'=>true,'thumbnail'=>true,'tag'=>true);
 	$dis_search = array('no'=>true,'thumbnail'=>true,'category_srl'=>true,'last_updater'=>true,'blamed_count'=>true,'custom_status'=>true);
 }
-<form id="columnFrame" class="x_form-horizontal" action="./" method="post" enctype="multipart/form-data">
+<form id="dxiColumnFrm" class="x_form-horizontal" action="./" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="module" value="{$module=='admin'?'admin':$module_info->module}" />
 	<input type="hidden" name="act" value="procBeluxeAdminColumnSetting" />
 	<input type="hidden" name="module_srl" value="{$module_info->module_srl}" />

@@ -5,7 +5,7 @@ var
 	pid_dragging = false,
 	$pidPholder  = $('<li class="placeholder">');
 
-$('form.siteMap')
+$('#dxiStMapFrm form.dxcStMap')
 	.delegate('li:not(.placeholder)', {
 		'mousedown.st' : function(event) {
 			var $this, $uls, $ul, width, height, offset, position, offsets, i, dropzone, wrapper='';
@@ -17,7 +17,7 @@ $('form.siteMap')
 			$this  = $(this);
 			height = $this.height();
 			width  = $this.width();
-			$uls   = $this.parentsUntil('.siteMap').filter('ul');
+			$uls   = $this.parentsUntil('.dxcStMap').filter('ul');
 			$ul    = $uls.eq(-1);
 
 			$ul.css('position', 'relative');
@@ -142,31 +142,6 @@ $('form.siteMap')
 	.find('li')
 		.prepend('<button type="button" class="moveTo">Move to</button>')
 		.append('<span class="vr"></span><span class="hr"></span>')
-		/*.find('input:text')
-			.focus(function(){
-				var $this = $(this), $label = $this.prev('label'), $par = $this.parent();
-
-				$this.width($par.width() - (parseInt($par.css('text-indent'))||0) - $this.next('.side').width() - 60).css('opacity', '');
-				$label.hide();
-			})
-			.blur(function(){
-				var $this = $(this), $label = $this.prev('label'), val = $this.val();
-
-				$this.width(0).css('opacity', 0);
-				$label.removeClass('no-text').empty().text(val).show();
-				if(!val) $label.addClass('no-text').text('---');
-			})
-			.each(function(i,input){
-				var $this = $(this), id='sitemap-id-'+i;
-
-				$this
-					.attr('id', id)
-					.css({width:0,opacity:0,overflow:'hidden'})
-					.before('<label />')
-						.prev('label')
-						.attr('for', id)
-						.text($this.val());
-			})*/
 		.end()
 	.end()
 
