@@ -829,7 +829,7 @@ class beluxeAdminController extends beluxe
             $ms_vars = $cmModule->getModuleMobileSkinVars($mod_srl);
 
             $obj = new stdClass();
-            foreach ($ms_vars as $val) $obj->{$val->name} = $obj->value;
+            foreach ($ms_vars as $val) $obj->{$val->name} = $val->value;
 
             // 공유설정 바꾸기
             foreach ($msync as $key)

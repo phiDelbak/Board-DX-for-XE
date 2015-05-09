@@ -32,7 +32,6 @@
 	$is_webzine = true;
 }
 </block>
-
 <ul id="cl" class="rp tgo open">
 <li>
 	<ul loop="$a_clsttp => $tlk,$p_list" cond="count($p_list)">
@@ -40,6 +39,7 @@
 		{@ $depth = $comment->get('depth') }
 		<li class="{$depth?'dep':''}" style="margin-left:{($depth*20)}px">
 		<div class="cb">
+
 			<a name="comment_{$comment->comment_srl}"></a>
 			{@
 				$cmt_srl = $comment->get('comment_srl');

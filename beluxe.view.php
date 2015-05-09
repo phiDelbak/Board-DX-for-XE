@@ -45,6 +45,11 @@ class beluxeView extends beluxe
         $oModIfo->default_page_count = $navi[3] ? $navi[3] : 10;
         $oModIfo->default_clist_count = $navi[4] ? $navi[4] : 50;
 
+        if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
+            $oModIfo->skin = 'default';
+            $oModIfo->mskin = '../skins/'.$oModIfo->skin.'/mobile';
+        }
+
         $oModIfo->module_srl = $this->module_srl;
         $this->module_info = $oModIfo;
         Context::set('module_info', $oModIfo);
@@ -76,14 +81,7 @@ class beluxeView extends beluxe
 
     function _templateFileLoad($a_file)
     {
-        $oModIfo = $this->module_info;
-        if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
-            $oModIfo->skin = 'default';
-            $oModIfo->mskin = '../skins/'.$oModIfo->skin.'/mobile';
-            $this->module_info = $oModIfo;
-            Context::set('module_info', $oModIfo);
-        }
-
+        $oModIfo = $this->module_info ? $this->module_info : Context::get('module_info');
         $mobile = Mobile::isFromMobilePhone()?'mobile/':'';
         $tpl_path = sprintf('%sskins/%s/'.$mobile, $this->module_path, $oModIfo->skin);
         if(!is_dir($tpl_path)) return $this->stop('msg_skin_does_not_exist');

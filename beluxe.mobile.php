@@ -29,8 +29,9 @@ class beluxeMobile extends beluxeView
 		$lst_cfg = $cmThis->getColumnInfo($this->module_srl);
 		Context::set('column_info', $lst_cfg);
 
+
 		$cvThis = &getView(__XEFM_NAME__);
-		$tpl_path = $cvThis->_templateFileLoad('');
+		$tpl_path = $cvThis->_templateFileLoad('comment');
 
 		$oTplNew = new TemplateHandler;
 		$html = $oTplNew->compile($tpl_path, "comment.html");
@@ -45,7 +46,7 @@ class beluxeMobile extends beluxeView
 		Context::set('category_list', $cate_lst);
 
 		$cvThis = &getView(__XEFM_NAME__);
-		$tpl_path = $cvThis->_templateFileLoad('');
+		$tpl_path = $cvThis->_templateFileLoad('category');
 
         $this->setTemplatePath($tpl_path);
         $this->setTemplateFile('category');
