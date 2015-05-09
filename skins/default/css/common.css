@@ -132,9 +132,9 @@
 .scBtn.group a:first-child {
     border-left:0!important
 }
-.scBtn input[type="text"], 
-.scBtn input[type="password"], 
-.scBtn input[type="email"], 
+.scBtn input[type="text"],
+.scBtn input[type="password"],
+.scBtn input[type="email"],
 .scBtn input[type="url"] {
     padding:0 5px!important
 }
@@ -237,10 +237,10 @@
     color:#111;
     text-decoration:underline
 }
-#siBody input[type="text"], 
-#siBody input[type="password"], 
-#siBody input[type="email"], 
-#siBody input[type="url"] , 
+#siBody input[type="text"],
+#siBody input[type="password"],
+#siBody input[type="email"],
+#siBody input[type="url"] ,
 #siBody textarea, #siBody select {
     padding:2px;
     border:1px solid #bbb;
@@ -248,20 +248,20 @@
     -moz-border-radius:2px;
     -webkit-border-radius:2px
 }
-#siBody input[type="text"][readonly], 
-#siBody input[type="password"][readonly], 
-#siBody input[type="email"][readonly], 
-#siBody input[type="url"][readonly], 
-#siBody textarea[readonly], 
+#siBody input[type="text"][readonly],
+#siBody input[type="password"][readonly],
+#siBody input[type="email"][readonly],
+#siBody input[type="url"][readonly],
+#siBody textarea[readonly],
 #siBody select[readonly] {
     color:#7763EB;
     background-color:#ddd
 }
-#siBody input[type="text"][disabled], 
-#siBody input[type="password"][disabled], 
-#siBody input[type="email"][disabled], 
-#siBody input[type="url"][disabled], 
-#siBody textarea[disabled], 
+#siBody input[type="text"][disabled],
+#siBody input[type="password"][disabled],
+#siBody input[type="email"][disabled],
+#siBody input[type="url"][disabled],
+#siBody textarea[disabled],
 #siBody select[disabled] {
     color:#909090;
     background-color:#ddd
@@ -1397,7 +1397,7 @@
     min-height:50px;
     background:url(../img/common/thum_secret.png) no-repeat right bottom
 }
-#siFbk .btnAdopt{    
+#siFbk .btnAdopt{
     position:absolute;
     top:0;
     right:0;
@@ -1474,6 +1474,12 @@
 #siFbk .scFbWt .scWopts label:first-child *:first-child {
     margin-left:0
 }
+#siFbk .scFbWt .scWopts .fl label{
+    margin-right:5px
+}
+#siFbk .scFbWt .scWopts .fr label{
+    margin-left:5px
+}
 #siFbk .scFbWt .scWcont {
     padding-right:158px
 }
@@ -1517,6 +1523,11 @@
     width:16%;
     max-width:120px
 }
+#siFbk .scFbWt.nipt{
+    text-align:right
+}
+
+
 /* Write */
 
 #siWrt .scCpar {
@@ -1986,9 +1997,9 @@
     font-family:Tahoma!important;
     text-shadow:none!important
 }
-#siBody .scLaEt input[type="text"], 
-#siBody .scLaEt input[type="password"], 
-#siBody .scLaEt input[type="email"], 
+#siBody .scLaEt input[type="text"],
+#siBody .scLaEt input[type="password"],
+#siBody .scLaEt input[type="email"],
 #siBody .scLaEt input[type="url"] {
     padding:2px 2px 2px 43px
 }

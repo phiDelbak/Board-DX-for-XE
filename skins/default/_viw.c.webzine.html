@@ -38,23 +38,12 @@
 	<div id="siFbk" class="cmt web clearBar"><a name="comment" data-scroll="true"|cond="$comment_srl"></a>
 		<div class="scFbH scToggle" data-target="#siFbk .scCmtWebFrm.d{$doc_srl}">
 			<h2>
-			<!--@if(!$is_voted && $mi->use_input_comment_writer == 'N')-->
-				<span>					
-	        		{@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWriteComment" data-modal-param="comment_srl,,parent_srl,,document_srl,'.$doc_srl.',is_topic_vote,agree"':''}
-					<a href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl','','document_srl',$doc_srl,'is_topic_vote','agree')}" accesskey="z" {$s}>{$lang->cmd_agree} {count($agree_list)}</a>
-				</span>
-				<span class="fr">
-	        		{@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWriteComment" data-modal-param="comment_srl,,parent_srl,,document_srl,'.$doc_srl.',is_topic_vote,disagree"':''}
-					<a href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl','','document_srl',$doc_srl,'is_topic_vote','disagree')}" accesskey="x" {$s}>{$lang->cmd_disagree} {count($disagree_list)}</a>
-				</span>
-			<!--@else-->
 				<span>
 					{$lang->cmd_agree} <em class="colBlue">{$agree_cnt}/{count($agree_list)}</em>
 				</span>
 				<span class="fr">
 					{$lang->cmd_disagree} <em class="colRed">{$disagree_cnt}/{count($disagree_list)}</em>
 				</span>
-			<!--@endif-->
 			</h2>
 		</div>
 
@@ -123,16 +112,16 @@
 							</div>
 
 							<div class="action">
-								<block cond="$grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()"> 
-									{@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWriteComment" data-modal-param="comment_srl,,parent_srl,'.$cmt_srl.',document_srl,'.$doc_srl.'"':''}
-									<a href="{$us_modal?'#sipidModalFrame':getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl,'document_srl',$doc_srl)}" {$s}>{$lang->cmd_reply}</a>
+								<block cond="$grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()">
+									{@ $s = $us_modal?'class="reply pidModalAnchor" data-modal-act="dispBoardWriteComment" data-modal-param="comment_srl,,parent_srl,'.$cmt_srl.',document_srl,'.$doc_srl.'"':'class="reply"'}
+									<a href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl,'document_srl',$doc_srl)}" {$s}>{$lang->cmd_reply}</a>
 								</block>
 								<block cond="!$is_blind&&$comment->isEditable()">
-									{@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWriteComment" data-modal-param="comment_srl,'.$cmt_srl.',document_srl,'.$doc_srl.'"':''}
-									<a href="{$us_modal?'#sipidModalFrame':getUrl('act','dispBoardWriteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" {$s}>{$lang->cmd_modify}</a>
-									{@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardDeleteComment" data-modal-param="comment_srl,'.$cmt_srl.',document_srl,'.$doc_srl.'"':''}
-									<a cond="$depth" href="{$us_modal?'#sipidModalFrame':getUrl('act','dispBoardDeleteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" {$s}>{$lang->cmd_delete}</a>
-								</block> 
+									{@ $s = $us_modal?'class="modify pidModalAnchor" data-modal-act="dispBoardWriteComment" data-modal-param="comment_srl,'.$cmt_srl.',document_srl,'.$doc_srl.'"':'class="modify"'}
+									<a href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardWriteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" {$s}>{$lang->cmd_modify}</a>
+									{@ $s = $us_modal?'class="delete pidModalAnchor" data-modal-act="dispBoardDeleteComment" data-modal-param="comment_srl,'.$cmt_srl.',document_srl,'.$doc_srl.'"':'class="delete"'}
+									<a cond="$depth" href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardDeleteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" {$s}>{$lang->cmd_delete}</a>
+								</block>
 							</div>
 						</div>
 					</li>
@@ -149,14 +138,18 @@
 					</block>
 					<a href="{getUrl('comment_srl','','cpage',$cmts->page_navigation->last_page)}#comment" class="direction next">{$lang->last_page} <span></span><span></span></a>
 				</span>
-				<span cond="!$is_voted && $mi->use_input_comment_writer == 'N'" class="scBtn blue small">
-	        		{@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWriteComment" data-modal-param="comment_srl,,parent_srl,,document_srl,'.$doc_srl.',is_topic_vote,agree"':''}
-					<a href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl','','document_srl', $doc_srl,'is_topic_vote','agree')}" accesskey="y" {$s}>{$lang->comment_write}</a>
-				</span>
 			</div>
 		</div>
 
-		<div cond="!$is_voted && $mi->use_input_comment_writer != 'N'" class="scFbWt">
+		<div cond="!$is_voted && $mi->use_input_comment_writer == 'N'" id="pidModalTarget" class="scFbWt nipt">
+			<span class="scBtn blue small">
+	        		{@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWriteComment" data-modal-param="comment_srl,,parent_srl,,document_srl,'.$doc_srl.',is_topic_vote,agree"':''}
+					<a href="{$us_modal?'#pidCmtModalFrame':getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl','','document_srl', $doc_srl,'is_topic_vote','agree')}" data-target="#pidModalTarget" accesskey="y" {$s}>{$lang->comment_write}</a>
+			</span>
+			<section cond="$us_modal" id="pidCmtModalFrame" style="display:none"><div class="pid_modal-body"></div></section>
+		</div>
+
+		<div cond="!$is_voted && $mi->use_input_comment_writer != 'N'" id="pidModalTarget" class="scFbWt">
 			<form ruleset="insertComment" action="./" method="post">
 				<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 				<input type="hidden" name="document_srl" value="{$document_srl}" />
@@ -170,11 +163,11 @@
 				<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
 				<div class="scWopts clearBar">
 					<div class="fl">
-						<label>
+						<label class="vote">
 							<input type="radio" name="vote_point" value="1" checked="checked" />
 							<span class="colBlue">{$lang->cmd_agree}</span>
 						</label>
-						<label>
+						<label class="vote">
 							<input type="radio" name="vote_point" value="-1" />
 							<span class="colRed">{$lang->cmd_disagree}</span>
 						</label>
@@ -198,12 +191,16 @@
 				</div>
 
 				<div class="scWcont clearBar">
-					<textarea name="content"></textarea>
+					<textarea name="content" id="siComContent"></textarea>
 					<div class="cmtbtns fr">
-						<span class="scBtn small" cond="$mi->use_input_comment_writer != 'T'"><a href="{$us_modal?'#siModalCmtWin':getUrl('act','dispBoardWriteComment','comment_srl','','document_srl',$doc_srl,'is_topic_vote','agree')}" class="pidModalAnchor"|cond="$us_modal" data-mode="insert" data-type="comment" data-agree="agree" data-target="#siFbk .scFbWt" accesskey="y" tabindex="-1">{$lang->use_wysiwyg}</a></span>
+						<span class="scBtn small" cond="$mi->use_input_comment_writer != 'T'">
+	        				{@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWriteComment" data-modal-param="comment_srl,,parent_srl,,document_srl,'.$doc_srl.',is_topic_vote,1"':''}
+							<a href="{$us_modal?'#pidCmtModalFrame':getUrl('act','dispBoardWriteComment','comment_srl','','document_srl', $doc_srl)}" accesskey="y" tabindex="-1" data-target="#pidModalTarget" {$s}>{$lang->use_wysiwyg}</a>
+						</span>
 						<span class="scBtn blue big"><button type="submit">{$lang->comment_write}</button></span>
 					</div>
 				</div>
+				<section cond="$us_modal" id="pidCmtModalFrame" style="display:none"><div class="pid_modal-body"></div></section>
 
 				<!--@if(!$is_logged)-->
 					<div class="scWusr clearBar">

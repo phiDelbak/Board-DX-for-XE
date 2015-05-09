@@ -1,17 +1,18 @@
 jQuery(function($) {
     $.fn.pidDeclareBtninit = function() {
         this.click(function() {
-            var $i = $(this),
+            var $i = $(this), c,
                 ty = $i.attr('data-type'),
                 srl = $i.attr('data-srl'),
-                rec = $i.attr('data-rec') || '0';
-            var params = {
-                target_srl: srl,
-                cur_mid: current_mid,
-                mid: current_mid
-            };
-            var c = (prompt('Please describe the reasons.', '') || '').trim();
-            if (!c) return alert('Please enter the message.') || false;
+                rec = $i.attr('data-rec') || '0',
+                params = {
+                    target_srl: srl,
+                    cur_mid: current_mid,
+                    mid: current_mid
+                };
+            c = prompt('Please describe the reasons.', '');
+            if(typeof c != 'string')  return false;
+            if (!c.trim()) return alert('Please enter the message.') || false;
             exec_json(
                 ty+'.proc' + ty.ucfirst() + 'Declare',
                 params,
