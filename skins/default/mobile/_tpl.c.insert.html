@@ -4,9 +4,11 @@
 	$not_permitted = $XE_VALIDATOR_ERROR == '-1380'
 }
 
-<h2 class="cb">
-	<block cond="$is_cmt || $is_par">{$lang->comment.' '.$lang->no}: {$is_par?$oSourceComment->comment_srl.' - ':$comment_srl}</block>
-	<block cond="!$is_cmt">{$not_permitted?$lang->msg_input_password:$lang->new_comment}</block>
+<h2 class="cb gn">
+	<a href="#categoryOpen">
+	<span cond="!$is_cmt||$is_par" class="ca">{$not_permitted?$lang->msg_input_password:$lang->new_comment}</span>
+	<span cond="$is_cmt&&!$is_par" class="ca">{$lang->comment.' '.$lang->no}: {$is_par ? $oSourceComment->comment_srl:$comment_srl}</span>
+	</a>
 	<a href="#" onclick="history.back(-1);return false;" class="wt bk">{$lang->cmd_back}</a>
 </h2>
 

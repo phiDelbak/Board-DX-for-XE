@@ -64,8 +64,8 @@ class BeluxeCache
 				}
 
 				$ext_vars[$kname] = array(
-					$a_modsrl, $val->idx, $val->name, $val->type, $val->default, 
-					$val->desc,	$val->is_required, $val->search, $val->value, 
+					$a_modsrl, $val->idx, $val->name, $val->type, $val->default,
+					$val->desc,	$val->is_required, $val->search, $val->value,
 					$val->eid, $val->color, $val->display, $val->sort
 				);
 			}
@@ -85,7 +85,7 @@ class BeluxeCache
 
 				$ext_vars[$key] = array(
 					$a_modsrl, -1, $key, 'text', 'N', '\'\'',
-					'N', (string) $val[4], '', $key, (string) $val[1], (string) $val[2], 
+					'N', (string) $val[4], '', $key, (string) $val[1], (string) $val[2],
 					(string) $val[3]
 				);
 			}
@@ -104,7 +104,7 @@ class BeluxeCache
 		$obj = array();
 
 		foreach($ext_vars as $key=>$val)
-		{			
+		{
 			$obj[$key] = new ExtraItem($val[0], $val[1], $val[2], $val[3], $val[4], $val[5], $val[6], $val[7], $val[8], $val[9]);
 			$obj[$key]->color = $val[10];
 			$obj[$key]->display = $val[11];
@@ -117,8 +117,8 @@ class BeluxeCache
 			$object_key = 'object:beluxe:'.$a_modsrl;
 			$cache_key = $oCacheNew->getGroupKey('site_and_module', $object_key);
 			$oCacheNew->put($cache_key, $obj);
-		}		
-		
+		}
+
 		return $obj;
 	}
 }

@@ -1,53 +1,28 @@
-<include target="___setting.html" />
 
-<article class="bd" id="{$is_doc?'read':'list'}">
-
-	<div cond="$XE_VALIDATOR_MESSAGE" id="xe_message" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
-		<p>{$XE_VALIDATOR_MESSAGE}</p>
-	</div>
-	{@ 
-		$start = true;
-		$depth = 0;
-		$cts = &$category_list;
-	}
-
-	<section class="st">
-		<h2 class="cb gn">
-			<a href="{getUrl('','vid',$vid,'mid',$mid)}">
-				{$mi->browser_title}
-				<em cond="count($cts)">[{number_format($cts[0]->total_document_count)}]</em>
-			</a>
-			<a href="#" onclick="history.back(-1);return false;" class="wt bk">{$lang->cmd_back}</a>
-		</h2>
-
-		<ul class="gn">
-			<!--@foreach($cts as $val)-->
-			<block cond="$val->category_srl">
-				<!--@if(!$start && $val->depth == $depth)-->
-				</li>
-				<!--@end-->
-				<!--@if($val->depth > $depth)--> <!--more depth-->
-				<ul>
-				<!--@else-->
-				<!--@while($val->depth < $depth)-->
-				</li>
-				</ul>
-				{@ $depth -= 1}
-				<!--@end-->
-				<!--@endif-->
-				<li><a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{$val->title} <em>[{number_format($val->total_document_count)}]</em></a>
-				{@ $start = false }
-				{@ $depth = $val->depth }
-			</block>
-			<!--@endforeach-->
-			<!--@while($depth > 0)-->
-			</li>
-			</ul>
-			{@ $depth -= 1}
-			<!--@end-->
-			</li>
+<ul class="gn">
+	<!--@foreach($cts as $val)-->
+	<block cond="$val->category_srl">
+		<!--@if(!$start && $val->depth == $depth)-->
+		</li>
+		<!--@end-->
+		<!--@if($val->depth > $depth)--> <!--more depth-->
+		<ul>
+		<!--@else-->
+		<!--@while($val->depth < $depth)-->
+		</li>
 		</ul>
-
-	</section>
-
-</article>
+		{@ $depth -= 1}
+		<!--@end-->
+		<!--@endif-->
+		<li><a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{$val->title} <em>[{number_format($val->total_document_count)}]</em></a>
+		{@ $start = false }
+		{@ $depth = $val->depth }
+	</block>
+	<!--@endforeach-->
+	<!--@while($depth > 0)-->
+	</li>
+	</ul>
+	{@ $depth -= 1}
+	<!--@end-->
+	</li>
+</ul>

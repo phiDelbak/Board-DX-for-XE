@@ -1,6 +1,11 @@
 <include target="___setting.html" />
 
 <article class="bd" id="{$is_doc?'read':'list'}">
+
+	<div cond="$is_cts" class="sd">
+		<include target="category.html" />
+	</div>
+
 	<section class="st">
 
 	<div cond="$XE_VALIDATOR_MESSAGE" id="xe_message" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
@@ -9,16 +14,16 @@
 
 	<h2 class="cb gn">
 		<block cond="$is_cts">
-			<a href="{getUrl('page','','act','dispBeluxeMobileCategory','')}">
+			<a href="#categoryOpen">
 				{@ $pcatlst = array()}
 				<!--@if($category_srl)-->
 					{@ $psrl = $cts[$category_srl]->parent_srl}
 					<!--@for($i=0;$i<999;$i++)-->
 						<!--@if(!$psrl)-->{@ break;}<!--@endif-->
-						{@ 
+						{@
 							$pcatlst[] = $cts[$psrl]->title;
 							$psrl = $cts[$psrl]->parent_srl;
-						}	
+						}
 					<!--@endfor-->
 				<!--@endif-->
 				<block cond="count($pcatlst)">
@@ -27,7 +32,6 @@
 				</block>
 				<span class="ca">
 						{$category_srl?$cts[$category_srl]->title:$mi->browser_title}
-					<em>[{number_format($category_srl?$cts[$category_srl]->total_document_count:$cts[0]->total_document_count)}]</em>
 				</span>
 			</a>
 		</block>
@@ -73,6 +77,6 @@
 			</form>
 		</div>
 	<!--@endif-->
-	
+
 	</section>
 </article>

@@ -1,8 +1,10 @@
 {@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
 
-<h2 class="cb">
-	<block cond="$is_doc">{$lang->document.' '.$lang->no}: {$document_srl}</block>
-	<block cond="!$is_doc">{$not_permitted?$lang->msg_input_password:$lang->new_document}</block>
+<h2 class="cb gn">
+	<a href="#categoryOpen">
+	<span cond="$is_doc" class="ca">{$lang->document.' '.$lang->no}: {$document_srl}</span>
+	<span cond="!$is_doc" class="ca">{$not_permitted?$lang->msg_input_password:$lang->new_document}</span>
+	</a>
 	<a href="#" onclick="history.back(-1);return false;" class="wt bk">{$lang->cmd_back}</a>
 </h2>
 
@@ -51,7 +53,7 @@
 				<label for="nCategory">{$lang->category}</label>
 				<select name="category_srl" id="nCategory" filter-rule="true,number" filter-name="{$lang->category_srl}">
 					<option cond="!$category_srl" value="">{$lang->none_category}</option>
-					<option loop="$cts=>$val" cond="$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->grant&&$val->selected||$val->category_srl==$t_ctsrl">
+					<option loop="$cts=>$val" cond="$val->grant" value="{$val->category_srl}" disabled="disabled"|cond="$mi->use_step_category!='N'&&$val->child_count" selected="selected"|cond="$val->grant&&$val->selected||$val->category_srl==$t_ctsrl">
 					{str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})
 					</option>
 				</select>

@@ -94,7 +94,7 @@ class BeluxeItem extends Object
 
 		if(!is_null($r_info))
 		{
-            $r_info = new stdClass; 
+            $r_info = new stdClass;
 			$r_info->total_count = $out->total_count;
 			$r_info->current_key = $out->current_key;
 		}

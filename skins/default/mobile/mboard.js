@@ -13,7 +13,7 @@ jQuery(function($) {
             var c = (prompt('Please describe the reasons.', '') || '').trim();
             if (!c) return alert('Canceled to successfully.') || false;
             exec_json(
-                ty+'.proc' + ty.ucfirst() + 'Declare', 
+                ty+'.proc' + ty.ucfirst() + 'Declare',
                 params,
                 function(ret_obj) {
                     alert(ret_obj.message);
@@ -51,7 +51,7 @@ jQuery(function($) {
                 mid: current_mid
             };
             exec_json(
-                ty + '.proc' + ty.ucfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'), 
+                ty + '.proc' + ty.ucfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'),
                 params,
                 function(ret_obj) {
                     alert(ret_obj.message);
@@ -66,7 +66,7 @@ jQuery(function($) {
     };
     pidLoadPage = function(r, z, c) {
         exec_json(
-            'beluxe.getBeluxeMobileCommentPage', 
+            'beluxe.getBeluxeMobileCommentPage',
             {
                 cpage: z,
                 document_srl: r,
@@ -75,6 +75,7 @@ jQuery(function($) {
             },
             function(ret) {
                 var $htm = $(ret.html);
+
                 $("#cl").remove();
                 $("#clpn").remove();
                 $("a.prev[data-page],a.next[data-page]", $htm).click(function() {
@@ -116,5 +117,32 @@ jQuery(function($) {
             $(this).click();
             $(this)[0].scrollIntoView();
         });
+    });
+
+    $('a[href=#categoryOpen]').click(function() {
+        var $sd = $('.bd > .sd');
+        if($sd.is(':hidden')){
+            $sd.width(0).show();
+            $('.bd > .st').animate({
+                marginLeft: -260,
+                marginRight: 260
+            },{
+                step: function( now, fx ) {
+                     $('.bd > .sd').width(now);
+                }
+            });
+        }else{
+            $('.bd > .st').animate({
+                marginLeft: 0,
+                marginRight: 0
+            },{
+                step: function( now, fx ) {
+                     $('.bd > .sd').width(now);
+                },
+                complete: function() {
+                    $sd.hide();
+                }
+            });
+        }
     });
 });

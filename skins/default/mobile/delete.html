@@ -1,12 +1,19 @@
 <include target="___setting.html" />
 
 <article class="bd">
+
+	<div cond="$is_cts" class="sd">
+		<include target="category.html" />
+	</div>
+
 	<section class="st">
 
 		{@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
 
-		<h2 class="cb">
-			{$lang->confirm_delete}
+		<h2 class="cb gn">
+			<a href="#categoryOpen">
+				<span class="ca">{$lang->confirm_delete}</span>
+			</a>
 			<a href="#" onclick="history.back(-1);return false;" class="wt bk">{$lang->cmd_back}</a>
 		</h2>
 

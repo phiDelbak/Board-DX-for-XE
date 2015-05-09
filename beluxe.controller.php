@@ -28,7 +28,7 @@ class beluxeController extends beluxe
 			$list = func_get_args();
 			$list[] = 'mid';
 			$list[] = Context::get('mid');
-			// act 초기화			
+			// act 초기화
 			$list[] = 'act';
 			$list[] = '';
 			$retUrl = Context::getUrl($args, $list, NULL, FALSE);
@@ -44,15 +44,15 @@ class beluxeController extends beluxe
 					// set new variables
 					$this->add($list[$i], trim($list[$i + 1]));
 				}
-			}			
+			}
 		}
 
-		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON'))) 
+		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
 		{	//filte 사용시
-			//$this->add('is_modal',  Context::get('is_modal')? '1' : '');			
+			//$this->add('is_modal',  Context::get('is_modal')? '1' : '');
 			//$this->add('url', $retUrl);
 		}// ruleset 사용시
-		else 
+		else
 			$this->setRedirectUrl($retUrl);
 	}
 
@@ -822,7 +822,7 @@ class beluxeController extends beluxe
 
 		$this->setMessage('success_deleted');
 		$this->_setLocation(
-			'', 'category_srl', Context::get('category_srl'), 'document_srl', 
+			'', 'category_srl', Context::get('category_srl'), 'document_srl',
 			$re_doc_srl, 'comment_srl', $cmt_srl, 'page', $out->get('page')
 		);
 	}
@@ -975,7 +975,7 @@ class beluxeController extends beluxe
 			$oModIfo = $cmThis->_getModuleInfo();
 			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
 		}
-		
+
 		$pt_restrict = $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view == 'P';
 		if(!$pt_restrict || !$doc_srl) return new Object(-1,'msg_invalid_request');
 
@@ -1104,17 +1104,17 @@ class beluxeController extends beluxe
             $oTmp = $cmComment->getComment($adopt_srl, false, $colLst);
             if($oTmp->isExists()) return new Object(-1, 'msg_invalid_request');
         }
-        
+
 		$oModIfo = $this->module_info ? $this->module_info : array();
 		if(!$oModIfo->module_srl) {
 			$cmThis = &getModel(__XEFM_NAME__);
 			$oModIfo = $cmThis->_getModuleInfo($oComIfo->get('module_srl'));
 		}
 
-        // 확장 필드 저장 
+        // 확장 필드 저장
         $beluxe->adopt_srl = $cmt_srl;
         $ex_vars->beluxe = $beluxe;
-        $args->extra_vars = serialize($ex_vars);        
+        $args->extra_vars = serialize($ex_vars);
         // 채택된 답글번호 입력
         $args->document_srl = $doc_srl;
         $output = executeQuery('beluxe.updateExtraVars', $args);
@@ -1129,15 +1129,15 @@ class beluxeController extends beluxe
 	        // 나머지는 돌려줌
 	        if(($use_point-$point) > 0) $ccPoint->setPoint(abs($oDocIfo->get('member_srl')), $use_point-$point, 'add');
 	    }
-					
+
 	    if($send_message){
 			$t = '[Board DX] Adopted, thanks message: ' . $cmt_srl;
 			$u = getFullUrl('', 'document_srl',$doc_srl,'comment_srl',$cmt_srl);
-			$send_message = $send_message . '<br /><br /><a href="' . $u . '">'. $u .'</a>';	
+			$send_message = $send_message . '<br /><br /><a href="' . $u . '">'. $u .'</a>';
 
 		    $ccCommuni = &getController('communication');
 		    $ccCommuni->sendMessage(
-		    	$oDocIfo->get('member_srl'), $oComIfo->get('member_srl'), 
+		    	$oDocIfo->get('member_srl'), $oComIfo->get('member_srl'),
 		    	$t, $send_message
 		    );
 		}

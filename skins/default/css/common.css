@@ -1588,7 +1588,7 @@
     list-style:none
 }
 #siWrt .scWul .scWli, #siSimWrt .scWul li {
-    line-height:18px;
+    line-height:20px;
     position:relative;
     padding-left:145px;
     border:0 solid #e6e6e6;
@@ -2197,28 +2197,19 @@ strong.sCkChr {
     background:url(../../../../admin/tpl/img/flag.tw.gif) no-repeat 0 4px
 }
 /*ie*/
-#siLst thead tr div {
-    padding:9px 0 5px\9!important
-}
-#siLst thead.scOneCol th div, #siLst thead .scCheck div {
-    padding:6px 0 8px\9!important
-}
-#siFbk .scFbWt .scWopts {
-    padding-right:152px\9
-}
+#siLst thead tr div {padding:9px 0 5px\9!important}
+#siLst thead.scOneCol th div, #siLst thead .scCheck div {padding:6px 0 8px\9!important}
+#siFbk .scFbWt .scWopts {padding-right:152px\9}
+/*op*/
+noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
 /*cr*/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-    #siBody .scSch .keyword {
-        width:200px!important;
-    }
+    #siBody .scSch .keyword {width:200px!important}
 }
 /*ff*/
 @-moz-document url-prefix() {
     #siFbk .scFbWt .scWopts {padding-right:152px}
     #siFbk .scFbWt .cmtbtns {padding:0 5px 0 0}
     .scModalClose {font-size: 16px}
-}
-/*op*/
-noindex:-o-prefocus, #siFbk .scFbWt .scWopts {
-    padding-right:152px
+    #siWrt .scWul .scWli input, #siSimWrt .scWul input {margin-top:2px}
 }

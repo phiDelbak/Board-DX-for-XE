@@ -146,7 +146,7 @@
                     {$val->getTitle($mi->title_length)}
                     <span class="fr">
                         <em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
-                        {$val->printExtraImages(60*60*$mi->duration_new)}<img class="ise world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
+                        {$val->printExtraImages(60*60*$mi->duration_new)}<img class="ise" src="../img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
                         <block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">
                         {@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}
                             <img class="ise coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}" />
@@ -273,7 +273,7 @@
 <div style="height:1px;overflow:hidden;background:#ddd"></div>
 <div class="bna">
     <span class="fl">
-        <a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="bn dark">{$lang->cmd_write}</a>        
+        <a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="bn dark">{$lang->cmd_write}</a>
     </span>
     <span class="fr">
         <a href="{getUrl('act', '','document_srl', '')}" class="bn white">{$lang->cmd_list}</a>

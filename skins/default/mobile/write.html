@@ -1,6 +1,11 @@
 <include target="___setting.html" />
 
 <article class="bd">
+
+	<div cond="$is_cts" class="sd">
+		<include target="category.html" />
+	</div>
+
 	<section class="st">
 
 		<include cond="$act!='dispBoardWriteComment'" target="_tpl.insert.html" />

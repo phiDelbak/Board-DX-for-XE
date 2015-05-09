@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-일본어 번역: 
+일본어 번역:
 	감로수 (mailto:)
-영어 번역: 
+영어 번역:
 	썬 (mailto:)
 -->
 <skin version="0.2">
@@ -18,7 +18,7 @@
 	<!-- make public 2011-10-01 -->
 	<version>1.8</version>
 	<date>2013-01-11</date>
-	<!-- 
+	<!--
 	<history version="0.1" date="2011-10-01">
 		<author email_address="xe.phidel@gmail.com">
 			<name>phiDel</name>
@@ -38,30 +38,15 @@
 
 	<extra_vars>
 		<group>
+			<title>/_HIDDEN_/</title>
+			<var name="use_point_list" type="_REQUEST_SYNC_OPTIONS_" />
+			<var name="use_step_category" type="_REQUEST_SYNC_OPTIONS_" />
+			<var name="view_comment_style" type="_REQUEST_SYNC_OPTIONS_" />
+		</group>
+		<group>
 			<title xml:lang="ko">모양</title>
 			<title xml:lang="jp">スタイル</title>
 			<title xml:lang="en">Style</title>
-			<var name="view_comment_style" type="radio" default="default">
-				<title xml:lang="ko">댓글 모양</title>
-				<title xml:lang="jp">コメントスタイル</title>
-				<title xml:lang="en">Comment style</title>
-				<options value="default">
-					<title xml:lang="ko">일반</title>
-					<title xml:lang="jp">一般</title>
-					<title xml:lang="en">general</title>
-				</options>
-				<options value="webzine">
-					<title xml:lang="ko">찬성/반대</title>
-					<title xml:lang="jp">賛成/反対</title>
-					<title xml:lang="en">agree/disagree</title>
-				</options>
-				<description xml:lang="ko">일반: 일반적인 댓글 모양입니다.
-				찬성/반대: 회원에 한해서 한번만 작성 가능합니다. (댓글에 대한 의견엔 제한 없음)</description>
-				<description xml:lang="jp">一般: 一般的なコメントスタイルです.
-				賛成/反対: 会員に限って一度のみ作成可能です. (コメントに対する意見には制限なし)</description>
-				<description xml:lang="en">general: 일반적인 댓글 모양입니다.
-				찬성/반대: 회원에 한해서 한번만 작성 가능합니다. (댓글에 대한 의견엔 제한 없음)</description>
-			</var>
 			<var name="title_length" type="text" default="">
 				<title xml:lang="ko">제목 길이</title>
 				<title xml:lang="jp">タイトルの長さ</title>
@@ -85,14 +70,6 @@
 				<description xml:lang="ko">닉네임 또는 이름을 얼마나 보여줄지 그 길이를 설정합니다. (비워두면 전부 출력)</description>
 				<description xml:lang="jp">ニックネームまたは名前の表示長さを設定します. (空欄時全部出力)</description>
 				<description xml:lang="en">닉네임 또는 이름을 얼마나 보여줄지 그 길이를 설정합니다. (비워두면 전부 출력)</description>
-			</var>
-			<var name="use_point_list" type="text" default="10,50,100,500,1000">
-				<title xml:lang="ko">포인트 사용</title>
-				<title xml:lang="jp">ポイント使用</title>
-				<title xml:lang="en">Use point</title>
-				<description xml:lang="ko">사용될 포인트 목록을 설정합니다. (기본: 10,50,100,500,1000)</description>
-				<description xml:lang="jp">使われるポイントリストを設定します. (基本: 10,50,100,500,1000)</description>
-				<description xml:lang="en">사용될 포인트 목록을 설정합니다. (기본: 10,50,100,500,1000)</description>
 			</var>
 			<var name="navigation_bottom_list_count" type="text" default="">
 				<title xml:lang="ko">이전/다음 목록 수</title>

@@ -25,7 +25,7 @@
 				{$document->printExtraImages(60*60*$mi->duration_new)}<img class="ise world" src="../img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
 			</div>
 			<div class="auth cb">
-				<div class="fl">	
+				<div class="fl">
 					{@
 						$t_cmtn = $document->getCommentCount();
 						$t_tbkn = $document->getTrackbackCount();
@@ -33,7 +33,7 @@
 					<span>{$t_cmtn||$t_tbkn?$lang->comment_count:'&nbsp;'}</span>
 					<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
 				</div>
-				<div class="nick">						
+				<div class="nick">
 					<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span> &rsaquo;
 					<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
 				</div>
@@ -88,7 +88,7 @@
 					<div class="nick">
 						<block cond="$ds_nick||$ds_user">
 						<span class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span> &rsaquo;
-						</block> 
+						</block>
 						<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
 					</div>
 				</li>

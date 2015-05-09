@@ -1,5 +1,7 @@
 <include target="header.html" />
 
+{@ $mod_info_arr = (array) $module_info}
+
 <form action="./" method="post" enctype="multipart/form-data" class="x_form-horizontal dx_skininfo">
 	<input type="hidden" name="module" value="{$module=='admin'?'admin':$module_info->module}" />
 	<input type="hidden" name="act" value="procBeluxeAdminUpdateSkinInfo" />
@@ -67,63 +69,69 @@
 		<block cond="$val->group && ((!$group) || $group != $val->group)">
 			{@$group = $val->group}
 			</section>
-			<section class="section">
+			<section class="section" style="display:none"|cond="$group == '/_HIDDEN_/'">
 			<h1>{$group}</h1>
 		</block>
 		{@
 			$value = $skin_vars[$val->name] ? $skin_vars[$val->name]->value : '';
 			$value = empty($value) ? $val->default : $value;
 		}
-		<div class="x_control-group" style="display:none"|cond="$hide_list[$val->name]">
-		<label class="x_control-label">{$val->title}</label>
-		<div class="x_controls">
-			<block cond="$val->type == 'text'">
-				{@$use_multilang = false}
-				<input type="text" name="{$val->name}" id="{$val->name}" class="lang_code" value="<!--@if(strpos($value, '$user_lang->') === false)-->{$value}<!--@else-->{htmlspecialchars($value)}<!--@end-->" />
-			</block>
-			<block cond="$val->type == 'textarea'">
-				{@$use_multilang_textarea = false}
-				<textarea name="{$val->name}" class="lang_code" id="{$val->name}" rows="8" cols="42">{htmlspecialchars($value)}</textarea>
-			</block>
-			<block cond="$val->type == 'select'">
-				<select name="{$val->name}">
-					<option loop="$val->options => $k, $v" value="{$v->value}" selected="selected"|cond="$v->value == $value">{$v->title}</option>
-				</select>
-			</block>
-			<block cond="$val->type == 'checkbox'">
-				<label loop="$val->options => $k, $v" class="x_inline">
-					{@ $is_check = strpos($value, '"'.$v->value.'"')!==false}
-					<input type="checkbox" name="{$val->name}[]" value="{$v->value}" id="ch_{$key}_{$k}" checked="checked"|cond="$is_check" class="checkbox" />
-					{$v->title}
-				</label>
-			</block>
-			<block cond="$val->type == 'radio'">
-				<label loop="$val->options => $k, $v" class="x_inline">
-					{@ $a = array()}
-					<!--@if(strpos($v->value, '|_TARGET_|')!==false)-->
-					{@
-						$a = explode('|_TARGET_|', $v->value);
-						$v->value = $a[0];
-						$hide_list[$a[1]] = 1;
-					}
-					<!--@end-->
-					<input type="radio" name="{$val->name}" value="{$v->value}" checked="checked"|cond="$v->value==$value" data-info-target="{$a[1]}"|cond="$a[1]" />
-					{$v->title}
-				</label>
-			</block>
-			<block cond="$val->type == 'image'">
-				<div cond="$value">
-					<img src="{$value}" /><br />
-					<input type="checkbox" name="del_{$val->name}" value="Y" id="del_{$val->name}" class="checkbox" />
-					<label for="del_{$val->name}">{$lang->cmd_delete}</label>
+		<!--@if($val->type == '_SET_SYNC_OPTIONS_')-->
+			<input type="hidden" name="_SET_SYNC_OPTIONS_[]" value="{$val->name}" checked="checked" />
+		<!--@elseif($val->type == '_REQUEST_SYNC_OPTIONS_')-->
+			<input type="hidden" name="{$val->name}" value="{$value}" />
+		<!--@else-->
+			<div class="x_control-group" style="display:none"|cond="$hide_list[$val->name]">
+				<label class="x_control-label">{$val->title}</label>
+				<div class="x_controls">
+					<block cond="$val->type == 'text'">
+						{@$use_multilang = false}
+						<input type="text" name="{$val->name}" id="{$val->name}" class="lang_code" value="<!--@if(strpos($value, '$user_lang->') === false)-->{$value}<!--@else-->{htmlspecialchars($value)}<!--@end-->" />
+					</block>
+					<block cond="$val->type == 'textarea'">
+						{@$use_multilang_textarea = false}
+						<textarea name="{$val->name}" class="lang_code" id="{$val->name}" rows="8" cols="42">{htmlspecialchars($value)}</textarea>
+					</block>
+					<block cond="$val->type == 'select'">
+						<select name="{$val->name}">
+							<option loop="$val->options => $k, $v" value="{$v->value}" selected="selected"|cond="$v->value == $value">{$v->title}</option>
+						</select>
+					</block>
+					<block cond="$val->type == 'checkbox'">
+						<label loop="$val->options => $k, $v" class="x_inline">
+							{@ $is_check = strpos($value, '"'.$v->value.'"')!==false}
+							<input type="checkbox" name="{$val->name}[]" value="{$v->value}" id="ch_{$key}_{$k}" checked="checked"|cond="$is_check" class="checkbox" />
+							{$v->title}
+						</label>
+					</block>
+					<block cond="$val->type == 'radio'">
+						<label loop="$val->options => $k, $v" class="x_inline">
+							{@ $a = array()}
+							<!--@if(strpos($v->value, '|_TARGET_|')!==false)-->
+							{@
+								$a = explode('|_TARGET_|', $v->value);
+								$v->value = $a[0];
+								$hide_list[$a[1]] = 1;
+							}
+							<!--@end-->
+							<input type="radio" name="{$val->name}" value="{$v->value}" checked="checked"|cond="$v->value==$value" data-info-target="{$a[1]}"|cond="$a[1]" />
+							{$v->title}
+						</label>
+					</block>
+					<block cond="$val->type == 'image'">
+						<div cond="$value">
+							<img src="{$value}" /><br />
+							<input type="checkbox" name="del_{$val->name}" value="Y" id="del_{$val->name}" class="checkbox" />
+							<label for="del_{$val->name}">{$lang->cmd_delete}</label>
+						</div>
+						<input type="file" name="{$val->name}" value="" />
+					</block>
+					{@ $val->description = preg_replace('/\[help\](.*)\|\|(.*)\[\/help\]/i', '<a href="#popup_help" data-text="$2">$1</a>', $val->description)}
+					<a href="#about_{$val->name}" data-toggle class="x_icon-question-sign" cond="$val->description" style="vertical-align:top;margin-top:5px"|cond="$val->type == 'textarea'">{$lang->help}</a>
+					<p class="x_help-block" id="about_{$val->name}" hidden cond="$val->description">{nl2br(trim($val->description))}</p>
 				</div>
-				<input type="file" name="{$val->name}" value="" />
-			</block>
-			{@ $val->description = preg_replace('/\[help\](.*)\|\|(.*)\[\/help\]/i', '<a href="#popup_help" data-text="$2">$1</a>', $val->description)}
-			<a href="#about_{$val->name}" data-toggle class="x_icon-question-sign" cond="$val->description" style="vertical-align:top;margin-top:5px"|cond="$val->type == 'textarea'">{$lang->help}</a>
-			<p class="x_help-block" id="about_{$val->name}" hidden cond="$val->description">{nl2br(trim($val->description))}</p>
-		</div>
-		</div>
+			</div>
+		<!--@end-->
 	</block>
 	</section>
 

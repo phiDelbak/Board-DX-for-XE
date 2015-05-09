@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-일본어 번역: 
+일본어 번역:
 	감로수 (mailto:)
-영어 번역: 
+영어 번역:
 	썬 (mailto:)
 -->
 <skin version="0.2">
@@ -25,7 +25,7 @@
 	<!-- make public 2011-10-01 -->
 	<version>1.8</version>
 	<date>2013-01-11</date>
-	<!-- 
+	<!--
 	<history version="0.1" date="2011-10-01">
 		<author email_address="xe.phidel@gmail.com">
 			<name>phiDel</name>
@@ -44,6 +44,12 @@
 	<license xml:lang="en" link="http://www.gnu.org/licenses/gpl.html">GPL2</license>
 
 	<extra_vars>
+		<group>
+			<title>/_HIDDEN_/</title>
+			<var name="use_point_list" type="_SET_SYNC_OPTIONS_" />
+			<var name="use_step_category" type="_SET_SYNC_OPTIONS_" />
+			<var name="view_comment_style" type="_SET_SYNC_OPTIONS_" />
+		</group>
 		<group>
 			<title xml:lang="ko">모양</title>
 			<title xml:lang="jp">スタイル</title>
@@ -86,6 +92,34 @@
 				<description xml:lang="ko">마우스를 가져가면 해당 항목을 자동으로 선택할 수 있습니다.</description>
 				<description xml:lang="jp">マウスを当てると該当の項目を自動で選択することができます.</description>
 				<description xml:lang="en">마우스를 가져가면 해당 항목을 자동으로 선택할 수 있습니다.</description>
+			</var>
+			<var name="star_style" type="radio" default="N">
+				<title xml:lang="ko">별점 모양</title>
+				<title xml:lang="jp">星色</title>
+				<title xml:lang="en">star style</title>
+				<options value="N">
+					<title xml:lang="ko">없음</title>
+					<title xml:lang="jp">なし</title>
+					<title xml:lang="en">none</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">노랑</title>
+					<title xml:lang="jp">黄色</title>
+					<title xml:lang="en">yellow</title>
+				</options>
+				<options value="R">
+					<title xml:lang="ko">빨강</title>
+					<title xml:lang="jp">赤</title>
+					<title xml:lang="en">red</title>
+				</options>
+				<options value="B">
+					<title xml:lang="ko">파랑</title>
+					<title xml:lang="jp">青</title>
+					<title xml:lang="en">blue</title>
+				</options>
+				<description xml:lang="ko">문서의 추천/비추천의 표시 모양을 별점 모양으로 설정합니다. (필요: 추천 수 표시)</description>
+				<description xml:lang="jp">文書の推薦/非推薦の表示スタイルを星の色で設定します. (推薦数表示必須)</description>
+				<description xml:lang="en">문서의 추천/비추천의 표시 모양을 별점 모양으로 설정합니다. (필요: 추천 수 표시)</description>
 			</var>
 			<var name="category_style" type="radio" default="Y">
 				<title xml:lang="ko">분류 모양</title>
@@ -200,34 +234,6 @@
 				<description xml:lang="en">general: 일반적인 댓글 모양입니다.
 				찬성/반대: 회원에 한해서 한번만 작성 가능합니다. (댓글에 대한 의견엔 제한 없음)</description>
 			</var>
-			<var name="star_style" type="radio" default="N">
-				<title xml:lang="ko">별점 모양</title>
-				<title xml:lang="jp">星色</title>
-				<title xml:lang="en">star style</title>
-				<options value="N">
-					<title xml:lang="ko">없음</title>
-					<title xml:lang="jp">なし</title>
-					<title xml:lang="en">none</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">노랑</title>
-					<title xml:lang="jp">黄色</title>
-					<title xml:lang="en">yellow</title>
-				</options>
-				<options value="R">
-					<title xml:lang="ko">빨강</title>
-					<title xml:lang="jp">赤</title>
-					<title xml:lang="en">red</title>
-				</options>
-				<options value="B">
-					<title xml:lang="ko">파랑</title>
-					<title xml:lang="jp">青</title>
-					<title xml:lang="en">blue</title>
-				</options>
-				<description xml:lang="ko">문서의 추천/비추천의 표시 모양을 별점 모양으로 설정합니다. (필요: 추천 수 표시)</description>
-				<description xml:lang="jp">文書の推薦/非推薦の表示スタイルを星の色で設定します. (推薦数表示必須)</description>
-				<description xml:lang="en">문서의 추천/비추천의 표시 모양을 별점 모양으로 설정합니다. (필요: 추천 수 표시)</description>
-			</var>
 			<var name="title_length" type="text" default="">
 				<title xml:lang="ko">제목 길이</title>
 				<title xml:lang="jp">タイトルの長さ</title>
@@ -252,14 +258,6 @@
 				<description xml:lang="jp">ニックネームまたは名前の表示長さを設定します. (空欄時全部出力)</description>
 				<description xml:lang="en">닉네임 또는 이름을 얼마나 보여줄지 그 길이를 설정합니다. (비워두면 전부 출력)</description>
 			</var>
-			<var name="use_point_list" type="text" default="10,50,100,500,1000">
-				<title xml:lang="ko">포인트 사용</title>
-				<title xml:lang="jp">ポイント使用</title>
-				<title xml:lang="en">Use point</title>
-				<description xml:lang="ko">사용될 포인트 목록을 설정합니다. (기본: 10,50,100,500,1000)</description>
-				<description xml:lang="jp">使われるポイントリストを設定します. (基本: 10,50,100,500,1000)</description>
-				<description xml:lang="en">사용될 포인트 목록을 설정합니다. (기본: 10,50,100,500,1000)</description>
-			</var>
 			<var name="navigation_bottom_list_count" type="text" default="">
 				<title xml:lang="ko">이전/다음 목록 수</title>
 				<title xml:lang="jp">이전/다음 목록 수</title>
@@ -267,6 +265,14 @@
 				<description xml:lang="ko">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
 				<description xml:lang="jp">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
 				<description xml:lang="en">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
+			</var>
+			<var name="use_point_list" type="text" default="10,50,100,500,1000">
+				<title xml:lang="ko">포인트 사용</title>
+				<title xml:lang="jp">ポイント使用</title>
+				<title xml:lang="en">Use point</title>
+				<description xml:lang="ko">사용될 포인트 목록을 설정합니다. (기본: 10,50,100,500,1000)</description>
+				<description xml:lang="jp">使われるポイントリストを設定します. (基本: 10,50,100,500,1000)</description>
+				<description xml:lang="en">사용될 포인트 목록을 설정합니다. (기본: 10,50,100,500,1000)</description>
 			</var>
 		</group>
 		<group>
