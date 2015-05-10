@@ -376,11 +376,11 @@ jQuery(function($)
 	$(window)
 	.load(function()
 	{
-		// 반응형 레이아웃 크기가 너무 줄어들면 조절
+		// 모바일 사용안할때 크기가 너무 줄어들면 조절
 		$('table#siLst').each(function()
 		{
-			var $th =$(this), ww = $(window).width(),
-				tr = $th.position().left + $th.outerWidth();
+			var $th =$(this), ww = $('#siBody').parent().width(),
+				tr = /*$th.position().left + */$th.outerWidth();
 			if(ww < tr){
 				var ta = $('tr:eq(0) th.title', $th).outerWidth();
 					tt = Math.floor((tr-ww+ta) / ($('tr:eq(0) th', $th).length - 3));
