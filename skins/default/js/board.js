@@ -21,7 +21,7 @@ jQuery(function($)
 		if (uri.match(re)) {
 			return uri.replace(re, '$1' + key + "=" + value + '$2');
 		} else {
-			var hash =  '', separator = uri.indexOf('?') !== -1 ? "&" : "?";    
+			var hash =  '', separator = uri.indexOf('?') !== -1 ? "&" : "?";
 			if( uri.indexOf('#') !== -1 ){
 				hash = uri.replace(/.*#/, '#');
 				uri = uri.replace(/#.*/, '');
@@ -254,7 +254,7 @@ jQuery(function($)
 		var params = {target_srl : srl, cur_mid : current_mid, mid : current_mid};
 
 		exec_json(
-			ty + '.proc' + ty.ucfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'), 
+			ty + '.proc' + ty.ucfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'),
 			params,
 			function(ret_obj) {
 				alert(ret_obj.message);
@@ -286,7 +286,7 @@ jQuery(function($)
 			return false;
 		}
 		exec_json(
-			ty + '.proc' + ty.ucfirst() + 'Declare', 
+			ty + '.proc' + ty.ucfirst() + 'Declare',
 			{target_srl: srl, cur_mid: current_mid, mid: current_mid},
 			function(ret_obj) {
 				alert(ret_obj.message);
@@ -295,7 +295,7 @@ jQuery(function($)
 					var t = '[Board DX] Declare, ' + ty + ': ' + srl,
 						u = current_url.setQuery('comment_srl',(ty=='comment'?srl:''));
 						c = c + '<br /><br /><a href="' + u + '">'+u+'</a>';
-					exec_json('communication.procCommunicationSendMessage', 
+					exec_json('communication.procCommunicationSendMessage',
 						{receiver_srl: rec, title: t, content: c},
 						function(ret_obj2) {
 							if(ret_obj2.error !== 0) alert(ret_obj2.message);
@@ -325,7 +325,7 @@ jQuery(function($)
 			return false;
 		}
 		exec_json(
-			'beluxe.procBeluxeAdoptComment', 
+			'beluxe.procBeluxeAdoptComment',
 			{comment_srl: srl, send_message: c},
 			function(ret_obj) {
 				alert(ret_obj.message);
@@ -376,6 +376,32 @@ jQuery(function($)
 	$(window)
 	.load(function()
 	{
+		// 반응형 레이아웃 크기가 너무 줄어들면 조절
+		$('table#siLst').each(function()
+		{
+			var $th =$(this), ww = $(window).width(),
+				tr = $th.position().left + $th.outerWidth();
+			if(ww < tr){
+				var ta = $('tr:eq(0) th.title', $th).outerWidth();
+					tt = Math.floor((tr-ww+ta) / ($('tr:eq(0) th', $th).length - 3));
+				$('th, td', $th).each(function(e) {
+					var $i = $(this);
+					if($i.is('.title')) return;
+					var j = $i.width() - tt;
+					$i.css({'white-space':$i.is('th')?'':'normal', 'max-width': j>0?j:1});
+				});
+			}
+		});
+		$('#siFbk .scFrm').each(function()
+		{
+			var $th =$(this), tw = $th.outerWidth();
+			if(tw < 400) {
+				$('.scFbt', $th).css('width','auto');
+				$('.scCmtCon', $th).css('margin-left','5px');
+			}
+		});
+
+		// 제목 자동조절
 		$('.scElps[data-active=true]')
 		.each(function(e)
 		{
@@ -389,7 +415,7 @@ jQuery(function($)
 			if($.browser.msie===true) $f.height($i.css('line-height') || 15);
 			$f.css('width',(fw - lw - 5) + 'px').addClass('_first');
 		});
-
+		// 핫트랙
 		$('.scContent [data-hottrack]')
 		.each(function(e)
 		{
@@ -410,7 +436,7 @@ jQuery(function($)
 
 			if($.browser.msie===true) $('<span class="iefix" />').css({'width':w+'px','height':h+'px'}).appendTo($a);
 		});
-
+		// 모달
 		$('.pidModalAnchor')
 		.bind('before-open.mw', function(e) {
 			var  $this = $(this), act, param, url, a, i, c, t;
@@ -425,9 +451,9 @@ jQuery(function($)
 				//첫 문자가 true면 주소 초기화
 				t = (a.length > 0 && a[0]=='true') ? 1 : 0;
 				url = t ? default_url : current_url;
-				url = url.setQuery('act', act);		
-						
-				if(t) url = url.setQuery('mid', current_mid); 
+				url = url.setQuery('act', act);
+
+				if(t) url = url.setQuery('mid', current_mid);
 				for (i = t; i < c; i=i+2) url = url.setQuery(a[i], a[i+1] || '');
 
 				$this.data('goUrl', url);
@@ -439,7 +465,7 @@ jQuery(function($)
 		$('[data-modal-hide]').click(function(){
 			$($(this).attr('href'), (parent ? parent : self).document)
 					.find('button.pid_modal-close:first').click();
-		}).closest('form').each(function(){	
+		}).closest('form').each(function(){
 			$(this).prepend(
 				$('<button type="button" class="scModalClose"">&times;</button>')
 					.click(function(){$('[data-modal-hide]:eq(0)').click();})
@@ -449,6 +475,7 @@ jQuery(function($)
 		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
 		$('#siFbk a[name^=comment][data-scroll=true]').last().parent().scrollIntoView();
 
+		// 글쓰기
 		$('#siWrt').each(function(){
 			$('.scWcateList', this).change(function(){
 				var v = $(this).val(), k = $(this).data('key'),
@@ -461,7 +488,7 @@ jQuery(function($)
 			});
 			$('input:hidden[name=category_srl]:eq(0)', this).each(function(){
 				var v = $(this).val() || 0, j, i = 0, $s;
-				if(v > 0){					
+				if(v > 0){
 					for(j=0;j<3;j++) {
 						$s = $('.scWcateList option[value='+v+']').closest('select').val(v).data('key', v).change();
 						if(!$s||!$s.attr('data-key')) break;
@@ -488,7 +515,7 @@ jQuery(function($)
 				exec_json(
 					'Beluxe.procBeluxeInsertFileLink',
 					{ 'mid':current_mid,'sequence_srl':q,'document_srl':r,'filelink_url':v },
-					function(ret){		
+					function(ret){
 						// ckeditor
 						if($('[id^=ckeditor_instance_]').length) {
 							var u = xe.getApp('xeuploader');
@@ -496,7 +523,7 @@ jQuery(function($)
 							else u = $('#xefu-container-'+ret.sequence_srl).xeUploader();
 
 						// xpresseditor
-						}else if($('.xpress-editor').length){							
+						}else if($('.xpress-editor').length){
 							reloadFileList(uploaderSettings[ret.sequence_srl]);
 						}
 					}

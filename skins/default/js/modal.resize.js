@@ -109,10 +109,10 @@ jQuery(function($) {
             $.timer.remove(item);
         });
     });
-        
-    /** phiDel (xe.phidel@gmail.com) // onresize는 혹시 몰라서 그냥 타이머로 **/
+
+    /** phiDel (xe.phidel@gmail.com) // onresize 보다는 이런 저런 이유로 그냥 타이머로 **/
     $.fn.pidModalResize = function(resize){
-        var $modal = $(this), target = $modal.data('anchor').attr('data-target') || '', 
+        var $modal = $(this), target = $modal.data('anchor').attr('data-target') || '',
             name = $modal.data('frame_id') || 'pidOframe';
         resize = resize || 'auto';
 
@@ -194,7 +194,7 @@ jQuery(function($) {
                 });
             });
         }
-        
+
         $('[data-modal-child=message]', parent.document).fadeOut(2500, function() {
             $(this).remove();
         });

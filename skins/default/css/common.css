@@ -780,6 +780,7 @@
 #siLst .content {
     white-space:normal;
     word-break:break-all;
+    min-width:100px;
     width:100%
 }
 #siLst .content {
