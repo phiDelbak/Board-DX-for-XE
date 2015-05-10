@@ -35,7 +35,7 @@
 				</span>
 			</a>
 		</block>
-    	<span cond="!$is_cts">{$mi->browser_title}</span>
+    	<a cond="!$is_cts" href="#categoryOpen"><span>{$mi->browser_title}</span></a>
 		<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="wt">{$lang->cmd_write}</a>
 	</h2>
 
