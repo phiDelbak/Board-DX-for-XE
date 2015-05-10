@@ -377,13 +377,15 @@ jQuery(function($)
 	.load(function()
 	{
 		// 모바일 사용안할때 크기가 너무 줄어들면 조절
+		// 모바일 사용안하는 특정상황에만 필요한 경우라 onresize에선 처리안함
 		$('table#siLst').each(function()
 		{
 			var $th =$(this), ww = $('#siBody').parent().width(),
 				tr = /*$th.position().left + */$th.outerWidth();
 			if(ww < tr){
-				var ta = $('tr:eq(0) th.title', $th).outerWidth();
+				var ta = $('tr:eq(0) th.title', $th).outerWidth() || 150;
 					tt = Math.floor((tr-ww+ta) / ($('tr:eq(0) th', $th).length - 3));
+				if(!ta || ta>130) return;
 				$('th, td', $th).each(function(e) {
 					var $i = $(this);
 					if($i.is('.title')) return;
