@@ -4,7 +4,7 @@
 		<ul class="scFrm">
 			<li cond="$tlk" style="padding-top:10px;padding-bottom:10px;"|cond="$p_lst_cnt===1" loop="$p_list => $no,$document">
 				{@
-					$is_blind = ($tlk!='notice'&&$mi->use_blind=='Y')?$oThis->isBlind($document->document_srl):0;
+					$is_blind = ($tlk!='notice'&&$us_blind)?$oThis->isBlind($document->document_srl):0;
 					$purl = getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage);
 
 					$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;

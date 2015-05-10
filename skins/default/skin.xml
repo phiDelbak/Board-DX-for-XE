@@ -279,52 +279,6 @@
 			<title xml:lang="ko">표시</title>
 			<title xml:lang="jp">表示</title>
 			<title xml:lang="en">display</title>
-			<var name="use_d_vote" type="checkbox">
-				<title xml:lang="ko">문서 추천 버튼</title>
-				<title xml:lang="jp">문서 推薦 ボタン</title>
-				<title xml:lang="en">문서 Vote Button</title>
-				<options value="up">
-					<title xml:lang="ko">추천</title>
-					<title xml:lang="jp">推薦</title>
-					<title xml:lang="en">Vote</title>
-				</options>
-				<options value="down">
-					<title xml:lang="ko">비추천</title>
-					<title xml:lang="jp">非推薦</title>
-					<title xml:lang="en">UnVote</title>
-				</options>
-				<options value="declare">
-					<title xml:lang="ko">신고</title>
-					<title xml:lang="jp">신고</title>
-					<title xml:lang="en">Report</title>
-				</options>
-				<description xml:lang="ko">권한 관리에 관리자를 등록하면 신고시 관리자에게 쪽지가 발송됩니다. (기본값: 작성자)</description>
-				<description xml:lang="jp">権管理に管理者を登録すると申告時の管理者にメッセージが送信されます。 （デフォルト：作成者）</description>
-				<description xml:lang="en">a message will be sent to the moderator at the time of report. (default: author)</description>
-			</var>
-			<var name="use_c_vote" type="checkbox">
-				<title xml:lang="ko">댓글 추천 버튼</title>
-				<title xml:lang="jp">댓글 推薦 ボタン</title>
-				<title xml:lang="en">댓글 Vote Button</title>
-				<options value="up">
-					<title xml:lang="ko">추천</title>
-					<title xml:lang="jp">推薦</title>
-					<title xml:lang="en">Vote</title>
-				</options>
-				<options value="down">
-					<title xml:lang="ko">비추천</title>
-					<title xml:lang="jp">非推薦</title>
-					<title xml:lang="en">UnVote</title>
-				</options>
-				<options value="declare">
-					<title xml:lang="ko">신고</title>
-					<title xml:lang="jp">신고</title>
-					<title xml:lang="en">Report</title>
-				</options>
-				<description xml:lang="ko">추천/비추천/신고 버튼을 표시할지 선택합니다. (댓글 찬/반형은 표시안함)</description>
-				<description xml:lang="jp">推薦/非推薦/申告ボタンを表示するかを選択します。 (댓글 찬/반형은 표시안함)</description>
-				<description xml:lang="en">Decide whether to display "Vote/UnVote/Report" buttons if a moderator is registered in the authorization tab, (댓글 찬/반형은 표시안함)</description>
-			</var>
 			<var name="display_list_header" type="radio" default="Y">
 				<title xml:lang="ko">목록 헤더</title>
 				<title xml:lang="jp">リストヘッダー</title>
@@ -343,7 +297,7 @@
 				<description xml:lang="jp">文書リスト上端のヘッダーを表示するか設定します.</description>
 				<description xml:lang="en">Set whether to display the list header.</description>
 			</var>
-			<var name="display_document_count" type="radio" default="Y">
+			<var name="display_document_count" type="radio" default="N">
 				<title xml:lang="ko">총 문서 수</title>
 				<title xml:lang="jp">すべての文書数</title>
 				<title xml:lang="en">total count</title>
@@ -361,25 +315,7 @@
 				<description xml:lang="jp">リストヘッダーにすべての文書数の表示、非表示を設定します. (정렬 헤더가 없을 경우만 표시)</description>
 				<description xml:lang="en">Set whether to display the document count. (정렬 헤더가 없을 경우만 표시)</description>
 			</var>
-			<var name="display_button_sns" type="radio" default="Y">
-				<title xml:lang="ko">SNS 버튼</title>
-				<title xml:lang="jp">SNS ボタン</title>
-				<title xml:lang="en">SNS Button</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">표시</title>
-					<title xml:lang="jp">表示</title>
-					<title xml:lang="en">display</title>
-				</options>
-				<description xml:lang="ko">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
-				<description xml:lang="jp">該当の文書を SNSに送ることができるボタンを表示するか設定します.</description>
-				<description xml:lang="en">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
-			</var>
-			<var name="display_scrap_button" type="radio" default="Y">
+			<var name="display_scrap_button" type="radio" default="N">
 				<title xml:lang="ko">스크랩 표시</title>
 				<title xml:lang="jp">스크랩 표시</title>
 				<title xml:lang="en">스크랩 표시</title>
@@ -397,7 +333,7 @@
 				<description xml:lang="jp">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
 				<description xml:lang="en">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
 			</var>
-			<var name="display_lang_code" type="radio" default="Y">
+			<var name="display_lang_code" type="radio" default="N">
 				<title xml:lang="ko">다국어 표시</title>
 				<title xml:lang="jp">多国語表示</title>
 				<title xml:lang="en">다국어 표시</title>
@@ -415,28 +351,10 @@
 				<description xml:lang="jp">多国語に作成された文書の場合分かりやすく表示するように設定します.</description>
 				<description xml:lang="en">다국어로 작성된 문서일 경우 알기 쉽게 표시할지 설정합니다.</description>
 			</var>
-			<var name="display_document_do" type="radio" default="Y">
-				<title xml:lang="ko">이 게시물...</title>
-				<title xml:lang="jp">この掲示物...</title>
-				<title xml:lang="en">I want to...</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">표시</title>
-					<title xml:lang="jp">表示</title>
-					<title xml:lang="en">display</title>
-				</options>
-				<description xml:lang="ko">문서 하단의 "이 게시물..."을  표시할지 설정합니다.</description>
-				<description xml:lang="jp">文書下端の "この掲示物 ... " の表示を設定します.</description>
-				<description xml:lang="en">Set whether to display the I want to...</description>
-			</var>
 			<var name="display_ip_address" type="radio" default="N">
-				<title xml:lang="ko">아이피 주소 </title>
-				<title xml:lang="jp">ipアドレス</title>
-				<title xml:lang="en">ip address</title>
+				<title xml:lang="ko">아이피 </title>
+				<title xml:lang="jp">IP</title>
+				<title xml:lang="en">IP</title>
 				<options value="N">
 					<title xml:lang="ko">표시 안함</title>
 					<title xml:lang="jp">非表示</title>
@@ -514,32 +432,96 @@
 			</var>
 		</group>
 		<group>
+			<title xml:lang="ko">버튼</title>
+			<title xml:lang="jp">버튼</title>
+			<title xml:lang="en">버튼</title>
+			<var name="display_document_do" type="radio" default="Y">
+				<title xml:lang="ko">이 게시물...</title>
+				<title xml:lang="jp">この掲示物...</title>
+				<title xml:lang="en">I want to...</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">문서 하단의 "이 게시물..."을  표시할지 설정합니다.</description>
+				<description xml:lang="jp">文書下端の "この掲示物 ... " の表示を設定します.</description>
+				<description xml:lang="en">Set whether to display the I want to...</description>
+			</var>
+			<var name="display_button_sns" type="radio" default="Y">
+				<title xml:lang="ko">SNS 버튼</title>
+				<title xml:lang="jp">SNS ボタン</title>
+				<title xml:lang="en">SNS Button</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">該当の文書を SNSに送ることができるボタンを表示するか設定します.</description>
+				<description xml:lang="en">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
+			</var>
+			<var name="use_d_vote" type="checkbox">
+				<title xml:lang="ko">문서 추천</title>
+				<title xml:lang="jp">문서 推薦</title>
+				<title xml:lang="en">문서 Vote</title>
+				<options value="up">
+					<title xml:lang="ko">추천</title>
+					<title xml:lang="jp">推薦</title>
+					<title xml:lang="en">Vote</title>
+				</options>
+				<options value="down">
+					<title xml:lang="ko">비추천</title>
+					<title xml:lang="jp">非推薦</title>
+					<title xml:lang="en">UnVote</title>
+				</options>
+				<options value="declare">
+					<title xml:lang="ko">신고</title>
+					<title xml:lang="jp">신고</title>
+					<title xml:lang="en">Report</title>
+				</options>
+				<description xml:lang="ko">권한 관리에 관리자를 등록하면 신고시 관리자에게 쪽지가 발송됩니다. (기본값: 작성자)</description>
+				<description xml:lang="jp">権管理に管理者を登録すると申告時の管理者にメッセージが送信されます。 （デフォルト：作成者）</description>
+				<description xml:lang="en">a message will be sent to the moderator at the time of report. (default: author)</description>
+			</var>
+			<var name="use_c_vote" type="checkbox">
+				<title xml:lang="ko">댓글 추천</title>
+				<title xml:lang="jp">댓글 推薦</title>
+				<title xml:lang="en">댓글 Vote</title>
+				<options value="up">
+					<title xml:lang="ko">추천</title>
+					<title xml:lang="jp">推薦</title>
+					<title xml:lang="en">Vote</title>
+				</options>
+				<options value="down">
+					<title xml:lang="ko">비추천</title>
+					<title xml:lang="jp">非推薦</title>
+					<title xml:lang="en">UnVote</title>
+				</options>
+				<options value="declare">
+					<title xml:lang="ko">신고</title>
+					<title xml:lang="jp">신고</title>
+					<title xml:lang="en">Report</title>
+				</options>
+				<description xml:lang="ko">추천/비추천/신고 버튼을 표시할지 선택합니다. (댓글 찬/반형은 표시안함)</description>
+				<description xml:lang="jp">推薦/非推薦/申告ボタンを表示するかを選択します。 (댓글 찬/반형은 표시안함)</description>
+				<description xml:lang="en">Decide whether to display "Vote/UnVote/Report" buttons if a moderator is registered in the authorization tab, (댓글 찬/반형은 표시안함)</description>
+			</var>
+		</group>
+		<group>
 			<title xml:lang="ko">입력기</title>
 			<title xml:lang="jp">入力機</title>
 			<title xml:lang="en">Input devices</title>
-			<var name="use_input_guest_info" type="radio" default="Y">
-				<title xml:lang="ko">비회원 정보</title>
-				<title xml:lang="jp">非会員情報</title>
-				<title xml:lang="en">Guest info</title>
-				<options value="N">
-					<title xml:lang="ko">사용 안함</title>
-					<title xml:lang="jp">使用しない</title>
-					<title xml:lang="en">not use</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">모두</title>
-					<title xml:lang="jp">すべて</title>
-					<title xml:lang="en">all</title>
-				</options>
-				<options value="S">
-					<title xml:lang="ko">닉네임</title>
-					<title xml:lang="jp">ニックネーム</title>
-					<title xml:lang="en">nickname</title>
-				</options>
-				<description xml:lang="ko">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
-				<description xml:lang="jp">非会員が文書作成の時入力情報を設定します.</description>
-				<description xml:lang="en">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
-			</var>
 			<var name="use_step_category" type="radio" default="Y">
 				<title xml:lang="ko">단계형 분류</title>
 				<title xml:lang="jp">段階型分類</title>
@@ -608,6 +590,29 @@
 				<description xml:lang="ko">글 작성시 하단에 태그, 링크 입력기를 표시할지 설정합니다.</description>
 				<description xml:lang="jp">文作成の時下端にタッグ, リンク入力機の表示を設定します.</description>
 				<description xml:lang="en">Set whether to display the tag and link input devices.</description>
+			</var>
+			<var name="use_input_guest_info" type="radio" default="Y">
+				<title xml:lang="ko">비회원 정보</title>
+				<title xml:lang="jp">非会員情報</title>
+				<title xml:lang="en">Guest info</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">모두</title>
+					<title xml:lang="jp">すべて</title>
+					<title xml:lang="en">all</title>
+				</options>
+				<options value="S">
+					<title xml:lang="ko">닉네임</title>
+					<title xml:lang="jp">ニックネーム</title>
+					<title xml:lang="en">nickname</title>
+				</options>
+				<description xml:lang="ko">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
+				<description xml:lang="jp">非会員が文書作成の時入力情報を設定します.</description>
+				<description xml:lang="en">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
 			</var>
 			<var name="use_input_comment_writer" type="radio" default="Y">
 				<title xml:lang="ko">댓글 입력기</title>

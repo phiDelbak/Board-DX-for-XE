@@ -12,7 +12,8 @@ $ds_user =	$ci['user_name']->display == 'Y';
 $is_granted = $grant->view && $oDocument->isGranted();
 $is_secret = $oDocument->isSecret();
 $is_locked = $is_cklok?$oThis->isLocked($doc_srl):0;
-$is_blind = $mi->use_blind=='Y'?$oThis->isBlind($doc_srl):0;
+$is_blind = $us_blind?$oThis->isBlind($doc_srl):0;
+$is_scrap = $ds_scrap?$oThis->isScrap($doc_srl):0;
 $exks = ((!$is_secret || $is_granted) && $oDocument->isExtraVarsExists()) ? $oDocument->getExtraVars() : array();
 $tags = (!$is_secret || $is_granted) ? $oDocument->get('tag_list') : array();
 $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDocument->getUploadedFiles() : array();
@@ -35,6 +36,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
         <li class="clearBar">
             <div class="fl">
                 <img cond="$is_secret" class="scIcoSet secret" title="Secret" src="img/common/blank.gif" />
+                <img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
                 {@
                 $mbsl = $oDocument->get('member_srl');
                 $home = $oDocument->get('homepage');
@@ -114,7 +116,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
                 {$oDocument->getContent(false)}
                 <!--@endif-->
             </div>
-            <include cond="!$is_secret&&!$is_restrict&&$mi->use_history&&$mi->use_history!='N'" target="_etc.histories.html" />
+            <include cond="!$is_secret&&!$is_blind&&!$is_restrict&&$mi->use_history&&$mi->use_history!='N'" target="_etc.histories.html" />
             <div cond="$mi->document_bottom_text" class="scMbtTxt clearBar">
                 {$mi->document_bottom_text}
             </div>
@@ -144,7 +146,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
                     <li class="delicious link"><a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a></li>
                 </ul>
             </div>
-            <include cond="$is_doc&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
+            <include cond="$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
             <div class="sign clearBar" cond="($mi->display_profile!='N'&&$mi->display_profile!='C')&&($oDocument->getProfileImage()||$oDocument->getSignature())">
                 <img cond="$oDocument->getProfileImage()" src="{$oDocument->getProfileImage()}" alt="Profile" class="pf" />
                 <div cond="$oDocument->getSignature()" class="tx">{$oDocument->getSignature()}</div>

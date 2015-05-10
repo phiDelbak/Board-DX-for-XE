@@ -84,6 +84,111 @@
 			<title xml:lang="ko">표시</title>
 			<title xml:lang="jp">表示</title>
 			<title xml:lang="en">display</title>
+			<var name="display_scrap_button" type="radio" default="N">
+				<title xml:lang="ko">스크랩 표시</title>
+				<title xml:lang="jp">스크랩 표시</title>
+				<title xml:lang="en">스크랩 표시</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">스크랩된 문서일경우 아이콘 표시 해줍니다.</description>
+				<description xml:lang="jp">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
+				<description xml:lang="en">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
+			</var>
+			<var name="display_lang_code" type="radio" default="N">
+				<title xml:lang="ko">다국어 표시</title>
+				<title xml:lang="jp">多国語表示</title>
+				<title xml:lang="en">다국어 표시</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">다국어로 작성된 문서일 경우 알기 쉽게 표시할지 설정합니다.</description>
+				<description xml:lang="jp">多国語に作成された文書の場合分かりやすく表示するように設定します.</description>
+				<description xml:lang="en">다국어로 작성된 문서일 경우 알기 쉽게 표시할지 설정합니다.</description>
+			</var>
+			<var name="display_attached_files" type="radio" default="Y">
+				<title xml:lang="ko">첨부 파일</title>
+				<title xml:lang="jp">添付ファイル</title>
+				<title xml:lang="en">Attached files</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">모든 파일</title>
+					<title xml:lang="jp">すべて表示</title>
+					<title xml:lang="en">all files</title>
+				</options>
+				<options value="G">
+					<title xml:lang="ko">일반 파일</title>
+					<title xml:lang="jp">一般ファイル</title>
+					<title xml:lang="en">general files</title>
+				</options>
+				<options value="M">
+					<title xml:lang="ko">미디어 파일</title>
+					<title xml:lang="jp">メディアファイル</title>
+					<title xml:lang="en">media files</title>
+				</options>
+				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
+				<description xml:lang="en">Set whether to display the attached files.</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">버튼</title>
+			<title xml:lang="jp">버튼</title>
+			<title xml:lang="en">버튼</title>
+			<var name="display_document_do" type="radio" default="Y">
+				<title xml:lang="ko">이 게시물...</title>
+				<title xml:lang="jp">この掲示物...</title>
+				<title xml:lang="en">I want to...</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">문서 하단의 "이 게시물..."을  표시할지 설정합니다.</description>
+				<description xml:lang="jp">文書下端の "この掲示物 ... " の表示を設定します.</description>
+				<description xml:lang="en">Set whether to display the I want to...</description>
+			</var>
+			<var name="display_button_sns" type="radio" default="Y">
+				<title xml:lang="ko">SNS 버튼</title>
+				<title xml:lang="jp">SNS ボタン</title>
+				<title xml:lang="en">SNS Button</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">該当の文書を SNSに送ることができるボタンを表示するか設定します.</description>
+				<description xml:lang="en">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
+			</var>
 			<var name="use_d_vote" type="checkbox">
 				<title xml:lang="ko">문서 추천 버튼</title>
 				<title xml:lang="jp">문서 推薦 ボタン</title>
@@ -129,106 +234,6 @@
 				<description xml:lang="ko">추천/비추천/신고 버튼을 표시할지 선택합니다. (댓글 찬/반형은 표시안함)</description>
 				<description xml:lang="jp">推薦/非推薦/申告ボタンを表示するかを選択します。 (댓글 찬/반형은 표시안함)</description>
 				<description xml:lang="en">Decide whether to display "Vote/UnVote/Report" buttons if a moderator is registered in the authorization tab, (댓글 찬/반형은 표시안함)</description>
-			</var>
-			<var name="display_button_sns" type="radio" default="Y">
-				<title xml:lang="ko">SNS 버튼</title>
-				<title xml:lang="jp">SNS ボタン</title>
-				<title xml:lang="en">SNS Button</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">표시</title>
-					<title xml:lang="jp">表示</title>
-					<title xml:lang="en">display</title>
-				</options>
-				<description xml:lang="ko">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
-				<description xml:lang="jp">該当の文書を SNSに送ることができるボタンを表示するか設定します.</description>
-				<description xml:lang="en">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
-			</var>
-			<var name="display_scrap_button" type="radio" default="Y">
-				<title xml:lang="ko">스크랩 표시</title>
-				<title xml:lang="jp">스크랩 표시</title>
-				<title xml:lang="en">스크랩 표시</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">표시</title>
-					<title xml:lang="jp">表示</title>
-					<title xml:lang="en">display</title>
-				</options>
-				<description xml:lang="ko">스크랩된 문서일경우 아이콘 표시 해줍니다.</description>
-				<description xml:lang="jp">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
-				<description xml:lang="en">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
-			</var>
-			<var name="display_lang_code" type="radio" default="Y">
-				<title xml:lang="ko">다국어 표시</title>
-				<title xml:lang="jp">多国語表示</title>
-				<title xml:lang="en">다국어 표시</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">표시</title>
-					<title xml:lang="jp">表示</title>
-					<title xml:lang="en">display</title>
-				</options>
-				<description xml:lang="ko">다국어로 작성된 문서일 경우 알기 쉽게 표시할지 설정합니다.</description>
-				<description xml:lang="jp">多国語に作成された文書の場合分かりやすく表示するように設定します.</description>
-				<description xml:lang="en">다국어로 작성된 문서일 경우 알기 쉽게 표시할지 설정합니다.</description>
-			</var>
-			<var name="display_document_do" type="radio" default="Y">
-				<title xml:lang="ko">이 게시물...</title>
-				<title xml:lang="jp">この掲示物...</title>
-				<title xml:lang="en">I want to...</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">표시</title>
-					<title xml:lang="jp">表示</title>
-					<title xml:lang="en">display</title>
-				</options>
-				<description xml:lang="ko">문서 하단의 "이 게시물..."을  표시할지 설정합니다.</description>
-				<description xml:lang="jp">文書下端の "この掲示物 ... " の表示を設定します.</description>
-				<description xml:lang="en">Set whether to display the I want to...</description>
-			</var>
-			<var name="display_attached_files" type="radio" default="Y">
-				<title xml:lang="ko">첨부 파일</title>
-				<title xml:lang="jp">添付ファイル</title>
-				<title xml:lang="en">Attached files</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">모든 파일</title>
-					<title xml:lang="jp">すべて表示</title>
-					<title xml:lang="en">all files</title>
-				</options>
-				<options value="G">
-					<title xml:lang="ko">일반 파일</title>
-					<title xml:lang="jp">一般ファイル</title>
-					<title xml:lang="en">general files</title>
-				</options>
-				<options value="M">
-					<title xml:lang="ko">미디어 파일</title>
-					<title xml:lang="jp">メディアファイル</title>
-					<title xml:lang="en">media files</title>
-				</options>
-				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
-				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
-				<description xml:lang="en">Set whether to display the attached files.</description>
 			</var>
 		</group>
 		<group>

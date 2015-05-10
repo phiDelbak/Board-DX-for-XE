@@ -8,8 +8,11 @@
 	$is_doc = $oDocument && $oDocument->isExists();
 	$is_cts = count($cts);
 
+	$us_blind = $mi->use_blind=='Y';
+
 	$ao_ppang = $mi->addon_pang_pang == 'Y';
 	$ds_mtlng = $mi->display_lang_code == 'Y';
+	$ds_scrap = $mi->display_scrap_button == 'Y';
 	$pt_vtype = $mi->use_point_type == 'A' ? 'A' : ($mi->use_restrict_view == 'P' ? 'P' : ($mi->use_restrict_view == 'Y' ? 'Y' : 'N'));
 	$pt_dtype = ($pt_vtype != 'A' && $mi->use_restrict_down == 'P') ? 'P' : ($pt_vtype != 'A' && $mi->use_restrict_down == 'Y' ? 'Y' : 'N');
 
@@ -34,6 +37,8 @@
 	$mi->document_default_title = $mi->document_default_title ? preg_replace($tmp1,$tmp2,$mi->document_default_title) : '';
 	$mi->document_default_content = $mi->document_default_content ? preg_replace($tmp1,$tmp2,$mi->document_default_content) : '';
 	$mi->document_bottom_text = $mi->document_bottom_text ? preg_replace($tmp1,$tmp2,$mi->document_bottom_text) : '';
+
+	$tpl_path = './modules/beluxe/skins/default/mobile/';
 }
 
 <!--@if(__DEBUG__)-->

@@ -288,7 +288,8 @@
     white-space:nowrap
 }
 #siBody img {
-    border:none
+    border:none;
+    vertical-align:middle;
 }
 #siBody label {
     cursor:pointer
@@ -300,18 +301,20 @@
 #siBody img.scIcoSet {
     width:11px;
     height:11px;
-    vertical-align:text-bottom;
     background:url(../img/common/ico_set.gif) no-repeat
 }
 #siBody img.scIcoSet.secret {
     height:12px;
-    background-position:0 -30px
+    background-position:0 -240px
 }
 #siBody img.scIcoSet.coin {
     background-position:0 0
 }
 #siBody img.scIcoSet.world {
     background-position:-19px 0
+}
+#siBody img.scIcoSet.scrap {
+    background-position:0 -30px
 }
 #siBody ul.scFrm {
     padding:5px 10px;

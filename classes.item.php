@@ -265,10 +265,6 @@ class BeluxeItem extends Object
 
 	function isScrap($a_consrl)
 	{
-		$output = executeQuery('member.getScrapDocument', $args);
-		if($output->data->count) return new Object(-1, 'msg_alreay_scrapped');
-
-
 		$cmThis = &getModel(__XEFM_NAME__);
 		return $cmThis->isScrap($a_consrl, $this->member_srl);
 	}

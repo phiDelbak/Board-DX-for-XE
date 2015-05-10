@@ -29,7 +29,8 @@ border:1px solid #bbb;
 
 /* Background */
 .st .wt,
-.nav img.ise,
+.st img.ise,
+.file > li a,
 .rp > li > ul > li {
 	background-color:transparent;
 	background-image:url(mx.png);
@@ -490,55 +491,6 @@ margin-left:10px
 background:#A06ACD
 }
 
-
-
-/* file List */
-.file{
-	list-style:none;
-	padding: 0 7px;
-}
-.file li{
-	padding: 5px 5px;
-	margin:2px 0;
-	border-top:1px solid #ccc8be;
-}
-.file li:first-child{
-	border-top:0;
-}
-.file a{
-	text-decoration:none;
-	display:block;
-	color:#333
-}
-.file .size{
-	font-size:12px;
-	margin:0 0 0 5px;
-	padding:0;
-	color:#999
-}
-
-.file li a.idw{
-font-weight:bold
-}
-.file li.notvalid a{
-	text-decoration:line-through
-}
-#cl .file{
-	padding:5px;
-	border:1px solid #e8e8e8;
-	list-style:none;
-}
-#cl .file li{
-	padding: 0;
-	margin: 0;
-	border:0;
-	margin-right:10px;
-	display:inline-flex;
-}
-#cl .file li a{
-	color:#777
-}
-
 /* reply */
 .rp{
 	background:#f8f8f8;
@@ -566,7 +518,6 @@ font-weight:bold
 .rp > li > ul > li.dep > div{
 	margin-left:15px;
 }
-
 
 
 .rp .xe_content, .rp p{
@@ -845,10 +796,26 @@ color:#333
 text-decoration:underline
 }
 /* nav */
-.nav img.ise{
-width:11px;
-height:11px;
-background-position:0 -112px;
+.nav,
+.file{
+	list-style:none;
+	padding: 0 7px;
+}
+.nav li,
+.file li{
+	padding: 5px 5px;
+	margin:2px 0;
+	border-top:1px solid #ccc8be;
+}
+.nav li:first-child,
+.file li:first-child{
+	border-top:0;
+}
+.nav a,
+.file a{
+	text-decoration:none;
+	display:block;
+	color:#333
 }
 .nav .no{
 display:inline-block;
@@ -869,6 +836,39 @@ margin-right: 5px;
 .nav .usept{
 	padding: 0 3px 0 0;
 }
+/* file List */
+.file .size{
+	font-size:12px;
+	margin:0 0 0 5px;
+	padding:0;
+	color:#999
+}
+.file li a{
+padding-left:14px;
+background-position:-19px -79px;
+}
+.file li a.idw{
+font-weight:bold
+}
+.file li.notvalid a{
+	text-decoration:line-through
+}
+#cl .file{
+	padding:5px;
+	border:1px solid #e8e8e8;
+	list-style:none;
+}
+#cl .file li{
+	padding: 0;
+	margin: 0;
+	border:0;
+	margin-right:10px;
+	display:inline-flex;
+}
+#cl .file li a{
+	color:#777
+}
+
 /* license */
 .lic{
 position:absolute;
@@ -889,6 +889,20 @@ position:static
 }
 div.lic a{
 color:#999
+}
+/* etc */
+.st img.ise{
+	width: 11px;
+	height: 11PX
+}
+img.ise.world{
+background-position:0 -112px;
+}
+img.ise.coin{
+background-position:-17px -112px;
+}
+img.ise.scrap{
+background-position:0px -84px;
 }
 /* member */
 span[class^="member_"]{

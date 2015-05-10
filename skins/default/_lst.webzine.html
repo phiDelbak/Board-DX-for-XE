@@ -66,7 +66,8 @@
 	<tbody loop="$a_lsttp => $tlk,$p_list" cond="$tlk && count($p_list)" class="{$tlk}">
 		<block loop="$p_list => $no,$document">
 		{@
-			$is_blind = ($tlk!='notice'&&$mi->use_blind=='Y')?$oThis->isBlind($document->document_srl):0;
+			$is_blind = ($tlk!='notice'&&$us_blind)?$oThis->isBlind($document->document_srl):0;
+			$is_scrap = $ds_scrap?$oThis->isScrap($document->document_srl):0;
 			$purl = getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage);
 		}
 		<tr data-hottrack="{$purl}"|cond="$us_hottrack">
@@ -91,7 +92,7 @@
 								}
 								<em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
 								<em cond="!$t_cmtn&&!$t_tbkn">&nbsp;</em>
-							{$document->printExtraImages(60*60*$mi->duration_new)}<img class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
+							{$document->printExtraImages(60*60*$mi->duration_new)}<img cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
 							</span>
 						</div>
 					<!--@break-->
@@ -173,9 +174,10 @@
 		<block loop="$document_list => $no,$document">
 		{@
 			$is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
-			$is_blind = $mi->use_blind=='Y'?$oThis->isBlind($document->document_srl):0;
+			$is_blind = $us_blind?$oThis->isBlind($document->document_srl):0;
+			$is_scrap = $ds_scrap?$oThis->isScrap($document->document_srl):0;
 			$purl = getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage);
-			
+
 			$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
 			$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 		}
@@ -208,16 +210,16 @@
 											}
 											<em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
 											<em cond="!$t_cmtn&&!$t_tbkn">&nbsp;</em>
-											{$document->printExtraImages(60*60*$mi->duration_new)}<img class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
 											<block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">
 												{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}
 												<img class="scIcoSet coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}" />
 											</block>
+											{$document->printExtraImages(60*60*$mi->duration_new)}<img class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
 										</span>
 									</div>
 								<!--@break-->
 								<!--@case('mbAifo')-->
-									<label>{$ds_nick?$lang->nick_name:$lang->user_name}:</label> 
+									<label>{$ds_nick?$lang->nick_name:$lang->user_name}:</label>
 									<block cond="$ds_nick||$ds_user">
 										{@
 											$mbsl = $document->get('member_srl');

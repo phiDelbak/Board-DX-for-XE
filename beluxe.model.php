@@ -669,8 +669,8 @@ class beluxeModel extends beluxe
 
     function isBlind($a_consrl, $a_type = 'doc') {
         if (!$a_consrl) return true;
-        $t = 'BELUXE_IS_'.$a_type;
-        $x = 'BLIND_'.$a_consrl;
+        $t = 'BELUXE_IS_BLIND';
+        $x = $a_type.'_'.$a_consrl;
 
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
@@ -708,8 +708,8 @@ class beluxeModel extends beluxe
 
     function isLocked($a_consrl, $a_type = 'doc') {
         if (!$a_consrl) return true;
-        $t = 'BELUXE_IS_'.$a_type;
-        $x = 'LOCKED_'.$a_consrl;
+        $t = 'BELUXE_IS_LOCKED';
+        $x = $a_type.'_'.$a_consrl;
 
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
@@ -748,8 +748,8 @@ class beluxeModel extends beluxe
 
     function isWrote($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
         if (!$a_consrl || ($a_ismbr && !$a_mbrsrl)) return;
-        $t = 'BELUXE_IS_'.$a_type;
-        $x = 'WROTE_'.$a_consrl;
+        $t = 'BELUXE_IS_WROTE';
+        $x = $a_type.'_'.$a_consrl;
 
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
@@ -764,8 +764,8 @@ class beluxeModel extends beluxe
 
     function isRead($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
         if (!$a_consrl || ($a_ismbr && !$a_mbrsrl)) return;
-        $t = 'BELUXE_IS_'.$a_type;
-        $x = 'READ_'.$a_consrl;
+        $t = 'BELUXE_IS_READ';
+        $x = $a_type.'_'.$a_consrl;
 
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
@@ -780,8 +780,8 @@ class beluxeModel extends beluxe
 
     function isVoted($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
         if (!$a_consrl || ($a_ismbr && !$a_mbrsrl)) return;
-        $t = 'BELUXE_IS_'.$a_type;
-        $x = 'VOTED_'.$a_consrl;
+        $t = 'BELUXE_IS_VOTED';
+        $x = $a_type.'_'.$a_consrl;
 
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
@@ -796,8 +796,8 @@ class beluxeModel extends beluxe
 
     function isDownloaded($a_filesrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
         if (!$a_filesrl || ($a_ismbr && !$a_mbrsrl)) return;
-        $t = 'BELUXE_IS_'.$a_type;
-        $x = 'DOWNLOADED_'.$a_consrl;
+        $t = 'BELUXE_IS_DOWNLOADED';
+        $x = $a_type.'_'.$a_consrl;
 
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
@@ -812,15 +812,19 @@ class beluxeModel extends beluxe
 
     function isScrap($a_consrl, $a_mbrsrl) {
         if (!$a_consrl || !$a_mbrsrl) return;
-        $t = 'BELUXE_IS_'.$a_type;
-        $x = 'SCRAP_'.$a_consrl;
+        $t = 'BELUXE_IS_SCRAP';
+        $x = 'doc_'.$a_consrl;
 
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
+        $args->document_srl = $a_consrl;
+        $args->member_srl = $a_mbrsrl;
+        $out = executeQuery('member.getScrapDocument', $args);
 
+        $is_scrap = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
 
-        return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_wrote;
+        return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_scrap;
     }
 
     /**
