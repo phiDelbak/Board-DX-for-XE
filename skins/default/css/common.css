@@ -389,6 +389,19 @@
     font-size:16px;
     text-shadow:0 1px #ccc
 }
+.scModalClose {
+    position:absolute;
+    right:1px;
+    top:1px;
+    padding:0 5px;
+    cursor: pointer;
+    font-size: 18px;
+    background: none repeat scroll 0% 0% transparent;
+    border:solid 1px #ddd;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px
+}
 /* Category */
 #siCat .scCaNavi,
 #siCat .scCaLock {
@@ -2300,4 +2313,5 @@ noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
     #siFbk .scFbWt .cmtbtns {padding:0 5px 0 0}
     #siWrt .scWul .scWli input,
     #siSimWrt .scWul input {margin-top:2px}
+    .scModalClose {font-size: 16px}
 }

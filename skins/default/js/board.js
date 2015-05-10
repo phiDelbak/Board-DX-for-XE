@@ -436,6 +436,7 @@ jQuery(function($)
 
 			if($.browser.msie===true) $('<span class="iefix" />').css({'width':w+'px','height':h+'px'}).appendTo($a);
 		});
+
 		// 모달
 		$('.pidModalAnchor')
 		.bind('before-open.mw', function(e) {
@@ -466,7 +467,12 @@ jQuery(function($)
 			$($(this).attr('href'), (parent ? parent : self).document)
 					.find('button.pid_modal-close:first').click();
         	return false;
-		});
+		}).closest('form').each(function(){
+			$(this).prepend(
+				$('<button type="button" class="scModalClose"">&times;</button>')
+					.click(function(){$('[data-modal-hide]:eq(0)').click(); return false;})
+			);
+ 		});
 
 		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
 		$('#siFbk a[name^=comment][data-scroll=true]').last().parent().scrollIntoView();
