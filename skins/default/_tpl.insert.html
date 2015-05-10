@@ -87,7 +87,7 @@
 				<!--@else-->
 				<select name="category_srl" value="{$t_ctsrl}" filter-rule="true,number" filter-name="{$lang->category_srl}">
 					<option cond="!$category_srl" value="">{$lang->none_category}</option>
-					<option loop="$cts => $val" cond="$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->category_srl==$category_srl">
+					<option loop="$cts => $val" cond="$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->category_srl==$t_ctsrl">
 						{str_repeat('&nbsp;&nbsp;',$val->depth)}{$val->title.($val->total_document_count?'&nbsp;('.$val->total_document_count.')':'')}
 					</option>
 				</select>
