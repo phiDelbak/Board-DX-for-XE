@@ -102,7 +102,7 @@
 			<!--@else-->
 			<label for="rText">{$lang->comment}</label>
 			<!--@endif-->
-			<label cond="$mi->use_input_comment_writer != 'T'"><input type="checkbox" name="use_html" value="Y" /> HTML</label>
+			<label cond="$mi->use_input_comment_writer != 'T'"><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
 			<textarea name="content" cols="20" rows="5" id="rText">{$oComment->getContentText()}</textarea>
 		</li>
 	</ul>

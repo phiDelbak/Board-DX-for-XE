@@ -163,7 +163,7 @@
 			</block>
 			<li>
 				<label for="nText">{$lang->content}</label>
-				<label><input type="checkbox" name="use_html" value="Y" /> HTML</label>
+				<label><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
 				<textarea name="content" cols="20" rows="8" id="nText">{$is_doc?$oDocument->getContentText():htmlspecialchars($mi->document_default_content)}</textarea>
 			</li>
 			<li cond="$mi->use_mobile_uploader == 'Y'">
