@@ -1,5 +1,6 @@
 
 <ul class="gn">
+	<li><a href="{getUrl('','mid',$mid,'category_srl','')}">{$mi->browser_title} <em>[{number_format($cts[0]->total_document_count)}]</em></a></li>
 	<!--@foreach($cts as $val)-->
 	<block cond="$val->category_srl">
 		<!--@if(!$start && $val->depth == $depth)-->

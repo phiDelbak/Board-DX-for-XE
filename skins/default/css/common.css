@@ -257,6 +257,7 @@
 #siBody input[type="url"] ,
 #siBody textarea,
 #siBody select {
+    line-height:16px;
     padding:2px;
     border:1px solid #bbb;
     border-radius:2px;
