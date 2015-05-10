@@ -91,7 +91,7 @@ class beluxeWAP extends beluxe
 						if(!$is_secret && !$is_grant && $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view!='N')
 						{
 							if(!$cmThis) $cmThis = &getModel(__XEFM_NAME__);
-							$is_read = $cmThis->isReaded($doc_srl, $mbr_srl);
+							$is_read = $cmThis->isRead($doc_srl, $mbr_srl);
 						}
 
 						if(!$is_read)

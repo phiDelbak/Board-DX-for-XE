@@ -989,7 +989,7 @@ class beluxeController extends beluxe
 		$cmThis = &getModel(__XEFM_NAME__);
 
 		// 사용된적이 없으면
-		if(!$cmThis->isReaded($doc_srl, $mbr_srl))
+		if(!$cmThis->isRead($doc_srl, $mbr_srl))
 		{
 			$doc_member_srl = $oDocIfo->get('member_srl');
 			$dx_exv = $oDocIfo->get('extra_vars');

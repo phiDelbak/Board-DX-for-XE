@@ -18,7 +18,7 @@ $tags = (!$is_secret || $is_granted) ? $oDocument->get('tag_list') : array();
 $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDocument->getUploadedFiles() : array();
 $un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
 $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
-$is_restrict = !$is_granted&&!$is_secret&&($pt_vtype=='Y'&&!$oThis->isWrote($doc_srl, true, 'cmt')||$pt_vtype=='P'&&!$oThis->isReaded($doc_srl));
+$is_restrict = !$is_granted&&!$is_secret&&($pt_vtype=='Y'&&!$oThis->isWrote($doc_srl, true, 'cmt')||$pt_vtype=='P'&&!$oThis->isRead($doc_srl));
 $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
 }
 <div id="siHrm"><a name="document"></a>
@@ -155,7 +155,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
                     <li class="facebook link"><a href="http://facebook.com/" target="_blank" data-type="fa" title="Facebook">Facebook</a></li>
                     <li class="delicious link"><a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a></li>
                 </ul>
-            </div>            
+            </div>
             <include cond="$is_doc&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
             <div class="sign clearBar" cond="($mi->display_profile!='N'&&$mi->display_profile!='C')&&($oDocument->getProfileImage()||$oDocument->getSignature())">
                 <img cond="$oDocument->getProfileImage()" src="{$oDocument->getProfileImage()}" alt="Profile" class="pf" />

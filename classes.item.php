@@ -245,10 +245,10 @@ class BeluxeItem extends Object
 		return $cmThis->isWrote($a_consrl, $this->member_srl, $a_ismbr, $a_type);
 	}
 
-	function isReaded($a_consrl, $a_ismbr = TRUE, $a_type = 'doc')
+	function isRead($a_consrl, $a_ismbr = TRUE, $a_type = 'doc')
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->isReaded($a_consrl, $this->member_srl, $a_ismbr, $a_type);
+		return $cmThis->isRead($a_consrl, $this->member_srl, $a_ismbr, $a_type);
 	}
 
 	function isVoted($a_consrl, $a_ismbr = TRUE, $a_type = 'doc')
@@ -261,6 +261,16 @@ class BeluxeItem extends Object
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
 		return $cmThis->isDownloaded($a_filesrl, $this->member_srl, $a_ismbr, $a_type);
+	}
+
+	function isScrap($a_consrl)
+	{
+		$output = executeQuery('member.getScrapDocument', $args);
+		if($output->data->count) return new Object(-1, 'msg_alreay_scrapped');
+
+
+		$cmThis = &getModel(__XEFM_NAME__);
+		return $cmThis->isScrap($a_consrl, $this->member_srl);
 	}
 
 	function sendMessageToMember($a_smbrsrl, $a_mbrsrl, $a_title, $a_ctent, $sender_log = TRUE)

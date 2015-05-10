@@ -30,7 +30,7 @@
     $exks = ((!$is_secret || $is_granted) && $oDocument->isExtraVarsExists()) ? $oDocument->getExtraVars() : array();
     $tags = (!$is_secret || $is_granted) ? $oDocument->get('tag_list') : array();
     $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDocument->getUploadedFiles() : array();
-    $is_restrict = !$is_granted&&!$is_secret&&($pt_vtype=='Y'&&!$oThis->isWrote($doc_srl, true, 'cmt')||$pt_vtype=='P'&&!$oThis->isReaded($doc_srl));
+    $is_restrict = !$is_granted&&!$is_secret&&($pt_vtype=='Y'&&!$oThis->isWrote($doc_srl, true, 'cmt')||$pt_vtype=='P'&&!$oThis->isRead($doc_srl));
     $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
 }
 

@@ -296,7 +296,7 @@ class beluxeView extends beluxe
                     if(!$is_grant && !$is_secret && $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view != 'N')
                     {
                         $is_read = $oModIfo->use_restrict_view=='Y'&&$this->cmThis->isWrote($doc_srl, $mbr_srl, true, 'cmt')
-                                || $oModIfo->use_restrict_view=='P'&&$this->cmThis->isReaded($doc_srl, $mbr_srl);
+                                || $oModIfo->use_restrict_view=='P'&&$this->cmThis->isRead($doc_srl, $mbr_srl);
 
                         // 포인트가 0인것은 패스
                         if(!$is_read) {

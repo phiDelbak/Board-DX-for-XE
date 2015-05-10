@@ -148,6 +148,24 @@
 				<description xml:lang="jp">該当の文書を SNSに送ることができるボタンを表示するか設定します.</description>
 				<description xml:lang="en">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
 			</var>
+			<var name="display_scrap_button" type="radio" default="Y">
+				<title xml:lang="ko">스크랩 표시</title>
+				<title xml:lang="jp">스크랩 표시</title>
+				<title xml:lang="en">스크랩 표시</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">스크랩된 문서일경우 아이콘 표시 해줍니다.</description>
+				<description xml:lang="jp">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
+				<description xml:lang="en">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
+			</var>
 			<var name="display_lang_code" type="radio" default="Y">
 				<title xml:lang="ko">다국어 표시</title>
 				<title xml:lang="jp">多国語表示</title>
