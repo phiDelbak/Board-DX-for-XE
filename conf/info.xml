@@ -16,14 +16,14 @@
 		This module is the integrated Board.
 		Anyone easily can use various styles bulletin board.
 	</description>
-	
+
 	<license xml:lang="ko">게시판 DX는 개인,기업 누구나 사용가능합니다.</license>
 	<license xml:lang="jp">掲示板 DXは個人,企業誰も使用可能です.</license>
 	<license xml:lang="en">Board DX is an individual, business, everyone is available.</license>
 
 	<!-- This module was created in 2011-10-01. -->
-	<version>1.9.8</version>
-	<date>2015-05-08</date>
+	<version>1.9.9</version>
+	<date>2015-05-10</date>
 	<category>package</category>
 
 	<author link="https://github.com/phiDelbak/Board-DX-for-XE" email_address="xe.phidel@gmail.com">
