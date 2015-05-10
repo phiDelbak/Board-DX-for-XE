@@ -1,5 +1,6 @@
 @charset "utf-8";
 /* Mobile XE */
+
 article,
 section,
 form {
@@ -25,6 +26,14 @@ border:1px solid #bbb;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
+}
+
+body, .bd {
+	background:#f8f8f8!important;
+}
+
+#xe_message{
+	display:none
 }
 
 /* Background */
@@ -79,14 +88,6 @@ form.ff > ul,
 }
 
 /* Body */
-#xe_message{
-	display:none
-}
-
-
-.bd {
-	background:#f8f8f8;
-}
 
 
 .co .xv{
@@ -137,10 +138,12 @@ form.ff > ul,
 	padding:0;
 	font-size: 15px;
 	color:#333;
+	text-shadow: 0 0 2px #fff;
 }
 .st > h2 a{
 	color:#333;
 	height:16px;
+	text-shadow: 0 0 2px #fff;
 }
 .st > h2 > * {
 	margin-right: 10px;
@@ -227,17 +230,18 @@ padding:9px 14px;
 margin:1px;
 font-size:14px;
 color:#f1f1f1;
+text-shadow: 0 0 2px #000;
 white-space:nowrap;
 }
 .gn ul a:before{
 content:"";
 display:inline-block;
-width:6px;
-height:6px;
-border:1px dotted #666;
+width:5px;
+height:8px;
+border:1px dotted #888;
 border-top:0;
 border-right:0;
-margin:0 4px 0 0;
+margin:0 5px 0 0;
 vertical-align:top
 }
 .gn em{
@@ -314,22 +318,25 @@ display:none;
 display:block
 }
 
-.tbn{
+.st .tbn{
 	width:100%;
 	margin:0;
 	padding:8px 10px;
 	overflow:visible;
-	border:0;
 	cursor:pointer;
 	background:#868686;
 	color: #fff;
-	border-bottom: 1px solid #ccc8be;
+	text-shadow: 0 0 2px #000;
 	font-size: 14px;
 	text-align:left;
 	font-weight: bold;
+	border: 1px solid #c9c9c9;
+	border-top:0;
+	border-left:0;
+	border-right:0;
 }
-.tbn:after{
-	color:#fff;
+.st .tbn:after{
+	color:#e9e9e9;
 	font-weight: normal;
 	right:12px;
 }
@@ -493,7 +500,6 @@ background:#A06ACD
 
 /* reply */
 .rp{
-	background:#f8f8f8;
 	margin:0;
 	padding:0;
 }
@@ -803,7 +809,7 @@ text-decoration:underline
 }
 .nav li,
 .file li{
-	padding: 5px 5px;
+	padding: 0;
 	margin:2px 0;
 	border-top:1px solid #ccc8be;
 }
@@ -813,6 +819,7 @@ text-decoration:underline
 }
 .nav a,
 .file a{
+	padding:5px;
 	text-decoration:none;
 	display:block;
 	color:#333
@@ -845,7 +852,7 @@ margin-right: 5px;
 }
 .file li a{
 padding-left:14px;
-background-position:-19px -79px;
+background-position:-19px -75px;
 }
 .file li a.idw{
 font-weight:bold
