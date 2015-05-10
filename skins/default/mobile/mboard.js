@@ -84,6 +84,7 @@ jQuery(function($) {
                         z = $(this).attr('data-page'),
                         c = $(this).attr('data-count');
                     pidLoadPage(r, z, c);
+                    return false;
                 });
                 $('a[href^=#][href$=recommend][data-type]', $htm).pidVoteBtninit();
                 $('a[href=#declare][data-type]', $htm).pidDeclareBtninit();
@@ -105,14 +106,17 @@ jQuery(function($) {
                     z = $(this).attr('data-page'),
                     c = $(this).attr('data-count');
                 pidLoadPage(r, z, c);
+                return false;
             }
         });
         $('.co .mm').next().hide();
         $('.mm').click(function() {
             $(this).hide().next().show();
+            return false;
         });
         $('.tbn').click(function() {
             $(this).next('.tgo').toggleClass('open');
+            return false;
         });
         $('.tgr[data-load=Y]').each(function() {
             $(this).click();
@@ -145,5 +149,6 @@ jQuery(function($) {
                 }
             });
         }
+        return false;
     });
 });

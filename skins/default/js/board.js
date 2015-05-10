@@ -465,11 +465,7 @@ jQuery(function($)
 		$('[data-modal-hide]').click(function(){
 			$($(this).attr('href'), (parent ? parent : self).document)
 					.find('button.pid_modal-close:first').click();
-		}).closest('form').each(function(){
-			$(this).prepend(
-				$('<button type="button" class="scModalClose"">&times;</button>')
-					.click(function(){$('[data-modal-hide]:eq(0)').click();})
-			);
+        	return false;
 		});
 
 		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
@@ -502,6 +498,7 @@ jQuery(function($)
 				$('#siWrt .scExTog:hidden').show().click(function(){
 					$('#siWrt .scWul.extraKeys li.scWli:hidden').show('slow');
 					$(this).hide();
+        			return false;
 				});
 			});
 			$('a[href=#insert_filelink]', this).click(function(){

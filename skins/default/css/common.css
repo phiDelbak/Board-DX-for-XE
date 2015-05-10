@@ -361,19 +361,6 @@
     -moz-box-shadow:0 0 10px #333;
     -webkit-box-shadow:0 0 10px #333
 }
-.scModalClose {
-    position:absolute;
-    right:1px;
-    top:1px;
-    padding:0 5px;
-    cursor: pointer;
-    font-size: 18px;
-    background: none repeat scroll 0% 0% transparent;
-    border:solid 1px #ddd;
-    border-radius:5px;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px
-}
 #pidModalFrame #pidOframe {
     min-width:300px;
     max-width:800px;
@@ -2311,7 +2298,6 @@ noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
 @-moz-document url-prefix() {
     #siFbk .scFbWt .scWopts {padding-right:152px}
     #siFbk .scFbWt .cmtbtns {padding:0 5px 0 0}
-    .scModalClose {font-size: 16px}
     #siWrt .scWul .scWli input,
     #siSimWrt .scWul input {margin-top:2px}
 }

@@ -106,6 +106,7 @@ jQuery(function($)
 		// 	var $o = $(e.currentTarget);
 		// 	setTimeout(function(){return function(){$o.attr('disabled', 'disabled');};}(), 0);
 		// 	setTimeout(function(){return function(){$o.removeAttr('disabled');};}(), 3000);
+		//	return false;
 		// });
 	});
 

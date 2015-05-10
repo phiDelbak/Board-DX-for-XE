@@ -170,6 +170,7 @@ jQuery(function($)
 
 			return false;
 		});
+		return false;
 	};
 
 	$.fn.dxfExtraKeyinit = function()
@@ -210,6 +211,7 @@ jQuery(function($)
 		$('input:checkbox._extra_option', $this).click(function()
 		{
 			$('input:hidden#extra_option', $(this).closest('div.wrap')).val($(this).is(':checked')?'Y':'N');
+			return false;
 		});
 
 		$('a[href=#delete]', $this).click(function()
@@ -236,6 +238,7 @@ jQuery(function($)
 			option[1] = $('input:checkbox.column_sort', $par).is(':checked')?'Y':'N';
 			option[2] = $('input:checkbox.column_search', $par).is(':checked')?'Y':'N';
 			$('input:hidden#column_option', $par).val(option.join('|@|'));
+			return false;
 		});
 	};
 
@@ -373,6 +376,7 @@ jQuery(function($)
 		}else{
 			$('[data-control-type=restrict]').prop( 'disabled', false );
 		}
+		return false;
 	});
 
 	$('form.dx_skininfo:eq(0)').each(function(){
@@ -387,6 +391,7 @@ jQuery(function($)
 			var n = $(this).attr('name'), t = $(this).attr('data-info-target')||'';
 			for(var i in a[n]) a[n][i].hide();
 			if(t) a[n][t].show();
+			return false;
 		});
 	});
 
