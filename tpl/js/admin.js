@@ -155,17 +155,17 @@ jQuery(function($)
 					}
 				}
 
-				var $ch = $('#cbLayer'), t, l, h, wt, wl, wh;
+				var t, l, h, wt, wl, wh;
 
 				wt = $(window).scrollTop();
 				wl = $(window).scrollLeft();
 				wh = $(window).outerHeight();
 
-				t = $th.offset().top - wt + 5;
-				l = $th.offset().left - wl - $dl.outerWidth() + $th.outerWidth() - 7;
+				t = $th.offset().top + 5;
+				l = $th.offset().left - wl - $dl.outerWidth() + $th.outerWidth() - 9;
 				h = $dl.outerHeight();
 
-				if((t+h+20) > (wt+wh)) t = t - h - $th.outerHeight();
+				if((wt+wh-10) < (t+h)) t = t - h - $th.outerHeight();
 
 				$dl.css({'top':t,'left':l});
 				$dl.show();
