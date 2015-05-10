@@ -22,11 +22,11 @@
 	<license xml:lang="en">Board DX is an individual, business, everyone is available.</license>
 
 	<!-- This module was created in 2011-10-01. -->
-	<version>1.9.9</version>
-	<date>2015-05-10</date>
-	<category>package</category>
+<version>1.9.9</version>
+<date>2015-05-10</date>
+<category>package</category>
 
-	<author link="https://github.com/phiDelbak/Board-DX-for-XE" email_address="xe.phidel@gmail.com">
+	<author email_address="xe.phidel@gmail.com" link="https://github.com/phiDelbak/Board-DX-for-XE">
 		<name xml:lang="ko">phiDel</name>
 		<name xml:lang="jp">phiDel</name>
 		<name xml:lang="en">phiDel</name>
