@@ -69,7 +69,7 @@
 .x .dxcStMap .draggable .moveTo{background-color:#ddd}
 .x .dxcStMap .draggable .summary{border-left:1px solid #ccc;padding-left:10px;margin-left:10px;font-size:11px;color:#999}
 .x .dxcStMap a.ms{text-decoration:underline}
-.x .dxcStMap .cbSelect{overflow:hidden;display:inline-block;border:1px solid #ddd;height:16px;width:35px;zoom:1;padding:3px 13px 3px 5px;margin:0 3px 0 0;background:url(../img/iconArrow.gif) no-repeat right -158px}
+.x .dxcStMap .cbSelect{overflow:hidden;display:inline-block;border:1px solid #ddd;height:16px;zoom:1;padding:3px 13px 3px 5px;margin:0 3px 0 0;background:url(../img/iconArrow.gif) no-repeat right -158px}
 .x .dxcStMap .cbSelect:after{content:"";display:block;clear:both}
 .x .dxcStMap .cbSelect ._title{line-height:16px;text-indent:0;float:left}
 .x #dxiColumnFrm label.checked{font-weight:normal}
@@ -78,7 +78,7 @@
 .x  input.color-indicator,dl.cbLayer input.color-indicator{width:65px !important}
 .x  .jPicker .Icon,dl.cbLayer .jPicker .Icon{top:-1px !important;margin-left:1px !important}
 .jPicker.Container{z-index:999999 !important}
-dl.cbLayer{position:absolute;z-index:1;display:inline-block;border:2px solid #B7B7B7;min-width:74px;_width:74px;padding:2px;background-color:#f8f8f8;display:none}
+dl.cbLayer{position:absolute;z-index:1;display:inline-block;border:2px solid #B7B7B7;min-width:74px;_width:74px;padding:5px;background-color:#f8f8f8;display:none}
 dl.cbLayer dt{padding:3px;white-space:nowrap}
 dl.cbLayer dt:hover,dl.cbLayer dt:active,dl.cbLayer dt:focus{background-color:#ddd}
 dl.cbLayer dt,.x .cbSelect,.x .cbSelect ._title{cursor:pointer !important}

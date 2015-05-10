@@ -110,6 +110,11 @@
 		<value xml:lang="jp"><![CDATA[ゴミ箱]]></value>
 		<value xml:lang="en"><![CDATA[Recycle Bin]]></value>
 	</item>
+	<item name="function">
+		<value xml:lang="ko"><![CDATA[기능]]></value>
+		<value xml:lang="jp"><![CDATA[기능]]></value>
+		<value xml:lang="en"><![CDATA[기능]]></value>
+	</item>
 	<item name="skin_type">
 		<value xml:lang="ko"><![CDATA[스킨 타입]]></value>
 		<value xml:lang="jp"><![CDATA[スキンタイプ]]></value>

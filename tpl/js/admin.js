@@ -68,8 +68,7 @@ jQuery(function($)
 		});
 
 		$('.cbSelect', $this).click(function() {
-			var $th = $(this),
-				$dl = $th.data('dl');
+			var $th = $(this), $dl = $th.data('dl');
 
 				if($dl == undefined)
 				{
@@ -81,8 +80,8 @@ jQuery(function($)
 					$dl.bind('close.dl', function(){
 						if($dl.data('type')!='array'&&$dl.data('type')!='panel') return;
 
-						var ins = new Array(),
-							idx = 0;
+						var ins = new Array(),idx = 0;
+
 						if($dl.data('type')=='array') {
 							$('input:checked', $dl).each(function(){ins[idx++] = $(this).val();});
 						} else {
@@ -95,7 +94,9 @@ jQuery(function($)
 								$th.css('border', isc ? ('1px solid ' + col) : '');
 							});
 						}
+
 						var val1 = $('._value', $th).val(), val2 = ins.join('|@|');
+
 						$('._value', $th).val(val2);
 						if(val1 != val2) $('._title', $th).css('color', ins.length?'red':'');
 					});
@@ -145,7 +146,6 @@ jQuery(function($)
 							$('._option', $th).val($dt.attr('data-opt'));
 							$dl.hide();
 						}
-						return false;
 					});
 
 					if($dl.data('type')=='array'||$dl.data('type')=='panel'){
@@ -155,17 +155,19 @@ jQuery(function($)
 					}
 				}
 
-				var $ch = $('#dxiStMapFrm');
-				$dl.css('left', ($th.offset().left - 8) + 'px');
+				var $ch = $('#cbLayer'), t, l, h, wt, wl, wh;
 
-				if(
-					(($ch.offset().top + $ch.height()) < ($th.offset().top + $dl.height() + 16))
-					&& ($dl.height() < ($th.offset().top - $ch.offset().top))
-				)
-					$dl.css('top', ($th.offset().top - $dl.height() - 16) + 'px');
-				else
-					$dl.css('top', ($th.offset().top + 9) + 'px');
+				wt = $(window).scrollTop();
+				wl = $(window).scrollLeft();
+				wh = $(window).outerHeight();
 
+				t = $th.offset().top - wt + 5;
+				l = $th.offset().left - wl - $dl.outerWidth() + $th.outerWidth() - 7;
+				h = $dl.outerHeight();
+
+				if((t+h+20) > (wt+wh)) t = t - h - $th.outerHeight();
+
+				$dl.css({'top':t,'left':l});
 				$dl.show();
 
 			return false;
