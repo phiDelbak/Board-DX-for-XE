@@ -84,6 +84,52 @@
 			<title xml:lang="ko">표시</title>
 			<title xml:lang="jp">表示</title>
 			<title xml:lang="en">display</title>
+			<var name="use_d_vote" type="checkbox">
+				<title xml:lang="ko">문서 추천 버튼</title>
+				<title xml:lang="jp">문서 推薦 ボタン</title>
+				<title xml:lang="en">문서 Vote Button</title>
+				<options value="up">
+					<title xml:lang="ko">추천</title>
+					<title xml:lang="jp">推薦</title>
+					<title xml:lang="en">Vote</title>
+				</options>
+				<options value="down">
+					<title xml:lang="ko">비추천</title>
+					<title xml:lang="jp">非推薦</title>
+					<title xml:lang="en">UnVote</title>
+				</options>
+				<options value="declare">
+					<title xml:lang="ko">신고</title>
+					<title xml:lang="jp">신고</title>
+					<title xml:lang="en">Report</title>
+				</options>
+				<description xml:lang="ko">권한 관리에 관리자를 등록하면 신고시 관리자에게 쪽지가 발송됩니다. (기본값: 작성자)</description>
+				<description xml:lang="jp">権管理に管理者を登録すると申告時の管理者にメッセージが送信されます。 （デフォルト：作成者）</description>
+				<description xml:lang="en">a message will be sent to the moderator at the time of report. (default: author)</description>
+			</var>
+			<var name="use_c_vote" type="checkbox">
+				<title xml:lang="ko">댓글 추천 버튼</title>
+				<title xml:lang="jp">댓글 推薦 ボタン</title>
+				<title xml:lang="en">댓글 Vote Button</title>
+				<options value="up">
+					<title xml:lang="ko">추천</title>
+					<title xml:lang="jp">推薦</title>
+					<title xml:lang="en">Vote</title>
+				</options>
+				<options value="down">
+					<title xml:lang="ko">비추천</title>
+					<title xml:lang="jp">非推薦</title>
+					<title xml:lang="en">UnVote</title>
+				</options>
+				<options value="declare">
+					<title xml:lang="ko">신고</title>
+					<title xml:lang="jp">신고</title>
+					<title xml:lang="en">Report</title>
+				</options>
+				<description xml:lang="ko">추천/비추천/신고 버튼을 표시할지 선택합니다. (댓글 찬/반형은 표시안함)</description>
+				<description xml:lang="jp">推薦/非推薦/申告ボタンを表示するかを選択します。 (댓글 찬/반형은 표시안함)</description>
+				<description xml:lang="en">Decide whether to display "Vote/UnVote/Report" buttons if a moderator is registered in the authorization tab, (댓글 찬/반형은 표시안함)</description>
+			</var>
 			<var name="display_button_sns" type="radio" default="Y">
 				<title xml:lang="ko">SNS 버튼</title>
 				<title xml:lang="jp">SNS ボタン</title>
@@ -137,52 +183,6 @@
 				<description xml:lang="ko">문서 하단의 "이 게시물..."을  표시할지 설정합니다.</description>
 				<description xml:lang="jp">文書下端の "この掲示物 ... " の表示を設定します.</description>
 				<description xml:lang="en">Set whether to display the I want to...</description>
-			</var>
-			<var name="use_d_vote" type="checkbox">
-				<title xml:lang="ko">문서 추천 버튼</title>
-				<title xml:lang="jp">문서 推薦 ボタン</title>
-				<title xml:lang="en">문서 Vote Button</title>
-				<options value="up">
-					<title xml:lang="ko">추천</title>
-					<title xml:lang="jp">推薦</title>
-					<title xml:lang="en">Vote</title>
-				</options>
-				<options value="down">
-					<title xml:lang="ko">비추천</title>
-					<title xml:lang="jp">非推薦</title>
-					<title xml:lang="en">UnVote</title>
-				</options>
-				<options value="declare">
-					<title xml:lang="ko">신고</title>
-					<title xml:lang="jp">신고</title>
-					<title xml:lang="en">Report</title>
-				</options>
-				<description xml:lang="ko">권한 관리에 관리자를 등록하면 신고시 관리자에게 쪽지가 발송됩니다. (기본값: 작성자)</description>
-				<description xml:lang="jp">権管理に管理者を登録すると申告時の管理者にメッセージが送信されます。 （デフォルト：作成者）</description>
-				<description xml:lang="en">a message will be sent to the moderator at the time of report. (default: author)</description>
-			</var>
-			<var name="use_c_vote" type="checkbox">
-				<title xml:lang="ko">댓글 추천 버튼</title>
-				<title xml:lang="jp">댓글 推薦 ボタン</title>
-				<title xml:lang="en">댓글 Vote Button</title>
-				<options value="up">
-					<title xml:lang="ko">추천</title>
-					<title xml:lang="jp">推薦</title>
-					<title xml:lang="en">Vote</title>
-				</options>
-				<options value="down">
-					<title xml:lang="ko">비추천</title>
-					<title xml:lang="jp">非推薦</title>
-					<title xml:lang="en">UnVote</title>
-				</options>
-				<options value="declare">
-					<title xml:lang="ko">신고</title>
-					<title xml:lang="jp">신고</title>
-					<title xml:lang="en">Report</title>
-				</options>
-				<description xml:lang="ko">추천/비추천/신고 버튼을 표시할지 선택합니다. (댓글 찬/반형은 표시안함)</description>
-				<description xml:lang="jp">推薦/非推薦/申告ボタンを表示するかを選択します。 (댓글 찬/반형은 표시안함)</description>
-				<description xml:lang="en">Decide whether to display "Vote/UnVote/Report" buttons if a moderator is registered in the authorization tab, (댓글 찬/반형은 표시안함)</description>
 			</var>
 			<var name="display_attached_files" type="radio" default="Y">
 				<title xml:lang="ko">첨부 파일</title>
@@ -314,9 +314,9 @@
 					<title xml:lang="jp">使用</title>
 					<title xml:lang="en">use</title>
 				</options>
-				<description xml:lang="ko">포인트 팡팡 아이콘을 표시할지 설정합니다. (필요: 포인트 팡팡!)</description>
-				<description xml:lang="jp">ポイントパンパンアイコンを表示するか設定します. (必要: ポイントパンパン!)</description>
-				<description xml:lang="en">Set whether to display the Point pang*2!. (Need: Point pang*2!)</description>
+				<description xml:lang="ko">포인트 팡팡 아이콘을 표시할지 설정합니다. (필요: 포인트 팡팡!!)</description>
+				<description xml:lang="jp">ポイントパンパンアイコンを表示するか設定します. (必要: ポイントパンパン!!)</description>
+				<description xml:lang="en">Set whether to display the Point pang*2!. (Need: Point pang*2!!)</description>
 			</var>
 		</group>
 		<group>

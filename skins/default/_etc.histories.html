@@ -17,7 +17,7 @@
 						<i cond="!$history->member_srl">{$nick}</i>
 						<span cond="$history->member_srl" class="scHLink member_{$history->member_srl}">{$nick}</span>
 					</block>
-					<a cond="$is_granted" href="#his_action" data-mode="delete" data-srl="{$history->history_srl}" data-doc="{$history->document_srl}">{$lang->cmd_delete}</a>
+					[<a cond="$is_granted" href="#his_action" data-mode="delete" data-srl="{$history->history_srl}" data-doc="{$history->document_srl}">{$lang->cmd_delete}</a>]
 				</span>
 			</div>
 		</li>

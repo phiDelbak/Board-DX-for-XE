@@ -15,24 +15,29 @@
 	</div>
 
 	<div class="btnArea">
-		<span class="scBtn"><a href="#" onclick="sjHistoryHtmlView();return false">HTML {$lang->cmd_view}</a></span>
+		<span class="scBtn"><a href="#" onclick="sjHistoryHtmlView(this);return false">HTML {$lang->cmd_view}</a></span>
 		<span class="scBtn"><a href="#" onclick="window.close();return false">{$lang->cmd_close}</a></span>
 	</div>
 </div>
 
 <script type="text/javascript">
 	//<![CDATA[
-	function sjHistoryHtmlView()
+	function sjHistoryHtmlView(th)
 	{
 		jQuery(function($){
-			var $o = $('#siBody div.history');
-			if($o.is(':hidden')) return false;
-			var $t = $('#siBody textarea.history'),
+			var $o = $('#siBody div.history'),
+				$t = $('#siBody textarea.history'),
 				w = $o.width(),
 				h= $o.height();
-			$t.width(($o.outerWidth()||510)-10);
-			$t.height(($o.outerHeight()||400)+20);
+			if($o.is(':hidden')) {
+				$o.html($t.hide().val()).show();
+				$(th).text('HTML {$lang->cmd_view}');
+				return false;
+			}
+			$t.outerWidth(($o.outerWidth()||510));
+			$t.outerHeight(($o.outerHeight()||250));
 			$t.text($o.hide().html()).show();
+			$(th).text('{$lang->cmd_preview}');
 		});
 	}
 	//]]>

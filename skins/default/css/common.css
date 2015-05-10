@@ -45,7 +45,8 @@
     background-image:-ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
     background-image:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
 }
-.scBtn a, .scBtn * {
+.scBtn a,
+.scBtn * {
     color:#555!important;
     text-shadow:0 1px rgba(255, 255, 255, .8);
     overflow:visible;
@@ -71,7 +72,8 @@
     background-image:-ms-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
     background-image:linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0))
 }
-.scBtn.black a, .scBtn.black * {
+.scBtn.black a,
+.scBtn.black * {
     color:#fff!important;
     text-shadow:0 1px rgba(0, 0, 0, .8)
 }
@@ -84,27 +86,35 @@
     background-image:-ms-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
     background-image:linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0))
 }
-.scBtn.blue a, .scBtn.blue * {
+.scBtn.blue a,
+.scBtn.blue * {
     color:#fff!important;
     text-shadow:0 1px rgba(0, 0, 0, .8)
 }
-.scBtn.small, .scBtn.small * {
+.scBtn.small,
+.scBtn.small * {
     height:18px;
     line-height:18px;
     font-size:12px;
     font-weight:normal
 }
-.scBtn:hover, .scBtn.group a:hover {
+.scBtn:hover,
+.scBtn.group a:hover {
     box-shadow:0 0 4px rgba(0, 0, 0, .3);
     -moz-box-shadow:0 0 4px rgba(0, 0, 0, .3);
     -webkit-box-shadow:0 0 4px rgba(0, 0, 0, .3)
 }
-.scBtn.black:hover, .scBtn.black.group a:hover, .scBtn.blue:hover, .scBtn.blue.group a:hover {
+.scBtn.black:hover,
+.scBtn.black.group a:hover,
+.scBtn.blue:hover,
+.scBtn.blue.group a:hover {
     box-shadow:0 0 4px rgba(0, 0, 0, .8);
     -moz-box-shadow:0 0 4px rgba(0, 0, 0, .8);
     -webkit-box-shadow:0 0 4px rgba(0, 0, 0, .8)
 }
-.scBtn a:active, .scBtn button:active, .scBtn input[type="submit"]:active {
+.scBtn a:active,
+.scBtn button:active,
+.scBtn input[type="submit"]:active {
     margin:1px -1px -1px 1px!important
 }
 .scBtn.group * {
@@ -150,7 +160,9 @@
     font-style:normal;
     font-family:Tahoma
 }
-.scVoteArea em.vote, .scVoteArea em.blame, .scVoteArea em.declare {
+.scVoteArea em.vote,
+.scVoteArea em.blame,
+.scVoteArea em.declare {
     padding:0 5px 0 22px;
     background:url(../img/common/ico_set.gif) no-repeat 5px -268px
 }
@@ -198,7 +210,6 @@
     background-position:0 -60px
 }
 /* text ellipsis */
-
 .scElps {
     position:relative;
     overflow:hidden;
@@ -224,16 +235,19 @@
     vertical-align:text-bottom
 }
 /* Body */
-
 #siBody {
     position:relative;
     line-height:1.5
 }
-#siBody a, #siBody a:link, #siBody a:visited {
+#siBody a,
+#siBody a:link,
+#siBody a:visited {
     color:#333;
     text-decoration:none
 }
-#siBody a:hover, #siBody a:active, #siBody a:focus {
+#siBody a:hover,
+#siBody a:active,
+#siBody a:focus {
     color:#111;
     text-decoration:underline
 }
@@ -241,7 +255,8 @@
 #siBody input[type="password"],
 #siBody input[type="email"],
 #siBody input[type="url"] ,
-#siBody textarea, #siBody select {
+#siBody textarea,
+#siBody select {
     padding:2px;
     border:1px solid #bbb;
     border-radius:2px;
@@ -266,7 +281,8 @@
     color:#909090;
     background-color:#ddd
 }
-#siBody select, #siBody select option {
+#siBody select,
+#siBody select option {
     padding:0;
     white-space:nowrap
 }
@@ -301,7 +317,9 @@
     margin:0;
     list-style:none
 }
-#siBody .scHeader, #siBody .scContent, #siBody .scFooter {
+#siBody .scHeader,
+#siBody .scContent,
+#siBody .scFooter {
     overflow:hidden;
     margin:0;
     padding:0;
@@ -384,7 +402,8 @@
     text-shadow:0 1px #ccc
 }
 /* Category */
-#siCat .scCaNavi, #siCat .scCaLock {
+#siCat .scCaNavi,
+#siCat .scCaLock {
     position:absolute;
     z-index:1;
     top:5px;
@@ -394,12 +413,14 @@
 #siCat .scCaNavi {
     right:15px
 }
-#siCat .scCaNavi a, #siCat .scCaLock a {
+#siCat .scCaNavi a,
+#siCat .scCaLock a {
     padding:0;
     width:9px;
     height:19px
 }
-#siCat .scCaNavi a em, #siCat .scCaLock a em {
+#siCat .scCaNavi a em,
+#siCat .scCaLock a em {
     display:inline-block;
     padding:17px 0 0!important;
     width:9px;
@@ -468,7 +489,8 @@
     -moz-border-radius:5px 5px 0px 0px;
     -webkit-border-radius:5px 5px 0px 0px
 }
-#siCat.tabn li, #siCat.colm .cateArea {
+#siCat.tabn li,
+#siCat.colm .cateArea {
     text-shadow:0 1px rgba(255, 255, 255, .8);
     background-color:#fff;
     background-image:-moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
@@ -477,7 +499,9 @@
     background-image:-ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
     background-image:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
 }
-#siCat.tabn li a, #siCat.tabn li a:link, #siCat.tabn li a:visited {
+#siCat.tabn li a,
+#siCat.tabn li a:link,
+#siCat.tabn li a:visited {
     color:#000;
     position:relative;
     height:26px;
@@ -487,7 +511,8 @@
     margin:0;
     padding:0 15px
 }
-#siCat.tabn li:hover, #siCat.tabn li.active {
+#siCat.tabn li:hover,
+#siCat.tabn li.active {
     line-height:28px;
     margin-top:-2px;
     padding-bottom:2px;
@@ -538,14 +563,18 @@
     padding:0 20px 0 5px;
     background:transparent url(../img/common/nav_slant.gif) no-repeat right top
 }
-#siCat.colm li a, #siCat.colm li a:link, #siCat.colm li a:visited {
+#siCat.colm li a,
+#siCat.colm li a:link,
+#siCat.colm li a:visited {
     color:#4A4A4A;
     display:block;
     margin:0;
     white-space:nowrap;
     text-decoration:none
 }
-#siCat.colm li a:hover, #siCat.colm li a:active, #siCat.colm li a:focus {
+#siCat.colm li a:hover,
+#siCat.colm li a:active,
+#siCat.colm li a:focus {
     text-decoration:underline
 }
 #siCat.colm li.active a {
@@ -595,13 +624,17 @@
 #siCat.side .cateArea li:first-child {
     border:0
 }
-#siCat.side .cateArea li a, #siCat.side .cateArea li a:link, #siCat.side .cateArea li a:visited {
+#siCat.side .cateArea li a,
+#siCat.side .cateArea li a:link,
+#siCat.side .cateArea li a:visited {
     color:#666;
     padding:3px 5px;
     font-size:14px;
     display:block
 }
-#siCat.side .cateArea li a:hover, #siCat.side .cateArea li a:active, #siCat.side .cateArea li a:focus {
+#siCat.side .cateArea li a:hover,
+#siCat.side .cateArea li a:active,
+#siCat.side .cateArea li a:focus {
     text-decoration:underline
 }
 #siCat.side .cateArea li.active a {
@@ -623,12 +656,13 @@
     font-family:Tahoma
 }
 /* header */
-
-#siHrm, #siLst thead {
+#siHrm,
+#siLst thead {
     position:relative;
     vertical-align:middle
 }
-#siHrm .scFrm, #siLst thead tr div {
+#siHrm .scFrm,
+#siLst thead tr div {
     vertical-align:middle;
     border:1px solid #ddd;
     border-left-width:0;
@@ -680,7 +714,8 @@
 #siLst thead.scOneCol th span {
     display:inline-block
 }
-#siLst thead.scOneCol th div, #siLst thead .scCheck div {
+#siLst thead.scOneCol th div,
+#siLst thead .scCheck div {
     text-align:right;
     border-left-width:1px;
     border-right-width:1px;
@@ -698,13 +733,13 @@
     padding:0 0 0 3px!important
 }
 /* List */
-
 #siLst {
     border:0;
     margin:0 0 5px;
     border-bottom:1px solid #ddd
 }
-#siLst th, #siLst td {
+#siLst th,
+#siLst td {
     text-align:center;
     border:0;
     padding:0 0 2px;
@@ -719,19 +754,30 @@
     padding:7px 10px;
     border-bottom:1px solid #e6e6e6
 }
-#siLst .notice td, #siLst .best td {
+#siLst .notice td,
+#siLst .best td {
     background-color:#fafafa
 }
-#siLst .readed_count, #siLst .voted_count, #siLst .blamed_count {
+#siLst .readed_count,
+#siLst .voted_count,
+#siLst .blamed_count {
     text-align:right
 }
-#siLst .no, #siLst .document_srl, #siLst .category_srl, #siLst .user_name, #siLst .nick_name, #siLst .last_updater, #siLst .title {
+#siLst .no,
+#siLst .document_srl,
+#siLst .category_srl,
+#siLst .user_name,
+#siLst .nick_name,
+#siLst .last_updater,
+#siLst .title {
     text-align:left
 }
-#siLst .user_name a, #siLst .nick_name a {
+#siLst .user_name a,
+#siLst .nick_name a {
     text-decoration:none
 }
-#siLst td.title, #siLst .content {
+#siLst td.title,
+#siLst .content {
     white-space:normal;
     word-break:break-all;
     width:100%
@@ -743,7 +789,11 @@
     min-height:inherit;
     float:inherit
 }
-#siLst td.no, #siLst td.document_srl, #siLst td.readed_count, #siLst td.regdate, #siLst td.last_update {
+#siLst td.no,
+#siLst td.document_srl,
+#siLst td.readed_count,
+#siLst td.regdate,
+#siLst td.last_update {
     letter-spacing:-1px
 }
 #siLst td.last_updater {
@@ -751,7 +801,8 @@
     font-size:10px;
     font-family:Tahoma
 }
-#siLst td em.reply, #siLst td em.trackback {
+#siLst td em.reply,
+#siLst td em.trackback {
     font-style:normal;
     font-size:10px;
     font-family:Tahoma
@@ -769,20 +820,25 @@
     background-color:transparent
 }
 /* Common style*/
-
-#siLst.list td.thumbnail img, #siLst.webz .scItem a.thum, #siLst.gall .scItem, #siDoc .thmAx img.thum {
+#siLst.list td.thumbnail img,
+#siLst.webz .scItem a.thum,
+#siLst.gall .scItem,
+#siDoc .thmAx img.thum {
     padding:5px;
     border:1px solid #e6e6e6;
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px
 }
-#siLst.list td.thumbnail img:hover, #siLst.webz .scItem a.thum:hover, #siLst.gall .scItem:hover {
+#siLst.list td.thumbnail img:hover,
+#siLst.webz .scItem a.thum:hover,
+#siLst.gall .scItem:hover {
     box-shadow:1px 1px 2px #e6e6e6;
     -moz-box-shadow:1px 1px 2px #e6e6e6;
     -webkit-box-shadow:1px 1px 2px #e6e6e6
 }
-#siLst .scRibbon, #siDoc .scRibbon {
+#siLst .scRibbon,
+#siDoc .scRibbon {
     position:absolute;
     top:5px;
     left:5px;
@@ -802,23 +858,29 @@
     -webkit-box-shadow:2px 2px 0 rgba(0, 0, 0, .3);
     box-shadow:2px 2px 0 rgba(0, 0, 0, .3)
 }
-#siLst .scRibbon:before, #siDoc .scRibbon:before, #siLst .scRibbon:after, #siDoc .scRibbon:after {
+#siLst .scRibbon:before,
+#siDoc .scRibbon:before,
+#siLst .scRibbon:after,
+#siDoc .scRibbon:after {
     content:'';
     position:absolute;
     border-style:solid;
     border-color:transparent
 }
-#siLst .scRibbon:before, #siDoc .scRibbon:before {
+#siLst .scRibbon:before,
+#siDoc .scRibbon:before {
     border-width:0 5px 10px 0;
     border-right-color:#222;
     border-left-color:transparent!important;
     bottom:-10px;
     left:0
 }
-#siLst .scRibbon:after, #siDoc .scRibbon:after {
+#siLst .scRibbon:after,
+#siDoc .scRibbon:after {
     border-width:0!important
 }
-#siLst .scRibbon .caption, #siDoc .scRibbon .caption {
+#siLst .scRibbon .caption,
+#siDoc .scRibbon .caption {
     color:#fff
 }
 #siLst .scRibbon.action .caption {
@@ -830,7 +892,6 @@
     left:10px
 }
 /* List style */
-
 #siLst.list td.thumbnail {
     vertical-align:top
 }
@@ -840,7 +901,6 @@
     color:#aaa
 }
 /* Gallery style */
-
 #siLst.gall td.scBox {
     white-space:normal;
     padding:0
@@ -868,7 +928,8 @@
     top:0;
     left:0
 }
-#siLst.gall .scInfo.aHide li, #siLst.gall .scInfo.aHide li a {
+#siLst.gall .scInfo.aHide li,
+#siLst.gall .scInfo.aHide li a {
     color:#eee
 }
 #siLst.gall .scInfo ul {
@@ -877,7 +938,8 @@
     padding:0;
     list-style:none
 }
-#siLst.gall .scInfo li, #siLst.gall .scInfo li a {
+#siLst.gall .scInfo li,
+#siLst.gall .scInfo li a {
     text-align:left;
     white-space:nowrap
 }
@@ -933,7 +995,6 @@
     margin:14px
 }
 /* Webzine style */
-
 #siLst.webz td.scBox {
     margin:0;
     padding:0 0 5px
@@ -983,7 +1044,8 @@
     font-weight:bold;
     float:left
 }
-#siLst.webz .scItem .scFrm li.mbAifo + li[class^="extra_vars"], #siLst.webz .scItem .scFrm li.category_srl + li[class^="extra_vars"] {
+#siLst.webz .scItem .scFrm li.mbAifo + li[class^="extra_vars"],
+#siLst.webz .scItem .scFrm li.category_srl + li[class^="extra_vars"] {
     margin-top:8px
 }
 #siLst.webz .scItem .scFrm li.mbAifo a {
@@ -1005,12 +1067,13 @@
     float:left
 }
 /* widget style */
-
 #siDoc.widg {
     margin:0 0 10px;
     padding:0
 }
-#siDoc.widg .notice, #siDoc.widg .best, #siDoc.widg .doct {
+#siDoc.widg .notice,
+#siDoc.widg .best,
+#siDoc.widg .doct {
     position:relative;
     margin:0 2px;
     padding-right:10px;
@@ -1039,7 +1102,8 @@
     padding:5px 10px 5px 112px;
     border-bottom:1px dotted #E8E8E8
 }
-#siDoc.widg .notice .scRibbon, #siDoc.widg .best .scRibbon {
+#siDoc.widg .notice .scRibbon,
+#siDoc.widg .best .scRibbon {
     height:14px;
     text-transform:capitalize
 }
@@ -1110,7 +1174,6 @@
     text-align:right
 }
 /* View */
-
 #siDoc .mbAfrm {
     background-color:#fafafa;
     color:#4a4a4a;
@@ -1228,7 +1291,9 @@
     line-height:16px;
     background:url(../img/common/ico_set.gif) no-repeat 0 -58px
 }
-#siDoc .tags a:hover, #siDoc .tags a:active, #siDoc .tags a:focus {
+#siDoc .tags a:hover,
+#siDoc .tags a:active,
+#siDoc .tags a:focus {
     text-decoration:underline
 }
 #siDoc .tags a {
@@ -1267,8 +1332,8 @@
     margin:0
 }
 /* feedback */
-
-#siDoc .ipAddress, #siFbk .time {
+#siDoc .ipAddress,
+#siFbk .time {
     margin:0;
     font-weight:normal;
     font:10px Tahoma, Geneva, sans-serif;
@@ -1455,14 +1520,15 @@
 #siFbk.cmt.web .scCmtCon {
     margin:10px 5px 5px!important
 }
-#siFbk.cmt.web .action, #siFbk.cmt.web .scVoteArea {
+#siFbk.cmt.web .action,
+#siFbk.cmt.web .scVoteArea {
     padding-right:0
 }
-#siFbk .scCmtCon, #siFbk .xe_content {
+#siFbk .scCmtCon,
+#siFbk .xe_content {
     color:#666!important
 }
 /* comment Write */
-
 #siFbk .scFbWt {
     padding:7px;
     margin:3px;
@@ -1473,12 +1539,6 @@
 }
 #siFbk .scFbWt .scWopts label:first-child *:first-child {
     margin-left:0
-}
-#siFbk .scFbWt .scWopts .fl label{
-    margin-right:5px
-}
-#siFbk .scFbWt .scWopts .fr label{
-    margin-left:5px
 }
 #siFbk .scFbWt .scWcont {
     padding-right:158px
@@ -1504,7 +1564,8 @@
 #siFbk .scFbWt .cmtbtns .scBtn.blue button {
     height:53px
 }
-#siFbk .scFbWt .cmtbtns .scBtn.small+.scBtn.blue, #siFbk .scFbWt .cmtbtns .scBtn.small+.scBtn.blue button {
+#siFbk .scFbWt .cmtbtns .scBtn.small+.scBtn.blue,
+#siFbk .scFbWt .cmtbtns .scBtn.small+.scBtn.blue button {
     height:32px
 }
 #siFbk .scFbWt .cmtbtns .scBtn a {
@@ -1526,10 +1587,7 @@
 #siFbk .scFbWt.nipt{
     text-align:right
 }
-
-
 /* Write */
-
 #siWrt .scCpar {
     position:relative;
     overflow:hidden;
@@ -1593,12 +1651,14 @@
     vertical-align:text-top;
     background:transparent url(../img/common/btn_nav.gif) no-repeat -39px -29px
 }
-#siWrt .scWul, #siSimWrt .scWul {
+#siWrt .scWul,
+#siSimWrt .scWul {
     padding:0;
     margin:0 0 10px;
     list-style:none
 }
-#siWrt .scWul .scWli, #siSimWrt .scWul li {
+#siWrt .scWul .scWli,
+#siSimWrt .scWul li {
     line-height:20px;
     position:relative;
     padding-left:145px;
@@ -1608,7 +1668,8 @@
 #siWrt .scWul .scWli:first-child {
     border-top-width:1px
 }
-#siWrt .scWul .scWli label:first-child, #siSimWrt .scWul label:first-child {
+#siWrt .scWul .scWli label:first-child,
+#siSimWrt .scWul label:first-child {
     float:left;
     padding:2px 5px;
     overflow:hidden;
@@ -1617,45 +1678,59 @@
     width:120px;
     background-color:#fafafa
 }
-#siWrt .scWul .scWli input[type="text"], #siWrt .scWul .scWli textarea, #siSimWrt .scWul input[type="text"], #siSimWrt .scWul textarea {
+#siWrt .scWul .scWli input[type="text"],
+#siWrt .scWul .scWli textarea,
+#siSimWrt .scWul input[type="text"],
+#siSimWrt .scWul textarea {
     margin-left:-8px;
     width:100%;
     resize:vertical
 }
-#siWrt .scWul .scWli input.address[type="text"]:first-child, #siSimWrt .scWul input.address[type="text"]:first-child {
+#siWrt .scWul .scWli input.address[type="text"]:first-child,
+#siSimWrt .scWul input.address[type="text"]:first-child {
     width:70%
 }
-#siWrt .scWul .scWli input.tel, #siWrt .scWul .scWli input.date, #siSimWrt .scWul input.tel, #siSimWrt .scWul input.date {
+#siWrt .scWul .scWli input.tel,
+#siWrt .scWul .scWli input.date,
+#siSimWrt .scWul input.tel,
+#siSimWrt .scWul input.date {
     width:20%!important;
     margin-right:10px
 }
-#siWrt .scWul .scWli a.button, #siSimWrt .scWul a.button {
+#siWrt .scWul .scWli a.button,
+#siSimWrt .scWul a.button {
     margin-left:5px
 }
-#siWrt .scWul .scWli ul, #siSimWrt .scWul .scWli ul {
+#siWrt .scWul .scWli ul,
+#siSimWrt .scWul .scWli ul {
     padding:0;
     margin:0 0 0 -10px;
     list-style:none;
     border:0;
     zoom:1
 }
-#siWrt .scWul .scWli ul:after, #siSimWrt .scWul .scWli ul:after {
+#siWrt .scWul .scWli ul:after,
+#siSimWrt .scWul .scWli ul:after {
     content:"";
     display:block;
     clear:both
 }
-#siWrt .scWul .scWli li, #siSimWrt .scWul .scWli li {
+#siWrt .scWul .scWli li,
+#siSimWrt .scWul .scWli li {
     float:left;
     border:0;
     padding:2px 5px 0 0
 }
-#siWrt .scWul .scWli input, #siSimWrt .scWul input {
+#siWrt .scWul .scWli input,
+#siSimWrt .scWul input {
     margin-top:3px
 }
-#siWrt .scWul .scWli select, #siSimWrt .scWul select {
+#siWrt .scWul .scWli select,
+#siSimWrt .scWul select {
     margin:3px 8px 3px -8px
 }
-#siWrt .scWul .scWli textarea, #siSimWrt .scWul textarea {
+#siWrt .scWul .scWli textarea,
+#siSimWrt .scWul textarea {
     margin-top:3px;
     margin-bottom:3px
 }
@@ -1663,15 +1738,25 @@
     margin:0 2px;
     margin-left:-8px
 }
-#siWrt label.wrtTxt em, #siFbk label.wrtTxt em {
+#siWrt label.wrtTxt em,
+#siFbk label.wrtTxt em {
     line-height:20px;
     font-size:15px;
     padding-right:5px;
     text-shadow:0 1px #fff;
     opacity:.6
 }
+#siFbk .scWopts .fl label,
+#siWrt .scWul .fl label,
+#siWrt .scWul .fl select{
+    margin-right:3px
+}
+#siFbk .scWopts .fr label,
+#siWrt .scWul .fr label,
+#siWrt .scWul .fr select{
+    margin-left:3px
+}
 /* simple editor */
-
 #siSimWrt {
     padding:0;
     margin-bottom:20px
@@ -1719,7 +1804,6 @@
     width:13%!important
 }
 /* Navi */
-
 #siNavi h2 {
     padding:0;
     margin:10px 0 5px;
@@ -1743,7 +1827,8 @@
 #siNavi li div.cate {
     padding-right:5px
 }
-#siNavi li div.cate a, #siNavi li div.no {
+#siNavi li div.cate a,
+#siNavi li div.no {
     color:#555;
     opacity:.7
 }
@@ -1767,7 +1852,6 @@
     width:auto
 }
 /* Page */
-
 #siBody .scPageArea {
     position:relative;
     text-align:left;
@@ -1776,10 +1860,13 @@
     font-size:15px;
     line-height:17px
 }
-#siBody .scPageArea a:hover, #siBody .scPageArea a:active, #siBody .scPageArea a:focus {
+#siBody .scPageArea a:hover,
+#siBody .scPageArea a:active,
+#siBody .scPageArea a:focus {
     color:#333
 }
-#siBody .scPage a, #siBody .scPage strong {
+#siBody .scPage a,
+#siBody .scPage strong {
     color:#555;
     line-height:14px;
     height:14px;
@@ -1833,7 +1920,6 @@
     right:5px
 }
 /* search */
-
 #siBody .scSchArea {
     margin:20px 0 0;
     padding:0
@@ -1853,7 +1939,8 @@
     width:65px;
     border:0!important
 }
-#siBody .scSch select, #siBody .scSch select option {
+#siBody .scSch select,
+#siBody .scSch select option {
     font-size:13px;
     color:#333;
     background-color:#f2f2f2!important
@@ -1881,7 +1968,6 @@
     overflow:hidden
 }
 /* file list */
-
 #siBody .scFiles span.fsize {
     font-size:10px;
     font-family:Tahoma
@@ -1955,7 +2041,6 @@
     margin:0
 }
 /* Tag List */
-
 #siBody .scTags {
     margin:0;
     padding:25px;
@@ -1988,7 +2073,6 @@
     text-decoration:underline
 }
 /* input label */
-
 #siBody .scLaEt {
     position:relative;
     text-align:left;
@@ -2022,8 +2106,11 @@
 #siBody .scLaEt .scBtn {
     top:-2px
 }
+#siBody .history{
+    min-height:250px;
+    padding:10px;
+}
 /* HotTrack */
-
 #siBody a.scHotTrack {
     position:absolute;
     top:0;
@@ -2049,7 +2136,6 @@
     zoom:1
 }
 /* admin button */
-
 #siBody .scAdmActs {
     position:absolute;
     top:0;
@@ -2072,7 +2158,6 @@
     font-weight:normal
 }
 /* etc */
-
 #siMaTitle {
     margin:0 0 15px
 }
@@ -2106,7 +2191,8 @@
 #siMaHtxt {
     margin-bottom:10px
 }
-#siMaFtxt, .scMbtTxt {
+#siMaFtxt,
+.scMbtTxt {
     margin-top:10px
 }
 #siBody em.usept {
@@ -2139,10 +2225,13 @@
 #ui-datepicker-div {
     z-index:10000!important
 }
-.scHLink, .scClipboard, .scToggle {
+.scHLink,
+.scClipboard,
+.scToggle {
     cursor:pointer
 }
-.scHLink:hover, .scClipboard:hover {
+.scHLink:hover,
+.scClipboard:hover {
     text-decoration:underline
 }
 .message {
@@ -2156,7 +2245,6 @@ strong.sCkChr {
     font-family:Arial, "Courier New", Courier, monospace
 }
 /* flag */
-
 .scVlng {
     text-align:right;
     margin-bottom:10px
@@ -2222,5 +2310,6 @@ noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
     #siFbk .scFbWt .scWopts {padding-right:152px}
     #siFbk .scFbWt .cmtbtns {padding:0 5px 0 0}
     .scModalClose {font-size: 16px}
-    #siWrt .scWul .scWli input, #siSimWrt .scWul input {margin-top:2px}
+    #siWrt .scWul .scWli input,
+    #siSimWrt .scWul input {margin-top:2px}
 }
