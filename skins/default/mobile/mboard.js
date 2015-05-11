@@ -1,4 +1,5 @@
 jQuery(function($) {
+
     $.fn.pidDeclareBtninit = function() {
         this.click(function() {
             var $i = $(this), c,
@@ -92,11 +93,13 @@ jQuery(function($) {
             }
         );
     };
+
     $('a[href=#declare][data-type]').pidDeclareBtninit();
     $('a[href^=#][href$=recommend][data-type]').pidVoteBtninit();
     $('#xe_message:eq(0)').each(function() {
         alert($('p', this).text());
     });
+
     $('#read:first').each(function() {
         var g = false;
         $('.tgr[data-srl]').click(function() {
@@ -115,12 +118,11 @@ jQuery(function($) {
             return false;
         });
         $('.tbn').click(function() {
-            $(this).next('.tgo').toggleClass('open');
+            $(this).next('.tgo').slideToggle('fast');
             return false;
         });
-        $('.tgr[data-load=Y]').each(function() {
+        $('.tgr[data-load]').each(function() {
             $(this).click();
-            $(this)[0].scrollIntoView();
         });
     });
 

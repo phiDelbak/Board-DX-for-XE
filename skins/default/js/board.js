@@ -6,14 +6,6 @@
 
 jQuery(function($)
 {
-	$.fn.extend({
-		scrollIntoView: function(b) {
-			var $i = this.get(0);
-			if ($i !== undefined && $i.scrollIntoView) $i.scrollIntoView(b ? b : true);
-			return this;
-		}
-	});
-
 	// http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
 	String.prototype.updateQueryString = function(key, value)
 	{
@@ -477,7 +469,9 @@ jQuery(function($)
  		});
 
 		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
-		$('#siFbk a[name^=comment][data-scroll=true]').last().parent().scrollIntoView();
+
+		var tmp = $('#siFbk a[name^=comment][data-scroll=true]').last().parent()[0];
+		if(tmp) tmp.scrollIntoView(true);
 
 		// 글쓰기
 		$('#siWrt').each(function(){
