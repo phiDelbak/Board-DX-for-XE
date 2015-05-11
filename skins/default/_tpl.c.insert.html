@@ -72,7 +72,8 @@
 		}
 		<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
 		<div cond="$is_topic_vote || $is_logged || count($t_dstus) > 1 || $mi->use_anonymous=='S'" class="scWul clearBar">
-			<div cond="$is_topic_vote" class="fl">
+			<span>
+			<!--@if($is_topic_vote)-->
 				<label>
 					<input type="radio" name="vote_point" value="1" checked="checked"|cond="$is_topic_vote!='disagree'" />
 					<span class="colBlue">{$lang->cmd_agree}</span>
@@ -81,8 +82,7 @@
 					<input type="radio" name="vote_point" value="-1" checked="checked"|cond="$is_topic_vote=='disagree'" />
 					<span class="colRed">{$lang->cmd_disagree}</span>
 				</label>
-			</div>
-			<div cond="!$is_topic_vote" class="fl">
+			<!--@else-->
 				<label cond="$is_logged">
 					<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oComment->useNotify()" />
 					{$lang->notify}
@@ -94,24 +94,23 @@
 				<label cond="!$is_logged&&$mi->use_anonymous!='S'&&count($t_dstus) > 1" class="wrtTxt">
 					<em>WYSIWYG Editor</em>
 				</label>
-			</div>
-			<div class="fr">
-				<block cond="$is_topic_vote">
-					<label cond="$is_logged">
-						<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oComment->useNotify()" />
-						{$lang->notify}
-					</label>
-					<label cond="$mi->use_anonymous=='S'">
-						<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oComment->get('member_srl')<0)&&(($oComment->get('nick_name').$oComment->get('user_name')) == 'anonymousanonymous')" />
-						{$lang->anonymous}
-					</label>
-				</block>
-				<label cond="count($t_dstus) > 1">
-					<select name="status">
-						<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$status == $value">{Context::getLang(strtolower($value))}</option>
-					</select>
+			<!--@endif-->
+			</span>
+			<label cond="count($t_dstus) > 1" class="fr">
+				<select name="status">
+					<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$status == $value">{Context::getLang(strtolower($value))}</option>
+				</select>
+			</label>
+			<block cond="$is_topic_vote">
+				<label cond="$mi->use_anonymous!='S'" class="fr">
+					<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oComment->get('member_srl')<0)&&(($oComment->get('nick_name').$oComment->get('user_name')) == 'anonymousanonymous')" />
+					{$lang->anonymous}
 				</label>
-			</div>
+				<label cond="$is_logged" class="fr">
+					<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oComment->useNotify()" />
+					{$lang->notify}
+				</label>
+			</block>
 		</div>
 
 		<div cond="!$is_logged" class="scWusr clearBar">
@@ -143,15 +142,13 @@
 		<div class="editor">{$oComment->getEditor()}</div>
 
 		<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
-			<div class="fl">
+			<span class="fl">
 				<span class="scBtn blue"><button type="button" onclick="doDocumentPreview(this); return false;">{$lang->cmd_preview}</button></span>
-			</div>
-			<div class="fr">
-				<span cond="!$is_modal||$is_cmt||$is_par" class="scBtn">
-					<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
-				</span>
-				<span class="scBtn black"><button type="submit" accesskey="s">{$lang->comment} {Context::getLang('cmd_'.($is_cmt?'update':'registration'))}</button></span>
-			</div>
+			</span>
+			<span cond="!$is_modal||$is_cmt||$is_par" class="scBtn">
+				<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
+			</span>
+			<span class="scBtn black"><button type="submit" accesskey="s">{$lang->comment} {Context::getLang('cmd_'.($is_cmt?'update':'registration'))}</button></span>
 		</div>
 	</div>
 <!--@endif-->

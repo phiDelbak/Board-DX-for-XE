@@ -46,28 +46,8 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 		</ul>
 
 		<div class="scInfo clearBar">
-			<div cond="$grant->write_document" class="fl">
-				<block cond="!$is_logged">
-					<label class="scLaEt">
-						<span>Name</span>
-						<input type="text" name="nick_name" maxlength="80" />
-					</label>
-					<label class="scLaEt">
-						<span>Pass</span>
-						<input type="password" name="password" value="" />
-					</label>
-					<label class="scLaEt">
-						<span>Email</span>
-						<input type="email" name="email_address" maxlength="250" />
-					</label>
-					<label class="scLaEt">
-						<span>Home</span>
-						<input type="url" name="homepage" maxlength="250" />
-					</label>
-					<input type="hidden" name="allow_comment" value="Y" />
-					<input type="hidden" name="allow_trackback" value="Y" />
-				</block>
-				<block cond="$is_logged">
+			<span cond="$grant->write_document">
+				<!--@if($is_logged)-->
 					<input type="hidden" name="nick_name" value="1" />
 					<input type="hidden" name="password" value="1" />
 					<label>
@@ -86,18 +66,35 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 						<input type="checkbox" name="anonymous" value="Y" />
 						{$lang->anonymous}
 					</label>
-				</block>
-			</div>
-			<div class="fr">
-				{@ $t_ctsrl = $category_srl}
-				<block cond="!$t_ctsrl&&$is_cts" loop="$cts => $val" cond="$val->category_srl">
-					{@ $t_ctsrl = $val->category_srl}
-					<?php break; ?>
-				</block>
-				<input cond="$t_ctsrl" type="hidden" name="category_srl" value="{$t_ctsrl}" />
-				<span class="scBtn black" cond="!$grant->write_document"><a cond="!$is_logged" href="{getUrl('act','dispMemberLoginForm')}">{$lang->cmd_login}</a><a cond="$is_logged" href="#" onclick="location.reload();return false">{$lang->reload}</a></span>
-				<span class="scBtn black" cond="$grant->write_document"><button type="submit">{$lang->document_write}</button></span>
-			</div>
+				<!--@else-->
+					<label class="scLaEt">
+						<span>Name</span>
+						<input type="text" name="nick_name" maxlength="80" />
+					</label>
+					<label class="scLaEt">
+						<span>Pass</span>
+						<input type="password" name="password" value="" />
+					</label>
+					<label class="scLaEt">
+						<span>Email</span>
+						<input type="email" name="email_address" maxlength="250" />
+					</label>
+					<label class="scLaEt">
+						<span>Home</span>
+						<input type="url" name="homepage" maxlength="250" />
+					</label>
+					<input type="hidden" name="allow_comment" value="Y" />
+					<input type="hidden" name="allow_trackback" value="Y" />
+				<!--@endif-->
+			</span>
+			{@ $t_ctsrl = $category_srl}
+			<block cond="!$t_ctsrl&&$is_cts" loop="$cts => $val" cond="$val->category_srl">
+				{@ $t_ctsrl = $val->category_srl}
+				<?php break; ?>
+			</block>
+			<input cond="$t_ctsrl" type="hidden" name="category_srl" value="{$t_ctsrl}" />
+			<span cond="!$grant->write_document" class="scBtn black fr"><a cond="!$is_logged" href="{getUrl('act','dispMemberLoginForm')}">{$lang->cmd_login}</a><a cond="$is_logged" href="#" onclick="location.reload();return false">{$lang->reload}</a></span>
+			<span cond="$grant->write_document" class="scBtn black fr"><button type="submit">{$lang->document_write}</button></span>
 		</div>
 	</form>
 </div>

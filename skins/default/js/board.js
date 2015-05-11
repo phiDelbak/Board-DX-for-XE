@@ -386,7 +386,7 @@ jQuery(function($)
 				});
 			}
 		});
-		$('#siFbk .scFrm').each(function()
+		$('#siFbk .scFbH + .scClst > .scFrm').each(function()
 		{
 			var $th =$(this), tw = $th.outerWidth();
 			if(tw < 400) {

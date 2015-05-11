@@ -100,7 +100,7 @@
 		</ul>
 
 		<div class="scWul clearBar">
-			<div class="fl">
+			<span>
 				<block cond="$grant->manager||$mi->use_title_color=='Y'">
 					{@ $_color = array('555555','222288','226622','2266EE','8866CC','88AA66','EE2222','EE6622','EEAA22','EEEE22') }
 					<select name="title_color" style="background-color:#{$oDocument->get('title_color')};"|cond="$oDocument->get('title_color')" onchange="this.style.backgroundColor=this.options[this.selectedIndex].style.backgroundColor;">
@@ -132,8 +132,7 @@
 					<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oDocument->get('member_srl')<0)&&(($oDocument->get('nick_name').$oDocument->get('user_name')) == 'anonymousanonymous')" />
 					{$lang->anonymous}
 				</label>
-			</div>
-
+			</span>
 			{@ $t_dstus = explode(',', $mi->use_status)}
 			<label cond="count($t_dstus) > 1" class="fr">
 				<select name="status">
@@ -141,7 +140,6 @@
 				</select>
 			</label>
 			<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
-
 			<label cond="$grant->manager && count($cstus)" class="fr">
 				{$lang->status}
 				<select name="custom_status">
@@ -223,19 +221,19 @@
 		</div>
 
 		<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
-			<div class="fl">
+			<span class="fl">
 				<span class="scBtn blue"><button type="button" onclick="doDocumentPreview(this); return false;">{$lang->cmd_preview}</button></span>
 				<block cond="$is_logged && (!$oDocument->isExists() || $oDocument->get('status') == 'TEMP')">
 					<span class="scBtn blue"><button type="button" onclick="doDocumentSave(this); return false;">{$lang->cmd_temp_save}</button></span>
 					<span class="scBtn blue"><button type="button" onclick="doDocumentLoad(this); return false;">{$lang->cmd_load}</button></span>
 				</block>
-			</div>
-			<div class="fr">
+			</span>
+			<span>
 				<span class="scBtn">
 					<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
 				</span>
 				<span class="scBtn black"><button type="submit" accesskey="s">{$lang->document} {Context::getLang('cmd_'.($is_doc?'update':'registration'))}</button></span>
-			</div>
+			</span>
 		</div>
 	</div>
 <!--@endif-->

@@ -330,7 +330,8 @@
     vertical-align:middle;
 }
 #siBody label {
-    cursor:pointer
+    cursor:pointer;
+    white-space:nowrap
 }
 #siBody form {
     margin:0;
@@ -785,7 +786,7 @@
     text-align:center;
     border:0;
     padding:0 0 2px;
-    line-height:15px;
+    line-height:16px;
     white-space:nowrap
 }
 #siLst th span {
@@ -793,7 +794,7 @@
     padding:0 10px
 }
 #siLst td {
-    padding:7px 10px;
+    padding:6px 10px;
     border-bottom:1px solid #e6e6e6
 }
 #siLst .notice td,
@@ -1471,8 +1472,8 @@
 }
 #siFbk .scIcoArea {
     position:absolute;
-    left:8px;
-    top:-3px
+    left:0;
+    top:0;
 }
 #siFbk .scFrm {
     margin:10px 10px 5px;
@@ -1576,9 +1577,6 @@
 #siFbk .scFbWt .scWopts {
     padding-right:152px;
     margin-bottom: 2px
-}
-#siFbk .scFbWt .scWopts label:first-child *:first-child {
-    margin-left:0
 }
 #siFbk .scFbWt .scWcont {
     padding-right:158px
@@ -1790,15 +1788,15 @@
     text-shadow:0 1px #fff;
     opacity:.6
 }
-#siFbk .scWopts .fl label,
-#siWrt .scWul .fl label,
-#siWrt .scWul .fl select{
-    margin-right:3px
+#siFbk .scWopts label,
+#siWrt .scWul label,
+#siWrt .scWul select{
+    margin-left:5px
 }
-#siFbk .scWopts .fr label,
-#siWrt .scWul .fr label,
-#siWrt .scWul .fr select{
-    margin-left:3px
+#siFbk .scWopts label:first-child,
+#siWrt .scWul label:first-child,
+#siWrt .scWul select:first-child {
+    margin-left:0
 }
 /* simple editor */
 #siSimWrt {
@@ -1863,7 +1861,7 @@
     border-bottom:1px solid #ddd
 }
 #siNavi li {
-    line-height:15px;
+    line-height:16px;
     padding:5px 10px;
     color:#555;
     border-bottom:1px dotted #ddd
@@ -2315,6 +2313,7 @@ noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
     #siFbk .scFbWt .cmtbtns {padding:0 5px 0 0}
     #siWrt .scWul .scWli input,
     #siSimWrt .scWul input {margin-top:2px}
+    #siBody em.usept{padding:0px 3px}
     #siBody .scLaEt span:first-child {top:1px}
     #siSimWrt .scLaEt span:first-child, #siFbk .scFbWt .scLaEt span:first-child {top:2px}
     .scModalClose {font-size: 16px}

@@ -98,9 +98,8 @@
 					<title xml:lang="jp">表示</title>
 					<title xml:lang="en">display</title>
 				</options>
-				<description xml:lang="ko">스크랩된 문서일경우 아이콘 표시 해줍니다.</description>
-				<description xml:lang="jp">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
-				<description xml:lang="en">스크랩된 문서인경우 아이콘 표시 해줍니다.</description>
+				<description xml:lang="jp">스크랩된 문서인경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
+				<description xml:lang="en">스크랩된 문서인경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
 			</var>
 			<var name="display_lang_code" type="radio" default="N">
 				<title xml:lang="ko">다국어 표시</title>
@@ -116,9 +115,9 @@
 					<title xml:lang="jp">表示</title>
 					<title xml:lang="en">display</title>
 				</options>
-				<description xml:lang="ko">다국어로 작성된 문서일 경우 알기 쉽게 표시할지 설정합니다.</description>
-				<description xml:lang="jp">多国語に作成された文書の場合分かりやすく表示するように設定します.</description>
-				<description xml:lang="en">다국어로 작성된 문서일 경우 알기 쉽게 표시할지 설정합니다.</description>
+				<description xml:lang="ko">다국어로 작성된 문서일 경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
+				<description xml:lang="jp">다국어로 작성된 문서일 경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
+				<description xml:lang="en">다국어로 작성된 문서일 경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
 			</var>
 			<var name="display_attached_files" type="radio" default="Y">
 				<title xml:lang="ko">첨부 파일</title>

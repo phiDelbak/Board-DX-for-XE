@@ -1,6 +1,6 @@
 <include target="___setting.html" />
 
-<article class="bd" id="{$is_doc?'read':'list'}">
+<div class="bd" id="{$is_doc?'read':'list'}">
 
 	<div cond="$is_cts" class="sd">
 		<include target="category.html" />
@@ -35,7 +35,7 @@
 				</span>
 			</a>
 		</block>
-    	<a cond="!$is_cts" href="#categoryOpen"><span>{$mi->browser_title}</span></a>
+    	<a cond="!$is_cts" href="#noCategory" onclick="return false"><span>{$mi->browser_title}</span></a>
 		<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="wt">{$lang->cmd_write}</a>
 	</h2>
 
@@ -81,4 +81,5 @@
 	<!--@endif-->
 
 	</section>
-</article>
+
+</div>
