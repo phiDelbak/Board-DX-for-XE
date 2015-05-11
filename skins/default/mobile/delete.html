@@ -19,7 +19,7 @@
 
 		<!--@if($not_permitted)-->
 			<div>{$XE_VALIDATOR_MESSAGE}</div>
-			<form ruleset="checkPassword" action="./" method="post" class="ff tgo open">
+			<form ruleset="checkPassword" action="./" method="post" class="co ff">
 				<input cond="$act!='dispBoardDeleteComment'" type="hidden" name="document_srl" value="{$document_srl}" />
 				<input cond="$act=='dispBoardDeleteComment'" type="hidden" name="comment_srl" value="{$comment_srl}" />
 				<input type="hidden" name="act" value="procBoardVerificationPassword" />
@@ -46,7 +46,7 @@
 				$un_extra = $ds_mtlng?$oDocument->get('extra_vars'):null;
 				$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 			}
-			<form action="./" method="post" class="ff">
+			<form action="./" method="post" class="ff co">
 				<input type="hidden" name="entry" value="{$entry}" />
 				<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 				<input type="hidden" name="ruleset" value="{$act=='dispBoardDeleteComment'?'deleteComment':'deleteDocument'}" />
@@ -59,7 +59,7 @@
 							{cut_str((!$oComment->get('member_srl')||$ds_nick||!$ds_user)?$oComment->getNickName():$oComment->getUserName(), $mi->nickname_length)}
 						</h3>
 						<hr />
-						<p>{$oComment->getContentText(255)}</p>
+						<p class="doc">{$oComment->getContentText(255)}</p>
 						<hr />
 					</li>
 					<input type="hidden" name="comment_srl" value="{$oComment->comment_srl}" />

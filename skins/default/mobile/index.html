@@ -12,7 +12,7 @@
 
 	<section class="st">
 
-	<h2 class="cb gn">
+	<h2 class="gn cb">
 		<block cond="$is_cts">
 			<a href="#categoryOpen">
 				{@ $pcatlst = array()}
@@ -48,11 +48,13 @@
 			<p cond="$mi->board_desc">{$mi->board_desc}</p>
 		</div>
 
+		<div class="bls cb">
 		{@
 			$lsttp!='list'?$lsttp='webzine':0;
 			$oTemplate = &TemplateHandler::getInstance();
 			print $oTemplate->compile($tpl_path, '_lst.'.$lsttp.'.html');
 		}
+		</div>
 
 		<div cond="$page_navigation" class="pn cb">
 			<a cond="$page != 1" href="{getUrl('document_srl','','comment_srl','','page',$page-1,'division',$division,'last_division',$last_division)}" accesskey="b" class="prev bn white">{$lang->cmd_prev}</a>

@@ -58,15 +58,21 @@
 			{@ $show_btnAdopt = $pt_vtype=='A'&&$un_extra->beluxe->use_point}
 
 			<div class="cmt {$is_blind?'blind':($is_secret?'secret':'')}">
-				<form cond="$is_secret && !$is_granted" action="./" method="post" class="ff secret" onsubmit="if(!this.password.value){ alert('Input password'); this.password.focus(); return false;}else return true;">
+
+		        <form cond="$is_secret && !$is_granted" action="./" method="post" class="ff secret" onsubmit="if(!this.password.value){ alert('{$lang->msg_input_password}'); this.password.focus(); return false;}else return true;">
 					<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 					<input type="hidden" name="ruleset" value="checkPassword" />
 					<input type="hidden" name="comment_srl" value="{$cmt_srl}" />
 					<input type="hidden" name="act" value="procBoardVerificationPassword" />
 					<input type="hidden" name="error_return_url" value="{getUrl('', 'mid',$mid, 'document_srl', $document_srl, 'comment_srl', $cmt_srl)}" />
-					<input type="password" name="password" id="cpw" />
-					<input type="submit" value="{$lang->cmd_input}" class="bn dark" />
-				</form>
+		            <ul>
+		                <li>
+		                    <label for="cpw" style="display:none">{$lang->password}</label>
+		                    <input type="password" name="password" id="cpw" placeholder="{$lang->password}" />
+		                    <input type="submit" value="{$lang->cmd_input}" class="bn dark" />
+		                </li>
+		            </ul>
+		        </form>
 
 				{$comment->getContent(false)}
 			</div>
@@ -110,8 +116,8 @@
 	</block>
 	</ul>
 </li>
-<li>
-<div cond="$cmts->total_page > 1" id="clpn" class="pn">
+<li cond="$cmts->total_page > 1">
+<div id="clpn" class="pn">
 	<a cond="$cmts->page_navigation->cur_page != 1" href="#" data-srl="{$doc_srl}" data-page="{$cmts->page_navigation->cur_page-1}" data-count="{$clist_count}" class="prev bn white">{$lang->cmd_prev}</a>
 	<strong id="curpage">{$cmts->page_navigation->cur_page} / {$cmts->page_navigation->last_page}</strong>
 	<a cond="$cmts->page_navigation->cur_page != $cmts->page_navigation->last_page" href="#" data-srl="{$doc_srl}" data-page="{$cmts->page_navigation->cur_page+1}" data-count="{$clist_count}" class="next bn white">{$lang->cmd_next}</a>
@@ -145,5 +151,10 @@
             }
         );
         return false;
+    });
+
+    jQuery('.tgr[data-load]').each(function(){
+    	var $=jQuery, srl = $(this).attr('data-load');
+    	if(srl) $('a[name=comment_' + srl + ']')[0].scrollIntoView(true);
     });
 </script>

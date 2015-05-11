@@ -50,19 +50,18 @@
         <a loop="$un_extra->beluxe->langs => $vlnc" href="#" onclick="doChangeLangType('{$vlnc}');return false;" class="{$vlnc}"><strong>{$lang_supported[$vlnc]}</strong></a>
     </div>
 
-
     <div class="doc {$is_blind?'blind':($is_secret?'secret':'')}">
 
         <form cond="$is_secret && !$is_granted" ruleset="checkPassword" action="./" method="post" class="ff secret">
             <input type="hidden" name="document_srl" value="{$doc_srl}" />
             <input type="hidden" name="act" value="procBoardVerificationPassword" />
-            <div style="height:1px;overflow:hidden;background:#ddd"></div>
-            <div class="bna">
-                <span class="fr">
-                    <input type="password" name="password" id="cpw" />
+            <ul>
+                <li>
+                    <label for="cpw" style="display:none">{$lang->password}</label>
+                    <input type="password" name="password" id="cpw" placeholder="{$lang->password}" />
                     <input type="submit" value="{$lang->cmd_input}" class="bn dark" />
-                </span>
-            </div>
+                </li>
+            </ul>
         </form>
 
         <!--@if($is_restrict)-->
@@ -192,12 +191,12 @@
 </block>
 
 <block cond="$oDocument->allowComment() || $oDocument->getCommentCount()">
-    <button id="clst" type="button" class="tbn tgr cb" title="open/close" data-srl="{$doc_srl}" data-page="{$cpage}" data-count="{$cmt_lstcnt}" data-load="Y"|cond="$comment_srl&&$XE_VALIDATOR_MESSAGE_TYPE!='error'">{$lang->comment} <span>[{$oDocument->getCommentCount()}]</span></button>
+    <button id="clst" type="button" class="tbn tgr cb" title="open/close" data-srl="{$doc_srl}" data-page="{$cpage}" data-count="{$cmt_lstcnt}" data-load="{$comment_srl}"|cond="$comment_srl&&$XE_VALIDATOR_MESSAGE_TYPE!='error'">{$lang->comment} <span>[{$oDocument->getCommentCount()}]</span></button>
 </block>
 
 <block cond="$mi->use_input_comment_writer != 'N' && !$is_voted && $grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()">
     <button type="button" class="tbn cb" title="open/close">{$lang->comment} {$lang->cmd_write}</button>
-    <form ruleset="insertComment" action="./" method="post" class="ff tgo">
+    <form ruleset="insertComment" action="./" method="post" class="co ff tgo">
         <input type="hidden" name="mid" value="{$mid}" />
         <input type="hidden" name="entry" value="{$entry}" />
         <input type="hidden" name="module_srl" value="{$mi->module_srl}" />

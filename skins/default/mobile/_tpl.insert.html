@@ -10,7 +10,7 @@
 
 <!--@if($not_permitted)-->
 	<div>{$XE_VALIDATOR_MESSAGE}</div>
-	<form ruleset="checkPassword" action="./" method="post" class="ff secret">
+	<form ruleset="checkPassword" action="./" method="post" class="co ff">
 		<input type="hidden" name="document_srl" value="{$document_srl}" />
 		<input type="hidden" name="act" value="procBoardVerificationPassword" />
 		<ul>
@@ -40,7 +40,7 @@
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 		$us_point = $un_extra?$un_extra->beluxe->use_point:0;
 	}
-	<form ruleset="#insertDocument.{$mid}" action="./" method="post" id="siFf" class="ff">
+	<form ruleset="#insertDocument.{$mid}" action="./" method="post" id="siFf" class="co ff">
 		<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 		<input type="hidden" name="act" value="procBoardInsertDocument" />
 		<input type="hidden" name="document_srl" value="{$is_doc?$oDocument->document_srl:''}" />

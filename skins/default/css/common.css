@@ -151,6 +151,44 @@
 .scBtn *[disabled=disabled] {
     opacity:.5
 }
+/* input label */
+#siBody .scLaEt {
+    position:relative;
+    text-align:left;
+    line-height:11px;
+    font-style:normal!important;
+    font-family:Tahoma!important;
+    text-shadow:none!important
+}
+#siBody .scLaEt input[type="text"],
+#siBody .scLaEt input[type="password"],
+#siBody .scLaEt input[type="email"],
+#siBody .scLaEt input[type="url"] {
+    padding:2px 2px 2px 43px
+}
+#siBody .scLaEt span:first-child {
+    position:absolute;
+    top:0px;
+    left:3px;
+    font-size:10px;
+    color:#fff;
+    overflow:hidden;
+    padding:0 7px 0 3px;
+    line-height:12px;
+    height:14px;
+    width:28px;
+    background:url(../img/common/label_tag.gif) no-repeat right top;
+    border-radius:2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px
+}
+#siBody .scLaEt .scBtn {
+    top:-2px
+}
+#siBody .history{
+    min-height:250px;
+    padding:10px;
+}
 /* Vote */
 .scVoteArea a {
     text-align:right
@@ -284,7 +322,7 @@
 }
 #siBody select,
 #siBody select option {
-    padding:0;
+    padding:1px;
     white-space:nowrap
 }
 #siBody img {
@@ -1189,17 +1227,15 @@
     margin-left:5px
 }
 #siDoc .scDocCon {
-    min-height:80px;
+    min-height:150px;
     margin:15px 5px 20px;
     white-space:normal;
     overflow:hidden
 }
 #siDoc .scDocCon.blind {
-    min-height:100px;
     background:url(../img/common/thum_blind.png) no-repeat right bottom
 }
 #siDoc .scDocCon.secret {
-    min-height:100px;
     background:url(../img/common/thum_secret.png) no-repeat right bottom
 }
 #siDoc .conSecret {
@@ -1435,8 +1471,8 @@
 }
 #siFbk .scIcoArea {
     position:absolute;
-    left:5px;
-    top:0
+    left:8px;
+    top:-3px
 }
 #siFbk .scFrm {
     margin:10px 10px 5px;
@@ -1455,16 +1491,14 @@
 }
 #siFbk .scCmtCon {
     overflow:hidden;
-    min-height:50px;
+    min-height:90px;
     margin:0 6px 5px 200px;
     white-space:normal
 }
 #siFbk .scCmtCon.blind {
-    min-height:50px;
     background:url(../img/common/thum_blind.png) no-repeat right bottom
 }
 #siFbk .scCmtCon.secret {
-    min-height:50px;
     background:url(../img/common/thum_secret.png) no-repeat right bottom
 }
 #siFbk .btnAdopt{
@@ -1540,7 +1574,8 @@
     background-color:#f5f5f5
 }
 #siFbk .scFbWt .scWopts {
-    padding-right:150px
+    padding-right:152px;
+    margin-bottom: 2px
 }
 #siFbk .scFbWt .scWopts label:first-child *:first-child {
     margin-left:0
@@ -1591,6 +1626,10 @@
 }
 #siFbk .scFbWt.nipt{
     text-align:right
+}
+#siSimWrt .scLaEt span:first-child,
+#siFbk .scFbWt .scLaEt span:first-child {
+    top:1px;
 }
 /* Write */
 #siWrt .scCpar {
@@ -2077,44 +2116,6 @@
 #siBody .scTags a.i4 {
     text-decoration:underline
 }
-/* input label */
-#siBody .scLaEt {
-    position:relative;
-    text-align:left;
-    line-height:11px;
-    font-style:normal!important;
-    font-family:Tahoma!important;
-    text-shadow:none!important
-}
-#siBody .scLaEt input[type="text"],
-#siBody .scLaEt input[type="password"],
-#siBody .scLaEt input[type="email"],
-#siBody .scLaEt input[type="url"] {
-    padding:2px 2px 2px 43px
-}
-#siBody .scLaEt span:first-child {
-    position:absolute;
-    top:0;
-    left:3px;
-    font-size:10px;
-    color:#fff;
-    overflow:hidden;
-    padding:0 7px 0 3px;
-    line-height:12px;
-    height:14px;
-    width:28px;
-    background:url(../img/common/label_tag.gif) no-repeat right top;
-    border-radius:2px;
-    -moz-border-radius:2px;
-    -webkit-border-radius:2px
-}
-#siBody .scLaEt .scBtn {
-    top:-2px
-}
-#siBody .history{
-    min-height:250px;
-    padding:10px;
-}
 /* HotTrack */
 #siBody a.scHotTrack {
     position:absolute;
@@ -2303,7 +2304,6 @@ strong.sCkChr {
 /*ie*/
 #siLst thead tr div {padding:9px 0 5px\9!important}
 #siLst thead.scOneCol th div, #siLst thead .scCheck div {padding:6px 0 8px\9!important}
-#siFbk .scFbWt .scWopts {padding-right:152px\9}
 /*op*/
 noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
 /*cr*/
@@ -2312,9 +2312,10 @@ noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
 }
 /*ff*/
 @-moz-document url-prefix() {
-    #siFbk .scFbWt .scWopts {padding-right:152px}
     #siFbk .scFbWt .cmtbtns {padding:0 5px 0 0}
     #siWrt .scWul .scWli input,
     #siSimWrt .scWul input {margin-top:2px}
+    #siBody .scLaEt span:first-child {top:1px}
+    #siSimWrt .scLaEt span:first-child, #siFbk .scFbWt .scLaEt span:first-child {top:2px}
     .scModalClose {font-size: 16px}
 }

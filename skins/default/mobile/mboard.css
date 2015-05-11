@@ -32,19 +32,6 @@ body, .bd {
 	background:#f8f8f8!important;
 }
 
-#xe_message{
-	display:none
-}
-
-/* Background */
-.st .wt,
-.st img.ise,
-.file > li a,
-.rp > li > ul > li {
-	background-color:transparent;
-	background-image:url(mx.png);
-	background-repeat:no-repeat;
-}
 /* common */
 .fl{float:left}
 .fr{float:right}
@@ -68,11 +55,7 @@ body, .bd {
 	font-family:Verdana, Geneva, sans-serif
 }
 
-.lt,
-.co,
-.nav,
-.file,
-form.ff > ul,
+.lt,.co,.nav,.file,
 .rp > li > ul > li > div{
 	background:#fff;
 	border:1px solid #c9c9c9;
@@ -87,8 +70,29 @@ form.ff > ul,
 	list-style:none
 }
 
+#xe_message{
+	display:none
+}
+
+/* Background */
+.st .wt,
+.st img.ise,
+.file > li a,
+.rp > li > ul > li {
+	background-color:transparent;
+	background-image:url(mx.png);
+	background-repeat:no-repeat;
+}
+
 /* Body */
 
+.st > .bls,
+.st > .co .doc{
+	min-height: 120px;
+}
+.rp .cmt{
+	min-height: 60px;
+}
 
 .co .xv{
 	border-bottom:1px solid #ccc8be;
@@ -115,7 +119,6 @@ form.ff > ul,
 }
 .co .doc,.rp .cmt{
 	padding:0 0 10px;
-	min-height:50px;
 	white-space:normal;
 	overflow:hidden
 }
@@ -124,9 +127,6 @@ form.ff > ul,
 }
 .co .doc.secret,.rp .cmt.secret{
 	background:url(../img/common/thum_secret.png) no-repeat right bottom
-}
-.co .doc{
-	min-height:50px
 }
 
 /* head */
@@ -554,7 +554,7 @@ form.ff h3{
 }
 form.ff > ul{
 position:relative;
-padding:10px 15px;
+padding:0;
 list-style:none
 }
 
@@ -577,7 +577,6 @@ form.ff label+input[type=text],
 form.ff label+input[type=password],
 form.ff label+input[type=url],
 form.ff label+input[type=email],
-form.ff.secret input[type=password],
 form.ff label+textarea,
 form.ff label+select{
 display:block;
@@ -614,7 +613,10 @@ form.ff .exvar ul{
 margin:0 5px 5px;
 padding:0
 }
-
+form.ff.secret input[type="password"]{
+	display: inline;
+	width:150px;
+}
 
 #fUloader{
 position:relative;
