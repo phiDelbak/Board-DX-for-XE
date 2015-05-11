@@ -26,11 +26,8 @@ class beluxeController extends beluxe
 
 		if(!$retUrl && $args) {
 			$list = func_get_args();
-			$list[] = 'mid';
-			$list[] = Context::get('mid');
-			// act 초기화
-			$list[] = 'act';
-			$list[] = '';
+			$taa = array('mid', Context::get('mid'), 'act', '', 'ruleset', '');
+			$list = array_merge($list, $taa);
 			$retUrl = Context::getUrl($args, $list, NULL, FALSE);
 		}
 
@@ -234,11 +231,12 @@ class beluxeController extends beluxe
 		{
 			// 문서번호에 해당하는 글이 있는지 확인
 			$cmComment = &getModel('comment');
-			$oComIfo = $cmComment->getComment($cmt_srl, FALSE, array('comment_srl', 'password'));
+			$oComIfo = $cmComment->getComment($cmt_srl, FALSE, array('comment_srl', 'document_srl', 'password'));
 			if(!$oComIfo->isExists()) return new Object(-1, 'msg_not_founded');
 			// 문서의 비밀번호와 입력한 비밀번호의 비교
 			if(!$cmMember->isValidPassword($oComIfo->get('password'), $password)) return new Object(-1, 'msg_invalid_password');
 
+			$doc_srl = $oComIfo->get('document_srl');
 			$oComIfo->setGrant();
 		}
 		else
@@ -252,6 +250,8 @@ class beluxeController extends beluxe
 
 			$oDocIfo->setGrant();
 		}
+
+		$this->_setLocation('', 'document_srl', $doc_srl, 'comment_srl', $cmt_srl);
 	}
 
 	function procBoardInsertDocument()
