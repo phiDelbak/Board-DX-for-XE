@@ -169,7 +169,7 @@ jQuery(function($){
     $.fn.pidModalResize = function(resize)
     {
         var $this = $(this), $parent = $(parent),
-        	doc, $fg, $body, $form, t, chkh, bdoh, target, h, timer;
+        	doc, $fg, $body, $form, t, chkh, bdoh, target, timer;
 
         doc = $this.get(0).contentDocument || $this.get(0).contentWindow.document;
         if (doc === undefined) return;
@@ -185,6 +185,8 @@ jQuery(function($){
 
         //모달이 아니고 타겟이면
         if(target) {
+        	$fg.show();
+
 			$('[data-modal-child=message]', parent.document)
 	        .fadeOut(2500, function() {
 	            $(this).remove();
@@ -192,8 +194,9 @@ jQuery(function($){
 
         	timer = setInterval(function()
         	{
-        		$this.height($body.outerHeight(true));
-        		if ($fg.position().left < 0) clearInterval(timer);
+		        bdoh = $body.outerHeight(true);
+		        if(bdoh) $this.height(bdoh);
+        		if ($fg.is(':hidden')) clearInterval(timer);
         	}, 500);
         } else {
         	$fg.css({top:0,left:'-150%',height:0}).show();
@@ -220,15 +223,13 @@ jQuery(function($){
 		        chkh = $parent.height() - 100;
 		        bdoh = $body.outerHeight(true);
 
-		        $body.css('overflow-y', chkh > bdoh ? 'hidden' : 'auto');
-		        $this.css({
-		            'height': (chkh > bdoh ? bdoh : chkh),
-		            'width': ($parent.width() - 80)
-		        });
-
-		        h = $this.outerHeight(true);
-		        if(h) {
-			        $fg.height(h);
+		        if(bdoh) {
+			        $body.css('overflow-y', chkh > bdoh ? 'hidden' : 'auto');
+			        $this.css({
+			            'height': (chkh > bdoh ? bdoh : chkh),
+			            'width': ($parent.width() - 80)
+			        });
+			        $fg.height($this.outerHeight(true));
 			        t = (($parent.height() - $fg.outerHeight()) / 2) - 10;
 			        $fg.css({
 			            top: (t > 10 ? t : 10),
@@ -236,7 +237,7 @@ jQuery(function($){
 			        });
 	        	}
 
-	        	if ($fg.position().left < 1) clearInterval(timer);
+	        	if ($fg.is(':hidden')) clearInterval(timer);
         	}, 500);
 	    }
     };
@@ -337,11 +338,11 @@ jQuery(function($){
     	//if(!target) $(parent).bind("resize", function(){$pidOframe.pidModalResize();});
     	$(window).bind("unload",  function(){$pidOframe.parent().hide();});
 
-		$(window)
-		.load(function()
-		{
-			// 에러 발생시 보이기
-			//if($('div#BELUXE_MESSAGE.error').length) $pidOframe.parent().show();
-    	});
+		// $(window)
+		// .load(function()
+		// {
+		// 	// 에러 발생시 보이기
+		// 	//if($('div#BELUXE_MESSAGE.error').length) $pidOframe.parent().show();
+  //   	});
     }
 });
