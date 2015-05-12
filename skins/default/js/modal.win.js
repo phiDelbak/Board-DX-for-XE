@@ -169,7 +169,7 @@ jQuery(function($){
     $.fn.pidModalResize = function(resize)
     {
         var $this = $(this), $parent = $(parent),
-        	doc, $fg, $body, $form, t, chkh, bdoh, target, timer;
+        	doc, $fg, $body, $form, t, h, chkh, bdoh, target, timer;
 
         doc = $this.get(0).contentDocument || $this.get(0).contentWindow.document;
         if (doc === undefined) return;
@@ -229,12 +229,16 @@ jQuery(function($){
 			            'height': (chkh > bdoh ? bdoh : chkh),
 			            'width': ($parent.width() - 80)
 			        });
-			        $fg.height($this.outerHeight(true));
-			        t = (($parent.height() - $fg.outerHeight()) / 2) - 10;
-			        $fg.css({
-			            top: (t > 10 ? t : 10),
-			            left: (($parent.width() - $fg.outerWidth()) / 2)
-			        });
+
+				    h = $this.outerHeight(true);
+				    if(h){
+				        $fg.height(h);
+				        t = (($parent.height() - $fg.outerHeight()) / 2) - 10;
+				        $fg.css({
+				            top: (t > 10 ? t : 10),
+				            left: (($parent.width() - $fg.outerWidth()) / 2)
+				        });
+				    }
 	        	}
 
 	        	if ($fg.is(':hidden')) clearInterval(timer);

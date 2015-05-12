@@ -742,6 +742,10 @@ font-style:normal
 margin-left:3px
 }
 
+.bn[disabled=disabled] {
+    opacity:.7
+}
+
 /* Tag List */
 .tags{
 	margin:0 0 10px
