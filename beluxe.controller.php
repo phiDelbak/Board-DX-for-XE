@@ -22,13 +22,13 @@ class beluxeController extends beluxe
 	function _setLocation()
 	{
 		$retUrl = Context::get('success_return_url');
-		$args = func_num_args();
 
-		if(!$retUrl && $args) {
-			$list = func_get_args();
-			$taa = array('mid', Context::get('mid'), 'act', '', 'ruleset', '');
-			$list = array_merge($list, $taa);
-			$retUrl = Context::getUrl($args, $list, NULL, FALSE);
+		if(!$retUrl && func_num_args()) {
+			$args = array_merge(
+				func_get_args(),
+				array('mid', Context::get('mid'), 'act', '', 'ruleset', '')
+			);
+			$retUrl = Context::getUrl(count($args), $args, NULL, FALSE);
 		}
 
 		if(!$retUrl) $retUrl = Context::get('error_return_url');
@@ -44,13 +44,14 @@ class beluxeController extends beluxe
 			}
 		}
 
-		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON')))
-		{	//filte 사용시
-			//$this->add('is_modal',  Context::get('is_modal')? '1' : '');
-			//$this->add('url', $retUrl);
-		}// ruleset 사용시
-		else
+		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON', 'JS_CALLBACK'))) {
+			//filte 사용시
+			$this->add('url', $retUrl);
+		}else{
+			// 모달에 ruleset 사용시
+			if(Context::get('is_modal')) Context::set('xeVirtualRequestMethod','xml');
 			$this->setRedirectUrl($retUrl);
+		}
 	}
 
 	function _setAnonymous(&$pObj, $aMbrIfo)

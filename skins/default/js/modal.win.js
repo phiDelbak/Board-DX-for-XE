@@ -8,10 +8,10 @@ jQuery.fn.pidModalFlashFix = function(){
 };
 
 // Modal Window
-jQuery(function($){	
+jQuery(function($){
 	var ESC = 27;
 	var pidModalStack = [];
-	var pidModalInitailZIndex = 1040;
+	var pidModalInitailZIndex = 1041;
 
 	// modal backdrop
 	var $pidModalBackdrop = $('<div class="pid_modal-backdrop" style="width:100%;height:100%"></div>').appendTo('body').hide();
@@ -59,6 +59,7 @@ jQuery(function($){
 				{
 					if($modal.data('state') == 'showing') $this.trigger('close.mw');
 					$(target).before($modal);
+					$modal.data('target', target);
 				}
 
 				// set the related anchor
@@ -165,53 +166,175 @@ jQuery(function($){
 	/** phiDel (xe.phidel@gmail.com) **/
 	// $('a.pidModalAnchor').pidModalWindow();
 
+    $.fn.pidModalResize = function(resize)
+    {
+        var $this = $(this), $parent = $(parent),
+        	doc, $fg, $body, $form, t, chkh, bdoh, target, h, timer;
+
+        doc = $this.get(0).contentDocument || $this.get(0).contentWindow.document;
+        if (doc === undefined) return;
+
+        $fg = $this.parent();
+        $body = $('body', doc);
+        $form = $('form:first', $body);
+        resize = resize || 'auto';
+        target = $fg.parent().data('target');
+
+        $body.css({padding: '0', margin: '0', overflow: 'hidden'});
+        $form.css({ padding: '0', margin: '0', overflow: 'hidden'});
+
+        //모달이 아니고 타겟이면
+        if(target) {
+			$('[data-modal-child=message]', parent.document)
+	        .fadeOut(2500, function() {
+	            $(this).remove();
+	        });
+
+        	timer = setInterval(function()
+        	{
+        		$this.height($body.outerHeight(true));
+        		if ($fg.position().left < 0) clearInterval(timer);
+        	}, 500);
+        } else {
+	        if (resize == 'hfix') $body.height($parent.height() - 100);
+	        $this.height($body.outerHeight(true));
+
+        	timer = setInterval(function()
+        	{
+		        chkh = $parent.height() - 100;
+		        bdoh = $body.outerHeight(true);
+
+		        $body.css('overflow-y', chkh > bdoh ? 'hidden' : 'auto');
+		        $this.css({
+		            'height': (chkh > bdoh ? bdoh : chkh),
+		            'width': ($parent.width() - 80)
+		        });
+
+		        h = $this.outerHeight(true);
+		        if(h) $fg.height(h);
+
+		        t = (($parent.height() - $fg.outerHeight()) / 2) - 10;
+
+		        $fg.css({
+		            top: (t > 10 ? t : 10),
+		            left: (($parent.width() - $fg.outerWidth()) / 2)
+		        });
+
+        		if ($fg.position().left < 1) clearInterval(timer);
+        	}, 500);
+
+	        if ($fg.position().left < 1) {
+	            $fg.animate({
+	                top: (t > 10 ? t : 10),
+	                left: (($parent.width() - $fg.outerWidth()) / 2)
+	            },{
+	                complete: function() {
+				        $('[data-modal-child=message]', parent.document)
+				        .fadeOut(2500, function() {
+				            $(this).remove();
+				        });
+	                }
+	            });
+	        }
+	    }
+    };
+
 	$.fn.pidModalGoUrl = function(url){
-		var $modal = $(this), frId = $modal.attr('data-modal-frame') || 'pidOframe',
-			 waitmsg, sctop = ($modal.data('target') || '') ? $(window).scrollTop() : 0;
+		var $modal = $(this), frId = 'pidOframe', $pidOframe, is_iframe,
+			target = $modal.data('target'), waitmsg, sctop = (target || '') ? $(window).scrollTop() : 0;
 
-		$modal.data('frame_id', frId);
-
-	    if(!$('.wait[data-modal-child=message]').length)
-	    {
+	    if(!$('.wait[data-modal-child=message]').length) {
 	        waitmsg = $('<div class="message update wait">').html(
 	            '<p>' + waiting_message + '<br />If time delays continue, <a href="' + url.setQuery('is_modal','0') + '"><span>click here</span></a>.</p>'
 	        ).attr('data-modal-child','message').css({'position':'absolute','left':'10px','z-index':'9'}).css('top', (sctop+10)+'px');
 	     	$modal.append(waitmsg);
 	    }
 
-		if(typeof scroll != 'string') scroll = '';
-		url = url.setQuery('is_modal','1');
 
-		// ie6~8 은 object 못씀
-		// ckeditor 드래그 첨부 기능이 chrome 에서 object 못씀, 고쳐질때 까지 iframe 사용하기로... 
-		if(/msie|chromium|chrome/.test(navigator.userAgent.toLowerCase()) === true) {	
-			return $('#'+frId, $modal).length ?
-				window.frames[frId].location.replace(url) :
-				$('<iframe id="'+frId+'" allowTransparency="true" frameborder="0" scrolling="'+(scroll ? scroll : 'auto')+'" />')
-					.attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal))
-				.load(function(e){
-					$modal.pidModalResize($modal.attr('data-modal-resize'));
-				});
-		} else {    	
-			if(scroll == 'no') scroll = 'hidden';
-			return $('#'+frId, $modal).length ?
-				$('#'+frId, $modal).attr('data', url):
-				$('<object id="'+frId+'" style="overflow-x:hidden;overflow-y:'+(scroll ? scroll : 'auto')+'" />')
-					.attr('data', url).appendTo($('.pid_modal-body:eq(0)', $modal))
-				.load(function(){
-					$modal.pidModalResize($modal.attr('data-modal-resize'));
-				});
-		}	
+		url = url.setQuery('is_modal','1');
+		if(typeof scroll != 'string') scroll = '';
+		//is_iframe = (/msie|chromium|chrome/.test(navigator.userAgent.toLowerCase()) === true);
+
+		target = target ? ' data-target="'+target+'"' : '';
+		$pidOframe = $('#'+frId, $modal);
+
+		if($pidOframe.length) {
+			//(is_iframe) ? $pidOframe.get(0).src = url : $pidOframe.attr('data', url);
+
+			$pidOframe.get(0).src = url;
+			$pidOframe.pidModalResize();
+		} else {
+
+			// object는 아직 문제가 많아, 그냥 iframe 사용하기로...
+			$('<iframe id="'+frId+'"'+target+' allowTransparency="true" frameborder="0" scrolling="'+(scroll ? scroll : 'auto')+'" />')
+				.load(function(){$(this).pidModalResize();}).attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal));
+
+			// if(is_iframe) {
+			// 	$('<iframe id="'+frId+'" allowTransparency="true" frameborder="0" scrolling="'+(scroll ? scroll : 'auto')+'" />')
+			// 		.load(function(){$(this).pidModalResize();}).attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal));
+			// } else {
+			// 	if(scroll == 'no') scroll = 'hidden';
+			// 	$('<object id="'+frId+'" style="overflow-x:hidden;overflow-y:'+(scroll ? scroll : 'auto')+'" />')
+			// 		.load(function(){$(this).pidModalResize();}).attr('data', url).appendTo($('.pid_modal-body:eq(0)', $modal));
+			// }
+		}
 	};
 
 	$('.pidModalAnchor')
-	.bind('after-open.mw', function(e) {
-		var $this = $(this), u = $this.data('goUrl') || '';
-		if(u) $($this.attr('href')).pidModalGoUrl(u);
+	.bind('before-open.mw', function(e) {
+		var $modal = $($(this).attr('href'));
+		if(!$(this).attr('data-target')) {
+			$modal.find('.pid_modal-body').css({top:0,left:'-150%',height:0});
+		}
+	}).bind('after-open.mw', function(e) {
+		var  $this = $(this), act, param, url, a, i, c, t;
+
+		act = $this.attr('data-modal-act')||'';
+		param = $this.attr('data-modal-param')||'';
+
+		if(act||param) {
+			a = param.split(',');
+			c = a.length - 1;
+
+			//첫 문자가 true면 주소 초기화
+			t = (a.length > 0 && a[0]=='true') ? 1 : 0;
+			url = t ? default_url : current_url;
+			url = url.setQuery('act', act);
+
+			if(t) url = url.setQuery('mid', current_mid);
+			for (i = t; i < c; i=i+2) url = url.setQuery(a[i], a[i+1] || '');
+
+			//unbind();
+
+			$($(this).attr('href')).pidModalGoUrl(url);
+		}
 	}).bind('before-close.mw', function(e) {
 		var $modal = $($(this).attr('href'));
-		// 로딩중 안보이게 처리및 자원 제거
+		$modal.find('.pid_modal-body').css({top:0,left:'-150%',height:0});
+		// 자원 제거
 		$('[data-modal-child]', $modal).remove();
         $('.pid_modal-body', $modal).children().remove();
 	}).pidModalWindow();
+
+	// 닫기 버튼 상단에도 추가
+	$('[data-modal-hide]').click(function(){
+		$($(this).attr('href'), parent.document)
+				.find('button.pid_modal-close:first').click();
+    	return false;
+	}).closest('form').each(function(){
+		$(this).prepend(
+			$('<button type="button" class="scModalClose"">&times;</button>')
+				.click(function(){$('[data-modal-hide]:eq(0)').click(); return false;})
+		);
+	});
+
+	// 모달창이면
+	var $pidOframe = $(window.frameElement);
+    if($pidOframe && $pidOframe.attr('id')=='pidOframe')
+    {
+    	// onresize 로 는 잘 안되서 타이머 씀
+        //var target = $pidOframe.attr('data-target');
+    	//if(!target) $(parent).bind("resize", function(){$pidOframe.pidModalResize();});
+    	$(window).bind("unload",  function(){$pidOframe.parent().css({top:0,left:'-150%',height:0});});
+    }
 });

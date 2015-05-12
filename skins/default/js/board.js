@@ -6,72 +6,6 @@
 
 jQuery(function($)
 {
-	// http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
-	String.prototype.updateQueryString = function(key, value)
-	{
-		var uri = this, re = new RegExp("([?|&])" + key + "=.*?(&|#|$)", "i");
-		if (uri.match(re)) {
-			return uri.replace(re, '$1' + key + "=" + value + '$2');
-		} else {
-			var hash =  '', separator = uri.indexOf('?') !== -1 ? "&" : "?";
-			if( uri.indexOf('#') !== -1 ){
-				hash = uri.replace(/.*#/, '#');
-				uri = uri.replace(/#.*/, '');
-			}
-			return uri + separator + key + "=" + value + hash;
-		}
-	};
-
-	var pidCallbackError = function(data) {
-
-	};
-
-	var pidCallbackSucess = function(data) {
-		var wl = (parent ? parent : self).location, url='';
-		if(data.success_return_url){
-			url = data.success_return_url;
-		}else{
-			url = wl.href;
-			for(var i in data) {
-				if($.inArray(i,['error','message','message_type'])>-1) continue;
-				url = url.updateQueryString(i, data[i]);
-			}
-		}
-		wl.replace(url);
-	};
-
-	$('form.pid_ajax-form')
-	.submit(function()
-	{
-		var params = {}, data = $(this).serializeArray();
-
-		$.each(data, function(i, field) {
-			var v = $.trim(field.value), n = field.name;
-			if(!v || !n) return true;
-
-			if(/\[\]$/.test(n)) n = n.replace(/\[\]$/, '');
-			if(params[n]) {
-				params[n] += '|@|'+v;
-			} else {
-				params[n] = field.value;
-			}
-		});
-
-		// issue 979
-		if(/^\s*<p>.*<\/p>\s*$/i.test(params.content)) {
-			// get count of paragraphs
-			var lowerContent = params.content.toLowerCase();
-			var idx = lowerContent.indexOf('</p>');
-			var last_idx = lowerContent.lastIndexOf('</p>');
-			if(idx > 0 && last_idx > 0 && idx == last_idx) {
-				params.content = content = params.content.replace(/^\s*<p>|<\/p>\s*$/ig, '');
-			}
-		}
-
-		exec_json(params.mid+'.'+params.act, params, pidCallbackSucess, pidCallbackError);
-		return false;
-	});
-
 	$('a[href=#siManageBtn]')
 	.click(function()
 	{
@@ -430,43 +364,6 @@ jQuery(function($)
 
 			if($.browser.msie===true) $('<span class="iefix" />').css({'width':w+'px','height':h+'px'}).appendTo($a);
 		});
-
-		// 모달
-		$('.pidModalAnchor')
-		.bind('before-open.mw', function(e) {
-			var  $this = $(this), act, param, url, a, i, c, t;
-
-			act = $this.attr('data-modal-act')||'';
-			param = $this.attr('data-modal-param')||'';
-
-			if(act||param) {
-				a = param.split(',');
-				c = a.length - 1;
-
-				//첫 문자가 true면 주소 초기화
-				t = (a.length > 0 && a[0]=='true') ? 1 : 0;
-				url = t ? default_url : current_url;
-				url = url.setQuery('act', act);
-
-				if(t) url = url.setQuery('mid', current_mid);
-				for (i = t; i < c; i=i+2) url = url.setQuery(a[i], a[i+1] || '');
-
-				$this.data('goUrl', url);
-			}
-		}).bind('after-close.mw', function(e) {
-			// 로딩중 안보이게 처리
-	        $('.pid_modal-body', $($(this).attr('href'))).css({top:0,left:'-150%',height:0});
-		});
-		$('[data-modal-hide]').click(function(){
-			$($(this).attr('href'), (parent ? parent : self).document)
-					.find('button.pid_modal-close:first').click();
-        	return false;
-		}).closest('form').each(function(){
-			$(this).prepend(
-				$('<button type="button" class="scModalClose"">&times;</button>')
-					.click(function(){$('[data-modal-hide]:eq(0)').click(); return false;})
-			);
- 		});
 
 		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
 

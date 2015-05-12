@@ -17,6 +17,13 @@ class BeluxeItem extends Object
 		$this->member_srl = (int) $oLogIfo->member_srl;
 	}
 
+    function addExtraKeyJsFilter() 
+    {
+		$cmThis = &getModel(__XEFM_NAME__);
+    	$js_code = $cmThis->addExtraKeyJsFilter($this->module_srl);
+        if($js_code) Context::addBodyHeader($js_code);
+    }
+
 	function getAdminId()
 	{
 		$modsrl = $this->module_srl;

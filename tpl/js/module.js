@@ -75,6 +75,7 @@ String.prototype.urlDecode = function(){
 // ruleset 사용시 일부 사용자 필터 따로 만들어 준다.
 jQuery(function($)
 {
+
 	$('form input[type=hidden][name=ruleset]').each(function(){
 		var $f = $(this).closest('form');
 

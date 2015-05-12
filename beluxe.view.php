@@ -244,11 +244,6 @@ class beluxeView extends beluxe
 
         if ($doc_srl || $a_iswrite) {
 
-            // TODO ruleset 확장 변수 체크 코어에서 고칠때까지 임시 조치
-            if ($a_iswrite) {
-                $this->cmThis->_addDocumentJsFilter($oModIfo->module_srl);
-            }
-
             $oLogIfo = Context::get('logged_info');
             $mbr_srl = $oLogIfo->member_srl;
 

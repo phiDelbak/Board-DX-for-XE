@@ -1,14 +1,11 @@
 {@
 	$not_permitted = $XE_VALIDATOR_ERROR == '-1380';
-	$rulepath = $tpl_path.'../../ruleset/'.($not_permitted?'checkPassword':'deleteDocument').'.xml';
-	Context::addJsFile($rulepath, false, '', 0, 'head', true);
 }
 
-<form action="./" method="post" class="pid_ajax-form">
+<form ruleset="deleteDocument"|cond="!$not_permitted" ruleset="checkPassword"|cond="$not_permitted" action="./" method="post" class="pid_ajax-form">
 <input cond="$is_modal" type="hidden" name="is_modal" value="1" />
 <input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 <input type="hidden" name="document_srl" value="{$document_srl}" />
-<input type="hidden" name="ruleset" value="{$not_permitted?'checkPassword':'deleteDocument'}" />
 <input type="hidden" name="act" value="{$not_permitted?'procBoardVerificationPassword':'procBoardDeleteDocument'}" />
 
 <div class="scLtitle">

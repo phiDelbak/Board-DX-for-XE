@@ -16,7 +16,7 @@
 
 		$cmts = $oThis->getCommentList($doc_srl, $cpage, $cmt_lstcnt);
 		$bscmts = $mi->use_c_best=='Y' ? $oThis->getBestCommentList($doc_srl) : array();
-		$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);	
+		$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);
 
 		$dmb_srl = $oDocument->get('member_srl');
 		$lmb_srl = $lg?$lg->member_srl:0;
@@ -51,7 +51,7 @@
 							<span cond="!$comment->getProfileImage()" class="profile"></span>
 						</block>
 						<h3 class="author">
-							{@								
+							{@
 								$home = $comment->get('homepage');
 								$nick = cut_str((!$cmb_srl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length);
 							}

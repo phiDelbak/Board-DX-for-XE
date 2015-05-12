@@ -197,8 +197,6 @@
 <block cond="$mi->use_input_comment_writer != 'N' && !$is_voted && $grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()">
     <button type="button" class="tbn cb" title="open/close">{$lang->comment} {$lang->cmd_write}</button>
     <form ruleset="insertComment" action="./" method="post" class="co ff tgo">
-        <input type="hidden" name="mid" value="{$mid}" />
-        <input type="hidden" name="entry" value="{$entry}" />
         <input type="hidden" name="module_srl" value="{$mi->module_srl}" />
         <input type="hidden" name="act" value="procBoardInsertComment" />
         <input type="hidden" name="document_srl" value="{$doc_srl}" />

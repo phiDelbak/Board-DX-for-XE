@@ -20,7 +20,7 @@
 		<!--@if($not_permitted)-->
 			<div>{$XE_VALIDATOR_MESSAGE}</div>
 			<form ruleset="checkPassword" action="./" method="post" class="co ff">
-				<input cond="$act!='dispBoardDeleteComment'" type="hidden" name="document_srl" value="{$document_srl}" />
+				<input cond="$act=='dispBoardDeleteDocument'" type="hidden" name="document_srl" value="{$document_srl}" />
 				<input cond="$act=='dispBoardDeleteComment'" type="hidden" name="comment_srl" value="{$comment_srl}" />
 				<input type="hidden" name="act" value="procBoardVerificationPassword" />
 				<ul>
@@ -36,9 +36,6 @@
 			</form>
 		<!--@else-->
 			{@
-				$rulepath = $tpl_path.'../../../ruleset/'.($act=='dispBoardDeleteComment'?'deleteComment':'deleteDocument').'.xml';
-				Context::addJsFile($rulepath, false, '', 0, 'head', true);
-
 				$ds_nick = $ci['nick_name']->display == 'Y';
 				$ds_user =	$ci['user_name']->display == 'Y';
 
@@ -46,10 +43,8 @@
 				$un_extra = $ds_mtlng?$oDocument->get('extra_vars'):null;
 				$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 			}
-			<form action="./" method="post" class="ff co">
-				<input type="hidden" name="entry" value="{$entry}" />
+			<form ruleset="deleteDocument"|cond="$act=='dispBoardDeleteDocument'" ruleset="deleteComment"|cond="$act=='dispBoardDeleteComment'" action="./" method="post" class="ff co">
 				<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
-				<input type="hidden" name="ruleset" value="{$act=='dispBoardDeleteComment'?'deleteComment':'deleteDocument'}" />
 				<input type="hidden" name="act" value="{$act=='dispBoardDeleteComment'?'procBoardDeleteComment':'procBoardDeleteDocument'}" />
 				<input type="hidden" name="category_srl" value="{$category_srl}" />
 				<ul>

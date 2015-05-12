@@ -157,17 +157,17 @@ class beluxeModel extends beluxe
     }
 
     /**
-     * ruleset 사용시 클라이언트는 지원 안해주니 어쩔수없다. 이렇게 해야지
+     * ruleset 사용시 callback 과 extra_keys 메세지 지원 안해주니 어쩔수없다. filter 와 병행하지 않겠다는 고집에 손이 고생...
      * modules/document/document.controller.php
      * Add javascript codes into the header by checking values of document_extra_keys type, required and others
-     * @param int $module_srl
+     * @param int $a_modsrl
      * @return void
      */
-    function _addDocumentJsFilter($module_srl) {
+    function addExtraKeyJsFilter($a_modsrl) {
         global $lang;
 
         $oDocumentModel = getModel('document');
-        $extra_keys = $oDocumentModel->getExtraKeys($module_srl);
+        $extra_keys = $oDocumentModel->getExtraKeys($a_modsrl);
         if (!count($extra_keys)) return;
 
         $js_code = array();
@@ -197,9 +197,8 @@ class beluxeModel extends beluxe
 
         $js_code[] = '})(jQuery);';
         $js_code[] = '//]]></script>';
-        $js_code = implode("\n", $js_code);
 
-        Context::addHtmlHeader($js_code);
+        return implode("\n", $js_code);
     }
 
     /**

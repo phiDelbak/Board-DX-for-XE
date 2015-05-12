@@ -26,16 +26,18 @@ class beluxeAdminController extends beluxe
 
         if (!$retUrl) {
             $module = Context::get('module');
-            $retUrl = getNotEncodedUrl('', $module ? 'module' : 'mid', $module ? $module : Context::get('mid'), 'module_srl', $a_modsrl ? $a_modsrl : '', 'act', $act);
+            $retUrl = getNotEncodedUrl(
+                '', $module ? 'module' : 'mid', $module ? $module : Context::get('mid'),
+                'module_srl', (int) $a_modsrl ? $a_modsrl : '', 'act', $act
+            );
         }
 
         if (!$retUrl) $retUrl = Context::get('error_return_url');
 
-        if (in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON'))) {
+        if (in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON', 'JS_CALLBACK'))) {
             $this->add('is_modal', $is_modal ? '1' : '');
             $this->add('url', $retUrl);
-        }
-        else {
+        } else {
             $this->setRedirectUrl($retUrl);
 
             if ($is_poped) {
@@ -476,7 +478,7 @@ class beluxeAdminController extends beluxe
 
         $this->add('page', Context::get('page'));
         $this->setMessage('success_deleted');
-        $this->_setLocation('', 'dispBeluxeAdminList');
+        $this->_setLocation(0, 'dispBeluxeAdminList');
     }
 
     /* @brief Add a category */
