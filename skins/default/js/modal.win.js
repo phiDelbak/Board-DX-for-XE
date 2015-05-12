@@ -196,8 +196,24 @@ jQuery(function($){
         		if ($fg.position().left < 0) clearInterval(timer);
         	}, 500);
         } else {
+        	$fg.css({top:0,left:'-150%',height:0}).show();
+
 	        if (resize == 'hfix') $body.height($parent.height() - 100);
 	        $this.height($body.outerHeight(true));
+
+	        if ($fg.position().left < 1) {
+	            $fg.animate({
+	                top: 10,
+	                left: (($parent.width() - $fg.outerWidth()) / 2)
+	            },{
+	                complete: function() {
+				        $('[data-modal-child=message]', parent.document)
+				        .fadeOut(2500, function() {
+				            $(this).remove();
+				        });
+	                }
+	            });
+	        }
 
         	timer = setInterval(function()
         	{
@@ -211,31 +227,17 @@ jQuery(function($){
 		        });
 
 		        h = $this.outerHeight(true);
-		        if(h) $fg.height(h);
+		        if(h) {
+			        $fg.height(h);
+			        t = (($parent.height() - $fg.outerHeight()) / 2) - 10;
+			        $fg.css({
+			            top: (t > 10 ? t : 10),
+			            left: (($parent.width() - $fg.outerWidth()) / 2)
+			        });
+	        	}
 
-		        t = (($parent.height() - $fg.outerHeight()) / 2) - 10;
-
-		        $fg.css({
-		            top: (t > 10 ? t : 10),
-		            left: (($parent.width() - $fg.outerWidth()) / 2)
-		        });
-
-        		if ($fg.position().left < 1) clearInterval(timer);
+	        	if ($fg.position().left < 1) clearInterval(timer);
         	}, 500);
-
-	        if ($fg.position().left < 1) {
-	            $fg.animate({
-	                top: (t > 10 ? t : 10),
-	                left: (($parent.width() - $fg.outerWidth()) / 2)
-	            },{
-	                complete: function() {
-				        $('[data-modal-child=message]', parent.document)
-				        .fadeOut(2500, function() {
-				            $(this).remove();
-				        });
-	                }
-	            });
-	        }
 	    }
     };
 
@@ -284,7 +286,7 @@ jQuery(function($){
 	.bind('before-open.mw', function(e) {
 		var $modal = $($(this).attr('href'));
 		if(!$(this).attr('data-target')) {
-			$modal.find('.pid_modal-body').css({top:0,left:'-150%',height:0}).show();
+			$modal.find('.pid_modal-body').hide();
 		}
 	}).bind('after-open.mw', function(e) {
 		var  $this = $(this), act, param, url, a, i, c, t;
@@ -304,13 +306,11 @@ jQuery(function($){
 			if(t) url = url.setQuery('mid', current_mid);
 			for (i = t; i < c; i=i+2) url = url.setQuery(a[i], a[i+1] || '');
 
-			//unbind();
-
 			$($(this).attr('href')).pidModalGoUrl(url);
 		}
 	}).bind('before-close.mw', function(e) {
 		var $modal = $($(this).attr('href'));
-		$modal.find('.pid_modal-body').css({top:0,left:'-150%',height:0}).hide();
+		$modal.find('.pid_modal-body').hide();
 		// 자원 제거
 		$('[data-modal-child]', $modal).remove();
         $('.pid_modal-body', $modal).children().remove();
@@ -335,13 +335,13 @@ jQuery(function($){
     	// onresize 로 는 잘 안되서 타이머 씀
         //var target = $pidOframe.attr('data-target');
     	//if(!target) $(parent).bind("resize", function(){$pidOframe.pidModalResize();});
-    	$(window).bind("unload",  function(){$pidOframe.parent().css({top:0,left:'-150%',height:0}).hide();});
+    	$(window).bind("unload",  function(){$pidOframe.parent().hide();});
 
 		$(window)
 		.load(function()
 		{
 			// 에러 발생시 보이기
-			if($('div#BELUXE_MESSAGE.error').length) $pidOframe.parent().show();
+			//if($('div#BELUXE_MESSAGE.error').length) $pidOframe.parent().show();
     	});
     }
 });
