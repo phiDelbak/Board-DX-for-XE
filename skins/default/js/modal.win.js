@@ -284,7 +284,7 @@ jQuery(function($){
 	.bind('before-open.mw', function(e) {
 		var $modal = $($(this).attr('href'));
 		if(!$(this).attr('data-target')) {
-			$modal.find('.pid_modal-body').css({top:0,left:'-150%',height:0});
+			$modal.find('.pid_modal-body').css({top:0,left:'-150%',height:0}).show();
 		}
 	}).bind('after-open.mw', function(e) {
 		var  $this = $(this), act, param, url, a, i, c, t;
@@ -310,7 +310,7 @@ jQuery(function($){
 		}
 	}).bind('before-close.mw', function(e) {
 		var $modal = $($(this).attr('href'));
-		$modal.find('.pid_modal-body').css({top:0,left:'-150%',height:0});
+		$modal.find('.pid_modal-body').css({top:0,left:'-150%',height:0}).hide();
 		// 자원 제거
 		$('[data-modal-child]', $modal).remove();
         $('.pid_modal-body', $modal).children().remove();
@@ -335,6 +335,13 @@ jQuery(function($){
     	// onresize 로 는 잘 안되서 타이머 씀
         //var target = $pidOframe.attr('data-target');
     	//if(!target) $(parent).bind("resize", function(){$pidOframe.pidModalResize();});
-    	$(window).bind("unload",  function(){$pidOframe.parent().css({top:0,left:'-150%',height:0});});
+    	$(window).bind("unload",  function(){$pidOframe.parent().css({top:0,left:'-150%',height:0}).hide();});
+
+		$(window)
+		.load(function()
+		{
+			// 에러 발생시 보이기
+			if($('div#BELUXE_MESSAGE.error').length) $pidOframe.parent().show();
+    	});
     }
 });

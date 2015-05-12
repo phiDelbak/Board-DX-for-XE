@@ -2,18 +2,15 @@
 	$not_permitted = $XE_VALIDATOR_ERROR == '-1380';
 }
 
-<form ruleset="deleteComment"|cond="!$not_permitted" ruleset="checkPassword"|cond="$not_permitted" action="./" method="post" class="pid_ajax-form">
-<input cond="$is_modal" type="hidden" name="is_modal" value="1" />
-<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
-<input type="hidden" name="document_srl" value="{$document_srl}" />
-<input type="hidden" name="comment_srl" value="{$comment_srl}" />
-<input type="hidden" name="act" value="{$not_permitted?'procBoardVerificationPassword':'procBoardDeleteComment'}" />
-
 <div class="scLtitle">
 	<span>{$lang->comment.' '.$lang->no}: {$comment_srl} - {$lang->confirm_delete}</span>
 </div>
 
 <!--@if($not_permitted)-->
+<form ruleset="checkPassword" action="./" method="post" class="pid_ajax-form">
+<input type="hidden" name="document_srl" value="{$document_srl}" />
+<input type="hidden" name="comment_srl" value="{$comment_srl}" />
+<input type="hidden" name="act" value="procBoardVerificationPassword" />
 	<input cond="$is_modal" type="hidden" name="success_return_url" value="{getUrl('act','','is_modal','')}" />
 
 	<div>
@@ -23,7 +20,14 @@
 			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
 		</span>
 	</div>
+</form>
 <!--@else-->
+<form ruleset="deleteComment" action="./" method="post" class="pid_ajax-form">
+<input cond="$is_modal" type="hidden" name="is_modal" value="1" />
+<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+<input type="hidden" name="document_srl" value="{$document_srl}" />
+<input type="hidden" name="comment_srl" value="{$comment_srl}" />
+<input type="hidden" name="act" value="procBoardDeleteComment" />
 	{@
 		$ds_nick = $ci['nick_name']->display == 'Y';
 		$ds_user =	$ci['user_name']->display == 'Y';
@@ -54,5 +58,5 @@
 			<span class="scBtn black"><button type="submit" accesskey="s">{$lang->comment} {$lang->cmd_delete}</button></span>
 		</div>
 	</div>
-<!--@endif-->
 </form>
+<!--@endif-->

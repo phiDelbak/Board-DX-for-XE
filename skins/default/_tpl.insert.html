@@ -4,11 +4,6 @@
 	$oThis->addExtraKeyJsFilter();
 }
 
-<form ruleset="insertDocument"|cond="!$not_permitted" ruleset="checkPassword"|cond="$not_permitted" action="./" method="post" class="pid_ajax-form">
-<input cond="$is_modal" type="hidden" name="is_modal" value="1" />
-<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
-<input type="hidden" name="document_srl" value="{$document_srl}" />
-<input type="hidden" name="act" value="{$not_permitted?'procBoardVerificationPassword':'procBoardInsertDocument'}" />
 
 <div class="scLtitle">
 	<span cond="$is_doc">{$lang->document.' '.$lang->no}: {$document_srl}</span>
@@ -16,6 +11,10 @@
 </div>
 
 <!--@if($not_permitted)-->
+<form ruleset="checkPassword" action="./" method="post" class="pid_ajax-form">
+<input type="hidden" name="document_srl" value="{$document_srl}" />
+<input type="hidden" name="comment_srl" value="{$comment_srl}" />
+<input type="hidden" name="act" value="procBoardVerificationPassword" />
 	<input cond="$is_modal" type="hidden" name="success_return_url" value="{getUrl('act','','is_modal','')}" />
 	<div>
 		<span class="scBtn black"><input type="password" name="password" /></span>
@@ -24,7 +23,13 @@
 			<a href="{$is_modal?'#pidModalFrame':getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a>
 		</span>
 	</div>
+</form>
 <!--@else-->
+<form ruleset="insertDocument" action="./" method="post" class="pid_ajax-form">
+<input cond="$is_modal" type="hidden" name="is_modal" value="1" />
+<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+<input type="hidden" name="document_srl" value="{$document_srl}" />
+<input type="hidden" name="act" value="procBoardInsertDocument" />
 	{@
 		$un_extra = ($pt_vtype!='N'||$pt_dtype!='N')?$oDocument->get('extra_vars'):null;
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
@@ -224,5 +229,5 @@
 			</span>
 		</div>
 	</div>
-<!--@endif-->
 </form>
+<!--@endif-->
