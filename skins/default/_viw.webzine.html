@@ -77,24 +77,31 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
     </ul>
     <ul cond="$grant->view" class="scFrm">
         <li>
-            <div cond="count($exks)" class="thmAx clearBar" style="margin-right:{(int)$mi->thumbnail_width+25}px;">
-                {@ $is_grant = $grant->view && (!$oDocument->isSecret() || $oDocument->isGranted())}
-                <!--@if($is_blind || !$is_grant)-->
-                <img class="thum" src="img/common/thum_{$is_blind?'blind':'secret'}.png" alt="{$is_blind?'blind':'secret'}" title="{$is_blind?'blind':'secret'}" height="{$mi->thumbnail_height}" width="{$mi->thumbnail_width}"/>
-                <!--@else-->
-                <!--@if($oDocument->thumbnailExists($mi->thumbnail_width, $mi->thumbnail_height, $mi->thumbnail_type))-->
-                <img class="thum" src="{$oDocument->getThumbnail($mi->thumbnail_width, $mi->thumbnail_height, $mi->thumbnail_type)}" border="0" alt="thumbnail"/>
-                <!--@else-->
-                <img class="thum" src="img/common/thum_no.png" alt="no image" title="no image" height="{$mi->thumbnail_height}" width="{$mi->thumbnail_width}"/>
-                <!--@endif-->
-                <!--@endif-->
-                <ul cond="count($exks)" class="scVext" style="margin-left:{(int)$mi->thumbnail_width+25}px;">
-                    <li loop="$exks=>$key,$val">
-                        <label>{$val->name}</label>
-                        {$val->getValueHTML()}
-                    </li>
-                </ul>
-            </div>
+            <block cond="count($exks)">
+                {@
+                    $n = (count($exks)>5?5:count($exks));
+                    $thum_width = (18 * $n) + (9 * ($n-1)) ;
+                    $thum_height = $thum_width;
+                }
+                <div class="thmAx clearBar" style="margin-right:{(int)$thum_width+25}px;">
+                    {@ $is_grant = $grant->view && (!$oDocument->isSecret() || $oDocument->isGranted())}
+                    <!--@if($is_blind || !$is_grant)-->
+                    <img class="thum" src="img/common/thum_{$is_blind?'blind':'secret'}.png" alt="{$is_blind?'blind':'secret'}" title="{$is_blind?'blind':'secret'}" height="{$thum_height}" width="{$thum_width}"/>
+                    <!--@else-->
+                    <!--@if($oDocument->thumbnailExists($thum_width, $thum_height, $mi->thumbnail_type))-->
+                    <img class="thum" src="{$oDocument->getThumbnail($thum_width, $thum_height, $mi->thumbnail_type)}" border="0" alt="thumbnail"/>
+                    <!--@else-->
+                    <img class="thum" src="img/common/thum_no.png" alt="no image" title="no image" height="{$thum_height}" width="{$thum_width}"/>
+                    <!--@endif-->
+                    <!--@endif-->
+                    <ul class="scVext" style="margin-left:{(int)$thum_width+25}px;">
+                        <li loop="$exks=>$key,$val">
+                            <label>{$val->name}</label>
+                            {$val->getValueHTML()}
+                        </li>
+                    </ul>
+                </div>
+            </block>
             <div class="scDocCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}">
                 <div cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scVlng clearBar">
                     <a loop="$un_extra->beluxe->langs => $vlnc" href="#" onclick="doChangeLangType('{$vlnc}');return false;" class="{$vlnc}"><strong>{$lang_supported[$vlnc]}</strong></a>
