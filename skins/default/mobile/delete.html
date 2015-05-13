@@ -19,7 +19,7 @@
 
 		<!--@if($not_permitted)-->
 			<form ruleset="checkPassword" action="./" method="post" class="co ff">
-				<input cond="$act=='dispBoardDeleteDocument'" type="hidden" name="document_srl" value="{$document_srl}" />
+				<input cond="$act=='dispBoardDelete'" type="hidden" name="document_srl" value="{$document_srl}" />
 				<input cond="$act=='dispBoardDeleteComment'" type="hidden" name="comment_srl" value="{$comment_srl}" />
 				<input type="hidden" name="act" value="procBoardVerificationPassword" />
 				<div class="message {$XE_VALIDATOR_MESSAGE_TYPE}">{$XE_VALIDATOR_MESSAGE}</div>

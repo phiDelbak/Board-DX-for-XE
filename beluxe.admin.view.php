@@ -60,7 +60,7 @@ class beluxeAdminView extends beluxe
         // 관리용 템플릿 경로 지정
         $this->setTemplatePath($this->module_path . 'tpl/');
 
-        if (Context::get('is_poped')) {
+        if ((int)Context::get('is_poped')) {
             $this->setLayoutPath('./common/tpl');
             $this->setLayoutFile('popup_layout');
         }

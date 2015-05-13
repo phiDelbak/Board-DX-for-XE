@@ -49,7 +49,7 @@ class beluxeController extends beluxe
 			$this->add('url', $retUrl);
 		}else{
 			// 모달에 ruleset 사용시
-			if(Context::get('is_modal')) Context::set('xeVirtualRequestMethod','xml');
+			if((int)Context::get('is_modal')===1) Context::set('xeVirtualRequestMethod','xml');
 			$this->setRedirectUrl($retUrl);
 		}
 	}

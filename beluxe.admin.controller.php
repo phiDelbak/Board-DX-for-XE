@@ -21,7 +21,7 @@ class beluxeAdminController extends beluxe
     /*********** @private function					***********/
 
     function _setLocation($a_modsrl, $act) {
-        $is_poped = Context::get('is_poped');
+        $is_poped = (int)Context::get('is_poped');
         $retUrl = Context::get('success_return_url');
 
         if (!$retUrl) {
@@ -35,7 +35,7 @@ class beluxeAdminController extends beluxe
         if (!$retUrl) $retUrl = Context::get('error_return_url');
 
         if (in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON', 'JS_CALLBACK'))) {
-            $this->add('is_modal', $is_modal ? '1' : '');
+            $this->add('is_modal', (int)$is_modal ? '1' : '');
             $this->add('url', $retUrl);
         } else {
             $this->setRedirectUrl($retUrl);

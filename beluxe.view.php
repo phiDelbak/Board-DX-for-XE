@@ -55,9 +55,9 @@ class beluxeView extends beluxe
         Context::set('module_info', $oModIfo);
 
         // 팝업,프레임 레이아웃 설정
-        if (Context::get('is_poped') || Context::get('is_modal')) {
+        if ((int)Context::get('is_poped') || (int)Context::get('is_modal')) {
             $this->setLayoutPath('./common/tpl');
-            if (Context::get('is_poped')) $this->setLayoutFile('popup_layout');
+            if ((int)Context::get('is_poped')) $this->setLayoutFile('popup_layout');
             else $this->setLayoutFile('default_layout');
         }
 
