@@ -87,6 +87,7 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 					<input type="hidden" name="allow_trackback" value="Y" />
 				<!--@endif-->
 			</span>
+			<span cond="!$grant->write_document">&nbsp;</span>
 			{@ $t_ctsrl = $category_srl}
 			<block cond="!$t_ctsrl&&$is_cts" loop="$cts => $val" cond="$val->category_srl">
 				{@ $t_ctsrl = $val->category_srl}

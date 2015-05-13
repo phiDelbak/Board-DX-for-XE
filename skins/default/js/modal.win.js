@@ -168,15 +168,19 @@ jQuery(function($){
 
     $.fn.pidModalResize = function(resize)
     {
-        var $this = $(this), $parent = $(parent),
-        	doc, $fg, $body, $form, t, h, chkh, bdoh, target, timer;
+        var $this = $(this), $fg, $body, $pmbd, $form, pw, ph, t, h, chkh, bdoh, target, timer;
 
-        doc = $this.get(0).contentDocument || $this.get(0).contentWindow.document;
-        if (doc === undefined) return;
-
+        $body = $this[0].contentDocument || $this[0].contentWindow.document;
+        if ($body === undefined) return;
         $fg = $this.parent();
-        $body = $('body', doc);
+        $body = $('body', $body);
         $form = $('form:first', $body);
+
+        var isIframe = (parent.location != parent.parent.location);
+        if(isIframe) {
+        	$pmbd = $('.pid_modal-backdrop', $fg.closest('body'));
+        } else $pmbd = $(parent);
+
         resize = resize || 'auto';
         target = $fg.parent().data('target');
 
@@ -187,7 +191,7 @@ jQuery(function($){
         if(target) {
         	$fg.show();
 
-			$('[data-modal-child=message]', parent.document)
+			$('[data-modal-child=message]', $fg.closest('body'))
 	        .fadeOut(2500, function() {
 	            $(this).remove();
 	        });
@@ -201,16 +205,19 @@ jQuery(function($){
         } else {
         	$fg.css({top:0,left:'-150%',height:0}).show();
 
-	        if (resize == 'hfix') $body.height($parent.height() - 100);
+        	pw = $pmbd.outerWidth(true);
+        	ph = $pmbd.outerHeight(true);
+
+	        if (resize == 'hfix') $body.height(ph - 100);
 	        $this.height($body.outerHeight(true));
 
 	        if ($fg.position().left < 1) {
 	            $fg.animate({
 	                top: 10,
-	                left: (($parent.width() - $fg.outerWidth()) / 2)
+	                left: ((pw - $fg.outerWidth(true)) / 2)
 	            },{
 	                complete: function() {
-				        $('[data-modal-child=message]', parent.document)
+				        $('[data-modal-child=message]', $fg.closest('body'))
 				        .fadeOut(2500, function() {
 				            $(this).remove();
 				        });
@@ -220,23 +227,27 @@ jQuery(function($){
 
         	timer = setInterval(function()
         	{
-		        chkh = $parent.height() - 100;
+        		pw = $pmbd.outerWidth(true);
+        		ph = $pmbd.outerHeight(true);
+
 		        bdoh = $body.outerHeight(true);
+		        chkh = ph - 100;
 
 		        if(bdoh) {
 			        $body.css('overflow-y', chkh > bdoh ? 'hidden' : 'auto');
 			        $this.css({
 			            'height': (chkh > bdoh ? bdoh : chkh),
-			            'width': ($parent.width() - 80)
+			            'width': (pw - 80)
 			        });
 
 				    h = $this.outerHeight(true);
 				    if(h){
 				        $fg.height(h);
-				        t = (($parent.height() - $fg.outerHeight()) / 2) - 10;
+				        h = $fg.outerHeight(true);
+				        t = ((ph - h) / 2) - 10;
 				        $fg.css({
 				            top: (t > 10 ? t : 10),
-				            left: (($parent.width() - $fg.outerWidth()) / 2)
+				            left: ((pw - $fg.outerWidth(true)) / 2)
 				        });
 				    }
 	        	}
@@ -273,8 +284,9 @@ jQuery(function($){
 		} else {
 
 			// object는 아직 문제가 많아, 그냥 iframe 사용하기로...
-			$('<iframe id="'+frId+'"'+target+' allowTransparency="true" frameborder="0" scrolling="'+(scroll ? scroll : 'auto')+'" />')
-				.load(function(){$(this).pidModalResize();}).attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal));
+			$pidOframe = $('<iframe id="'+frId+'"'+target+' allowTransparency="true" frameborder="0" scrolling="'+(scroll ? scroll : 'auto')+'" />')
+				.bind('load', function(){$(this).pidModalResize();})
+				.attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal));
 
 			// if(is_iframe) {
 			// 	$('<iframe id="'+frId+'" allowTransparency="true" frameborder="0" scrolling="'+(scroll ? scroll : 'auto')+'" />')
@@ -333,20 +345,9 @@ jQuery(function($){
 		);
 	});
 
-	// 모달창이면
-	var $pidOframe = $(window.frameElement);
-    if($pidOframe && $pidOframe.attr('id')=='pidOframe')
-    {
-    	// onresize 로 는 잘 안되서 타이머 씀
-        //var target = $pidOframe.attr('data-target');
-    	//if(!target) $(parent).bind("resize", function(){$pidOframe.pidModalResize();});
-    	$(window).bind("unload",  function(){$pidOframe.parent().hide();});
-
-		// $(window)
-		// .load(function()
-		// {
-		// 	// 에러 발생시 보이기
-		// 	//if($('div#BELUXE_MESSAGE.error').length) $pidOframe.parent().show();
-  //   	});
-    }
+	// 프레임중 해당 모달창이면...
+	if(!self.frames.length && parent.location)
+	{
+		$(self).bind("unload",  function(){$('.pid_modal-body', parent.document).hide();});
+	}
 });
