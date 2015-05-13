@@ -1,7 +1,7 @@
 /**
  * @brief ajaxfileupload 2.1
  * @author PHPLETTER (http://www.phpletter.com/Our-Projects/AjaxFileUpload)
- * @Optimizer for XE by phiDel (xe.phidel@gmail.com)
+ * @Optimizer for BoardDX by phiDel (xe.phidel@gmail.com)
  **/
 
 jQuery(function($)
@@ -372,7 +372,7 @@ jQuery(function($)
 		exec_json("file.getFileList", ps, on_complete);
 	};
 
-    $('#fUloader:eq(0)').each(function(){    	
+    $('#fUloader:eq(0)').each(function(){
     	pidReloadFileList();
 
     	$('.scFup', this).click(function(){

@@ -24,12 +24,12 @@
 .x .dxcStMap li li li li li li li li li li{text-indent:162px}
 .x .dxcStMap li li li li li li li li li li li{text-indent:180px}
 .x .dxcStMap li li li li li li li li li li li li{text-indent:198px}
-.x .dxcStMap li *{vertical-align:middle}
+.x .dxcStMap li *{vertical-align:middle;text-indent:0}
 .x .dxcStMap li .moveTo+input{width:200px;border:0;padding:0 .5em}
 .x .dxcStMap li .moveTo+input:hover,
 .x .dxcStMap li .moveTo+input:active,
 .x .dxcStMap li .moveTo+input:focus{border:1px dotted #ccc;overflow:visible}
-.x .dxcStMap .moveTo{position:relative;z-index:2;width:22px;height:32px;padding:32px 0 0 0;margin:0 3px;_margin-top:-1px;overflow:hidden;background:#fff url(../img/iconMoveTo.gif) no-repeat center 0;border:0;cursor:move}
+.x .dxcStMap .moveTo{position:relative;z-index:2;width:22px;height:32px;padding:32px 0 0 0;margin:0 3px;overflow:hidden;background:#fff url(../img/iconMoveTo.gif) no-repeat center 0;border:0;cursor:move}
 .x .dxcStMap li.active,
 .x .dxcStMap li.active .moveTo{background-color:#f7f7f7}
 .x .dxcStMap li.active li,
@@ -73,13 +73,18 @@
 .x .dxcStMap .cbSelect:after{content:"";display:block;clear:both}
 .x .dxcStMap .cbSelect ._title{line-height:16px;text-indent:0;float:left}
 .x #dxiColumnFrm label.checked{font-weight:normal}
-.x #dxiColumnFrm label.x_inline{margin-left:10px;margin-right:5px}
+.x #dxiColumnFrm label.x_inline{margin:0 0 0 8px}
 .x #dxiExtraKeyFrm input._extra_default{margin-top:1px}
-.x  input.color-indicator,dl.cbLayer input.color-indicator{width:65px !important}
-.x  .jPicker .Icon,dl.cbLayer .jPicker .Icon{top:-1px !important;margin-left:1px !important}
-.jPicker.Container{z-index:999999 !important}
-dl.cbLayer{position:absolute;z-index:1;display:inline-block;border:2px solid #B7B7B7;min-width:74px;_width:74px;padding:5px;background-color:#f8f8f8;display:none}
-dl.cbLayer dt{padding:3px;white-space:nowrap}
+.x #dxiExtraKeyFrm label > select{width: auto}
+.jPicker.Container{z-index:999 !important}
+.x  .jPicker .Icon{top:-1px !important;margin-left:1px !important}
+.x  input.color-indicator{width:50px !important;margin-left:1px !important}
+dl.cbLayer .jPicker .Icon{top:-6px !important}
+dl.cbLayer input.color-indicator{width:71px !important}
+dl.cbLayer{position:absolute;z-index:1;display:inline-block;border:2px solid #B7B7B7;min-width:74px;padding:2px;background-color:#f8f8f8;display:none;box-shadow:1px 1px 3px #B7B7B7;-moz-box-shadow:1px 1px 3px #B7B7B7;-webkit-box-shadow:1px 1px 3px #B7B7B7}
+dl.cbLayer dt{white-space:nowrap;margin:0;padding:2px}
 dl.cbLayer dt:hover,dl.cbLayer dt:active,dl.cbLayer dt:focus{background-color:#ddd}
+dl.cbLayer dt.text select,dl.cbLayer dt.text input{background: transparent;white-space:nowrap;width:70px;margin:1px}
+dl.cbLayer dt.text select{;width:84px}
 dl.cbLayer dt,.x .cbSelect,.x .cbSelect ._title{cursor:pointer !important}
-dl.cbLayer dt.text select,dl.cbLayer dt.text input{border: 1px solid #B7B7B7;background: transparent;width:70px;word-wrap:normal !important;}
+.x .cbSelect{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px}
