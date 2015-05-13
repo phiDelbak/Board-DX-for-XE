@@ -70,9 +70,11 @@ body, .bd {
 	list-style:none
 }
 
-#xe_message{
-	display:none
+.message{
+	padding:10px;
+	background-color:transparent!important;
 }
+#xe_message{display:none}
 
 /* Background */
 .st .wt,

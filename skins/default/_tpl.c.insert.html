@@ -1,14 +1,3 @@
-{@
-	$not_permitted = $XE_VALIDATOR_ERROR == '-1380';
-	$is_cmt = $oComment && $oComment->isExists();
-	$is_par = !$is_cmt && $oSourceComment && $oSourceComment->isExists();
-}
-
-<div cond="!$is_modal||$is_cmt||$is_par||$not_permitted" class="scLtitle">
-	<span cond="$is_cmt || $is_par">{$lang->comment.' '.$lang->no}: {$is_par?$oSourceComment->comment_srl.' - ':$comment_srl}</span>
-	<span cond="!$is_cmt">{$not_permitted?$lang->msg_input_password:$lang->new_comment}</span>
-	<span cond="$is_topic_vote" class="col{$is_topic_vote=='disagree'?'Red':'Blue'}"> - {$is_topic_vote=='agree'?$lang->cmd_agree:$lang->cmd_disagree}</span>
-</div>
 
 <!--@if($not_permitted)-->
 <form ruleset="checkPassword" action="./" method="post" class="pid_ajax-form">

@@ -3,9 +3,18 @@
 
 <div id="siBody">
 	<div class="scContent clearBar">
+{@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
+
+		<div class="scLtitle">
+			<span cond="$act!='dispBoardDeleteComment'">{$lang->document.' '.$lang->no}: {$document_srl}</span>
+			<span cond="$act=='dispBoardDeleteComment'">{$lang->comment.' '.$lang->no}: {$comment_srl}</span>
+			<span>- {$lang->confirm_delete}</span>
+		</div>
+
 		<div cond="$is_modal && $XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 			<p>{$XE_VALIDATOR_MESSAGE}</p>
 		</div>
+
 		{@
 			$oTemplate = &TemplateHandler::getInstance();
 			print $oTemplate->compile($tpl_path, '_tpl.'.($act=='dispBoardDeleteComment'?'c.delete':'delete').'.html');

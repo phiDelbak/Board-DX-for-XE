@@ -1,7 +1,6 @@
 {@
 	$is_cmt = $oComment && $oComment->isExists();
 	$is_par = !$is_cmt && $oSourceComment && $oSourceComment->isExists();
-	$not_permitted = $XE_VALIDATOR_ERROR == '-1380'
 }
 
 <h2 class="cb gn">
@@ -13,10 +12,10 @@
 </h2>
 
 <!--@if($not_permitted)-->
-	<div>{$XE_VALIDATOR_MESSAGE}</div>
 	<form ruleset="checkPassword" action="./" method="post" class="co ff">
 		<input type="hidden" name="comment_srl" value="{$comment_srl}" />
 		<input type="hidden" name="act" value="procBoardVerificationPassword" />
+		<div class="message {$XE_VALIDATOR_MESSAGE_TYPE}">{$XE_VALIDATOR_MESSAGE}</div>
 		<ul>
 			<li>
 				<label for="cpw">{$lang->password}</label>

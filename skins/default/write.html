@@ -3,10 +3,29 @@
 
 <div id="siBody" style="background-color:transparent!important"|cond="$act=='dispBoardWriteComment'">
 	<div class="scContent clearBar">
+{@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
+<!--@if($act=='dispBoardWriteComment')-->
+	{@
+		$is_cmt = $oComment && $oComment->isExists();
+		$is_par = !$is_cmt && $oSourceComment && $oSourceComment->isExists();
+	}
+		<div cond="!$is_modal||$is_cmt||$is_par||$not_permitted" class="scLtitle">
+			<span cond="$is_cmt || $is_par">{$lang->comment.' '.$lang->no}: {$is_par?$oSourceComment->comment_srl.' - ':$comment_srl}</span>
+			<span cond="!$is_cmt">{$not_permitted?$lang->msg_input_password:$lang->new_comment}</span>
+			<span cond="$is_topic_vote" class="col{$is_topic_vote=='disagree'?'Red':'Blue'}"> - {$is_topic_vote=='agree'?$lang->cmd_agree:$lang->cmd_disagree}</span>
+		</div>
+<!--@else-->
+	{@ $is_doc = $oDocument && $oDocument->isExists()}
+		<div class="scLtitle">
+			<span cond="$is_doc">{$lang->document.' '.$lang->no}: {$document_srl}</span>
+			<span cond="!$is_doc">{$not_permitted?$lang->msg_input_password:$lang->new_document}</span>
+		</div>
+<!--@endif-->
 
 		<div cond="$is_modal && $XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 			<p>{$XE_VALIDATOR_MESSAGE}</p>
 		</div>
+
 		{@
 			$oTemplate = &TemplateHandler::getInstance();
 			print $oTemplate->compile($tpl_path, '_tpl.'.($act=='dispBoardWriteComment'?'c.insert':'insert').'.html');

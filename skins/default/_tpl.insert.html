@@ -1,14 +1,4 @@
-{@
-	$not_permitted = $XE_VALIDATOR_ERROR == '-1380';
-	$is_doc = $oDocument && $oDocument->isExists();
-	$oThis->addExtraKeyJsFilter();
-}
-
-
-<div class="scLtitle">
-	<span cond="$is_doc">{$lang->document.' '.$lang->no}: {$document_srl}</span>
-	<span cond="!$is_doc">{$not_permitted?$lang->msg_input_password:$lang->new_document}</span>
-</div>
+{@ $oThis->addExtraKeyJsFilter()}
 
 <!--@if($not_permitted)-->
 <form ruleset="checkPassword" action="./" method="post" class="pid_ajax-form">
