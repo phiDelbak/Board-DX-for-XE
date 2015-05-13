@@ -259,7 +259,7 @@
 							<!--@endswitch-->
 						</li>
 						<li cond="$ds_summary" class="content" style="color:{$ci['content']->color}"|cond="$ci['content']->color">
-							{$is_blind?$lang->msg_is_blind:$document->getSummary($mi->summary_length)}
+							{(!$is_grant||$is_blind)?($is_blind?$lang->msg_is_blind:$lang->msg_not_permitted):$document->getSummary($mi->summary_length)}
 						</li>
 					</ul>
 					<div class="wzdate" style="margin-right:-{(int)$mi->thumbnail_width+25}px;">

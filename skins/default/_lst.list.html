@@ -182,7 +182,7 @@
 	</tr>
 	<tr cond="!$tlk&&$ds_content" id="siHotCont_{$no}"|cond="$us_hottrack">
 		<td scope="col" colspan="{count($sclms)}" class="content" style="color:{$ci['content']->color}"|cond="$ci['content']->color">
-			{$is_blind?$lang->msg_is_blind:($ds_summary?$document->getSummary($mi->summary_length):'')}
+			{(!$is_grant||$is_blind)?($is_blind?$lang->msg_is_blind:$lang->msg_not_permitted):($ds_summary?$document->getSummary($mi->summary_length):'')}
 		</td>
 	</tr>
 	</block>
