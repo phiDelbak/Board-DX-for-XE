@@ -77,7 +77,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
     </ul>
     <ul cond="$grant->view" class="scFrm">
         <li>
-            <div class="thmAx clearBar" style="margin-right:{(int)$mi->thumbnail_width+25}px;">
+            <div cond="count($exks)" class="thmAx clearBar" style="margin-right:{(int)$mi->thumbnail_width+25}px;">
                 {@ $is_grant = $grant->view && (!$oDocument->isSecret() || $oDocument->isGranted())}
                 <!--@if($is_blind || !$is_grant)-->
                 <img class="thum" src="img/common/thum_{$is_blind?'blind':'secret'}.png" alt="{$is_blind?'blind':'secret'}" title="{$is_blind?'blind':'secret'}" height="{$mi->thumbnail_height}" width="{$mi->thumbnail_width}"/>
