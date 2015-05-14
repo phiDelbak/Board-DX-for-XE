@@ -97,6 +97,8 @@ class beluxeAdminModel extends beluxe
 
 	function getTypeList($a_skin)
 	{
+		if(!$a_skin || $a_skin == '/USE_DEFAULT/') $a_skin = 'default';
+
 		$filename = sprintf('%sskins/%s/type.xml', $this->module_path, $a_skin);
 		$parser = XmlParser::loadXmlFile($filename);
 

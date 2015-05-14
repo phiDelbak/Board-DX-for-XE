@@ -270,6 +270,9 @@ jQuery(function($)
 			$li.next().hide();
 			$li.next().find('> div.x_controls:eq(0) > select').hide().attr('name','');
 			$li.find('> p.msg_call_server').show();
+
+			if(!skin||skin=='/USE_DEFAULT/') skin = 'default';
+
 			var $s = $li.next().find('> div.x_controls:eq(0) > select[data-skin='+skin+']');
 
 			if($s .length)

@@ -15,12 +15,6 @@ class beluxe extends ModuleObject
 
     /* @brief Install the module */
     function moduleInstall() {
-        if (file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')) {
-            $ccModule = & getController('module');
-            $ccModule->insertTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before');
-            $ccModule->insertTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerDownloadFile', 'after');
-        }
-
         return new Object();
     }
 
@@ -34,7 +28,7 @@ class beluxe extends ModuleObject
         }
 
         // 2011. 09. 20 when add new menu in sitemap, custom menu add
-        if(!$cmModule->getTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after')) return true;
+        if(!$cmModule->getTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after')) return TRUE;
 
         return FALSE;
     }
@@ -50,21 +44,18 @@ class beluxe extends ModuleObject
         }
 
         // 2011. 09. 20 when add new menu in sitemap, custom menu add
-        if(!$cmModule->getTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after'))
-        {
-            $ccModule->insertTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after');
-        }
+        if(!$cmModule->getTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after')) $ccModule->insertTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after');
 
         return new Object(0, 'success_updated');
     }
 
     /* @brief Uninstall the module */
     function moduleUninstall() {
-        if (file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')) {
-            $ccModule = & getController('module');
-            $ccModule->deleteTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before');
-            $ccModule->deleteTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerDownloadFile', 'after');
-        }
+        $ccModule = & getController('module');
+
+        $ccModule->deleteTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before');
+        $ccModule->deleteTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerDownloadFile', 'after');
+        $ccModule->deleteTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after');
 
         $this->recompileCache();
         return new Object();
