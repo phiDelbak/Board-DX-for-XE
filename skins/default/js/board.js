@@ -316,7 +316,7 @@ jQuery(function($)
 					var $i = $(this);
 					if($i.is('.title')) return;
 					var j = $i.width() - tt;
-					$i.css({'white-space':$i.is('th')?'':'normal', 'max-width': j>0?j:1});
+					$i.css({'max-width': j>0?j:1});
 				});
 			}
 		});
