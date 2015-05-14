@@ -168,30 +168,37 @@ jQuery(function($){
 
     $.fn.pidModalResize = function(resize)
     {
-        var $this = $(this), $fg, $body, $pmbd, $form, pw, ph, t, h, chkh, bdoh, target, timer;
+        var $this = $(this), $body, $form, $mbd, $mbg, pw, ph, t, h, chkh, bdoh, target, timer;
 
         $body = $this[0].contentDocument || $this[0].contentWindow.document;
-        if ($body === undefined) return;
-        $fg = $this.parent();
+        if($body === undefined) return;
+
+        $mbd = $this.parent();
         $body = $('body', $body);
+        if($body.is(":empty"))
+        {
+        	$mbd.parent().data('anchor').trigger('close.mw');
+        	return;
+        }
+
         $form = $('form:first', $body);
 
         var isIframe = (parent.location != parent.parent.location);
         if(isIframe) {
-        	$pmbd = $('.pid_modal-backdrop', $fg.closest('body'));
-        } else $pmbd = $(parent);
+        	$mbg = $('.pid_modal-backdrop', $mbd.closest('body'));
+        } else $mbg = $(parent);
 
         resize = resize || 'auto';
-        target = $fg.parent().data('target');
+        target = $mbd.parent().data('target');
 
         $body.css({padding: '0', margin: '0', overflow: 'hidden'});
         $form.css({ padding: '0', margin: '0', overflow: 'hidden'});
 
         //모달이 아니고 타겟이면
         if(target) {
-        	$fg.show();
+        	$mbd.show();
 
-			$('[data-modal-child=message]', $fg.closest('body'))
+			$('[data-modal-child=message]', $mbd.closest('body'))
 	        .fadeOut(2500, function() {
 	            $(this).remove();
 	        });
@@ -200,24 +207,24 @@ jQuery(function($){
         	{
 		        bdoh = $body.outerHeight(true);
 		        if(bdoh) $this.height(bdoh);
-        		if ($fg.is(':hidden')) clearInterval(timer);
+        		if ($mbd.is(':hidden')) clearInterval(timer);
         	}, 500);
         } else {
-        	$fg.css({top:0,left:'-150%',height:0}).show();
+        	$mbd.css({top:0,left:'-150%',height:0}).show();
 
-        	pw = $pmbd.outerWidth(true);
-        	ph = $pmbd.outerHeight(true);
+        	pw = $mbg.outerWidth(true);
+        	ph = $mbg.outerHeight(true);
 
 	        if (resize == 'hfix') $body.height(ph - 100);
 	        $this.height($body.outerHeight(true));
 
-	        if ($fg.position().left < 1) {
-	            $fg.animate({
+	        if ($mbd.position().left < 1) {
+	            $mbd.animate({
 	                top: 10,
-	                left: ((pw - $fg.outerWidth(true)) / 2)
+	                left: ((pw - $mbd.outerWidth(true)) / 2)
 	            },{
 	                complete: function() {
-				        $('[data-modal-child=message]', $fg.closest('body'))
+				        $('[data-modal-child=message]', $mbd.closest('body'))
 				        .fadeOut(2500, function() {
 				            $(this).remove();
 				        });
@@ -227,8 +234,8 @@ jQuery(function($){
 
         	timer = setInterval(function()
         	{
-        		pw = $pmbd.outerWidth(true);
-        		ph = $pmbd.outerHeight(true);
+        		pw = $mbg.outerWidth(true);
+        		ph = $mbg.outerHeight(true);
 
 		        bdoh = $body.outerHeight(true);
 		        chkh = ph - 100;
@@ -242,17 +249,17 @@ jQuery(function($){
 
 				    h = $this.outerHeight(true);
 				    if(h){
-				        $fg.height(h);
-				        h = $fg.outerHeight(true);
+				        $mbd.height(h);
+				        h = $mbd.outerHeight(true);
 				        t = ((ph - h) / 2) - 10;
-				        $fg.css({
+				        $mbd.css({
 				            top: (t > 10 ? t : 10),
-				            left: ((pw - $fg.outerWidth(true)) / 2)
+				            left: ((pw - $mbd.outerWidth(true)) / 2)
 				        });
 				    }
 	        	}
 
-	        	if ($fg.is(':hidden')) clearInterval(timer);
+	        	if ($mbd.is(':hidden')) clearInterval(timer);
         	}, 500);
 	    }
     };
@@ -333,21 +340,23 @@ jQuery(function($){
         $('.pid_modal-body', $modal).children().remove();
 	}).pidModalWindow();
 
-	// 닫기 버튼 상단에도 추가
-	$('[data-modal-hide]').click(function(){
-		$($(this).attr('href'), parent.document)
-				.find('button.pid_modal-close:first').click();
-    	return false;
-	}).closest('form').each(function(){
-		$(this).prepend(
-			$('<button type="button" class="scModalClose"">&times;</button>')
-				.click(function(){$('[data-modal-hide]:eq(0)').click(); return false;})
-		);
-	});
-
-	// 프레임중 해당 모달창이면...
-	if(!self.frames.length && parent.location)
+	try
 	{
-		$(self).bind("unload",  function(){$('.pid_modal-body', parent.document).hide();});
+		// 프레임중 해당 모달창이면...
+		if(!self.frames.length && self.location.host == parent.location.host)
+		{
+			$(self).bind("unload",  function(){$('.pid_modal-body', parent.document).hide();});
+			// 닫기 버튼 상단에도 추가
+			$('[data-modal-hide]').click(function(){
+				$($(this).attr('href'), parent.document).find('button.pid_modal-close:first').click();
+		    	return false;
+			}).closest('form').each(function(){
+				$(this).prepend(
+					$('<button type="button" class="scModalClose"">&times;</button>')
+						.click(function(){$('[data-modal-hide]:eq(0)').click(); return false;})
+				);
+			});
+		}
 	}
+	catch(e) {}
 });

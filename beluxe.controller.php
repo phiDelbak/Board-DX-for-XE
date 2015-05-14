@@ -1078,7 +1078,7 @@ class beluxeController extends beluxe
 
 		// 존재하는 글인지 체크
 		$oComIfo = $cmComment->getComment($cmt_srl, false, $colLst);
-        if(!$oComIfo->isExists()) return new Object(-1, 'msg_invalid_request');
+        if(!$oComIfo->isExists()) return new Object(-1, 'msg_not_founded');
 
         $doc_srl = $oComIfo->get('document_srl');
         $cmDocument = &getModel('document');

@@ -206,9 +206,9 @@ jQuery(function($)
 		if(typeof c != 'string')  return false;
 		if(!c.trim())
 		{
-			tmp = $('<div>').html('Please enter the message.');
+			tmp = $('<div class="dxc_minimsg">').html('Please enter the message.');
 			$i.parent().after(tmp);
-			tmp.delay(2000).fadeOut(2500, function() {$(this).remove();});
+			tmp.delay(3000).fadeOut(2500, function() {$(this).remove();});
 			return false;
 		}
 		exec_json(
@@ -245,9 +245,9 @@ jQuery(function($)
 		if(typeof c != 'string')  return false;
 		if(!c.trim())
 		{
-			tmp = $('<div>').html('Please enter the message.');
+			tmp = $('<div class="dxc_minimsg">').html('Please enter the message.');
 			$i.parent().after(tmp);
-			tmp.delay(2000).fadeOut(2500, function() {$(this).remove();});
+			tmp.delay(3000).fadeOut(2500, function() {$(this).remove();});
 			return false;
 		}
 		exec_json(

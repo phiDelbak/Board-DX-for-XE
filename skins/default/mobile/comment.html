@@ -78,7 +78,7 @@
 			</div>
 
 			<div cond="$show_btnAdopt" class="bna btnAdopt">
-				<!--@if(!$un_extra->beluxe->adopt_srl&&$dmb_srl&&$dmb_srl==$lmb_srl&&$cmb_srl&&$cmb_srl!=$lmb_srl)-->
+				<!--@if(!$un_extra->beluxe->adopt_srl&&(($grant->manager&&$cmb_srl&&$cmb_srl!=$dmb_srl)||($dmb_srl&&$dmb_srl==$lmb_srl&&$cmb_srl&&$cmb_srl!=$lmb_srl)))-->
 					<a class="bn white" href="#" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</a>
 				<!--@elseif($un_extra->beluxe->adopt_srl==$cmt_srl)-->
 					<a class="bn white" href="#" onclick="return false">{$lang->adopted_comment}</a>
