@@ -138,7 +138,6 @@ jQuery(function($)
 			co = encodeURIComponent($o.text().trim()), rl = encodeURIComponent($o.attr('title'));
 		switch(t)
 		{
-			case 'me': v = 'http://me2day.net/posts/new?new_post[body]=%22' + co + '%22%3A' + rl; break;
 			case 'fa': v = 'http://www.facebook.com/share.php?t=' + co + '&u=' + rl; break;
 			case 'de': v = 'http://www.delicious.com/save?v=5&noui&jump=close&url=' + rl + '&title=' + co; break;
 			default: v = 'http://twitter.com/home?status=' + co + ' ' + rl; break;

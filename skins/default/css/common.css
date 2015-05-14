@@ -1311,9 +1311,6 @@
 #siDoc .scSns .twitter a {
     background-position:0 0
 }
-#siDoc .scSns .me2day a {
-    background-position:0 -30px
-}
 #siDoc .scSns .facebook a {
     background-position:0 -60px
 }
@@ -2306,6 +2303,7 @@ strong.sCkChr {
 /*ie*/
 #siLst thead tr div {padding:9px 0 5px\9!important}
 #siLst thead.scOneCol th div, #siLst thead .scCheck div {padding:6px 0 8px\9!important}
+*::-ms-backdrop, .scModalClose {font-size: 16px}
 /*op*/
 noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
 /*cr*/
