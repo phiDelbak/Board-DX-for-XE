@@ -20,7 +20,7 @@ class beluxeMobile extends beluxeView
 		$cmDocument = &getModel('document');
 		if(!$doc_srl) return new Object(-1, "msg_invalid_request");
 
-		$oDocIfo = $cmDocument->getDocument($doc_srl);
+		$oDocIfo = $cmDocument->getDocument($doc_srl, $this->grant->manager);
 		if(!$oDocIfo->isExists()) return new Object(-1, "msg_invalid_request");
 
 		Context::set('oDocument', $oDocIfo);

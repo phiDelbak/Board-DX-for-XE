@@ -119,7 +119,7 @@ class beluxeModel extends beluxe
             $t_cols[] = 'document_srl';
             $t_cols[] = 'module_srl';
             $cmDocument = & getModel('document');
-            $oDocIfo = $cmDocument->getDocument($a_docsrl, FALSE, FALSE, $t_cols);
+            $oDocIfo = $cmDocument->getDocument($a_docsrl, $this->grant->manager, FALSE, $t_cols);
             if ($oDocIfo->isExists()) {
                 foreach ($a_collst as $tv) $re[$tv] = $oDocIfo->get($tv);
             }
@@ -147,7 +147,7 @@ class beluxeModel extends beluxe
             $t_cols[] = 'document_srl';
             $t_cols[] = 'module_srl';
             $cmComment = & getModel('comment');
-            $oCmtIfo = $cmComment->getComment($a_cmtsrl, FALSE, FALSE, $t_cols);
+            $oCmtIfo = $cmComment->getComment($a_cmtsrl, $this->grant->manager, FALSE, $t_cols);
             if ($oCmtIfo->isExists()) {
                 foreach ($a_collst as $tv) $re[$tv] = $oCmtIfo->get($tv);
             }
@@ -350,7 +350,7 @@ class beluxeModel extends beluxe
     // 분류,정렬,검색 등을 고려하면 덩치가 커질거 같아...
     // 그냥 간단히 3번 돌려 해결함 (TODO 나중에 좀더 빠른 방법 연구)
     function getNavigationList($obj, $a_ectnotice = FALSE, $a_loadextra = TRUE, $a_collst = array()) {
-        $oCacheNew = & CacheHandler::getInstance('object');
+        $oCacheNew = &CacheHandler::getInstance('object');
         if ($oCacheNew->isSupport()) {
             $option_key = md5($a_ectnotice . ',' . $a_loadextra . ',' . implode(',', $a_collst));
             $object_key = 'object:beluxe:' . $obj->current_document_srl . ':' . $option_key;
@@ -441,7 +441,7 @@ class beluxeModel extends beluxe
         $s_voted_count = (int)$oModIfo->best_voted;
         if ($oModIfo->best_category == 'Y') $cate_srl = Context::get('category_srl');
 
-        $oCacheNew = & CacheHandler::getInstance('object');
+        $oCacheNew = &CacheHandler::getInstance('object');
         if ($oCacheNew->isSupport()) {
             $option_key = md5(implode(',', array($sort_index, $list_count, $s_voted_count, $cate_srl)));
             $object_key = 'object:beluxe:' . $a_modsrl . ':' . $option_key;
@@ -479,7 +479,7 @@ class beluxeModel extends beluxe
         $list_count = (int)$oModIfo->best_c_count;
         $s_voted_count = (int)$oModIfo->best_c_voted;
 
-        $oCacheNew = & CacheHandler::getInstance('object');
+        $oCacheNew = &CacheHandler::getInstance('object');
         if ($oCacheNew->isSupport()) {
             $option_key = md5(implode(',', array($list_count, $s_voted_count)));
             $object_key = 'object:beluxe:' . $a_docsrl . ':' . $option_key;
@@ -556,7 +556,7 @@ class beluxeModel extends beluxe
     function getCommentByMemberSrl($a_docsrl, $a_mbrsrl, $a_collst = array()) {
 
         // cache controll
-        $oCacheNew = & CacheHandler::getInstance('object');
+        $oCacheNew = &CacheHandler::getInstance('object');
         if ($oCacheNew->isSupport()) {
             $option_key = md5(implode(',', $a_collst));
             $object_key = 'object:beluxe:' . $a_docsrl . ':' . $a_mbrsrl . ':' . $option_key;
@@ -573,6 +573,29 @@ class beluxeModel extends beluxe
 
         //insert in cache
         if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $out, 3600);
+
+        return $out;
+    }
+
+    // 댓글 검색은 내용만 지원해서 만듬...
+    function getDocumentSrlsByComment($a_obj) {
+
+        $a_obj->search_target = substr($a_obj->search_target, 10);
+
+        $args = new stdClass();
+        $args->{$a_obj->search_target} = $a_obj->search_keyword;
+        $args->list_count = $a_obj->list_count ? $a_obj->list_count : 20;
+        $args->page_count = $a_obj->page_count ? $a_obj->page_count : 10;
+        $args->page = $a_obj->page ? $a_obj->page : 1;
+        $out = executeQuery('beluxe.getDocumentSrlsByComment', $args);
+
+        if ($out->toBool()) {
+            $arr = array();
+            foreach ($out->data as $value) {
+                $arr[] = $value->document_srl;
+            }
+            $out->data = $arr;
+        }
 
         return $out;
     }

@@ -25,9 +25,14 @@
 		<value xml:lang="en"><![CDATA[Disagree]]></value>
 	</item>
 	<item name="search_my_document">
-		<value xml:lang="ko"><![CDATA[내 글 찾기]]></value>
-		<value xml:lang="jp"><![CDATA[내 글 찾기]]></value>
-		<value xml:lang="en"><![CDATA[내 글 찾기]]></value>
+		<value xml:lang="ko"><![CDATA[내 글]]></value>
+		<value xml:lang="jp"><![CDATA[내 글]]></value>
+		<value xml:lang="en"><![CDATA[내 글]]></value>
+	</item>
+	<item name="search_my_comment">
+		<value xml:lang="ko"><![CDATA[내 답변]]></value>
+		<value xml:lang="jp"><![CDATA[내 답변]]></value>
+		<value xml:lang="en"><![CDATA[내 답변]]></value>
 	</item>
 	<item name="use_wysiwyg">
 		<value xml:lang="ko"><![CDATA[위지윅 사용]]></value>

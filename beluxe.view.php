@@ -191,15 +191,12 @@ class beluxeView extends beluxe
             Context::set('total_page', 1);
             Context::set('page_navigation', new PageHandler(0, 0, 1, 10));
             Context::set('page', 1);
-        }
-        else {
-
-            $is_btm_cnt = (int)($oModIfo->document_bottom_list_count ? $oModIfo->document_bottom_list_count : $args->list_count);
+        } else {
 
             $ori_page = $nvi_page = 0;
+            $is_btm_cnt = (int)($oModIfo->document_bottom_list_count ? $oModIfo->document_bottom_list_count : $args->list_count);
 
             if ($is_doc) {
-
                 // 목록 수와 네비 수가 다르면 목록 페이지 값 구함
                 if ($args->list_count != $is_btm_cnt) {
                     $ori_page = $this->cmDoc->getDocumentPage($aDoc, $args);
@@ -215,7 +212,15 @@ class beluxeView extends beluxe
             }
 
             $except_notice = $args->search_keyword ? FALSE : $is_btm_skp;
-            $out = $this->cmDoc->getDocumentList($args, $except_notice, $load_extvars);
+
+            if(strpos($args->search_target, 't_comment_') === 0) {
+                // 댓글 검색은 내용만 지원해서 만듬...
+                $out = $this->cmThis->getDocumentSrlsByComment($args);
+                $doc_list = $this->cmDoc->getDocuments($out->data, $this->grant->manager, $load_extvars);
+                $out->data = $doc_list;
+            } else {
+                $out = $this->cmDoc->getDocumentList($args, $except_notice, $load_extvars);
+            }
 
             Context::set('document_list', $out->data);
             Context::set('page_navigation', $out->page_navigation);
@@ -226,7 +231,7 @@ class beluxeView extends beluxe
         }
 
         // 다른 모듈이나 에드온에서 사용하기 위해 검색 옵션 저장
-        Context::set('beluxe_doc_list_sort_keys', $args);
+        Context::set('beluxe_list_sort_keys', $args);
     }
 
     /* @brief get content item */
@@ -370,7 +375,7 @@ class beluxeView extends beluxe
         // 필요한 정보들 세팅
         Context::set('document_srl', $doc_srl);
         Context::set('oComment', $out);
-        Context::set('oSourceComment', $cmComment->getComment((int)$par_srl));
+        Context::set('oSourceComment', $cmComment->getComment((int)$par_srl, $this->grant->manager));
     }
 
     /**************************************************************/

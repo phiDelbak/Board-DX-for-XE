@@ -17,7 +17,7 @@ class BeluxeItem extends Object
 		$this->member_srl = (int) $oLogIfo->member_srl;
 	}
 
-    function addExtraKeyJsFilter() 
+    function addExtraKeyJsFilter()
     {
 		$cmThis = &getModel(__XEFM_NAME__);
     	$js_code = $cmThis->addExtraKeyJsFilter($this->module_srl);
@@ -83,7 +83,7 @@ class BeluxeItem extends Object
 
 	function getNavigationList($a_obj, $a_count = 5, &$r_info = null)
 	{
-		$args = Context::get('beluxe_doc_list_sort_keys');
+		$args = Context::get('beluxe_list_sort_keys');
 		$args->current_document_srl = $a_obj->document_srl;
 		$args->list_count = floor($a_count / 2);
 		if($args->list_count<1) $args->list_count = 1;
