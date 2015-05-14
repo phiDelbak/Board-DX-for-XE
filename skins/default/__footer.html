@@ -4,13 +4,13 @@
 
 <script cond="$is_doc" type="text/javascript">
 //<![CDATA[
-	var _PID_MSGS_ = {};
-		_PID_MSGS_.canceled = '{$lang->msg_canceled}';
+	var _DXS_MSGS_ = {};
+		_DXS_MSGS_.canceled = '{$lang->msg_canceled}';
 	<!--@if($pt_dtype=='P')-->
-		_PID_MSGS_.use_d_point = '{$lang->confirm_download_point}';
+		_DXS_MSGS_.use_d_point = '{$lang->confirm_download_point}';
 	<!--@endif-->
 	<!--@if($ds_declare||$ds_cdeclare)-->
-		_PID_MSGS_.declare = '{sprintf($lang->confirm_declare, $adm_id?$lang->manager:$lang->author)}';
+		_DXS_MSGS_.declare = '{sprintf($lang->confirm_declare, $adm_id?$lang->manager:$lang->author)}';
 	<!--@endif-->
 	<!--@if($us_modal)-->
 		jQuery('#siDoc,#siFbk.cmt').pidModalFlashFix();

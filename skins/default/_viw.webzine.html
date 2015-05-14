@@ -182,7 +182,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
                             $t_down_cm = !$t_down_pt && $t_down_cm && !$oThis->isWrote($doc_srl, true, 'cmt');
                         }
                         <a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="fsize">(link)</span></a>
-                        <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(_PID_MSGS_.use_d_point.replace('%s','{$t_down_pt}'))"|cond="$t_down_pt&&$lg" class="isdownpt"|cond="$t_down_pt" onclick="return alert('{$lang->msg_required_comment}') || false"|cond="$t_down_cm&&$lg" onclick="return alert('{$lang->msg_not_permitted}') || false"|cond="($t_down_pt||$t_down_cm)&&!$lg">{$file->source_filename}<span class="fsize">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
+                        <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(_DXS_MSGS_.use_d_point.replace('%s','{$t_down_pt}'))"|cond="$t_down_pt&&$lg" class="isdownpt"|cond="$t_down_pt" onclick="return alert('{$lang->msg_required_comment}') || false"|cond="$t_down_cm&&$lg" onclick="return alert('{$lang->msg_not_permitted}') || false"|cond="($t_down_pt||$t_down_cm)&&!$lg">{$file->source_filename}<span class="fsize">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
                     </li>
                 </ul>
             </div>

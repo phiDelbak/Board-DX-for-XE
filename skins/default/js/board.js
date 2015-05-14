@@ -200,9 +200,9 @@ jQuery(function($)
 		var $i = $(this), ty = $i.attr('data-type'), srl = $i.attr('data-srl'),
 			c, tmp, rec = $i.attr('data-rec') || '0';
 
-		c = prompt(_PID_MSGS_.declare, '');
+		c = prompt(_DXS_MSGS_.declare, '');
 		// 브라우저에서 블럭 옵션이 떠서 다른 방법 씀
-	    //if(typeof c != 'string' || !c.trim()) return alert(_PID_MSGS_.canceled) || false;
+	    //if(typeof c != 'string' || !c.trim()) return alert(_DXS_MSGS_.canceled) || false;
 		if(typeof c != 'string')  return false;
 		if(!c.trim())
 		{
@@ -241,7 +241,7 @@ jQuery(function($)
 
 		c = prompt('Send thanks message to ' + name, '');
 		// 브라우저에서 블럭 옵션이 떠서 다른 방법 씀
-		// if(typeof c != 'string' || !c.trim()) return alert(_PID_MSGS_.canceled) || false;
+		// if(typeof c != 'string' || !c.trim()) return alert(_DXS_MSGS_.canceled) || false;
 		if(typeof c != 'string')  return false;
 		if(!c.trim())
 		{
