@@ -29,20 +29,14 @@ class beluxeController extends beluxe
 				array('mid', Context::get('mid'), 'act', '', 'ruleset', '')
 			);
 			$retUrl = Context::getUrl(count($args), $args, NULL, FALSE);
+
+			// addons 나 기타 다른 모듈에 보낼 정보
+			for($i = (int)!$args[0], $c = count($args); $i < $c; $i += 2){
+				$this->add($args[$i], trim($args[$i + 1]));
+			}
 		}
 
 		if(!$retUrl) $retUrl = Context::get('error_return_url');
-
-		// addons 나 기타 다른 모듈에 보낼 정보
-		if($args) {
-			if($args) {
-				// arrange args_list
-				for($i = (int)!$list[0], $c = count($list); $i < $c; $i += 2){
-					// set new variables
-					$this->add($list[$i], trim($list[$i + 1]));
-				}
-			}
-		}
 
 		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON', 'JS_CALLBACK'))) {
 			//filte 사용시
