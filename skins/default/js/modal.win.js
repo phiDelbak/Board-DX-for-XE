@@ -175,9 +175,14 @@ jQuery(function($){
 
         $mbd = $this.parent();
         $body = $('body', $body);
-        if($body.is(":empty"))
-        {
-        	return;
+        if($body.is(':empty')) return;
+
+        // DX가 아니면 링크 제어
+        if(!$body.find('#siBody').length){
+        	$body.find('a').click(function(e){
+        		e.stopPropagation(); e.preventDefault();
+        		parent.location.replace($(this).attr('href'));
+        	});
         }
 
         $form = $('form:first', $body);
