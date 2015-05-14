@@ -156,11 +156,11 @@ jQuery(function($)
 		return false;
 	});
 
-	$('a[href=#history][data-srl]')
+	$('a[href=#popopen][data-srl]')
 	.click(function()
 	{
-		var srl = $(this).attr('data-srl') || 0;
-		popopen(request_uri+'?mid='+current_mid+'&act=dispBoardHistory&history_srl='+srl+'&is_poped=1','documentHistory');
+		var srl = $(this).attr('data-srl') || '';
+		if(srl) popopen(srl.setQuery('is_poped','1'),'beluxePopup');
 		return false;
 	});
 

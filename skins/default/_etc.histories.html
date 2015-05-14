@@ -7,7 +7,7 @@
 		<li loop="$histories->data=>$history" class="clearBar">
 			<div class="no fl"><span>{zdate($history->regdate)}</span></div>
 			<div class="scElps" data-active="true"|cond="$is_elips">
-				<a cond="$history->content" class="fl" href="#history" data-srl="{$history->history_srl}">
+				<a cond="$history->content" class="fl" href="#popopen" data-srl="{getUrl('','mid',$mid,'act','dispBoardHistory','history_srl',$history->history_srl)}">
 					{cut_str(htmlspecialchars(strip_tags($history->content)), 150)}
 				</a>
 				<strong cond="!$history->content" class="fl">{$lang->trace_only}</strong>

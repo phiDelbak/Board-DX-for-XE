@@ -14,6 +14,10 @@
         </form>
     </div>
     <div class="scBtnArea fr">
+        <block cond="$pt_vtype=='A'&&$logged_info">
+            {@ $mb_srl = $logged_info->member_srl}
+            <span class="scBtn blue"><a href="{getUrl('','mid', $mid, 'search_target', 'member_srl','search_keyword', $mb_srl)}">{$lang->search_my_document}</a></span>
+        </block>
         <span class="scBtn" cond="$category_srl"><a href="{getUrl('','mid',$mid)}">{$lang->cmd_all_list}</a></span>
         <span class="scBtn" cond="!$category_srl&&$document_srl"><a href="{getUrl('act', '','document_srl','','npage','','cpage','')}">{$lang->cmd_list}</a></span>
         <span class="scBtn black" cond="(!$sedt_wbtn&&$is_sedt)||!$grant->write_document"><a cond="!$is_logged" href="{getUrl('act','dispMemberLoginForm')}">{$lang->cmd_login}</a><a cond="$is_logged" href="#" onclick="location.reload();return false">{$lang->reload}</a></span>

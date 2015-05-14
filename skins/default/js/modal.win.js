@@ -177,7 +177,6 @@ jQuery(function($){
         $body = $('body', $body);
         if($body.is(":empty"))
         {
-        	$mbd.parent().data('anchor').trigger('close.mw');
         	return;
         }
 
