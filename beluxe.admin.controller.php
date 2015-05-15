@@ -258,11 +258,14 @@ class beluxeAdminController extends beluxe
         // 필수 정보
         $args->module = __XEFM_NAME__;
         $args->site_srl = (int)$args->site_srl;
-        $args->skin = $args->skin ? $args->skin : 'default';
+
+        $module_path = _XE_PATH_ . 'modules/beluxe';
+        $tpl_path = sprintf('%s/skins/%s', $module_path, $args->skin);
+        if (!$args->skin || !is_dir($tpl_path)) $args->skin = 'default';
+        $args->mskin = $args->skin.'/mobile';
 
         $args->is_skin_fix = $args->skin=='/USE_DEFAULT/'?'N':'Y';
         $args->is_mskin_fix = $args->skin=='/USE_DEFAULT/'?'N':'Y';
-        $args->mskin = $args->skin=='/USE_DEFAULT/'?'/USE_DEFAULT/':'../skins/'.$args->skin.'/mobile';
 
         $args->use_mobile = (int)$args->mlayout_srl ? 'Y' : 'N';
 

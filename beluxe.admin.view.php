@@ -17,9 +17,6 @@ class beluxeAdminView extends beluxe
     function init() {
         $cmModule = & getModel('module');
 
-        // 관리자용 언어팩은 따로 읽기
-        Context::loadLang($this->module_path . 'lang/admin');
-
         // module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
         $mod_srl = Context::get('module_srl');
         if (!$mod_srl && $this->module_srl) {
@@ -28,7 +25,7 @@ class beluxeAdminView extends beluxe
         }
 
         // module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
-        if ($mod_srl && !$module_info) {
+        if ($mod_srl) {
             // module model 객체 생성
             $oModIfo = $cmModule->getModuleInfoByModuleSrl($mod_srl);
             if (!$oModIfo) {
@@ -36,15 +33,25 @@ class beluxeAdminView extends beluxe
                 $this->act = 'list';
             } else {
                 ModuleModel::syncModuleToSite($oModIfo);
-                $module_info = $this->module_info = $oModIfo;
-                Context::set('module_info', $this->module_info);
+                $this->module_info = $oModIfo;
             }
-        } else {
-            $oModIfo = $this->module_info = $module_info;
         }
 
-        $this->module_srl = $oModIfo->module_srl;
-        Context::set('module_srl', $this->module_srl);
+        $oModIfo = &$this->module_info;
+        if($oModIfo && $oModIfo->module == 'beluxe')
+        {
+            if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
+                $oModIfo->skin = 'default';
+                $oModIfo->mskin = 'default/mobile';
+            }
+
+            $this->module_srl = $oModIfo->module_srl;
+            Context::set('module_srl', $this->module_srl);
+            Context::set('module_info', $oModIfo);
+        }
+
+        // 관리자용 언어팩은 따로 읽기
+        Context::loadLang($this->module_path . 'lang/admin');
 
         // 정렬 옵션을 세팅
         $order = explode(',', __XEFM_ORDER__);
@@ -206,20 +213,16 @@ class beluxeAdminView extends beluxe
     }
 
     /* @brief Display a skin info */
-    function dispBeluxeAdminSkinInfo() {
+    function dispBeluxeAdminSkinInfo()
+    {
         $oModIfo = $this->module_info;
-        // 스킨이 없으면 기본으로 설정
-        if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
-            $oModIfo->skin = 'default';
-        }
-
         $skin = $oModIfo->skin;
         $module_path = _XE_PATH_ . 'modules/'.$oModIfo->module;
 
         $tpl_path = sprintf('%s/skins/%s/', $module_path, $skin);
         if (!is_dir($tpl_path)) {
             Context::set('XE_VALIDATOR_MESSAGE_TYPE', 'error');
-            Context::set('XE_VALIDATOR_MESSAGE', $tpl_path);
+            Context::set('XE_VALIDATOR_MESSAGE', Context::getLang('msg_skin_does_not_exist'));
         }
 
         $cmModule = & getModel('module');
@@ -233,24 +236,20 @@ class beluxeAdminView extends beluxe
         $this->setTemplateFile('skin');
     }
 
-    function dispBeluxeAdminMobileSkinInfo() {
+    function dispBeluxeAdminMobileSkinInfo()
+    {
         $oModIfo = $this->module_info;
-        // 스킨이 없으면 기본으로 설정
-        if (!$oModIfo->mskin || $oModIfo->mskin == '/USE_DEFAULT/') {
-            $oModIfo->mskin = '../skins/default/mobile';
-        }
-
-        $skin = $oModIfo->mskin;
+        $mskin = $oModIfo->mskin;
         $module_path = _XE_PATH_ . 'modules/'.$oModIfo->module;
+        $tpl_path = sprintf('%s/skins/%s', $module_path, $mskin);
 
-        $tpl_path =sprintf("%s/%s/%s", $module_path, 'm.skins', $skin);
         if (!is_dir($tpl_path)) {
             Context::set('XE_VALIDATOR_MESSAGE_TYPE', 'error');
             Context::set('XE_VALIDATOR_MESSAGE', Context::getLang('msg_skin_does_not_exist'));
         }
 
         $cmModule = & getModel('module');
-        $skin_info = $cmModule->loadSkinInfo($module_path, $skin, 'm.skins');
+        $skin_info = $cmModule->loadSkinInfo($module_path, $mskin);
         $skin_vars = $cmModule->getModuleMobileSkinVars($this->module_srl);
 
         Context::set('mid', $oModIfo->mid);

@@ -56,7 +56,7 @@ class beluxeView extends beluxe
 
         if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
             $oModIfo->skin = 'default';
-            $oModIfo->mskin = '../skins/'.$oModIfo->skin.'/mobile';
+            $oModIfo->mskin = 'default/mobile';
         }
 
         $oModIfo->module_srl = $this->module_srl;
