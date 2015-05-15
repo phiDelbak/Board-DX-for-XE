@@ -48,6 +48,16 @@ class beluxeController extends beluxe
 		}
 	}
 
+    function _getModuleInfo($a_modsrl = 0)
+    {
+		if(!$this->module_info || $this->module_srl != $this->module_info->module_srl) {
+			$cmThis = &getModel('beluxe');
+			$this->module_info = $cmThis->_getModuleInfo($a_modsrl);
+			$this->module_srl = $this->module_info->module_srl;
+		}
+		return $this->module_info;
+    }
+
 	function _setAnonymous(&$pObj, $aMbrIfo)
 	{
 		if($pObj->anonymous == 'Y')
@@ -87,13 +97,7 @@ class beluxeController extends beluxe
 			else $pObj->use_point = 0;
 		}
 
-		// 모달정보없으면 구함
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel('beluxe');
-			$oModIfo = $cmThis->_getModuleInfo();
-			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
-		}
+		$oModIfo = $this->_getModuleInfo();
 
 		if(is_string($oModIfo->extra_fields))
 		{
@@ -260,13 +264,7 @@ class beluxeController extends beluxe
 		$oLogIfo = Context::get('logged_info');
 		$log_mbr_srl = $oLogIfo->member_srl;
 
-		// 모듈정보없으면 구함
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel(__XEFM_NAME__);
-			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
-			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
-		}
+		$oModIfo = $this->_getModuleInfo($mod_srl);
 
 		// 회원이라면 닉,암호 제거, 상담 기능시 비회원 에러
 		if(Context::get('is_logged'))
@@ -497,13 +495,7 @@ class beluxeController extends beluxe
 		$log_mbr_srl = (int) $oLogIfo->member_srl;
 		$cpage = $args->cpage;
 
-		// 모듈정보없으면 구함
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel(__XEFM_NAME__);
-			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
-			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
-		}
+		$oModIfo = $this->_getModuleInfo($mod_srl);
 
 		// 회원이라면 닉,암호 제거, 상담기능 사용시 비회원 에러
 		if(Context::get('is_logged'))
@@ -709,13 +701,7 @@ class beluxeController extends beluxe
 		if(!$oDocIfo->isExists()) return new Object(-1, 'msg_invalid_document');
 		if(!$oDocIfo->isGranted()) return new Object(-1, 'msg_not_permitted');
 
-		// 모듈정보없으면 구함
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel(__XEFM_NAME__);
-			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
-			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
-		}
+		$oModIfo = $this->_getModuleInfo($mod_srl);
 
 		if(!$this->grant->manager && ($oModIfo->use_lock_document != 'N' || $oModIfo->use_point_type == 'A'))
 		{
@@ -838,13 +824,7 @@ class beluxeController extends beluxe
 		if(!$oComIfo->isExists()) return new Object(-1, 'msg_invalid_document');
 		if(!$oComIfo->isGranted()) return new Object(-1,'msg_not_permitted');
 
-		// 모듈정보없으면 구함
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel(__XEFM_NAME__);
-			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
-			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
-		}
+		$oModIfo = $this->_getModuleInfo($mod_srl);
 
 		if(!$this->grant->manager && $oModIfo->use_point_type == 'A')
 		{
@@ -958,28 +938,24 @@ class beluxeController extends beluxe
 	{
 		$doc_srl = Context::get('document_srl');
 		if(!$doc_srl) $doc_srl = Context::get('target_srl');
+		if(!$doc_srl) return new Object(-1,'msg_invalid_request');
 
 		$oLogIfo = Context::get('logged_info');
 		$mbr_srl = $oLogIfo->member_srl;
 		if(!$mbr_srl) return new Object(-1,'msg_not_permitted');
-
-		// 모달정보없으면 구함
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel(__XEFM_NAME__);
-			$oModIfo = $cmThis->_getModuleInfo();
-			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
-		}
-
-		$pt_restrict = $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view == 'P';
-		if(!$pt_restrict || !$doc_srl) return new Object(-1,'msg_invalid_request');
 
 		// 문서번호에 해당하는 글이 있는지 확인
 		$colLst = array('document_srl','module_srl','member_srl','extra_vars');
 		$cmDocument = &getModel('document');
 		$oDocIfo = $cmDocument->getDocument($doc_srl, FALSE, FALSE, $colLst);
 		if(!$oDocIfo->isExists()) return new Object(-1, 'msg_invalid_document');
-		if($oModIfo->module_srl != $oDocIfo->get('module_srl')) return new Object(-1,'msg_invalid_request');
+
+		$mod_srl = $oDocIfo->get('module_srl');
+		$oModIfo = $this->_getModuleInfo($mod_srl);
+		if($oModIfo->module_srl != $mod_srl) return new Object(-1,'msg_invalid_request');
+
+		$pt_restrict = $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view == 'P';
+		if(!$pt_restrict) return new Object(-1,'msg_invalid_request');
 
 		$cmThis = &getModel(__XEFM_NAME__);
 
@@ -1024,13 +1000,7 @@ class beluxeController extends beluxe
 		$mbr_srl = $oLogIfo->member_srl;
 		if(!$mbr_srl) return new Object(-1,'msg_not_permitted');
 
-		// 모달정보없으면 구함
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel(__XEFM_NAME__);
-			$oModIfo = $cmThis->_getModuleInfo();
-			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
-		}
+		$oModIfo = $this->_getModuleInfo();
 
 		$re_point = explode(':', $oModIfo->use_recover_vote_point);
 		if($re_point[0] != 'Y' || !$doc_srl) return new Object(-1,'msg_invalid_request');
@@ -1100,11 +1070,7 @@ class beluxeController extends beluxe
             if($oTmp->isExists()) return new Object(-1, 'msg_invalid_request');
         }
 
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel(__XEFM_NAME__);
-			$oModIfo = $cmThis->_getModuleInfo($oComIfo->get('module_srl'));
-		}
+		$oModIfo = $this->_getModuleInfo($oComIfo->get('module_srl'));
 
         // 확장 필드 저장
         $beluxe->adopt_srl = $cmt_srl;
@@ -1164,14 +1130,7 @@ class beluxeController extends beluxe
 		}
 
 		$mod_srl = $oDocIfo->get('module_srl');
-
-		// 모달정보없으면 구함
-		$oModIfo = $this->module_info ? $this->module_info : array();
-		if(!$oModIfo->module_srl) {
-			$cmThis = &getModel(__XEFM_NAME__);
-			$oModIfo = $cmThis->_getModuleInfo($mod_srl);
-			if(!$oModIfo->module_srl) return new Object(-1,'msg_invalid_request');
-		}
+		$oModIfo = $this->_getModuleInfo($mod_srl);
 
 		if(!$oModIfo || $oModIfo->module_srl != $pObj->module_srl)
 		{

@@ -15,6 +15,17 @@ class beluxe extends ModuleObject
 
     /* @brief Install the module */
     function moduleInstall() {
+        $cmModule = & getModel('module');
+        $ccModule = & getController('module');
+
+        if (file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')) {
+            if (!$cmModule->getTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before')) $ccModule->insertTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before');
+            if (!$cmModule->getTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerDownloadFile', 'after')) $ccModule->insertTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerDownloadFile', 'after');
+        }
+
+        // 2011. 09. 20 when add new menu in sitemap, custom menu add
+        if(!$cmModule->getTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after')) $ccModule->insertTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after');
+
         return new Object();
     }
 
@@ -35,17 +46,7 @@ class beluxe extends ModuleObject
 
     /* @brief Updaet the module */
     function moduleUpdate() {
-        $cmModule = & getModel('module');
-        $ccModule = & getController('module');
-
-        if (file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')) {
-            if (!$cmModule->getTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before')) $ccModule->insertTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before');
-            if (!$cmModule->getTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerDownloadFile', 'after')) $ccModule->insertTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerDownloadFile', 'after');
-        }
-
-        // 2011. 09. 20 when add new menu in sitemap, custom menu add
-        if(!$cmModule->getTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after')) $ccModule->insertTrigger('menu.getModuleListInSitemap', 'beluxe', 'model', 'triggerModuleListInSitemap', 'after');
-
+        $this->moduleInstall();
         return new Object(0, 'success_updated');
     }
 

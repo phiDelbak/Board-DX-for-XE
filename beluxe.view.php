@@ -24,7 +24,7 @@ class beluxeView extends beluxe
         if (!$this->module_srl || !$this->module_info->module_srl) {
             $this->mid = Context::get('mid');
             if ($this->mid) {
-                $cmModule = & getModel('module');
+                $cmModule = &getModel('module');
                 $oModIfo = $cmModule->getModuleInfoByMid($this->mid);
                 if ($oModIfo) {
                     ModuleModel::syncModuleToSite($oModIfo);
@@ -36,14 +36,23 @@ class beluxeView extends beluxe
             else return $this->stop('error');
         }
 
-        $oModIfo = $this->module_info;
+        $oModIfo = &$this->module_info;
+
 
         $navi = explode('|@|', $oModIfo->default_type_option);
         $oModIfo->default_sort_index = $navi[0] ? $navi[0] : 'list_order';
         $oModIfo->default_order_type = $navi[1] ? $navi[1] : 'asc';
-        $oModIfo->default_list_count = $navi[2] ? $navi[2] : 20;
-        $oModIfo->default_page_count = $navi[3] ? $navi[3] : 10;
-        $oModIfo->default_clist_count = $navi[4] ? $navi[4] : 50;
+
+        if(Mobile::isFromMobilePhone()) {
+            if((int) $oModIfo->mobile_list_count) $navi[2] = $oModIfo->mobile_list_count;
+            if((int) $oModIfo->mobile_page_count) $navi[3] = $oModIfo->mobile_page_count;
+            if((int) $oModIfo->mobile_clist_count) $navi[4] = $oModIfo->mobile_clist_count;
+        }
+
+        $oModIfo->default_list_count = (int) $navi[2] ? $navi[2] : 20;
+        $oModIfo->default_page_count = (int) $navi[3] ? $navi[3] : 10;
+        $oModIfo->default_clist_count = (int) $navi[4] ? $navi[4] : 50;
+
 
         if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
             $oModIfo->skin = 'default';
@@ -82,8 +91,7 @@ class beluxeView extends beluxe
     function _templateFileLoad($a_file)
     {
         $oModIfo = $this->module_info ? $this->module_info : Context::get('module_info');
-        $mobile = Mobile::isFromMobilePhone()?'mobile/':'';
-        $tpl_path = sprintf('%sskins/%s/'.$mobile, $this->module_path, $oModIfo->skin);
+        $tpl_path = sprintf('%sskins/%s/%s', $this->module_path, $oModIfo->skin, Mobile::isFromMobilePhone()?'mobile/':'');
         if(!is_dir($tpl_path)) return $this->stop('msg_skin_does_not_exist');
 
         Context::loadLang($tpl_path);  // 스킨 언어팩은 따로 읽기

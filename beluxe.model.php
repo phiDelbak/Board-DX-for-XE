@@ -19,11 +19,11 @@ class beluxeModel extends beluxe
     /*********** @private function                      ***********/
 
     /* @brief Get a module info */
-    function _getModuleInfo($a_modsrl = 0) {
-        if (!$this->module_srl || $this->module_srl != $this->module_info->module_srl) {
+    function _getModuleInfo($a_modsrl = 0)
+    {
+        if (!$this->module_info || $this->module_srl != $this->module_info->module_srl) {
 
             if (!$this->module_info->module_srl) {
-
                 // module model 객체 생성
                 $cmModule = & getModel('module');
                 if ($a_modsrl) $oModIfo = $cmModule->getModuleInfoByModuleSrl($a_modsrl);
@@ -36,8 +36,7 @@ class beluxeModel extends beluxe
                     $oModIfo = $cmModule->getModuleInfoByMid($mid, $site_srl);
                 }
                 $this->module_info = $oModIfo;
-            }
-            else {
+            } else {
                 $oModIfo = $this->module_info;
             }
 

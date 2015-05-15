@@ -39,9 +39,9 @@
 		<name>phiDel</name>
 	</author>
 
-	<license xml:lang="ko" link="http://www.gnu.org/licenses/gpl.html">GPL2</license>
-	<license xml:lang="jp" link="http://www.gnu.org/licenses/gpl.html">GPL2</license>
-	<license xml:lang="en" link="http://www.gnu.org/licenses/gpl.html">GPL2</license>
+	<license xml:lang="ko">GPL2</license>
+	<license xml:lang="jp">GPL2</license>
+	<license xml:lang="en">GPL2</license>
 
 	<extra_vars>
 		<group>
@@ -155,9 +155,9 @@
 					<title xml:lang="jp">テキスト</title>
 					<title xml:lang="en">text</title>
 				</options>
-				<description xml:lang="ko">분류의 모양을 설정합니다. (혼합: 탭+컬럼)</description>
-				<description xml:lang="jp">分類のスタイルを設定します. (混合: タップ+コラム)</description>
-				<description xml:lang="en">Set the appearance of the category. (mix: tab+column)</description>
+				<description xml:lang="ko">분류의 모양을 설정합니다. (컬럼 설정에 분류 표시 필요)</description>
+				<description xml:lang="jp">分類のスタイルを設定します. (컬럼 설정에 분류 표시 필요)</description>
+				<description xml:lang="en">Set the appearance of the category. (컬럼 설정에 분류 표시 필요)</description>
 			</var>
 			<var name="category_option" type="text" default="">
 				<title xml:lang="ko">분류 사이드 옵션</title>

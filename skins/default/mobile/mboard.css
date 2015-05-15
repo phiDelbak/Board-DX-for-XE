@@ -389,7 +389,7 @@ display:block
 
 /* List */
 .lt{
-	padding:10px;
+	padding:5px 10px;
 }
 .lt li{
 	border-top:1px solid #ccc8be;
