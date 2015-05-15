@@ -99,6 +99,21 @@
 		<value xml:lang="jp"><![CDATA[私のポイント: %s]]></value>
 		<value xml:lang="en"><![CDATA[My point: %s]]></value>
 	</item>
+	<item name="is_adopted">
+		<value xml:lang="ko"><![CDATA[채택여부]]></value>
+		<value xml:lang="jp"><![CDATA[채택여부]]></value>
+		<value xml:lang="en"><![CDATA[채택여부]]></value>
+	</item>
+	<item name="t_comment_member_srl">
+		<value xml:lang="ko"><![CDATA[답변회원]]></value>
+		<value xml:lang="jp"><![CDATA[답변회원]]></value>
+		<value xml:lang="en"><![CDATA[답변회원]]></value>
+	</item>
+	<item name="member_srl">
+		<value xml:lang="ko"><![CDATA[회원번호]]></value>
+		<value xml:lang="jp"><![CDATA[회원번호]]></value>
+		<value xml:lang="en"><![CDATA[회원번호]]></value>
+	</item>
 	<item name="confirm_download_point">
 		<value xml:lang="ko"><![CDATA[이 파일을 다운로드 하시려면 %s 포인트가 사용됩니다.\n계속 하시겠습니까? (단, 한번만 소모)]]></value>
 		<value xml:lang="jp"><![CDATA[このファイルをダウンロードするためには %s ポイントが使われます.\n続きますか? (ただし, 一度のみ消耗)]]></value>
