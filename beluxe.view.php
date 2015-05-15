@@ -234,8 +234,10 @@ class beluxeView extends beluxe
                     ? $this->cmThis->getDocumentSrlsByAdopt($args, $order)
                     : $this->cmThis->getDocumentSrlsByComment($args, $order);
 
-                $doc_list = $this->cmDoc->getDocuments($out->data, $this->grant->manager, $load_extvars);
-                $out->data = $doc_list;
+                if(count($out->data)) {
+                    $doc_list = $this->cmDoc->getDocuments($out->data, $this->grant->manager, $load_extvars);
+                    $out->data = $doc_list;
+                }
             } else {
                 $out = $this->cmDoc->getDocumentList($args, $except_notice, $load_extvars);
             }
