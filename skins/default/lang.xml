@@ -24,6 +24,16 @@
 		<value xml:lang="jp"><![CDATA[反対]]></value>
 		<value xml:lang="en"><![CDATA[Disagree]]></value>
 	</item>
+	<item name="adopted">
+		<value xml:lang="ko"><![CDATA[채택]]></value>
+		<value xml:lang="jp"><![CDATA[채택]]></value>
+		<value xml:lang="en"><![CDATA[채택]]></value>
+	</item>
+	<item name="not_adopt">
+		<value xml:lang="ko"><![CDATA[미채택]]></value>
+		<value xml:lang="jp"><![CDATA[미채택]]></value>
+		<value xml:lang="en"><![CDATA[미채택]]></value>
+	</item>
 	<item name="search_my_document">
 		<value xml:lang="ko"><![CDATA[내 글]]></value>
 		<value xml:lang="jp"><![CDATA[내 글]]></value>

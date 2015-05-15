@@ -1062,7 +1062,7 @@ class beluxeController extends beluxe
 
         $beluxe = $ex_vars->beluxe;
         $use_point = (int) $beluxe->use_point;
-        $adopt_srl = (int) $beluxe->adopt_srl ?  $beluxe->adopt_srl : 0;
+        $adopt_srl = (int) $beluxe->adopt_srl ? $beluxe->adopt_srl : 0;
 
         // 이미 채택된 답글이 있다면 중단
         if($adopt_srl){
@@ -1073,7 +1073,8 @@ class beluxeController extends beluxe
 		$oModIfo = $this->_getModuleInfo($oComIfo->get('module_srl'));
 
         // 확장 필드 저장
-        $beluxe->adopt_srl = $cmt_srl;
+        $beluxe->adopt_srl = (int) $cmt_srl;
+
         $ex_vars->beluxe = $beluxe;
         $args->extra_vars = serialize($ex_vars);
         // 채택된 답글번호 입력

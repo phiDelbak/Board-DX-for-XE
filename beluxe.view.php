@@ -221,9 +221,11 @@ class beluxeView extends beluxe
 
             $except_notice = $args->search_keyword ? FALSE : $is_btm_skp;
 
-            if(strpos($args->search_target, 't_comment_') === 0) {
+            if(strpos($args->search_target, 't_comment_') === 0 || $args->search_target == 'is_adopted') {
                 // 댓글 검색은 내용만 지원해서 만듬...
-                $out = $this->cmThis->getDocumentSrlsByComment($args);
+                $out = ($args->search_target == 'is_adopted')
+                    ? $this->cmThis->getDocumentSrlsByAdopt($args) : $this->cmThis->getDocumentSrlsByComment($args);
+
                 $doc_list = $this->cmDoc->getDocuments($out->data, $this->grant->manager, $load_extvars);
                 $out->data = $doc_list;
             } else {

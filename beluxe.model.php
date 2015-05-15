@@ -576,17 +576,51 @@ class beluxeModel extends beluxe
         return $out;
     }
 
-    // 댓글 검색은 내용만 지원해서 만듬...
-    function getDocumentSrlsByComment($a_obj) {
-
-        $a_obj->search_target = substr($a_obj->search_target, 10);
+    function getDocumentSrlsByAdopt($a_obj) {
+        $haystack = array('true','false');
+        if(!in_array($a_obj->search_keyword, $haystack)) return array();
 
         $args = new stdClass();
-        $args->{$a_obj->search_target} = $a_obj->search_keyword;
+        $args->module_srl = $a_obj->module_srl;
+
+        // regexp 를 지원 안하는거 같다. 어쩔... 다른 방법으로 변경...
+        $args->extra_vars = 'stdClass%\"beluxe\"';
+
+        if($a_obj->search_keyword == 'true')
+            $args->like_vars = '\"adopt_srl\"\;';
+        else
+            $args->notlike_vars = '\"adopt_srl\"\;';
+
         $args->list_count = $a_obj->list_count ? $a_obj->list_count : 20;
         $args->page_count = $a_obj->page_count ? $a_obj->page_count : 10;
         $args->page = $a_obj->page ? $a_obj->page : 1;
-        $out = executeQuery('beluxe.getDocumentSrlsByComment', $args);
+        $out = executeQueryArray('beluxe.getDocumentSrlsByAdopt', $args);
+
+        if ($out->toBool()) {
+            $arr = array();
+            foreach ($out->data as $value) {
+                $arr[] = $value->document_srl;
+            }
+            $out->data = $arr;
+        }
+
+        return $out;
+    }
+
+    // 댓글 검색은 내용만 지원해서 만듬...
+    function getDocumentSrlsByComment($a_obj) {
+
+        $s_target = substr($a_obj->search_target, 10);
+        $haystack = array('member_srl','ipaddress','voted_count','blamed_count');
+        if(!in_array($s_target, $haystack)) return array();
+
+        $args = new stdClass();
+        $args->module_srl = $a_obj->module_srl;
+        $args->{$s_target} = $a_obj->search_keyword;
+        $args->list_count = $a_obj->list_count ? $a_obj->list_count : 20;
+        $args->page_count = $a_obj->page_count ? $a_obj->page_count : 10;
+        $args->page = $a_obj->page ? $a_obj->page : 1;
+        $out = executeQueryArray('beluxe.getDocumentSrlsByComment', $args);
 
         if ($out->toBool()) {
             $arr = array();

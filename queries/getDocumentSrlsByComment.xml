@@ -6,7 +6,13 @@
 		<column name="distinct document_srl" />
 	</columns>
 	<conditions>
-		<condition operation="equal" column="member_srl" var="member_srl" filter="number" notnull="notnull" />
+		<condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <group pipe="and">
+			<condition operation="equal" column="member_srl" var="member_srl" filter="number" pipe="and" />
+			<condition operation="more" column="voted_count" var="voted_count" pipe="and" />
+			<condition operation="more" column="blamed_count" var="blamed_count" pipe="and" />
+			<condition operation="like_prefix" column="ipaddress" var="ipaddress" pipe="and" />
+        </group>
 	</conditions>
 	<navigation>
 		<index var="sort_index" default="document_srl" order="desc" />

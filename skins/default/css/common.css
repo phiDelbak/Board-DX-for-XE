@@ -54,7 +54,7 @@
     margin:0;
     padding:0 10px;
     height:29px;
-    line-height:29px;
+    line-height:27px;
     font-size:15px;
     font-weight:bold;
     background-color:transparent!important;
@@ -491,12 +491,13 @@
     margin:0 0 10px;
     list-style:none;
     border:0;
-    border-left:1px solid #ddd;
-    border-right:1px solid #ddd
+    border-left:1px solid #c9c9c9;
+    border-right:1px solid #c9c9c9
 }
 #siCat.text li {
     float:left;
-    padding:3px 0;
+    margin:0;
+    padding:0;
     display:inline-block
 }
 #siCat.text li a {
