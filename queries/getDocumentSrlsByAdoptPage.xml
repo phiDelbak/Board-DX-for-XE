@@ -1,0 +1,22 @@
+<query id="getDocumentSrlsByAdoptPage" action="select">
+    <tables>
+        <table name="documents" />
+    </tables>
+    <columns>
+        <column name="count(document_srl)" alias="count" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <condition operation="like" column="extra_vars" var="extra_vars" notnull="notnull" pipe="and" />
+        <group pipe="and">
+            <condition operation="like" column="extra_vars" var="like_vars" pipe="and" />
+            <condition operation="notlike" column="extra_vars" var="notlike_vars" pipe="and" />
+        </group>
+        <group pipe="and">
+            <condition operation="less" column="list_order" var="list_order" filter="number" pipe="and" />
+            <condition operation="more" column="list_order" var="rev_list_order" filter="number" pipe="and" />
+            <condition operation="less" column="update_order" var="update_order" filter="number" pipe="and" />
+            <condition operation="more" column="update_order" var="rev_update_order" filter="number" pipe="and" />
+        </group>
+    </conditions>
+</query>

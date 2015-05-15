@@ -576,7 +576,7 @@ class beluxeModel extends beluxe
         return $out;
     }
 
-    function getDocumentSrlsByAdopt($a_obj) {
+    function getDocumentSrlsByAdopt($a_obj, $a_list_order = false) {
         $haystack = array('true','false');
         if(!in_array($a_obj->search_keyword, $haystack)) return array();
 
@@ -593,6 +593,16 @@ class beluxeModel extends beluxe
 
         $args->list_count = $a_obj->list_count ? $a_obj->list_count : 20;
         $args->page_count = $a_obj->page_count ? $a_obj->page_count : 10;
+
+        if($a_list_order !== false)
+        {
+            $args->list_order = $a_list_order;
+            $output = executeQuery('beluxe.getDocumentSrlsByAdoptPage', $args);
+            $count = $output->data->count;
+            $a_obj->page = (int)(($count-1)/$args->list_count)+1;
+            unset($args->list_order);
+        }
+
         $args->page = $a_obj->page ? $a_obj->page : 1;
         $out = executeQueryArray('beluxe.getDocumentSrlsByAdopt', $args);
 
@@ -608,7 +618,7 @@ class beluxeModel extends beluxe
     }
 
     // 댓글 검색은 내용만 지원해서 만듬...
-    function getDocumentSrlsByComment($a_obj) {
+    function getDocumentSrlsByComment($a_obj, $a_list_order = false) {
 
         $s_target = substr($a_obj->search_target, 10);
         $haystack = array('member_srl','ipaddress','voted_count','blamed_count');
@@ -619,6 +629,16 @@ class beluxeModel extends beluxe
         $args->{$s_target} = $a_obj->search_keyword;
         $args->list_count = $a_obj->list_count ? $a_obj->list_count : 20;
         $args->page_count = $a_obj->page_count ? $a_obj->page_count : 10;
+
+        if($a_list_order !== false)
+        {
+            $args->list_order = $a_list_order;
+            $output = executeQuery('beluxe.getDocumentSrlsByCommentPage', $args);
+            $count = $output->data->count;
+            $a_obj->page = (int)(($count-1)/$args->list_count)+1;
+            unset($args->list_order);
+        }
+
         $args->page = $a_obj->page ? $a_obj->page : 1;
         $out = executeQueryArray('beluxe.getDocumentSrlsByComment', $args);
 

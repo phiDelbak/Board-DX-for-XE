@@ -4,7 +4,7 @@
 	<span cond="$is_doc" class="ca"|cond="$is_cts">{$lang->document.' '.$lang->no}: {$document_srl}</span>
 	<span cond="!$is_doc" class="ca"|cond="$is_cts">{$not_permitted?$lang->msg_input_password:$lang->new_document}</span>
 	</a>
-	<a href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','')}" onclick="history.back(-1);return false;"|cond="!$is_doc" class="wt bk">{$lang->cmd_back}</a>
+	<a href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','','page',$page)}" onclick="history.back(-1);return false;"|cond="!$is_doc" class="wt bk">{$lang->cmd_back}</a>
 </h2>
 
 <!--@if($not_permitted)-->
@@ -19,7 +19,7 @@
 			</li>
 		</ul>
 		<div class="bna">
-			<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','')}">{$lang->cmd_back}</a>
+			<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','','page',$page)}">{$lang->cmd_back}</a>
 			<input type="submit" value="{$lang->cmd_input}" class="bn dark" />
 		</div>
 	</form>
@@ -183,7 +183,7 @@
 			</li>
 		</ul>
 		<div class="bna">
-			<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','')}" onclick="history.back(-1);return false;"|cond="!$is_doc">{$lang->cmd_back}</a>
+			<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl','','parent_srl','','page',$page)}" onclick="history.back(-1);return false;"|cond="!$is_doc">{$lang->cmd_back}</a>
 			<button type="submit" accesskey="s" class="bn dark">{$is_doc?'':$lang->document.' '}{Context::getLang('cmd_'.($is_doc?'update':'registration'))}</button>
 		</div>
 	</form>

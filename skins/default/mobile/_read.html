@@ -271,10 +271,10 @@
         <a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="bn dark">{$lang->cmd_write}</a>
     </span>
     <span class="fr">
-        <a href="{getUrl('act', '','document_srl', '')}" class="bn white">{$lang->cmd_list}</a>
+        <a href="{getUrl('act', '','document_srl', '','page',$page)}" class="bn white">{$lang->cmd_list}</a>
         <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
-            <a href="{getUrl('act','dispBoardWrite','document_srl',$doc_srl,'comment_srl','')}" class="bn dark">{$lang->cmd_modify}</a>
-            <a href="{getUrl('act','dispBoardDelete','document_srl',$doc_srl,'comment_srl','')}" class="bn dark">{$lang->cmd_delete}</a>
+            <a href="{getUrl('act','dispBoardWrite','document_srl',$doc_srl,'comment_srl','','page',$page)}" class="bn dark">{$lang->cmd_modify}</a>
+            <a href="{getUrl('act','dispBoardDelete','document_srl',$doc_srl,'comment_srl','','page',$page)}" class="bn dark">{$lang->cmd_delete}</a>
         </block>
     </span>
 </div>

@@ -203,28 +203,36 @@ class beluxeView extends beluxe
 
             $ori_page = $nvi_page = 0;
             $is_btm_cnt = (int)($oModIfo->document_bottom_list_count ? $oModIfo->document_bottom_list_count : $args->list_count);
+            $is_get_srls = strpos($args->search_target, 't_comment_') === 0 || $args->search_target == 'is_adopted';
 
             if ($is_doc) {
-                // 목록 수와 네비 수가 다르면 목록 페이지 값 구함
-                if ($args->list_count != $is_btm_cnt) {
-                    $ori_page = $this->cmDoc->getDocumentPage($aDoc, $args);
+                // 사용자 검색일땐 네비 페이지 맞춤
+                if(!$is_get_srls) {
+                    // 목록 수와 네비 수가 다르면 목록 페이지 값 구함
+                    if ($args->list_count != $is_btm_cnt) {
+                        $ori_page = $this->cmDoc->getDocumentPage($aDoc, $args);
+                        // 네비 목록을 구해야 하니 다르면 네비 수로 다시 설정
+                        $args->list_count = $is_btm_cnt;
+                    }
 
-                    // 네비 목록을 구해야 하니 다르면 네비 수로 다시 설정
-                    $args->list_count = $is_btm_cnt;
+                    // 네비 페이지가 없으면 구하고 설정
+                    $nvi_page = (int)Context::get('npage');
+                    if (!$nvi_page) $nvi_page = $this->cmDoc->getDocumentPage($aDoc, $args);
+                    $args->page = $nvi_page;
                 }
-
-                // 네비 페이지가 없으면 구하고 설정
-                $nvi_page = (int)Context::get('npage');
-                if (!$nvi_page) $nvi_page = $this->cmDoc->getDocumentPage($aDoc, $args);
-                $args->page = $nvi_page;
             }
 
             $except_notice = $args->search_keyword ? FALSE : $is_btm_skp;
 
-            if(strpos($args->search_target, 't_comment_') === 0 || $args->search_target == 'is_adopted') {
+            if($is_get_srls) {
+                $nvi_page = (int)Context::get('npage');
+                if ($nvi_page) $args->page = $nvi_page;
+                $order = $is_doc && !$nvi_page ? $aDoc->get('list_order') : false;
+
                 // 댓글 검색은 내용만 지원해서 만듬...
                 $out = ($args->search_target == 'is_adopted')
-                    ? $this->cmThis->getDocumentSrlsByAdopt($args) : $this->cmThis->getDocumentSrlsByComment($args);
+                    ? $this->cmThis->getDocumentSrlsByAdopt($args, $order)
+                    : $this->cmThis->getDocumentSrlsByComment($args, $order);
 
                 $doc_list = $this->cmDoc->getDocuments($out->data, $this->grant->manager, $load_extvars);
                 $out->data = $doc_list;
