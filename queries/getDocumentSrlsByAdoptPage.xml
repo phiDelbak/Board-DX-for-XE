@@ -19,4 +19,7 @@
             <condition operation="more" column="update_order" var="rev_update_order" filter="number" pipe="and" />
         </group>
     </conditions>
+    <navigation>
+        <index var="sort_index" default="list_order" order="asc" />
+    </navigation>
 </query>

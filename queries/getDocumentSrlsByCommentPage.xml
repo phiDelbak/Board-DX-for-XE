@@ -3,19 +3,29 @@
         <table name="documents" alias="documents" />
         <table name="comments" alias="comments" type="left join" >
 			<conditions>
-				<condition operation="equal" column="comments.module_srl" var="module_srl" filter="number" notnull="notnull" />
+				<condition operation="equal" column="documents.document_srl" var="comments.document_srl" filter="number" notnull="notnull" />
 		        <group pipe="and">
-					<condition operation="equal" column="comments.member_srl" var="member_srl" filter="number" pipe="and" />
-					<condition operation="more" column="comments.voted_count" var="voted_count" pipe="and" />
-					<condition operation="more" column="comments.blamed_count" var="blamed_count" pipe="and" />
-					<condition operation="like_prefix" column="comments.ipaddress" var="ipaddress" pipe="and" />
+		            <condition operation="less" column="documents.list_order" var="list_order" filter="number" pipe="and" />
+		            <condition operation="more" column="documents.list_order" var="rev_list_order" filter="number" pipe="and" />
+		            <condition operation="less" column="documents.update_order" var="update_order" filter="number" pipe="and" />
+		            <condition operation="more" column="documents.update_order" var="rev_update_order" filter="number" pipe="and" />
 		        </group>
-				<condition operation="equal" column="documents.document_srl" var="comments.document_srl" filter="number" pipe="and" />
-		        <condition operation="less" column="documents.list_order" var="list_order" filter="number" pipe="and" />
 			</conditions>
         </table>
     </tables>
-	<columns>
-        <column name="count(distinct comments.document_srl)" alias="count" />
-	</columns>
+	<conditions>
+		<condition operation="equal" column="comments.module_srl" var="module_srl" filter="number" notnull="notnull" />
+        <group pipe="and">
+			<condition operation="equal" column="comments.member_srl" var="member_srl" filter="number" pipe="and" />
+			<condition operation="more" column="comments.voted_count" var="voted_count" pipe="and" />
+			<condition operation="more" column="comments.blamed_count" var="blamed_count" pipe="and" />
+			<condition operation="like_prefix" column="comments.ipaddress" var="ipaddress" pipe="and" />
+        </group>
+	</conditions>
+    <columns>
+        <column name="count(distinct documents.document_srl)" alias="count" />
+    </columns>
+	<navigation>
+		<index var="sort_index" default="documents.list_order" order="asc" />
+	</navigation>
 </query>
