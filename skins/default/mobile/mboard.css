@@ -430,13 +430,20 @@ bottom:0;
 }
 .nav .usept,
 .lt .usept{
-	padding:0 1px;
+    text-align:center;
+    display:inline-block;
+    min-width: 25px;
+	padding:0 2px;
 	border:1px solid #bfbfbf;
-	font-size:12px;
-	font-family:Tahoma;
-    border-radius:5px;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px
+    font-style:normal;
+    font-weight:normal;
+    font-family:Tahoma;
+    font-size:10px;
+    color:#777;
+    line-height: 14px;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px
 }
 .nav .usept.blue,
 .lt .usept.blue{

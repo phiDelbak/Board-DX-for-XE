@@ -2197,8 +2197,11 @@
     margin-top:10px
 }
 #siBody em.usept {
+    text-align:center;
+    display:inline-block;
+    min-width: 25px;
     margin:0 5px 0 0;
-    padding:1px 3px;
+    padding:0 2px;
     border:1px solid #ccc;
     background-color:#eee;
     color:#777;
@@ -2206,9 +2209,10 @@
     font-weight:normal;
     font-size:10px;
     font-family:Tahoma;
-    border-radius:5px;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px
+    line-height: 14px;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px
 }
 #siBody div.scNoDocs {
     text-align:center;
