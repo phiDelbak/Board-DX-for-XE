@@ -53,7 +53,8 @@ class beluxeAdminController extends beluxe
         }
     }
 
-    function _setModuleInfo($a_modsrl) {
+    function _setModuleInfo($a_modsrl)
+    {
         $arglst = func_get_args();
         if (!$a_modsrl || count($arglst) < 3) return;
 
@@ -71,7 +72,8 @@ class beluxeAdminController extends beluxe
         $ccModule->updateModule($args);
     }
 
-    function _setModulePartConfig($a_modsrl, $a_cfg) {
+    function _setModulePartConfig($a_modsrl, $a_cfg)
+    {
         if (!count($a_cfg)) return;
 
         $ccModule = & getController('module');
@@ -81,6 +83,18 @@ class beluxeAdminController extends beluxe
             $doc_cfg = $cmModule->getModulePartConfig($tk, $a_modsrl);
             foreach ($tv as $tk2 => $tv2) $doc_cfg->{$tk2} = $tv2;
             $ccModule->insertModulePartConfig($tk, $a_modsrl, $doc_cfg);
+        }
+    }
+
+    function _deleteCacheHandler($a_modsrl, $a_okeys)
+    {
+        $oCacheNew = CacheHandler::getInstance('object', NULL, TRUE);
+        if ($oCacheNew->isSupport()) {
+            foreach ($a_okeys as $val) {
+                $object_key = 'module_' . $val . ':' . $a_modsrl;
+                $cache_key = $oCacheNew->getGroupKey('site_and_module', $object_key);
+                $oCacheNew->delete($cache_key);
+            }
         }
     }
 
@@ -469,11 +483,6 @@ class beluxeAdminController extends beluxe
             }
 
             $oDB->commit();
-
-            $oCacheHandler = CacheHandler::getInstance('object', NULL, TRUE);
-            if ($oCacheHandler->isSupport()) {
-                $oCacheHandler->truncate();
-            }
         }
         else return new Object(-1, 'msg_dbconnect_failed');
 
@@ -576,8 +585,9 @@ class beluxeAdminController extends beluxe
         $this->_setModuleInfo($mod_srl, 'default_category_title', $default_title);
 
         // 캐쉬 갱신
-        $ccDocument = & getController('document');
+        $ccDocument = &getController('document');
         $ccDocument->makeCategoryFile($args->module_srl);
+        $this->_deleteCacheHandler($args->module_srl, array('category_list', 'mobile_category_list'));
 
         $this->add('module_srl', $args->module_srl);
         $this->add('category_srl', $args->category_srl);
@@ -621,8 +631,8 @@ class beluxeAdminController extends beluxe
         $ccDocument = & getController('document');
         $ccDocument->makeCategoryFile($mod_srl);
 
+        $this->_deleteCacheHandler($args->module_srl, array('category_list', 'mobile_category_list'));
         $this->add('category_srl', $add_cate_srl);
-
         $this->setMessage('success_deleted');
     }
 
@@ -632,6 +642,7 @@ class beluxeAdminController extends beluxe
         if (!$mod_srl) return new Object(-1, 'msg_invalid_request');
         $ccDocument = & getController('document');
         $ccDocument->makeCategoryFile($mod_srl);
+        $this->_deleteCacheHandler($args->module_srl, array('category_list', 'mobile_category_list'));
     }
 
     function procBeluxeAdminColumnSetting() {
@@ -654,13 +665,7 @@ class beluxeAdminController extends beluxe
         $out = $ccModule->insertModulePartConfig('beluxe', $mod_srl, $list_arr);
         if (!$out->toBool()) return $out;
 
-        $oCacheHandler = CacheHandler::getInstance('object', NULL, TRUE);
-        if ($oCacheHandler->isSupport()) {
-            $object_key = 'module_column_config:' . $mod_srl;
-            $cache_key = $oCacheHandler->getGroupKey('site_and_module', $object_key);
-            $oCacheHandler->delete($cache_key);
-        }
-
+        $this->_deleteCacheHandler($mod_srl, array('column_config'));
         $this->setMessage('success_updated');
         $this->_setLocation($mod_srl, 'dispBeluxeAdminColumnInfo');
     }
@@ -669,17 +674,7 @@ class beluxeAdminController extends beluxe
     function procBeluxeAdminMakeColumnCache() {
         $mod_srl = Context::get('module_srl');
         if (!$mod_srl) return new Object(-1, 'msg_invalid_request');
-
-        $oCacheHandler = CacheHandler::getInstance('object', NULL, TRUE);
-        if ($oCacheHandler->isSupport()) {
-            $object_key = 'module_document_extra_keys:' . $mod_srl;
-            $cache_key = $oCacheHandler->getGroupKey('site_and_module', $object_key);
-            $oCacheHandler->delete($cache_key);
-
-            $object_key = 'module_column_config:' . $mod_srl;
-            $cache_key = $oCacheHandler->getGroupKey('site_and_module', $object_key);
-            $oCacheHandler->delete($cache_key);
-        }
+        $this->_deleteCacheHandler($mod_srl, array('column_config'));
     }
 
     function procBeluxeAdminInsertExtraKey() {
@@ -778,17 +773,7 @@ class beluxeAdminController extends beluxe
         }
         else return new Object(-1, 'msg_dbconnect_failed');
 
-        $oCacheHandler = CacheHandler::getInstance('object', NULL, TRUE);
-        if ($oCacheHandler->isSupport()) {
-            $object_key = 'module_document_extra_keys:' . $mod_srl;
-            $cache_key = $oCacheHandler->getGroupKey('site_and_module', $object_key);
-            $oCacheHandler->delete($cache_key);
-
-            $object_key = 'module_column_config:' . $mod_srl;
-            $cache_key = $oCacheHandler->getGroupKey('site_and_module', $object_key);
-            $oCacheHandler->delete($cache_key);
-        }
-
+        $this->_deleteCacheHandler($mod_srl, array('document_extra_keys','column_config'));
         $this->setMessage('success_updated');
         $this->_setLocation($mod_srl, 'dispBeluxeAdminExtraKeys');
     }
@@ -803,14 +788,9 @@ class beluxeAdminController extends beluxe
         $out = $ccDocument->deleteDocumentExtraKeys($mod_srl, $var_idx);
         if (!$out->toBool()) return $out;
 
-        $oCacheHandler = CacheHandler::getInstance('object', NULL, TRUE);
-        if ($oCacheHandler->isSupport()) {
-            $object_key = 'module_column_config:' . $mod_srl;
-            $cache_key = $oCacheHandler->getGroupKey('site_and_module', $object_key);
-            $oCacheHandler->delete($cache_key);
-        }
-
+        $this->_deleteCacheHandler($mod_srl, array('document_extra_keys','column_config'));
         $this->setMessage('success_deleted');
+        $this->_setLocation($mod_srl, 'dispBeluxeAdminExtraKeys');
     }
 
     function procBeluxeAdminUpdateSkinInfo() {

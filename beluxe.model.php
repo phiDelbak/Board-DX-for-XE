@@ -281,14 +281,14 @@ class beluxeModel extends beluxe
     {
         if (!$a_modsrl) return;
 
-        $is_mobile = Mobile::isFromMobilePhone() ? 'M' : 'P';
+        $is_mobile = Mobile::isFromMobilePhone() ? 'mobile_' : '';
 
         if (!$GLOBALS['BELUXE_CATEGORY_LIST'][$is_mobile.$a_modsrl]) {
 
             $oCacheNew = &CacheHandler::getInstance('object');
             if ($oCacheNew->isSupport()) {
-                $object_key = 'object:beluxe:' . $is_mobile;
-                $cache_key = $oCacheNew->getGroupKey('categorylist', $object_key);
+                $object_key = 'module_' . $is_mobile . 'category_list:' . $a_modsrl;
+                $cache_key = $oCacheNew->getGroupKey('site_and_module', $object_key);
                 if ($oCacheNew->isValid($cache_key)) {
                     $re = $oCacheNew->get($cache_key);
                     $GLOBALS['BELUXE_CATEGORY_LIST'][$is_mobile.$a_modsrl] = $re;
@@ -310,7 +310,7 @@ class beluxeModel extends beluxe
                 $tmp->mid = $oModIfo->mid;
                 $tmp->module_srl = $oModIfo->module_srl;
 
-                if($is_mobile == 'M') {
+                if($is_mobile == 'mobile_') {
                     if((int) $oModIfo->mobile_list_count) $navi[2] = $oModIfo->mobile_list_count;
                     if((int) $oModIfo->mobile_page_count) $navi[3] = $oModIfo->mobile_page_count;
                     if((int) $oModIfo->mobile_clist_count) $navi[4] = $oModIfo->mobile_clist_count;
@@ -347,7 +347,7 @@ class beluxeModel extends beluxe
     {
         $oCacheNew = CacheHandler::getInstance('object', NULL, TRUE);
         if ($oCacheNew->isSupport()) {
-            $object_key = 'object:beluxe:' . $a_modsrl;
+            $object_key = 'module_column_config:' . $a_modsrl;
             $cache_key = $oCacheNew->getGroupKey('site_and_module', $object_key);
             if($oCacheNew->isValid($cache_key)) return $oCacheNew->get($cache_key);
         }
@@ -385,14 +385,6 @@ class beluxeModel extends beluxe
     // 그냥 간단히 3번 돌려 해결함 (TODO 나중에 좀더 빠른 방법 연구)
     function getNavigationList($obj, $a_ectnotice = FALSE, $a_loadextra = TRUE, $a_collst = array())
     {
-        $oCacheNew = &CacheHandler::getInstance('object');
-        if ($oCacheNew->isSupport()) {
-            $option_key = md5($a_ectnotice . ',' . $a_loadextra . ',' . implode(',', $a_collst));
-            $object_key = 'object:beluxe:' . $obj->current_document_srl . ':' . $option_key;
-            $cache_key = $oCacheNew->getGroupKey('navigationList', $object_key);
-            if ($oCacheNew->isValid($cache_key)) return $oCacheNew->get($cache_key);
-        }
-
         $cmDocument = & getModel('document');
 
         // 계산을 위해 페이지 값 구함
@@ -437,9 +429,6 @@ class beluxeModel extends beluxe
         //$out->page_navigation = new PageHandler($out->total_count, $out->total_count, $idx - $is_prev, $out->total_count);
         //$out->page = $page;
 
-        //insert in cache
-        if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $out, 3600);
-
         return $out;
     }
 
@@ -480,8 +469,8 @@ class beluxeModel extends beluxe
         $oCacheNew = &CacheHandler::getInstance('object');
         if ($oCacheNew->isSupport()) {
             $option_key = md5(implode(',', array($sort_index, $list_count, $s_voted_count, $cate_srl)));
-            $object_key = 'object:beluxe:' . $a_modsrl . ':' . $option_key;
-            $cache_key = $oCacheNew->getGroupKey('bestDocumentList', $object_key);
+            $object_key = 'module_document_list:' . $a_modsrl . ':key_' . $option_key;
+            $cache_key = $oCacheNew->getGroupKey('site_and_module', $object_key);
             if ($oCacheNew->isValid($cache_key)) return $oCacheNew->get($cache_key);
         }
 
@@ -502,7 +491,7 @@ class beluxeModel extends beluxe
         $out->data = $this->_setDocumentItem($out->data);
 
         //insert in cache
-        if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $out, 3600);
+        if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $out, 300);
 
         return $out;
     }
@@ -519,8 +508,8 @@ class beluxeModel extends beluxe
         $oCacheNew = &CacheHandler::getInstance('object');
         if ($oCacheNew->isSupport()) {
             $option_key = md5(implode(',', array($list_count, $s_voted_count)));
-            $object_key = 'object:beluxe:' . $a_docsrl . ':' . $option_key;
-            $cache_key = $oCacheNew->getGroupKey('bestCommentList', $object_key);
+            $object_key = 'module_comment_list::document_' . $a_docsrl . ':key_' . $option_key;
+            $cache_key = $oCacheNew->getGroupKey('site_and_module', $object_key);
             if ($oCacheNew->isValid($cache_key)) return $oCacheNew->get($cache_key);
         }
 
@@ -540,7 +529,7 @@ class beluxeModel extends beluxe
         $out->data = $this->_setCommentItem($out->data);
 
         //insert in cache
-        if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $out, 3600);
+        if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $out, 300);
 
         return $out;
     }
@@ -592,26 +581,11 @@ class beluxeModel extends beluxe
 
     function getCommentByMemberSrl($a_docsrl, $a_mbrsrl, $a_collst = array())
     {
-
-        // cache controll
-        $oCacheNew = &CacheHandler::getInstance('object');
-        if ($oCacheNew->isSupport()) {
-            $option_key = md5(implode(',', $a_collst));
-            $object_key = 'object:beluxe:' . $a_docsrl . ':' . $a_mbrsrl . ':' . $option_key;
-            $cache_key = $oCacheNew->getGroupKey('commentListByMember', $object_key);
-            if ($oCacheNew->isValid($cache_key)) return $oCacheNew->get($cache_key);
-        }
-
         $args->document_srl = $a_docsrl;
         $args->member_srl = $a_mbrsrl;
         $out = executeQueryArray('beluxe.getCommentByMemberSrl', $args, $a_collst);
         if (!$out->toBool() || !$out->data) return;
-
         $out->data = $this->_setCommentItem($out->data);
-
-        //insert in cache
-        if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $out, 3600);
-
         return $out;
     }
 
