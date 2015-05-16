@@ -237,7 +237,14 @@ class beluxeModel extends beluxe
             $obj->description = $desc[2];
             $obj->type = $desc[0];
             $navi = explode(',', $desc[1]);
-            $obj->navigation = (object)array('sort_index' => $navi[0] ? $navi[0] : $p_lst[$t_prsrl]->navigation->sort_index, 'order_type' => $navi[1] ? $navi[1] : $p_lst[$t_prsrl]->navigation->order_type, 'list_count' => (int)($navi[2] ? $navi[2] : $p_lst[$t_prsrl]->navigation->list_count), 'page_count' => (int)($navi[3] ? $navi[3] : $p_lst[$t_prsrl]->navigation->page_count), 'clist_count' => (int)($navi[4] ? $navi[4] : $p_lst[$t_prsrl]->navigation->clist_count));
+            $obj->navigation = (object)array(
+                'sort_index' => $navi[0] ? $navi[0] : $p_lst[$t_prsrl]->navigation->sort_index,
+                'order_type' => $navi[1] ? $navi[1] : $p_lst[$t_prsrl]->navigation->order_type,
+                'list_count' => $navi[2] ? $navi[2] : $p_lst[$t_prsrl]->navigation->list_count,
+                'page_count' => $navi[3] ? $navi[3] : $p_lst[$t_prsrl]->navigation->page_count,
+                'clist_count' => is_numeric($navi[4]) ? $navi[4] : $p_lst[$t_prsrl]->navigation->clist_count,
+                'dlist_count' => is_numeric($navi[5]) ? $navi[5] : $p_lst[$t_prsrl]->navigation->dlist_count
+            );
 
             if ($t_prsrl) {
                 $parent_srl = $obj->parent_srl;
@@ -270,16 +277,30 @@ class beluxeModel extends beluxe
     /**************************************************************/
 
     /* @brief Bringing the Categories list the specific module */
-    function getCategoryList($a_modsrl, $a_catesrl = 0) {
+    function getCategoryList($a_modsrl, $a_catesrl = 0)
+    {
         if (!$a_modsrl) return;
 
-        if (!$GLOBALS['BELUXE_CATEGORY_LIST'][$a_modsrl]) {
+        $is_mobile = Mobile::isFromMobilePhone() ? 'M' : 'P';
+
+        if (!$GLOBALS['BELUXE_CATEGORY_LIST'][$is_mobile.$a_modsrl]) {
+
+            $oCacheNew = &CacheHandler::getInstance('object');
+            if ($oCacheNew->isSupport()) {
+                $object_key = 'object:beluxe:' . $is_mobile;
+                $cache_key = $oCacheNew->getGroupKey('categorylist', $object_key);
+                if ($oCacheNew->isValid($cache_key)) {
+                    $re = $oCacheNew->get($cache_key);
+                    $GLOBALS['BELUXE_CATEGORY_LIST'][$is_mobile.$a_modsrl] = $re;
+                    return $a_catesrl ? $re[$a_catesrl] : $re;
+                }
+            }
+
             $cmDocument = & getModel('document');
             $php = $cmDocument->getCategoryPhpFile($a_modsrl);
             @include ($php);
 
             $cate_list = array();
-
             // 0 번에 기본값 입력
             $oModIfo = $this->_getModuleInfo($a_modsrl);
             if ($oModIfo->module_srl) {
@@ -288,7 +309,23 @@ class beluxeModel extends beluxe
                 if (!$tmp->title) $tmp->title = Context::getLang('category');
                 $tmp->mid = $oModIfo->mid;
                 $tmp->module_srl = $oModIfo->module_srl;
-                $tmp->navigation = (object)array('sort_index' => $navi[0] ? $navi[0] : 'list_order', 'order_type' => $navi[1] ? $navi[1] : 'asc', 'list_count' => $navi[2] ? $navi[2] : 20, 'page_count' => $navi[3] ? $navi[3] : 10, 'clist_count' => $navi[4] ? $navi[4] : 50);
+
+                if($is_mobile == 'M') {
+                    if((int) $oModIfo->mobile_list_count) $navi[2] = $oModIfo->mobile_list_count;
+                    if((int) $oModIfo->mobile_page_count) $navi[3] = $oModIfo->mobile_page_count;
+                    if((int) $oModIfo->mobile_clist_count) $navi[4] = $oModIfo->mobile_clist_count;
+                    if((int) $oModIfo->mobile_dlist_count) $navi[5] = $oModIfo->mobile_dlist_count;
+                }
+
+                $tmp->navigation = (object)array(
+                    'sort_index' => $navi[0] ? $navi[0] : 'list_order',
+                    'order_type' => $navi[1] ? $navi[1] : 'asc',
+                    'list_count' => (int) ($navi[2] ? $navi[2] : 20),
+                    'page_count' => (int) ($navi[3] ? $navi[3] : 10),
+                    'clist_count' => (int) (is_numeric($navi[4]) ? $navi[4] : 50),
+                    'dlist_count' => (int) (is_numeric($navi[5]) ? $navi[5] : ($navi[2] ? $navi[2] : 20))
+                );
+
                 $tmp->selected = !Context::get('category_srl');
                 $tmp->expand = true;
                 $tmp->total_document_count = 0;
@@ -296,29 +333,27 @@ class beluxeModel extends beluxe
             }
 
             $this->_arrangeCategory($cate_list, $menu->list, 0);
-
-            $GLOBALS['BELUXE_CATEGORY_LIST'][$a_modsrl] = $cate_list;
+            $GLOBALS['BELUXE_CATEGORY_LIST'][$is_mobile.$a_modsrl] = $cate_list;
+            //insert in cache
+            if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $cate_list, 3600);
         }
 
-        $re = $GLOBALS['BELUXE_CATEGORY_LIST'][$a_modsrl];
+        $re = $GLOBALS['BELUXE_CATEGORY_LIST'][$is_mobile.$a_modsrl];
         return $a_catesrl ? $re[$a_catesrl] : $re;
     }
 
     /* @brief Get a list config */
-    function getColumnInfo($a_modsrl) {
+    function getColumnInfo($a_modsrl)
+    {
         $oCacheNew = CacheHandler::getInstance('object', NULL, TRUE);
         if ($oCacheNew->isSupport()) {
             $object_key = 'object:beluxe:' . $a_modsrl;
             $cache_key = $oCacheNew->getGroupKey('site_and_module', $object_key);
-
-            if ($oCacheNew->isValid($cache_key)) {
-                $obj = $oCacheNew->get($cache_key);
-            }
-            else {
-                require_once (__XEFM_PATH__ . 'classes.cache.php');
-                $obj = BeluxeCache::columnConfigList($a_modsrl);
-            }
+            if($oCacheNew->isValid($cache_key)) return $oCacheNew->get($cache_key);
         }
+
+        require_once (__XEFM_PATH__ . 'classes.cache.php');
+        $obj = BeluxeCache::columnConfigList($a_modsrl);
 
         $obj = $obj ? $obj : array();
         foreach ($obj as $val) {
@@ -327,7 +362,6 @@ class beluxeModel extends beluxe
             // 설명은 확장변수만 변경
             if ($idx > 0) $val->desc = Context::getLang($val->desc);
         }
-
         //insert in cache
         if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $obj, 3600);
 
@@ -335,7 +369,8 @@ class beluxeModel extends beluxe
     }
 
     /* @brief Get a document_srl */
-    function getLatestDocumentSrl($a_modsrl = 0) {
+    function getLatestDocumentSrl($a_modsrl = 0)
+    {
         $oModIfo = $this->_getModuleInfo($a_modsrl);
         if (!$oModIfo->module_srl) return;
 
@@ -348,7 +383,8 @@ class beluxeModel extends beluxe
 
     // 분류,정렬,검색 등을 고려하면 덩치가 커질거 같아...
     // 그냥 간단히 3번 돌려 해결함 (TODO 나중에 좀더 빠른 방법 연구)
-    function getNavigationList($obj, $a_ectnotice = FALSE, $a_loadextra = TRUE, $a_collst = array()) {
+    function getNavigationList($obj, $a_ectnotice = FALSE, $a_loadextra = TRUE, $a_collst = array())
+    {
         $oCacheNew = &CacheHandler::getInstance('object');
         if ($oCacheNew->isSupport()) {
             $option_key = md5($a_ectnotice . ',' . $a_loadextra . ',' . implode(',', $a_collst));
@@ -385,8 +421,6 @@ class beluxeModel extends beluxe
         $idx = 0;
         foreach ($outtmp2 as $key => $val) {
             if ($val->document_srl == $obj->current_document_srl) break;
-
-
             $idx++;
         }
 
@@ -404,19 +438,21 @@ class beluxeModel extends beluxe
         //$out->page = $page;
 
         //insert in cache
-        if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $out, 300);
+        if ($oCacheNew->isSupport()) $oCacheNew->put($cache_key, $out, 3600);
 
         return $out;
     }
 
     /* @brief Get a history list */
-    function getHistoryList($a_docsrl, $a_page, $a_lstcnt) {
+    function getHistoryList($a_docsrl, $a_page, $a_lstcnt)
+    {
         $cmDocument = & getModel('document');
         return $cmDocument->getHistories($a_docsrl, $a_lstcnt, $a_page);
     }
 
     /* @brief Get a notice list */
-    function getNoticeList($a_modsrl = 0) {
+    function getNoticeList($a_modsrl = 0)
+    {
         $oModIfo = $this->_getModuleInfo($a_modsrl);
         if (!$oModIfo->module_srl) return;
 
@@ -430,7 +466,8 @@ class beluxeModel extends beluxe
     }
 
     /* @brief Get a best list */
-    function getBestList($a_modsrl = 0) {
+    function getBestList($a_modsrl = 0)
+    {
         $oModIfo = $this->_getModuleInfo($a_modsrl);
         if (!$oModIfo->module_srl) return;
 
@@ -471,7 +508,8 @@ class beluxeModel extends beluxe
     }
 
     /* @brief Get a best list */
-    function getBestCommentList($a_docsrl) {
+    function getBestCommentList($a_docsrl)
+    {
         $oModIfo = $this->_getModuleInfo();
         if (!$oModIfo->module_srl) return;
 
@@ -552,7 +590,8 @@ class beluxeModel extends beluxe
         return $out;
     }
 
-    function getCommentByMemberSrl($a_docsrl, $a_mbrsrl, $a_collst = array()) {
+    function getCommentByMemberSrl($a_docsrl, $a_mbrsrl, $a_collst = array())
+    {
 
         // cache controll
         $oCacheNew = &CacheHandler::getInstance('object');
@@ -576,7 +615,8 @@ class beluxeModel extends beluxe
         return $out;
     }
 
-    function getDocumentSrlsByAdopt($a_obj, $a_list_order = false) {
+    function getDocumentSrlsByAdopt($a_obj, $a_list_order = false)
+    {
         $haystack = array('true','false');
         if(!in_array($a_obj->search_keyword, $haystack)) return array();
 

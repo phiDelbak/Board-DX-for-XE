@@ -13,6 +13,7 @@
 	$ao_ppang = $mi->addon_pang_pang == 'Y';
 	$ds_mtlng = $mi->display_lang_code == 'Y';
 	$ds_scrap = $mi->display_scrap_button == 'Y';
+	$is_btlst = ((!$is_cts||!$category_srl)&&$mi->default_dlist_count)||($is_cts&&$category_srl&&$cts[$category_srl]->dlist_count)?'Y':'N';
 	$pt_vtype = $mi->use_point_type == 'A' ? 'A' : ($mi->use_restrict_view == 'P' ? 'P' : ($mi->use_restrict_view == 'Y' ? 'Y' : 'N'));
 	$pt_dtype = ($pt_vtype != 'A' && $mi->use_restrict_down == 'P') ? 'P' : ($pt_vtype != 'A' && $mi->use_restrict_down == 'Y' ? 'Y' : 'N');
 

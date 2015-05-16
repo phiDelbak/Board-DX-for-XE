@@ -146,9 +146,9 @@
 		<value xml:lang="en"><![CDATA[Trace]]></value>
 	</item>
 	<item name="doc_bottom_list">
-		<value xml:lang="ko"><![CDATA[본문 하단 목록]]></value>
-		<value xml:lang="jp"><![CDATA[本文下端リスト]]></value>
-		<value xml:lang="en"><![CDATA[list of view bottom]]></value>
+		<value xml:lang="ko"><![CDATA[본문 목록]]></value>
+		<value xml:lang="jp"><![CDATA[list of view]]></value>
+		<value xml:lang="en"><![CDATA[list of view]]></value>
 	</item>
 	<item name="list_options" type="array">
 		<item name="category" type="array">
@@ -161,30 +161,6 @@
 				<value xml:lang="ko"><![CDATA[분류별로 따로 출력]]></value>
 				<value xml:lang="jp"><![CDATA[分類別に表示]]></value>
 				<value xml:lang="en"><![CDATA[print by separately category]]></value>
-			</item>
-		</item>
-		<item name="bottom_list" type="array">
-			<item name="N">
-				<value xml:lang="ko"><![CDATA[출력 안함]]></value>
-				<value xml:lang="jp"><![CDATA[非表示]]></value>
-				<value xml:lang="en"><![CDATA[no print]]></value>
-			</item>
-			<item name="Y">
-				<value xml:lang="ko"><![CDATA[목록으로  출력]]></value>
-				<value xml:lang="jp"><![CDATA[リストで表示]]></value>
-				<value xml:lang="en"><![CDATA[print by list]]></value>
-			</item>
-			<item name="except" type="array">
-				<item name="Y">
-					<value xml:lang="ko"><![CDATA[공지를 제외하여 출력]]></value>
-					<value xml:lang="jp"><![CDATA[公知を除いて、出力]]></value>
-					<value xml:lang="en"><![CDATA[Disables "NOTICE"]]></value>
-				</item>
-				<item name="N">
-					<value xml:lang="ko"><![CDATA[공지를 포함해 출력]]></value>
-					<value xml:lang="jp"><![CDATA[公知を含めて出力]]></value>
-					<value xml:lang="en"><![CDATA[Enables "NOTICE"]]></value>
-				</item>
 			</item>
 		</item>
 		<item name="count">

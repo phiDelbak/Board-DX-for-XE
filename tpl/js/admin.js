@@ -250,13 +250,14 @@ jQuery(function($)
 			$(this).change(function()
 			{
 				var def = $(this).attr('data-default') || '', ots= ($("option:selected", this).attr('data-option') || '').split('|@|');
-				if(ots.length==5)
+				if(ots.length)
 				{
 					$('select[name=default_sort_index]', f).val(ots[0]);
 					$('select[name=default_order_type]', f).val(ots[1]);
 					$('input[name=default_list_count]', f).val(ots[2]);
 					$('input[name=default_page_count]', f).val(ots[3]);
 					$('input[name=default_clist_count]', f).val(ots[4]);
+					$('input[name=default_dlist_count]', f).val(ots[5]);
 				}
 				if(def != $(this).val()) $(this).closest('div.x_control-group').addClass('opt_bks');
 				else $(this).closest('div.x_control-group').removeClass('opt_bks');

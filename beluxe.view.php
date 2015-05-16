@@ -47,12 +47,13 @@ class beluxeView extends beluxe
             if((int) $oModIfo->mobile_list_count) $navi[2] = $oModIfo->mobile_list_count;
             if((int) $oModIfo->mobile_page_count) $navi[3] = $oModIfo->mobile_page_count;
             if((int) $oModIfo->mobile_clist_count) $navi[4] = $oModIfo->mobile_clist_count;
+            if((int) $oModIfo->mobile_dlist_count) $navi[5] = $oModIfo->mobile_dlist_count;
         }
 
-        $oModIfo->default_list_count = (int) $navi[2] ? $navi[2] : 20;
-        $oModIfo->default_page_count = (int) $navi[3] ? $navi[3] : 10;
-        $oModIfo->default_clist_count = (int) $navi[4] ? $navi[4] : 50;
-
+        $oModIfo->default_list_count = (int) ($navi[2] ? $navi[2] : 20);
+        $oModIfo->default_page_count = (int) ($navi[3] ? $navi[3] : 10);
+        $oModIfo->default_clist_count = (int) (is_numeric($navi[4]) ? $navi[4] : 50);
+        $oModIfo->default_dlist_count = (int) (is_numeric($navi[5]) ? $navi[5] : $oModIfo->default_list_count);  //값이 없을때 호환을 위해 null 체크
 
         if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
             $oModIfo->skin = 'default';
@@ -135,10 +136,8 @@ class beluxeView extends beluxe
 
         $oModIfo = $this->module_info;
         $args->module_srl = $this->module_srl;
-
         $is_doc = $aDoc && $aDoc->isExists();
-        $is_btm_lst = $oModIfo->document_bottom_list ? $oModIfo->document_bottom_list : 'Y';
-        $is_btm_skp = !$is_doc || $oModIfo->document_bottom_except_notice != 'N';
+        $is_btm_cnt = (int) $oModIfo->default_dlist_count;
 
         // 상담 기능시 현재 로그인 사용자 글만 나타나도록 변경
         if ($oModIfo->consultation == 'Y' && !$this->grant->manager) {
@@ -155,6 +154,7 @@ class beluxeView extends beluxe
                 if (!$args->order_type) $args->order_type = $ct_navi->order_type;
                 if (!$args->list_count) $args->list_count = (int)$ct_navi->list_count;
                 if (!$args->page_count) $args->page_count = (int)$ct_navi->page_count;
+                if (!$args->dlist_count) $is_btm_cnt = (int)$ct_navi->dlist_count;
             }
         }
 
@@ -192,8 +192,8 @@ class beluxeView extends beluxe
         if (!$args->list_count) $args->list_count = $oModIfo->default_list_count ? $oModIfo->default_list_count : '20';
         if (!$args->page_count) $args->page_count = $oModIfo->default_page_count ? $oModIfo->default_page_count : '10';
 
-        // 목록 보기 권한이 없을 경우 목록없음, 문서가 있고 하단 목록 타입이 없으면 목록없음
-        if (!$this->grant->list || ($is_doc && $is_btm_lst == 'N')) {
+        // 목록 보기 권한이 없을 경우 목록없음, 문서가 있고 하단 목록 수가 없으면 목록없음
+        if (!$this->grant->list || ($is_doc && !(int) $is_btm_cnt)) {
             Context::set('document_list', array());
             Context::set('total_count', 0);
             Context::set('total_page', 1);
@@ -202,34 +202,36 @@ class beluxeView extends beluxe
         } else {
 
             $ori_page = $nvi_page = 0;
-            $is_btm_cnt = (int)($oModIfo->document_bottom_list_count ? $oModIfo->document_bottom_list_count : $args->list_count);
             $is_get_srls = strpos($args->search_target, 't_comment_') === 0 || $args->search_target == 'is_adopted';
 
-            if ($is_doc) {
-                // 사용자 검색일땐 네비 페이지 맞춤
-                if(!$is_get_srls) {
-                    // 목록 수와 네비 수가 다르면 목록 페이지 값 구함
-                    if ($args->list_count != $is_btm_cnt) {
+            if ($is_doc)
+            {
+                if(!$is_get_srls)
+                {
+                    // 목록 수와 네비 수가 다르면 목록 페이지 값 구함, 하단 목록 수로 다시 설정
+                    if ($args->list_count != $is_btm_cnt)
+                    {
                         $ori_page = $this->cmDoc->getDocumentPage($aDoc, $args);
-                        // 네비 목록을 구해야 하니 다르면 네비 수로 다시 설정
                         $args->list_count = $is_btm_cnt;
                     }
 
-                    // 네비 페이지가 없으면 구하고 설정
+                    // 하단 목록 페이지가 없으면 구하고 설정
                     $nvi_page = (int)Context::get('npage');
                     if (!$nvi_page) $nvi_page = $this->cmDoc->getDocumentPage($aDoc, $args);
                     $args->page = $nvi_page;
                 }
             }
 
-            $except_notice = $args->search_keyword ? FALSE : $is_btm_skp;
+            $except_notice = $args->search_keyword ? FALSE : !$is_doc;
 
-            if($is_get_srls) {
+            if($is_get_srls)
+            {
                 $nvi_page = (int)Context::get('npage');
                 if ($nvi_page) $args->page = $nvi_page;
                 $order = $is_doc && !$nvi_page ? $aDoc->get('list_order') : false;
 
                 // 댓글 검색은 내용만 지원해서 만듬...
+                // 사용자 검색일땐 하단 목록 페이지도 같이 맞춰줌
                 $out = ($args->search_target == 'is_adopted')
                     ? $this->cmThis->getDocumentSrlsByAdopt($args, $order)
                     : $this->cmThis->getDocumentSrlsByComment($args, $order);

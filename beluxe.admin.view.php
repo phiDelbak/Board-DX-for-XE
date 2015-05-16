@@ -197,7 +197,7 @@ class beluxeAdminView extends beluxe
     /* @brief Display a category info */
     function dispBeluxeAdminCategoryInfo() {
         $cmAdmThis = & getAdminModel(__XEFM_NAME__);
-        $out = $cmAdmThis->getCategoryList($this->module_srl);
+        $out = $cmAdmThis->getCategories($this->module_srl);
         Context::set('menu', $out->data);
 
         // Get a list of member groups

@@ -57,7 +57,7 @@ class beluxeAdminModel extends beluxe
 		return $out;
 	}
 
-	function getCategoryList($a_modsrl)
+	function getCategories($a_modsrl)
 	{
 		$tree = array();
 		$args->module_srl = $a_modsrl;
@@ -85,7 +85,8 @@ class beluxeAdminModel extends beluxe
 					'order_type' => $navi[1] ? $navi[1] : '',
 					'list_count' => $navi[2] ? $navi[2] : '',
 					'page_count' => $navi[3] ? $navi[3] : '',
-					'clist_count' => $navi[4] ? $navi[4] : ''
+					'clist_count' => is_numeric($navi[4]) ? $navi[4] : '',
+					'dlist_count' => is_numeric($navi[5]) ? $navi[5] : ''
 				);
 				$tree[$par_srl][$cate_srl] = $node;
 			}
@@ -117,6 +118,7 @@ class beluxeAdminModel extends beluxe
 				$df_types[$name]->list_count = (int) ($val->attrs->list_count ? $val->attrs->list_count : '20');
 				$df_types[$name]->page_count = (int) ($val->attrs->page_count ? $val->attrs->page_count : '10');
 				$df_types[$name]->clist_count = (int) ($val->attrs->clist_count ? $val->attrs->clist_count : '50');
+				$df_types[$name]->dlist_count = (int) ($val->attrs->dlist_count ? $val->attrs->dlist_count : '20');
 			}
 		}
 
@@ -132,7 +134,7 @@ class beluxeAdminModel extends beluxe
 		$types = $this->getTypeList($skin);
 		foreach($types as $tk=>$tv)
 		{
-			$tmp = array($tv->sort_index,$tv->order_type,$tv->list_count,$tv->page_count,$tv->clist_count);
+			$tmp = array($tv->sort_index,$tv->order_type,$tv->list_count,$tv->page_count,$tv->clist_count,$tv->dlist_count);
 			$html .= sprintf('<option value="%s" data-option="%s">%s</option>', $tk, implode('|@|', $tmp), $tv->title);
 		}
 

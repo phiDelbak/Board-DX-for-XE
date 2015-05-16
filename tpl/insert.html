@@ -164,11 +164,12 @@
 					$default_type_list[$t_dftype]->list_count = $df_navi[2];
 					$default_type_list[$t_dftype]->page_count = $df_navi[3];
 					$default_type_list[$t_dftype]->clist_count = $df_navi[4];
+					$default_type_list[$t_dftype]->dlist_count = is_null($df_navi[5]) ? $df_navi[2] : $df_navi[5];
 				}
 				<!--@endif-->
 				<select name="default_type" data-skin="{$module_srl?$module_info->skin:'default'}" data-default="{$t_dftype}">
 				<block loop="$default_type_list => $key, $val">
-					{@ $tmp = array($val->sort_index,$val->order_type,$val->list_count,$val->page_count,$val->clist_count)}
+					{@ $tmp = array($val->sort_index,$val->order_type,$val->list_count,$val->page_count,$val->clist_count,$val->dlist_count)}
 					<option value="{$key}" data-option="{implode('|@|', $tmp)}" selected="selected"|cond="$key==$module_info->default_type">{$val->title}</option>
 				</block>
 				</select>
@@ -194,25 +195,29 @@
 				</label>
 			</div>
 			<div class="x_controls">
-				<label class="x_inline" style="width:70px" for="id_default_list_count">{$lang->list_count}:</label>
-				<label class="x_inline" style="width:70px" for="id_default_page_count">{$lang->page_count}:</label>
-				<label class="x_inline" style="width:70px" for="id_default_clist_count">{$lang->comment_count}:</label>
+				<label class="x_inline" style="width:80px;margin-right:1px" for="id_default_list_count">{$lang->list_count}:</label>
+				<label class="x_inline" style="width:80px;margin-right:1px" for="id_default_page_count">{$lang->page_count}:</label>
+				<label class="x_inline" style="width:80px;margin-right:1px" for="id_default_clist_count">{$lang->comment_count}:</label>
+				<label class="x_inline" style="width:80px;margin-right:1px" for="id_default_dlist_count">{$lang->doc_bottom_list}:</label>
 				<br />
-				<input name="default_list_count" id="id_default_list_count" type="number" value="{(int)$t_dftype->list_count}" maxlength="10" style="width:50px" />
-				<input name="default_page_count" id="id_default_page_count" type="number" value="{(int)$t_dftype->page_count}" maxlength="10" style="width:50px;margin-left:22px" />
-				<input name="default_clist_count" id="id_default_clist_count" type="number" value="{(int)$t_dftype->clist_count}" maxlength="10" style="width:50px;margin-left:22px" />
+				<input name="default_list_count" id="id_default_list_count" type="number" value="{(int)$t_dftype->list_count}" maxlength="10" style="width:45px" />
+				<input name="default_page_count" id="id_default_page_count" type="number" value="{(int)$t_dftype->page_count}" maxlength="10" style="width:45px;margin-left:22px" />
+				<input name="default_clist_count" id="id_default_clist_count" type="number" value="{(int)$t_dftype->clist_count}" maxlength="10" style="width:45px;margin-left:22px" />
+				<input name="default_dlist_count" id="id_default_dlist_count" type="number" value="{(int)$t_dftype->dlist_count}" maxlength="10" style="width:45px;margin-left:22px" />
 			</div>
 		</div>
 		<div cond="count($skin_list)&&count($default_type_list)" class="x_control-group {$module_info->module_srl&&!$module_info->default_type?'opt_bks':''}">
 			<label class="x_control-label">{$lang->mobile}</label>
 			<div class="x_controls">
-				<label class="x_inline" style="width:70px" for="id_default_mobile_list_count">{$lang->list_count}:</label>
-				<label class="x_inline" style="width:70px" for="id_default_mobile_page_count">{$lang->page_count}:</label>
-				<label class="x_inline" style="width:70px" for="id_default_mobile_clist_count">{$lang->comment_count}:</label>
+				<label class="x_inline" style="width:80px;margin-right:1px" for="id_default_mobile_list_count">{$lang->list_count}:</label>
+				<label class="x_inline" style="width:80px;margin-right:1px" for="id_default_mobile_page_count">{$lang->page_count}:</label>
+				<label class="x_inline" style="width:80px;margin-right:1px" for="id_default_mobile_clist_count">{$lang->comment_count}:</label>
+				<label class="x_inline" style="width:80px;margin-right:1px" for="id_default_mobile_dlist_count">{$lang->doc_bottom_list}:</label>
 				<br />
-				<input name="mobile_list_count" id="id_default_mobile_list_count" type="number" value="{(int)$module_info->mobile_list_count}" maxlength="10" style="width:50px" />
-				<input name="mobile_page_count" id="id_default_mobile_page_count" type="number" value="{(int)$module_info->mobile_page_count}" maxlength="10" style="width:50px;margin-left:22px" />
-				<input name="mobile_clist_count" id="id_default_mobile_clist_count" type="number" value="{(int)$module_info->mobile_clist_count}" maxlength="10" style="width:50px;margin-left:22px" />
+				<input name="mobile_list_count" id="id_default_mobile_list_count" type="number" value="{(int)$module_info->mobile_list_count}" maxlength="10" style="width:45px" />
+				<input name="mobile_page_count" id="id_default_mobile_page_count" type="number" value="{(int)$module_info->mobile_page_count}" maxlength="10" style="width:45px;margin-left:22px" />
+				<input name="mobile_clist_count" id="id_default_mobile_clist_count" type="number" value="{(int)$module_info->mobile_clist_count}" maxlength="10" style="width:45px;margin-left:22px" />
+				<input name="mobile_dlist_count" id="id_default_mobile_dlist_count" type="number" value="{(int)$module_info->mobile_dlist_count}" maxlength="10" style="width:45px;margin-left:22px" />
 				<a href="#about_mobile_list_count" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="about_mobile_list_count" class="x_help-block" hidden>{$lang->about_mobile_list_count}</p>
 			</div>
@@ -297,35 +302,6 @@
 					<select name="best_c_count">
 						{@ $date_count = explode(',',$lang->best_options['count_list'])}
 						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->best_c_count == $val">{$val}</option>
-					</select>
-					{$lang->best_options['count']}
-				</label>
-			</div>
-		</div>
-		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->doc_bottom_list}</label>
-			<div class="x_controls {$compulsory_options['document_bottom_list']?'opt_cps':''} {$module_backup_options['document_bottom_list']?'opt_bks':''}">
-				<select name="document_bottom_list">
-					<option value="Y">{$lang->list_options['bottom_list']['Y']}</option>
-					<option value="N" selected="selected"|cond="$module_info->document_bottom_list == 'N'">{$lang->list_options['bottom_list']['N']}</option>
-				</select>
-				<a href="#about_doc_bottom_list" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="about_doc_bottom_list" class="x_help-block" hidden>{$lang->about_doc_bottom_list}</p>
-			</div>
-			<div class="x_controls {$compulsory_options['document_bottom_except_notice']?'opt_cps':''} {$module_backup_options['document_bottom_except_notice']?'opt_bks':''}">
-				<select name="document_bottom_except_notice">
-					<option value="Y">{$lang->list_options['bottom_list']['except']['Y']}</option>
-					<option value="N" selected="selected"|cond="$module_info->document_bottom_except_notice == 'N'">{$lang->list_options['bottom_list']['except']['N']}</option>
-				</select>
-			</div>
-			<div class="x_controls {$compulsory_options['document_bottom_list_count']?'opt_cps':''} {$module_backup_options['document_bottom_list_count']?'opt_bks':''}">
-				<label>
-					<select name="document_bottom_list_count">
-						{@
-							$module_info->document_bottom_list_count?0:$module_info->document_bottom_list_count=10;
-							$date_count = explode(',',$lang->list_options['count']);
-						}
-						<option loop="$date_count=>$val" value="{$val}" selected="selected"|cond="$module_info->document_bottom_list_count == $val">{$val}</option>
 					</select>
 					{$lang->best_options['count']}
 				</label>

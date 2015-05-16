@@ -219,10 +219,6 @@ class beluxeAdminController extends beluxe
             if (isset($chks->use_lock_document) && !in_array($chks->use_lock_document, array('Y', 'T', 'C'))) $chks->use_lock_document = 'N';
             if (isset($chks->use_lock_document_option)) $chks->use_lock_document_option = (int)$chks->use_lock_document_option;
 
-            if (isset($chks->document_bottom_list) && $chks->document_bottom_list != 'N') $chks->document_bottom_list = 'Y';
-            if (isset($chks->document_bottom_except_notice) && $chks->document_bottom_except_notice != 'N') $chks->document_bottom_except_notice = 'Y';
-            if (isset($chks->document_bottom_list_count)) $chks->document_bottom_list_count = (int)$chks->document_bottom_list_count;
-
             return $chks;
         }
 
@@ -275,6 +271,7 @@ class beluxeAdminController extends beluxe
         $df_option[] = (int)$args->default_list_count;
         $df_option[] = (int)$args->default_page_count;
         $df_option[] = $comment_count = (int)$args->default_clist_count;
+        $df_option[] = (int)$args->default_dlist_count;
         $args->default_type_option = implode('|@|', $df_option);
 
         // 없으면 빈값 입력해서 체크되게
@@ -300,6 +297,7 @@ class beluxeAdminController extends beluxe
         unset($args->default_list_count);
         unset($args->default_page_count);
         unset($args->default_clist_count);
+        unset($args->default_dlist_count);
 
         // 스킨 기본 옵션값이 있으면 설정
         $filename = sprintf('%sskins/%s/type.xml', $this->module_path, $args->skin);

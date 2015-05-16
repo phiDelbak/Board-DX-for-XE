@@ -111,14 +111,6 @@ class BeluxeCache
 			$obj[$key]->sort = $val[12];
 		}
 
-		$oCacheNew = CacheHandler::getInstance('object', NULL, TRUE);
-		if($oCacheNew->isSupport())
-		{
-			$object_key = 'object:beluxe:'.$a_modsrl;
-			$cache_key = $oCacheNew->getGroupKey('site_and_module', $object_key);
-			$oCacheNew->put($cache_key, $obj);
-		}
-
 		return $obj;
 	}
 }
