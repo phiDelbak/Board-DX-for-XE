@@ -311,9 +311,9 @@
 					<title xml:lang="jp">表示</title>
 					<title xml:lang="en">display</title>
 				</options>
-				<description xml:lang="ko">목록 헤더에 총 문서 수를 표시할지 설정합니다. (정렬 헤더가 없을 경우만 표시)</description>
-				<description xml:lang="jp">リストヘッダーにすべての文書数の表示、非表示を設定します. (정렬 헤더가 없을 경우만 표시)</description>
-				<description xml:lang="en">Set whether to display the document count. (정렬 헤더가 없을 경우만 표시)</description>
+				<description xml:lang="ko">목록 헤더에 총 문서 수를 표시할지 설정합니다.</description>
+				<description xml:lang="jp">リストヘッダーにすべての文書数の表示、非表示を設定します.</description>
+				<description xml:lang="en">Set whether to display the document count.</description>
 			</var>
 			<var name="display_scrap_button" type="radio" default="N">
 				<title xml:lang="ko">스크랩 표시</title>

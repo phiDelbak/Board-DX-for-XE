@@ -770,6 +770,8 @@
 #siLst thead .scCheck {
     border:0!important;
     padding:0 0 2px 3px!important
+}#siLst thead .scCheck input{
+    margin: 0 1px 0 2px;
 }
 #siLst .scCheck {
     display:none;
@@ -853,12 +855,13 @@
     font-family:Tahoma
 }
 #siLst thead .sort em {
+    padding:0 0 0 2px;
     width:4px;
     height:4px;
-    background:transparent url(../img/common/btn_nav.gif) no-repeat -60px 8px
+    background:transparent url(../img/common/btn_nav.gif) no-repeat -58px 12px
 }
 #siLst thead .sort em.asc {
-    background-position:-60px -28px
+    background-position:-58px -24px
 }
 #siLst.noheader {
     border-top:1px solid #ddd;
@@ -1022,6 +1025,11 @@
     -webkit-border-radius:3px;
     opacity:.7
 }
+
+#siLst.gall .prtImg em.usept.colBgBlue {
+    color:#333;
+}
+
 #siLst.gall .prtImg img {
     vertical-align:text-bottom;
     margin:0 0 0 2px!important
@@ -1032,8 +1040,8 @@
 #siLst.gall .scItem .scCheck {
     position:absolute;
     z-index:2;
-    bottom:5px;
-    right:10px
+    top:5px;
+    right:5px
 }
 #siLst.gall .scItem:hover {
     border-width:2px;

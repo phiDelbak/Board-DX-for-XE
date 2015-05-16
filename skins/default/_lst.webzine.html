@@ -48,14 +48,17 @@
 	<tr>
 		<th scope="row" colspan="{$colcnt}">
 		<div>&nbsp;
-			<span loop="$sclms => $key,$val" cond="$val->sort == 'Y'" class="sort"> {@ $sotcnt++}
-				<a href="{getUrl('sort_index',$key,'order_type',($order_type!='asc'?'asc':'desc'))}">{$val->name}<em class="asc"|cond="$sort_index==$key&&$order_type=='asc'">&nbsp;</em></a>
-			</span>
-			<span cond="$mi->display_document_count!='N'&&!$sotcnt" class="scHaDCnts">
+			<!--@if($mi->display_document_count!='N')-->
+			<span class="scHaDCnts">
 				<em>Today</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd"))}</strong>,
 				<em>Yesterday</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd",strtotime("-1 day", time())))}</strong>,
 				<em>Total</em> <strong>{$total_count}</strong>
 			</span>
+			<!--@else-->
+			<span loop="$sclms => $key,$val" cond="$val->sort == 'Y'" class="sort"> {@ $sotcnt++}
+				<a href="{getUrl('sort_index',$key,'order_type',($order_type!='asc'?'asc':'desc'))}">{$val->name}<em class="asc"|cond="$sort_index==$key&&$order_type=='asc'">&nbsp;</em></a>
+			</span>
+			<!--@endif-->
 		</div>
 		</th>
 		<td cond="$grant->manager" class="scCheck sort"><div><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true }); return false;" /></div></td>

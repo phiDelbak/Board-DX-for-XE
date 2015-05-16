@@ -49,19 +49,15 @@
 	}
 </block>
 
-{@ $sotcnt = $mi->display_document_count=='N'?1:$sotcnt}
+{@ $dis_dcnt = $mi->display_document_count=='Y'}
 
 <!-- LIST -->
 <include cond="$is_notice_widget && (count($notice_list) || count($best_list))" target="_etc.noticewidget.html" />
 
 <table id="siLst" class="list{$mi->display_list_header=='N'?' noheader':''}" width="100%" border="0" cellspacing="0" summary="List of document">
-<thead cond="$mi->display_list_header != 'N'" class="scOneCol"|cond="!$sotcnt">
+<thead cond="$mi->display_list_header != 'N'" class="scOneCol"|cond="$dis_dcnt">
 	<tr>
-		<!--@if($sotcnt)-->
-		<th loop="$sclms => $key,$val" scope="row" class="{$key}{($val->sort == 'Y')?' sort':''}">
-			<div><span><!--@if($val->sort == 'Y')--><a href="{getUrl('sort_index',$key,'order_type',($order_type!='asc'?'asc':'desc'))}">{$val->name}<em class="asc"|cond="$sort_index==$key&&$order_type=='asc'">&nbsp;</em></a><!--@else-->{$val->name}<!--@endif--></span></div>
-		</th>
-		<!--@else-->
+		<!--@if($dis_dcnt)-->
 		<th scope="row" colspan="{$colcnt}">
 		<div>&nbsp;
 			<span class="scHaDCnts">
@@ -70,6 +66,10 @@
 				<em>Total</em> <strong>{$total_count}</strong>
 			</span>
 		</div>
+		</th>
+		<!--@else-->
+		<th loop="$sclms => $key,$val" scope="row" class="{$key}{($val->sort == 'Y')?' sort':''}">
+			<div><span><!--@if($val->sort == 'Y')--><a href="{getUrl('sort_index',$key,'order_type',($order_type!='asc'?'asc':'desc'))}">{$val->name}<em class="asc"|cond="$sort_index==$key&&$order_type=='asc'">&nbsp;</em></a><!--@else-->{$val->name}<!--@endif--></span></div>
 		</th>
 		<!--@endif-->
 		<td cond="$grant->manager" class="scCheck sort"><div><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true }); return false;" /></div></td>
