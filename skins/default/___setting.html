@@ -22,6 +22,9 @@
 	$mi->summary_length?0:$mi->summary_length = '300';
 	$mi->display_thumbnail_info?0:$mi->display_thumbnail_info = 'N';
 	$mi->display_attached_files?0:$mi->display_attached_files = 'Y';
+	$mi->bottom_list_style?0:$mi->bottom_list_style = 'default';
+
+	$btm_style = $is_doc&&$mi->bottom_list_style!='default'?$mi->bottom_list_style:'';
 
     $sedt_wbtn = strpos($mi->simple_editor_option, 'wrtbtn')!==false;
     $sedt_hide = strpos($mi->simple_editor_option, 'dochide')!==false;

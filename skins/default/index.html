@@ -18,7 +18,7 @@
 }
 <!--@if(!$is_doc||$is_btlst=='Y')-->
             <a cond="$is_doc" name="navigation"></a>
-{$oTemplate->compile($tpl_path, '_lst.'.$lsttp.'.html')}
+{$oTemplate->compile($tpl_path, '_lst.'.($btm_style?$btm_style:$lsttp).'.html')}
             <include target="_etc.pagination.html" />
 <!--@endif-->
         </div>

@@ -44,9 +44,9 @@
 			<var name="view_comment_style" type="_REQUEST_SYNC_OPTIONS_" />
 		</group>
 		<group>
-			<title xml:lang="ko">모양</title>
-			<title xml:lang="jp">スタイル</title>
-			<title xml:lang="en">Style</title>
+			<title xml:lang="ko">일반</title>
+			<title xml:lang="jp">일반</title>
+			<title xml:lang="en">일반</title>
 			<var name="title_length" type="text" default="">
 				<title xml:lang="ko">제목 길이</title>
 				<title xml:lang="jp">タイトルの長さ</title>
@@ -120,6 +120,42 @@
 				<description xml:lang="jp">다국어로 작성된 문서일 경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
 				<description xml:lang="en">다국어로 작성된 문서일 경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
 			</var>
+			<var name="display_button_sns" type="radio" default="Y">
+				<title xml:lang="ko">SNS 버튼</title>
+				<title xml:lang="jp">SNS ボタン</title>
+				<title xml:lang="en">SNS Button</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">該当の文書を SNSに送ることができるボタンを表示するか設定します.</description>
+				<description xml:lang="en">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
+			</var>
+			<var name="display_document_do" type="radio" default="Y">
+				<title xml:lang="ko">이 게시물...</title>
+				<title xml:lang="jp">この掲示物...</title>
+				<title xml:lang="en">I want to...</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">문서 하단의 "이 게시물..."을  표시할지 설정합니다.</description>
+				<description xml:lang="jp">文書下端の "この掲示物 ... " の表示を設定します.</description>
+				<description xml:lang="en">Set whether to display the I want to...</description>
+			</var>
 			<var name="display_attached_files" type="radio" default="Y">
 				<title xml:lang="ko">첨부 파일</title>
 				<title xml:lang="jp">添付ファイル</title>
@@ -147,47 +183,6 @@
 				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
 				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
 				<description xml:lang="en">Set whether to display the attached files.</description>
-			</var>
-		</group>
-		<group>
-			<title xml:lang="ko">버튼</title>
-			<title xml:lang="jp">버튼</title>
-			<title xml:lang="en">버튼</title>
-			<var name="display_document_do" type="radio" default="Y">
-				<title xml:lang="ko">이 게시물...</title>
-				<title xml:lang="jp">この掲示物...</title>
-				<title xml:lang="en">I want to...</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">표시</title>
-					<title xml:lang="jp">表示</title>
-					<title xml:lang="en">display</title>
-				</options>
-				<description xml:lang="ko">문서 하단의 "이 게시물..."을  표시할지 설정합니다.</description>
-				<description xml:lang="jp">文書下端の "この掲示物 ... " の表示を設定します.</description>
-				<description xml:lang="en">Set whether to display the I want to...</description>
-			</var>
-			<var name="display_button_sns" type="radio" default="Y">
-				<title xml:lang="ko">SNS 버튼</title>
-				<title xml:lang="jp">SNS ボタン</title>
-				<title xml:lang="en">SNS Button</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">표시</title>
-					<title xml:lang="jp">表示</title>
-					<title xml:lang="en">display</title>
-				</options>
-				<description xml:lang="ko">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
-				<description xml:lang="jp">該当の文書を SNSに送ることができるボタンを表示するか設定します.</description>
-				<description xml:lang="en">해당 글을 SNS에 보낼 수 있는 버튼을 표시할지 설정합니다.</description>
 			</var>
 			<var name="use_d_vote" type="checkbox">
 				<title xml:lang="ko">문서 추천 버튼</title>
