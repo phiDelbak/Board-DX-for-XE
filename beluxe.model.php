@@ -21,25 +21,19 @@ class beluxeModel extends beluxe
     /* @brief Get a module info */
     function _getModuleInfo($a_modsrl = 0)
     {
-        if (!$this->module_info || $this->module_srl != $this->module_info->module_srl) {
-
-            if (!$this->module_info->module_srl) {
-                // module model 객체 생성
-                $cmModule = & getModel('module');
-                if ($a_modsrl) $oModIfo = $cmModule->getModuleInfoByModuleSrl($a_modsrl);
-                else {
-                    $mid = Context::get('mid');
-                    if (!$mid) $mid = Context::get('cur_mid');
-                    if (!$mid) return;
-                    $site_info = Context::get('site_module_info');
-                    if ($site_info) $site_srl = $site_info->site_srl;
-                    $oModIfo = $cmModule->getModuleInfoByMid($mid, $site_srl);
-                }
-                $this->module_info = $oModIfo;
-            } else {
-                $oModIfo = $this->module_info;
+        if (!$this->module_info || !$this->module_info->module_srl) {
+            // module model 객체 생성
+            $cmModule = & getModel('module');
+            if ($a_modsrl) $oModIfo = $cmModule->getModuleInfoByModuleSrl($a_modsrl);
+            else {
+                $mid = Context::get('mid');
+                if (!$mid) $mid = Context::get('cur_mid');
+                if (!$mid) return;
+                $site_info = Context::get('site_module_info');
+                if ($site_info) $site_srl = $site_info->site_srl;
+                $oModIfo = $cmModule->getModuleInfoByMid($mid, $site_srl);
             }
-
+            $this->module_info = $oModIfo;
             $this->module_srl = $oModIfo->module_srl;
         }
 

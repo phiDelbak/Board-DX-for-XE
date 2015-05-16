@@ -50,7 +50,7 @@ class beluxeController extends beluxe
 
     function _getModuleInfo($a_modsrl = 0)
     {
-		if(!$this->module_info || $this->module_srl != $this->module_info->module_srl) {
+		if(!$this->module_info || !$this->module_info->module_srl) {
 			$cmThis = &getModel('beluxe');
 			$this->module_info = $cmThis->_getModuleInfo($a_modsrl);
 			$this->module_srl = $this->module_info->module_srl;
