@@ -401,14 +401,13 @@
 			<div class="x_controls {$compulsory_options['use_point_type']?'opt_cps':''} {$module_backup_options['use_point_type']?'opt_bks':''}">
 				<label class="x_inline"><input type="radio" name="use_point_type" value="R" checked="checked"|cond="$module_info->use_point_type!='A'" /> {$lang->restriction}</label>
 				<label class="x_inline"><input type="radio" name="use_point_type" value="A" checked="checked"|cond="$module_info->use_point_type=='A'" /> {$lang->adopt}</label>
-				<a href="#about_use_restrict_type" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="about_use_restrict_type" class="x_help-block" hidden>{$lang->about_use_restrict_type}</p>
 			</div>
 			<div class="x_controls">
 				<select name="use_point_percent">
 					{@ $point_list = array('10','30','50','70','90','100')}
 					<option loop="$point_list=>$val" value="{$val}" selected="selected"|cond="$module_info->use_point_percent == $val">{$val}% {$lang->point}</option>
 				</select>
+				<p class="x_help-block">{$lang->about_use_restrict_type}</p>
 			</div>
 			<div class="x_controls {$compulsory_options['use_restrict_view']?'opt_cps':''} {$module_backup_options['use_restrict_view']?'opt_bks':''}" style="margin-top:10px">
 				<label for="tmp_restrict_view">

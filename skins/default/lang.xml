@@ -4,13 +4,8 @@
 영어 번역: 썬
 -->
 <lang>
-	<item name="skip_content">
-		<value xml:lang="ko"><![CDATA[본문 건너뛰기]]></value>
-		<value xml:lang="jp"><![CDATA[本文を飛ばす]]></value>
-		<value xml:lang="en"><![CDATA[Skip to content]]></value>
-	</item>
 	<item name="cmd_all_list">
-		<value xml:lang="ko"><![CDATA[모두]]></value>
+		<value xml:lang="ko"><![CDATA[전체]]></value>
 		<value xml:lang="jp"><![CDATA[全体]]></value>
 		<value xml:lang="en"><![CDATA[All]]></value>
 	</item>

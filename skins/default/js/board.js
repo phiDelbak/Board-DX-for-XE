@@ -217,7 +217,7 @@ jQuery(function($)
 				alert(ret_obj.message);
 				if(ret_obj.error === 0 && rec != '0')
 				{
-					var t = '[Board DX] Declare, ' + ty + ': ' + srl,
+					var t = '[Board DX] Declare, received messages: ' + srl,
 						u = current_url.setQuery('comment_srl',(ty=='comment'?srl:''));
 						c = c + '<br /><br /><a href="' + u + '">'+u+'</a>';
 					exec_json('communication.procCommunicationSendMessage',

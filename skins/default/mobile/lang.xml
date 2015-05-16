@@ -4,11 +4,6 @@
 영어 번역: 썬
 -->
 <lang>
-	<item name="skip_content">
-		<value xml:lang="ko"><![CDATA[본문 건너뛰기]]></value>
-		<value xml:lang="jp"><![CDATA[本文を飛ばす]]></value>
-		<value xml:lang="en"><![CDATA[Skip to content]]></value>
-	</item>
 	<item name="cmd_agree">
 		<value xml:lang="ko"><![CDATA[찬성]]></value>
 		<value xml:lang="jp"><![CDATA[賛成]]></value>
