@@ -67,7 +67,7 @@
 			<ul class="ifo" style="margin-left:{(int)$mi->thumbnail_width+13}px;">
 				<li>
 					<div class="title">
-						<span cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</span>
+						<span cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{abs((int)$un_extra->beluxe->use_point)}</span>
 						<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
 						<block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">
 							{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}

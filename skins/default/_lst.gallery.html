@@ -195,7 +195,7 @@
 						</block>
 						{$document->printExtraImages(60*60*$mi->duration_new)}<img cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
 						<em cond="$t_cmtn || $t_tbkn" class="reply" title="Replies">+{(int)$t_cmtn}<block cond="$t_tbkn">.{$t_tbkn}</block></em>
-						<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</em>
+						<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$un_extra->beluxe->use_point)}</em>
 					</span>
 					<div <!--@if($mi->display_thumbnail_info != 'N')-->class="scInfo aHide" style="display:none" data-autohide="true"<!--@else-->class="scInfo"<!--@endif--> data-fade="true"|cond="$mi->display_thumbnail_info == 'F'">
 						<ul style="width:{(int)$mi->thumbnail_width}px;"|cond="$mi->display_thumbnail_info=='N'||$mi->thumbnail_type!='ratio'">

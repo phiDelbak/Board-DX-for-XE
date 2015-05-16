@@ -22,7 +22,7 @@
 		}
 			<a href="{getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
 				<div class="title"><span cond="$tlk" class="{$tlk}">{$tlk=='best'?'Best':$lang->notice}</span>
-					<span cond="!$tlk&&($pt_vtype!='N'||$pt_dtype!='N')" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{$un_extra->beluxe?abs((int)$un_extra->beluxe->use_point):'0'}</span>
+					<span cond="!$tlk&&($pt_vtype!='N'||$pt_dtype!='N')" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{abs((int)$un_extra->beluxe->use_point)}</span>
 					<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
 					<block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">
 						{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}

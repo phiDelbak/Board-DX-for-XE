@@ -125,7 +125,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
                     <div cond="$pt_vtype== 'P'" class="btnArea">
                         <span class="btn">
                         <a href="#" onclick="doCallModuleAction('beluxe','procBeluxePayPoint','{$doc_srl}');return false">
-                        {sprintf(Context::getLang('msg_point_is_used'), $un_extra->beluxe->use_point?$un_extra->beluxe->use_point:'0')}
+                        {sprintf(Context::getLang('msg_point_is_used'), (int)$un_extra->beluxe->use_point)}
                         </a>
                         </span>
                     </div>

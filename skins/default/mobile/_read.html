@@ -74,7 +74,7 @@
             {$oDocument->getSummary(100)}
             <div cond="$pt_vtype == 'P'" class="bna">
                 <a class="bn dark" href="#" onclick="doCallModuleAction('beluxe','procBeluxePayPoint','{$doc_srl}');return false">
-                {sprintf(Context::getLang('msg_point_is_used'), $un_extra->beluxe->use_point?$un_extra->beluxe->use_point:'0')}
+                {sprintf(Context::getLang('msg_point_is_used'), (int)$un_extra->beluxe->use_point)}
                 </a>
             </div>
         </div>
@@ -143,7 +143,7 @@
                 </span>
                 <span class="cate">[{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]</span>
                 <span class="scElps">
-                    <em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{$nv_un_ex->beluxe?abs((int)$nv_un_ex->beluxe->use_point):'0'}</em>
+                    <em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{abs((int)$nv_un_ex->beluxe->use_point)}</em>
                     {$val->getTitle($mi->title_length)}
                     <span class="fr">
                         <em cond="$nv_t_cn" class="reply" title="Replies">+{$nv_t_cn}</em><em cond="$nv_t_tn" class="trackback" title="Trackbacks">.{$nv_t_tn}</em>
@@ -161,7 +161,7 @@
         $ds_flsgn = $mi->display_attached_files=='Y'||$mi->display_attached_files=='G';
         $ds_flsmd = $mi->display_attached_files=='Y'||$mi->display_attached_files=='M';
     }
-    <button type="button" class="tbn cb" title="open/close">{$lang->uploaded_file} <span>[{count($ufls)}]</span><span cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, $un_extra->beluxe->use_point?$un_extra->beluxe->use_point:"0")} (Once)</span></button>
+    <button type="button" class="tbn cb" title="open/close">{$lang->uploaded_file} <span>[{count($ufls)}]</span><span cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, (int)$un_extra->beluxe->use_point)} (Once)</span></button>
     <ul class="file tgo">
         <li loop="$ufls=>$key,$file" cond="($ds_flsgn&&$file->direct_download!='Y')||($ds_flsmd&&$file->direct_download=='Y')" class="notvalid"|cond="$file->isvalid!='Y'" class="direct"|cond="$file->isvalid=='Y'&&$file->direct_download=='Y'">
             {@

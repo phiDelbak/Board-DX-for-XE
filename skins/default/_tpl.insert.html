@@ -23,7 +23,7 @@
 	{@
 		$un_extra = ($pt_vtype!='N'||$pt_dtype!='N')?$oDocument->get('extra_vars'):null;
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
-		$us_point = $un_extra?$un_extra->beluxe->use_point:0;
+		$us_point = is_array($un_extra)?$un_extra->beluxe->use_point:0;
 	}
 	<div id="siWrt">
 		<input type="hidden" name="content" value="{$is_doc?$oDocument->getContentText():htmlspecialchars($mi->document_default_content)}" />
