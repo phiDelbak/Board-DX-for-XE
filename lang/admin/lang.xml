@@ -120,11 +120,6 @@
 		<value xml:lang="jp"><![CDATA[スキンタイプ]]></value>
 		<value xml:lang="en"><![CDATA[Skin type]]></value>
 	</item>
-	<item name="custom_status">
-		<value xml:lang="ko"><![CDATA[사용자 지정 상태]]></value>
-		<value xml:lang="jp"><![CDATA[使用者指定状態]]></value>
-		<value xml:lang="en"><![CDATA[Custom status]]></value>
-	</item>
 	<item name="use_title_color">
 		<value xml:lang="ko"><![CDATA[제목 색상 사용]]></value>
 		<value xml:lang="jp"><![CDATA[題目色使用]]></value>

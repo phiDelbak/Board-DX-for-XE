@@ -75,9 +75,9 @@
 		<value xml:lang="en"><![CDATA[Thumbnail]]></value>
 	</item>
 	<item name="custom_status">
-		<value xml:lang="ko"><![CDATA[상태]]></value>
-		<value xml:lang="jp"><![CDATA[状態]]></value>
-		<value xml:lang="en"><![CDATA[Status]]></value>
+		<value xml:lang="ko"><![CDATA[사용자 지정 상태]]></value>
+		<value xml:lang="jp"><![CDATA[使用者指定状態]]></value>
+		<value xml:lang="en"><![CDATA[Custom status]]></value>
 	</item>
 	<item name="upload_filelink">
 		<value xml:lang="ko"><![CDATA[링크 첨부]]></value>
