@@ -20,146 +20,116 @@ jQuery(function($){
 		this
 			.not('.pid_modal-window')
 			.addClass('pid_modal-window')
-			.each(function(){
-				$( $(this).attr('href') ).hide();
+			.each(function() {
+				$($(this).attr('href')).hide();
 			})
-			.click(function(){
-				var $this = $(this), $modal, disabled;
-
-				// get and initialize modal window
-				$modal = $( $this.attr('href') );
-
-				if($modal.data('state') == 'showing') {
+			.click(function()
+			{
+				var $this = $(this);
+				if( $($this.attr('href')).data('state') == 'showing') {
 					$this.trigger('close.mw');
 				} else {
 					$this.trigger('open.mw');
 				}
 				return false;
 			})
-			.bind('open.mw', function(){
-				var $this = $(this), $modal, $btnClose, disabled, before_event, duration, target;
+			.bind('open.mw', function()
+			{
+				var $this = $(this), before_event, $modal, $btnClose, duration, target, zidx = 90;
 
-				// get modal window
+				// get and initialize modal window
 				$modal = $( $this.attr('href') );
+				// set the related anchor
+				$modal.data('anchor', $this);
+
 				target = $this.attr('data-target') || '';
 
-				// if stack top is this modal, ignore
-				if(pidModalStack.length && pidModalStack[pidModalStack.length - 1].get(0) == $modal.get(0)){
-					return;
-				}
-
 				if(!target && !$modal.parent('body').length) {
+
 					$modal.find('[data-modal-hide]').click(function(){ $modal.data('anchor').trigger('close.mw'); });
 					$btnClose = $('<button type="button" class="pid_modal-close">&times;</button>');
 					$btnClose.click(function(){ $modal.data('anchor').trigger('close.mw'); });
 					$modal.prepend($btnClose); // prepend close button
 					$('body').append($modal);
-				}
-				else if(target)
-				{
-					if($modal.data('state') == 'showing') $this.trigger('close.mw');
+
+				} else if(target && !$modal.parent(target).length) {
+
 					$(target).before($modal);
 					$modal.data('target', target);
 				}
 
-				// set the related anchor
-				$modal.data('anchor', $this);
-
 				// before event trigger
 				before_event = $.Event('before-open.mw');
 				$this.trigger(before_event);
-
 				// is event canceled?
 				if(before_event.isDefaultPrevented()) return false;
-
 				// get duration
 				duration = $this.data('duration') || 'fast';
-
 				// set state : showing
 				$modal.data('state', 'showing');
-
 				// after event trigger
-				function after(){ $this.trigger('after-open.mw'); }
+				function after(){$this.trigger('after-open.mw');}
 
-				if(!target || (target && $('[data-modal-hide]', $modal).length)){
+				if(target) {
+
+					zidx = 0;
+					$(target).hide(duration);
+				} else {
+
+					$('body > *').filter(function(){ return $(this).css('z-index') !== 'auto'; })
+					.each(function(event){
+	    				var thzidx = parseInt($(this).css('z-index'));
+						if(zidx < thzidx) zidx = thzidx;
+					});
+
 					$(document).bind('keydown.mw', function(event){
 						if(event.which == ESC) {
 							$this.trigger('close.mw');
 							return false;
 						}
 					});
+
+					$('body').css('overflow','hidden');
+					$pidModalBackdrop.css('z-index', ++zidx).show();
 				}
 
-				$modal
+				$modal.css('z-index', ++zidx)
 					.fadeIn(duration, after)
 					.find('button.pid_modal-close:first').focus();
-
-				if(target){
-					$(target).hide('fast');
-				}else{
-					$('body').css('overflow','hidden');
-					// push to stack
-					pidModalStack.push($modal);
-					// show backdrop and adjust z-index
-					var zIndex = pidModalInitailZIndex + ((pidModalStack.length - 1) * 2);
-					$pidModalBackdrop.css('z-index', zIndex).show();
-					var pidModalBackdropHeight = $pidModalBackdrop.height();
-					var modalBodyHeight = pidModalBackdropHeight;
-
-					modalBodyHeight -= $modal.find('.pid_modal-header:visible').height();
-					modalBodyHeight -= $modal.find('.pid_modal-footer:visible').height();
-					modalBodyHeight -= 150;
-
-					$modal.find('.pid_modal-body').css('height', modalBodyHeight);
-					$modal.css('z-index', zIndex + 1);
-				}
 			})
 			.bind('close.mw', function(){
 				var $this = $(this), before_event, $modal, duration, target;
 
-				// get modal window
-				$modal = $( $this.attr('href') );
-
-				// if stack top is not this modal, ignore
-				if(pidModalStack.length && pidModalStack[pidModalStack.length - 1].get(0) != $modal.get(0)){
-					return;
-				}
-
 				// before event trigger
 				before_event = $.Event('before-close.mw');
 				$this.trigger(before_event);
-
 				// is event canceled?
 				if(before_event.isDefaultPrevented()) return false;
 
+				// get modal window
+				$modal = $($this.attr('href'));
 				// get duration
 				duration = $this.data('duration') || 'fast';
-
 				// set state : hiding
 				$modal.data('state', 'hiding');
-
 				// after event trigger
-				function after(){ $this.trigger('after-close.mw'); }
-
-				$modal.fadeOut(duration, after);
-				$this.focus();
+				function after(){$this.trigger('after-close.mw');}
 
 				target = $this.attr('data-target') || '';
 
-				if(target){
-					$(target).show('fast');
-				}else{
+				$modal.fadeOut(duration, function(){$(this).css('z-index', '92');after();});
+
+				if(target) {
+
+					$(target).show(duration);
+
+				} else {
+
+					$pidModalBackdrop.hide().css('z-index', '91');
 					$('body').css('overflow','auto');
-					// pop from stack
-					pidModalStack.pop();
-					// hide backdrop and adjust z-index
-					var zIndex = pidModalInitailZIndex + ((pidModalStack.length - 1) * 2);
-					if(pidModalStack.length){
-						$pidModalBackdrop.css('z-index', zIndex);
-					}else{
-						$pidModalBackdrop.hide();
-					}
 				}
+
+				$this.focus();
 			});
 	};
 
@@ -312,11 +282,12 @@ jQuery(function($){
 
 	$('.pidModalAnchor')
 	.bind('before-open.mw', function(e) {
+
 		var $modal = $($(this).attr('href'));
-		if(!$(this).attr('data-target')) {
-			$modal.find('.pid_modal-body').hide();
-		}
-	}).bind('after-open.mw', function(e) {
+		if(!$(this).attr('data-target')) $modal.find('.pid_modal-body').hide();
+	})
+	.bind('after-open.mw', function(e) {
+
 		var  $this = $(this), act, param, url, a, i, c, t;
 
 		act = $this.attr('data-modal-act')||'';
@@ -336,20 +307,26 @@ jQuery(function($){
 
 			$($(this).attr('href')).pidModalGoUrl(url);
 		}
-	}).bind('before-close.mw', function(e) {
+	})
+	.bind('before-close.mw', function(e) {
+
 		var $modal = $($(this).attr('href'));
 		$modal.find('.pid_modal-body').hide();
 		// 자원 제거
-		$('[data-modal-child]', $modal).remove();
-        $('.pid_modal-body', $modal).children().remove();
-	}).pidModalWindow();
+		$modal.find('[data-modal-child]').remove();
+        $modal.find('.pid_modal-body').children().remove();
+	})
+	.pidModalWindow();
 
 	try
 	{
 		// 프레임중 해당 모달창이면...
 		if(!self.frames.length && self.location.host == parent.location.host)
 		{
-			$(self).bind("unload",  function(){$('.pid_modal-body', parent.document).hide();});
+			$(self).bind("unload",  function(){
+				$('#pidOframe:not([data-target])', parent.document).parent().hide();
+			});
+
 			// 닫기 버튼 상단에도 추가
 			$('[data-modal-hide]').click(function(){
 				$($(this).attr('href'), parent.document).find('button.pid_modal-close:first').click();

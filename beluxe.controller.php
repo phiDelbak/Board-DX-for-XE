@@ -97,7 +97,7 @@ class beluxeController extends beluxe
 			else $pObj->use_point = 0;
 		}
 
-		$oModIfo = $this->_getModuleInfo();
+		$oModIfo = $this->_getModuleInfo($pObj->module_srl);
 
 		if(is_string($oModIfo->extra_fields))
 		{
