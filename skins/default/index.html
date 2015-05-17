@@ -16,8 +16,9 @@
     $oTemplate = &TemplateHandler::getInstance();
     $is_doc?print $oTemplate->compile($tpl_path, '_viw.'.($oDocument->isNotice()?'list':$viwtp).'.html'):false;
 }
-<!--@if(!$is_doc||$is_btlst=='Y')-->
+<!--@if(!$is_doc||($is_doc&&$btm_lstcnt))-->
             <a cond="$is_doc" name="navigation"></a>
+{@ $btm_style = $is_doc&&$mi->bottom_list_style!='default'?$mi->bottom_list_style:''}
 {$oTemplate->compile($tpl_path, '_lst.'.($btm_style?$btm_style:$lsttp).'.html')}
             <include target="_etc.pagination.html" />
 <!--@endif-->

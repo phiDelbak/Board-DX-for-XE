@@ -375,9 +375,9 @@
 		<value xml:lang="en"><![CDATA[receive by email any new article or comment. By commas (,) separate email address you can send multiple.]]></value>
 	</item>
 	<item name="about_custom_status">
-		<value xml:lang="ko"><![CDATA[사용자 지정 상태 목록을 추가하시려면 입력해주세요. (콤마(,)로 구분, 최대 9개)]]></value>
-		<value xml:lang="jp"><![CDATA[使用者指定状態リストを追加したいの時入力してください. (コンマ(,)路仕分け, 最大 9個)]]></value>
-		<value xml:lang="en"><![CDATA[To add a custom status list, please enter. (commas(,)separate, max 9)]]></value>
+		<value xml:lang="ko"><![CDATA[사용자 지정 상태 목록을 추가하시려면 입력해주세요. (콤마(,)로 구분, 최대 9개, 컬럼에 사용자 지정 상태 표시 필요)]]></value>
+		<value xml:lang="jp"><![CDATA[使用者指定状態リストを追加したいの時入力してください. (コンマ(,)路仕分け, 最大 9個, 컬럼에 사용자 지정 상태 표시 필요)]]></value>
+		<value xml:lang="en"><![CDATA[To add a custom status list, please enter. (commas(,)separate, max 9, 컬럼에 사용자 지정 상태 표시 필요)]]></value>
 	</item>
 	<item name="about_use_best">
 		<value xml:lang="ko"><![CDATA[선택한 설정 조건에 맞는 글을 목록 상단에 출력합니다.]]></value>

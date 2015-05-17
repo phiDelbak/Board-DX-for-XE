@@ -171,7 +171,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
 </div>
 <!-- /DOCUMENT -->
 <div class="btnArea">
-    <span class="scBtn black fl" cond="$grant->write_document&&$is_btlst!='N'&&($sedt_wbtn||!$is_sedt)">
+    <span class="scBtn black fl" cond="$grant->write_document&&$btm_lstcnt&&($sedt_wbtn||!$is_sedt)">
         {@ $s = $us_modal?'class="pidModalAnchor" data-modal-act="dispBoardWrite" data-modal-param="document_srl,"':''}
         <a href="{$us_modal?'#pidModalFrame':getUrl('act','dispBoardWrite','document_srl','')}" accesskey="w" {$s}>{$lang->document_write}</a>
     </span>

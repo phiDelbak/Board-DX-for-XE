@@ -1,29 +1,39 @@
-
 <ul class="gn">
-	<li><a href="{getUrl('','mid',$mid,'category_srl','')}">{$mi->browser_title} <em>[{number_format($cts[0]->total_document_count)}]</em></a></li>
-	<!--@foreach($cts as $val)-->
-	<block cond="$val->category_srl">
-		<!--@if(!$start && $val->depth == $depth)-->
-		</li>
-		<!--@end-->
-		<!--@if($val->depth > $depth)--> <!--more depth-->
-		<ul>
-		<!--@else-->
-		<!--@while($val->depth < $depth)-->
+	<li><a href="{getUrl('','mid',$mid,'category_srl','')}">{$is_cts?$mi->default_category_title:$lang->all} <em cond="$is_cts">[{number_format($cts[0]->total_document_count)}]</em></a></li>
+	<block cond="$is_cts">
+		<!--@foreach($cts as $val)-->
+		<block cond="$val->category_srl">
+			<!--@if(!$start && $val->depth == $depth)-->
+			</li>
+			<!--@end-->
+			<!--@if($val->depth > $depth)--> <!--more depth-->
+			<ul>
+			<!--@else-->
+			<!--@while($val->depth < $depth)-->
+			</li>
+			</ul>
+			{@ $depth -= 1}
+			<!--@end-->
+			<!--@endif-->
+			<li class="active"|cond="$val->category_srl==$category_srl"><a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{$val->title} <em>[{number_format($val->total_document_count)}]</em></a>
+			{@ $start = false }
+			{@ $depth = $val->depth }
+		</block>
+		<!--@endforeach-->
+		<!--@while($depth > 0)-->
 		</li>
 		</ul>
 		{@ $depth -= 1}
 		<!--@end-->
-		<!--@endif-->
-		<li><a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{$val->title} <em>[{number_format($val->total_document_count)}]</em></a>
-		{@ $start = false }
-		{@ $depth = $val->depth }
+		</li>
 	</block>
-	<!--@endforeach-->
-	<!--@while($depth > 0)-->
-	</li>
-	</ul>
-	{@ $depth -= 1}
-	<!--@end-->
-	</li>
+	<block cond="$pt_vtype=='A'">
+		<li class="active"|cond="$search_target == 'is_adopted'&&$search_keyword=='true'"><a href="{getUrl('','mid', $mid, 'search_target', 'is_adopted','search_keyword', 'true')}"><span>{$lang->adopt}</span></a></li>
+        <li class="active"|cond="$search_target == 'is_adopted'&&$search_keyword=='false'"><a href="{getUrl('','mid', $mid, 'search_target', 'is_adopted','search_keyword', 'false')}"><span>{$lang->not_adopt}</span></a></li>
+        <block cond="$logged_info">
+            {@ $tmp = $logged_info->member_srl}
+            <li class="active"|cond="$search_target == 'member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 'member_srl','search_keyword', $tmp)}"><span>{$lang->search_my_document}</span></a></li>
+            <li class="active"|cond="$search_target == 't_comment_member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 't_comment_member_srl','search_keyword', $tmp)}"><span>{$lang->search_my_comment}</span></a></li>
+        </block>
+	</block>
 </ul>

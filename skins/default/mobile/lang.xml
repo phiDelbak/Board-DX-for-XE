@@ -24,6 +24,31 @@
 		<value xml:lang="jp"><![CDATA[新しいコメント]]></value>
 		<value xml:lang="en"><![CDATA[New comment]]></value>
 	</item>
+	<item name="search_my_document">
+		<value xml:lang="ko"><![CDATA[내 글]]></value>
+		<value xml:lang="jp"><![CDATA[내 글]]></value>
+		<value xml:lang="en"><![CDATA[내 글]]></value>
+	</item>
+	<item name="search_my_comment">
+		<value xml:lang="ko"><![CDATA[내 답변]]></value>
+		<value xml:lang="jp"><![CDATA[내 답변]]></value>
+		<value xml:lang="en"><![CDATA[내 답변]]></value>
+	</item>
+	<item name="is_adopted">
+		<value xml:lang="ko"><![CDATA[채택여부]]></value>
+		<value xml:lang="jp"><![CDATA[채택여부]]></value>
+		<value xml:lang="en"><![CDATA[채택여부]]></value>
+	</item>
+	<item name="t_comment_member_srl">
+		<value xml:lang="ko"><![CDATA[회원번호]]></value>
+		<value xml:lang="jp"><![CDATA[회원번호]]></value>
+		<value xml:lang="en"><![CDATA[회원번호]]></value>
+	</item>
+	<item name="member_srl">
+		<value xml:lang="ko"><![CDATA[회원번호]]></value>
+		<value xml:lang="jp"><![CDATA[회원번호]]></value>
+		<value xml:lang="en"><![CDATA[회원번호]]></value>
+	</item>
 	<item name="bonus_pang_pang">
 		<value xml:lang="ko"><![CDATA[보너스 : %s포인트]]></value>
 		<value xml:lang="jp"><![CDATA[ボーナス : % sポイント]]></value>

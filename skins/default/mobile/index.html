@@ -2,7 +2,7 @@
 
 <div class="bd" id="{$is_doc?'read':'list'}">
 
-	<div cond="$is_cts" class="sd">
+	<div cond="$is_cts||$pt_vtype=='A'" class="sd">
 		<include target="category.html" />
 	</div>
 
@@ -13,7 +13,7 @@
 	<section class="st">
 
 	<h2 class="gn cb">
-		<block cond="$is_cts">
+		<block cond="$is_cts||$pt_vtype=='A'">
 			<a href="#categoryOpen">
 				{@ $pcatlst = array()}
 				<!--@if($category_srl)-->
@@ -31,11 +31,11 @@
 					<span loop="$pcatlst=>$key,$val">{$key>0?'..':$val} &rsaquo;</span>
 				</block>
 				<span class="ca">
-						{$category_srl?$cts[$category_srl]->title:$mi->browser_title}
+					{$category_srl?$cts[$category_srl]->title:$mi->browser_title}
 				</span>
 			</a>
 		</block>
-    	<a cond="!$is_cts" href="#noCategory" onclick="return false"><span>{$mi->browser_title}</span></a>
+    	<a cond="!$is_cts&&$pt_vtype!='A'" href="#noCategory" onclick="return false"><span>{$mi->browser_title}</span></a>
 		<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','','page',$page)}" class="wt">{$lang->cmd_write}</a>
 	</h2>
 

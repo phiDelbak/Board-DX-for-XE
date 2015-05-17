@@ -69,6 +69,11 @@
 		<value xml:lang="jp"><![CDATA[채택]]></value>
 		<value xml:lang="en"><![CDATA[Adopt]]></value>
 	</item>
+	<item name="not_adopt">
+		<value xml:lang="ko"><![CDATA[미채택]]></value>
+		<value xml:lang="jp"><![CDATA[미채택]]></value>
+		<value xml:lang="en"><![CDATA[미채택]]></value>
+	</item>
 	<item name="thumbnail">
 		<value xml:lang="ko"><![CDATA[썸네일]]></value>
 		<value xml:lang="jp"><![CDATA[サムネール]]></value>

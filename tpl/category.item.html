@@ -11,9 +11,12 @@
 		</span>
 		<span class="cbSelect" data-type="panel" data-index="1" style="border:1px solid {$item->color};"|cond="$item->color">
 			<input type="hidden" name="item_color[]" value="{$item->color}" class="_item_color" />
-			{@ $tmp = array($item->navigation->sort_index,$item->navigation->order_type,$item->navigation->list_count,$item->navigation->page_count,$item->navigation->clist_count,$item->navigation->dlist_count)}
-			<input type="hidden" name="item_opts[]" value="{$item->expand.'|@|'.implode('|@|',$tmp)}" class="_value" />
-			<label class="_title">{$lang->cmd_option}</label>
+			{@
+				$tmp = array($item->navigation->sort_index,$item->navigation->order_type,$item->navigation->list_count,$item->navigation->page_count,$item->navigation->clist_count,$item->navigation->dlist_count);
+				$tmp = $item->expand.'|@|'.implode('|@|',$tmp);
+			}
+			<input type="hidden" name="item_opts[]" value="{$tmp}" class="_value" />
+			<label class="_title" style="color:blue"|cond="$tmp!='N|@||@||@||@||@||@|'">{$lang->cmd_option}</label>
 			<dl class="cbLayer x"></dl>
 		</span>
 		<span cond="count($group_list)" class="cbSelect" data-type="array">

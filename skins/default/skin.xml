@@ -205,12 +205,12 @@
 				<description xml:lang="en">Set the appearance of the category. (컬럼 설정에 분류 표시 필요)</description>
 			</var>
 			<var name="category_option" type="text" default="">
-				<title xml:lang="ko">분류 사이드 옵션</title>
-				<title xml:lang="jp">분류 사이드 옵션</title>
-				<title xml:lang="en">분류 사이드 옵션</title>
-				<description xml:lang="ko">사이드 이동, 위치, 크기를 설정합니다. 0은 기본값이며 위치는 - 왼쪽 + 오른쪽입니다. (예제: Y,-200,170)</description>
-				<description xml:lang="jp">사이드 이동, 위치, 크기를 설정합니다. 0은 기본값이며 위치는 - 왼쪽 + 오른쪽입니다. (예제: Y,-200,170)</description>
-				<description xml:lang="en">사이드 이동, 위치, 크기를 설정합니다. 0은 기본값이며 위치는 - 왼쪽 + 오른쪽입니다. (예제: Y,-200,170)</description>
+				<title xml:lang="ko">사이드 분류 옵션</title>
+				<title xml:lang="jp">사이드 분류 옵션</title>
+				<title xml:lang="en">사이드 분류 옵션</title>
+				<description xml:lang="ko">스크롤 이동, 분류 위치, 분류 크기를 설정합니다. 위치는 - 왼쪽 + 오른쪽입니다. (예제: Y,-200,170)</description>
+				<description xml:lang="jp">스크롤 이동, 분류 위치, 분류 크기를 설정합니다. 위치는 - 왼쪽 + 오른쪽입니다. (예제: Y,-200,170)</description>
+				<description xml:lang="en">스크롤 이동, 분류 위치, 분류 크기를 설정합니다. 위치는 - 왼쪽 + 오른쪽입니다. (예제: Y,-200,170)</description>
 			</var>
 			<var name="use_notice_widget" type="radio" default="default">
 				<title xml:lang="ko">공지사항 모양</title>
