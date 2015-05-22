@@ -1,7 +1,6 @@
-/**
- * @js  beluxe skin
+ /*
+ * board.js for BoardDX
  * @author phiDel (https://github.com/phiDelbak/Board-DX-for-XE, xe.phidel@gmail.com)
- * @brief Js of the BoardDX skin
  */
 
 jQuery(function($)
@@ -298,6 +297,66 @@ jQuery(function($)
 		$('#siLst thead tr th:not(hidden):last div').css('border-right-width','1px');
 	}
 
+
+	// 글쓰기
+	$.fn.pidSettingWrite = function()
+	{
+		$('.scWcateList', this).change(function(){
+			var v = $(this).val(), k = $(this).data('key'),
+				$d = $('.scWcateList[data-key='+k+']').hide('slow'),
+				$s = $('.scWcateList[data-key='+v+']');
+			$(this).data('key', v);
+			$('input:hidden[name=category_srl]').val(v);
+			$('.scWcateList[data-key='+$d.data('key')+']').hide('slow');
+			if($s.find('>option').length) $s.change().show('slow');
+		});
+		$('input:hidden[name=category_srl]:eq(0)', this).each(function(){
+			var v = $(this).val() || 0, j, i = 0, $s;
+			if(v > 0){
+				for(j=0;j<3;j++) {
+					$s = $('.scWcateList option[value='+v+']').closest('select').val(v).data('key', v).change();
+					if(!$s||!$s.attr('data-key')) break;
+					v = $s.show('slow').attr('data-key');
+				}
+			}else{
+				$('.scWcateList:eq(0)').change();
+			}
+		});
+		$('.scWul.extraKeys li.scWli:hidden:eq(0)', this).each(function(){
+			$('#siWrt .scExTog:hidden').show().click(function(){
+				$('#siWrt .scWul.extraKeys li.scWli:hidden').show('slow');
+				$(this).hide();
+				return false;
+			});
+		});
+		$('a[href=#insert_filelink]', this).click(function(){
+			var $p = $(this).closest('#insert_filelink').find('> input'),
+				v = $p.val(), q = $(this).attr('data-seq'), r = $(this).attr('data-srl');
+			if(v === undefined || !v){
+				alert('Please enter the file url.\nvirtual type example: http://... #.mov');
+				$p.focus();
+				return false;
+			}
+			exec_json(
+				'Beluxe.procBeluxeInsertFileLink',
+				{ 'mid':current_mid,'sequence_srl':q,'document_srl':r,'filelink_url':v },
+				function(ret){
+					// ckeditor
+					if($('[id^=ckeditor_instance_]').length) {
+						var u = xe.getApp('xeuploader');
+						if(u.length===1) u[0].loadFilelist();
+						else u = $('#xefu-container-'+ret.sequence_srl).xeUploader();
+
+					// xpresseditor
+					}else if($('.xpress-editor').length){
+						reloadFileList(uploaderSettings[ret.sequence_srl]);
+					}
+				}
+			);
+			return false;
+		});
+	};
+
 	$(window)
 	.load(function()
 	{
@@ -364,67 +423,13 @@ jQuery(function($)
 			if($.browser.msie===true) $('<span class="iefix" />').css({'width':w+'px','height':h+'px'}).appendTo($a);
 		});
 
+		$('a[type^=example\\/modal]').pidModalWindow();
+		$('div[data-flash-fix=true]').pidModalFlashFix();
+
+		$('#siWrt:eq(0)').pidSettingWrite();
 		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
 
 		var tmp = $('#siFbk a[name^=comment][data-scroll=true]').last().parent()[0];
 		if(tmp) tmp.scrollIntoView(true);
-
-		// 글쓰기
-		$('#siWrt').each(function(){
-			$('.scWcateList', this).change(function(){
-				var v = $(this).val(), k = $(this).data('key'),
-					$d = $('.scWcateList[data-key='+k+']').hide('slow'),
-					$s = $('.scWcateList[data-key='+v+']');
-				$(this).data('key', v);
-				$('input:hidden[name=category_srl]').val(v);
-				$('.scWcateList[data-key='+$d.data('key')+']').hide('slow');
-				if($s.find('>option').length) $s.change().show('slow');
-			});
-			$('input:hidden[name=category_srl]:eq(0)', this).each(function(){
-				var v = $(this).val() || 0, j, i = 0, $s;
-				if(v > 0){
-					for(j=0;j<3;j++) {
-						$s = $('.scWcateList option[value='+v+']').closest('select').val(v).data('key', v).change();
-						if(!$s||!$s.attr('data-key')) break;
-						v = $s.show('slow').attr('data-key');
-					}
-				}else{
-					$('.scWcateList:eq(0)').change();
-				}
-			});
-			$('.scWul.extraKeys li.scWli:hidden:eq(0)', this).each(function(){
-				$('#siWrt .scExTog:hidden').show().click(function(){
-					$('#siWrt .scWul.extraKeys li.scWli:hidden').show('slow');
-					$(this).hide();
-        			return false;
-				});
-			});
-			$('a[href=#insert_filelink]', this).click(function(){
-				var $p = $(this).closest('#insert_filelink').find('> input'),
-					v = $p.val(), q = $(this).attr('data-seq'), r = $(this).attr('data-srl');
-				if(v === undefined || !v){
-					alert('Please enter the file url.\nvirtual type example: http://... #.mov');
-					$p.focus();
-					return false;
-				}
-				exec_json(
-					'Beluxe.procBeluxeInsertFileLink',
-					{ 'mid':current_mid,'sequence_srl':q,'document_srl':r,'filelink_url':v },
-					function(ret){
-						// ckeditor
-						if($('[id^=ckeditor_instance_]').length) {
-							var u = xe.getApp('xeuploader');
-							if(u.length===1) u[0].loadFilelist();
-							else u = $('#xefu-container-'+ret.sequence_srl).xeUploader();
-
-						// xpresseditor
-						}else if($('.xpress-editor').length){
-							reloadFileList(uploaderSettings[ret.sequence_srl]);
-						}
-					}
-				);
-				return false;
-			});
-		});
 	});
 });

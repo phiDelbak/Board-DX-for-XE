@@ -2,7 +2,7 @@
 <h2 class="cb gn">
 	<a href="#{$is_cts?'categoryOpen':'noCategory'}" onclick="return false"|cond="!$is_cts">
 	<span cond="$is_doc" class="ca"|cond="$is_cts">
-		{$lang->document.' '.$lang->no}: {$document_srl}
+		{$lang->modify_document}
 	</span>
 	<span cond="!$is_doc" class="ca"|cond="$is_cts">
 		{$not_permitted?$lang->msg_input_password:$lang->new_document}
@@ -13,6 +13,7 @@
 
 <!--@if($not_permitted)-->
 	<form ruleset="checkPassword" action="./" method="post" class="co ff">
+		<input type="hidden" name="success_return_url" value="{getUrl('mid',$mid)}" />
 		<input type="hidden" name="document_srl" value="{$document_srl}" />
 		<input type="hidden" name="act" value="procBoardVerificationPassword" />
 		<div class="message {$XE_VALIDATOR_MESSAGE_TYPE}">{$XE_VALIDATOR_MESSAGE}</div>
@@ -168,7 +169,7 @@
 			<li>
 				<label for="nText">{$lang->content}</label>
 				<label><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
-				<textarea name="content" cols="20" rows="8" id="nText">{$is_doc?preg_replace('/<br[^>]*>[\r\n]/i','',$oDocument->get('content')):htmlspecialchars($mi->document_default_content)}</textarea>
+				<textarea name="content" cols="20" rows="12" id="nText">{$is_doc?preg_replace('/<br[^>]*>[\r\n]/i','',$oDocument->get('content')):htmlspecialchars($mi->document_default_content)}</textarea>
 			</li>
 			<li cond="$mi->use_mobile_uploader == 'Y'">
 				<div id="fUloader">

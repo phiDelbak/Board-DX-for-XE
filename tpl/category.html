@@ -12,7 +12,7 @@
 	<input type="hidden" name="success_return_url" value="{getRequestUriByServerEnviroment()}" />
 
 		<div class="default_title">
-			<input class="lang_code" type="text" name="default_category_title" placeholder="{$lang->category}" id="default_category_title" value="{htmlspecialchars($module_info->default_category_title)}" />
+			<input class="lang_code" type="text" name="default_category_title" placeholder="{$lang->category}" id="default_category_title" value="{htmlspecialchars($module_info->default_category_title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 		</div>
 		<ul style="display:none" class="_template">
 			<li>

@@ -43,7 +43,7 @@
 		<div class="x_control-group">
 			<label class="x_control-label">{$lang->browser_title}</label>
 			<div class="x_controls opt_bks">
-				<input type="text" class="lang_code" name="browser_title" value="<!--@if(strpos($module_info->browser_title, '$user_lang->') === false)-->{$module_info->browser_title}<!--@else-->{htmlspecialchars($module_info->browser_title)}<!--@end-->" />
+				<input type="text" class="lang_code" name="browser_title" value="{htmlspecialchars($module_info->browser_title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 				<a href="#about_browser_title" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p class="x_help-block" id="about_browser_title" hidden>{$lang->about_browser_title}</p>
 			</div>
@@ -100,7 +100,7 @@
 		<div class="x_control-group">
 			<label class="x_control-label">{$lang->browser_title}</label>
 			<div class="x_controls {$compulsory_options['browser_title']?'opt_cps':''} {$module_backup_options['browser_title']?'opt_bks':''}">
-				<input type="text" class="lang_code" name="browser_title" value="<!--@if(strpos($module_info->browser_title, '$user_lang->') === false)-->{$module_info->browser_title}<!--@else-->{htmlspecialchars($module_info->browser_title)}<!--@end-->" />
+				<input type="text" class="lang_code" name="browser_title" value="{htmlspecialchars($module_info->browser_title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 				<a href="#about_browser_title" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p class="x_help-block" id="about_browser_title" hidden>{$lang->about_browser_title}</p>
 			</div>
@@ -413,7 +413,7 @@
 		<div cond="!$m_allset_targets" class="x_control-group {$m_copy_target?'x_info':''}">
 			<label class="x_control-label">{$lang->custom_status}</label>
 			<div class="x_controls {$compulsory_options['custom_status']?'opt_cps':''} {$module_backup_options['custom_status']?'opt_bks':''}">
-				<input type="text" class="lang_code" name="custom_status" value="<!--@if(strpos($module_info->custom_status, '$user_lang->') === false)-->{$module_info->custom_status}<!--@else-->{htmlspecialchars($module_info->custom_status)}<!--@end-->" />
+				<input type="text" class="lang_code" name="custom_status" value="{htmlspecialchars($module_info->custom_status, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 				<a href="#about_custom_status" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="about_custom_status" class="x_help-block" hidden>{$lang->about_custom_status}</p>
 			</div>
@@ -534,7 +534,7 @@
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
 			<label class="x_control-label">{$lang->header_text}</label>
 			<div class="x_controls {$compulsory_options['header_text']?'opt_cps':''} {$module_backup_options['header_text']?'opt_bks':''}">
-				<textarea class="lang_code" name="header_text" id="header_text">{htmlspecialchars($module_info->header_text)}</textarea>
+				<textarea class="lang_code" name="header_text" id="header_text">{htmlspecialchars($module_info->header_text, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}</textarea>
 				<a href="#about_header_text" class="x_icon-question-sign" data-toggle style="vertical-align:top;margin-top:5px">{$lang->help}</a>
 				<p id="about_header_text" class="x_help-block" hidden>{$lang->about_header_text}</p>
 			</div>
@@ -542,7 +542,7 @@
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
 			<label class="x_control-label">{$lang->footer_text}</label>
 			<div class="x_controls {$compulsory_options['footer_text']?'opt_cps':''} {$module_backup_options['footer_text']?'opt_bks':''}">
-				<textarea class="lang_code" name="footer_text" id="footer_text">{htmlspecialchars($module_info->footer_text)}</textarea>
+				<textarea class="lang_code" name="footer_text" id="footer_text">{htmlspecialchars($module_info->footer_text, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}</textarea>
 				<a href="#about_footer_text" class="x_icon-question-sign" data-toggle style="vertical-align:top;margin-top:5px">{$lang->help}</a>
 				<p id="about_footer_text" class="x_help-block" hidden>{$lang->about_footer_text}</p>
 			</div>

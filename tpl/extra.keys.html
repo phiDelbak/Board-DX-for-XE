@@ -8,7 +8,8 @@
 	<div class="table even extraKeys">
 		<table width="100%" border="1" cellspacing="0" class="sortable _extraList">
 			<tbody class="uDrag lined">
-				<tr style="display:none"><td><span>&nbsp;</span></td></tr>
+				<!--//다국어 입력폼 처음에 하나이상 불러와야해서 임시로 처음에 하나 만듬 //-->
+				<tr style="display:none"><td><span><input class="lang_code" type="text" id="lang_input_template" value="" /></span></td></tr>
 				<tr style="display:none" class="_template">
 					<td>
 						<div class="wrap" style="height:45px">
@@ -42,10 +43,10 @@
 							<input type="hidden" name="extra_option[]" id="extra_option" value="{implode('|@|',array($val->is_required))}" />
 							<span class="einfo x_pull-left">
 								<input type="text" name="extra_eid[]" value="{$val->eid}" placeholder="ID" class="_extra_eid" readonly="readonly"|cond="$val->eid" />
-								<input type="text" name="extra_name[]" value="{htmlspecialchars($val->name)}" placeholder="{$lang->extra_name}" class="lang_code _extra_name" id="extra_name{$val->eid}" />
+								<input type="text" name="extra_name[]" placeholder="{$lang->extra_name}" class="lang_code _extra_name" id="extra_name{$val->eid}" value="{htmlspecialchars($val->name, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 								<br />
 								<input type="text" name="extra_default[]" value="{$val->default}" placeholder="{$lang->default_value}" class="blue _extra_default" />
-								<input type="text" name="extra_desc[]" value="{htmlspecialchars($val->desc)}" placeholder="{$lang->description}" class="lang_code blue _extra_desc" id="extra_desc{$val->eid}" />
+								<input type="text" name="extra_desc[]" placeholder="{$lang->description}" class="lang_code blue _extra_desc" id="extra_desc{$val->eid}" value="{htmlspecialchars($val->desc, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 							</span>
 							<span class="side x_pull-right">
 								<label class="x_pull-left"><input type="checkbox" class="_extra_option" value="Y" checked="checked"|cond="$val->is_required == 'Y'" /> {$lang->is_required} </label>

@@ -1,7 +1,7 @@
 <li>
 	<input type="hidden" name="parent_key[]" value="{$item->parent_srl}" class="_parent_key" />
 	<input type="hidden" name="item_key[]" value="{$item->category_srl}" class="_item_key" />
-	<input class="lang_code" type="text" name="item_title[]" placeholder="{$lang->title}" value="{htmlspecialchars($item->title)}" />
+	<input class="lang_code" type="text" name="item_title[]" placeholder="{$lang->title}" value="{htmlspecialchars($item->title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 	<span class="side">
 		{@ $g_val = $type_list[$item->type]}
 		<span class="cbSelect" data-index="0">

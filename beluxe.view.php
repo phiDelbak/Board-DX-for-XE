@@ -102,12 +102,12 @@ class beluxeView extends beluxe
         return $tpl_path;
     }
 
-    function _setValidMessage($a_err, $a_msg, $a_type = 'info')
+    function _setValidMessage($a_err, $a_msg, $a_type)
     {
-        $xemsg = Context::get('XE_VALIDATOR_MESSAGE');
-        Context::set('XE_VALIDATOR_MESSAGE_TYPE', $a_type);
-        Context::set('XE_VALIDATOR_MESSAGE', (trim($xemsg) ? $xemsg . ($a_msg ? '<br /><br />' : '') : '') . $a_msg);
         Context::set('XE_VALIDATOR_ERROR', $a_err);
+        Context::set('XE_VALIDATOR_MESSAGE', $a_msg);
+        Context::set('XE_VALIDATOR_MESSAGE_TYPE', $a_type ? $a_type : ($a_err<0?'error':'info'));
+        Context::set('XE_VALIDATOR_ID', Context::get('xe_validator_id'));
     }
 
     /* @brief set common info */
@@ -310,7 +310,7 @@ class beluxeView extends beluxe
                 if ($is_empty) {
                     $b_title = Context::getLang('msg_not_permitted');
                     $out = $this->cmDoc->getDocument(0, FALSE, FALSE);
-                    $this->_setValidMessage(-1380, $b_title, 'error');
+                    $this->_setValidMessage(-1380, $b_title);
                 }
                 else {
                     $is_read = true;
@@ -388,7 +388,7 @@ class beluxeView extends beluxe
         if ($is_empty || !$doc_srl) {
             $out = $cmComment->getComment(0, FALSE);
             if ($is_empty) {
-                $this->_setValidMessage(-1380, Context::getLang('msg_not_permitted'), 'error');
+                $this->_setValidMessage(-1380, Context::getLang('msg_not_permitted'));
             }
         }
 
@@ -431,7 +431,7 @@ class beluxeView extends beluxe
         }
 
         if ($err) {
-            $this->_setValidMessage(-1380, Context::getLang($err), 'error');
+            $this->_setValidMessage(-1380, Context::getLang($err));
         }
 
         Context::set('history_document', $his);

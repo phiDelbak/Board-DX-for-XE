@@ -35,14 +35,34 @@
 		<value xml:lang="en"><![CDATA[Use WYSIWYG]]></value>
 	</item>
 	<item name="new_document">
-		<value xml:lang="ko"><![CDATA[새로운 문서]]></value>
-		<value xml:lang="jp"><![CDATA[新しい文書]]></value>
-		<value xml:lang="en"><![CDATA[New document]]></value>
+		<value xml:lang="ko"><![CDATA[새로운 문서를 작성합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[새로운 문서를 작성합니다.]]></value>
+		<value xml:lang="en"><![CDATA[새로운 문서를 작성합니다.]]></value>
+	</item>
+	<item name="modify_document">
+		<value xml:lang="ko"><![CDATA[이 문서를 수정합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[이 문서를 수정합니다.]]></value>
+		<value xml:lang="en"><![CDATA[이 문서를 수정합니다.]]></value>
+	</item>
+	<item name="delete_document">
+		<value xml:lang="ko"><![CDATA[이 문서를 삭제합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[이 문서를 삭제합니다.]]></value>
+		<value xml:lang="en"><![CDATA[이 문서를 삭제합니다.]]></value>
 	</item>
 	<item name="new_comment">
-		<value xml:lang="ko"><![CDATA[새로운 댓글]]></value>
-		<value xml:lang="jp"><![CDATA[新しいコメント]]></value>
-		<value xml:lang="en"><![CDATA[New comment]]></value>
+		<value xml:lang="ko"><![CDATA[새로운 댓글을 작성합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[새로운 댓글을 작성합니다.]]></value>
+		<value xml:lang="en"><![CDATA[새로운 댓글을 작성합니다.]]></value>
+	</item>
+	<item name="modify_comment">
+		<value xml:lang="ko"><![CDATA[이 댓글을 수정합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[이 댓글을 수정합니다.]]></value>
+		<value xml:lang="en"><![CDATA[이 댓글을 수정합니다.]]></value>
+	</item>
+	<item name="delete_comment">
+		<value xml:lang="ko"><![CDATA[이 댓글을 삭제합니다.]]></value>
+		<value xml:lang="jp"><![CDATA[이 댓글을 삭제합니다.]]></value>
+		<value xml:lang="en"><![CDATA[이 댓글을 삭제합니다.]]></value>
 	</item>
 	<item name="document_write">
 		<value xml:lang="ko"><![CDATA[글 쓰기]]></value>

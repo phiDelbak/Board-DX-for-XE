@@ -141,7 +141,7 @@
                 <span class="no">
                     {($t_pagec===$key)?'<strong class="sCkChr">&radic;</strong>':(($t_pagec<$key)?'Next':'Prev')}
                 </span>
-                <span class="cate">[{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]</span>
+                <span class="cate fr">[{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]</span>
                 <span class="scElps">
                     <em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{abs((int)$nv_un_ex->beluxe->use_point)}</em>
                     {$val->getTitle($mi->title_length)}
@@ -268,13 +268,13 @@
 <div style="height:1px;overflow:hidden;background:#ddd"></div>
 <div class="bna">
     <span class="fl">
-        <a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" class="bn dark">{$lang->cmd_write}</a>
+        <a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" title="{$lang->new_document}" class="bn dark">{$lang->cmd_write}</a>
     </span>
     <span class="fr">
         <a href="{getUrl('act', '','document_srl', '','page',$page)}" class="bn white">{$lang->cmd_list}</a>
         <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
-            <a href="{getUrl('act','dispBoardWrite','document_srl',$doc_srl,'comment_srl','','page',$page)}" class="bn dark">{$lang->cmd_modify}</a>
-            <a href="{getUrl('act','dispBoardDelete','document_srl',$doc_srl,'comment_srl','','page',$page)}" class="bn dark">{$lang->cmd_delete}</a>
+            <a href="{getUrl('act','dispBoardWrite','document_srl',$doc_srl,'comment_srl','','page',$page)}" title="{$lang->modify_document}" class="bn dark">{$lang->cmd_modify}</a>
+            <a href="{getUrl('act','dispBoardDelete','document_srl',$doc_srl,'comment_srl','','page',$page)}" title="{$lang->delete_document}" class="bn dark">{$lang->cmd_delete}</a>
         </block>
     </span>
 </div>

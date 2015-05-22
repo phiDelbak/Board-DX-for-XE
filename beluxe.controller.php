@@ -48,6 +48,20 @@ class beluxeController extends beluxe
 		}
 	}
 
+    function _setValidMessage($a_err, $a_msg, $a_type = 0, $returnUrl = '')
+    {
+		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON', 'JS_CALLBACK'))) {
+			$this->setMessage($a_msg);
+		}else{
+	        $_SESSION['XE_VALIDATOR_ERROR'] = $a_err;
+	        $_SESSION['XE_VALIDATOR_MESSAGE'] = Context::getLang($a_msg);
+	        $_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = $a_type ? $a_type : ($a_err<0?'error':'info');
+	        $_SESSION['XE_VALIDATOR_ID'] = Context::get('xe_validator_id');
+	        $returnUrl ? $_SESSION['XE_VALIDATOR_RETURN_URL'] = $returnUrl : 0;
+	        if($a_err<0) $this->setMessage($a_msg);
+		}
+    }
+
     function _getModuleInfo($a_modsrl = 0)
     {
 		if(!$this->module_info || !$this->module_info->module_srl) {
@@ -212,7 +226,7 @@ class beluxeController extends beluxe
 		$out = executeQuery('file.insertFile', $args);
 		if(!$out->toBool()) return $out;
 
-		$this->setMessage('success_registed');
+		$this->_setValidMessage(0, 'success_registed');
 		$this->_setLocation('', 'sequence_srl', $seq, 'document_srl', $tar_srl, 'file', $args);
 	}
 
@@ -478,7 +492,7 @@ class beluxeController extends beluxe
 		if($is_upCateCnt) $ccDocument->makeCategoryFile($mod_srl, false);
 		*/
 
-		$this->setMessage($msg_code);
+		$this->_setValidMessage(0, $msg_code);
 		$this->_setLocation('', 'document_srl', $doc_srl);
 	}
 
@@ -684,7 +698,7 @@ class beluxeController extends beluxe
 
 		$cmt_srl = $out->get('comment_srl');
 
-		$this->setMessage($msg_code);
+		$this->_setValidMessage(0, $msg_code);
 		$this->_setLocation('', 'document_srl', $doc_srl, 'comment_srl', $cmt_srl, 'cpage', $cpage);
 	}
 
@@ -801,7 +815,7 @@ class beluxeController extends beluxe
 		$ccDocument->makeCategoryFile($mod_srl);
 		*/
 
-		$this->setMessage('success_deleted');
+		$this->_setValidMessage(0, 'success_deleted');
 		$this->_setLocation(
 			'', 'category_srl', Context::get('category_srl'), 'document_srl',
 			$re_doc_srl, 'comment_srl', $cmt_srl, 'page', $out->get('page')
@@ -840,7 +854,7 @@ class beluxeController extends beluxe
 
 		$doc_srl = $out->get('document_srl');
 
-		$this->setMessage('success_deleted');
+		$this->_setValidMessage(0, 'success_deleted');
 		$this->_setLocation('', 'document_srl', $out->get('document_srl'), 'page', $page);
 	}
 
@@ -857,7 +871,7 @@ class beluxeController extends beluxe
 		$ccDocument = &getController('document');
 		$ccDocument->deleteDocumentHistory($his_srl, $doc_srl, $mod_srl);
 
-		$this->setMessage('success_deleted');
+		$this->_setValidMessage(0, 'success_deleted');
 		$this->_setLocation('', 'document_srl', $doc_srl);
 	}
 
@@ -871,7 +885,7 @@ class beluxeController extends beluxe
 		$out = $ccTrackback->deleteTrackback($track_srl, $this->grant->manager);
 		if(!$out->toBool()) return $out;
 
-		$this->setMessage('success_deleted');
+		$this->_setValidMessage(0, 'success_deleted');
 		$this->_setLocation('', 'document_srl', $out->get('document_srl'));
 	}
 
@@ -888,7 +902,7 @@ class beluxeController extends beluxe
 		foreach($tar_srls as $val) $out = $cmThis->setCustomStatus($val, $new_value);
 		unset($_SESSION['document_management']);
 
-		$this->setMessage('success_updated');
+		$this->_setValidMessage(0, 'success_updated');
 	}
 
 	function _setUsePoint($aObj)

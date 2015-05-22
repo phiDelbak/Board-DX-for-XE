@@ -20,14 +20,18 @@
 			<div class="no fl">
 				{($t_pagec===$key)?'<strong class="sCkChr">&radic;</strong>':(($t_pagec<$key)?'Next':'Prev')}
 			</div>
-			<div cond="$is_cts" class="cate fl">
+			<div cond="$is_cts" class="cate fr">
 				{@ $cate = $cts[$nav->get('category_srl')] }
 				<a cond="$cate" href="{getUrl('','mid',$mid,'category_srl',$cate->category_srl)}" title="{htmlspecialchars($cate->description)}" style="color:{$cate->color}"|cond="$cate->color">[{$cate->title}]</a>
 				<span cond="!$cate">[{$lang->none_category}]</span>
 			</div>
 			<div class="scElps" data-active="true"|cond="$is_elips">
 				<a class="fl" href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
-					<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$nv_un_ex->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$nv_un_ex->beluxe->use_point)}</em>
+    				<!--@if($pt_vtype!='N'||$pt_dtype!='N')-->
+					<em class="usept {$nv_un_ex->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$nv_un_ex->beluxe->use_point)}</em>
+    				<!--@else-->
+					<em>&rsaquo;&nbsp;</em>
+    				<!--@endif-->
 					{$nav->getTitle($mi->title_length)}
 				</a>
 				<span class="fr">

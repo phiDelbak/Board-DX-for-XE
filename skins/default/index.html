@@ -4,6 +4,10 @@
 
     <include cond="$is_sedt == 'T' || $is_sedt == 'C'" target="_etc.simplewrite.html" />
 
+    <div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
     <block cond="$grant->manager || $is_sedt != 'C'">
         <div cond="$is_cts" class="scHeader clearBar">
             <include target="_etc.category.html" />
@@ -32,5 +36,3 @@
 </div>
 
 <include target="__footer.html" />
-
-<section cond="$us_modal" id="pidModalFrame" style="display:none"><div class="pid_modal-body"></div></section>
