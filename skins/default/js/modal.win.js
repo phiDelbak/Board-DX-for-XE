@@ -47,26 +47,27 @@
 			return str.replace(r, function(m, c) {return o[c];});
 		};
 
-		var $modal = this.getModalFrame(), $close, $pmh, $pmf, tmp,
+		var $modal = this.getModalFrame(), $close, $pmh, $pmf,
 			hstr = htmlDecode(header),
 			fstr = htmlDecode(footer),
 			childs = ['pid_modal-head', 'pid_modal-foot'];
 
-		if(hstr.substring(0,9) !== ':INHERIT:')
+		$pmh = $modal.find('div.' + childs[0]);
+		if(!$pmh.length) $pmh = $('<div class="'+childs[0]+'">').hide().prependTo($modal);
+		$pmf = $modal.find('div.' + childs[1]);
+		if(!$pmf.length) $pmf = $('<div class="'+childs[1]+'">').hide().appendTo($modal);
+
+		if(hstr && hstr.substring(0,9) !== ':INHERIT:')
 		{
 			if(hstr.substring(0,9) === ':GETHTML:') hstr = $(hstr.substring(9)).html();
-			$pmh = $modal.find('div.' + childs[0]);
-			if(!$pmh.length) $pmh = $('<div class="'+childs[0]+'">').hide().prependTo($modal);
-			tmp = (hstr) ? $pmh.html(hstr).show() : $pmh.html('').hide();
-		}
+			$pmh.html(hstr).css('display',hstr?'block':'none');
+		}else if(!hstr) $pmh.html('').css('display','none');
 
-		if(fstr.substring(0,9) !== ':INHERIT:')
+		if(fstr && fstr.substring(0,9) !== ':INHERIT:')
 		{
 			if(fstr.substring(0,9) === ':GETHTML:') fstr = $(fstr.substring(9)).html();
-			$pmf = $modal.find('div.' + childs[1]);
-			if(!$pmf.length) $pmf = $('<div class="'+childs[1]+'">').hide().appendTo($modal);
-			tmp = (fstr) ? $pmf.html(fstr).show() : $pmf.html('').hide();
-		}
+			$pmf.html(fstr).css('display',fstr?'block':'none');
+		}else if(!fstr) $pmf.html('').css('display','none');
 
 		// set close button
 		$close = $modal.find('.pid_modal-close');
@@ -108,7 +109,7 @@
 	     	$('body', this.target).append(waitmsg);
 	    }
 
-	    waitmsg.css({position:'fixed', top:10, left:10, zIndex:($bdrop.css('z-index')+1 || 99999)});
+	    waitmsg.css({position:'fixed', top:10, left:10, zIndex:($bdrop.css('z-index') || 1000100) + 3});
 
 		url = url.setQuery('is_modal', '1');
 
@@ -139,15 +140,22 @@
 	{
 		var $body = $('body', this.target), zidx = 0;
 
-		$body.find('> *')
-			.filter(function(){ return $(this).css('z-index') !== 'auto'; })
-			.each(function(event)
-			{
-				var thzidx = parseInt($(this).css('z-index'));
-				if(zidx < thzidx) zidx = thzidx;
-			});
+		try{
+			$body.find('> *')
+				//.filter(function(){ return $(this).css('z-index') !== 'auto'; })
+				.each(function()
+				{
+					//var  style = window.getComputedStyle(this),
+					//	thzidx = parseInt(style.getPropertyValue('z-index'));
 
-		return zidx + 1;
+					var thzidx = parseInt($(this).css('z-index') || 0);
+					if(zidx < thzidx) zidx = thzidx;
+				});
+		}catch(e){
+			zidx = 999999;
+		}
+
+		return zidx + 100;
 	};
 
 	$.fn.pidAutoResize = function(sizemode)
@@ -174,16 +182,9 @@
 		$mob = $('div.pid_modal-body', $modal);
 		$mof = $('div.pid_modal-foot', $modal);
 
-        //is target frame
-        if($modal.is('.pid_target-frame'))
+        var setTargetTimer = function()
         {
-			$('[data-modal-child=message]', $modal.closest('body'))
-	        .fadeOut(1500, function()
-	        {
-	            $(this).remove();
-	        });
-
-        	timer = setInterval(function()
+        	return setInterval(function()
         	{
 		        h = $body.outerHeight(true);
 		        if(h > 10)
@@ -193,43 +194,15 @@
 		        }
         		if(!$modal.find('#pidOframe').length) clearInterval(timer);
         	}, 500);
-
-        	$modal.show();
-        }else{
-        	$modal.show();
-
-        	$bdrop = $modal.closest('body').find('#pidModalBackdrop');
-
-        	pw = $bdrop.outerWidth(true);
-        	ph = $bdrop.outerHeight(true);
-
-			$mob.outerWidth(pw - 80);
-
-	        if ($modal.position().left < 1)
-	        {
-	            $modal.animate({
-	                top: 10,
-	                left: Math.floor((pw - $modal.outerWidth(true)) / 2)
-	            },{
-	                complete: function()
-	                {
-	                	$modal.height('');
-
-				        $('[data-modal-child=message]', $modal.closest('body'))
-				        .fadeOut(1500, function()
-				        {
-				            $(this).remove();
-				        });
-	                }
-	            });
-	        }
-
-        	timer = setInterval(function()
+        },
+        setModalTimer = function()
+        {
+        	return setInterval(function()
         	{
         		pw = $bdrop.outerWidth(true);
         		ph = $bdrop.outerHeight(true);
 
-				$mob.outerWidth(pw - 80);
+				$mob.width(pw - 80);
 
         		h = $moh.outerHeight(true) || 0;
         		h = h + $mof.outerHeight(true) || 0;
@@ -252,6 +225,47 @@
 			    }
         		if(!$modal.find('#pidOframe').length) clearInterval(timer);
         	}, 500);
+        };
+
+        //is target frame
+        if($modal.is('.pid_target-frame'))
+        {
+			$mob.height(1);
+        	$modal.show();
+
+	        timer = setTargetTimer();
+
+			$('[data-modal-child=message]', $modal.closest('body'))
+	        .fadeOut(1500, function(){
+	            $(this).remove();
+	        });
+        }else{
+        	$bdrop = $modal.show().closest('body').find('#pidModalBackdrop');
+
+        	pw = $bdrop.outerWidth(true);
+        	ph = $bdrop.outerHeight(true);
+
+			$mob.outerWidth(pw - 80).height(1);
+
+	        if ($modal.position().left < 1)
+	        {
+	            $modal.animate({
+	                top: 10,
+	                left: Math.floor((pw - $modal.outerWidth(true)) / 2)
+	            },{
+	                complete: function()
+	                {
+	                	$modal.height('').show();
+
+	                	timer = setModalTimer();
+
+				        $('[data-modal-child=message]', $modal.closest('body'))
+				        .fadeOut(1500, function(){
+				            $(this).remove();
+				        });
+	                }
+	            });
+	        } else {timer = setModalTimer();}
 	    }
 
 	    $win.data('timer', timer);
@@ -289,13 +303,18 @@
 			{
 				var $this = $(this), $modal = this.modal.getModalFrame();
 
-				if($modal.data('state') === 'showing')
-				{
-					if($modal.is('.pid_target-frame')) return false;
-					$this.trigger('close.mw');
-				}else{
-					$this.trigger('open.mw');
-				}
+				$modal.hide().css({top:'0',left:'-150%'});
+				$this.trigger('open.mw');
+
+				// if($modal.is(':hidden')){
+				//  	$this.trigger('open.mw');
+				// }else{
+				// 	$this.trigger('close.mw');
+				// }
+
+				// if($modal.data('state') === 'showing'){
+				// }else{
+				// }
 
 				return false;
 			})
@@ -303,7 +322,7 @@
 			{
 				var $this = $(this), $modal, $bdrop, $body, before_event, duration, url, zidx = 0;
 
-				$modal = (this.modal.getModalFrame()).css({top:'0',left:'-150%'});
+				$modal = this.modal.getModalFrame();
 
 				// before event trigger
 				before_event = $.Event('before-open.mw');
@@ -312,11 +331,8 @@
 				// is event canceled?
 				if(before_event.isDefaultPrevented()) return false;
 
-				// Position initialize
 				if(!$modal.is('.pid_target-frame'))
 				{
-					$modal.css({top:'0',left:'-150%'});
-
 					// set header, footer, close
 					this.modal.setTitle(
 						($this.attr('data-header') || $this.attr('title')) || '',
@@ -351,6 +367,7 @@
 							}
 						});
 
+
 						$bdrop = this.modal.getBackDrop();
 						$bdrop.css('z-index', '1');
 						$modal.not('.pid_target-frame').css('z-index', '2');
@@ -366,7 +383,9 @@
 					}
 				}
 
+				$modal.find('div.pid_modal-body').css('overflow-y', 'hidden');
 				this.modal.goUrl(url, $this.attr('data-resize') || 'auto', after);
+
 				//if(url){}else{$modal.fadeIn(duration, after);}
 			})
 			.bind('close.mw', function()
@@ -442,6 +461,7 @@
 			.on("unload", function()
 			{
 				 $('body').height(1);
+				 $oFrm.parent().parent().hide().css({top:'0',left:'-150%'});
 				 $oFrm.height('').parent().height(1);
 				 $('[data-modal-child=message]', $oFrm.closest('body')).remove();
 			});

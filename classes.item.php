@@ -85,6 +85,7 @@ class BeluxeItem extends Object
 	{
 		$args = Context::get('beluxe_list_sort_keys');
 		$args->module_srl = $this->module_srl;
+		$args->category_srl = Context::get('category_srl');
 		$args->current_document_srl = $a_obj->document_srl;
 		$args->list_count = floor($a_count / 2);
 		if($args->list_count<1) $args->list_count = 1;

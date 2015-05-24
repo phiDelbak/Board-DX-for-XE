@@ -554,7 +554,7 @@
 }
 #siCat.side {
     position:absolute;
-    z-index:2;
+    z-index:3;
     display:block
 }
 #siCat.side ul.scFrm {
