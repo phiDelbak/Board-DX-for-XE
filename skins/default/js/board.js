@@ -460,5 +460,7 @@ jQuery(function($)
 		});
 
 		$('#siFbk a[name^=comment][data-scroll=true]').last().parent().is(function(){this.scrollIntoView(true);});
+		// ie10 이하 클릭(커서) 버그 방지
+		$('.pid_ajax-form input:text:eq(0)').focus();
 	});
 });

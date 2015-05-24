@@ -303,7 +303,7 @@
 			{
 				var $this = $(this), $modal, $bdrop, $body, before_event, duration, url, zidx = 0;
 
-				$modal = (this.modal.getModalFrame()).hide();
+				$modal = (this.modal.getModalFrame()).css({top:'0',left:'-150%'});
 
 				// before event trigger
 				before_event = $.Event('before-open.mw');
@@ -351,15 +351,17 @@
 							}
 						});
 
+						$bdrop = this.modal.getBackDrop();
+						$bdrop.css('z-index', '1');
+						$modal.not('.pid_target-frame').css('z-index', '2');
+
 						zidx = this.modal.getTopIndex();
 
-						$bdrop = this.modal.getBackDrop();
-						$body = $('body', this.modal.target);
-
-						$bdrop.data('body_overflow', $body.css('overflow')).css('z-index', zidx).show();
+						//$body = $('body', this.modal.target);
+						//$bdrop.data('body_overflow', $body.css('overflow')).css('z-index', zidx).show();
+						$bdrop.css('z-index', zidx).show();
 						$modal.css('z-index', zidx + 1).find('button.pid_modal-close:first').focus();
-						$body.css('overflow','hidden');
-
+						//$body.css('overflow','hidden');
 						if(bg_close) $bdrop.click(function(){ $this.trigger('close.mw'); return false; });
 					}
 				}
@@ -403,9 +405,9 @@
 					$modal.fadeOut(duration, function()
 					{
 						after();
-						$(this).not('.pid_target-frame').hide().css({top:'0',left:'-150%','z-index':'2'});
-						$bdrop.hide().css('z-index', '1');
-						$('body', target).css('overflow', $bdrop.data('body_overflow') || 'auto');
+						$(this).not('.pid_target-frame').hide();
+						$bdrop.hide();
+						//$('body', target).css('overflow', $bdrop.hide().data('body_overflow') || 'auto');
 						$(this).find('> div.pid_modal-body').children().remove();
 					});
 				}
