@@ -1,15 +1,16 @@
-<include target="__header.html" />
+<include cond="$is_modal" target="___setting.html" />
+<include cond="!$is_modal" target="__header.html" />
 
 <div id="siBody">
 
-    <include cond="$is_sedt == 'T' || $is_sedt == 'C'" target="_etc.simplewrite.html" />
+    <include cond="!$is_modal&&($is_sedt=='T'||$is_sedt=='C')" target="_etc.simplewrite.html" />
 
     <div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
 
     <block cond="$grant->manager || $is_sedt != 'C'">
-        <div cond="$is_cts" class="scHeader clearBar">
+        <div cond="!$is_modal&&$is_cts" class="scHeader clearBar">
             <include target="_etc.category.html" />
         </div>
 
@@ -22,12 +23,14 @@
 }
 <!--@if(!$is_doc||($is_doc&&$btm_lstcnt))-->
             <a cond="$is_doc" name="navigation"></a>
+            <block cond="!$is_modal">
 {@ $btm_style = $is_doc&&$mi->bottom_list_style!='default'?$mi->bottom_list_style:''}
 {$oTemplate->compile($tpl_path, '_lst.'.($btm_style?$btm_style:$lsttp).'.html')}
-            <include target="_etc.pagination.html" />
+                <include target="_etc.pagination.html" />
+            </block>
 <!--@endif-->
         </div>
-        <div class="scFooter clearBar">
+        <div cond="!$is_modal" class="scFooter clearBar">
             <include target="_etc.search.html" />
         </div>
     </block>
@@ -35,4 +38,10 @@
     <include cond="$is_sedt == 'B'" target="_etc.simplewrite.html" />
 </div>
 
-<include target="__footer.html" />
+<div cond="$us_modal" id="pidModalHeader" style="display:none">
+    <a href="#">doc</a>
+    <a href="#">trb</a>
+    <a href="#">com</a>
+</div>
+
+<include cond="!$is_modal" target="__footer.html" />

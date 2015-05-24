@@ -102,7 +102,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
                     </ul>
                 </div>
             </block>
-            <div class="scDocCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}" data-flash-fix="true"|cond="$us_modal">
+            <div class="scDocCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}" data-flash-fix="true"|cond="$us_modal||$us_vmodal" data-link-fix="true"|cond="$us_vmodal">
                 <div cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scVlng clearBar">
                     <a loop="$un_extra->beluxe->langs => $vlnc" href="#" onclick="doChangeLangType('{$vlnc}');return false;" class="{$vlnc}"><strong>{$lang_supported[$vlnc]}</strong></a>
                 </div>
@@ -110,7 +110,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
                     <input type="hidden" name="document_srl" value="{$doc_srl}" />
                     <input type="hidden" name="act" value="procBoardVerificationPassword" />
                     <div class="btnArea">
-                        <span class="scBtn black"><input type="password" name="password" /></span>
+                        <span class="scBtn black"><input type="password" name="password" placeholder="{$lang->password}" /></span>
                         <span class="scBtn black"><input type="submit" value="{$lang->cmd_input}" /></span>
                     </div>
                 </form>
@@ -163,7 +163,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
                     <li class="delicious link"><a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a></li>
                 </ul>
             </div>
-            <include cond="$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
+            <include cond="!$us_vmodal&&$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
             <div class="sign clearBar" cond="($mi->display_profile!='N'&&$mi->display_profile!='C')&&($oDocument->getProfileImage()||$oDocument->getSignature())">
                 <img cond="$oDocument->getProfileImage()" src="{$oDocument->getProfileImage()}" alt="Profile" class="pf" />
                 <div cond="$oDocument->getSignature()" class="tx">{$oDocument->getSignature()}</div>
@@ -189,12 +189,25 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
     </ul>
 </div>
 <!-- /DOCUMENT -->
-<div class="btnArea">
-    <span class="scBtn black fl" cond="$grant->write_document&&$btm_lstcnt&&($sedt_wbtn||!$is_sedt)">
-        <a href="{getUrl('act','dispBoardWrite','document_srl','')}" type="example/modal"|cond="$us_modal" title="{$lang->new_document}" accesskey="w">{$lang->document_write}</a>
-    </span>
-    <span class="scBtn fl" cond="$category_srl"><a href="{getUrl('','mid',$mid)}">{$lang->cmd_all_list}</a></span>
-    <span class="scBtn"><a href="{getUrl('act', '','document_srl','','category_srl',$category_srl,'page',$page,'npage','','cpage','')}" accesskey="l">{$lang->cmd_list}</a></span>
+<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
+    <div cond="$us_vmodal&&$is_doc&&!$is_blind" class="fl">
+        {@
+            $nav_list = $oThis->getNavigationList($oDocument, 1);
+            $nav_key = $lang->cmd_prev;
+        }
+        <block loop="$nav_list=>$key,$nav">
+            {@ $nav->selected?$nav_key=$lang->cmd_next:0}
+            <span cond="!$nav->selected" class="scBtn blue"><a href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" type="example/modal" data-header=":INHERIT:">{$nav_key}</a></span>
+        </block>
+    </div>
+    <block cond="!$is_modal">
+        <span class="scBtn black fl" cond="$grant->write_document&&$btm_lstcnt&&($sedt_wbtn||!$is_sedt)">
+            <a href="{getUrl('act','dispBoardWrite','document_srl','')}" type="example/modal"|cond="$us_modal" title="{$lang->new_document}" accesskey="w">{$lang->document_write}</a>
+        </span>
+        <span class="scBtn fl" cond="$category_srl"><a href="{getUrl('','mid',$mid)}">{$lang->cmd_all_list}</a></span>
+        <span class="scBtn"><a href="{getUrl('act', '','document_srl','','category_srl',$category_srl,'page',$page,'npage','','cpage','')}" accesskey="l">{$lang->cmd_list}</a></span>
+    </block>
+    <span cond="$is_modal" class="scBtn"><a href="{getUrl('act','')}" data-modal-hide>{$lang->cmd_back}</a></span>
     <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
         <span class="scBtn black">
             <a href="{getUrl('act','dispBoardWrite','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal" title="{$lang->modify_document}">{$lang->cmd_modify}</a>
@@ -204,10 +217,12 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
         </span>
     </block>
 </div>
-<!-- TRACKBACK -->
-<include cond="$oDocument->allowTrackback() || $oDocument->getTrackbackcount()" target="_viw.trackback.html" />
-<!-- /TRACKBACK -->
-<!-- COMMENT -->
-<include cond="$mi->view_comment_style == 'webzine' && ($oDocument->allowComment() || $oDocument->getCommentcount())" target="_viw.c.webzine.html" />
-<include cond="$mi->view_comment_style != 'webzine' && ($oDocument->allowComment() || $oDocument->getCommentcount())" target="_viw.comment.html" />
-<!-- /COMMENT -->
+<block cond="!$is_modal">
+    <!-- TRACKBACK -->
+    <include cond="$oDocument->allowTrackback() || $oDocument->getTrackbackcount()" target="_viw.trackback.html" />
+    <!-- /TRACKBACK -->
+    <!-- COMMENT -->
+    <include cond="$mi->view_comment_style == 'webzine' && ($oDocument->allowComment() || $oDocument->getCommentcount())" target="_viw.c.webzine.html" />
+    <include cond="$mi->view_comment_style != 'webzine' && ($oDocument->allowComment() || $oDocument->getCommentcount())" target="_viw.comment.html" />
+    <!-- /COMMENT -->
+</block>

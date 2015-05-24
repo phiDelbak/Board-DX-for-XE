@@ -46,7 +46,10 @@
 		</li>
 	</ul>
 </div>
-
+{@
+	$md_optstr = !$us_hottrack&&$us_vmodal?'type="example/modal" data-header=":GETHTML:#pidModalHeader"':'';
+	$hot_optstr = $us_hottrack?'data-hottrack="%s" data-type="%s" data-modal="'.($us_vmodal?'1':'0').'"':'';
+}
 <div cond="count($document_list)" id="siDoc" class="widg" style="margin-top:10px"|cond="count($notice_list) || count($best_list)">
 	{@
 		$ds_nick = $ci['nick_name']->display == 'Y';
@@ -61,7 +64,7 @@
 		$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 	}
-	<div class="doct clearBar" <!--@if($us_hottrack)-->data-hottrack="{$purl}" data-type="widg"<!--@endif-->>
+	<div class="doct clearBar" {$hot_optstr?sprintf($hot_optstr,$purl,'widg'):''}>
 		<strong class="scRibbon">
 			<dl class="regdate">
 				<dd class="y">{$document->getRegdate('Y')}</dd>
@@ -72,7 +75,7 @@
 		<ul class="scFrm">
 			<li>
 				<div class="title scElps" data-active="true"|cond="$is_elips">
-					<a class="fl" href="{$purl}">{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</a>
+					<a class="fl" href="{$purl}" {$md_optstr}>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</a>
 					<span class="fr">
 						{@
 							$t_cmtn = $document->getCommentCount();

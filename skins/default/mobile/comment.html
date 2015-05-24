@@ -154,8 +154,7 @@
     });
 
     jQuery('.tgr[data-load]').each(function(){
-    	var $=jQuery, srl = $(this).attr('data-load'), tmp;
-    	tmp = $('a[name=comment_' + srl + ']')[0];
-    	if(srl&&tmp) tmp.scrollIntoView(true);
+    	var $=jQuery, srl = $(this).attr('data-load');
+		$('a[name=comment_' + srl + ']').is(function(){this.scrollIntoView(true);});
     });
 </script>

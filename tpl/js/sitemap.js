@@ -1,4 +1,9 @@
-/* NHN (developers@xpressengine.com) */
+/*
+ * sitemap.js for BoardDX
+ * @author NHN (developers@xpressengine.com) site map
+ * @optimizer phiDel (xe.phidel@gmail.com)
+ */
+
 jQuery(function($){
 
 var

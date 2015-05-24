@@ -74,7 +74,7 @@
 		</block>
 		{@
 			$value = $skin_vars[$val->name] ? $skin_vars[$val->name]->value : '';
-			$value = empty($value) ? $val->default : $value;
+			$value = empty($value) ? ($val->type === 'checkbox' ? explode(',', $val->default) : $val->default) : $value;
 		}
 		<!--@if($val->type == '_SET_SYNC_OPTIONS_')-->
 			<input type="hidden" name="_SET_SYNC_OPTIONS_[]" value="{$val->name}" checked="checked" />
@@ -86,11 +86,11 @@
 				<div class="x_controls">
 					<block cond="$val->type == 'text'">
 						{@$use_multilang = false}
-						<input type="text" name="{$val->name}" id="{$val->name}" class="lang_code" value="<!--@if(strpos($value, '$user_lang->') === false)-->{$value}<!--@else-->{htmlspecialchars($value)}<!--@end-->" />
+						<input type="text" name="{$val->name}" id="{$val->name}" class="lang_code" value="{htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 					</block>
 					<block cond="$val->type == 'textarea'">
 						{@$use_multilang_textarea = false}
-						<textarea name="{$val->name}" class="lang_code" id="{$val->name}" rows="8" cols="42">{htmlspecialchars($value)}</textarea>
+						<textarea name="{$val->name}" class="lang_code" id="{$val->name}" rows="8" cols="42">{htmlspecialchars($value, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}</textarea>
 					</block>
 					<block cond="$val->type == 'select'">
 						<select name="{$val->name}">
@@ -99,7 +99,10 @@
 					</block>
 					<block cond="$val->type == 'checkbox'">
 						<label loop="$val->options => $k, $v" class="x_inline">
-							{@ $is_check = strpos($value, '"'.$v->value.'"')!==false}
+							{@
+								$value = is_string($value) ? unserialize($value) : $value;
+								$is_check = in_array($v->value, $value);
+							}
 							<input type="checkbox" name="{$val->name}[]" value="{$v->value}" id="ch_{$key}_{$k}" checked="checked"|cond="$is_check" class="checkbox" />
 							{$v->title}
 						</label>

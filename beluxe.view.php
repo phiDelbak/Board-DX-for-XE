@@ -469,7 +469,7 @@ class beluxeView extends beluxe
     function dispBoardContent() {
         $this->_setBeluxeCommonInfo();
         $doc = $this->_setBeluxeContentView();
-        $this->_setBeluxeContentList($doc);
+        if(!(int)Context::get('is_modal')) $this->_setBeluxeContentList($doc);
         $this->_templateFileLoad('index');
     }
 

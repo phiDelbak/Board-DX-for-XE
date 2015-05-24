@@ -1,9 +1,6 @@
 {@
-	$nav_ifo = array();
-	$nav_list = $oThis->getNavigationList($oDocument, (int)$mi->navigation_bottom_list_count, $nav_ifo);
-	$t_pagec = (int)$nav_ifo->current_key;
-	$t_pagep = $t_pagec - 1;
-	$t_pagen = $t_pagec + 1;
+	$nav_key = 'Prev';
+	$nav_list = $oThis->getNavigationList($oDocument, (int)$mi->navigation_bottom_list_count);
 }
 <!-- NAVIGATION -->
 <a name="navigation2"></a>
@@ -16,17 +13,18 @@
 				$nv_t_tn = $nav->getTrackbackCount();
                 $nv_un_ex = ($pt_vtype!='N'||$pt_dtype!='N')?$nav->get('extra_vars'):null;
 				$nv_un_ex = is_string($nv_un_ex)?unserialize($nv_un_ex):$nv_un_ex;
+				$nav->selected?$nav_key='Next':0;
 			}
 			<div class="no fl">
-				{($t_pagec===$key)?'<strong class="sCkChr">&radic;</strong>':(($t_pagec<$key)?'Next':'Prev')}
+				{$nav->selected?'<strong class="sCkChr">&radic;</strong>':$nav_key}
 			</div>
 			<div cond="$is_cts" class="cate fr">
 				{@ $cate = $cts[$nav->get('category_srl')] }
 				<a cond="$cate" href="{getUrl('','mid',$mid,'category_srl',$cate->category_srl)}" title="{htmlspecialchars($cate->description)}" style="color:{$cate->color}"|cond="$cate->color">[{$cate->title}]</a>
 				<span cond="!$cate">[{$lang->none_category}]</span>
 			</div>
-			<div class="scElps" data-active="true"|cond="$is_elips">
-				<a class="fl" href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
+			<div class="scElps {$nav->selected?'active':''}" data-active="true"|cond="$is_elips">
+				<a class="fl" href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}">
     				<!--@if($pt_vtype!='N'||$pt_dtype!='N')-->
 					<em class="usept {$nv_un_ex->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$nv_un_ex->beluxe->use_point)}</em>
     				<!--@else-->

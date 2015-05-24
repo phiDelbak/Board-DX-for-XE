@@ -1,14 +1,10 @@
-/**
+/*
+ * module.js for BoardDX
  * @author phiDel (xe.phidel@gmail.com)
- * @update 2011/08/08
- **/
+ */
+
 // 프로그램 구분을 위한 상수, const for identify
 var _PID_MODULE_ = 'beluxe';
-
-String.prototype.ucfirst = function()
-{
-	var s=this;return s.charAt(0).toUpperCase() + s.slice(1);
-};
 
 // use decodeURI
 // String.prototype.urlDecode = function(){

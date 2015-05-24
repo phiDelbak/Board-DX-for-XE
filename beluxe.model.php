@@ -206,7 +206,7 @@ class beluxeModel extends beluxe
         $cate_srl = Context::get('category_srl');
 
         foreach ($list as $key => $val) {
-            $obj = null;
+            $obj = new stdClass();
             $obj->depth = $depth;
             $obj->mid = $val['mid'];
             $obj->module_srl = $val['module_srl'];
@@ -260,8 +260,10 @@ class beluxeModel extends beluxe
             if (count($val['list'])) $this->_arrangeCategory($p_lst, $val['list'], $depth + 1);
         }
 
-        $p_lst[$list_order[0]]->first = true;
-        $p_lst[$list_order[count($list_order) - 1]]->last = true;
+        if(count($list_order)) {
+            $p_lst[$list_order[0]]->first = true;
+            $p_lst[$list_order[count($list_order) - 1]]->last = true;
+        }
     }
 
     /**************************************************************/
@@ -406,7 +408,10 @@ class beluxeModel extends beluxe
 
         $idx = 0;
         foreach ($outtmp2 as $key => $val) {
-            if ($val->document_srl == $obj->current_document_srl) break;
+            if ($val->document_srl == $obj->current_document_srl){
+                $outtmp2[$key]->selected = true;
+                break;
+            }
             $idx++;
         }
 

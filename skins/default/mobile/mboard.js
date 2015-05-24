@@ -1,4 +1,9 @@
-jQuery(function($) {
+jQuery(function($)
+{
+    String.prototype.pidUcfirst = function()
+    {
+        var s=this;return s.charAt(0).toUpperCase() + s.slice(1);
+    };
 
     $.fn.pidDeclareBtninit = function() {
         this.click(function() {
@@ -15,7 +20,7 @@ jQuery(function($) {
             if(typeof c != 'string')  return false;
             if (!c.trim()) return alert('Please enter the message.') || false;
             exec_json(
-                ty+'.proc' + ty.ucfirst() + 'Declare',
+                ty+'.proc' + ty.pidUcfirst() + 'Declare',
                 params,
                 function(ret_obj) {
                     alert(ret_obj.message);
@@ -53,7 +58,7 @@ jQuery(function($) {
                 mid: current_mid
             };
             exec_json(
-                ty + '.proc' + ty.ucfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'),
+                ty + '.proc' + ty.pidUcfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'),
                 params,
                 function(ret_obj) {
                     alert(ret_obj.message);

@@ -33,9 +33,10 @@
 	$is_sedt = $is_sedt == 'C' && $mi->consultation == 'Y' ? 'T' : $is_sedt;
 
 	$browser = $oThis->getBrowserInfo();
-	$lte_ie7 = $browser['msie']&&$browser['msie'] < 8;
-	$us_modal = !$lte_ie7 && $mi->use_modal_window == 'Y';
-	$us_hottrack = !$lte_ie7 && $mi->hot_track == 'Y';
+	$lte_ie8 = $browser['msie']&&$browser['msie'] < 9;
+	$us_hottrack = !$lte_ie8 && $mi->hot_track == 'Y';
+	$us_modal = !$lte_ie8 && ($mi->use_modal_window==='Y'||strpos($mi->use_modal_window, '"write"')!==false);
+	$us_vmodal = !$lte_ie8 && strpos($mi->use_modal_window, '"view"')!==false;
 	$us_blind = $mi->use_blind=='Y';
 
 	$is_elips = !$mi->title_length;
@@ -56,7 +57,6 @@
 	$mi->document_default_content = $mi->document_default_content ? preg_replace($tmp1,$tmp2,$mi->document_default_content) : '';
 	$mi->document_bottom_text = $mi->document_bottom_text ? preg_replace($tmp1,$tmp2,$mi->document_bottom_text) : '';
 }
-
 <!--// CSS,JS 파일 import -->
 <!--@if(__DEBUG__)-->
 	<load target="css/common.css" />

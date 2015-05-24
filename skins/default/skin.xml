@@ -99,25 +99,25 @@
 			<title xml:lang="ko">모양</title>
 			<title xml:lang="jp">スタイル</title>
 			<title xml:lang="en">Style</title>
-			<var name="use_modal_window" type="radio" default="N">
+			<var name="use_modal_window" type="checkbox" default="write">
 				<title xml:lang="ko">모달창</title>
 				<title xml:lang="jp">モダルウインドウ</title>
 				<title xml:lang="en">Modal window</title>
-				<options value="N">
-					<title xml:lang="ko">사용 안함</title>
-					<title xml:lang="jp">使用しない</title>
-					<title xml:lang="en">not use</title>
+				<options value="write">
+					<title xml:lang="ko">글쓰기</title>
+					<title xml:lang="jp">書き込み</title>
+					<title xml:lang="en">writing</title>
 				</options>
-				<options value="Y">
-					<title xml:lang="ko">사용</title>
-					<title xml:lang="jp">使用</title>
-					<title xml:lang="en">use</title>
+				<options value="view">
+					<title xml:lang="ko">글보기</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">view</title>
 				</options>
-				<description xml:lang="ko">글쓰기시 모달창을 사용할지 설정합니다.
+				<description xml:lang="ko">모달창을 사용할지 설정합니다.
 				사용에 문제가 있다면 도움말을 참고하시거나 사용 안함을 선택하시면 됩니다.</description>
-				<description xml:lang="jp">書き込みの時モダルウインドウを使うか設定します.
+				<description xml:lang="jp">モダルウインドウを使うか設定します.
 				使用に問題があったらヘルプを参考するか使用しないことを選択すれば良いです.</description>
-				<description xml:lang="en">When writing, set use whether the modal window.
+				<description xml:lang="en">set use whether the modal window.
 				If you have any problems please use help or please disable that option.</description>
 			</var>
 			<var name="hot_track" type="radio" default="N">

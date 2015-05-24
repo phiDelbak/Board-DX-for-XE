@@ -2054,14 +2054,24 @@
     left:0;
     z-index:2;
     background-color:transparent;
+    width:100%;
+    height:100%;
+    margin:-2px 0 0 0;
     zoom:1
 }
 #siBody a.scHotTrack:hover {
     border:2px solid #8A7ADB!important;
     border-radius:2px;
     -moz-border-radius:2px;
-    -webkit-border-radius:2px
+    -webkit-border-radius:2px;
 }
+#siBody #siLst.webz .scBox a.scHotTrack {
+    margin-top:2px;
+}
+#siBody tr[data-hottrack] td:first-child {
+    position:relative;
+}
+/*
 #siBody a.scHotTrack span.iefix {
     position:absolute;
     z-index:2;
@@ -2072,6 +2082,7 @@
     opacity:0;
     zoom:1
 }
+*/
 /* admin button */
 #siBody .scAdmActs {
     position:absolute;

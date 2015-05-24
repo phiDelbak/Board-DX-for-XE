@@ -1,12 +1,7 @@
-/**
+/*
+ * admin.js for BoardDX
  * @author phiDel (xe.phidel@gmail.com)
- * @update 2011/08/08
- **/
-
-String.prototype.ucfirst = function()
-{
-	var s=this;return s.charAt(0).toUpperCase() + s.slice(1);
-};
+ */
 
 jQuery(function($)
 {
@@ -308,7 +303,8 @@ jQuery(function($)
 			opt = $(this).attr('data-option') || '',
 			module_srl = $(this).closest('form').find('>input[name=module_srl]').val(),
 			params = {'module_srl':module_srl,'option':opt},
-			cateFuncMake = 'beluxe.procBeluxeAdminMake' + mode.ucfirst() + 'Cache';
+			mode = mode.charAt(0).toUpperCase() + mode.slice(1);
+			cateFuncMake = 'beluxe.procBeluxeAdminMake' + mode + 'Cache';
 		exec_json(cateFuncMake, params, completeCallModuleAction);
 		return false;
 	});

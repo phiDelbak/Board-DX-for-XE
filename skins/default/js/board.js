@@ -1,10 +1,15 @@
  /*
  * board.js for BoardDX
- * @author phiDel (https://github.com/phiDelbak/Board-DX-for-XE, xe.phidel@gmail.com)
+ * @author phiDel (xe.phidel@gmail.com, https://github.com/phiDelbak/Board-DX-for-XE)
  */
 
 jQuery(function($)
 {
+	String.prototype.pidUcfirst = function()
+	{
+		var s=this;return s.charAt(0).toUpperCase() + s.slice(1);
+	};
+
 	$('a[href=#siManageBtn]')
 	.click(function()
 	{
@@ -145,20 +150,20 @@ jQuery(function($)
 		return false;
 	});
 
+	$('a[href=#popopen][data-srl]')
+	.click(function()
+	{
+		var srl = $(this).attr('data-srl') || '';
+		if(srl) popopen(srl.setQuery('is_poped','1'),'beluxePopup');
+		return false;
+	});
+
 	$('a[href=#tbk_action][class=delete]')
 	.click(function()
 	{
 		if(!confirm('Do you want to delete the selected trackback?')) return false;
 		var srl = $(this).closest('li').find('a[name^=trackback_]').attr('name').replace(/.*_/g,'');
 		exec_json('beluxe.procBeluxeDeleteTrackback', {mid:current_mid,trackback_srl:srl}, completeCallModuleAction);
-		return false;
-	});
-
-	$('a[href=#popopen][data-srl]')
-	.click(function()
-	{
-		var srl = $(this).attr('data-srl') || '';
-		if(srl) popopen(srl.setQuery('is_poped','1'),'beluxePopup');
 		return false;
 	});
 
@@ -178,7 +183,7 @@ jQuery(function($)
 		var params = {target_srl : srl, cur_mid : current_mid, mid : current_mid};
 
 		exec_json(
-			ty + '.proc' + ty.ucfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'),
+			ty + '.proc' + ty.pidUcfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'),
 			params,
 			function(ret_obj) {
 				alert(ret_obj.message);
@@ -210,7 +215,7 @@ jQuery(function($)
 			return false;
 		}
 		exec_json(
-			ty + '.proc' + ty.ucfirst() + 'Declare',
+			ty + '.proc' + ty.pidUcfirst() + 'Declare',
 			{target_srl: srl, cur_mid: current_mid, mid: current_mid},
 			function(ret_obj) {
 				alert(ret_obj.message);
@@ -291,13 +296,6 @@ jQuery(function($)
 		return false;
 	});
 
-	// ie8 이하에서 last css fix
-	if($.browser.msie===true&&Math.floor($.browser.version)<9)
-	{
-		$('#siLst thead tr th:not(hidden):last div').css('border-right-width','1px');
-	}
-
-
 	// 글쓰기
 	$.fn.pidSettingWrite = function()
 	{
@@ -346,7 +344,6 @@ jQuery(function($)
 						var u = xe.getApp('xeuploader');
 						if(u.length===1) u[0].loadFilelist();
 						else u = $('#xefu-container-'+ret.sequence_srl).xeUploader();
-
 					// xpresseditor
 					}else if($('.xpress-editor').length){
 						reloadFileList(uploaderSettings[ret.sequence_srl]);
@@ -357,7 +354,32 @@ jQuery(function($)
 		});
 	};
 
+	// ie8 이하에서 last css fix
+	if($.browser.msie===true&&Math.floor($.browser.version)<9)
+	{
+		$('#siLst thead tr th:not(hidden):last div').css('border-right-width','1px');
+	}
+
+	// check iframe
+	try{
+		var doc, $oFrm = $(window.frameElement);
+		if($oFrm.is('[id=pidOframe]')){
+        	doc = $oFrm.closest('html');
+		}
+	}catch(e){}
+
 	$(window)
+	.ready(function()
+	{
+		$('a[type^=example\\/modal]').pidModalWindow(doc||'');
+
+		$('#siWrt:eq(0)').pidSettingWrite();
+		$('div[data-flash-fix=true]').pidModalFlashFix();
+		$('div[data-link-fix=true]').each(function(){
+			$('a:not([target])',this).attr('target','_blank');
+		});
+		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
+	})
 	.load(function()
 	{
 		// 모바일 사용안할때 크기가 너무 줄어들면 조절
@@ -401,35 +423,42 @@ jQuery(function($)
 			if($.browser.msie===true) $f.height($i.css('line-height') || 15);
 			$f.css('width',(fw - lw - 5) + 'px').addClass('_first');
 		});
+
 		// 핫트랙
 		$('.scContent [data-hottrack]')
 		.each(function(e)
 		{
-			var $i = $(this), ix = $i.attr('data-index'), tp = $i.attr('data-type'), ur = $i.attr('data-hottrack'),
-				$a = $('<a class="scHotTrack" />').attr('data-index', ix).attr('href', ur),
-				w = $i.outerWidth(tp != 'gall') - (tp == 'widg' ? 8 : 4),
-				h = $i.outerHeight(tp == 'webz') + (tp == 'lstcont' ? $('#siHotCont_' + ix).height() : 0) - 4;
+			var $i = $(this), tp = $i.attr('data-type'), ur = $i.attr('data-hottrack'),
+				$a = $('<a class="scHotTrack">').attr('href', ur),
+				w = $i.outerWidth(tp !== 'gall') - (tp === 'widg' ? 7 : 4);
 
-			$a.css({'width':w+'px','height':h+'px'});
 			if($i.get(0).tagName=='TR') {
-				var $td = $i.find('>td:eq(0)');
-				if($.browser.mozilla===true) {
-					var $cs = $('<span>').css({'position':'relative','display':'block'})
-						.css({'padding-left':$td.css('padding-left'),'padding-top':$td.css('padding-top')}).html($td.html());
-					$a.prependTo($cs.prependTo($td.html('').css({'padding-left':'0','padding-top':'0','vertical-align':'top'})));
-				} else $a.prependTo($td.css({'position':'relative'}));
-			} else $a.prependTo($i);
+				$i.find('>td:eq(0)').is(function(){
+					$a.prependTo(this).width(w);
+					if(tp === 'lstc') $a.height($i.outerHeight()+$i.next().outerHeight());
+				});
+			}else{
+				$a.prependTo(this).width(w);
+			}
 
-			if($.browser.msie===true) $('<span class="iefix" />').css({'width':w+'px','height':h+'px'}).appendTo($a);
+			// 모달 보기 사용시
+			if($i.is('[data-modal=1]'))
+			{
+				$a.attr({'type':'example/modal','data-header':':GETHTML:#pidModalHeader'}).pidModalWindow(doc||'');
+			}
+
+			// $a.css({'width':w+'px','height':h+'px'});
+			// if($i.get(0).tagName=='TR') {
+			// 	var $td = $i.find('>td:eq(0)');
+			// 	if($.browser.mozilla===true) {
+			// 		var $cs = $('<span>').css({'position':'relative','display':'block'})
+			// 			.css({'padding-left':$td.css('padding-left'),'padding-top':$td.css('padding-top')}).html($td.html());
+			// 		$a.prependTo($cs.prependTo($td.html('').css({'padding-left':'0','padding-top':'0','vertical-align':'top'})));
+			// 	} else $a.prependTo($td.css({'position':'relative'}));
+			// } else $a.prependTo($i);
+			// if($.browser.msie===true) $('<span class="iefix" />').css({'width':w+'px','height':h+'px'}).appendTo($a);
 		});
 
-		$('a[type^=example\\/modal]').pidModalWindow();
-		$('div[data-flash-fix=true]').pidModalFlashFix();
-
-		$('#siWrt:eq(0)').pidSettingWrite();
-		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
-
-		var tmp = $('#siFbk a[name^=comment][data-scroll=true]').last().parent()[0];
-		if(tmp) tmp.scrollIntoView(true);
+		$('#siFbk a[name^=comment][data-scroll=true]').last().parent().is(function(){this.scrollIntoView(true);});
 	});
 });

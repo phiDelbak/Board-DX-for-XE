@@ -29,6 +29,9 @@
     line-height: 30px;
     text-shadow: 0 -1px 0 #000;
 }
+.pid_modal-head a{
+    color: #fff;
+}
 .pid_modal-foot{
     color:#555;
     margin-bottom:0;

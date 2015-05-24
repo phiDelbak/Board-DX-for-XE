@@ -65,7 +65,10 @@
 		<td cond="$grant->manager" class="scCheck sort"><div><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true }); return false;" /></div></td>
 	</tr>
 </thead>
-
+{@
+	$md_optstr = !$us_hottrack&&$us_vmodal?'type="example/modal" data-header=":GETHTML:#pidModalHeader"':'';
+	$hot_optstr = $us_hottrack?'data-hottrack="%s" data-type="%s" data-modal="'.($us_vmodal?'1':'0').'"':'';
+}
 <block cond="!$is_notice_widget">
 	<tbody loop="$a_lsttp => $tlk,$p_list" cond="$tlk && count($p_list)" class="{$tlk}">
 		<block loop="$p_list => $no,$document">
@@ -74,7 +77,7 @@
 			$is_scrap = $ds_scrap?$oThis->isScrap($document->document_srl):0;
 			$purl = getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage);
 		}
-		<tr data-hottrack="{$purl}"|cond="$us_hottrack">
+		<tr {$hot_optstr?sprintf($hot_optstr,$purl,''):''}>
 			<td loop="$sclms => $key,$val" cond="$val->idx<0" scope="col" class="{$key}" style="color:{$val->color}"|cond="$val->color">
 				<!--@switch($key)-->
 					<!--@case('no')-->
@@ -88,7 +91,7 @@
 					<!--@break-->
 					<!--@case('title')-->
 						<div class="scElps" data-active="true"|cond="$is_elips">
-							<a href="{$purl}">{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</a>
+							<a href="{$purl}" {$md_optstr}>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</a>
 							<span>
 								{@
 									$t_cmtn = $document->getCommentCount();
@@ -185,9 +188,9 @@
 			$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
 			$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 		}
-			<div class="scItem clearBar" style="margin-right:{(int)$mi->thumbnail_width+25}px;" <!--@if($us_hottrack)-->data-hottrack="{$purl}" data-type="webz"<!--@endif-->>
+			<div class="scItem clearBar" style="margin-right:{(int)$mi->thumbnail_width+25}px;" {$hot_optstr?sprintf($hot_optstr,$purl,'webz'):''}>
 				<div class="scInfo">
-					<a href="{$purl}" class="thum" style="width:{(int)$mi->thumbnail_width}px;height:{(int)$mi->thumbnail_height}px;">
+					<a href="{$purl}" {$md_optstr} class="thum" style="width:{(int)$mi->thumbnail_width}px;height:{(int)$mi->thumbnail_height}px;">
 						<!--@if($is_blind || !$is_grant)-->
 							<img src="img/common/thum_{$is_blind?'blind':'secret'}.png" alt="{$is_blind?'blind':'secret'}" title="{$is_blind?'blind':'secret'}" height="{$mi->thumbnail_height}" width="{$mi->thumbnail_width}" />
 						<!--@else-->
@@ -203,7 +206,7 @@
 							<!--@switch($key)-->
 								<!--@case('title')-->
 									<div class="scElps" data-active="true"|cond="$is_elips">
-										<a class="fl" href="{$purl}" style="margin-right:-{(int)$mi->thumbnail_width+25}px;">
+										<a class="fl" href="{$purl}" {$md_optstr} style="margin-right:-{(int)$mi->thumbnail_width+25}px;">
 											<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$un_extra->beluxe->use_point)}</em>
 											{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}
 										</a>

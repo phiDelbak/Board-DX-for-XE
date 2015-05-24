@@ -4,8 +4,7 @@
  * @refer NHN (developers@xpressengine.com) Modal Window
  */
 
-// Modal Window
-jQuery(function($)
+(function($)
 {
 	var pidModal = function(id, target)
 	{
@@ -16,7 +15,8 @@ jQuery(function($)
 	pidModal.prototype.getBackDrop = function()
 	{
 		var $bkdrop = $('#pidModalBackdrop', this.target);
-		if(!$bkdrop.length){
+		if(!$bkdrop.length)
+		{
 			$bkdrop = $('<div id="pidModalBackdrop" class="pid_modal-backdrop">').appendTo($('body', this.target)).hide();
 		}
 		return $bkdrop;
@@ -24,47 +24,85 @@ jQuery(function($)
 
 	pidModal.prototype.getModalFrame = function()
 	{
-		var $frame = $('#' + this.id, this.target);
-		if(!$frame.length){
-			$frame = $('<section id="' + this.id + '" class="pid_modal-frame">').appendTo($('body', this.target)).hide();
+		var $body, $frame = $('#' + this.id, this.target);
+
+		if(!$frame.length)
+		{
+			$body = $('body', this.target);
+			$frame = $('<section id="' + this.id + '" class="pid_modal-frame">').appendTo($body).hide();
 		}else{
 			$frame.not('.pid_modal-frame').addClass('pid_target-frame');
 		}
 		if(!$frame.find('.pid_modal-body').length) $frame.append($('<div class="pid_modal-body">'));
+
 		return $frame;
 	};
 
-	pidModal.prototype.setTitle = function(header, footer)
+	pidModal.prototype.setTitle = function(header, footer, close_callback)
 	{
-		var htmlDecode = function(str){
+		var htmlDecode = function(str)
+		{
 			var o = {'&amp;': '&','&gt;': '>','&lt;': '<','&quot;': '"'}, r;
 			r = new RegExp('(' + $.map(o,function(v,k){return k;}).join('|') + ')', 'g');
 			return str.replace(r, function(m, c) {return o[c];});
 		};
 
-		var $modal = this.getModalFrame(), $pmh, $pmf, tmp,
+		var $modal = this.getModalFrame(), $close, $pmh, $pmf, tmp,
 			hstr = htmlDecode(header),
 			fstr = htmlDecode(footer),
 			childs = ['pid_modal-head', 'pid_modal-foot'];
 
-		if(hstr.substring(0,8) === 'GETTEXT:') hstr = $(hstr.substring(8)).text();
-		if(fstr.substring(0,8) === 'GETTEXT:') fstr = $(fstr.substring(8)).text();
+		if(hstr.substring(0,9) !== ':INHERIT:')
+		{
+			if(hstr.substring(0,9) === ':GETHTML:') hstr = $(hstr.substring(9)).html();
+			$pmh = $modal.find('div.' + childs[0]);
+			if(!$pmh.length) $pmh = $('<div class="'+childs[0]+'">').hide().prependTo($modal);
+			tmp = (hstr) ? $pmh.html(hstr).show() : $pmh.html('').hide();
+		}
 
-		$pmh = $modal.find('div.' + childs[0]);
-		$pmf = $modal.find('div.' + childs[1]);
-		if(!$pmh.length) $pmh = $('<div class="'+childs[0]+'">').hide().prependTo($modal);
-		if(!$pmf.length) $pmf = $('<div class="'+childs[1]+'">').hide().appendTo($modal);
+		if(fstr.substring(0,9) !== ':INHERIT:')
+		{
+			if(fstr.substring(0,9) === ':GETHTML:') fstr = $(fstr.substring(9)).html();
+			$pmf = $modal.find('div.' + childs[1]);
+			if(!$pmf.length) $pmf = $('<div class="'+childs[1]+'">').hide().appendTo($modal);
+			tmp = (fstr) ? $pmf.html(fstr).show() : $pmf.html('').hide();
+		}
 
-		tmp = (hstr) ? $pmh.text(hstr).show() : $pmh.text('').hide();
-		tmp = (fstr) ? $pmf.text(fstr).show() : $pmf.text('').hide();
+		// set close button
+		$close = $modal.find('.pid_modal-close');
+		if(!$close.length)
+		{
+			$close =
+				$('<button type="button" title="press esc to close" class="pid_modal-close">&times;</button>')
+				.click(close_callback);
+			$modal.prepend($close);
+		}
 	};
 
 	pidModal.prototype.goUrl = function(url, resize, callback)
 	{
 		var $modal = this.getModalFrame(), $bdrop = this.getBackDrop(),
-			$oFrm, waitmsg = $('div.wait[data-modal-child=message]') /*, is_iframe*/;
+			$oFrm = $('#pidOframe', $modal), waitmsg = $('div.wait[data-modal-child=message]') /*, is_iframe*/;
 
-	    if(!waitmsg.length){
+	    // false. the target position control
+		var validModal = function(ifrm)
+		{
+        	var doc = ifrm.contentDocument || ifrm.contentWindow.document;
+	        if(!$('script[src*='+_PID_MODULE_+']', doc).length)
+	        {
+	        	$(doc).find('a').click(function(e)
+	        	{
+	        		e.stopPropagation();
+	        		e.preventDefault();
+	        		parent.location.replace($(this).attr('href'));
+	        	});
+
+	        	$oFrm.pidAutoResize($oFrm.attr('data-resize'));
+	        }
+		};
+
+	    if(!waitmsg.length)
+	    {
 	        waitmsg = $('<div class="message update wait" data-modal-child="message">')
 	        .html('<p>'+waiting_message+'<br />If time delays continue, <a href="'+url.setQuery('is_modal','')+'"><span>click here</span></a>.</p>');
 	     	$('body', this.target).append(waitmsg);
@@ -73,17 +111,17 @@ jQuery(function($)
 	    waitmsg.css({position:'fixed', top:10, left:10, zIndex:($bdrop.css('z-index')+1 || 99999)});
 
 		url = url.setQuery('is_modal', '1');
-		$oFrm = $('#pidOframe', $modal);
 
 		//is_iframe = (/msie|chromium|chrome/.test(navigator.userAgent.toLowerCase()) === true);
-		if($oFrm.length){
+		if($oFrm.length)
+		{
 			//(is_iframe) ? $oFrm.get(0).src = url : $oFrm.attr('data', url);
 			$oFrm.get(0).src = url;
 		}else{
 			// object는 아직 문제가 많아, 그냥 iframe 사용하기로...
 			$oFrm = $('<iframe id="pidOframe" data-resize="'+ resize +'" allowTransparency="true" frameborder="0" scrolling="no" />')
 				.css({height: '100%', width: '100%'})
-				.on('load', function(){callback();})
+				.on('load', function(){callback();validModal(this);})
 				.attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal));
 
 			// if(is_iframe) {; autoResize(this, resize)
@@ -95,6 +133,21 @@ jQuery(function($)
 			// 		.load(function(){$(this).pidModalResize(resize);}).attr('data', url).appendTo($('.pid_modal-body:eq(0)', $modal));
 			// }
 		}
+	};
+
+	pidModal.prototype.getTopIndex = function()
+	{
+		var $body = $('body', this.target), zidx = 0;
+
+		$body.find('> *')
+			.filter(function(){ return $(this).css('z-index') !== 'auto'; })
+			.each(function(event)
+			{
+				var thzidx = parseInt($(this).css('z-index'));
+				if(zidx < thzidx) zidx = thzidx;
+			});
+
+		return zidx + 1;
 	};
 
 	$.fn.pidAutoResize = function(sizemode)
@@ -109,37 +162,35 @@ jQuery(function($)
 
         clearInterval($win.data('timer') || 0);
 
-        // 해당 프로그램이 아니면 링크 제어
-        if(!$('script[src*='+_PID_MODULE_+']', $body).length){
-        	$body.find('a').click(function(e){
-        		e.stopPropagation();
-        		e.preventDefault();
-        		parent.location.replace($(this).attr('href'));
-        	});
-        }
-
         //var isIframe = (parent.location != parent.parent.location);
         // if(isIframe) {
         // 	$bg = $('.pid_modal-backdrop', $modal.closest('body'));
         // } else $bg = $(parent);
 
-        $win.add($body).css({padding: '0', margin: '0', overflow: 'hidden'});
+        $win.add($body).scrollTop(0).css({padding: '0', margin: '0', overflow: 'hidden'});
 
         $modal = $win.parent().parent();
 		$moh = $('div.pid_modal-head', $modal);
 		$mob = $('div.pid_modal-body', $modal);
 		$mof = $('div.pid_modal-foot', $modal);
 
-        //모달이 아니고 타겟이면
-        if($modal.is('.pid_target-frame')) {
+        //is target frame
+        if($modal.is('.pid_target-frame'))
+        {
 			$('[data-modal-child=message]', $modal.closest('body'))
-	        .fadeOut(2500, function() {
+	        .fadeOut(1500, function()
+	        {
 	            $(this).remove();
 	        });
 
-        	timer = setInterval(function() {
+        	timer = setInterval(function()
+        	{
 		        h = $body.outerHeight(true);
-		        if(h > 10) $mob.height(h);
+		        if(h > 10)
+		        {
+	        		$win.height(h);
+		        	$mob.height(h);
+		        }
         		if(!$modal.find('#pidOframe').length) clearInterval(timer);
         	}, 500);
 
@@ -152,25 +203,29 @@ jQuery(function($)
         	pw = $bdrop.outerWidth(true);
         	ph = $bdrop.outerHeight(true);
 
-			$mob.outerWidth(pw - 80);
+			$mob.scrollTop(0).outerWidth(pw - 80);
 
-	        if ($modal.position().left < 1){
+	        if ($modal.position().left < 1)
+	        {
 	            $modal.animate({
 	                top: 10,
 	                left: Math.floor((pw - $modal.outerWidth(true)) / 2)
 	            },{
-	                complete: function(){
+	                complete: function()
+	                {
 	                	$modal.height('');
 
 				        $('[data-modal-child=message]', $modal.closest('body'))
-				        .fadeOut(2500, function(){
+				        .fadeOut(1500, function()
+				        {
 				            $(this).remove();
 				        });
 	                }
 	            });
 	        }
 
-        	timer = setInterval(function(){
+        	timer = setInterval(function()
+        	{
         		pw = $bdrop.outerWidth(true);
         		ph = $bdrop.outerHeight(true);
 
@@ -181,15 +236,13 @@ jQuery(function($)
 
         		ch = $body.outerHeight(true);
 
-        		if(ch > 10){
-	        		if(sizemode === 'hfix' || (ch > (ph - h - 100))) ch = ph - h - 100;
+        		if(ch > 10)
+        		{
+	        		if($win.height() !== ch) $win.height(ch);
 
-	        		// 프레임과 프레임 body가 다으면 프레임 크기 맞춤
-	        		if($win.height() !== $body.outerHeight()) $win.height($body.outerHeight(true));
-	        		// 모달 body와 프레임 body가 다으면 모달 body 크기 맞춤
+	        		if(sizemode === 'hfix' || (ch > (ph - h - 100))) ch = ph - h - 100;
 	        		if($mob.height() !== ch) $mob.height(ch);
 
-	        		// 모달 body가 프레임 보다 작으면 스크로바 표시
 					$mob.css('overflow-y', $win.outerHeight() > $mob.height() ? 'auto' : 'hidden');
 
 			        h = $modal.outerHeight(true);
@@ -204,13 +257,14 @@ jQuery(function($)
 	    $win.data('timer', timer);
     };
 
-	$.fn.pidModalWindow = function(target)
+	$.fn.pidModalWindow = function(target, bg_close)
 	{
 		this
 			.not('.pid_modal-anchor')
 			.addClass('pid_modal-anchor')
-			.each(function(){
-				var $this = $(this), a;
+			.each(function()
+			{
+				var $this = $(this), $parmd, a;
 
 				// , url, t, i, c,
 				// 	act = $this.attr('data-modal-act') || '',
@@ -229,13 +283,15 @@ jQuery(function($)
 
 				a = ($this.attr('type') || '').split('/');
 				if(a[1] !== 'modal') return;
-
 				this.modal = new pidModal(a[2] ? a[2] : 'pidModalFrame', target);
 			})
-			.click(function(){
+			.click(function()
+			{
 				var $this = $(this), $modal = this.modal.getModalFrame();
 
-				if(!$modal.is('.pid_target-frame') && $modal.data('state') === 'showing') {
+				if($modal.data('state') === 'showing')
+				{
+					if($modal.is('.pid_target-frame')) return false;
 					$this.trigger('close.mw');
 				}else{
 					$this.trigger('open.mw');
@@ -243,21 +299,11 @@ jQuery(function($)
 
 				return false;
 			})
-			.bind('open.mw', function() {
-				var $this = $(this), $modal, $bdrop, $body, $close, before_event, duration, url, zidx = 0;
+			.bind('open.mw', function()
+			{
+				var $this = $(this), $modal, $bdrop, $body, before_event, duration, url, zidx = 0;
 
-				this.modal.setTitle(($this.attr('data-header') || $this.attr('title')) || '', $this.attr('data-footer') || '');
 				$modal = (this.modal.getModalFrame()).hide();
-
-				$close = $modal.find('.pid_modal-close');
-				if(!$modal.is('.pid_target-frame') && !$close.length){
-					$close = $('<button type="button" title="press esc to close" class="pid_modal-close">&times;</button>');
-					$modal.prepend($close);
-				}
-				if($close.length) $close.click(function(){ $this.trigger('close.mw'); return false; });
-
-				// Position initialize
-				if(!$modal.is('.pid_target-frame')) $modal.css({top:0,left:'-150%',height:0});
 
 				// before event trigger
 				before_event = $.Event('before-open.mw');
@@ -266,44 +312,63 @@ jQuery(function($)
 				// is event canceled?
 				if(before_event.isDefaultPrevented()) return false;
 
-				// get duration
-				duration = $this.data('duration') || 'fast';
-				// set state : showing
-				$modal.data('state', 'showing');
-				// after event trigger
-				function after(){$this.trigger('after-open.mw');}
+				// Position initialize
+				if(!$modal.is('.pid_target-frame'))
+				{
+					$modal.css({top:'0',left:'-150%'});
 
-				if($modal.is('.pid_target-frame')){
-					$modal.find('> *').hide(duration, function(event){
-						$modal.find('> div.pid_modal-body').show();
-					});
-				}else{
-					$(document).bind('keydown.mw', function(event){
-						if(event.which === 27){ //esc
-							$this.trigger('close.mw');
-							return false;
-						}
-					});
-
-					$body = $('body', target);
-					$body
-						.find('> *')
-						.filter(function(){ return $(this).css('z-index') !== 'auto'; })
-						.each(function(event){
-		    				var thzidx = parseInt($(this).css('z-index'));
-							if(zidx < thzidx) zidx = thzidx;
-						});
-
-					$bdrop = this.modal.getBackDrop();
-					$bdrop.data('body_overflow', $body.css('overflow')).css('z-index', zidx+1).show();
-					$body.css('overflow','hidden');
-					$modal.css('z-index', zidx+2).find('button.pid_modal-close:first').focus();
+					// set header, footer, close
+					this.modal.setTitle(
+						($this.attr('data-header') || $this.attr('title')) || '',
+						$this.attr('data-footer') || '',
+						function(){ $this.trigger('close.mw'); return false; }
+					);
 				}
 
-				this.modal.goUrl($this.data('go-url') || $this.attr('href'), $this.attr('data-resize') || 'auto', after);
+				// after event trigger
+				var after = function(){$this.trigger('after-open.mw');};
+
+				url = ($this.data('go-url') || $this.attr('href')) || 'about:blank';
+
+				if($modal.data('state') !== 'showing')
+				{
+					// set state : showing
+					$modal.data('state', 'showing');
+					// get duration
+					duration = $this.data('duration') || 'fast';
+
+					if($modal.is('.pid_target-frame'))
+					{
+						$modal.find('> *').hide(duration, function(event){
+							$modal.find('> div.pid_modal-body').show();
+						});
+					}else{
+						$(document).bind('keydown.mw', function(event)
+						{
+							if(event.which === 27){ //esc
+								$this.trigger('close.mw');
+								return false;
+							}
+						});
+
+						zidx = this.modal.getTopIndex();
+
+						$bdrop = this.modal.getBackDrop();
+						$body = $('body', this.modal.target);
+
+						$bdrop.data('body_overflow', $body.css('overflow')).css('z-index', zidx).show();
+						$modal.css('z-index', zidx + 1).find('button.pid_modal-close:first').focus();
+						$body.css('overflow','hidden');
+
+						if(bg_close) $bdrop.click(function(){ $this.trigger('close.mw'); return false; });
+					}
+				}
+
+				this.modal.goUrl(url, $this.attr('data-resize') || 'auto', after);
 				//if(url){}else{$modal.fadeIn(duration, after);}
 			})
-			.bind('close.mw', function(){
+			.bind('close.mw', function()
+			{
 				var $this = $(this), $modal, $bdrop, before_event, duration;
 
 				$modal = this.modal.getModalFrame();
@@ -311,31 +376,38 @@ jQuery(function($)
 				// before event trigger
 				before_event = $.Event('before-close.mw');
 				$this.trigger(before_event);
+
 				// is event canceled?
 				if(before_event.isDefaultPrevented()) return false;
 
 				// get duration
 				duration = $this.data('duration') || 'fast';
+
 				// set state : hiding
 				$modal.data('state', 'hiding');
-				// after event trigger
-				function after(){$this.trigger('after-close.mw');}
 
-				if($modal.is('.pid_target-frame')){
-					$modal.find('> *').show(duration, function(event){
+				// after event trigger
+				var after = function(){$this.trigger('after-close.mw');};
+
+				if($modal.is('.pid_target-frame'))
+				{
+					$modal.find('> *').show(duration, function(event)
+					{
 						$modal.find('> div.pid_modal-head').hide();
 						$modal.find('> div.pid_modal-body').hide();
 						$modal.find('> div.pid_modal-foot').hide();
 					});
 				}else{
-					$modal.fadeOut(duration, function(){
-						after();
-						$(this).not('.pid_target-frame').css({top:0,left:'-150%',height:0,'z-index':'2'}).hide()
-							.find('> div.pid_modal-body').children().remove();
-					});
 					$bdrop = this.modal.getBackDrop();
-					$bdrop.hide().css('z-index', '1');
-					$('body', target).css('overflow', $bdrop.data('body_overflow') || 'auto');
+
+					$modal.fadeOut(duration, function()
+					{
+						after();
+						$(this).not('.pid_target-frame').hide().css({top:'0',left:'-150%','z-index':'2'});
+						$bdrop.hide().css('z-index', '1');
+						$('body', target).css('overflow', $bdrop.data('body_overflow') || 'auto');
+						$(this).find('> div.pid_modal-body').children().remove();
+					});
 				}
 
 				$this.focus();
@@ -348,8 +420,7 @@ jQuery(function($)
 		$('iframe[src*=youtube]',this).each(function(){var o=$(this);o.attr('src',(o.attr('src')).setQuery('wmode', 'opaque'));});
 	};
 
-	try
-	{
+	try {
 		var $oFrm = $(window.frameElement);
 		if($oFrm.is('[id=pidOframe]'))
 		{
@@ -370,8 +441,9 @@ jQuery(function($)
 			{
 				 $('body').height(1);
 				 $oFrm.height('').parent().height(1);
+				 $('[data-modal-child=message]', $oFrm.closest('body')).remove();
 			});
 		}
-	}
-	catch(e){}
-});
+	}catch(e){}
+}
+)(jQuery);
