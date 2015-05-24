@@ -1,20 +1,4 @@
 @charset "utf-8";
-
-/*ie7*/
-.scBtn{*margin:0}
-#siCat.tabn{*margin-bottom:0}
-#siCat.side .cateArea li b{*display:inline !important}
-#siLst.gall .scItem{*float:left}
-#siLst.gall td.scBox{*padding-bottom:20px}
-#siDoc .thmAx img.thum,#siLst.webz .scItem a.thum{*float:none;*position:absolute;*left:5px;*top:3px}
-#siFbk .scFrm>li{*zoom:normal}
-#siFbk .scFbWt .cmtbtns{*float:right}
-#siFbk .scFbWt .scWusr{*display:block !important}
-#siFbk.cmt .scFbH .fr{*position:relative;*top:-30px}
-#siWrt .scWtag input[type="text"]{*width:80% !important}
-#siWrt .scWul .scWli ul li{*display:inline-block;*white-space:nowrap}
-#siDoc.book .scRibbon span.caption a{*float:left;*margin-left:20px}
-
 /*filter*/
 .scBtn a,.scBtn *{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e2e2e2')}
 .scBtn.black a,.scBtn.black *{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#777777',endColorstr='#353535')}
@@ -33,3 +17,17 @@
 #siModalWin .ie6,#siBody a.scHotTrack span.iefix{filter:alpha(opacity=0)}
 
 #siBody a.scHotTrack span.iefix {position:absolute;z-index:2;top:0;left:0;cursor:pointer;background-color:#fff;opacity:0;zoom:1}
+/*ie7*/
+.scBtn{*margin:0}
+#siCat.tabn{*margin-bottom:0}
+#siCat.side .cateArea li b{*display:inline !important}
+#siLst.gall .scItem{*float:left}
+#siLst.gall td.scBox{*padding-bottom:20px}
+#siDoc .thmAx img.thum,#siLst.webz .scItem a.thum{*float:none;*position:absolute;*left:5px;*top:3px}
+#siFbk .scFrm>li{*zoom:normal}
+#siFbk .scFbWt .cmtbtns{*float:right}
+#siFbk .scFbWt .scWusr{*display:block !important}
+#siFbk.cmt .scFbH .fr{*position:relative;*top:-30px}
+#siWrt .scWtag input[type="text"]{*width:80% !important}
+#siWrt .scWul .scWli ul li{*display:inline-block;*white-space:nowrap}
+#siDoc.book .scRibbon span.caption a{*float:left;*margin-left:20px}

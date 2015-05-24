@@ -512,8 +512,8 @@
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
 			<label class="x_control-label">{$lang->category_trace}</label>
 			<div class="x_controls {$compulsory_options['category_trace']?'opt_cps':''} {$module_backup_options['category_trace']?'opt_bks':''}">
-				<label class="x_inline"><input type="radio" name="category_trace" value="N" checked="checked"|cond="$module_info->category_trace=='N'" /> {$lang->notuse}</label>
-				<label class="x_inline"><input type="radio" name="category_trace" value="Y" checked="checked"|cond="$module_info->category_trace!='N'" /> {$lang->use}</label>
+				<label class="x_inline"><input type="radio" name="category_trace" value="N" checked="checked"|cond="$module_info->category_trace!='Y'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="category_trace" value="Y" checked="checked"|cond="$module_info->category_trace=='Y'" /> {$lang->use}</label>
 				<a href="#about_category_trace" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="about_category_trace" class="x_help-block" hidden>{$lang->about_category_trace}</p>
 			</div>

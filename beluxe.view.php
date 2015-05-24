@@ -174,15 +174,12 @@ class beluxeView extends beluxe
             case 'no':
                 $args->sort_index = 'list_order';
                 break;
-
             case 'document_srl':
                 $args->sort_index = 'list_order';
                 break;
-
             case 'last_update':
                 $args->sort_index = 'update_order';
                 break;
-
             case 'custom_status':
                 $args->sort_index = 'is_notice';
                 break;
@@ -284,24 +281,18 @@ class beluxeView extends beluxe
                 $is_secret = $out->isSecret();
 
                 if (!$out->isNotice()) {
-
                     // 글 보기 권한을 체크
                     $is_empty = !$this->grant->{$a_iswrite ? 'write_document' : 'view'} && !$is_grant;
-
                     // 상담기능이 사용되면 사용자의 글인지 체크
                     if (!$is_empty && $oModIfo->consultation == 'Y') $is_empty = !$is_grant;
-
                     // 수정시 비회원 글 권한 체크
                     if (!$is_empty && $a_iswrite && !$out->get('member_srl')) $is_empty = !$is_grant;
-
                     // 블라인드 기능이 사용되면 블라인드 체크
                     if (!$is_empty && !$this->grant->manager && $oModIfo->use_blind == 'Y') $is_empty = $this->cmThis->isBlind($doc_srl);
                 }
                 else {
-
                     // 공지는 누구나 볼 수 있게 함
                     $this->grant->view = TRUE;
-
                     // 수정시 권한 체크
                     if ($a_iswrite) $is_empty = !$is_grant;
                 }
@@ -311,15 +302,13 @@ class beluxeView extends beluxe
                     $b_title = Context::getLang('msg_not_permitted');
                     $out = $this->cmDoc->getDocument(0, FALSE, FALSE);
                     $this->_setValidMessage(-1380, $b_title);
-                }
-                else {
+                } else {
                     $is_read = true;
                     // 권한이 있고 제한 기능 사용시
                     if(!$is_grant && !$is_secret && $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view != 'N')
                     {
                         $is_read = $oModIfo->use_restrict_view=='Y'&&$this->cmThis->isWrote($doc_srl, $mbr_srl, true, 'cmt')
                                 || $oModIfo->use_restrict_view=='P'&&$this->cmThis->isRead($doc_srl, $mbr_srl);
-
                         // 포인트가 0인것은 패스
                         if(!$is_read) {
                             $un_extra = $out->get('extra_vars');
@@ -345,11 +334,13 @@ class beluxeView extends beluxe
                     $temp->dccate = $out->get('category_srl');
 
                     //공지는 제외
-                    $temp->chcate = $oModIfo->category_trace != 'N' && (!$out->isNotice() || $oModIfo->notice_category == 'Y');
-                    $temp->chcate = $temp->chcate && $temp->iscate && $temp->dccate != $temp->olcate;
-                    if ($temp->chcate) {
-                        $args->category_srl = $temp->dccate;
-                        Context::set('category_srl', $args->category_srl);
+                    if(Context::get('cate_trace') != 'false') {
+                        $temp->chcate = $oModIfo->category_trace == 'Y' && (!$out->isNotice() || $oModIfo->notice_category == 'Y');
+                        $temp->chcate = $temp->chcate && $temp->iscate && $temp->dccate != $temp->olcate;
+                        if ($temp->chcate) {
+                            $args->category_srl = $temp->dccate;
+                            Context::set('category_srl', $args->category_srl);
+                        }
                     }
                 }
             }
