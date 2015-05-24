@@ -33,10 +33,10 @@
 	$is_sedt = $is_sedt == 'C' && $mi->consultation == 'Y' ? 'T' : $is_sedt;
 
 	$browser = $oThis->getBrowserInfo();
-	$lte_ie8 = $browser['msie']&&$browser['msie'] < 9;
-	$us_hottrack = !$lte_ie8 && $mi->hot_track == 'Y';
-	$us_modal = !$lte_ie8 && ($mi->use_modal_window==='Y'||strpos($mi->use_modal_window, '"write"')!==false);
-	$us_vmodal = !$lte_ie8 && strpos($mi->use_modal_window, '"view"')!==false;
+	$lte_ie9 = $browser['unknown']||($browser['trident']&&$browser['trident'] < 6);
+	$us_modal = !$lte_ie9 && ($mi->use_modal_window==='Y'||strpos($mi->use_modal_window, '"write"')!==false);
+	$us_vmodal = !$lte_ie9 && strpos($mi->use_modal_window, '"view"')!==false;
+	$us_hottrack = !$lte_ie9 && $mi->hot_track == 'Y';
 	$us_blind = $mi->use_blind=='Y';
 
 	$is_elips = !$mi->title_length;
@@ -63,12 +63,16 @@
 	<load target="css/modal.win.css" />
 	<load target="js/board.js" type="body" />
 	<load target="js/modal.win.js" type="body" />
-	<load target="css/iefix.css" targetie="lte IE 9" />
 <!--@else-->
 	<load target="css/common.min.css" />
 	<load target="js/common.min.js" type="body" />
-	<load target="css/iefix.min.css" targetie="lte IE 9" />
 <!--@endif-->
+
+<!--// lte IE 10 //-->
+<block cond="$browser['trident']&&$browser['trident'] < 7">
+	<load target="iefix/iefix.css" />
+	<load target="iefix/iefix.js" type="body" />
+</block>
 
 <!--// 사용자 CSS 설정 -->
 <style type="text/css" cond="$mi->custom_css"> {$mi->custom_css} </style>

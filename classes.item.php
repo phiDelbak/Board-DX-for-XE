@@ -52,12 +52,12 @@ class BeluxeItem extends Object
 	function getBrowserInfo($agent='')
 	{
 		// http://php.net/manual/en/function.get-browser.php
-		$known = array('msie', 'firefox', 'safari', 'webkit', 'opera', 'netscape', 'konqueror', 'gecko');
+		$known = array('trident', 'firefox', 'safari', 'webkit', 'opera', 'netscape', 'konqueror', 'gecko');
 
 		$agent = strtolower($agent ? $agent : $_SERVER['HTTP_USER_AGENT']);
 		$pattern = '#(?<browser>' . join('|', $known) . ')[/ ]+(?<version>[0-9]+(?:\.[0-9]+)?)#';
 
-		if (!@preg_match_all($pattern, $agent, $matches)) return array('unknown' => '0');
+		if (!@preg_match_all($pattern, $agent, $matches)) return array('unknown' => '1');
 
 		$i = count($matches['browser'])-1;
 		return array($matches['browser'][$i] => $matches['version'][$i]);

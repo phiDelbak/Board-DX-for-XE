@@ -172,13 +172,15 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
 <!-- /DOCUMENT -->
 <div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
     <div cond="$us_vmodal&&$is_doc&&!$is_blind" class="fl">
-        {@
-            $nav_list = $oThis->getNavigationList($oDocument, 1);
-            $nav_key = $lang->cmd_prev;
-        }
-        <block loop="$nav_list=>$key,$nav">
-            {@ $nav->selected?$nav_key=$lang->cmd_next:0}
-            <span cond="!$nav->selected" class="scBtn blue"><a href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" type="example/modal" data-header=":INHERIT:">{$nav_key}</a></span>
+        <block cond="$is_modal">
+            {@
+                $nav_list = $oThis->getNavigationList($oDocument, 1);
+                $nav_key = $lang->cmd_prev;
+            }
+            <block loop="$nav_list=>$key,$nav">
+                {@ $nav->selected?$nav_key=$lang->cmd_next:0}
+                <span cond="!$nav->selected" class="scBtn blue"><a href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" type="example/modal" data-header=":INHERIT:">{$nav_key}</a></span>
+            </block>
         </block>
     </div>
     <block cond="!$is_modal">

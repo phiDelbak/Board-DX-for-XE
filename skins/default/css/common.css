@@ -158,7 +158,7 @@
     text-align:left;
     line-height:11px;
     font-style:normal!important;
-    font-family:Tahoma!important;
+    font-family:Tahoma, Geneva, sans-serif!important;
     text-shadow:none!important
 }
 #siBody .scLaEt input[type="text"],
@@ -197,7 +197,7 @@
 .scVoteArea em {
     min-width:11px;
     font-style:normal;
-    font-family:Tahoma
+    font-family:Tahoma, Geneva, sans-serif
 }
 .scVoteArea em.vote,
 .scVoteArea em.blame,
@@ -219,7 +219,7 @@
     line-height:12px!important;
     display:inline-block;
     font-size:12px;
-    font-family:Tahoma;
+    font-family:Tahoma, Geneva, sans-serif;
     padding-left:12px;
     background:url(../img/common/star_set.gif) no-repeat -60px -18px
 }
@@ -614,7 +614,7 @@
 #siCat.side .cateArea li b {
     color:#bbb;
     font-size:12px;
-    font-family:Tahoma;
+    font-family:Tahoma, Geneva, sans-serif;
     padding:0 3px 0 2px
 }
 #siCat.side .cateArea li b:first-child {
@@ -623,7 +623,7 @@
 #siCat span.cnt {
     line-height:11px;
     font-size:10px;
-    font-family:Tahoma
+    font-family:Tahoma, Geneva, sans-serif
 }
 /* header */
 #siHrm,
@@ -772,13 +772,13 @@
 #siLst td.last_updater {
     letter-spacing:-1px;
     font-size:10px;
-    font-family:Tahoma
+    font-family:Tahoma, Geneva, sans-serif
 }
 #siLst td em.reply,
 #siLst td em.trackback {
     font-style:normal;
     font-size:10px;
-    font-family:Tahoma
+    font-family:Tahoma, Geneva, sans-serif
 }
 #siLst thead .sort em {
     padding:0 0 0 2px;
@@ -1091,7 +1091,7 @@
 #siDoc.widg .scElps em {
     font-style:normal;
     font-size:11px;
-    font-family:Tahoma;
+    font-family:Tahoma, Geneva, sans-serif;
     border:0;
     color:#777
 }
@@ -1814,7 +1814,7 @@
 #siNavi li div.scElps em {
     font-style:normal;
     font-size:10px;
-    font-family:Tahoma
+    font-family:Tahoma, Geneva, sans-serif
 }
 #siNavi.histories {
     margin:10px;
@@ -1945,7 +1945,7 @@
 /* file list */
 #siBody .scFiles span.fsize {
     font-size:10px;
-    font-family:Tahoma
+    font-family:Tahoma, Geneva, sans-serif
 }
 #siBody .scFiles ul {
     list-style:none;
@@ -2071,18 +2071,6 @@
 #siBody tr[data-hottrack] td:first-child {
     position:relative;
 }
-/*
-#siBody a.scHotTrack span.iefix {
-    position:absolute;
-    z-index:2;
-    top:0;
-    left:0;
-    cursor:pointer;
-    background-color:#fff;
-    opacity:0;
-    zoom:1
-}
-*/
 /* admin button */
 #siBody .scAdmActs {
     position:absolute;
@@ -2102,7 +2090,7 @@
 }
 .scHaDCnts em {
     font-size:12px;
-    font-family:Tahoma;
+    font-family:Tahoma, Geneva, sans-serif;
     font-weight:normal
 }
 /* etc */
@@ -2118,7 +2106,7 @@
     color:#333;
     line-height:22px;
     font-size:20px;
-    font-family:"Times New Roman", Times, serif;
+    font-family:"Helvetica Neue", Helvetica, Arial, 돋움, Dotum, sans-serif;
     text-decoration:none
 }
 #siMaTitle h4.sub {
@@ -2155,7 +2143,7 @@
     font-style:normal;
     font-weight:normal;
     font-size:10px;
-    font-family:Tahoma;
+    font-family:Tahoma, Geneva, sans-serif;
     line-height: 14px;
     border-radius:3px;
     -moz-border-radius:3px;

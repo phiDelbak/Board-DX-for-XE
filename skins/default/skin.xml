@@ -99,7 +99,7 @@
 			<title xml:lang="ko">모양</title>
 			<title xml:lang="jp">スタイル</title>
 			<title xml:lang="en">Style</title>
-			<var name="use_modal_window" type="checkbox" default="write">
+			<var name="use_modal_window" type="checkbox" default="">
 				<title xml:lang="ko">모달창</title>
 				<title xml:lang="jp">モダルウインドウ</title>
 				<title xml:lang="en">Modal window</title>

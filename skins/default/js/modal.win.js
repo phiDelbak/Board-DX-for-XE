@@ -121,7 +121,7 @@
 			// object는 아직 문제가 많아, 그냥 iframe 사용하기로...
 			$oFrm = $('<iframe id="pidOframe" data-resize="'+ resize +'" allowTransparency="true" frameborder="0" scrolling="no" />')
 				.css({height: '100%', width: '100%'})
-				.on('load', function(){callback();validModal(this);})
+				.on('load', function(){callback(); validModal(this); $(this).parent().scrollTop(0);})
 				.attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal));
 
 			// if(is_iframe) {; autoResize(this, resize)
@@ -203,7 +203,7 @@
         	pw = $bdrop.outerWidth(true);
         	ph = $bdrop.outerHeight(true);
 
-			$mob.scrollTop(0).outerWidth(pw - 80);
+			$mob.outerWidth(pw - 80);
 
 	        if ($modal.position().left < 1)
 	        {

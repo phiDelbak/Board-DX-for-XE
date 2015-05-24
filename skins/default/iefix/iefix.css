@@ -31,3 +31,5 @@
 #siCat.side .mubtn.active,#siCat.side .mubtn:hover,#siLst.gall .prtImg em,#siDoc.widg .doct .nick_name,#siNavi li div.cate a,#siNavi li div.no,#siBody .scTags a.rank.i2{filter:alpha(opacity=70)}
 #siLst.webz .scItem .wzdate,#siDoc .ipAddress,#siFbk .time{filter:alpha(opacity=80)}
 #siModalWin .ie6,#siBody a.scHotTrack span.iefix{filter:alpha(opacity=0)}
+
+#siBody a.scHotTrack span.iefix {position:absolute;z-index:2;top:0;left:0;cursor:pointer;background-color:#fff;opacity:0;zoom:1}

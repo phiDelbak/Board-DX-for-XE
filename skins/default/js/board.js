@@ -354,12 +354,6 @@ jQuery(function($)
 		});
 	};
 
-	// ie8 이하에서 last css fix
-	if($.browser.msie===true&&Math.floor($.browser.version)<9)
-	{
-		$('#siLst thead tr th:not(hidden):last div').css('border-right-width','1px');
-	}
-
 	// check iframe
 	try{
 		var doc, $oFrm = $(window.frameElement);
@@ -400,6 +394,7 @@ jQuery(function($)
 				});
 			}
 		});
+
 		$('#siFbk .scFbH + .scClst > .scFrm').each(function()
 		{
 			var $th =$(this), tw = $th.outerWidth();
@@ -420,7 +415,6 @@ jQuery(function($)
 					lw = $l.addClass('_last').outerWidth(true);
 				else $l.remove();
 			}
-			if($.browser.msie===true) $f.height($i.css('line-height') || 15);
 			$f.css('width',(fw - lw - 5) + 'px').addClass('_first');
 		});
 
@@ -446,21 +440,11 @@ jQuery(function($)
 			{
 				$a.attr({'type':'example/modal','data-header':':GETHTML:#pidModalHeader'}).pidModalWindow(doc||'');
 			}
-
-			// $a.css({'width':w+'px','height':h+'px'});
-			// if($i.get(0).tagName=='TR') {
-			// 	var $td = $i.find('>td:eq(0)');
-			// 	if($.browser.mozilla===true) {
-			// 		var $cs = $('<span>').css({'position':'relative','display':'block'})
-			// 			.css({'padding-left':$td.css('padding-left'),'padding-top':$td.css('padding-top')}).html($td.html());
-			// 		$a.prependTo($cs.prependTo($td.html('').css({'padding-left':'0','padding-top':'0','vertical-align':'top'})));
-			// 	} else $a.prependTo($td.css({'position':'relative'}));
-			// } else $a.prependTo($i);
-			// if($.browser.msie===true) $('<span class="iefix" />').css({'width':w+'px','height':h+'px'}).appendTo($a);
 		});
 
 		$('#siFbk a[name^=comment][data-scroll=true]').last().parent().is(function(){this.scrollIntoView(true);});
-		// ie10 이하 클릭(커서) 버그 방지
+
+		// ie10 이하 클릭(커서) 버그 방지, 다른 브라우저도 나쁘지 않아 적용
 		$('.pid_ajax-form input:text:eq(0)').focus();
 	});
 });
