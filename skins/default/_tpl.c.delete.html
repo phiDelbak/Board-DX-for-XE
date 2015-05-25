@@ -39,14 +39,15 @@
 				<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
 			</h3>
 			<div class="clearBar">
-				{preg_replace(array('! name=(\"|\')?([^\"\']+)(\"|\')?!is','!<(iframe|embed|object)(.*?)>(.*?)<\/(iframe|embed|object)>!is'), array('','<div class="message"><p>$1 $2</p></div>'), $oComment->getContent(false))}
+				{preg_replace(array('!(<[A-Za-z]+\s+[^>]*)name\s*=\s*(\"|\')?([^>\"\']+)(\"|\')?!is','!<(iframe|embed|object)([^>]*)>(.*?)<\/(iframe|embed|object)>!is'), array('$1','<div class="message"><p>$1 $2</p></div>'), $oComment->getContent(false))}
 			</div>
 		</div>
-
 		<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
 			<span class="scBtn"><a href="{getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a></span>
 			<span class="scBtn black"><button type="submit" accesskey="s">{$lang->comment} {$lang->cmd_delete}</button></span>
 		</div>
 	</div>
+
+
 </form>
 <!--@endif-->

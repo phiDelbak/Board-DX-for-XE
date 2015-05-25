@@ -42,12 +42,10 @@
 				<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
 			</h3>
 			<div class="clearBar">
-				{preg_replace(array('! name=(\"|\')?([^\"\']+)(\"|\')?!is','!<(iframe|embed|object)(.*?)>(.*?)<\/(iframe|embed|object)>!is'), array('','<div class="message"><p>$1 $2</p></div>'), $oDocument->getContent(false))}
+				{preg_replace(array('!(<[A-Za-z]+\s+[^>]*)name\s*=\s*(\"|\')?([^>\"\']+)(\"|\')?!is','!<(iframe|embed|object)([^>]*)>(.*?)<\/(iframe|embed|object)>!is'), array('$1','<div class="message"><p>$1 $2</p></div>'), $oDocument->getContent(false))}
 			</div>
 		</div>
-
 		<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
-
 			<span class="scBtn"><a href="{getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a></span>
 			<span cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scBtn blue"><button type="submit" name="multilingual" value="Y">{$lang->cmd_current_lang_delete}</button></span>
 			<span class="scBtn black"><button type="submit" accesskey="s">{$lang->document} {$lang->cmd_delete}</button></span>

@@ -51,7 +51,7 @@
 				<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
 			</h3>
 			<div class="clearBar">
-				{preg_replace(array('! name=(\"|\')?([^\"\']+)(\"|\')?!is','!<(iframe|embed|object)(.*?)>(.*?)<\/(iframe|embed|object)>!is'), array('','<div class="message"><p>$1 $2</p></div>'), $oSourceComment->getContent(false))}
+				{preg_replace(array('!(<[A-Za-z]+\s+[^>]*)name\s*=\s*(\"|\')?([^>\"\']+)(\"|\')?!is','!<(iframe|embed|object)([^>]*)>(.*?)<\/(iframe|embed|object)>!is'), array('$1','<div class="message"><p>$1 $2</p></div>'), $oSourceComment->getContent(false))}
 			</div>
 		</div>
 
