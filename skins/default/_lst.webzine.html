@@ -66,8 +66,8 @@
 	</tr>
 </thead>
 {@
-	$md_optstr = !$us_hottrack&&$us_vmodal?'type="example/modal" data-header=":GETHTML:#pidModalHeader"':'';
-	$hot_optstr = $us_hottrack?'data-hottrack="%s" data-type="%s" data-modal="'.($us_vmodal?'1':'0').'"':'';
+	$md_optstr = !$us_hottrack&&$us_vmodal?'type="example/modal" data-header="__PID_MODAL_HEADER__"':'';
+	$hot_optstr = $us_hottrack?($us_vmodal?'data-modal-key="%s" ':'').'data-hottrack="%s" data-type="%s"':'';
 }
 <block cond="!$is_notice_widget">
 	<tbody loop="$a_lsttp => $tlk,$p_list" cond="$tlk && count($p_list)" class="{$tlk}">
@@ -77,7 +77,7 @@
 			$is_scrap = $ds_scrap?$oThis->isScrap($document->document_srl):0;
 			$purl = getUrl('','mid',$mid,'document_srl',$document->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage);
 		}
-		<tr {$hot_optstr?sprintf($hot_optstr,$purl,''):''}>
+		<tr {sprintf($hot_optstr,$document->document_srl,$purl,'')}>
 			<td loop="$sclms => $key,$val" cond="$val->idx<0" scope="col" class="{$key}" style="color:{$val->color}"|cond="$val->color">
 				<!--@switch($key)-->
 					<!--@case('no')-->
@@ -188,7 +188,7 @@
 			$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
 			$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 		}
-			<div class="scItem clearBar" style="margin-right:{(int)$mi->thumbnail_width+25}px;" {$hot_optstr?sprintf($hot_optstr,$purl,'webz'):''}>
+			<div class="scItem clearBar" style="margin-right:{(int)$mi->thumbnail_width+25}px;" {sprintf($hot_optstr,$document->document_srl,$purl,'webz')}>
 				<div class="scInfo">
 					<a href="{$purl}" {$md_optstr} class="thum" style="width:{(int)$mi->thumbnail_width}px;height:{(int)$mi->thumbnail_height}px;">
 						<!--@if($is_blind || !$is_grant)-->

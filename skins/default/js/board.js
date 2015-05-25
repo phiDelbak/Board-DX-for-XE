@@ -336,7 +336,7 @@ jQuery(function($)
 				return false;
 			}
 			exec_json(
-				'Beluxe.procBeluxeInsertFileLink',
+				'beluxe.procBeluxeInsertFileLink',
 				{ 'mid':current_mid,'sequence_srl':q,'document_srl':r,'filelink_url':v },
 				function(ret){
 					// ckeditor
@@ -356,16 +356,64 @@ jQuery(function($)
 
 	// check iframe
 	try{
-		var doc, $oFrm = $(window.frameElement);
-		if($oFrm.is('[id=pidOframe]')){
-        	doc = $oFrm.closest('html');
+		var par, doc, $mod, $frm = $(window.frameElement);
+		if($frm.is('[id=pidOframe]'))
+		{
+        	par = $frm.closest('html');
+        	doc = $('body', $frm[0].contentDocument || $frm[0].contentWindow.document);
+
+        	$mod = $frm.parent().parent();
+        	$('.pid_modal-head:eq(0)', $mod).each(function()
+        	{
+        		var $pidtmp = $('#__PID_MODAL_HEADER__', doc||'');
+				if($pidtmp.length) {
+					$(this).html('<div>' + $pidtmp.html() + '</div>').show();
+					$pidtmp.remove();
+				}
+			});
+
+			// $('#siCat li.scVMdCmt a', doc||'')
+			// .click(function()
+			// {
+			// 	var $this = $(this),
+			// 		doc_srl = current_url.getQuery('document_srl'),
+			// 		cpage = current_url.getQuery('cpage'),
+			// 		is_modal = current_url.getQuery('is_modal');
+
+			// 	exec_json(
+			// 		'beluxe.getBeluxeTemplateFile',
+			// 		{ 'mid':current_mid,'document_srl':doc_srl,'cpage':cpage,'is_modal':is_modal,'template_file':'comment' },
+			// 		function(ret){
+			// 			var $cmt = $('#siCmt', doc||'');
+			// 			if($cmt.length){
+			// 				$('#siDoc,#siTrb', doc||'').hide();
+			// 				$cmt.html(ret.html).show('slow');
+			// 				$('li.scVMdTrb,li.scVMdDoc',$this.parent().parent()).removeClass('active');
+			// 				$('li.scVMdCmt',$this.parent().parent()).addClass('active');
+			// 			}
+			// 		}
+			// 	);
+
+			// 	return false;
+			// });
+
+			// $('#siCat li.scVMdDoc a', doc||'')
+			// .click(function()
+			// {
+			// 	$('#siCmt,#siTrb', doc||'').hide();
+			// 	$('#siDoc', doc||'').show('slow');
+			// 	$('li.scVMdTrb,li.scVMdCmt',$(this).parent().parent()).removeClass('active');
+			// 	$('li.scVMdDoc',$(this).parent().parent()).addClass('active');
+
+			// 	return false;
+			// });
 		}
 	}catch(e){}
 
 	$(window)
 	.ready(function()
 	{
-		$('a[type^=example\\/modal]').pidModalWindow(doc||'');
+		$('a[type^=example\\/modal]').pidModalWindow(par||'');
 
 		$('#siWrt:eq(0)').pidSettingWrite();
 		$('div[data-flash-fix=true]').pidModalFlashFix();
@@ -394,7 +442,6 @@ jQuery(function($)
 				});
 			}
 		});
-
 		$('#siFbk .scFbH + .scClst > .scFrm').each(function()
 		{
 			var $th =$(this), tw = $th.outerWidth();
@@ -431,14 +478,12 @@ jQuery(function($)
 					$a.prependTo(this).width(w);
 					if(tp === 'lstc') $a.height($i.outerHeight()+$i.next().outerHeight());
 				});
-			}else{
-				$a.prependTo(this).width(w);
 			}
+			else $a.prependTo(this).width(w);
 
 			// 모달 보기 사용시
-			if($i.is('[data-modal=1]'))
-			{
-				$a.attr({'type':'example/modal','data-header':':GETHTML:#pidModalHeader'}).pidModalWindow(doc||'');
+			if($i.is('[data-modal-key]')){
+				$a.attr({'type':'example/modal','data-header':'__PID_MODAL_HEADER__'}).pidModalWindow(doc||'');
 			}
 		});
 

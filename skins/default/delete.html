@@ -5,9 +5,13 @@
 	<div class="scContent clearBar">
 {@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
 
-		<div cond="!$is_modal" class="pid_modal-head" style="margin-bottom:10px">
+<!--@if($is_modal)-->
+		<div id="__PID_MODAL_HEADER__" style="display:none">{$act=='dispBoardDeleteComment'?$lang->delete_comment:$lang->delete_document}</div>
+<!--@else-->
+		<div class="pid_modal-head" style="margin-bottom:10px;max-width:none;width:auto">
 			{$act=='dispBoardDeleteComment'?$lang->delete_comment:$lang->delete_document}
 		</div>
+<!--@endif-->
 
 		<div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
 			<p>{$XE_VALIDATOR_MESSAGE}</p>

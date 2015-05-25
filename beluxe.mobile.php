@@ -18,10 +18,10 @@ class beluxeMobile extends beluxeView
 	{
 		$doc_srl = Context::get('document_srl');
 		$cmDocument = &getModel('document');
-		if(!$doc_srl) return new Object(-1, "msg_invalid_request");
+		if(!$doc_srl) return new Object(-1, 'msg_invalid_request');
 
 		$oDocIfo = $cmDocument->getDocument($doc_srl, $this->grant->manager);
-		if(!$oDocIfo->isExists()) return new Object(-1, "msg_invalid_request");
+		if(!$oDocIfo->isExists()) return new Object(-1, 'msg_invalid_request');
 
 		Context::set('oDocument', $oDocIfo);
 
@@ -29,29 +29,13 @@ class beluxeMobile extends beluxeView
 		$lst_cfg = $cmThis->getColumnInfo($this->module_srl);
 		Context::set('column_info', $lst_cfg);
 
-
 		$cvThis = &getView(__XEFM_NAME__);
 		$tpl_path = $cvThis->_templateFileLoad('comment');
 
 		$oTplNew = new TemplateHandler;
-		$html = $oTplNew->compile($tpl_path, "comment.html");
-		$this->add("html", $html);
+		$html = $oTplNew->compile($tpl_path, 'comment.html');
+		$this->add('html', $html);
 	}
-
-	// 1.9.8 이후 필요없어짐
-	function dispBeluxeMobileCategory()
-	{
-		$cmThis = &getModel(__XEFM_NAME__);
-		$cate_lst = $cmThis->getCategoryList($this->module_srl);
-		Context::set('category_list', $cate_lst);
-
-		$cvThis = &getView(__XEFM_NAME__);
-		$tpl_path = $cvThis->_templateFileLoad('category');
-
-        $this->setTemplatePath($tpl_path);
-        $this->setTemplateFile('category');
-	}
-
 }
 
 /* End of file beluxe.mobile.php */

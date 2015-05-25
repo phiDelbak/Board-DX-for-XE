@@ -94,7 +94,7 @@
 }
 .scBtn.small,
 .scBtn.small * {
-    height:18px;
+    height:20px;
     line-height:18px;
     font-size:12px;
     font-weight:normal
@@ -426,13 +426,15 @@
     padding:0;
     display:inline-block
 }
-#siCat.text li a {
+#siCat.text li a,
+#siCat.text li strong {
     padding:0 8px;
     border-right:1px solid #ddd;
     line-height:12px;
     white-space:nowrap
 }
-#siCat.text li.active a {
+#siCat.text li.active a,
+#siCat.text li.active strong {
     color:#000;
     font-weight:bold;
     letter-spacing:-1px
@@ -1516,7 +1518,7 @@
     float:left;
     display:inline-block;
     margin:0;
-    height:54px;
+    height:55px;
     width:100%;
     resize:vertical
 }

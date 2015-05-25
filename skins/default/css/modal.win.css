@@ -8,12 +8,6 @@
     opacity:.3;
     background-color:#000;
 }
-.pid_modal-head,
-.pid_modal-foot{
-    padding: 5px 10px;
-    margin:0;
-    overflow: hidden;
-}
 .pid_modal-head {
     border-bottom: 1px solid #aaa;
     background-color: #333;
@@ -26,11 +20,10 @@
     background-image: linear-gradient(top, #666, #333 50%, #000 50%, #333 100%);
     color: #fff;
     font-size: 16px;
-    line-height: 30px;
+    line-height: 18px;
+    height:20px;
     text-shadow: 0 -1px 0 #000;
-}
-.pid_modal-head a{
-    color: #fff;
+    padding:0 46px 0 0;
 }
 .pid_modal-foot{
     color:#555;
@@ -47,23 +40,8 @@
     font-size: 12px;
     line-height: 15px;
 }
-.pid_modal-close {
-    position: absolute;
-    padding: 0px;
-    right: 10px;
-    top: 8px;
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
-    border:1px solid #aaa;
-    border-radius: 5px;
-    cursor: pointer;
-    background: none repeat scroll 0% 0% transparent;
-    color: #FFF !important;
-    font-family:"Helvetica Neue", Helvetica, Arial, 돋움, Dotum, sans-serif;
-    font-size: 21px !important;
-    font-weight: bold;
-    line-height: 23px
+.pid_modal-head a{
+    color: #fff;
 }
 .pid_modal-body{
     border: 0;
@@ -86,12 +64,48 @@
     -moz-box-shadow:0 0 10px #333;
     -webkit-box-shadow:0 0 10px #333;
 }
-.pid_modal-frame > .pid_modal-body{
+.pid_modal-frame > .pid_modal-body,
+.pid_modal-frame > .pid_modal-head,
+.pid_modal-frame > .pid_modal-foot{
     margin: 0;
     padding: 10px;
     min-width:300px;
     max-width:800px;
     width:750px
+}
+.pid_modal-head,
+.pid_modal-foot{
+    padding:5px 10px;
+    white-space:normal;
+}
+.pid_modal-head > div{
+    overflow:hidden;
+    margin: 0;
+    padding: 0;
+    padding-right:35px;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    -ms-text-overflow:ellipsis;
+    -moz-binding:url(/ellipsis-xbl.xml#ellipsis);
+    white-space:nowrap
+}
+.pid_modal-close {
+    position: absolute;
+    padding: 0;
+    right: 10px;
+    top: 8px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    border:1px solid #aaa;
+    border-radius: 5px;
+    cursor: pointer;
+    background: none repeat scroll 0% 0% transparent;
+    color: #FFF !important;
+    font-family:"Helvetica Neue", Helvetica, Arial, 돋움, Dotum, sans-serif;
+    font-size: 21px !important;
+    font-weight: bold;
+    line-height: 23px
 }
 .message.wait {
     padding-top:2em;

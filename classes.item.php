@@ -81,17 +81,29 @@ class BeluxeItem extends Object
 		return $cmThis->getCategoryList($this->module_srl);
 	}
 
-	function getNavigationList($a_obj, $a_count = 5, &$r_info = null)
+	function getNavigationList($a_docsrl, $a_count = 5, &$r_info = null)
 	{
+
 		$args = Context::get('beluxe_list_sort_keys');
-		$args->module_srl = $this->module_srl;
 		$args->category_srl = Context::get('category_srl');
-		$args->current_document_srl = $a_obj->document_srl;
+		$args->module_srl = $this->module_srl;
 		$args->list_count = floor($a_count / 2);
 		if($args->list_count<1) $args->list_count = 1;
 
 		$cmDocument = &getModel('document');
-		$args->page = $cmDocument->getDocumentPage($a_obj, $args);
+
+		//2.2이후 문서 번호를 받음
+		if(!is_object($a_docsrl)){
+			$doc = $cmDocument->getDocument((int)$a_docsrl, false, true);
+			if(!$doc->isExists()) return array();
+		}else{
+			$doc = $a_docsrl;
+		}
+
+		$args->current_document_srl = $doc->document_srl;
+		if(!$args->current_document_srl) return array();
+
+		$args->page = $cmDocument->getDocumentPage($doc, $args);
 
 		$cmThis = &getModel(__XEFM_NAME__);
 		$a_collst = array(

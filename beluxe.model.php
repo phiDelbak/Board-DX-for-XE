@@ -267,10 +267,31 @@ class beluxeModel extends beluxe
     }
 
     /**************************************************************/
-
     /*********** @public function                       ***********/
-
     /**************************************************************/
+
+    // 직접 불러 ajax 사용해 그려 줄려고 만들었으나 역시 ruleset 작동안해서...
+    // ruleset 필요없는 부분에서나 쓰려고 남겨둠...
+    function getBeluxeTemplateFile()
+    {
+        $mid = Context::get('mid');
+        $tmp_file = Context::get('template_file');
+        if(!$mid || !$tmp_file) return new Object(-1, 'msg_invalid_request');
+        //파일이름 순수 알파벳만 받음
+        if(!preg_match("/[A-Za-z]+/i", $tmp_file)) return new Object(-1, 'msg_invalid_request');
+
+        Context::set('oThis', new beluxeItem($this->module_srl));
+        // 대상 항목을 구함
+        $colifo = $this->getColumnInfo($this->module_srl);
+        Context::set('column_info', $colifo);
+
+        $cmThis = &getView('beluxe');
+        $tpl_path = $cmThis->_templateFileLoad($tmp_file);
+
+        $oTplNew = new TemplateHandler;
+        $html = $oTplNew->compile($tpl_path, $tmp_file.'.html');
+        $this->add('html', $html);
+    }
 
     /* @brief Bringing the Categories list the specific module */
     function getCategoryList($a_modsrl, $a_catesrl = 0)
@@ -376,7 +397,6 @@ class beluxeModel extends beluxe
     }
 
     /* @brief Get a prev/next list */
-
     // 분류,정렬,검색 등을 고려하면 덩치가 커질거 같아...
     // 그냥 간단히 3번 돌려 해결함 (TODO 나중에 좀더 빠른 방법 연구)
     function getNavigationList($obj, $a_ectnotice = FALSE, $a_loadextra = TRUE, $a_collst = array())
@@ -915,10 +935,7 @@ class beluxeModel extends beluxe
         return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_scrap;
     }
 
-    /**
-     * @brief return module name in sitemap
-     *
-     */
+    /* @brief return module name in sitemap */
     function triggerModuleListInSitemap(&$obj) {
         array_push($obj, __XEFM_NAME__);
     }

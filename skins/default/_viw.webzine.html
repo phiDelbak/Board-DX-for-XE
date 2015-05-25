@@ -21,7 +21,19 @@ $un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->g
 $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 $is_restrict = !$is_granted&&!$is_secret&&($pt_vtype=='Y'&&!$oThis->isWrote($doc_srl, true, 'cmt')||$pt_vtype=='P'&&!$oThis->isRead($doc_srl));
 $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
+$allow_trb = $oDocument->allowTrackback();
+$allow_cmt = $oDocument->allowComment();
 }
+<!--@if($is_modal)-->
+<div id="__PID_MODAL_HEADER__" style="display:none">{$oDocument->getTitle($mi->title_length)}</div>
+<div id="siCat" class="text scVMdCate">
+    <ul class="scFrm clearBar">
+        <li class="active"><strong><span>Document</span></strong></li>
+        <li cond="$allow_trb"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardComments','is_trackbacks','1','comment_list_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
+        <li cond="$allow_cmt"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardComments','is_trackbacks','','comment_list_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
+    </ul>
+</div>
+<!--@else-->
 <div id="siHrm"><a name="document"></a>
     <ul class="scFrm">
         {@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0 }
@@ -31,6 +43,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
         </li>
     </ul>
 </div>
+<!--@endif-->
 <div id="siDoc"><a name="document_{$doc_srl}"></a>
     <ul class="scFrm mbAfrm">
         <li class="clearBar">
@@ -102,7 +115,7 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
                     </ul>
                 </div>
             </block>
-            <div class="scDocCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}" data-flash-fix="true"|cond="$us_modal||$us_vmodal" data-link-fix="true"|cond="$us_vmodal">
+            <div class="scDocCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}" data-flash-fix="true"|cond="$us_modal||$is_modal" data-link-fix="true"|cond="$is_modal">
                 <div cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scVlng clearBar">
                     <a loop="$un_extra->beluxe->langs => $vlnc" href="#" onclick="doChangeLangType('{$vlnc}');return false;" class="{$vlnc}"><strong>{$lang_supported[$vlnc]}</strong></a>
                 </div>
@@ -193,12 +206,12 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
     <div cond="$us_vmodal&&$is_doc&&!$is_blind" class="fl">
         <block cond="$is_modal">
             {@
-                $nav_list = $oThis->getNavigationList($oDocument, 1);
+                $nav_list = $oThis->getNavigationList($oDocument->document_srl, 1);
                 $nav_key = $lang->cmd_prev;
             }
             <block loop="$nav_list=>$key,$nav">
                 {@ $nav->selected?$nav_key=$lang->cmd_next:0}
-                <span cond="!$nav->selected" class="scBtn blue"><a href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'cate_trace','false','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" type="example/modal" data-header=":INHERIT:">{$nav_key}</a></span>
+                <span cond="!$nav->selected" class="scBtn blue"><a href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'is_modal','1','cate_trace','false','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}">{$nav_key}</a></span>
             </block>
         </block>
     </div>
@@ -212,19 +225,19 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
     <span cond="$is_modal" class="scBtn"><a href="{getUrl('act','')}" data-modal-hide>{$lang->cmd_back}</a></span>
     <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
         <span class="scBtn black">
-            <a href="{getUrl('act','dispBoardWrite','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal" title="{$lang->modify_document}">{$lang->cmd_modify}</a>
+            <a href="{getUrl('act','dispBoardWrite','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_document}">{$lang->cmd_modify}</a>
         </span>
         <span class="scBtn black">
-            <a href="{getUrl('act','dispBoardDelete','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal" title="{$lang->delete_document}">{$lang->cmd_delete}</a>
+            <a href="{getUrl('act','dispBoardDelete','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->delete_document}">{$lang->cmd_delete}</a>
         </span>
     </block>
 </div>
 <block cond="!$is_modal">
     <!-- TRACKBACK -->
-    <include cond="$oDocument->allowTrackback() || $oDocument->getTrackbackcount()" target="_viw.trackback.html" />
+    <include cond="$allow_trb || $oDocument->getTrackbackcount()" target="_viw.trackback.html" />
     <!-- /TRACKBACK -->
     <!-- COMMENT -->
-    <include cond="$mi->view_comment_style == 'webzine' && ($oDocument->allowComment() || $oDocument->getCommentcount())" target="_viw.c.webzine.html" />
-    <include cond="$mi->view_comment_style != 'webzine' && ($oDocument->allowComment() || $oDocument->getCommentcount())" target="_viw.comment.html" />
+    <include cond="$mi->view_comment_style == 'webzine' && ($allow_cmt || $oDocument->getCommentcount())" target="_viw.c.webzine.html" />
+    <include cond="$mi->view_comment_style != 'webzine' && ($allow_cmt || $oDocument->getCommentcount())" target="_viw.comment.html" />
     <!-- /COMMENT -->
 </block>

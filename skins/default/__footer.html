@@ -1,18 +1,3 @@
 <div id="siMaFtxt" cond="$mi->footer_text" class="clearBar">
 	{$mi->footer_text}
 </div>
-
-<script cond="$is_doc" type="text/javascript">
-//<![CDATA[
-	var _DXS_MSGS_ = {};
-		_DXS_MSGS_.canceled = '{$lang->msg_canceled}';
-	<!--@if($pt_dtype=='P')-->
-		_DXS_MSGS_.use_d_point = '{$lang->confirm_download_point}';
-	<!--@endif-->
-	<!--@if($ds_declare||$ds_cdeclare)-->
-		_DXS_MSGS_.declare = '{sprintf($lang->confirm_declare, $adm_id?$lang->manager:$lang->author)}';
-	<!--@endif-->
-	<!--@if($us_modal)-->
-	<!--@endif-->
-//]]>
-</script>

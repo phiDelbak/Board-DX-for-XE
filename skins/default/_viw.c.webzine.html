@@ -1,6 +1,6 @@
 <!--@if($mi->addon_socialxe=='Y')-->
 	{@ $ao_sxeop = $mi->addon_socialxe_option?$mi->addon_socialxe_option:'list_count="20"'}
-	<div id="siFbk" class="cmt sns clearBar"><a name="comment" data-scroll="true"|cond="$comment_srl"></a>
+	<div id="siFbk" class="cmt sns clearBar" style="margin:0"|cond="$is_modal"><a name="comment" data-scroll="true"|cond="$comment_srl"></a>
 	<img class="zbxe_widget_output" widget="socialxe_comment" skin="default" colorset="white" document_srl="{$doc_srl}" content_link="{getFullUrl('', 'document_srl', $doc_srl, 'dummy', '1')}" content_title="{htmlspecialchars($oDocument->getTitleText())}" {$ao_sxeop} />
 	</div>
 <!--@else-->
@@ -13,7 +13,7 @@
 		$ds_cdeclare = $is_logged&&strpos($mi->use_c_vote, 'declare')!==false;
 		$adm_id = $ds_cdeclare ? $oThis->getAdminId() : array();
 
-		$cmts = $oThis->getCommentList($doc_srl, $cpage, $cmt_lstcnt);
+		$cmts = $comments_info?$comments_info:$oThis->getCommentList($doc_srl, $cpage, $cmt_lstcnt);
 		$voted_list = $oThis->getDocumentVotedLogs($doc_srl);
 
 		$is_voted = $grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment();
@@ -35,7 +35,7 @@
 
 	{@ $a_clsttp = array('fl'=>$agree_list,'fr'=>$disagree_list)}
 
-	<div id="siFbk" class="cmt web clearBar"><a name="comment" data-scroll="true"|cond="$comment_srl"></a>
+	<div id="siFbk" class="cmt web clearBar" style="margin:0"|cond="$is_modal"><a name="comment" data-scroll="true"|cond="$comment_srl"></a>
 		<div class="scFbH scToggle" data-target="#siFbk .scCmtWebFrm.d{$doc_srl}">
 			<h2>
 				<span>
@@ -48,7 +48,7 @@
 		</div>
 
 		<div class="scCmtWebFrm d{$doc_srl}">
-			<div cond="count($cmts->data)" class="scClst clearBar" data-flash-fix="true"|cond="$us_modal||$us_vmodal">
+			<div cond="count($cmts->data)" class="scClst clearBar" data-flash-fix="true"|cond="$us_modal||$is_modal" data-link-fix="true"|cond="$is_modal">
 				<ul loop="$a_clsttp => $tlk,$p_list" cond="count($p_list)" class="scFrm {$tlk}">
 				<block loop="$p_list=>$key,$comment">
 					{@
@@ -76,7 +76,7 @@
 								<span class="time fr">{$comment->getRegdate('Y.m.d H:i')} <span cond="$mi->display_ip_address == 'Y'||($mi->display_ip_address == 'A' && $grant->manager)" class="ipAddress">(IP: {$comment->getIpaddress()})</span></span>
 							</h3>
 
-							<div class="scCmtCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}">
+							<div class="scCmtCon clearBar {$is_blind?'blind':($is_secret?'secret':'')}" data-link-fix="true"|cond="$is_modal">
 								<form cond="$is_secret && !$is_granted" ruleset="checkPassword" action="./" method="post" class="conSecret">
 									<input type="hidden" name="comment_srl" value="{$cmt_srl}" />
 									<input type="hidden" name="act" value="procBoardVerificationPassword" />
@@ -112,11 +112,11 @@
 
 							<div class="action">
 								<block cond="$grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()">
-									<a href="{getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal" title="{$lang->new_comment}" class="reply">{$lang->cmd_reply}</a>
+									<a href="{getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->new_comment}" class="reply">{$lang->cmd_reply}</a>
 								</block>
 								<block cond="!$is_blind&&$comment->isEditable()">
-									<a href="{getUrl('act','dispBoardWriteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal" title="{$lang->modify_comment}" class="modify">{$lang->cmd_modify}</a>
-									<a href="{getUrl('act','dispBoardDeleteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal" title="{$lang->delete_comment}" class="delete">{$lang->cmd_delete}</a>
+									<a href="{getUrl('act','dispBoardWriteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_comment}" class="modify">{$lang->cmd_modify}</a>
+									<a href="{getUrl('act','dispBoardDeleteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->delete_comment}" class="delete">{$lang->cmd_delete}</a>
 								</block>
 							</div>
 						</div>
@@ -139,12 +139,14 @@
 
 		<div cond="!$is_voted && $mi->use_input_comment_writer == 'N'" class="scFbWt nipt">
 			<span class="scBtn blue small">
-					<a href="{getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl','','document_srl', $doc_srl,'is_topic_vote','agree')}" type="example/modal"|cond="$us_modal" title="{$lang->new_comment}" accesskey="y">{$lang->comment_write}</a>
+					<a href="{getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl','','document_srl', $doc_srl,'is_topic_vote','agree')}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->new_comment}" accesskey="y">{$lang->comment_write}</a>
 			</span>
 		</div>
 
 		<div cond="!$is_voted && $mi->use_input_comment_writer != 'N'" id="pidModalTarget" class="scFbWt">
 			<form ruleset="insertComment" action="./" method="post">
+				<input cond="$is_modal" type="hidden" name="is_modal" value="{$us_vmodal?2:1}" />
+				<input cond="$is_modal" type="hidden" name="success_return_act" value="dispBoardComments" />
 				<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 				<input type="hidden" name="document_srl" value="{$document_srl}" />
 				<input type="hidden" name="act" value="procBoardInsertComment" />
@@ -185,7 +187,7 @@
 					<textarea name="content" id="siComContent"></textarea>
 					<span class="cmtbtns fr">
 						<span class="scBtn small" cond="$mi->use_input_comment_writer != 'T'">
-							<a href="{getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl','','document_srl', $doc_srl, is_topic_vote, 1)}" type="example/modal/pidModalTarget"|cond="$us_modal" accesskey="y" tabindex="-1">{$lang->use_wysiwyg}</a>
+							<a href="{getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl','','document_srl', $doc_srl, is_topic_vote, 1)}" type="example/modal/pidModalTarget"|cond="$us_modal&&!$is_modal" accesskey="y" tabindex="-1">{$lang->use_wysiwyg}</a>
 						</span>
 						<span class="scBtn blue big"><button type="submit">{$lang->comment_write}</button></span>
 					</span>

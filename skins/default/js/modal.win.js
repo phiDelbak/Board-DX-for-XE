@@ -59,15 +59,21 @@
 
 		if(hstr && hstr.substring(0,9) !== ':INHERIT:')
 		{
-			if(hstr.substring(0,9) === ':GETHTML:') hstr = $(hstr.substring(9)).html();
+			if(hstr.substring(0,9) === ':GETHTML:')
+				hstr = $(hstr.substring(9)).html();
+			else hstr = '<div>' + hstr + '</div>';
 			$pmh.html(hstr).css('display',hstr?'block':'none');
-		}else if(!hstr) $pmh.html('').css('display','none');
+		}
+		else if(!hstr) $pmh.html('').css('display','none');
 
 		if(fstr && fstr.substring(0,9) !== ':INHERIT:')
 		{
-			if(fstr.substring(0,9) === ':GETHTML:') fstr = $(fstr.substring(9)).html();
+			if(fstr.substring(0,9) === ':GETHTML:')
+				fstr = $(fstr.substring(9)).html();
+			else fstr = '<div>' + fstr + '</div>';
 			$pmf.html(fstr).css('display',fstr?'block':'none');
-		}else if(!fstr) $pmf.html('').css('display','none');
+		}
+		else if(!fstr) $pmf.html('').css('display','none');
 
 		// set close button
 		$close = $modal.find('.pid_modal-close');
@@ -80,7 +86,7 @@
 		}
 	};
 
-	pidModal.prototype.goUrl = function(url, resize, callback)
+	pidModal.prototype.goUrl = function(url, resize, callback, mdmode)
 	{
 		var $modal = this.getModalFrame(), $bdrop = this.getBackDrop(),
 			$oFrm = $('#pidOframe', $modal), waitmsg = $('div.wait[data-modal-child=message]') /*, is_iframe*/;
@@ -111,7 +117,7 @@
 
 	    waitmsg.css({position:'fixed', top:10, left:10, zIndex:($bdrop.css('z-index') || 1000100) + 3});
 
-		url = url.setQuery('is_modal', '1');
+		url = url.setQuery('is_modal', mdmode);
 
 		//is_iframe = (/msie|chromium|chrome/.test(navigator.userAgent.toLowerCase()) === true);
 		if($oFrm.length)
@@ -202,7 +208,7 @@
         		pw = $bdrop.outerWidth(true);
         		ph = $bdrop.outerHeight(true);
 
-				$mob.width(pw - 80);
+				$.each([$moh,$mof,$mob], function(){$(this).width(pw - 80);});
 
         		h = $moh.outerHeight(true) || 0;
         		h = h + $mof.outerHeight(true) || 0;
@@ -245,7 +251,8 @@
         	pw = $bdrop.outerWidth(true);
         	ph = $bdrop.outerHeight(true);
 
-			$mob.outerWidth(pw - 80).height(1);
+			$.each([$moh,$mof,$mob], function(){$(this).width(pw - 80);});
+			$mob.height(1);
 
 	        if ($modal.position().left < 1)
 	        {
@@ -320,7 +327,7 @@
 			})
 			.bind('open.mw', function()
 			{
-				var $this = $(this), $modal, $bdrop, $body, before_event, duration, url, zidx = 0;
+				var $this = $(this), $modal, $bdrop, $body, before_event, duration, url, mdmode, zidx = 0;
 
 				$modal = this.modal.getModalFrame();
 
@@ -345,6 +352,8 @@
 				var after = function(){$this.trigger('after-open.mw');};
 
 				url = ($this.data('go-url') || $this.attr('href')) || 'about:blank';
+				mdmode = $modal.is('.pid_target-frame') ? 3 : 1;
+
 
 				if($modal.data('state') !== 'showing')
 				{
@@ -367,24 +376,23 @@
 							}
 						});
 
-
 						$bdrop = this.modal.getBackDrop();
 						$bdrop.css('z-index', '1');
 						$modal.not('.pid_target-frame').css('z-index', '2');
 
 						zidx = this.modal.getTopIndex();
 
-						//$body = $('body', this.modal.target);
-						//$bdrop.data('body_overflow', $body.css('overflow')).css('z-index', zidx).show();
+						$body = $('body', this.modal.target);
+						$bdrop.data('body_overflow', $body.css('overflow-x')).css('z-index', zidx).show();
 						$bdrop.css('z-index', zidx).show();
 						$modal.css('z-index', zidx + 1).find('button.pid_modal-close:first').focus();
-						//$body.css('overflow','hidden');
+						$body.css('overflow-x','hidden');
 						if(bg_close) $bdrop.click(function(){ $this.trigger('close.mw'); return false; });
 					}
 				}
 
 				$modal.find('div.pid_modal-body').css('overflow-y', 'hidden');
-				this.modal.goUrl(url, $this.attr('data-resize') || 'auto', after);
+				this.modal.goUrl(url, $this.attr('data-resize') || 'auto', after, mdmode);
 
 				//if(url){}else{$modal.fadeIn(duration, after);}
 			})
@@ -410,6 +418,8 @@
 				// after event trigger
 				var after = function(){$this.trigger('after-close.mw');};
 
+				//this.focus();
+
 				if($modal.is('.pid_target-frame'))
 				{
 					$modal.find('> *').show(duration, function(event)
@@ -426,19 +436,17 @@
 						after();
 						$(this).not('.pid_target-frame').hide();
 						$bdrop.hide();
-						//$('body', target).css('overflow', $bdrop.hide().data('body_overflow') || 'auto');
+						$('body', target).css('overflow-x', $bdrop.hide().data('body_overflow') || 'auto');
 						$(this).find('> div.pid_modal-body').children().remove();
 					});
 				}
-
-				$this.focus();
 			});
 	};
 
 	$.fn.pidModalFlashFix = function()
 	{
-		$('embed[type*=flash]',this).each(function(){var o=$(this);if(o.attr('wmode')!='transparent');o.attr('wmode', 'opaque');});
-		$('iframe[src*=youtube]',this).each(function(){var o=$(this);o.attr('src',(o.attr('src')).setQuery('wmode', 'opaque'));});
+		$('embed[type*=flash]').each(function(){var o=$(this);if(o.attr('wmode')!='transparent');o.attr('wmode', 'opaque');});
+		$('iframe[src*=youtube]').each(function(){var o=$(this);o.attr('src',(o.attr('src')).setQuery('wmode', 'opaque'));});
 	};
 
 	try {

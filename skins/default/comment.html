@@ -1,0 +1,82 @@
+<include cond="$is_modal" target="___setting.html" />
+{@
+$lg = $logged_info ? $logged_info : array();
+$doc_srl = $oDocument->document_srl;
+$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
+$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+$allow_trb = $oDocument->allowTrackback();
+$allow_cmt = $oDocument->allowComment();
+}
+<div id="siBody">
+<div class="scContent clearBar">
+
+    <div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+        <p>{$XE_VALIDATOR_MESSAGE}</p>
+    </div>
+
+	<div cond="$is_doc&&$is_modal" id="siCat" class="text scVMdCate">
+	    <ul class="scFrm clearBar">
+	        <li><a href="{getUrl('document_srl',$doc_srl,'act','','is_trackbacks','','comment_list_count','')}"><span>Document</span></a></li>
+	<!--@if($allow_trb&&$is_trackbacks)-->
+	        <li class="active"><strong><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></strong></li>
+	        <li cond="$allow_cmt"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardComments','is_trackbacks','','comment_list_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
+	<!--@elseif($allow_cmt)-->
+	        <li cond="$allow_trb"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardComments','is_trackbacks','1','comment_list_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
+	        <li class="active"><strong><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></strong></li>
+	<!--@endif-->
+	    </ul>
+	</div>
+
+	<div style="min-height:140px;width:100%">
+	<!--@if($is_trackbacks)-->
+	<include cond="$allow_trb || $oDocument->getTrackbackcount()" target="_viw.trackback.html" />
+	<!--@else-->
+	<include cond="$mi->view_comment_style == 'webzine' && ($allow_cmt || $oDocument->getCommentcount())" target="_viw.c.webzine.html" />
+	<include cond="$mi->view_comment_style != 'webzine' && ($allow_cmt || $oDocument->getCommentcount())" target="_viw.comment.html" />
+	<!--@endif-->
+	</div>
+	<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
+	    <div cond="$us_vmodal&&$is_doc&&!$is_blind" class="fl">
+	        <block cond="$is_modal">
+	            {@
+	                $nav_list = $oThis->getNavigationList($oDocument->document_srl, 1);
+	                $nav_key = $lang->cmd_prev;
+	            }
+	            <block loop="$nav_list=>$key,$nav">
+	                {@ $nav->selected?$nav_key=$lang->cmd_next:0}
+	                <span cond="!$nav->selected" class="scBtn blue"><a href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'is_modal','1','cate_trace','false','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}">{$nav_key}</a></span>
+	            </block>
+	        </block>
+	    </div>
+	    <block cond="!$is_modal">
+	        <span class="scBtn black fl" cond="$grant->write_document&&$btm_lstcnt&&($sedt_wbtn||!$is_sedt)">
+	            <a href="{getUrl('act','dispBoardWrite','document_srl','')}" type="example/modal"|cond="$us_modal" title="{$lang->new_document}" accesskey="w">{$lang->document_write}</a>
+	        </span>
+	        <span class="scBtn fl" cond="$category_srl"><a href="{getUrl('','mid',$mid)}">{$lang->cmd_all_list}</a></span>
+	        <span class="scBtn"><a href="{getUrl('act', '','document_srl','','category_srl',$category_srl,'page',$page,'npage','','cpage','')}" accesskey="l">{$lang->cmd_list}</a></span>
+	    </block>
+	    <span cond="$is_modal" class="scBtn"><a href="{getUrl('act','')}" data-modal-hide>{$lang->cmd_back}</a></span>
+	    <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
+	        <span class="scBtn black">
+	            <a href="{getUrl('act','dispBoardWrite','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_document}">{$lang->cmd_modify}</a>
+	        </span>
+	        <span class="scBtn black">
+	            <a href="{getUrl('act','dispBoardDelete','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->delete_document}">{$lang->cmd_delete}</a>
+	        </span>
+	    </block>
+	</div>
+</div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+    var _DXS_MSGS_ = {};
+        _DXS_MSGS_.canceled = '{$lang->msg_canceled}';
+    <!--@if($pt_dtype=='P')-->
+        _DXS_MSGS_.use_d_point = '{$lang->confirm_download_point}';
+    <!--@endif-->
+    <!--@if($ds_declare||$ds_cdeclare)-->
+        _DXS_MSGS_.declare = '{sprintf($lang->confirm_declare, $adm_id?$lang->manager:$lang->author)}';
+    <!--@endif-->
+//]]>
+</script>

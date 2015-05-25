@@ -22,11 +22,33 @@ class beluxeController extends beluxe
 	function _setLocation()
 	{
 		$retUrl = Context::get('success_return_url');
+		if($retUrl){
+			$GLOBALS['tmp'] = '';
+			// 주소에 모달 is_modal 옵션이 있으면 제거 2는 예외
+			$retUrl = preg_replace_callback(
+		        '/(.*[\?\&])(is_modal=)([1-5])(.*)/i',
+		        function ($mc) {
+		        	$GLOBALS['tmp'] = $mc[3];
+		            return strtolower($mc[1].($mc[3]==='2'?$mc[2].'1':'').$mc[4]);
+		        },
+		        $retUrl
+		    );
+		    $is_modal = (int)$GLOBALS['tmp'];
+		}else{
+			$is_modal = (int)Context::get('is_modal');
+		}
 
-		if(!$retUrl && func_num_args()) {
+		if(!$retUrl && func_num_args()){
+			$retAct = Context::get('success_return_act');
+			// 3자이상 순수 알파벳만 받음
+        	if(!preg_match("/[A-Za-z]{3,}/i", $retAct)) $retAct = '';
+
 			$args = array_merge(
 				func_get_args(),
-				array('mid', Context::get('mid'), 'act', '', 'ruleset', '')
+				array(
+					'mid', Context::get('mid'), 'is_modal', $is_modal===2?'1':'', 'ruleset', '',
+					'act', $retAct?$retAct:'', 'success_return_act', ''
+				)
 			);
 			$retUrl = Context::getUrl(count($args), $args, NULL, FALSE);
 
@@ -43,7 +65,7 @@ class beluxeController extends beluxe
 			$this->add('url', $retUrl);
 		}else{
 			// 모달에 ruleset 사용시
-			if((int)Context::get('is_modal')===1) Context::set('xeVirtualRequestMethod','xml');
+			if($is_modal!==2) Context::set('xeVirtualRequestMethod','xml');
 			$this->setRedirectUrl($retUrl);
 		}
 	}

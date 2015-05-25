@@ -105,7 +105,7 @@ class beluxeView extends beluxe
     function _setValidMessage($a_err, $a_msg, $a_type)
     {
         Context::set('XE_VALIDATOR_ERROR', $a_err);
-        Context::set('XE_VALIDATOR_MESSAGE', $a_msg);
+        Context::set('XE_VALIDATOR_MESSAGE', Context::getLang($a_msg));
         Context::set('XE_VALIDATOR_MESSAGE_TYPE', $a_type ? $a_type : ($a_err<0?'error':'info'));
         Context::set('XE_VALIDATOR_ID', Context::get('xe_validator_id'));
     }
@@ -125,7 +125,7 @@ class beluxeView extends beluxe
         $this->lstCfg['temp']->iscate = $this->lstCfg['category_srl'] && $this->lstCfg['category_srl']->display == 'Y';
 
         // 카테고리를 사용안하면 제거
-        if (!$this->lstCfg['temp']->iscate) Context::set('category_srl', '');
+        if (!$this->lstCfg['temp']->iscate) Context::set('category_srl', '', true);
     }
 
     /* @brief get content list */
@@ -136,8 +136,8 @@ class beluxeView extends beluxe
 
         $oModIfo = $this->module_info;
         $args->module_srl = $this->module_srl;
-        $is_doc = $aDoc && $aDoc->isExists();
         $is_btm_cnt = (int) $oModIfo->default_dlist_count;
+        $is_doc = $aDoc && $aDoc->isExists() ? (int)$aDoc->document_srl : 0;
 
         // 상담 기능시 현재 로그인 사용자 글만 나타나도록 변경
         if ($oModIfo->consultation == 'Y' && !$this->grant->manager) {
@@ -299,9 +299,10 @@ class beluxeView extends beluxe
 
                 // 권한이 없으면 빈문서
                 if ($is_empty) {
-                    $b_title = Context::getLang('msg_not_permitted');
+                    $b_title = 'msg_not_permitted';
                     $out = $this->cmDoc->getDocument(0, FALSE, FALSE);
                     $this->_setValidMessage(-1380, $b_title);
+                    $b_title = Context::getLang($b_title);
                 } else {
                     $is_read = true;
                     // 권한이 있고 제한 기능 사용시
@@ -339,16 +340,21 @@ class beluxeView extends beluxe
                         $temp->chcate = $temp->chcate && $temp->iscate && $temp->dccate != $temp->olcate;
                         if ($temp->chcate) {
                             $args->category_srl = $temp->dccate;
-                            Context::set('category_srl', $args->category_srl);
+                            Context::set('category_srl', $args->category_srl, true);
                         }
                     }
                 }
-            }
 
-            // 브라우저 타이틀에 글의 제목을 추가
-            Context::addBrowserTitle($b_title);
-            Context::set('oDocument', $out);
+                Context::addBrowserTitle($b_title);
+            }else{
+                Context::set('document_srl','',true);
+            }
+        }else{
+            $out = $this->cmDoc->getDocument(0);
         }
+
+        // 브라우저 타이틀에 글의 제목을 추가
+        Context::set('oDocument', $out);
 
         return $out;
     }
@@ -379,7 +385,7 @@ class beluxeView extends beluxe
         if ($is_empty || !$doc_srl) {
             $out = $cmComment->getComment(0, FALSE);
             if ($is_empty) {
-                $this->_setValidMessage(-1380, Context::getLang('msg_not_permitted'));
+                $this->_setValidMessage(-1380, 'msg_not_permitted');
             }
         }
 
@@ -422,7 +428,7 @@ class beluxeView extends beluxe
         }
 
         if ($err) {
-            $this->_setValidMessage(-1380, Context::getLang($err));
+            $this->_setValidMessage(-1380, $err);
         }
 
         Context::set('history_document', $his);
@@ -460,7 +466,9 @@ class beluxeView extends beluxe
     function dispBoardContent() {
         $this->_setBeluxeCommonInfo();
         $doc = $this->_setBeluxeContentView();
-        if(!(int)Context::get('is_modal')) $this->_setBeluxeContentList($doc);
+        if(!(int)Context::get('is_modal')){
+            $this->_setBeluxeContentList($doc);
+        }
         $this->_templateFileLoad('index');
     }
 
@@ -484,6 +492,36 @@ class beluxeView extends beluxe
     function dispBoardDeleteComment() {
         $this->dispBoardWriteComment();
         $this->_templateFileLoad('delete');
+    }
+
+    function dispBoardComments() {
+        $this->_setBeluxeCommonInfo();
+        $doc = $this->_setBeluxeContentView();
+
+        $this->oScrt->encodeHTML('category_srl', 'document_srl', 'cpage','comment_list_count');
+        $args = Context::gets('category_srl', 'document_srl', 'cpage','comment_list_count');
+
+        if($doc->isExists() && $doc->document_srl) {
+            $args->document_srl = $doc->document_srl;
+            $cmt_cnt = $args->comment_list_count?$args->comment_list_count:$this->module_info->default_clist_count;
+
+            // 분류에 navigation 이 있으면 설정
+            if(!$args->comment_list_count && $args->category_srl) {
+                $ct_navi = $this->cmThis->getCategoryList($this->module_srl, $args->category_srl);
+                if (count($ct_navi->navigation)) {
+                    $ct_navi = $ct_navi->navigation;
+                    if(!$ct_navi->clist_count) $cmt_cnt = $ct_navi->clist_count;
+                }
+            }
+
+            $cmt_cnt = $cmt_cnt ? $cmt_cnt : 50;
+            $out = $this->cmThis->getCommentList($args->document_srl, $args->cpage, $this->grant->manager, $cmt_cnt);
+        }else{
+            $out = $this->cmThis->getCommentList(0);
+        }
+
+        Context::set('comments_info', $out);
+        $this->_templateFileLoad('comment');
     }
 
     /**************************************************************/
