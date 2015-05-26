@@ -466,9 +466,13 @@ class beluxeView extends beluxe
     function dispBoardContent() {
         $this->_setBeluxeCommonInfo();
         $doc = $this->_setBeluxeContentView();
+
         if(!(int)Context::get('is_modal')){
             $this->_setBeluxeContentList($doc);
         }
+
+        Context::set('cate_trace','',true);
+
         $this->_templateFileLoad('index');
     }
 
@@ -498,8 +502,8 @@ class beluxeView extends beluxe
         $this->_setBeluxeCommonInfo();
         $doc = $this->_setBeluxeContentView();
 
-        $this->oScrt->encodeHTML('category_srl', 'document_srl', 'cpage','comment_list_count');
-        $args = Context::gets('category_srl', 'document_srl', 'cpage','comment_list_count');
+        $this->oScrt->encodeHTML('category_srl', 'document_srl', 'cpage','clist_count');
+        $args = Context::gets('category_srl', 'document_srl', 'cpage','clist_count');
 
         if($doc->isExists() && $doc->document_srl) {
             $args->document_srl = $doc->document_srl;

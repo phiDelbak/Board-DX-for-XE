@@ -426,7 +426,7 @@ jQuery(function($)
 		// {
 		// 	console.log(frm);
 		// })
-		.pidModalWindow(m_par||'');
+		.pidModalWindow(m_par||'', true);
 
 		$('#siWrt:eq(0)').pidSettingWrite();
 		$('div[data-flash-fix=true]').pidModalFlashFix();

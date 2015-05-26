@@ -384,7 +384,14 @@
 				{
 					var $this = $(this), $modal, $bdrop, before_event, duration;
 
-					$modal = pidModal.iFrame(this.modalId, target);
+					try{
+						$modal = pidModal.iFrame(this.modalId, target);
+					}catch(e){
+						//쓰댕 ie 에서 is,not,find 함수 못 찾는 버그 처리
+						duration = window.location.href.setQuery('is_modal','').setQuery('document_srl','');
+						window.parent.location.replace(duration);
+						return false;
+					}
 
 					// before event trigger
 					before_event = $.Event('before-close.mw');

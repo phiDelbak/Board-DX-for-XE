@@ -9,7 +9,7 @@
 	<div>
 		<span class="scBtn black"><input type="password" name="password" placeholder="{$lang->password}" /></span>
 		<span class="scBtn black"><input type="submit" value="{$lang->cmd_input}" /></span>
-		<span class="scBtn"><a href="{getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a></span>
+		<span class="scBtn"><a href="{getUrl('act','')}" data-modal-hide|cond="$is_modal&&!$us_vmodal">{$lang->cmd_back}</a></span>
 	</div>
 </form>
 <!--@else-->
