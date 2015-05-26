@@ -135,7 +135,7 @@
 		<div cond="$is_wcmt && $mi->use_input_comment_writer != 'N'" id="pidModalTarget" class="scFbWt">
 			<form ruleset="insertComment" action="./" method="post">
 				<input cond="$is_modal" type="hidden" name="is_modal" value="{$us_vmodal?2:1}" />
-				<input cond="$is_modal" type="hidden" name="success_return_act" value="dispBoardComments" />
+				<input cond="$is_modal&&$us_vmodal" type="hidden" name="success_return_act" value="dispBoardComments" />
 				<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 				<input type="hidden" name="document_srl" value="{$document_srl}" />
 				<input type="hidden" name="act" value="procBoardInsertComment" />

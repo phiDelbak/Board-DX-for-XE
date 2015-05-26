@@ -195,7 +195,7 @@
 				<input type="text" id="upload_filelink" value="" style="width:80%" placeholder="{htmlspecialchars($lang->about_upload_filelink)}" />
 				<span class="scBtn blue small"><a href="#insert_filelink" data-seq="{$editor_sequence}" data-srl="{$document_srl}">{$lang->upload_filelink}</a></span>
 			</label>
-			<label cond="$mi->use_input_tag!='N'" class="scLaEt clearBar <!--@if(!$is_modal)-->scNmodal<!--@endif-->">
+			<label cond="$mi->use_input_tag!='N'" class="scLaEt clearBar">
 				<span>Tags</span>{@ $tag_tmp = htmlspecialchars($oDocument->get('tags'))}
 				<input type="text" name="tags" id="doc_tags" value="{$tag_tmp}" placeholder="{htmlspecialchars($lang->about_tag)}" />
 			</label>
@@ -210,7 +210,9 @@
 				</block>
 			</span>
 			<span>
-				<span class="scBtn"><a href="{getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a></span>
+				<span class="scBtn"><a href="{getUrl('act','')}" data-modal-hide|cond="$is_modal&&(!$us_vmodal||$us_vmodal&&!$oDocument->isExists())">
+					{$is_modal&&(!$us_vmodal||$us_vmodal&&!$oDocument->isExists())?$lang->cmd_close:$lang->cmd_back}
+				</a></span>
 				<span class="scBtn black"><button type="submit" accesskey="s">{$lang->document} {Context::getLang('cmd_'.($is_doc?'update':'registration'))}</button></span>
 			</span>
 		</div>

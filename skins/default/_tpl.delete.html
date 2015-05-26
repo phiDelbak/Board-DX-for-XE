@@ -46,7 +46,9 @@
 			</div>
 		</div>
 		<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
-			<span class="scBtn"><a href="{getUrl('act','')}" data-modal-hide|cond="$is_modal">{$lang->cmd_back}</a></span>
+			<span class="scBtn"><a href="{getUrl('act','')}" data-modal-hide|cond="$is_modal&&!$us_vmodal">
+				{$is_modal&&!$us_vmodal?$lang->cmd_close:$lang->cmd_back}
+			</a></span>
 			<span cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scBtn blue"><button type="submit" name="multilingual" value="Y">{$lang->cmd_current_lang_delete}</button></span>
 			<span class="scBtn black"><button type="submit" accesskey="s">{$lang->document} {$lang->cmd_delete}</button></span>
 		</div>

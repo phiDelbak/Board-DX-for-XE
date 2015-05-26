@@ -81,6 +81,12 @@ jQuery(function($)
 			$i.css({'display':'none','visibility':'visible'});
 			$i.css({'top':$p.position().top+'px','width':$p.width()-10+'px'});
 
+			$i.on('fadeIn.fast', function(){
+				$(this).css({'top':$p.position().top+'px','width':$p.width()-10+'px'}).fadeIn('fast');
+			}).on('fadeOut.fast', function(){
+				$i.fadeOut();
+			});
+
 			if($k){
 				$k.click(function() {
 					if($(this).hasClass('active')){
@@ -107,12 +113,6 @@ jQuery(function($)
 					if(!$i.is(':hidden')&&$i.css('opacity')=='1'&&!$k.hasClass('active')) $i.fadeOut();
 				});
 			}
-
-			$i.bind('fadeIn.fast', function(){
-				$(this).css({'top':$p.position().top+'px','width':$p.width()-10+'px'}).fadeIn('fast');
-			}).bind('fadeOut.fast', function(){
-				$i.fadeOut();
-			});
 		}
 	});
 
@@ -356,23 +356,31 @@ jQuery(function($)
 
 	// check iframe
 	try{
-		var par, doc, $mod, $frm = $(window.frameElement);
+		var $frm = $(window.frameElement), $mod, m_par, m_doc;
 		if($frm.is('[id=pidOframe]'))
 		{
-        	par = $frm.closest('html');
-        	doc = $('body', $frm[0].contentDocument || $frm[0].contentWindow.document);
+        	m_par = $frm.closest('html');
+        	m_doc = $('body', $frm[0].contentDocument || $frm[0].contentWindow.document);
 
         	$mod = $frm.parent().parent();
         	$('.pid_modal-head:eq(0)', $mod).each(function()
         	{
-        		var $pidtmp = $('#__PID_MODAL_HEADER__', doc||'');
+        		var $pidtmp = $('#__PID_MODAL_HEADER__', m_doc||'');
+				if($pidtmp.length) {
+					$(this).html('<div>' + $pidtmp.html() + '</div>').show();
+					$pidtmp.remove();
+				}
+			});
+        	$('.pid_modal-foot:eq(0)', $mod).each(function()
+        	{
+        		var $pidtmp = $('#__PID_MODAL_FOOTER__', m_doc||'');
 				if($pidtmp.length) {
 					$(this).html('<div>' + $pidtmp.html() + '</div>').show();
 					$pidtmp.remove();
 				}
 			});
 
-			// $('#siCat li.scVMdCmt a', doc||'')
+			// $('#siCat li.scVMdCmt a', m_doc||'')
 			// .click(function()
 			// {
 			// 	var $this = $(this),
@@ -384,9 +392,9 @@ jQuery(function($)
 			// 		'beluxe.getBeluxeTemplateFile',
 			// 		{ 'mid':current_mid,'document_srl':doc_srl,'cpage':cpage,'is_modal':is_modal,'template_file':'comment' },
 			// 		function(ret){
-			// 			var $cmt = $('#siCmt', doc||'');
+			// 			var $cmt = $('#siCmt', m_doc||'');
 			// 			if($cmt.length){
-			// 				$('#siDoc,#siTrb', doc||'').hide();
+			// 				$('#siDoc,#siTrb', m_doc||'').hide();
 			// 				$cmt.html(ret.html).show('slow');
 			// 				$('li.scVMdTrb,li.scVMdDoc',$this.parent().parent()).removeClass('active');
 			// 				$('li.scVMdCmt',$this.parent().parent()).addClass('active');
@@ -397,11 +405,11 @@ jQuery(function($)
 			// 	return false;
 			// });
 
-			// $('#siCat li.scVMdDoc a', doc||'')
+			// $('#siCat li.scVMdDoc a', m_doc||'')
 			// .click(function()
 			// {
-			// 	$('#siCmt,#siTrb', doc||'').hide();
-			// 	$('#siDoc', doc||'').show('slow');
+			// 	$('#siCmt,#siTrb', m_doc||'').hide();
+			// 	$('#siDoc', m_doc||'').show('slow');
 			// 	$('li.scVMdTrb,li.scVMdCmt',$(this).parent().parent()).removeClass('active');
 			// 	$('li.scVMdDoc',$(this).parent().parent()).addClass('active');
 
@@ -413,7 +421,12 @@ jQuery(function($)
 	$(window)
 	.ready(function()
 	{
-		$('a[type^=example\\/modal]').pidModalWindow(par||'');
+		$('a[type^=example\\/modal]')
+		// .on('after-open.mw', function(e, frm)
+		// {
+		// 	console.log(frm);
+		// })
+		.pidModalWindow(m_par||'');
 
 		$('#siWrt:eq(0)').pidSettingWrite();
 		$('div[data-flash-fix=true]').pidModalFlashFix();
@@ -483,11 +496,11 @@ jQuery(function($)
 
 			// 모달 보기 사용시
 			if($i.is('[data-modal-key]')){
-				$a.attr({'type':'example/modal','data-header':'__PID_MODAL_HEADER__'}).pidModalWindow(doc||'');
+				$a.attr({'type':'example/modal','data-footer':'__PID_MODAL_FOOTER__','data-header':'__PID_MODAL_HEADER__'}).pidModalWindow(m_par||'');
 			}
 		});
 
-		$('#siFbk a[name^=comment][data-scroll=true]').last().parent().is(function(){this.scrollIntoView(true);});
+		$('#siFbk a[name^=comment][data-scroll=true]:last', m_doc||'').is(function(){this.scrollIntoView(true);});
 
 		// ie10 이하 클릭(커서) 버그 방지, 다른 브라우저도 나쁘지 않아 적용
 		$('.pid_ajax-form input:text:eq(0)').focus();

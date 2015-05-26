@@ -72,7 +72,7 @@ jQuery(function($)
 					$th.data('dl', $dl);
 					oidx = $th.attr('data-index');
 
-					$dl.bind('close.dl', function(){
+					$dl.on('close.dl', function(){
 						if($dl.data('type')!='array'&&$dl.data('type')!='panel') return;
 
 						var ins = new Array(),idx = 0;
@@ -309,7 +309,7 @@ jQuery(function($)
 		return false;
 	});
 
-	$('a.modalAnchor[href=#manageDeleteModule]').bind('before-open.mw',function(e)
+	$('a.modalAnchor[href=#manageDeleteModule]').on('before-open.mw',function(e)
 	{
 		var $frm = $('#manageDeleteModule'),
 			$tr = $(this).closest('tr'),

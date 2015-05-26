@@ -1163,6 +1163,9 @@
 #siDoc .mbAfrm li:first-child .fr span {
     margin-left:5px
 }
+.pid_modal-document #siDoc .mbAfrm{
+    border-top:1px solid #e6e6e6
+}
 #siDoc .scDocCon {
     min-height:150px;
     margin:15px 5px 20px;
@@ -1601,10 +1604,6 @@
 }
 #siWrt .scWtag span:first-child {
     top:0!important
-}
-#siWrt .scWtag .scLaEt.scNmodal input {
-    margin-right:-47px;
-    padding-left:43px
 }
 #siWrt .scExTog button {
     width:100%;
@@ -2245,7 +2244,6 @@ strong.sCkChr {
 /*ie*/
 #siLst thead tr div {padding:9px 0 5px\9!important}
 #siLst thead.scOneCol th div, #siLst thead .scCheck div {padding:6px 0 8px\9!important}
-*::-ms-backdrop, .scModalClose {font-size: 16px}
 /*op*/
 noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
 /*cr*/
@@ -2260,5 +2258,5 @@ noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
     #siBody em.usept{padding:0px 3px}
     #siBody .scLaEt span:first-child {top:1px}
     #siSimWrt .scLaEt span:first-child, #siFbk .scFbWt .scLaEt span:first-child {top:2px}
-    .scModalClose {font-size: 16px}
+    #siCat.text{margin-top:-8px}
 }

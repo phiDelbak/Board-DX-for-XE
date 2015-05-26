@@ -1,12 +1,44 @@
 .pid_modal-backdrop {
-    position:fixed;
+    position:fixed!important;
+    left:0!important;
+    top:0!important;
+    width:100%!important;
+    height:100%!important;
     border:0;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
     opacity:.3;
     background-color:#000;
+}
+.pid_modal-frame {
+    position:fixed;
+    top:0;
+    left:-150%;
+    overflow:hidden;
+    border:5px solid #ddd;
+    background-color:#fff;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    box-shadow:0 0 10px #333;
+    -moz-box-shadow:0 0 10px #333;
+    -webkit-box-shadow:0 0 10px #333;
+    margin:0;
+    padding:2px;
+    min-width:300px;
+    max-width:800px;
+    width:750px
+}
+.pid_modal-head,
+.pid_modal-foot,
+.pid_modal-body {
+    margin:0;
+    padding:0;
+    width:100%!important;
+}
+.pid_modal-body{
+    border:0;
+    padding:10px;
+    width:auto!important;
+    height:100%;
 }
 .pid_modal-head {
     border-bottom: 1px solid #aaa;
@@ -21,13 +53,12 @@
     color: #fff;
     font-size: 16px;
     line-height: 18px;
-    height:20px;
+    height:40px;
     text-shadow: 0 -1px 0 #000;
-    padding:0 46px 0 0;
+    white-space:normal;
 }
 .pid_modal-foot{
     color:#555;
-    margin-bottom:0;
     text-align:right;
     background-color:#f5f5f5;
     border-top:1px solid #ddd;
@@ -38,58 +69,29 @@
     -moz-box-shadow:inset 0 1px 0 #ffffff;
     box-shadow:inset 0 1px 0 #ffffff;
     font-size: 12px;
-    line-height: 15px;
+    line-height: 17px;
+    height:27px;
+    white-space:normal;
 }
 .pid_modal-head a{
     color: #fff;
 }
-.pid_modal-body{
-    border: 0;
-    padding: 0;
-    margin: 0;
-}
-.pid_modal-frame {
-    position:fixed;
-    top:0;
-    left:-150%;
+.pid_modal-head > div,
+.pid_modal-foot > div{
     overflow:hidden;
-    border:5px solid #DDD;
     margin:0;
-    padding:2px;
-    background-color:#fff;
-    border-radius:5px;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    box-shadow:0 0 10px #333;
-    -moz-box-shadow:0 0 10px #333;
-    -webkit-box-shadow:0 0 10px #333;
-}
-.pid_modal-frame > .pid_modal-body,
-.pid_modal-frame > .pid_modal-head,
-.pid_modal-frame > .pid_modal-foot{
-    margin: 0;
-    padding: 10px;
-    min-width:300px;
-    max-width:800px;
-    width:750px
-}
-.pid_modal-head,
-.pid_modal-foot{
-    padding:5px 10px;
-    white-space:normal;
-}
-.pid_modal-head > div{
-    overflow:hidden;
-    margin: 0;
-    padding: 0;
-    padding-right:35px;
+    padding:10px;
+    padding-right:45px;
     text-overflow:ellipsis;
     -o-text-overflow:ellipsis;
     -ms-text-overflow:ellipsis;
     -moz-binding:url(/ellipsis-xbl.xml#ellipsis);
     white-space:nowrap
 }
-.pid_modal-close {
+.pid_modal-foot > div{
+    padding:5px 10px;
+}
+.pid_modal-close{
     position: absolute;
     padding: 0;
     right: 10px;
@@ -101,13 +103,23 @@
     border-radius: 5px;
     cursor: pointer;
     background: none repeat scroll 0% 0% transparent;
-    color: #FFF !important;
     font-family:"Helvetica Neue", Helvetica, Arial, 돋움, Dotum, sans-serif;
-    font-size: 21px !important;
+    font-size: 21px;
+    color: #FFF;
     font-weight: bold;
     line-height: 23px
 }
-.message.wait {
+#pidOframe,
+.pid_modal-document{
+    margin:0!important;
+    padding:0!important;
+    width:100%!important;
+    overflow:hidden;
+}
+.pid_modal-target > .pid_modal-body{
+    padding:0;
+}
+.message.wait{
     padding-top:2em;
     background:#FFFDEF url(../../../../../common/img/msg.loading.gif) no-repeat 1em 1em
 }
