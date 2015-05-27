@@ -5,7 +5,7 @@
             <span class="scBtn black"><a href="{getUrl('act','dispBoardTagList')}" class="tagBtn" title="{$lang->tag}" accesskey="t"><em>{$lang->tag}</em></a></span>
             <select name="search_target" class="scSchTarget">
                 <option loop="$ci=>$key,$val" cond="$val->search=='Y'" value="{$key}" selected="selected"|cond="$key==$search_target">{$val->name}</option>
-                <option cond="($ci['title']&&$ci['title']->search=='Y')&&($ci['content']&&$ci['content']->search=='Y')">{Context::getLang('title_content')}</option>
+                <option cond="($ci['title']&&$ci['title']->search=='Y')&&($ci['content']&&$ci['content']->search=='Y')" value="title_content">{Context::getLang('title_content')}</option>
                 <option cond="$search_target&&$ci[$search_target]->search!='Y'" value="{$search_target}" selected="selected">{Context::getLang($search_target)}</option>
             </select>
             <span class="scBtn"><input class="keyword" type="search" name="search_keyword" value="{$search_keyword}" /></span>
