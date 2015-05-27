@@ -84,6 +84,24 @@
 			<title xml:lang="ko">표시</title>
 			<title xml:lang="jp">表示</title>
 			<title xml:lang="en">display</title>
+			<var name="display_comment_expand" type="radio" default="N">
+				<title xml:lang="ko">댓글 펼치기</title>
+				<title xml:lang="jp">댓글 펼치기</title>
+				<title xml:lang="en">댓글 펼치기</title>
+				<options value="N">
+					<title xml:lang="ko">접기</title>
+					<title xml:lang="jp">접기</title>
+					<title xml:lang="en">collapse</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">펼치기</title>
+					<title xml:lang="jp">펼치기</title>
+					<title xml:lang="en">expand</title>
+				</options>
+				<description xml:lang="ko">댓글을 접어 보여줄지 펼쳐 보여줄지 설정합니다.</description>
+				<description xml:lang="jp">댓글을 접어 보여줄지 펼쳐 보여줄지 설정합니다.</description>
+				<description xml:lang="en">댓글을 접어 보여줄지 펼쳐 보여줄지 설정합니다.</description>
+			</var>
 			<var name="display_scrap_button" type="radio" default="N">
 				<title xml:lang="ko">스크랩 표시</title>
 				<title xml:lang="jp">스크랩 표시</title>
