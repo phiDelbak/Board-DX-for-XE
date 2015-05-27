@@ -27,14 +27,14 @@
 		<input type="hidden" name="content" value="{$is_doc?$oDocument->getContentText():htmlspecialchars($mi->document_default_content)}" />
 
 		<ul class="scWul">
-			<li cond="$is_cts" class="scWli clearBar">
+			<li cond="$is_cts" class="clearBar">
 				<label for="category_srl">{$lang->category}</label>
 				{@
 					$t_ctsrl = (int)($category_srl?$category_srl:$oDocument->get('category_srl'));
 					$cts[$t_ctsrl]->grant ? 0 : $t_ctsrl = 0;
 				}
 				<!--@if($mi->use_step_category!='N')-->
-				<input type="hidden" name="category_srl" value="{$t_ctsrl}" filter-rule="true,number" filter-name="{$lang->category_srl}" />
+				<input type="hidden" name="category_srl" value="{$t_ctsrl}" />
 				<select class="scWcateList">
 					<option cond="!$category_srl" value="">{$lang->none_category}</option>
 					{@ $sub_cate_list_1 = array()}
@@ -74,7 +74,7 @@
 				</select>
 				<!--@endif-->
 			</li>
-			<li class="scWli clearBar">
+			<li class="clearBar">
 				<label for="title">{$lang->title}</label>
 				<input type="text" name="title" id="title" maxlength="250" value="{htmlspecialchars($is_doc?$oDocument->getTitleText():$mi->document_default_title)}" />
 			</li>
@@ -156,7 +156,7 @@
 		</block>
 
 		<ul cond="$is_logged && ($pt_vtype!='N'||$pt_dtype!='N')" class="scWul">
-			<li class="scWli clearBar">
+			<li class="clearBar">
 				<label>{$lang->point}</label>
 				{@
 					$my_point = $oThis->getPoint();
@@ -179,7 +179,7 @@
 
 		{@ $extra_keys = $oThis->getDocumentExtraVars($is_doc?$oDocument->document_srl:0)}
 		<ul cond="count($extra_keys)" class="scWul extraKeys">
-			<li loop="$extra_keys => $key,$val" class="scWli clearBar" style="display:none"|cond="$mi->use_auto_hide_extra_vars=='Y'&&$val->is_required!='Y'">
+			<li loop="$extra_keys => $key,$val" class="clearBar" style="display:none"|cond="$mi->use_auto_hide_extra_vars=='Y'&&$val->is_required!='Y'">
 				<label>{$val->name} <span cond="$val->is_required=='Y'" class="required">*</span></label>
 				{$val->getFormHTML()}
 			</li>
@@ -193,7 +193,7 @@
 			<label cond="$mi->use_input_link_file!='N'" class="scLaEt clearBar" id="insert_filelink">
 				<span>Link</span>
 				<input type="text" id="upload_filelink" value="" style="width:80%" placeholder="{htmlspecialchars($lang->about_upload_filelink)}" />
-				<span class="scBtn blue small"><a href="#insert_filelink" data-seq="{$editor_sequence}" data-srl="{$document_srl}">{$lang->upload_filelink}</a></span>
+				<storng class="scBtn blue small"><a href="#insert_filelink" data-seq="{$editor_sequence}" data-srl="{$document_srl}">{$lang->upload_filelink}</a></storng>
 			</label>
 			<label cond="$mi->use_input_tag!='N'" class="scLaEt clearBar">
 				<span>Tags</span>{@ $tag_tmp = htmlspecialchars($oDocument->get('tags'))}

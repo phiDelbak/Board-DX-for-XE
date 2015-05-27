@@ -79,11 +79,11 @@ jQuery(function($)
 		var $f = $(this).closest('form');
 
 		// ruleset 에 사용자 filter 가 있으면 필터 추가
-		$('[name][filter-rule]', $f).each(function(){
+		$('[name][data-filter-rule]', $f).each(function(){
 			var v = xe.getApp('Validator')[0],
 				n = $(this).attr('name'),
-				r = $(this).attr('filter-rule'),
-				m = $(this).attr('filter-name') || '';
+				r = $(this).attr('data-filter-rule'),
+				m = $(this).attr('data-filter-name') || '';
 
 			if (!v || !n || !r) return false;
 			r = r.split(',');
@@ -91,7 +91,7 @@ jQuery(function($)
 			if(m) v.cast("ADD_MESSAGE", [n, m]);
 			v.cast("ADD_EXTRA_FIELD", [n,
 				{
-					required: r[0] == 'true',
+					required: r[0] === 'true',
 					rule: r[1] || '',
 					minlength: r[2] || 0,
 					maxlength: r[3] || 0,

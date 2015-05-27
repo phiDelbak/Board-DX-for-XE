@@ -5,10 +5,11 @@
             <span class="scBtn black"><a href="{getUrl('act','dispBoardTagList')}" class="tagBtn" title="{$lang->tag}" accesskey="t"><em>{$lang->tag}</em></a></span>
             <select name="search_target" class="scSchTarget">
                 <option loop="$ci=>$key,$val" cond="$val->search=='Y'" value="{$key}" selected="selected"|cond="$key==$search_target">{$val->name}</option>
+                <option cond="($ci['title']&&$ci['title']->search=='Y')&&($ci['content']&&$ci['content']->search=='Y')">{Context::getLang('title_content')}</option>
                 <option cond="$search_target&&$ci[$search_target]->search!='Y'" value="{$search_target}" selected="selected">{Context::getLang($search_target)}</option>
             </select>
             <span class="scBtn"><input class="keyword" type="search" name="search_keyword" value="{$search_keyword}" /></span>
-            <span cond="!$search_keyword" class="scBtn"><button type="submit">{$lang->cmd_search}</button></span>
+            <span cond="!$search_keyword||!$last_division" class="scBtn"><button type="submit">{$lang->cmd_search}</button></span>
             <span cond="$search_keyword&&$last_division" class="scBtn"><a href="{getUrl('page',1,'document_srl','','division',$last_division,'last_division','')}">{$lang->cmd_search_next}</a></span>
             <span cond="$search_keyword" class="scBtn"><a href="{getUrl('','mid', $mid,'category_srl', $category_srl)}">{$lang->cmd_cancel}</a></span>
         </form>

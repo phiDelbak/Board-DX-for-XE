@@ -29,5 +29,5 @@
 #siFbk .scFbWt .scWusr{*display:block !important}
 #siFbk.cmt .scFbH .fr{*position:relative;*top:-30px}
 #siWrt .scWtag input[type="text"]{*width:80% !important}
-#siWrt .scWul .scWli ul li{*display:inline-block;*white-space:nowrap}
+#siWrt .scWul li ul li{*display:inline-block;*white-space:nowrap}
 #siDoc.book .scRibbon span.caption a{*float:left;*margin-left:20px}

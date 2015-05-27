@@ -320,9 +320,9 @@ jQuery(function($)
 				$('.scWcateList:eq(0)').change();
 			}
 		});
-		$('.scWul.extraKeys li.scWli:hidden:eq(0)', this).each(function(){
+		$('.scWul.extraKeys >li:hidden:eq(0)', this).each(function(){
 			$('#siWrt .scExTog:hidden').show().click(function(){
-				$('#siWrt .scWul.extraKeys li.scWli:hidden').show('slow');
+				$('#siWrt .scWul.extraKeys >li:hidden').show('slow');
 				$(this).hide();
 				return false;
 			});
@@ -352,6 +352,7 @@ jQuery(function($)
 			);
 			return false;
 		});
+		$('input[name=category_srl]').focusin(function(){console.log(this);});
 	};
 
 	// check iframe

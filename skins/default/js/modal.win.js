@@ -28,19 +28,6 @@
 		return zidx + 100;
 	};
 
-	PIDMODAL.prototype.waitMessage = function(url, target, autohide)
-	{
-		var $msg = $('div.wait[data-modal-child=message]');
-
-	    if(!$msg.length){
-	        $msg = $('<div class="message update wait" data-modal-child="message">')
-	        .html('<p>'+waiting_message+'<br />If time delays continue, <a href="'+url.setQuery('is_modal','')+'"><span>click here</span></a>.</p>');
-	     	$('body', target).append($msg);
-	    }
-
-	    $msg.css({position:'fixed', top:10, left:10, zIndex:pidModal.topIndex(target)});
-	};
-
 	PIDMODAL.prototype.backDrop = function(target)
 	{
 		var $bkdrop = $('#pidModalBackdrop', target);
@@ -65,6 +52,19 @@
 		if(!$frame.find('.pid_modal-body').length) $frame.append($('<div class="pid_modal-body">'));
 
 		return $frame;
+	};
+
+	PIDMODAL.prototype.waitMessage = function(url, target)
+	{
+		var $msg = $('div.wait[data-modal-child=message]');
+
+	    if(!$msg.length){
+	        $msg = $('<div class="message update wait" data-modal-child="message">')
+	        .html('<p>'+waiting_message+'<br />If time delays continue, <a href="'+url.setQuery('is_modal','')+'"><span>click here</span></a>.</p>');
+	     	$('body', target).append($msg);
+	    }
+
+	    $msg.css({position:'fixed', top:10, left:10, zIndex:pidModal.topIndex(target)});
 	};
 
 	$.fn.extend(
@@ -447,7 +447,7 @@
 			$(document)
 			.on('ready', function()
 			{
-				pidModal.waitMessage(window.location.href, $oFrm.closest('html'), true);
+				pidModal.waitMessage(window.location.href, $oFrm.closest('html'));
 				$oFrm.pidModalAutoResize();
 				$('[data-modal-hide]').on('click', function()
 				{

@@ -2,7 +2,7 @@
 $ccDocument = &getController('document');
 $ccDocument->addXmlJsFilter($mi->module_srl);
 }
-<div id="siSimWrt" class="clearBar" style="margin:0;margin-top:20px"|cond="$is_sedt == 'B'">
+<div id="siWrt" class="scSimWrt clearBar" style="margin:0;margin-top:20px"|cond="$is_sedt == 'B'">
 	<form ruleset="insertDocument" action="./" method="post">
 		<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 		<input type="hidden" name="act" value="procBoardInsertDocument" />
@@ -30,22 +30,22 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 		<ul class="scWul clearBar">
 			{@ $extra_keys = $grant->write_document?$oThis->getDocumentExtraVars(0):array()}
 			<block cond="count($extra_keys)">
-				<li loop="$extra_keys => $key,$val" class="scWli clearBar" style="display:none"|cond="$mi->use_auto_hide_extra_vars=='Y'&&$val->is_required!='Y'">
+				<li loop="$extra_keys => $key,$val" class="clearBar" style="display:none"|cond="$mi->use_auto_hide_extra_vars=='Y'&&$val->is_required!='Y'">
 					<label>{$val->name} <span cond="$val->is_required=='Y'" class="required">*</span></label>
 					{$val->getFormHTML()}
 				</li>
 			</block>
-			<li cond="$is_sedt == 'C'" class="scWli">
+			<li cond="$is_sedt == 'C'">
 				<label>{$lang->title} <span class="required">*</span></label>
 				<input type="text" name="title" value="{htmlspecialchars($mi->document_default_title)}" <!--@if(!$grant->write_document)-->class="scGotoLoginPage" readonly="readonly" placeholder="{$lang->msg_not_permitted}"<!--@endif--> />
 			</li>
-			<li class="scWli">
+			<li>
 				<label>{$lang->content} <span class="required">*</span></label>
 				<textarea name="content" disabled="disabled"|cond="!$grant->write_document" style="height:{$mi->consultation=='Y'?'15':'30'}0px"|cond="$is_sedt == 'C'">{htmlspecialchars($mi->document_default_content)}</textarea>
 			</li>
 		</ul>
 
-		<div class="scInfo clearBar">
+		<div class="scWusr clearBar">
 			<span cond="$grant->write_document">
 				<!--@if($is_logged)-->
 					<input type="hidden" name="nick_name" value="1" />

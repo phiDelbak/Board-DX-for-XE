@@ -155,40 +155,31 @@
 /* input label */
 #siBody .scLaEt {
     position:relative;
-    text-align:left;
-    line-height:11px;
-    font-style:normal!important;
-    font-family:Tahoma, Geneva, sans-serif!important;
-    text-shadow:none!important
 }
-#siBody .scLaEt input[type="text"],
-#siBody .scLaEt input[type="password"],
-#siBody .scLaEt input[type="email"],
-#siBody .scLaEt input[type="url"] {
-    padding:2px 2px 2px 43px
-}
-#siBody .scLaEt span:first-child {
+#siBody .scLaEt > span {
     position:absolute;
-    top:0px;
-    left:3px;
-    font-size:10px;
-    color:#fff;
     overflow:hidden;
+    margin:4px 0 0 4px;
     padding:0 7px 0 3px;
-    line-height:12px;
     height:14px;
     width:28px;
     background:url(../img/common/label_tag.gif) no-repeat right top;
     border-radius:2px;
     -moz-border-radius:2px;
-    -webkit-border-radius:2px
+    -webkit-border-radius:2px;
+    font-size:10px;
+    font-style:normal!important;
+    font-family:Tahoma, Geneva, sans-serif!important;
+    color:#fff;
+    line-height:12px!important;
+    text-shadow:none!important
+}
+#siBody .scLaEt > span+input {
+    padding:2px 2px 2px 44px;
+    height:16px;
 }
 #siBody .scLaEt .scBtn {
     top:-2px
-}
-#siBody .history{
-    min-height:250px;
-    padding:10px;
 }
 /* Vote */
 .scVoteArea a {
@@ -1553,17 +1544,13 @@
     margin-top:5px;
     display:none
 }
+#siFbk .scFbWt.nipt{
+    text-align:right
+}
 #siFbk .scFbWt .scWusr input {
     margin:0;
     width:16%;
     max-width:120px
-}
-#siFbk .scFbWt.nipt{
-    text-align:right
-}
-#siSimWrt .scLaEt span:first-child,
-#siFbk .scFbWt .scLaEt span:first-child {
-    top:1px;
 }
 /* Write */
 #siWrt .scCpar {
@@ -1602,9 +1589,6 @@
 #siWrt .scWtag label {
     line-height:inherit
 }
-#siWrt .scWtag span:first-child {
-    top:0!important
-}
 #siWrt .scExTog button {
     width:100%;
     height:12px;
@@ -1625,25 +1609,22 @@
     vertical-align:text-top;
     background:transparent url(../img/common/btn_nav.gif) no-repeat -39px -29px
 }
-#siWrt .scWul,
-#siSimWrt .scWul {
+#siWrt .scWul {
     padding:0;
     margin:0 0 10px;
     list-style:none
 }
-#siWrt .scWul .scWli,
-#siSimWrt .scWul li {
+#siWrt .scWul >li {
     line-height:20px;
     position:relative;
     padding-left:145px;
     border:0 solid #e6e6e6;
     border-bottom-width:1px
 }
-#siWrt .scWul .scWli:first-child {
+#siWrt .scWul >li:first-child {
     border-top-width:1px
 }
-#siWrt .scWul .scWli label:first-child,
-#siSimWrt .scWul label:first-child {
+#siWrt .scWul >li label:first-child{
     float:left;
     padding:2px 5px;
     overflow:hidden;
@@ -1652,63 +1633,51 @@
     width:120px;
     background-color:#fafafa
 }
-#siWrt .scWul .scWli input[type="text"],
-#siWrt .scWul .scWli textarea,
-#siSimWrt .scWul input[type="text"],
-#siSimWrt .scWul textarea {
+#siWrt .scWul >li input[type="text"],
+#siWrt .scWul >li textarea {
     margin-left:-8px;
     width:100%;
     resize:vertical
 }
-#siWrt .scWul .scWli input.address[type="text"]:first-child,
-#siSimWrt .scWul input.address[type="text"]:first-child {
+#siWrt .scWul >li input.address[type="text"]:first-child {
     width:70%
 }
-#siWrt .scWul .scWli input.tel,
-#siWrt .scWul .scWli input.date,
-#siSimWrt .scWul input.tel,
-#siSimWrt .scWul input.date {
+#siWrt .scWul >li input.tel,
+#siWrt .scWul >li input.date {
     width:20%!important;
     margin-right:10px
 }
-#siWrt .scWul .scWli a.button,
-#siSimWrt .scWul a.button {
+#siWrt .scWul >li a.button {
     margin-left:5px
 }
-#siWrt .scWul .scWli ul,
-#siSimWrt .scWul .scWli ul {
+#siWrt .scWul >li ul {
     padding:0;
     margin:0 0 0 -10px;
     list-style:none;
     border:0;
     zoom:1
 }
-#siWrt .scWul .scWli ul:after,
-#siSimWrt .scWul .scWli ul:after {
+#siWrt .scWul >li ul:after {
     content:"";
     display:block;
     clear:both
 }
-#siWrt .scWul .scWli li,
-#siSimWrt .scWul .scWli li {
+#siWrt .scWul >li li {
     float:left;
     border:0;
     padding:2px 5px 0 0
 }
-#siWrt .scWul .scWli input,
-#siSimWrt .scWul input {
+#siWrt .scWul >li input {
     margin-top:3px
 }
-#siWrt .scWul .scWli select,
-#siSimWrt .scWul select {
+#siWrt .scWul >li select {
     margin:3px 8px 3px -8px
 }
-#siWrt .scWul .scWli textarea,
-#siSimWrt .scWul textarea {
+#siWrt .scWul >li textarea {
     margin-top:3px;
     margin-bottom:3px
 }
-#siWrt .scWul .scWli p {
+#siWrt .scWul >li p {
     margin:0 2px;
     margin-left:-8px
 }
@@ -1731,30 +1700,30 @@
     margin-left:0
 }
 /* simple editor */
-#siSimWrt {
+.scSimWrt {
     padding:0;
     margin-bottom:25px
 }
-#siSimWrt #siHrm .scFrm li {
+.scSimWrt #siHrm .scFrm li {
     text-align:right;
     padding-left:130px!important
 }
-#siSimWrt #siHrm .scFrm li input {
+.scSimWrt #siHrm .scFrm li input {
     width:100%;
     margin-top:-4px
 }
-#siSimWrt #siHrm .scFrm li strong.t {
+.scSimWrt #siHrm .scFrm li strong.t {
     position:absolute;
     left:10px
 }
-#siSimWrt .scWul {
+.scSimWrt .scWul {
     padding:0 10px
 }
-#siSimWrt .scWul .scWli {
+.scSimWrt .scWul >li {
     padding-top:5px;
     padding-bottom:2px
 }
-#siSimWrt .scWul textarea {
+.scSimWrt .scWul textarea {
     margin:2px 0;
     padding:2px;
     margin-left:-9px;
@@ -1765,17 +1734,6 @@
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px
-}
-#siSimWrt .scInfo {
-    margin:0 0 0 2px;
-    width:100%
-}
-#siSimWrt .scInfo .fr {
-    position:absolute;
-    right:0
-}
-#siSimWrt .scInfo .scLaEt input {
-    width:13%!important
 }
 /* Navi */
 #siNavi h2 {
@@ -2190,6 +2148,10 @@ strong.sCkChr {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
     font-weight:bold;
 }
+#siBody .history{
+    min-height:250px;
+    padding:10px;
+}
 /* flag */
 .scVlng {
     text-align:right;
@@ -2253,10 +2215,7 @@ noindex:-o-prefocus, #siFbk .scFbWt .scWopts {padding-right:152px}
 /*ff*/
 @-moz-document url-prefix() {
     #siFbk .scFbWt .cmtbtns {padding:0 5px 0 0}
-    #siWrt .scWul .scWli input,
-    #siSimWrt .scWul input {margin-top:2px}
+    #siWrt .scWul >li input {margin-top:2px}
     #siBody em.usept{padding:0px 3px}
-    #siBody .scLaEt span:first-child {top:1px}
-    #siSimWrt .scLaEt span:first-child, #siFbk .scFbWt .scLaEt span:first-child {top:2px}
     #siCat.text{margin-top:-8px}
 }
