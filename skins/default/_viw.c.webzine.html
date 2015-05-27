@@ -48,7 +48,7 @@
 		</div>
 
 		<div class="scCmtWebFrm d{$doc_srl}">
-			<div cond="count($cmts->data)" class="scClst clearBar" data-flash-fix="true"|cond="$us_modal||$is_modal" data-link-fix="true"|cond="$is_modal">
+			<div cond="count($cmts->data)" class="scClst clearBar" data-flash-fix="true"|cond="$us_modal||$is_modal">
 				<ul loop="$a_clsttp => $tlk,$p_list" cond="count($p_list)" class="scFrm {$tlk}">
 				<block loop="$p_list=>$key,$comment">
 					{@

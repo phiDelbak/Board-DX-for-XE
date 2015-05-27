@@ -97,12 +97,19 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
     </ul>
     <ul cond="$grant->view" class="scFrm">
         <li>
-            <block cond="count($exks)">
+            <block cond="$mi->thumbnail_auto_resize === 'N' || count($exks)">                
+                <!--@if($mi->thumbnail_auto_resize !== 'N')-->
                 {@
                     $n = (count($exks)>5?5:count($exks));
-                    $thum_width = (18 * $n) + (9 * ($n-1)) ;
+                    $thum_width = (18 * $n) + (9 * ($n-1));
                     $thum_height = $thum_width;
                 }
+                <!--@else-->
+                {@
+                    $thum_width = $mi->thumbnail_width;
+                    $thum_height = $mi->thumbnail_height;
+                }
+                <!--@endif-->
                 <div class="thmAx clearBar" style="margin-right:{(int)$thum_width+25}px;">
                     {@ $is_grant = $grant->view && (!$oDocument->isSecret() || $oDocument->isGranted())}
                     <!--@if($is_blind || !$is_grant)-->
@@ -114,7 +121,7 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
                     <img class="thum" src="img/common/thum_no.png" alt="no image" title="no image" height="{$thum_height}" width="{$thum_width}"/>
                     <!--@endif-->
                     <!--@endif-->
-                    <ul class="scVext" style="margin-left:{(int)$thum_width+25}px;">
+                    <ul cond="count($exks)" class="scVext" style="margin-left:{(int)$thum_width+25}px;">
                         <li loop="$exks=>$key,$val">
                             <label>{$val->name}</label>
                             {$val->getValueHTML()}

@@ -721,7 +721,7 @@
 			<title xml:lang="ko">썸네일</title>
 			<title xml:lang="jp">サムネール</title>
 			<title xml:lang="en">Thumbnail</title>
-			<var name="display_thumbnail_info" type="radio" default="N">
+			<var name="display_thumbnail_info" type="radio" default="A">
 				<title xml:lang="ko">썸네일 정보</title>
 				<title xml:lang="jp">サムネール情報</title>
 				<title xml:lang="en">Thumbnail info</title>
@@ -735,14 +735,27 @@
 					<title xml:lang="jp">自動隠し</title>
 					<title xml:lang="en">auto hide</title>
 				</options>
-				<options value="F">
-					<title xml:lang="ko">자동 숨김 (fade)</title>
-					<title xml:lang="jp">自動隠し (fade)</title>
-					<title xml:lang="en">auto hide (fade)</title>
-				</options>
 				<description xml:lang="ko">갤러리 스타일일때 정보를 어떻게 보여줄지 설정합니다.</description>
 				<description xml:lang="jp">ギャラリースタイル時情報の表示スタイルを設定します.</description>
 				<description xml:lang="en">How set whether to display the gallery Info.</description>
+			</var>
+			<var name="thumbnail_auto_resize" type="radio" default="Y">
+				<title xml:lang="ko">본문 썸네일 크기</title>
+				<title xml:lang="jp">본문 썸네일 크기</title>
+				<title xml:lang="en">본문 썸네일 크기</title>
+				<options value="N">
+					<title xml:lang="ko">일반</title>
+					<title xml:lang="jp">一般</title>
+					<title xml:lang="en">general</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">자동 조절</title>
+					<title xml:lang="jp">자동 조절</title>
+					<title xml:lang="en">자동 조절</title>
+				</options>
+				<description xml:lang="ko">웹진형 본문 보기시 썸네일의 크기를 자동 조절할지 설정합니다. (확장변수 없으면 표시 안함)</description>
+				<description xml:lang="jp">웹진형 본문 보기시 썸네일의 크기를 자동 조절할지 설정합니다. (확장변수 없으면 표시 안함)</description>
+				<description xml:lang="en">웹진형 본문 보기시 썸네일의 크기를 자동 조절할지 설정합니다. (확장변수 없으면 표시 안함)</description>
 			</var>
 			<var name="thumbnail_type" type="radio" default="crop">
 				<title xml:lang="ko">썸네일 생성 방법</title>

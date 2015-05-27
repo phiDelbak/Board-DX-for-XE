@@ -6,44 +6,56 @@
 
 (function($)
 {
-	var PIDMODAL = function(){},
+	var PIDMODAL = function(){
+		this.topZidx = 0;
+	},
 		pidModal = new PIDMODAL();
 
 	PIDMODAL.prototype.topIndex = function(target)
 	{
-		var $body = $('body', target), zidx = 0;
-		try{
-			$body.find('> *')
-				//.filter(function(){ return $(this).css('z-index') !== 'auto'; })
-				.each(function()
-				{
-					//var  style = window.getComputedStyle(this),
-					//	thzidx = parseInt(style.getPropertyValue('z-index'));
-					var thzidx = parseInt($(this).css('z-index') || 0);
-					if(zidx < thzidx) zidx = thzidx;
-				});
-		}catch(e){
-			zidx = 999999;
+		var $target = target ? $(target) : $('body'),
+			$body = $target.is('body') ? $target : $target.closest('body'),
+			zidx = this.topZidx;
+
+		if(!zidx){
+			zidx++;
+			try{
+				$body.find('> *')
+					//.filter(function(){ return $(this).css('z-index') !== 'auto'; })
+					.each(function(){
+						//var  style = window.getComputedStyle(this),
+						//	thzidx = parseInt(style.getPropertyValue('z-index'));
+						var thzidx = parseInt($(this).css('z-index') || this.style.zIndex);
+						if(zidx < thzidx) zidx = thzidx;
+					});
+			}catch(e){
+				zidx = 999999;
+			}
+			this.topZidx = zidx;
 		}
-		return zidx + 100;
+
+		return zidx + 99;
 	};
 
-	PIDMODAL.prototype.backDrop = function(target)
+	PIDMODAL.prototype.waitMessage = function(url, target)
 	{
-		var $bkdrop = $('#pidModalBackdrop', target);
-		if(!$bkdrop.length)
-		{
-			$bkdrop = $('<div id="pidModalBackdrop" class="pid_modal-backdrop">').appendTo($('body', target)).hide();
-		}
-		return $bkdrop;
+		var $target = target ? $(target) : $('body'),
+			$body = $target.is('body') ? $target : $target.closest('body');
+
+	    if(!$('div.wait[data-modal-child=message]', $body).length){
+	    	url = url.setQuery('is_modal','');
+	        $msg = $('<div class="message update wait" data-modal-child="message">')
+	        .html('<p>'+waiting_message+'<br />If time delays continue, <a href="'+url+'"><span>click here</span></a>.</p>')
+	        .css({position:'fixed', top:10, left:10, zIndex:pidModal.topIndex(target)});
+	     	$body.append($msg);
+	    }
 	};
 
 	PIDMODAL.prototype.iFrame = function(id, target)
 	{
 		var $body, $frame = $('#' + id, target);
 
-		if(!$frame.length)
-		{
+		if(!$frame.length){
 			$body = $('body', target);
 			$frame = $('<section id="' + id + '" class="pid_modal-frame">').appendTo($body).hide();
 		}else{
@@ -54,17 +66,13 @@
 		return $frame;
 	};
 
-	PIDMODAL.prototype.waitMessage = function(url, target)
+	PIDMODAL.prototype.backDrop = function(target)
 	{
-		var $msg = $('div.wait[data-modal-child=message]');
-
-	    if(!$msg.length){
-	        $msg = $('<div class="message update wait" data-modal-child="message">')
-	        .html('<p>'+waiting_message+'<br />If time delays continue, <a href="'+url.setQuery('is_modal','')+'"><span>click here</span></a>.</p>');
-	     	$('body', target).append($msg);
-	    }
-
-	    $msg.css({position:'fixed', top:10, left:10, zIndex:pidModal.topIndex(target)});
+		var $bkdrop = $('#pidModalBackdrop', target);
+		if(!$bkdrop.length){
+			$bkdrop = $('<div id="pidModalBackdrop" class="pid_modal-backdrop">').appendTo($('body', target)).hide();
+		}
+		return $bkdrop;
 	};
 
 	$.fn.extend(
@@ -113,7 +121,7 @@
 				// }
 			}
 
-			pidModal.waitMessage(url, $oFrm.closest('html'));
+			pidModal.waitMessage(url, $oFrm.closest('body'));
 		},
 		pidModalSetTitle: function(header, footer, close_callback)
 		{
@@ -444,10 +452,12 @@
 		var $oFrm = $(window.frameElement);
 		if($oFrm.is('[id=pidOframe]'))
 		{
+			$frmDoc = $oFrm.closest('body');
+
 			$(document)
 			.on('ready', function()
 			{
-				pidModal.waitMessage(window.location.href, $oFrm.closest('html'));
+				pidModal.waitMessage(window.location.href, $frmDoc);
 				$oFrm.pidModalAutoResize();
 				$('[data-modal-hide]').on('click', function()
 				{
@@ -460,7 +470,7 @@
 			.on("unload", function()
 			{
 				$oFrm.parent().height(1).parent().hide().css({top:'0',left:'-150%'});
-				$('[data-modal-child=message]', $oFrm.closest('body')).remove();
+				$('[data-modal-child=message]', $frmDoc).remove();
 			});
 		}
 	}catch(e){}

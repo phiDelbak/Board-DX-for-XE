@@ -119,18 +119,23 @@ jQuery(function($)
 	$('#siLst.gall .scInfo[data-autohide=true]')
 	.each(function()
 	{
-		var $i = $(this),$p = $i.closest('.scItem'), $n = $('.nick_name',this),
-			$m = $i.prev('span.prtImg'), fade = $i.attr('data-fade') == 'true';
+		var $i = $(this), $n = $('.nick_name',this), $m = $i.prev('span.prtImg');
 
-		$p.mouseenter(function(e)
+		$i.css('cursor','pointer')
+		.click(function()
+		{
+			$(this).prev().click();
+		})
+		.closest('.scItem')
+		.mouseenter(function()
 		{
 			$m.hide('slow');
-			if(fade) $i.fadeIn('slow'); else $i.slideDown();
+			$i.fadeIn('slow'); //if else $i.slideDown();
 			$n.show('slow');
-		}).mouseleave(function(e)
+		}).mouseleave(function()
 		{
 			$n.hide('slow');
-			if(fade) $i.fadeOut(); else $i.slideUp();
+			$i.fadeOut(); //if else $i.slideUp();
 			$m.show('slow');
 		});
 	});
@@ -352,7 +357,6 @@ jQuery(function($)
 			);
 			return false;
 		});
-		$('input[name=category_srl]').focusin(function(){console.log(this);});
 	};
 
 	// check iframe
@@ -422,12 +426,7 @@ jQuery(function($)
 	$(window)
 	.ready(function()
 	{
-		$('a[type^=example\\/modal]')
-		// .on('after-open.mw', function(e, frm)
-		// {
-		// 	console.log(frm);
-		// })
-		.pidModalWindow(m_par||'', true);
+		$('a[type^=example\\/modal]').pidModalWindow(m_par||'');
 
 		$('#siWrt:eq(0)').pidSettingWrite();
 		$('div[data-flash-fix=true]').pidModalFlashFix();
@@ -440,7 +439,8 @@ jQuery(function($)
 	{
 		// 모바일 사용안할때 크기가 너무 줄어들면 조절
 		// 모바일 사용안하는 특정상황에만 필요한 경우라 onresize에선 처리안함
-		$('table#siLst').each(function()
+		$('table#siLst')
+		.each(function()
 		{
 			var $th =$(this), ww = $('#siBody').parent().width(),
 				tr = /*$th.position().left + */$th.outerWidth();
@@ -456,7 +456,8 @@ jQuery(function($)
 				});
 			}
 		});
-		$('#siFbk .scFbH + .scClst > .scFrm').each(function()
+		$('#siFbk .scFbH + .scClst > .scFrm')
+		.each(function()
 		{
 			var $th =$(this), tw = $th.outerWidth();
 			if(tw < 400) {
@@ -467,7 +468,7 @@ jQuery(function($)
 
 		// 제목 자동조절
 		$('.scElps[data-active=true]')
-		.each(function(e)
+		.each(function()
 		{
 			var $i = $(this), $f = $('> :eq(0)', $i),$l = $('> :eq(1)', $i),fw = $i.width(),lw = 0;
 			if($l.length)
@@ -481,7 +482,7 @@ jQuery(function($)
 
 		// 핫트랙
 		$('.scContent [data-hottrack]')
-		.each(function(e)
+		.each(function()
 		{
 			var $i = $(this), tp = $i.attr('data-type'), ur = $i.attr('data-hottrack'),
 				$a = $('<a class="scHotTrack">').attr('href', ur),
@@ -503,7 +504,7 @@ jQuery(function($)
 
 		$('#siFbk a[name^=comment][data-scroll=true]:last', m_doc||'').is(function(){this.scrollIntoView(true);});
 
-		// ie10 이하 클릭(커서) 버그 방지, 다른 브라우저도 나쁘지 않아 적용
-		$('.pid_ajax-form input:text:eq(0)').focus();
+		// ie 에서 클릭(커서) 버그 방지
+		$('input:not(:hidden):eq(0)','.pid_ajax-form').focus();
 	});
 });

@@ -789,7 +789,8 @@
 /* Common style*/
 #siLst.list td.thumbnail img,
 #siLst.webz .scItem a.thum,
-#siLst.gall .scItem,
+#siLst.gall .scItem img.thum,
+#siLst.gall .scIfHide .scInfo,
 #siDoc .thmAx img.thum {
     padding:5px;
     border:1px solid #e6e6e6;
@@ -799,7 +800,7 @@
 }
 #siLst.list td.thumbnail img:hover,
 #siLst.webz .scItem a.thum:hover,
-#siLst.gall .scItem:hover {
+#siLst.gall .scItem img.thum:hover {
     box-shadow:1px 1px 2px #e6e6e6;
     -moz-box-shadow:1px 1px 2px #e6e6e6;
     -webkit-box-shadow:1px 1px 2px #e6e6e6
@@ -823,7 +824,10 @@
     background-image:linear-gradient(rgba(255, 255, 255, .3), rgba(255, 255, 255, 0));
     -moz-box-shadow:2px 2px 0 rgba(0, 0, 0, .3);
     -webkit-box-shadow:2px 2px 0 rgba(0, 0, 0, .3);
-    box-shadow:2px 2px 0 rgba(0, 0, 0, .3)
+    box-shadow:2px 2px 0 rgba(0, 0, 0, .3);
+    border-radius:1px 1px 1px 0;
+    -moz-border-radius:1px 1px 1px 0;
+    -webkit-border-radius:1px 1px 1px 0;
 }
 #siLst .scRibbon:before,
 #siDoc .scRibbon:before,
@@ -880,23 +884,26 @@
 #siLst.gall .scItem a {
     text-decoration:none
 }
-#siLst.gall .scInfo.aHide {
+#siLst.gall .scIfHide .scInfo {
     position:absolute;
     bottom:0;
     left:0;
+    padding:0;
+    margin:0;
+    border:0;
     overflow:hidden;
     width:100%;
     height:100%;
     background-color:#000;
     opacity:.6
 }
-#siLst.gall .scInfo.aHide ul {
+#siLst.gall .scIfHide .scInfo ul {
     position:absolute;
     bottom:0;
     left:0
 }
-#siLst.gall .scInfo.aHide li,
-#siLst.gall .scInfo.aHide li a {
+#siLst.gall .scIfHide .scInfo li,
+#siLst.gall .scIfHide .scInfo li a {
     color:#eee
 }
 #siLst.gall .scInfo ul {
@@ -904,6 +911,9 @@
     margin:5px 0 0;
     padding:0;
     list-style:none
+}
+#siLst.gall .scIfHide .scInfo ul {
+    margin-bottom:5px;
 }
 #siLst.gall .scInfo li,
 #siLst.gall .scInfo li a {
@@ -927,8 +937,8 @@
 }
 #siLst.gall .prtImg {
     position:absolute;
-    bottom:6px;
-    right:6px;
+    bottom:3px;
+    right:3px;
     padding:0;
     color:#eee;
     white-space:nowrap
@@ -944,13 +954,10 @@
     -webkit-border-radius:3px;
     opacity:.7
 }
-
 #siLst.gall .prtImg em.usept.colBgBlue {
     color:#333;
 }
-
 #siLst.gall .prtImg img {
-    vertical-align:text-bottom;
     margin:0 0 0 2px!important
 }
 #siLst.gall .prtImg img[alt="file"] {
@@ -961,10 +968,6 @@
     z-index:2;
     top:5px;
     right:5px
-}
-#siLst.gall .scItem:hover {
-    border-width:2px;
-    margin:14px
 }
 /* Webzine style */
 #siLst.webz td.scBox {
@@ -1408,7 +1411,8 @@
     text-shadow:none!important
 }
 #siFbk .scFrm.best>li {
-    background-color:#f9f9f9
+    background-color:#f9f9f9;
+    border:1px solid #eee;
 }
 #siFbk .scFrm>li {
     position:relative;

@@ -37,8 +37,8 @@
 							$t_tbkn = $document->getTrackbackCount();
 						}
 						<!--@if($is_cts || $ds_cstus)-->
-						<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
-						<span cond="$is_cts && $document->get('category_srl')">[{$cts[$document->get('category_srl')]->title}]</span>
+						<span cond="$is_cts && $document->get('category_srl')">{$cts[$document->get('category_srl')]->title}</span>
+						<span cond="$ds_cstus">:{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
 						<!--@else-->
 						<span>{$t_cmtn||$t_tbkn?$lang->comment_count:'&nbsp;'}</span>
 						<!--@endif-->
