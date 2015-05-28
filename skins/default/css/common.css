@@ -1580,7 +1580,10 @@
 #siWrt .scWusr {
     margin:0 0 10px
 }
-#siWrt .scWusr input {
+#siWrt .scWusr input[type="text"],
+#siWrt .scWusr input[type="password"],
+#siWrt .scWusr input[type="email"],
+#siWrt .scWusr input[type="url"]{
     width:16%;
     max-width:120px
 }

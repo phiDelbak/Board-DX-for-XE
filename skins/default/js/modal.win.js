@@ -7,8 +7,8 @@
 (function($)
 {
 	var PIDMODAL = function(){
-		this.topZidx = 0;
-	},
+			this.topZidx = 0;
+		},
 		pidModal = new PIDMODAL();
 
 	PIDMODAL.prototype.topIndex = function(target)
@@ -221,14 +221,14 @@
 	        	{
 	        		var t, h, fh, bh;
 
-	        		pw = $bdrop.outerWidth(true);
+	        		pw = $bdrop.width();
 	        		fh = $body.outerHeight(true);
 
-					$modal.width(pw - 80);
+					$modal.outerWidth(pw - 80);
 
 	        		if(fh > 10)
 	        		{
-	        			ph = $bdrop.outerHeight(true);
+	        			ph = $bdrop.height();
 	        			h = ($moh.outerHeight(true) || 0) + ($mof.outerHeight(true) || 0);
 
 	        			bh = ph - h - 100;
@@ -252,7 +252,7 @@
 	        if($modal.is('.pid_modal-target'))
 	        {
 				$mob.height(1);
-	        	$modal.show();
+				$modal.show();
 
 		        timer = setTargetTimer();
 
@@ -263,12 +263,9 @@
 	        }else{
 
 	        	$bdrop = pidModal.backDrop($target);
-	        	$modal.show();
-
-	        	pw = $bdrop.outerWidth(true);
-
-				$modal.width(pw - 80);
+	        	pw = $bdrop.width();
 				$mob.height(1);
+	        	$modal.outerWidth(pw - 80).show();
 
 		        if ($modal.position().left < 1)
 		        {
@@ -278,8 +275,6 @@
 		            },{
 		                complete: function()
 		                {
-		                	$modal.show();
-
 		                	timer = setModalTimer();
 
 					        $('[data-modal-child=message]', $target)
@@ -453,15 +448,14 @@
 		if($oFrm.is('[id=pidOframe]'))
 		{
 			$frmDoc = $oFrm.closest('body');
+
+			pidModal.waitMessage(window.location.href, $frmDoc);
 			$oFrm.pidModalAutoResize();
 
 			$(document)
 			.on('ready', function()
 			{
-				pidModal.waitMessage(window.location.href, $frmDoc);
-				//$oFrm.pidModalAutoResize();
-				$('[data-modal-hide]').on('click', function()
-				{
+				$('[data-modal-hide]').on('click', function(){
 					$oFrm.parent().parent().find('button.pid_modal-close:first').click();
 					return false;
 				});

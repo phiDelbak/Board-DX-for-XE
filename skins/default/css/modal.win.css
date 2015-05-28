@@ -118,6 +118,7 @@
 }
 .pid_modal-target > .pid_modal-body{
     padding:0;
+    min-height:100px
 }
 .message.wait{
     padding-top:2em;
