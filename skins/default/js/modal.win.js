@@ -453,12 +453,13 @@
 		if($oFrm.is('[id=pidOframe]'))
 		{
 			$frmDoc = $oFrm.closest('body');
+			$oFrm.pidModalAutoResize();
 
 			$(document)
 			.on('ready', function()
 			{
 				pidModal.waitMessage(window.location.href, $frmDoc);
-				$oFrm.pidModalAutoResize();
+				//$oFrm.pidModalAutoResize();
 				$('[data-modal-hide]').on('click', function()
 				{
 					$oFrm.parent().parent().find('button.pid_modal-close:first').click();
