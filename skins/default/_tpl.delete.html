@@ -2,7 +2,7 @@
 <!--@if($not_permitted)-->
 <form ruleset="checkPassword" action="./" method="post" class="pid_ajax-form">
 <input cond="$is_modal" type="hidden" name="is_modal" value="2" />
-<input type="hidden" name="success_return_url" value="{getUrl('is_modal',$is_modal?($us_vmodal?2:1):'')}" />
+<input type="hidden" name="success_return_url" value="{getUrl('is_modal',$is_modal?2:'')}" />
 <input type="hidden" name="document_srl" value="{$document_srl}" />
 <input type="hidden" name="act" value="procBoardVerificationPassword" />
 

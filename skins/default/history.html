@@ -3,7 +3,7 @@
 <load target="css/iefix.css" targetie="lte IE 9" />
 
 <div>
-	<div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="{$XE_VALIDATOR_MESSAGE_TYPE}">
+	<div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="{$XE_VALIDATOR_MESSAGE_TYPE}" data-valid-id="{$XE_VALIDATOR_ID}"|cond="$XE_VALIDATOR_ID">
 		<p>{nl2br($XE_VALIDATOR_MESSAGE)}</p>
 	</div>
 

@@ -10,7 +10,7 @@ $allow_cmt = $oDocument->allowComment();
 <div id="siBody">
 <div class="scContent clearBar">
 
-    <div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+    <div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}" data-valid-id="{$XE_VALIDATOR_ID}"|cond="$XE_VALIDATOR_ID">
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
 	<div id="__PID_MODAL_HEADER__" style="display:none">{$oDocument->getTitle()}</div>

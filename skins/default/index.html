@@ -5,7 +5,7 @@
 
     <include cond="!$is_modal&&($is_sedt=='T'||$is_sedt=='C')" target="_etc.simplewrite.html" />
 
-    <div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+    <div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}" data-valid-id="{$XE_VALIDATOR_ID}"|cond="$XE_VALIDATOR_ID">
         <p>{$XE_VALIDATOR_MESSAGE}</p>
     </div>
 

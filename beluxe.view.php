@@ -102,12 +102,12 @@ class beluxeView extends beluxe
         return $tpl_path;
     }
 
-    function _setValidMessage($a_err, $a_msg, $a_type)
+    function _setValidMessage($a_err, $a_msg, $a_id, $a_type)
     {
         Context::set('XE_VALIDATOR_ERROR', $a_err);
         Context::set('XE_VALIDATOR_MESSAGE', Context::getLang($a_msg));
         Context::set('XE_VALIDATOR_MESSAGE_TYPE', $a_type ? $a_type : ($a_err<0?'error':'info'));
-        Context::set('XE_VALIDATOR_ID', Context::get('xe_validator_id'));
+        Context::set('XE_VALIDATOR_ID', $a_id ? $a_id : Context::get('xe_validator_id'));
     }
 
     /* @brief set common info */
@@ -301,7 +301,7 @@ class beluxeView extends beluxe
                 if ($is_empty) {
                     $b_title = 'msg_not_permitted';
                     $out = $this->cmDoc->getDocument(0, FALSE, FALSE);
-                    $this->_setValidMessage(-1380, $b_title);
+                    $this->_setValidMessage(-1380, $b_title, 'not_permitted');
                     $b_title = Context::getLang($b_title);
                 } else {
                     $is_read = true;
@@ -371,21 +371,18 @@ class beluxeView extends beluxe
         // 해당 댓글를 찾아본다
         $cmComment = & getModel('comment');
         $out = $cmComment->getComment((int)$cmt_srl, $this->grant->manager);
-
-        if ($out->isExists()) {
-
+        if($out->isExists()) {
             // 글 보기 권한을 체크해서 권한이 없으면 빈문서
             $is_empty = !$this->grant->{$a_iswrite ? 'write_comment' : 'view'} && !$out->isGranted();
-
             // 수정시 비회원 글이고  권한이 없으면 빈문서
             if ($a_iswrite && !$is_empty && !$out->get('member_srl')) $is_empty = !$out->isGranted();
         }
 
         // 문서 번호가 없거나 권한이 없으면 빈문서
-        if ($is_empty || !$doc_srl) {
+        if($is_empty || !$doc_srl) {
             $out = $cmComment->getComment(0, FALSE);
             if ($is_empty) {
-                $this->_setValidMessage(-1380, 'msg_not_permitted');
+                $this->_setValidMessage(-1380, 'msg_not_permitted', 'not_permitted');
             }
         }
 
@@ -403,32 +400,34 @@ class beluxeView extends beluxe
     function dispBoardHistory() {
         $this->_setBeluxeCommonInfo();
 
-        $err = 'msg_invalid_request';
+        $err = -1;
         $this->oScrt->encodeHTML('history_srl');
         $his_srl = (int)Context::get('history_srl');
 
-        if ($his_srl) {
+        if ($his_srl)
+        {
             $his = $this->cmDoc->getHistory($his_srl);
-            if ($his && $his->document_srl) {
-
+            if ($his && $his->document_srl){
                 // 원본 문서의 권한 체크
                 Context::set('document_srl', $his->document_srl);
                 $doc = $this->_setBeluxeContentView();
-                $err = '';
                 $is_grant = $doc->isGranted();
                 $is_secret = $doc->isSecret();
-
                 // 권한 체크
-                $err = Context::get('XE_VALIDATOR_ERROR');
-                if (!$is_grant && ($is_secret || $err == '-1380')) {
-                    $msg = Context::getLang('msg_not_permitted');
-                    $his->content = $msg;
+                $err = (int)Context::get('XE_VALIDATOR_ERROR');
+                if (!$is_grant && ($is_secret || $err === -1380))
+                {
+                    $err = -1380;
+                    $his->content = Context::getLang('msg_not_permitted');
+                }else{
+                    $err = 0;
                 }
             }
         }
 
-        if ($err) {
-            $this->_setValidMessage(-1380, $err);
+        if($err < 0){
+            $msg = $err === -1380 ? 'msg_not_permitted' : 'msg_invalid_request';
+            $this->_setValidMessage($err, $msg, $err === -1380 ? 'not_permitted' : '');
         }
 
         Context::set('history_document', $his);

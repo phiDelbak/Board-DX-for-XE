@@ -22,6 +22,7 @@ class beluxeController extends beluxe
 	function _setLocation()
 	{
 		$retUrl = Context::get('success_return_url');
+
 		if($retUrl){
 			$GLOBALS['tmp'] = '';
 			// 주소에 모달 is_modal 옵션이 있으면 제거 2는 예외
@@ -29,7 +30,7 @@ class beluxeController extends beluxe
 		        '/(.*[\?\&])(is_modal=)([1-5])(.*)/i',
 		        function ($mc) {
 		        	$GLOBALS['tmp'] = $mc[3];
-		            return strtolower($mc[1].($mc[3]==='2'?$mc[2].'1':'').$mc[4]);
+		            return $mc[1].($mc[3]==='2'?$mc[2].'1':'').$mc[4];
 		        },
 		        $retUrl
 		    );
@@ -58,19 +59,19 @@ class beluxeController extends beluxe
 			}
 		}
 
-		if(!$retUrl) $retUrl = Context::get('error_return_url');
+		//if(!$retUrl) $retUrl = Context::get('error_return_url');
 
 		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON', 'JS_CALLBACK'))) {
 			//filte 사용시
 			$this->add('url', $retUrl);
 		}else{
 			// 모달에 ruleset 사용시
-			if($is_modal!==2) Context::set('xeVirtualRequestMethod','xml');
+			if($is_modal && $is_modal!==2) Context::set('xeVirtualRequestMethod','xml');
 			$this->setRedirectUrl($retUrl);
 		}
 	}
 
-    function _setValidMessage($a_err, $a_msg, $a_type = 0, $returnUrl = '')
+    function _setValidMessage($a_err, $a_msg, $a_id, $a_type, $a_retUrl)
     {
 		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON', 'JS_CALLBACK'))) {
 			$this->setMessage($a_msg);
@@ -78,9 +79,11 @@ class beluxeController extends beluxe
 	        $_SESSION['XE_VALIDATOR_ERROR'] = $a_err;
 	        $_SESSION['XE_VALIDATOR_MESSAGE'] = Context::getLang($a_msg);
 	        $_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = $a_type ? $a_type : ($a_err<0?'error':'info');
-	        $_SESSION['XE_VALIDATOR_ID'] = Context::get('xe_validator_id');
-	        $returnUrl ? $_SESSION['XE_VALIDATOR_RETURN_URL'] = $returnUrl : 0;
-	        if($a_err<0) $this->setMessage($a_msg);
+	        //$_SESSION['XE_VALIDATOR_ID'] = $a_id ? $a_id : Context::get('xe_validator_id');
+
+	        if($a_id) Context::set('xe_validator_id', $a_id);
+	        if($a_retUrl) $_SESSION['XE_VALIDATOR_RETURN_URL'] = $a_retUrl;
+	        if($a_err < 0) $this->setMessage($a_msg);
 		}
     }
 
@@ -248,7 +251,9 @@ class beluxeController extends beluxe
 		$out = executeQuery('file.insertFile', $args);
 		if(!$out->toBool()) return $out;
 
-		$this->_setValidMessage(0, 'success_registed');
+		$msg_code = 'success_registed';
+
+		$this->_setValidMessage(0, $msg_code, 'filelink_'.$msg_code);
 		$this->_setLocation('', 'sequence_srl', $seq, 'document_srl', $tar_srl, 'file', $args);
 	}
 
@@ -514,7 +519,7 @@ class beluxeController extends beluxe
 		if($is_upCateCnt) $ccDocument->makeCategoryFile($mod_srl, false);
 		*/
 
-		$this->_setValidMessage(0, $msg_code);
+		$this->_setValidMessage(0, $msg_code, 'document_'.$msg_code);
 		$this->_setLocation('', 'document_srl', $doc_srl);
 	}
 
@@ -720,7 +725,7 @@ class beluxeController extends beluxe
 
 		$cmt_srl = $out->get('comment_srl');
 
-		$this->_setValidMessage(0, $msg_code);
+		$this->_setValidMessage(0, $msg_code, 'comment_'.$msg_code);
 		$this->_setLocation('', 'document_srl', $doc_srl, 'comment_srl', $cmt_srl, 'cpage', $cpage);
 	}
 
@@ -837,7 +842,9 @@ class beluxeController extends beluxe
 		$ccDocument->makeCategoryFile($mod_srl);
 		*/
 
-		$this->_setValidMessage(0, 'success_deleted');
+		$msg_code = 'success_deleted';
+
+		$this->_setValidMessage(0, $msg_code, 'document_'.$msg_code);
 		$this->_setLocation(
 			'', 'category_srl', Context::get('category_srl'), 'document_srl',
 			$re_doc_srl, 'comment_srl', $cmt_srl, 'page', $out->get('page')
@@ -874,9 +881,10 @@ class beluxeController extends beluxe
 		$out = $ccComment->deleteComment($cmt_srl, $this->grant->manager);
 		if(!$out->toBool()) return $out;
 
+		$msg_code = 'success_deleted';
 		$doc_srl = $out->get('document_srl');
 
-		$this->_setValidMessage(0, 'success_deleted');
+		$this->_setValidMessage(0, $msg_code, 'comment_'.$msg_code);
 		$this->_setLocation('', 'document_srl', $out->get('document_srl'), 'page', $page);
 	}
 
@@ -893,7 +901,9 @@ class beluxeController extends beluxe
 		$ccDocument = &getController('document');
 		$ccDocument->deleteDocumentHistory($his_srl, $doc_srl, $mod_srl);
 
-		$this->_setValidMessage(0, 'success_deleted');
+		$msg_code = 'success_deleted';
+
+		$this->_setValidMessage(0, $msg_code, 'history_'.$msg_code);
 		$this->_setLocation('', 'document_srl', $doc_srl);
 	}
 
@@ -907,7 +917,9 @@ class beluxeController extends beluxe
 		$out = $ccTrackback->deleteTrackback($track_srl, $this->grant->manager);
 		if(!$out->toBool()) return $out;
 
-		$this->_setValidMessage(0, 'success_deleted');
+		$msg_code = 'success_deleted';
+
+		$this->_setValidMessage(0, $msg_code, 'trackback_'.$msg_code);
 		$this->_setLocation('', 'document_srl', $out->get('document_srl'));
 	}
 
