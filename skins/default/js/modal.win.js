@@ -385,30 +385,35 @@
 				})
 				.bind('close.mw', function()
 				{
-					var $this = $(this), $modal, $bdrop, before_event, duration;
+					var parentReload = function(){
+						var url = window.location.href
+								.setQuery('is_modal','')
+								.setQuery('document_srl','');
+						window.parent.location.replace(url);
+					};
 
-					try{
-						$modal = pidModal.iFrame(this.modalId, target);
-					}catch(e){
-						//쓰댕 ie 에서 is,not,find 함수 못 찾는 버그 처리
-						duration = window.location.href.setQuery('is_modal','').setQuery('document_srl','');
-						window.parent.location.replace(duration);
-						return false;
-					}
+					var $this = $(this), $modal, $bdrop, before_event, duration;
 
 					// before event trigger
 					before_event = $.Event('before-close.mw');
 					$this.trigger(before_event);
-
 					// is event canceled?
 					if(before_event.isDefaultPrevented()) return false;
 
+					try{
+						$modal = pidModal.iFrame(this.modalId, target);
+		        		if($modal.attr('data-parent-reload')||0) parentReload();
+					}catch(e){
+						// 쓰댕 ie 에서 is,not,find 함수 못 찾는 버그 처리
+						// jquery.js 문제라는말이 있던대 내가 풀 문제는 아니기에...
+						parentReload();
+						return false;
+					}
+
 					// get duration
 					duration = $this.data('duration') || 'fast';
-
 					// set state : hiding
 					$modal.data('state', 'hiding');
-
 					// after event trigger
 					var after = function(){$this.trigger('after-close.mw');};
 

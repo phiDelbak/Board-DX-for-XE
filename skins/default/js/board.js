@@ -368,6 +368,10 @@ jQuery(function($)
         	m_doc = $('body', $frm[0].contentDocument || $frm[0].contentWindow.document);
 
         	$mod = $frm.parent().parent();
+        	if($('#BELUXE_MESSAGE[data-valid-id=document_success_registed]').length)
+        	{
+        		$mod.attr('data-parent-reload', 1);
+        	}
         	$('.pid_modal-head:eq(0)', $mod).each(function()
         	{
         		var $pidtmp = $('#__PID_MODAL_HEADER__', m_doc||'');
