@@ -437,10 +437,9 @@ jQuery(function($)
 		$('div[data-link-fix=true]').each(function(){
 			$('a:not([target])',this).attr('target','_blank');
 		});
+
 		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
-	})
-	.load(function()
-	{
+
 		// 모바일 사용안할때 크기가 너무 줄어들면 조절
 		// 모바일 사용안하는 특정상황에만 필요한 경우라 onresize에선 처리안함
 		$('table#siLst')
@@ -483,7 +482,9 @@ jQuery(function($)
 			}
 			$f.css('width',(fw - lw - 5) + 'px').addClass('_first');
 		});
-
+	})
+	.load(function()
+	{
 		// 핫트랙
 		$('.scContent [data-hottrack]')
 		.each(function()
@@ -506,9 +507,9 @@ jQuery(function($)
 			}
 		});
 
-		$('#siFbk a[name^=comment][data-scroll=true]:last', m_doc||'').is(function(){this.scrollIntoView(true);});
+		$('#siFbk a[name^=comment][data-modal-scrollinto=true]:last', m_doc||'').is(function(){this.scrollIntoView(true);});
 
-		// ie 에서 클릭(커서) 버그 방지
+		// ie 에서 클릭(커서) 버그 방지, 그러나 다른 브라우저도 걍 포커스 주는거 나쁘지 않아서...
 		$('input:not(:hidden):eq(0)','.pid_ajax-form').focus();
 	});
 });

@@ -108,7 +108,7 @@
 			}else{
 				// object는 아직 문제가 많아, 그냥 iframe 사용하기로...
 				$oFrm = $('<iframe id="pidOframe" data-resize="'+ resize +'" allowTransparency="true" frameborder="0" scrolling="no" />')
-					.on('load', function(){$(this).parent().scrollTop(0); validModal(this); callback(this);})
+					.on('load', function(){validModal(this); callback(this);})
 					.attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal));
 
 				// if(is_iframe) {; autoResize(this, resize)
@@ -172,7 +172,7 @@
 		},
 		pidModalAutoResize: function()
 		{
-	        var $this = $(this), $modal, $bdrop, $body, $moh, $mof, $mob, pw, ph, smode, timer;
+	        var $this = $(this), $modal, $bdrop, $body, $moh, $mof, $mob, pw, ph, smode, timer, once;
 
 	        $body = $this[0].contentDocument || $this[0].contentWindow.document;
 	        if($body === undefined) return;
@@ -238,6 +238,13 @@
 		        		{
 		        			$this.height(fh);
 							$mob.css({'height' : bh+'px', 'overflow-y' : (fh>bh?'auto':'hidden')});
+
+							if(!once){
+								$('a[data-modal-scrollinto=true]:last', $body).is(function(){
+									once = $(this).offset().top;
+									$this.parent().scrollTop(once);
+								});
+							}
 						}
 
 				        h = $modal.outerHeight(true);
@@ -465,6 +472,7 @@
 					$oFrm.parent().parent().find('button.pid_modal-close:first').click();
 					return false;
 				});
+				$oFrm.parent().scrollTop(0);
 			});
 
 			$(window)

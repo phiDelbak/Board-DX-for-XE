@@ -1,6 +1,6 @@
 <!--@if($mi->addon_socialxe=='Y')-->
 	{@ $ao_sxeop = $mi->addon_socialxe_option?$mi->addon_socialxe_option:'list_count="20"'}
-	<div id="siFbk" class="cmt sns clearBar" style="margin:0"|cond="$is_modal"><a name="comment" data-scroll="true"|cond="$comment_srl"></a>
+	<div id="siFbk" class="cmt sns clearBar" style="margin:0"|cond="$is_modal"><a name="comment" data-modal-scrollinto="true"|cond="$comment_srl"></a>
 	<img class="zbxe_widget_output" widget="socialxe_comment" skin="default" colorset="white" document_srl="{$doc_srl}" content_link="{getFullUrl('', 'document_srl', $doc_srl, 'dummy', '1')}" content_title="{htmlspecialchars($oDocument->getTitleText())}" {$ao_sxeop} />
 	</div>
 <!--@else-->
@@ -22,7 +22,7 @@
 		$lmb_srl = $lg?$lg->member_srl:0;
 	}
 
-	<div id="siFbk" class="cmt clearBar" style="margin:0"|cond="$is_modal"><a name="comment" data-scroll="true"|cond="$comment_srl"></a>
+	<div id="siFbk" class="cmt clearBar" style="margin:0"|cond="$is_modal"><a name="comment" data-modal-scrollinto="true"|cond="$comment_srl"></a>
 		<div class="scFbH scToggle" data-target="#siFbk .scClst.d{$doc_srl}">
 			<h2>
 				{$lang->comment} <em>{$oDocument->getCommentcount()}</em>
@@ -38,7 +38,7 @@
 					$cmb_srl = $comment->get('member_srl');
 					$depth = $comment->get('depth');
 				}
-				<li class="{$depth?'indent':''} {($mi->display_profile!='N'&&$mi->display_profile!='D')?'':'noPfile'} clearBar" style="padding-left:{((int)$depth*17+3)}px;background-position:{((int)$depth*17-10)}px -375px"|cond="$depth"><a name="comment_{$cmt_srl}" data-scroll="true"|cond="$comment_srl&&$comment_srl==$cmt_srl"></a>
+				<li class="{$depth?'indent':''} {($mi->display_profile!='N'&&$mi->display_profile!='D')?'':'noPfile'} clearBar" style="padding-left:{((int)$depth*17+3)}px;background-position:{((int)$depth*17-10)}px -375px"|cond="$depth"><a name="comment_{$cmt_srl}" data-modal-scrollinto="true"|cond="$comment_srl&&$comment_srl==$cmt_srl"></a>
 					{@
 						$is_granted = $comment->isGranted();
 						$is_secret = $grant->view && $comment->isSecret();
