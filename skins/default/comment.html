@@ -20,9 +20,9 @@ $allow_cmt = $oDocument->allowComment();
 	        <li><a href="{getUrl('document_srl',$doc_srl,'act','','is_trackbacks','','clist_count','')}"><span>Document</span></a></li>
 	<!--@if($allow_trb&&$is_trackbacks)-->
 	        <li class="active"><strong><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></strong></li>
-	        <li cond="$allow_cmt"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardComments','is_trackbacks','','clist_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
+	        <li cond="$allow_cmt"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','','clist_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
 	<!--@elseif($allow_cmt)-->
-	        <li cond="$allow_trb"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardComments','is_trackbacks','1','clist_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
+	        <li cond="$allow_trb"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','1','clist_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
 	        <li class="active"><strong><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></strong></li>
 	<!--@endif-->
 	    </ul>

@@ -35,8 +35,8 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
 <div id="siCat" class="text">
     <ul class="scFrm clearBar">
         <li class="active"><strong><span>Document</span></strong></li>
-        <li cond="$allow_trb"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardComments','is_trackbacks','1','clist_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
-        <li cond="$allow_cmt"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardComments','is_trackbacks','','clist_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
+        <li cond="$allow_trb"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','1','clist_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
+        <li cond="$allow_cmt"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','','clist_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
     </ul>
 </div>
 <!--@else-->

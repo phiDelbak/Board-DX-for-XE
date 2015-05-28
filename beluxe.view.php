@@ -497,7 +497,7 @@ class beluxeView extends beluxe
         $this->_templateFileLoad('delete');
     }
 
-    function dispBoardComments() {
+    function dispBoardContentCommentList() {
         $this->_setBeluxeCommonInfo();
         $doc = $this->_setBeluxeContentView();
 

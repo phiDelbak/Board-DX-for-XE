@@ -455,6 +455,7 @@
 			$frmDoc = $oFrm.closest('body');
 
 			pidModal.waitMessage(window.location.href, $frmDoc);
+			// xpresseditor가 먼저 시작하기에 ready 밖에서 해야함, 파일첨부 flash 버튼 숨어있어서 그럼
 			$oFrm.pidModalAutoResize();
 
 			$(document)

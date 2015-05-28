@@ -190,7 +190,7 @@
 </block>
 
 <block cond="$oDocument->allowComment() || $oDocument->getCommentCount()">
-    <button id="clst" type="button" class="tbn tgr cb" title="open/close" data-srl="{$doc_srl}" data-page="{$cpage}" data-count="{$cmt_lstcnt}" data-load="{$comment_srl}"|cond="($comment_srl||$mi->display_comment_expand==='Y')&&$XE_VALIDATOR_MESSAGE_TYPE!='error'">{$lang->comment} <span>[{$oDocument->getCommentCount()}]</span></button>
+    <button id="clst" type="button" class="tbn tgr cb" title="open/close" data-srl="{$doc_srl}" data-page="{$cpage}" data-count="{$cmt_lstcnt}" data-load="{$comment_srl}"|cond="$oDocument->getCommentCount()&&($comment_srl||$mi->display_comment_expand==='Y')&&$XE_VALIDATOR_MESSAGE_TYPE!='error'">{$lang->comment} <span>[{$oDocument->getCommentCount()}]</span></button>
 </block>
 
 <block cond="$mi->use_input_comment_writer != 'N' && !$is_voted && $grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()">
