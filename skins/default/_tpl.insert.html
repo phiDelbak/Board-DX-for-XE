@@ -25,6 +25,7 @@
 	}
 	<div id="siWrt">
 		<input type="hidden" name="content" value="{$is_doc?$oDocument->getContentText():htmlspecialchars($mi->document_default_content)}" />
+		<input cond="!$is_cts" type="hidden" name="category_srl" value="0" />
 
 		<ul class="scWul">
 			<li cond="$is_cts" class="clearBar">
@@ -66,7 +67,7 @@
 					</select>
 				</block>
 				<!--@else-->
-				<select name="category_srl" value="{$t_ctsrl}" filter-rule="true,number" filter-name="{$lang->category_srl}">
+				<select name="category_srl" value="{$t_ctsrl}">
 					<option cond="!$category_srl" value="">{$lang->none_category}</option>
 					<option loop="$cts => $val" cond="$val->grant" value="{$val->category_srl}" selected="selected"|cond="$val->category_srl==$t_ctsrl">
 						{str_repeat('&nbsp;&nbsp;',$val->depth)}{$val->title.($val->total_document_count?'&nbsp;('.$val->total_document_count.')':'')}

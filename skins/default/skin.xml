@@ -367,9 +367,9 @@
 					<title xml:lang="jp">表示</title>
 					<title xml:lang="en">display</title>
 				</options>
-				<description xml:lang="ko">스크랩된 문서일경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
-				<description xml:lang="jp">스크랩된 문서인경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
-				<description xml:lang="en">스크랩된 문서인경우 아이콘으로 알기 쉽게 표시할지 설정합니다.</description>
+				<description xml:lang="ko">스크랩된 문서일경우 아이콘으로 알기 쉽게 표시할지 설정합니다. (본문엔 버튼 표시)</description>
+				<description xml:lang="jp">스크랩된 문서인경우 아이콘으로 알기 쉽게 표시할지 설정합니다. (본문엔 버튼 표시)</description>
+				<description xml:lang="en">스크랩된 문서인경우 아이콘으로 알기 쉽게 표시할지 설정합니다. (본문엔 버튼 표시)</description>
 			</var>
 			<var name="display_lang_code" type="radio" default="N">
 				<title xml:lang="ko">다국어 표시</title>
@@ -505,9 +505,9 @@
 				<description xml:lang="en">Set whether to display the attached files.</description>
 			</var>
 			<var name="use_d_vote" type="checkbox">
-				<title xml:lang="ko">문서 추천</title>
-				<title xml:lang="jp">문서 推薦</title>
-				<title xml:lang="en">문서 Vote</title>
+				<title xml:lang="ko">문서 버튼들</title>
+				<title xml:lang="jp">문서 버튼들</title>
+				<title xml:lang="en">doc buttons</title>
 				<options value="up">
 					<title xml:lang="ko">추천</title>
 					<title xml:lang="jp">推薦</title>
@@ -528,9 +528,9 @@
 				<description xml:lang="en">a message will be sent to the moderator at the time of report. (default: author)</description>
 			</var>
 			<var name="use_c_vote" type="checkbox">
-				<title xml:lang="ko">댓글 추천</title>
-				<title xml:lang="jp">댓글 推薦</title>
-				<title xml:lang="en">댓글 Vote</title>
+				<title xml:lang="ko">댓글 버튼들</title>
+				<title xml:lang="jp">댓글 버튼들</title>
+				<title xml:lang="en">cmt buttons</title>
 				<options value="up">
 					<title xml:lang="ko">추천</title>
 					<title xml:lang="jp">推薦</title>

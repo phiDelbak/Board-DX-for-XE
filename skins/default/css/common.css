@@ -192,7 +192,8 @@
 }
 .scVoteArea em.vote,
 .scVoteArea em.blame,
-.scVoteArea em.declare {
+.scVoteArea em.declare,
+.scVoteArea em.scrap {
     padding:0 5px 0 22px;
     background:url(../img/common/ico_set.gif) no-repeat 5px -268px
 }
@@ -201,6 +202,9 @@
 }
 .scVoteArea em.declare {
     background-position:5px -328px
+}
+.scVoteArea em.scrap{
+    background-position:5px -25px
 }
 .scVoteArea em.cnt {
     padding-right:5px

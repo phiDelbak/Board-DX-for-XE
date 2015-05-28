@@ -49,6 +49,7 @@
 		<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 		<input type="hidden" name="act" value="procBoardInsertDocument" />
 		<input type="hidden" name="document_srl" value="{$is_doc?$oDocument->document_srl:''}" />
+		<input cond="!$is_cts" type="hidden" name="category_srl" value="0" />
 		<ul>
 			<li cond="$is_cts">
 				{@
@@ -56,7 +57,7 @@
 					$cts[$t_ctsrl]->grant ? 0 : $t_ctsrl = 0;
 				}
 				<label for="nCategory">{$lang->category}</label>
-				<select name="category_srl" id="nCategory" filter-rule="true,number" filter-name="{$lang->category_srl}">
+				<select name="category_srl" id="nCategory">
 					<option cond="!$category_srl" value="">{$lang->none_category}</option>
 					<option loop="$cts=>$val" cond="$val->grant" value="{$val->category_srl}" disabled="disabled"|cond="$mi->use_step_category!='N'&&$val->child_count" selected="selected"|cond="$val->grant&&$val->selected||$val->category_srl==$t_ctsrl">
 					{str_repeat("&nbsp;&nbsp;",$val->depth)} {$val->title} ({$val->document_count})

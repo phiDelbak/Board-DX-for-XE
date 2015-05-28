@@ -4,6 +4,7 @@
 	</customrules>
 	<fields>
 		<field name="document_srl" rule="number" />
+		<field name="category_srl" rule="number" required="true" />
 		<field name="nick_name" required="true" length=":80" />
 		<field name="password" required="true" />
 		<field name="email_address" length=":250" rule="email" />
