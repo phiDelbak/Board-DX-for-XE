@@ -9,7 +9,7 @@
 	<div>
 		<span class="scBtn black"><input type="password" name="password" placeholder="{$lang->password}" /></span>
 		<span class="scBtn black"><input type="submit" value="{$lang->cmd_input}" /></span>
-		<span class="scBtn"><a href="{getUrl('act',$is_modal&&!$us_vmodal?'':'dispBoardComments')}" data-modal-hide|cond="$is_modal&&!$us_vmodal">{$lang->cmd_back}</a></span>
+		<span class="scBtn"><a href="{getUrl('act',!$is_modal||($is_modal&&!$us_vmodal)?'':'dispBoardComments')}" data-modal-hide|cond="$is_modal&&!$us_vmodal">{$lang->cmd_back}</a></span>
 	</div>
 </form>
 <!--@else-->
@@ -43,7 +43,7 @@
 			</div>
 		</div>
 		<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
-			<span class="scBtn"><a href="{getUrl('act',$is_modal&&!$us_vmodal?'':'dispBoardComments')}" data-modal-hide|cond="$is_modal&&!$us_vmodal">
+			<span class="scBtn"><a href="{getUrl('act',!$is_modal||($is_modal&&!$us_vmodal)?'':'dispBoardComments')}" data-modal-hide|cond="$is_modal&&!$us_vmodal">
 				{$is_modal&&!$us_vmodal?$lang->cmd_close:$lang->cmd_back}
 			</a></span>
 			<span class="scBtn black"><button type="submit" accesskey="s">{$lang->comment} {$lang->cmd_delete}</button></span>

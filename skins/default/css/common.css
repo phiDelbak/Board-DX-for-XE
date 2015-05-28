@@ -320,6 +320,7 @@
 #siBody img {
     border:none;
     vertical-align:middle;
+    max-width:none;
 }
 #siBody label {
     cursor:pointer;
