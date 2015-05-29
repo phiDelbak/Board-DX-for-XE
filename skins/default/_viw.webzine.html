@@ -228,7 +228,7 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
             }
             <block loop="$nav_list=>$key,$nav">
                 {@ $nav->selected?$nav_key=$lang->cmd_next:0}
-                <span cond="!$nav->selected" class="scBtn blue"><a href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'is_modal','1','cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}">{$nav_key}</a></span>
+                <span cond="!$nav->selected" class="scBtn blue"><a href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'is_modal','1','cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" title="{htmlspecialchars($nav->getTitleText(55), ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}">{$nav_key}</a></span>
             </block>
         </block>
     </div>
