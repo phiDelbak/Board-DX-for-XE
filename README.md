@@ -3,7 +3,7 @@
 [XpressEngine(XE)](http://www.xpressengine.com/) 에서 사용하는 게시판 모듈
 
 * 버전
- * 2.2
+ * 2.3
 
 * 라이센스
  * [GNU GPL](http://www.gnu.org/licenses/gpl.html)
