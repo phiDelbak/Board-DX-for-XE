@@ -330,17 +330,18 @@ class beluxeView extends beluxe
                     $b_title = $out->getTitleText();
 
                     // 넘어온 분류와 문서 분류가 다를 경우 바꿈
-                    $temp = $this->lstCfg['temp'];
-                    $temp->olcate = Context::get('category_srl');
-                    $temp->dccate = $out->get('category_srl');
-
-                    //공지는 제외
-                    if(Context::get('cate_trace') != 'false') {
-                        $temp->chcate = $oModIfo->category_trace == 'Y' && (!$out->isNotice() || $oModIfo->notice_category == 'Y');
-                        $temp->chcate = $temp->chcate && $temp->iscate && $temp->dccate != $temp->olcate;
-                        if ($temp->chcate) {
-                            $args->category_srl = $temp->dccate;
-                            Context::set('category_srl', $args->category_srl, true);
+                    if(strtolower(Context::get('cate_trace'))!=='n')
+                    {
+                        $temp = $this->lstCfg['temp'];
+                        $category_srl = Context::get('category_srl');
+                        $temp->dccate = $out->get('category_srl');
+                        //공지는 제외
+                        if($temp->iscate && $temp->dccate != $category_srl) {
+                            $temp->chcate = $oModIfo->category_trace == 'Y' && (!$out->isNotice() || $oModIfo->notice_category == 'Y');
+                            if ($temp->chcate) {
+                                $category_srl = $temp->dccate;
+                                Context::set('category_srl', $category_srl, true);
+                            }
                         }
                     }
                 }
@@ -355,6 +356,7 @@ class beluxeView extends beluxe
 
         // 브라우저 타이틀에 글의 제목을 추가
         Context::set('oDocument', $out);
+        Context::set('cate_trace','',true);
 
         return $out;
     }
@@ -469,8 +471,6 @@ class beluxeView extends beluxe
         if(!(int)Context::get('is_modal')){
             $this->_setBeluxeContentList($doc);
         }
-
-        Context::set('cate_trace','',true);
 
         $this->_templateFileLoad('index');
     }

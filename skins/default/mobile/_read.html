@@ -140,7 +140,7 @@
                 $nv_un_ex = ($pt_vtype!='N'||$pt_dtype!='N')?$val->get('extra_vars'):null;
                 $nv_un_ex = is_string($nv_un_ex)?unserialize($nv_un_ex):$nv_un_ex;
             }
-            <a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
+            <a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'category_srl',$category_srl,'cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
                 <span class="no">
                     {($t_pagec===$key)?'<strong class="sCkChr">&radic;</strong>':(($t_pagec<$key)?'Next':'Prev')}
                 </span>
