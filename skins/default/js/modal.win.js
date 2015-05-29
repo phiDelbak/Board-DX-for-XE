@@ -256,7 +256,7 @@
 	        if($modal.is('.pid_modal-target'))
 	        {
 				$mob.height(1);
-				$modal.show();
+				$modal.css({'top':'','left':''}).show();
 
 		        timer = setTargetTimer();
 
@@ -310,7 +310,7 @@
 					$modal.hide().css({top:'0',left:'-150%'});
 					$this.trigger('open.mw');
 
-					// if(pidModal.state === 'showing'){
+					// if($modal.data('state') === 'showing'){
 					//  $this.trigger('open.mw');
 					// }else{
 					// 	$this.trigger('close.mw');
@@ -344,10 +344,10 @@
 					url = ($this.data('go-url') || $this.attr('href')) || 'about:blank';
 					mdmode = $modal.is('.pid_modal-target') ? 3 : 1;
 
-					if(pidModal.state !== 'showing')
+					if($modal.data('state') !== 'showing')
 					{
 						// set state : showing
-						pidModal.state = 'showing';
+						$modal.data('state','showing');
 						// get duration
 						duration = $this.data('duration') || 'fast';
 
@@ -410,7 +410,7 @@
 					// get duration
 					duration = $this.data('duration') || 'fast';
 					// set state : hiding
-					pidModal.state = 'hiding';
+					$modal.data('state','hiding');
 					// after event trigger
 					var after = function(){$this.trigger('after-close.mw');};
 
