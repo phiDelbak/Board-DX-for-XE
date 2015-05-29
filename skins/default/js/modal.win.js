@@ -18,7 +18,7 @@
 				zidx = 1;
 
 				try{
-					$body.find('> *')
+					$body.find('> *:not(script)')
 						//.filter(function(){ return $(this).css('z-index') !== 'auto'; })
 						.each(function(){
 							//var  style = window.getComputedStyle(this),
@@ -459,6 +459,7 @@
 			{
 				window.parent.location.replace(
 					window.location.href
+					.setQuery('act','')
 					.setQuery('page','')
 					.setQuery('is_modal','')
 					.setQuery('document_srl','')
