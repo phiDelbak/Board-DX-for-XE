@@ -136,8 +136,8 @@ jQuery(function($)
         if($sd.is(':hidden')){
             $sd.width(0).show();
             $('.bd > .st').animate({
-                marginLeft: -260,
-                marginRight: 260
+                marginLeft: -250,
+                marginRight: 250
             },{
                 step: function( now, fx ) {
                      $('.bd > .sd').width(now);

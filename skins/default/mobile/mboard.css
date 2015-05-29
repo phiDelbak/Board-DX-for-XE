@@ -186,6 +186,8 @@ border:1px solid #bbb;
 	font-size:0;
 	overflow:hidden;
 	text-indent:-28px;
+	padding:9px 10px;
+	margin:1px 10px 1px 5px ;
 }
 .st > h2 > .wt.bk {
 	background-position:0 -28px;
@@ -201,7 +203,7 @@ cursor:default
 top: 0;
   right: 0;
   position: absolute;
-  width: 260px;
+  width: 250px;
   height: 100%;
   z-index: 0;
   background:#444;
@@ -234,7 +236,7 @@ margin:0 0 -1px 0
 position:relative;
 text-decoration:none;
 display:block;
-padding:9px 14px;
+padding:9px 10px;
 margin:1px;
 font-size:14px;
 color:#f1f1f1;
@@ -873,8 +875,9 @@ margin-left:10px;
 	color:#999
 }
 .file li a{
-padding-left:14px;
-background-position:-19px -75px;
+padding-left:13px;
+margin:0 0 0 2px;
+background-position:-20px -102px;
 }
 .file li a.idw{
 font-weight:bold
@@ -928,7 +931,7 @@ img.ise.world{
 background-position:0 -112px;
 }
 img.ise.coin{
-background-position:-17px -112px;
+background-position:-17px -56px;
 }
 img.ise.scrap{
 background-position:0px -84px;
