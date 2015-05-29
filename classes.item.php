@@ -17,11 +17,11 @@ class BeluxeItem extends Object
 		$this->member_srl = (int) $oLogIfo->member_srl;
 	}
 
+	// ruleset 사용시 callback 과 extra_keys 메세지 지원 안해주니...
     function addExtraKeyJsFilter()
     {
-		$cmThis = &getModel(__XEFM_NAME__);
-    	$js_code = $cmThis->addExtraKeyJsFilter($this->module_srl);
-        if($js_code) Context::addBodyHeader($js_code);
+        $ccDocument = getController('document');
+        $ccDocument->addXmlJsFilter($this->module_srl);
     }
 
 	function getAdminId()

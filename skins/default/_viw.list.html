@@ -213,7 +213,7 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
         <span class="scBtn fl" cond="$category_srl"><a href="{getUrl('','mid',$mid)}">{$lang->cmd_all_list}</a></span>
         <span class="scBtn"><a href="{getUrl('act', '','document_srl','','category_srl',$category_srl,'page',$page,'npage','','cpage','')}" accesskey="l">{$lang->cmd_list}</a></span>
     </block>
-    <span cond="$is_modal" class="scBtn"><a href="{getUrl('act','')}" data-modal-hide>{$lang->cmd_close}</a></span>
+    <span cond="$is_modal" class="scBtn"><a href="{getUrl('act','','is_modal','')}" data-modal-hide>{$lang->cmd_close}</a></span>
     <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
         <span class="scBtn black">
             <a href="{getUrl('act','dispBoardWrite','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_document}">{$lang->cmd_modify}</a>

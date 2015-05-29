@@ -6,74 +6,72 @@
 
 (function($)
 {
-	var PIDMODAL = function(){
-			this.topZidx = 0;
-		},
-		pidModal = new PIDMODAL();
-
-	PIDMODAL.prototype.topIndex = function(target)
+	var pidModal = $.extend(
 	{
-		var $target = target ? $(target) : $('body'),
-			$body = $target.is('body') ? $target : $target.closest('body'),
-			zidx = this.topZidx;
+		topIndex: function(target)
+		{
+			var $target = target ? $(target) : $('body'),
+				$body = $target.is('body') ? $target : $target.closest('body'),
+				zidx = this.topZidx;
 
-		if(!zidx){
-			zidx++;
-			try{
-				$body.find('> *')
-					//.filter(function(){ return $(this).css('z-index') !== 'auto'; })
-					.each(function(){
-						//var  style = window.getComputedStyle(this),
-						//	thzidx = parseInt(style.getPropertyValue('z-index'));
-						var thzidx = parseInt($(this).css('z-index') || this.style.zIndex);
-						if(zidx < thzidx) zidx = thzidx;
-					});
-			}catch(e){
-				zidx = 999999;
+			if(!zidx){
+				zidx = 1;
+
+				try{
+					$body.find('> *')
+						//.filter(function(){ return $(this).css('z-index') !== 'auto'; })
+						.each(function(){
+							//var  style = window.getComputedStyle(this),
+							//	thzidx = parseInt(style.getPropertyValue('z-index'));
+							var thzidx = parseInt($(this).css('z-index') || this.style.zIndex);
+							if(zidx < thzidx) zidx = thzidx;
+						});
+				}catch(e){
+					zidx = 999999;
+				}
+
+				if(zidx > 99999999) zidx = 99999999;
+				this.topZidx = zidx;
 			}
-			this.topZidx = zidx;
+
+			return zidx + 99;
+		},
+		waitMessage: function(url, target)
+		{
+			var $target = target ? $(target) : $('body'),
+				$body = $target.is('body') ? $target : $target.closest('body');
+
+		    if(!$('div.wait[data-modal-child=message]', $body).length){
+		    	url = url.setQuery('is_modal','');
+		        $msg = $('<div class="message update wait" data-modal-child="message">')
+		        .html('<p>'+waiting_message+'<br />If time delays continue, <a href="'+url+'"><span>click here</span></a>.</p>')
+		        .css({position:'fixed', top:10, left:10, zIndex:this.topIndex(target)+9});
+		     	$body.append($msg);
+		    }
+		},
+		iFrame: function(id, target)
+		{
+			var $body, $frame = $('#' + id, target);
+
+			if(!$frame.length){
+				$body = $('body', target);
+				$frame = $('<section id="' + id + '" class="pid_modal-frame">').appendTo($body).hide();
+			}else{
+				$frame.not('.pid_modal-frame').addClass('pid_modal-target');
+			}
+			if(!$frame.find('.pid_modal-body').length) $frame.append($('<div class="pid_modal-body">'));
+
+			return $frame;
+		},
+		backDrop: function(target)
+		{
+			var $bkdrop = $('#pidModalBackdrop', target);
+			if(!$bkdrop.length){
+				$bkdrop = $('<div id="pidModalBackdrop" class="pid_modal-backdrop">').appendTo($('body', target)).hide();
+			}
+			return $bkdrop;
 		}
-
-		return zidx + 99;
-	};
-
-	PIDMODAL.prototype.waitMessage = function(url, target)
-	{
-		var $target = target ? $(target) : $('body'),
-			$body = $target.is('body') ? $target : $target.closest('body');
-
-	    if(!$('div.wait[data-modal-child=message]', $body).length){
-	    	url = url.setQuery('is_modal','');
-	        $msg = $('<div class="message update wait" data-modal-child="message">')
-	        .html('<p>'+waiting_message+'<br />If time delays continue, <a href="'+url+'"><span>click here</span></a>.</p>')
-	        .css({position:'fixed', top:10, left:10, zIndex:pidModal.topIndex(target)});
-	     	$body.append($msg);
-	    }
-	};
-
-	PIDMODAL.prototype.iFrame = function(id, target)
-	{
-		var $body, $frame = $('#' + id, target);
-
-		if(!$frame.length){
-			$body = $('body', target);
-			$frame = $('<section id="' + id + '" class="pid_modal-frame">').appendTo($body).hide();
-		}else{
-			$frame.not('.pid_modal-frame').addClass('pid_modal-target');
-		}
-		if(!$frame.find('.pid_modal-body').length) $frame.append($('<div class="pid_modal-body">'));
-
-		return $frame;
-	};
-
-	PIDMODAL.prototype.backDrop = function(target)
-	{
-		var $bkdrop = $('#pidModalBackdrop', target);
-		if(!$bkdrop.length){
-			$bkdrop = $('<div id="pidModalBackdrop" class="pid_modal-backdrop">').appendTo($('body', target)).hide();
-		}
-		return $bkdrop;
-	};
+	});
 
 	$.fn.extend(
 	{
@@ -108,12 +106,10 @@
 			}else{
 				// object는 아직 문제가 많아, 그냥 iframe 사용하기로...
 				$oFrm = $('<iframe id="pidOframe" data-resize="'+ resize +'" allowTransparency="true" frameborder="0" scrolling="no" />')
-					.on('load', function(){validModal(this); callback(this);})
+					.on('load', function(){$(this).parent().scrollTop(0); validModal(this); callback(this);})
 					.attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal));
 
-				// if(is_iframe) {; autoResize(this, resize)
-				// 	$('<iframe id="oFrm" allowTransparency="true" frameborder="0" scrolling="'+(scroll ? scroll : 'auto')+'" />')
-				// 		.load(function(){$(this).pidModalResize(resize);}).attr('src', url).appendTo($('.pid_modal-body:eq(0)', $modal));
+				// if(is_iframe)
 				// } else {
 				// 	if(scroll === 'no') scroll = 'hidden';
 				// 	$('<object id="oFrm" style="overflow-x:hidden;overflow-y:'+(scroll ? scroll : 'auto')+'" />')
@@ -240,6 +236,7 @@
 							$mob.css({'height' : bh+'px', 'overflow-y' : (fh>bh?'auto':'hidden')});
 
 							if(!once){
+								once = 1;
 								$('a[data-modal-scrollinto=true]:last', $body).is(function(){
 									once = $(this).offset().top;
 									$this.parent().scrollTop(once);
@@ -313,7 +310,7 @@
 					$modal.hide().css({top:'0',left:'-150%'});
 					$this.trigger('open.mw');
 
-					// if($modal.data('state') === 'showing'){
+					// if(pidModal.state === 'showing'){
 					//  $this.trigger('open.mw');
 					// }else{
 					// 	$this.trigger('close.mw');
@@ -347,10 +344,10 @@
 					url = ($this.data('go-url') || $this.attr('href')) || 'about:blank';
 					mdmode = $modal.is('.pid_modal-target') ? 3 : 1;
 
-					if($modal.data('state') !== 'showing')
+					if(pidModal.state !== 'showing')
 					{
 						// set state : showing
-						$modal.data('state', 'showing');
+						pidModal.state = 'showing';
 						// get duration
 						duration = $this.data('duration') || 'fast';
 
@@ -368,15 +365,15 @@
 								}
 							});
 
-							$bdrop = pidModal.backDrop(target);
-							$bdrop.css('z-index', '1');
-							$modal.not('.pid_modal-target').css('z-index', '2');
+							$body = $('body', target);
+							$bdrop = pidModal.backDrop(target).css('z-index', '1');
+							$modal.css('z-index', '5');
+							if(!pidModal.body_oflow) pidModal.body_oflow = $body.css('overflow-x');
 
 							zidx = pidModal.topIndex(target);
-							$body = $('body', target);
-							$bdrop.data('body_overflow', $body.css('overflow-x')).css('z-index', zidx).show();
+
 							$bdrop.css('z-index', zidx).show();
-							$modal.css('z-index', zidx + 1).find('button.pid_modal-close:first').focus();
+							$modal.css('z-index', zidx + 5).find('button.pid_modal-close:first').focus();
 							$body.css('overflow-x','hidden');
 							if(bg_close) $bdrop.click(function(){ $this.trigger('close.mw'); return false; });
 						}
@@ -392,13 +389,6 @@
 				})
 				.bind('close.mw', function()
 				{
-					var parentReload = function(){
-						var url = window.location.href
-								.setQuery('is_modal','')
-								.setQuery('document_srl','');
-						window.parent.location.replace(url);
-					};
-
 					var $this = $(this), $modal, $bdrop, before_event, duration;
 
 					// before event trigger
@@ -409,18 +399,18 @@
 
 					try{
 						$modal = pidModal.iFrame(this.modalId, target);
-		        		if($modal.attr('data-parent-reload')||0) parentReload();
+		        		if($modal.attr('data-parent-reload')||0) pidModalParentReload();
 					}catch(e){
 						// 쓰댕 ie 에서 is,not,find 함수 못 찾는 버그 처리
 						// jquery.js 문제라는말이 있던대 내가 풀 문제는 아니기에...
-						parentReload();
+						pidModalParentReload();
 						return false;
 					}
 
 					// get duration
 					duration = $this.data('duration') || 'fast';
 					// set state : hiding
-					$modal.data('state', 'hiding');
+					pidModal.state = 'hiding';
 					// after event trigger
 					var after = function(){$this.trigger('after-close.mw');};
 
@@ -439,10 +429,10 @@
 						$modal.fadeOut(duration, function()
 						{
 							after();
-							$(this).not('.pid_modal-target').hide();
+							var $mdb = $(this).hide().find('> div.pid_modal-body');
+							$('body', target).css('overflow-x', pidModal.body_oflow || 'auto');
 							$bdrop.hide();
-							$('body', target).css('overflow-x', $bdrop.hide().data('body_overflow') || 'auto');
-							$(this).find('> div.pid_modal-body').children().remove();
+							$mdb.children().remove();
 						});
 					}
 				});
@@ -465,6 +455,17 @@
 			// xpresseditor가 먼저 시작하기에 ready 밖에서 해야함, 파일첨부 flash 버튼 숨어있어서 그럼
 			$oFrm.pidModalAutoResize();
 
+			window.parent.pidModalParentReload = function()
+			{
+				window.parent.location.replace(
+					window.location.href
+					.setQuery('page','')
+					.setQuery('is_modal','')
+					.setQuery('document_srl','')
+					.setQuery('cate_trace','')
+				);
+			};
+
 			$(document)
 			.on('ready', function()
 			{
@@ -472,7 +473,11 @@
 					$oFrm.parent().parent().find('button.pid_modal-close:first').click();
 					return false;
 				});
-				$oFrm.parent().scrollTop(0);
+				// focusin scroll
+				$('input[name],select[name],textarea[name]','form').on('focusin', function(){
+					var $m = $oFrm.parent(), top = $(this).offset().top;
+					if($m.css('overflow-y')==='auto' && $m.scrollTop() > top) $m.scrollTop(top);
+				});
 			});
 
 			$(window)

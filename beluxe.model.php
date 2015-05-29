@@ -150,51 +150,6 @@ class beluxeModel extends beluxe
     }
 
     /**
-     * ruleset 사용시 callback 과 extra_keys 메세지 지원 안해주니 어쩔수없다. filter 와 병행하지 않겠다는 고집에 손이 고생...
-     * modules/document/document.controller.php
-     * Add javascript codes into the header by checking values of document_extra_keys type, required and others
-     * @param int $a_modsrl
-     * @return void
-     */
-    function addExtraKeyJsFilter($a_modsrl) {
-        global $lang;
-
-        $oDocumentModel = getModel('document');
-        $extra_keys = $oDocumentModel->getExtraKeys($a_modsrl);
-        if (!count($extra_keys)) return;
-
-        $js_code = array();
-        $js_code[] = '<script>//<![CDATA[';
-        $js_code[] = '(function($){';
-        $js_code[] = 'var validator = xe.getApp("validator")[0];';
-        $js_code[] = 'if(!validator) return false;';
-
-        // writes error messages
-        foreach ($lang->filter as $key => $val) {
-            if (!$val) $val = $key;
-            $val = preg_replace('@\r?\n@', '\\n', addslashes($val));
-            $js_code[] = sprintf("validator.cast('ADD_MESSAGE',['%s','%s']);", $key, $val);
-        }
-
-        $logged_info = Context::get('logged_info');
-
-        foreach ($extra_keys as $idx => $val) {
-            $idx = $val->idx;
-            if ($val->type == 'kr_zip') {
-                $idx.= '[]';
-            }
-            $name = str_ireplace(array('<script', '</script'), array('<scr" + "ipt', '</scr" + "ipt'), $val->name);
-            $js_code[] = sprintf('validator.cast("ADD_MESSAGE", ["extra_vars%s","%s"]);', $idx, $name);
-            if ($val->is_required == 'Y') $js_code[] = sprintf('validator.cast("ADD_EXTRA_FIELD", ["extra_vars%s", { required:true }]);', $idx);
-        }
-
-        $js_code[] = '})(jQuery);';
-        $js_code[] = '//]]></script>';
-
-        return implode("\n", $js_code);
-    }
-
-    /**
      * modules/document/document.model.php
      */
     function _arrangeCategory(&$p_lst, $list, $depth) {

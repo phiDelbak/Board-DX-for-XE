@@ -3,7 +3,7 @@
  * @author phiDel (xe.phidel@gmail.com)
  */
 
-// 프로그램 구분을 위한 상수, const for identify
+// const for identify
 var _PID_MODULE_ = 'beluxe';
 
 // use decodeURI
@@ -22,54 +22,6 @@ var _PID_MODULE_ = 'beluxe';
 // 	return this.replace(/^\s+|\s+$/g,"");
 // };
 
-// String.prototype.getEntryQuerys = function() {
-// 	var o = this, t = /([^=]+)=([^&]*)(&|$)/g, n = o.indexOf('?'),
-// 		a = arguments, q, v, x = new Array(), s = x;
-// 	if(n == -1) return x;
-
-// 	q = o.substr(n + 1, o.length);
-// 	q.replace(t, function(){ var z = arguments; x[z[1]] = z[2]; });
-// 	if(typeof x['entry'] == 'string' && x['entry'])
-// 	{
-// 		v = (x['entry'].urlDecode()).split('/');
-// 		for(var i=0,c=v.length; i<c; i+=2) x[v[i]] = v[i + 1];
-// 		x['entry'] = '';
-// 	}
-
-// 	if(a.length)
-// 	{
-// 		for(var i in a) s[a[i]] = x[a[i]];
-// 		return s;
-// 	}
-// 	else return x;
-// };
-
-// String.prototype.setEntryQuerys = function(a) {
-// 	var o = this, t = /entry=([^&]*)(&|$)/g, v;
-// 	if(typeof a != 'object') a = new Array();
-
-// 	if(t.test(o))
-// 	{
-// 		if(v = o.match(t))
-// 		{
-// 			v = v[0].urlDecode();
-// 			v = v.substr((v.indexOf('=') + 1), v.length).split('/');
-// 			for(var i=0,c=v.length; i<c; i+=2)
-// 			{
-// 				if(typeof a[v[i]] != 'undefined') continue;
-// 				a[v[i]] = v[i + 1];
-// 			}
-// 		}
-// 	}
-
-// 	o = o.setQuery('entry','');
-// 	if(typeof a == 'object')
-// 	{
-// 		for(var i in a) o = o.setQuery(i, a[i]);
-// 	}
-
-// 	return o;
-// };
 
 // ruleset 사용시 일부 사용자 필터 따로 만들어 준다.
 jQuery(function($)

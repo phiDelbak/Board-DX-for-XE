@@ -1588,8 +1588,12 @@
 #siWrt .scWusr input[type="password"],
 #siWrt .scWusr input[type="email"],
 #siWrt .scWusr input[type="url"]{
-    width:16%;
+    width:15%;
     max-width:120px
+}
+#siWrt .scWusr label,
+#siFbk .scWusr label{
+    margin-right: 5px
 }
 #siWrt .scWtag {
     padding:0 50px 0 0;
