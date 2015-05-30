@@ -10,6 +10,7 @@
 		list_count = 문서 수
 		page_count = 페이지 수
 		clist_count = 댓글 수
+		dlist_count = 본문 하단 목록 수
 
 		예제:
 		<items>

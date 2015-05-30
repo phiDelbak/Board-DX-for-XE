@@ -23,7 +23,7 @@
 <div class="pn cb ts">
     <h2>{$oDocument->getTitle()}</h2>
     <div>
-        <img cond="$is_scrap" class="ise scrap" src="{$tpl_path}../img/common/blank.gif" alt="Scrap" title="Scrap" />
+        <img src="../img/common/blank.gif" cond="$is_scrap" class="ise scrap" alt="Scrap" title="Scrap" />
         <span class="{$dmb_srl?'member_'.$dmb_srl:'fsi'} ex">{cut_str((!$dmb_srl||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}</span>
         &rsaquo; <time class="ex">{$oDocument->getRegdate()}</time>
     </div>

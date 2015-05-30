@@ -81,9 +81,9 @@
 			</var>
 		</group>
 		<group>
-			<title xml:lang="ko">표시</title>
-			<title xml:lang="jp">表示</title>
-			<title xml:lang="en">display</title>
+			<title xml:lang="ko">모양</title>
+			<title xml:lang="jp">スタイル</title>
+			<title xml:lang="en">Style</title>
 			<var name="display_comment_expand" type="radio" default="N">
 				<title xml:lang="ko">댓글 펼치기</title>
 				<title xml:lang="jp">댓글 펼치기</title>
@@ -101,6 +101,90 @@
 				<description xml:lang="ko">댓글을 접어 보여줄지 펼쳐 보여줄지 설정합니다.</description>
 				<description xml:lang="jp">댓글을 접어 보여줄지 펼쳐 보여줄지 설정합니다.</description>
 				<description xml:lang="en">댓글을 접어 보여줄지 펼쳐 보여줄지 설정합니다.</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">표시</title>
+			<title xml:lang="jp">表示</title>
+			<title xml:lang="en">display</title>
+			<var name="display_attached_files" type="radio" default="Y">
+				<title xml:lang="ko">첨부 파일</title>
+				<title xml:lang="jp">添付ファイル</title>
+				<title xml:lang="en">Attached files</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">모든 파일</title>
+					<title xml:lang="jp">すべて表示</title>
+					<title xml:lang="en">all files</title>
+				</options>
+				<options value="G">
+					<title xml:lang="ko">일반 파일</title>
+					<title xml:lang="jp">一般ファイル</title>
+					<title xml:lang="en">general files</title>
+				</options>
+				<options value="M">
+					<title xml:lang="ko">미디어 파일</title>
+					<title xml:lang="jp">メディアファイル</title>
+					<title xml:lang="en">media files</title>
+				</options>
+				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
+				<description xml:lang="en">Set whether to display the attached files.</description>
+			</var>
+		</group>
+		<group>
+			<title xml:lang="ko">버튼</title>
+			<title xml:lang="jp">버튼</title>
+			<title xml:lang="en">buttons</title>
+			<var name="use_d_vote" type="checkbox">
+				<title xml:lang="ko">문서 버튼</title>
+				<title xml:lang="jp">문서 버튼</title>
+				<title xml:lang="en">doc buttons</title>
+				<options value="up">
+					<title xml:lang="ko">추천</title>
+					<title xml:lang="jp">推薦</title>
+					<title xml:lang="en">Vote</title>
+				</options>
+				<options value="down">
+					<title xml:lang="ko">비추천</title>
+					<title xml:lang="jp">非推薦</title>
+					<title xml:lang="en">UnVote</title>
+				</options>
+				<options value="declare">
+					<title xml:lang="ko">신고</title>
+					<title xml:lang="jp">신고</title>
+					<title xml:lang="en">Report</title>
+				</options>
+				<description xml:lang="ko">권한 관리에 관리자를 등록하면 신고시 관리자에게 쪽지가 발송됩니다. (기본값: 작성자)</description>
+				<description xml:lang="jp">権管理に管理者を登録すると申告時の管理者にメッセージが送信されます。 （デフォルト：作成者）</description>
+				<description xml:lang="en">a message will be sent to the moderator at the time of report. (default: author)</description>
+			</var>
+			<var name="use_c_vote" type="checkbox">
+				<title xml:lang="ko">댓글 버튼</title>
+				<title xml:lang="jp">댓글 버튼</title>
+				<title xml:lang="en">cmt buttons</title>
+				<options value="up">
+					<title xml:lang="ko">추천</title>
+					<title xml:lang="jp">推薦</title>
+					<title xml:lang="en">Vote</title>
+				</options>
+				<options value="down">
+					<title xml:lang="ko">비추천</title>
+					<title xml:lang="jp">非推薦</title>
+					<title xml:lang="en">UnVote</title>
+				</options>
+				<options value="declare">
+					<title xml:lang="ko">신고</title>
+					<title xml:lang="jp">신고</title>
+					<title xml:lang="en">Report</title>
+				</options>
+				<description xml:lang="ko">추천/비추천/신고 버튼을 표시할지 선택합니다. (댓글 찬/반형은 표시안함)</description>
+				<description xml:lang="jp">推薦/非推薦/申告ボタンを表示するかを選択します。 (댓글 찬/반형은 표시안함)</description>
+				<description xml:lang="en">Decide whether to display "Vote/UnVote/Report" buttons if a moderator is registered in the authorization tab, (댓글 찬/반형은 표시안함)</description>
 			</var>
 			<var name="display_scrap_button" type="radio" default="N">
 				<title xml:lang="ko">스크랩 표시</title>
@@ -173,80 +257,6 @@
 				<description xml:lang="ko">문서 하단의 "이 게시물..."을  표시할지 설정합니다.</description>
 				<description xml:lang="jp">文書下端の "この掲示物 ... " の表示を設定します.</description>
 				<description xml:lang="en">Set whether to display the I want to...</description>
-			</var>
-			<var name="display_attached_files" type="radio" default="Y">
-				<title xml:lang="ko">첨부 파일</title>
-				<title xml:lang="jp">添付ファイル</title>
-				<title xml:lang="en">Attached files</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">모든 파일</title>
-					<title xml:lang="jp">すべて表示</title>
-					<title xml:lang="en">all files</title>
-				</options>
-				<options value="G">
-					<title xml:lang="ko">일반 파일</title>
-					<title xml:lang="jp">一般ファイル</title>
-					<title xml:lang="en">general files</title>
-				</options>
-				<options value="M">
-					<title xml:lang="ko">미디어 파일</title>
-					<title xml:lang="jp">メディアファイル</title>
-					<title xml:lang="en">media files</title>
-				</options>
-				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
-				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
-				<description xml:lang="en">Set whether to display the attached files.</description>
-			</var>
-			<var name="use_d_vote" type="checkbox">
-				<title xml:lang="ko">문서 버튼들</title>
-				<title xml:lang="jp">문서 버튼들</title>
-				<title xml:lang="en">doc buttons</title>
-				<options value="up">
-					<title xml:lang="ko">추천</title>
-					<title xml:lang="jp">推薦</title>
-					<title xml:lang="en">Vote</title>
-				</options>
-				<options value="down">
-					<title xml:lang="ko">비추천</title>
-					<title xml:lang="jp">非推薦</title>
-					<title xml:lang="en">UnVote</title>
-				</options>
-				<options value="declare">
-					<title xml:lang="ko">신고</title>
-					<title xml:lang="jp">신고</title>
-					<title xml:lang="en">Report</title>
-				</options>
-				<description xml:lang="ko">권한 관리에 관리자를 등록하면 신고시 관리자에게 쪽지가 발송됩니다. (기본값: 작성자)</description>
-				<description xml:lang="jp">権管理に管理者を登録すると申告時の管理者にメッセージが送信されます。 （デフォルト：作成者）</description>
-				<description xml:lang="en">a message will be sent to the moderator at the time of report. (default: author)</description>
-			</var>
-			<var name="use_c_vote" type="checkbox">
-				<title xml:lang="ko">댓글 버튼들</title>
-				<title xml:lang="jp">댓글 버튼들</title>
-				<title xml:lang="en">cmt buttons</title>
-				<options value="up">
-					<title xml:lang="ko">추천</title>
-					<title xml:lang="jp">推薦</title>
-					<title xml:lang="en">Vote</title>
-				</options>
-				<options value="down">
-					<title xml:lang="ko">비추천</title>
-					<title xml:lang="jp">非推薦</title>
-					<title xml:lang="en">UnVote</title>
-				</options>
-				<options value="declare">
-					<title xml:lang="ko">신고</title>
-					<title xml:lang="jp">신고</title>
-					<title xml:lang="en">Report</title>
-				</options>
-				<description xml:lang="ko">추천/비추천/신고 버튼을 표시할지 선택합니다. (댓글 찬/반형은 표시안함)</description>
-				<description xml:lang="jp">推薦/非推薦/申告ボタンを表示するかを選択します。 (댓글 찬/반형은 표시안함)</description>
-				<description xml:lang="en">Decide whether to display "Vote/UnVote/Report" buttons if a moderator is registered in the authorization tab, (댓글 찬/반형은 표시안함)</description>
 			</var>
 		</group>
 		<group>

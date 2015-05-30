@@ -24,17 +24,17 @@ class beluxeModel extends beluxe
         if (!$this->module_info || !$this->module_info->module_srl) {
             // module model 객체 생성
             $cmModule = & getModel('module');
-            if ($a_modsrl) $oModIfo = $cmModule->getModuleInfoByModuleSrl($a_modsrl);
+            if ($a_modsrl) $oMi = $cmModule->getModuleInfoByModuleSrl($a_modsrl);
             else {
                 $mid = Context::get('mid');
                 if (!$mid) $mid = Context::get('cur_mid');
                 if (!$mid) return;
                 $site_info = Context::get('site_module_info');
                 if ($site_info) $site_srl = $site_info->site_srl;
-                $oModIfo = $cmModule->getModuleInfoByMid($mid, $site_srl);
+                $oMi = $cmModule->getModuleInfoByMid($mid, $site_srl);
             }
-            $this->module_info = $oModIfo;
-            $this->module_srl = $oModIfo->module_srl;
+            $this->module_info = $oMi;
+            $this->module_srl = $oMi->module_srl;
         }
 
         return $this->module_info;
@@ -274,19 +274,19 @@ class beluxeModel extends beluxe
 
             $cate_list = array();
             // 0 번에 기본값 입력
-            $oModIfo = $this->_getModuleInfo($a_modsrl);
-            if ($oModIfo->module_srl) {
-                $navi = explode('|@|', $oModIfo->default_type_option);
-                $tmp->title = $oModIfo->default_category_title;
+            $oMi = $this->_getModuleInfo($a_modsrl);
+            if ($oMi->module_srl) {
+                $navi = explode('|@|', $oMi->default_type_option);
+                $tmp->title = $oMi->default_category_title;
                 if (!$tmp->title) $tmp->title = Context::getLang('category');
-                $tmp->mid = $oModIfo->mid;
-                $tmp->module_srl = $oModIfo->module_srl;
+                $tmp->mid = $oMi->mid;
+                $tmp->module_srl = $oMi->module_srl;
 
                 if($is_mobile == 'mobile_') {
-                    if((int) $oModIfo->mobile_list_count) $navi[2] = $oModIfo->mobile_list_count;
-                    if((int) $oModIfo->mobile_page_count) $navi[3] = $oModIfo->mobile_page_count;
-                    if((int) $oModIfo->mobile_clist_count) $navi[4] = $oModIfo->mobile_clist_count;
-                    if((int) $oModIfo->mobile_dlist_count) $navi[5] = $oModIfo->mobile_dlist_count;
+                    if((int) $oMi->mobile_list_count) $navi[2] = $oMi->mobile_list_count;
+                    if((int) $oMi->mobile_page_count) $navi[3] = $oMi->mobile_page_count;
+                    if((int) $oMi->mobile_clist_count) $navi[4] = $oMi->mobile_clist_count;
+                    if((int) $oMi->mobile_dlist_count) $navi[5] = $oMi->mobile_dlist_count;
                 }
 
                 $tmp->navigation = (object)array(
@@ -343,8 +343,8 @@ class beluxeModel extends beluxe
     /* @brief Get a document_srl */
     function getLatestDocumentSrl($a_modsrl = 0)
     {
-        $oModIfo = $this->_getModuleInfo($a_modsrl);
-        if (!$oModIfo->module_srl) return;
+        $oMi = $this->_getModuleInfo($a_modsrl);
+        if (!$oMi->module_srl) return;
 
         $args->module_srl = $a_modsrl;
         $out = executeQuery('beluxe.getLatestDocumentSrl', $args);
@@ -416,13 +416,13 @@ class beluxeModel extends beluxe
     /* @brief Get a notice list */
     function getNoticeList($a_modsrl = 0)
     {
-        $oModIfo = $this->_getModuleInfo($a_modsrl);
-        if (!$oModIfo->module_srl) return;
+        $oMi = $this->_getModuleInfo($a_modsrl);
+        if (!$oMi->module_srl) return;
 
-        if ($oModIfo->notice_category == 'Y') $cate_srl = Context::get('category_srl');
+        if ($oMi->notice_category == 'Y') $cate_srl = Context::get('category_srl');
 
         $cmDocument = & getModel('document');
-        $args->module_srl = $oModIfo->module_srl;
+        $args->module_srl = $oMi->module_srl;
         if ($cate_srl) $args->category_srl = $cate_srl;
 
         return $cmDocument->getNoticeList($args);
@@ -431,14 +431,14 @@ class beluxeModel extends beluxe
     /* @brief Get a best list */
     function getBestList($a_modsrl = 0)
     {
-        $oModIfo = $this->_getModuleInfo($a_modsrl);
-        if (!$oModIfo->module_srl) return;
+        $oMi = $this->_getModuleInfo($a_modsrl);
+        if (!$oMi->module_srl) return;
 
-        $a_modsrl = $oModIfo->module_srl;
-        $sort_index = $oModIfo->best_index;
-        $list_count = (int)$oModIfo->best_count;
-        $s_voted_count = (int)$oModIfo->best_voted;
-        if ($oModIfo->best_category == 'Y') $cate_srl = Context::get('category_srl');
+        $a_modsrl = $oMi->module_srl;
+        $sort_index = $oMi->best_index;
+        $list_count = (int)$oMi->best_count;
+        $s_voted_count = (int)$oMi->best_voted;
+        if ($oMi->best_category == 'Y') $cate_srl = Context::get('category_srl');
 
         $oCacheNew = &CacheHandler::getInstance('object');
         if ($oCacheNew->isSupport()) {
@@ -448,7 +448,7 @@ class beluxeModel extends beluxe
             if ($oCacheNew->isValid($cache_key)) return $oCacheNew->get($cache_key);
         }
 
-        $start_date = date('YmdHis', time() - (60 * 60 * 24 * (int)$oModIfo->best_date));
+        $start_date = date('YmdHis', time() - (60 * 60 * 24 * (int)$oMi->best_date));
 
         $args->module_srl = $a_modsrl;
         $args->list_count = $list_count;
@@ -473,11 +473,11 @@ class beluxeModel extends beluxe
     /* @brief Get a best list */
     function getBestCommentList($a_docsrl)
     {
-        $oModIfo = $this->_getModuleInfo();
-        if (!$oModIfo->module_srl) return;
+        $oMi = $this->_getModuleInfo();
+        if (!$oMi->module_srl) return;
 
-        $list_count = (int)$oModIfo->best_c_count;
-        $s_voted_count = (int)$oModIfo->best_c_voted;
+        $list_count = (int)$oMi->best_c_count;
+        $s_voted_count = (int)$oMi->best_c_voted;
 
         $oCacheNew = &CacheHandler::getInstance('object');
         if ($oCacheNew->isSupport()) {
@@ -487,9 +487,9 @@ class beluxeModel extends beluxe
             if ($oCacheNew->isValid($cache_key)) return $oCacheNew->get($cache_key);
         }
 
-        if((int)$oModIfo->best_c_date != -1)
+        if((int)$oMi->best_c_date != -1)
         {
-            $start_date = date('YmdHis', time() - (60 * 60 * 24 * (int)$oModIfo->best_c_date));
+            $start_date = date('YmdHis', time() - (60 * 60 * 24 * (int)$oMi->best_c_date));
         }
 
         $args->document_srl = $a_docsrl;
@@ -738,18 +738,18 @@ class beluxeModel extends beluxe
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
-        $oModIfo = $this->_getModuleInfo();
-        if (!$oModIfo->module_srl) return true;
+        $oMi = $this->_getModuleInfo();
+        if (!$oMi->module_srl) return true;
 
         if ($a_type == 'cmt') {
-            if ($oModIfo->use_c_blind != 'Y') return;
-            $index = $oModIfo->blind_c_index;
-            $count = (int)$oModIfo->blind_c_voted;
+            if ($oMi->use_c_blind != 'Y') return;
+            $index = $oMi->blind_c_index;
+            $count = (int)$oMi->blind_c_voted;
         }
         else {
-            if ($oModIfo->use_blind != 'Y') return;
-            $index = $oModIfo->blind_index;
-            $count = (int)$oModIfo->blind_voted;
+            if ($oMi->use_blind != 'Y') return;
+            $index = $oMi->blind_index;
+            $count = (int)$oMi->blind_voted;
         }
 
         if ($index == 'vote_down_count') {
@@ -777,8 +777,8 @@ class beluxeModel extends beluxe
         if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
-        $oModIfo = $this->_getModuleInfo();
-        if (!$oModIfo->module_srl) return true;
+        $oMi = $this->_getModuleInfo();
+        if (!$oMi->module_srl) return true;
 
         $is_lock = FALSE;
 
@@ -791,7 +791,7 @@ class beluxeModel extends beluxe
             if(!$ex_vars->beluxe) return true;
 
             $adopt_srl = (int) $ex_vars->beluxe->adopt_srl ?  $ex_vars->beluxe->adopt_srl : 0;
-            if ($oModIfo->use_point_type == 'A') $is_lock = $adopt_srl == $a_consrl;
+            if ($oMi->use_point_type == 'A') $is_lock = $adopt_srl == $a_consrl;
 
         } else {
             $t_vals = $this->_getDocumentColumns($a_consrl, array('comment_count', 'regdate'));
@@ -800,10 +800,10 @@ class beluxeModel extends beluxe
             $a_comcnt = $t_vals['comment_count'];
             $a_regdate = $t_vals['regdate'];
 
-            if ($oModIfo->use_point_type == 'A') $is_lock = 0 < $a_comcnt;
-            else if ($oModIfo->use_lock_document == 'Y') $is_lock = TRUE;
-            else if ($oModIfo->use_lock_document == 'C') $is_lock = (int)$oModIfo->use_lock_document_option <= $a_comcnt;
-            else if ($oModIfo->use_lock_document == 'T') $is_lock = (time() - ztime($a_regdate)) > ((int)$oModIfo->use_lock_document_option * 60 * 60 * 24);
+            if ($oMi->use_point_type == 'A') $is_lock = 0 < $a_comcnt;
+            else if ($oMi->use_lock_document == 'Y') $is_lock = TRUE;
+            else if ($oMi->use_lock_document == 'C') $is_lock = (int)$oMi->use_lock_document_option <= $a_comcnt;
+            else if ($oMi->use_lock_document == 'T') $is_lock = (time() - ztime($a_regdate)) > ((int)$oMi->use_lock_document_option * 60 * 60 * 24);
         }
 
         return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_lock;

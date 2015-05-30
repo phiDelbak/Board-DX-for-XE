@@ -27,27 +27,27 @@ class beluxeAdminView extends beluxe
         // module_srl이 넘어오면 해당 모듈의 정보를 미리 구해 놓음
         if ($mod_srl) {
             // module model 객체 생성
-            $oModIfo = $cmModule->getModuleInfoByModuleSrl($mod_srl);
-            if (!$oModIfo) {
+            $oMi = $cmModule->getModuleInfoByModuleSrl($mod_srl);
+            if (!$oMi) {
                 Context::set('module_srl', '');
                 $this->act = 'list';
             } else {
-                ModuleModel::syncModuleToSite($oModIfo);
-                $this->module_info = $oModIfo;
+                ModuleModel::syncModuleToSite($oMi);
+                $this->module_info = $oMi;
             }
         }
 
-        $oModIfo = &$this->module_info;
-        if($oModIfo && $oModIfo->module == 'beluxe')
+        $oMi = &$this->module_info;
+        if($oMi && $oMi->module == 'beluxe')
         {
-            if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
-                $oModIfo->skin = 'default';
-                $oModIfo->mskin = 'default/mobile';
+            if (!$oMi->skin || $oMi->skin == '/USE_DEFAULT/') {
+                $oMi->skin = 'default';
+                $oMi->mskin = 'default/mobile';
             }
 
-            $this->module_srl = $oModIfo->module_srl;
+            $this->module_srl = $oMi->module_srl;
             Context::set('module_srl', $this->module_srl);
-            Context::set('module_info', $oModIfo);
+            Context::set('module_info', $oMi);
         }
 
         // 관리자용 언어팩은 따로 읽기
@@ -136,9 +136,9 @@ class beluxeAdminView extends beluxe
                 $m_target = $m_target[0];
 
                 $site_srl = Context::get('site_srl');
-                $oModIfo = $cmModule->getModuleInfoByMid($m_target, $site_srl);
-                if ($oModIfo) {
-                    ModuleModel::syncModuleToSite($oModIfo);
+                $oMi = $cmModule->getModuleInfoByMid($m_target, $site_srl);
+                if ($oMi) {
+                    ModuleModel::syncModuleToSite($oMi);
                 }
                 else return $this->stop($m_target);
 
@@ -148,7 +148,7 @@ class beluxeAdminView extends beluxe
                 Context::set('m_allset_targets', $m_targets);
             }
 
-            Context::set('module_info', $oModIfo);
+            Context::set('module_info', $oMi);
 
             $security = new Security();
             $security->encodeHTML('module_info.');
@@ -215,9 +215,9 @@ class beluxeAdminView extends beluxe
     /* @brief Display a skin info */
     function dispBeluxeAdminSkinInfo()
     {
-        $oModIfo = $this->module_info;
-        $skin = $oModIfo->skin;
-        $module_path = _XE_PATH_ . 'modules/'.$oModIfo->module;
+        $oMi = $this->module_info;
+        $skin = $oMi->skin;
+        $module_path = _XE_PATH_ . 'modules/'.$oMi->module;
 
         $tpl_path = sprintf('%s/skins/%s/', $module_path, $skin);
         if (!is_dir($tpl_path)) {
@@ -229,7 +229,7 @@ class beluxeAdminView extends beluxe
         $skin_info = $cmModule->loadSkinInfo($module_path, $skin);
         $skin_vars = $cmModule->getModuleSkinVars($this->module_srl);
 
-        Context::set('mid', $oModIfo->mid);
+        Context::set('mid', $oMi->mid);
         Context::set('skin_info', $skin_info);
         Context::set('skin_vars', $skin_vars);
 
@@ -238,9 +238,9 @@ class beluxeAdminView extends beluxe
 
     function dispBeluxeAdminMobileSkinInfo()
     {
-        $oModIfo = $this->module_info;
-        $mskin = $oModIfo->mskin;
-        $module_path = _XE_PATH_ . 'modules/'.$oModIfo->module;
+        $oMi = $this->module_info;
+        $mskin = $oMi->mskin;
+        $module_path = _XE_PATH_ . 'modules/'.$oMi->module;
         $tpl_path = sprintf('%s/skins/%s', $module_path, $mskin);
 
         if (!is_dir($tpl_path)) {
@@ -252,7 +252,7 @@ class beluxeAdminView extends beluxe
         $skin_info = $cmModule->loadSkinInfo($module_path, $mskin);
         $skin_vars = $cmModule->getModuleMobileSkinVars($this->module_srl);
 
-        Context::set('mid', $oModIfo->mid);
+        Context::set('mid', $oMi->mid);
         Context::set('skin_info', $skin_info);
         Context::set('skin_vars', $skin_vars);
 

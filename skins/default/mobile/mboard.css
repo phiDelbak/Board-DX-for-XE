@@ -69,6 +69,9 @@ border:1px solid #bbb;
 	line-height:1.4;
 	list-style:none
 }
+.co.ff{
+	padding-top:2px;
+}
 
 .message{
 	padding:10px;
@@ -137,17 +140,17 @@ border:1px solid #bbb;
 
 /* head */
 .st > h2 {
-	background: #CECECE;
+	background: #cecece;
 	border-bottom:1px solid #bfbfbf;
 	text-shadow: 1px 1px 0 #fff;
 	margin:0;
 	padding:0;
 	font-size: 15px;
-	color:#333;
+	color:#000;
 	text-shadow: 0 0 2px #fff;
 }
 .st > h2 a{
-	color:#333;
+	color:#000;
 	height:16px;
 	text-shadow: 0 0 2px #fff;
 }
@@ -158,10 +161,6 @@ border:1px solid #bbb;
 	color: #6352d2;
 	font-size: 12px;
 	font-style: normal;
-}
-.st > h2 > a .ca{
-	font-size: 14px;
-	color:#333;
 }
 .st > h2 > a .ca:after{
 	content:"";
@@ -265,7 +264,7 @@ vertical-align:top
 	font-size:14px;
 	text-align:center;
 	background:#f2f0ec;
-	padding:10px 0;
+	padding:8px 0;
 	border-top:1px solid #fff;
 	color:#555;
 }
@@ -278,7 +277,7 @@ vertical-align:top
 	padding:5px 10px 10px;
 	text-align:left;
 	border-top:0;
-	border-bottom: 1px solid #ccc8be;
+	border-bottom: 1px solid #b5b5b5;
 }
 .pn.ts h3 {
 	margin: 0;
@@ -356,7 +355,7 @@ display:block
 	border:1px solid #bfbfbf;
 	border-left:0;
 	border-right:0;
-	background:#dadada;
+	background:#cecece;
 	padding:8px 100px;
 	text-align:center;
 }

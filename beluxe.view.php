@@ -25,44 +25,44 @@ class beluxeView extends beluxe
             $this->mid = Context::get('mid');
             if ($this->mid) {
                 $cmModule = &getModel('module');
-                $oModIfo = $cmModule->getModuleInfoByMid($this->mid);
-                if ($oModIfo) {
-                    ModuleModel::syncModuleToSite($oModIfo);
-                    $this->module_info = $oModIfo;
-                    $this->module_srl = $oModIfo->module_srl;
+                $oMi = $cmModule->getModuleInfoByMid($this->mid);
+                if ($oMi) {
+                    ModuleModel::syncModuleToSite($oMi);
+                    $this->module_info = $oMi;
+                    $this->module_srl = $oMi->module_srl;
                 }
                 else return $this->stop('error');
             }
             else return $this->stop('error');
         }
 
-        $oModIfo = &$this->module_info;
+        $oMi = &$this->module_info;
 
 
-        $navi = explode('|@|', $oModIfo->default_type_option);
-        $oModIfo->default_sort_index = $navi[0] ? $navi[0] : 'list_order';
-        $oModIfo->default_order_type = $navi[1] ? $navi[1] : 'asc';
+        $navi = explode('|@|', $oMi->default_type_option);
+        $oMi->default_sort_index = $navi[0] ? $navi[0] : 'list_order';
+        $oMi->default_order_type = $navi[1] ? $navi[1] : 'asc';
 
         if(Mobile::isFromMobilePhone()) {
-            if((int) $oModIfo->mobile_list_count) $navi[2] = $oModIfo->mobile_list_count;
-            if((int) $oModIfo->mobile_page_count) $navi[3] = $oModIfo->mobile_page_count;
-            if((int) $oModIfo->mobile_clist_count) $navi[4] = $oModIfo->mobile_clist_count;
-            if((int) $oModIfo->mobile_dlist_count) $navi[5] = $oModIfo->mobile_dlist_count;
+            if((int) $oMi->mobile_list_count) $navi[2] = $oMi->mobile_list_count;
+            if((int) $oMi->mobile_page_count) $navi[3] = $oMi->mobile_page_count;
+            if((int) $oMi->mobile_clist_count) $navi[4] = $oMi->mobile_clist_count;
+            if((int) $oMi->mobile_dlist_count) $navi[5] = $oMi->mobile_dlist_count;
         }
 
-        $oModIfo->default_list_count = (int) ($navi[2] ? $navi[2] : 20);
-        $oModIfo->default_page_count = (int) ($navi[3] ? $navi[3] : 10);
-        $oModIfo->default_clist_count = (int) (is_numeric($navi[4]) ? $navi[4] : 50);
-        $oModIfo->default_dlist_count = (int) (is_numeric($navi[5]) ? $navi[5] : $oModIfo->default_list_count);  //값이 없을때 호환을 위해 null 체크
+        $oMi->default_list_count = (int) ($navi[2] ? $navi[2] : 20);
+        $oMi->default_page_count = (int) ($navi[3] ? $navi[3] : 10);
+        $oMi->default_clist_count = (int) (is_numeric($navi[4]) ? $navi[4] : 50);
+        $oMi->default_dlist_count = (int) (is_numeric($navi[5]) ? $navi[5] : $oMi->default_list_count);  //값이 없을때 호환을 위해 null 체크
 
-        if (!$oModIfo->skin || $oModIfo->skin == '/USE_DEFAULT/') {
-            $oModIfo->skin = 'default';
-            $oModIfo->mskin = 'default/mobile';
+        if (!$oMi->skin || $oMi->skin == '/USE_DEFAULT/') {
+            $oMi->skin = 'default';
+            $oMi->mskin = 'default/mobile';
         }
 
-        $oModIfo->module_srl = $this->module_srl;
-        $this->module_info = $oModIfo;
-        Context::set('module_info', $oModIfo);
+        $oMi->module_srl = $this->module_srl;
+        $this->module_info = $oMi;
+        Context::set('module_info', $oMi);
 
         // 팝업,프레임 레이아웃 설정
         if ((int)Context::get('is_poped') || (int)Context::get('is_modal')) {
@@ -76,12 +76,12 @@ class beluxeView extends beluxe
         Context::addJsFile($this->module_path . 'tpl/js/module.' . ((!__DEBUG__) ? 'min.' : '') . 'js');  // 공통 자바 추가
 
         // 검색 로봇 제한
-        if ($oModIfo->robots_meta_option) {
-            Context::addHtmlHeader('<meta name="robots" content="' . $oModIfo->robots_meta_option . '" />');
+        if ($oMi->robots_meta_option) {
+            Context::addHtmlHeader('<meta name="robots" content="' . $oMi->robots_meta_option . '" />');
         }
 
         // 상담 기능 체크. 현재 게시판의 관리자이면 상담기능을 off시킴, 현재 사용자가 비로그인 사용자라면 글쓰기/댓글쓰기/목록보기/글보기 권한을 제거
-        if ($oModIfo->consultation == 'Y' && !Context::get('is_logged')) {
+        if ($oMi->consultation == 'Y' && !Context::get('is_logged')) {
             $this->grant->list = $this->grant->write_document = $this->grant->write_comment = $this->grant->view = FALSE;
         }
     }
@@ -91,8 +91,8 @@ class beluxeView extends beluxe
 
     function _templateFileLoad($a_file)
     {
-        $oModIfo = $this->module_info ? $this->module_info : Context::get('module_info');
-        $tpl_path = sprintf('%sskins/%s/%s', $this->module_path, $oModIfo->skin, Mobile::isFromMobilePhone()?'mobile/':'');
+        $oMi = $this->module_info ? $this->module_info : Context::get('module_info');
+        $tpl_path = sprintf('%sskins/%s/%s', $this->module_path, $oMi->skin, Mobile::isFromMobilePhone()?'mobile/':'');
         if(!is_dir($tpl_path)) return $this->stop('msg_skin_does_not_exist');
 
         Context::loadLang($tpl_path);  // 스킨 언어팩은 따로 읽기
@@ -129,18 +129,19 @@ class beluxeView extends beluxe
     }
 
     /* @brief get content list */
-    function _setBeluxeContentList(&$aDoc) {
+    function _setBeluxeContentList(&$aDoc)
+    {
         $load_extvars = TRUE;
         $this->oScrt->encodeHTML('category_srl', 'sort_index', 'page', 'list_count', 'page_count', 'search_target', 'search_keyword');
         $args = Context::gets('category_srl', 'sort_index', 'page', 'list_count', 'page_count', 'search_target', 'search_keyword');
 
-        $oModIfo = $this->module_info;
+        $oMi = $this->module_info;
         $args->module_srl = $this->module_srl;
-        $is_btm_cnt = (int) $oModIfo->default_dlist_count;
+        $is_btm_cnt = (int) $oMi->default_dlist_count;
         $is_doc = $aDoc && $aDoc->isExists() ? (int)$aDoc->document_srl : 0;
 
         // 상담 기능시 현재 로그인 사용자 글만 나타나도록 변경
-        if ($oModIfo->consultation == 'Y' && !$this->grant->manager) {
+        if ($oMi->consultation == 'Y' && !$this->grant->manager) {
             $oLogIfo = Context::get('logged_info');
             $args->member_srl = $oLogIfo->member_srl;
         }
@@ -160,13 +161,13 @@ class beluxeView extends beluxe
 
         // 지정된 정렬값이 없다면  기본 설정 값을 이용, 확장변수면 eid 값 넣기
         if (!$this->lstCfg[$args->sort_index]) {
-            $args->sort_index = $oModIfo->default_sort_index ? $oModIfo->default_sort_index : 'list_order';
+            $args->sort_index = $oMi->default_sort_index ? $oMi->default_sort_index : 'list_order';
         }
         else {
             if ($this->lstCfg[$args->sort_index]->idx > 0) $args->sort_index = $this->lstCfg[$args->sort_index]->eid;
         }
         if (!in_array($args->order_type, array('asc', 'desc'))) {
-            $args->order_type = $oModIfo->default_order_type ? $oModIfo->default_order_type : 'asc';
+            $args->order_type = $oMi->default_order_type ? $oMi->default_order_type : 'asc';
         }
 
         // 잘못된 정렬,검색 타겟 재설정
@@ -186,8 +187,8 @@ class beluxeView extends beluxe
         }
 
         //목록수, 페이지수 설정
-        if (!$args->list_count) $args->list_count = $oModIfo->default_list_count ? $oModIfo->default_list_count : '20';
-        if (!$args->page_count) $args->page_count = $oModIfo->default_page_count ? $oModIfo->default_page_count : '10';
+        if (!$args->list_count) $args->list_count = $oMi->default_list_count ? $oMi->default_list_count : '20';
+        if (!$args->page_count) $args->page_count = $oMi->default_page_count ? $oMi->default_page_count : '10';
 
         // 목록 보기 권한이 없을 경우 목록없음, 문서가 있고 하단 목록 수가 없으면 목록없음
         if (!$this->grant->list || ($is_doc && !(int) $is_btm_cnt)) {
@@ -254,16 +255,17 @@ class beluxeView extends beluxe
     }
 
     /* @brief get content item */
-    function _setBeluxeContentView($a_iswrite = FALSE) {
-        $oModIfo = $this->module_info;
+    function _setBeluxeContentView($a_iswrite = FALSE)
+    {
+        $oMi = $this->module_info;
         $this->oScrt->encodeHTML('document_srl', 'category_srl');
         $doc_srl = Context::get('document_srl');
 
         // 목록 대신 최근 문서부터 보여야 할때 사용하는 옵션
-        $is_lat_doc = $oModIfo->use_latest_content_view && ($oModIfo->use_latest_content_view == $oModIfo->default_type);
-        if (!$doc_srl && !$a_iswrite && $is_lat_doc && !Context::get('list_count')) {
-            $doc_srl = $this->cmThis->getLatestDocumentSrl($oModIfo->module_srl);
-            if ($doc_srl) Context::set('document_srl', $doc_srl);
+        if (!$doc_srl && !$a_iswrite && $oMi->use_first_page && ($oMi->use_first_page == $oMi->default_type))
+        {
+
+            Context::set('list_count', (int) $oMi->default_dlist_count;);
         }
 
         if ($doc_srl || $a_iswrite) {
@@ -284,11 +286,11 @@ class beluxeView extends beluxe
                     // 글 보기 권한을 체크
                     $is_empty = !$this->grant->{$a_iswrite ? 'write_document' : 'view'} && !$is_grant;
                     // 상담기능이 사용되면 사용자의 글인지 체크
-                    if (!$is_empty && $oModIfo->consultation == 'Y') $is_empty = !$is_grant;
+                    if (!$is_empty && $oMi->consultation == 'Y') $is_empty = !$is_grant;
                     // 수정시 비회원 글 권한 체크
                     if (!$is_empty && $a_iswrite && !$out->get('member_srl')) $is_empty = !$is_grant;
                     // 블라인드 기능이 사용되면 블라인드 체크
-                    if (!$is_empty && !$this->grant->manager && $oModIfo->use_blind == 'Y') $is_empty = $this->cmThis->isBlind($doc_srl);
+                    if (!$is_empty && !$this->grant->manager && $oMi->use_blind == 'Y') $is_empty = $this->cmThis->isBlind($doc_srl);
                 }
                 else {
                     // 공지는 누구나 볼 수 있게 함
@@ -306,10 +308,10 @@ class beluxeView extends beluxe
                 } else {
                     $is_read = true;
                     // 권한이 있고 제한 기능 사용시
-                    if(!$is_grant && !$is_secret && $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view != 'N')
+                    if(!$is_grant && !$is_secret && $oMi->use_point_type != 'A' && $oMi->use_restrict_view != 'N')
                     {
-                        $is_read = $oModIfo->use_restrict_view=='Y'&&$this->cmThis->isWrote($doc_srl, $mbr_srl, true, 'cmt')
-                                || $oModIfo->use_restrict_view=='P'&&$this->cmThis->isRead($doc_srl, $mbr_srl);
+                        $is_read = $oMi->use_restrict_view=='Y'&&$this->cmThis->isWrote($doc_srl, $mbr_srl, true, 'cmt')
+                                || $oMi->use_restrict_view=='P'&&$this->cmThis->isRead($doc_srl, $mbr_srl);
                         // 포인트가 0인것은 패스
                         if(!$is_read) {
                             $un_extra = $out->get('extra_vars');
@@ -337,7 +339,7 @@ class beluxeView extends beluxe
                         $temp->dccate = $out->get('category_srl');
                         //공지는 제외
                         if($temp->iscate && $temp->dccate != $category_srl) {
-                            $temp->chcate = $oModIfo->category_trace == 'Y' && (!$out->isNotice() || $oModIfo->notice_category == 'Y');
+                            $temp->chcate = $oMi->category_trace == 'Y' && (!$out->isNotice() || $oMi->notice_category == 'Y');
                             if ($temp->chcate) {
                                 $category_srl = $temp->dccate;
                                 Context::set('category_srl', $category_srl, true);

@@ -26,9 +26,9 @@
 					<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
 					<block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">
 						{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}
-						<img class="ise coin" src="{$tpl_path}../img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}" />
+						<img src="../img/common/blank.gif" class="ise coin" title="{$ao_pppt}" alt="{$ao_pppt}" />
 					</block>
-					{$document->printExtraImages(60*60*$mi->duration_new)}<img cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="ise world" src="{$tpl_path}../img/common/blank.gif" alt="multilingual" title="multilingual" /><img cond="$is_scrap" class="ise scrap" src="{$tpl_path}../img/common/blank.gif" alt="Scrap" title="Scrap" />
+					{$document->printExtraImages(60*60*$mi->duration_new)}<img src="../img/common/blank.gif" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="ise world" alt="multilingual" title="multilingual" /><img src="../img/common/blank.gif" cond="$is_scrap" class="ise scrap" alt="Scrap" title="Scrap" />
 				</div>
 				<div class="auth cb">
 					<div class="fl">

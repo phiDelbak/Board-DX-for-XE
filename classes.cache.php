@@ -95,11 +95,11 @@ class BeluxeCache
 
 		// Get module information (to obtain mid)
 		$cmModule = &getModel('module');
-		$oModIfo = $cmModule->getModuleInfoByModuleSrl($a_modsrl, array('mid', 'site_srl'));
-		$mid = $oModIfo->mid;
+		$oMi = $cmModule->getModuleInfoByModuleSrl($a_modsrl, array('mid', 'site_srl'));
+		$mid = $oMi->mid;
 
 		$cmAdmModule = &getAdminModel('module');
-		$site_srl = $oModIfo->site_srl;
+		$site_srl = $oMi->site_srl;
 
 		$obj = array();
 

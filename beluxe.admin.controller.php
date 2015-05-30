@@ -413,8 +413,8 @@ class beluxeAdminController extends beluxe
                     if (!$args->browser_title) $args->browser_title = $args->mid;
 
                     // 업데이트시 필요한 정보 초기화 방지
-                    $oModIfo = $cmModule->getModuleInfoByModuleSrl($args->module_srl);
-                    foreach ($arr_up as $vup) $args->{$vup} = $oModIfo->{$vup};
+                    $oMi = $cmModule->getModuleInfoByModuleSrl($args->module_srl);
+                    foreach ($arr_up as $vup) $args->{$vup} = $oMi->{$vup};
 
                     $out = $ccModule->updateModule($args);
                     if (!$out->toBool()) {
@@ -422,8 +422,8 @@ class beluxeAdminController extends beluxe
                         return $out;
                     }
 
-                    if ($oModIfo->skin != $args->skin) {
-                        $_SESSION['BELUXE_MODULE_BACKUP_OPTIONS'] = $oModIfo->backup_options;
+                    if ($oMi->skin != $args->skin) {
+                        $_SESSION['BELUXE_MODULE_BACKUP_OPTIONS'] = $oMi->backup_options;
                     }
 
                     $mod_srl = $out->get('module_srl');

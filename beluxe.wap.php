@@ -10,9 +10,9 @@ class beluxeWAP extends beluxe
 	/** @brief wap procedure method **/
 	function procWAP(&$pMobile)
 	{
-		$oModIfo = $this->module_info;
+		$oMi = $this->module_info;
 		// 권한 체크
-		if(!$this->grant->list || (!$this->grant->manager && $oModIfo->consultation == 'Y')) return $pMobile->setContent(Context::getLang('msg_not_permitted'));
+		if(!$this->grant->list || (!$this->grant->manager && $oMi->consultation == 'Y')) return $pMobile->setContent(Context::getLang('msg_not_permitted'));
 
 		// document model 객체 생성
 		$cmDocument = &getModel('document');
@@ -63,9 +63,9 @@ class beluxeWAP extends beluxe
 						// 글 보기 권한을 체크해서 권한이 없으면 빈문서
 						$is_empty = !$this->grant->view && !$oDocIfo->isGranted();
 						// 상담기능이 사용되고 사용자의 글도 아니면 빈문서
-						if(!$is_empty && $oModIfo->consultation == 'Y') $is_empty = !$oDocIfo->isGranted();
+						if(!$is_empty && $oMi->consultation == 'Y') $is_empty = !$oDocIfo->isGranted();
 						// 블라인드 기능이 사용되면
-						if(!$is_empty && !$this->grant->manager && $oModIfo->use_blind == 'Y') {
+						if(!$is_empty && !$this->grant->manager && $oMi->use_blind == 'Y') {
 							$cmThis = &getModel(__XEFM_NAME__);
 							$is_empty = $cmThis->isBlind($doc_srl);
 						}
@@ -88,7 +88,7 @@ class beluxeWAP extends beluxe
 						$is_grant = $oDocIfo->isGranted();
 						$is_secret = $oDocIfo->isSecret();
 
-						if(!$is_secret && !$is_grant && $oModIfo->use_point_type != 'A' && $oModIfo->use_restrict_view!='N')
+						if(!$is_secret && !$is_grant && $oMi->use_point_type != 'A' && $oMi->use_restrict_view!='N')
 						{
 							if(!$cmThis) $cmThis = &getModel(__XEFM_NAME__);
 							$is_read = $cmThis->isRead($doc_srl, $mbr_srl);
@@ -128,7 +128,7 @@ class beluxeWAP extends beluxe
 		$args->page = Context::get('page');
 		$args->list_count = 9;
 
-		$df_navi = explode('|@|',$oModIfo->default_type_option);
+		$df_navi = explode('|@|',$oMi->default_type_option);
 		$args->sort_index = $df_navi[0]?$df_navi[0]:'list_order';
 		$args->order_type = $df_navi[1]?$df_navi[1]:'asc';
 

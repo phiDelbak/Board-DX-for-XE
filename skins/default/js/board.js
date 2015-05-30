@@ -364,7 +364,7 @@ jQuery(function($)
 		var $frm = $(window.frameElement), $mod, m_par, m_doc;
 		if($frm.is('[id=pidOframe]'))
 		{
-        	m_par = $frm.closest('html');
+        	m_par = $frm.closest('body');
         	m_doc = $('body', $frm[0].contentDocument || $frm[0].contentWindow.document);
 
         	$mod = $frm.parent().parent();
@@ -495,11 +495,15 @@ jQuery(function($)
 
 			if($i.get(0).tagName=='TR') {
 				$i.find('>td:eq(0)').is(function(){
+					$(this).css('position','relative');
 					$a.prependTo(this).width(w);
 					if(tp === 'lstc') $a.height($i.outerHeight()+$i.next().outerHeight());
 				});
 			}
 			else $a.prependTo(this).width(w);
+
+			$i.removeAttr('data-hottrack','');
+			$i.removeAttr('data-type');
 
 			// 모달 보기 사용시
 			if($i.is('[data-modal-key]')){
