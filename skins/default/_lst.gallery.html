@@ -46,7 +46,7 @@
 			<span cond="$mi->display_document_count!='N'&&!$sotcnt" class="scHaDCnts">
 				<em>Today</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd"))}</strong>,
 				<em>Yesterday</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd",strtotime("-1 day", time())))}</strong>,
-				<em>Total</em> <strong>{$total_count}</strong>
+				<em>Total</em> <strong>{$oThis->getDocumentCountByDate()}</strong>
 			</span>
 			<!--@else-->
 			<span loop="$sclms => $key,$val" cond="$val->sort == 'Y'" class="sort"> {@ $sotcnt++}
@@ -237,7 +237,7 @@
 						<em cond="$t_cmtn || $t_tbkn" class="reply" title="Replies">+{(int)$t_cmtn}<block cond="$t_tbkn">.{$t_tbkn}</block></em>
 						<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$un_extra->beluxe->use_point)}</em>
 					</span>
-					<strong cond="$ds_regdate || $ds_update" class="scRibbon {($document->document_srl==$document_srl)?'action':''}"><span class="caption">{$ds_regdate ? $document->getRegdate('M.d') : zdate($document->get('last_update'),'M.d')}</span></strong>
+					<strong cond="$ds_regdate || $ds_update" class="scRibbon {($document->document_srl==$document_srl)?'active':''}"><span class="caption">{$ds_regdate ? $document->getRegdate('M.d') : zdate($document->get('last_update'),'M.d')}</span></strong>
 			</div></block></td>
 	</tr>
 </tbody>

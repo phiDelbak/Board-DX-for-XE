@@ -326,6 +326,9 @@
     vertical-align:middle;
     max-width:none;
 }
+#siBody .xe_content img {
+    max-width: 100%
+}
 #siBody label {
     cursor:pointer;
     white-space:nowrap
@@ -859,7 +862,7 @@
 #siDoc .scRibbon .caption {
     color:#fff
 }
-#siLst .scRibbon.action .caption {
+#siLst .scRibbon.active .caption {
     color:#000;
     text-shadow:2px 2px 5px #AAA
 }

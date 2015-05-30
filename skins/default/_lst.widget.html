@@ -39,7 +39,7 @@
 			<!--@if($mi->display_document_count!='N')-->
 			<em>Today</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd"))}</strong>,
 			<em>Yesterday</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd",strtotime("-1 day", time())))}</strong>,
-			<em>Total</em> <strong>{$total_count}</strong>
+			<em>Total</em> <strong>{$oThis->getDocumentCountByDate()}</strong>
 			<!--@else-->
 			<span>&nbsp;</span>
 			<!--@endif-->
