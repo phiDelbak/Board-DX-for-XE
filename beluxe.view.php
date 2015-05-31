@@ -261,13 +261,6 @@ class beluxeView extends beluxe
         $this->oScrt->encodeHTML('document_srl', 'category_srl');
         $doc_srl = Context::get('document_srl');
 
-        // 목록 대신 최근 문서부터 보여야 할때 사용하는 옵션
-        if (!$doc_srl && !$a_iswrite && $oMi->use_first_page && ($oMi->use_first_page == $oMi->default_type))
-        {
-
-            Context::set('list_count', (int) $oMi->default_dlist_count;);
-        }
-
         if ($doc_srl || $a_iswrite) {
 
             $oLogIfo = Context::get('logged_info');
@@ -353,6 +346,13 @@ class beluxeView extends beluxe
                 Context::set('document_srl','',true);
             }
         }else{
+            // 첫 목록을 대신 페이지를 보여야 할때 사용하는 옵션
+            if($oMi->use_first_page === 'Y' && count(explode('&', $_SERVER['QUERY_STRING'])) === 1){
+                $cont = $this->cmThis->getModuleContent($this->module_srl, Mobile::isFromMobilePhone()?'M':'P');
+                Context::set('first_page_content', $cont ? $cont : 'empty');
+                Context::set('list_count', (int) $oMi->default_dlist_count);
+            }
+
             $out = $this->cmDoc->getDocument(0);
         }
 

@@ -743,10 +743,11 @@ background-color:#fff;
 color:#000
 }
 .bn.small{
-padding:2px 5px;
-height:14px;
-line-height:14px !important;
-
+padding:0 5px;
+height:20px;
+line-height:19px !important;
+font-size:12px;
+font-weight: normal;
 }
 .bn em{
 font-style:normal

@@ -35,9 +35,7 @@
     border-radius:3px;
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
-    cursor:pointer
-}
-.scBtn {
+    cursor:pointer;
     border-color:#ccc;
     background-color:#fff;
     background-image:-moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
@@ -46,7 +44,6 @@
     background-image:-ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
     background-image:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
 }
-.scBtn a,
 .scBtn * {
     color:#555!important;
     text-shadow:0 1px rgba(255, 255, 255, .8);
@@ -73,7 +70,6 @@
     background-image:-ms-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
     background-image:linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0))
 }
-.scBtn.black a,
 .scBtn.black * {
     color:#fff!important;
     text-shadow:0 1px rgba(0, 0, 0, .8)
@@ -87,7 +83,6 @@
     background-image:-ms-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
     background-image:linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0))
 }
-.scBtn.blue a,
 .scBtn.blue * {
     color:#fff!important;
     text-shadow:0 1px rgba(0, 0, 0, .8)
@@ -100,15 +95,15 @@
     font-weight:normal
 }
 .scBtn:hover,
-.scBtn.group a:hover {
+.scBtn.group > *:hover {
     box-shadow:0 0 4px rgba(0, 0, 0, .3);
     -moz-box-shadow:0 0 4px rgba(0, 0, 0, .3);
     -webkit-box-shadow:0 0 4px rgba(0, 0, 0, .3)
 }
 .scBtn.black:hover,
-.scBtn.black.group a:hover,
+.scBtn.black.group > *:hover,
 .scBtn.blue:hover,
-.scBtn.blue.group a:hover {
+.scBtn.blue.group > *:hover {
     box-shadow:0 0 4px rgba(0, 0, 0, .8);
     -moz-box-shadow:0 0 4px rgba(0, 0, 0, .8);
     -webkit-box-shadow:0 0 4px rgba(0, 0, 0, .8)
@@ -118,30 +113,28 @@
 .scBtn input[type="submit"]:active {
     margin:1px -1px -1px 1px!important
 }
-.scBtn.group * {
-    padding:0
+.scBtn.group > * {
+    padding:0 5px;
+    border-left:1px solid #ccc!important
+}
+.scBtn.group > *:first-child {
+    border-left:0!important
 }
 .scBtn.group:hover {
     box-shadow:none;
     -moz-box-shadow:none;
     -webkit-box-shadow:none
 }
-.scBtn.group:active * {
+.scBtn.group > *:active {
     margin:0!important
 }
-.scBtn.group a:active * {
+.scBtn.group > *:active {
     transform:scale(0.9);
     -webkit-transform:scale(0.9);
     -moz-transform:scale(0.9);
     -o-transform:scale(0.9);
     -ms-transform:scale(0.9);
     zoom:0.9\9
-}
-.scBtn.group a {
-    border-left:1px solid #ccc!important
-}
-.scBtn.group a:first-child {
-    border-left:0!important
 }
 .scBtn input[type="text"],
 .scBtn input[type="password"],
@@ -194,17 +187,17 @@
 .scVoteArea em.blame,
 .scVoteArea em.declare,
 .scVoteArea em.scrap {
-    padding:0 5px 0 22px;
-    background:url(../img/common/ico_set.gif) no-repeat 5px -268px
+    padding:0 0 0 17px;
+    background:url(../img/common/ico_set.gif) no-repeat 0 -267px
 }
 .scVoteArea em.blame {
-    background-position:5px -298px
+    background-position:0 -297px
 }
 .scVoteArea em.declare {
-    background-position:5px -328px
+    background-position:0 -327px
 }
 .scVoteArea em.scrap{
-    background-position:5px -25px
+    background-position:0 -25px
 }
 .scVoteArea em.cnt {
     padding-right:5px
@@ -1896,7 +1889,7 @@
 #siBody .scSch select option {
     font-size:13px;
     color:#333;
-    background-color:#f2f2f2!important
+    background-color:transparent!important
 }
 #siBody .scSch .keyword {
     cursor:text!important;

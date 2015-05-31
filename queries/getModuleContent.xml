@@ -1,0 +1,12 @@
+<query id="getModuleContent" action="select">
+	<tables>
+		<table name="modules" />
+	</tables>
+	<columns>
+		<column name="content" />
+		<column name="mcontent" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+	</conditions>
+</query>

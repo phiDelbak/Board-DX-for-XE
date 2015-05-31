@@ -14,7 +14,6 @@
 <input type="hidden" name="use_check_vote_point" value="N" />
 <input type="hidden" name="use_recover_vote_point" value="N" />
 <input type="hidden" name="use_lock_owner_comment" value="N" />
-<input type="hidden" name="use_first_page" value="N" />
 <input cond="$is_poped" type="hidden" name="is_poped" value="1" />
 
 <div class="{$is_poped?'x_modal-body':''}">
@@ -442,6 +441,15 @@
 			</div>
 		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->use_first_page}</label>
+			<div class="x_controls {$compulsory_options['use_first_page']?'opt_cps':''} {$module_backup_options['use_first_page']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="use_first_page" value="N" checked="checked"|cond="$module_info->use_first_page!='Y'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="use_first_page" value="Y" checked="checked"|cond="$module_info->use_first_page=='Y'" /> {$lang->use}</label>
+				<a href="#about_use_first_page" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_use_first_page" class="x_help-block" hidden>{$lang->about_use_first_page}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
 			<label class="x_control-label">{$lang->allow_comment}</label>
 			<div class="x_controls {$compulsory_options['allow_comment']?'opt_cps':''} {$module_backup_options['allow_comment']?'opt_bks':''}">
 				<label class="x_inline"><input type="radio" name="allow_comment" value="N" checked="checked"|cond="$module_info->allow_comment=='N'" /> {$lang->notuse}</label>
@@ -477,29 +485,6 @@
 				<p id="about_use_anonymous" class="x_help-block" hidden>{$lang->about_use_anonymous}</p>
 			</div>
 		</div>
-		{@
-			$tmp = $module_info->use_history&&($module_info->use_history!=$part_config->use_history);
-			($tmp&&!$module_info->module_srl)||$m_copy_target ? $tmp = 0 : 0;
-		}
-		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->history}</label>
-			<div class="x_controls {$compulsory_options['use_history']?'opt_cps':''} {$tmp||$module_backup_options['use_history']?'opt_bks':''}">
-				<label class="x_inline"><input type="radio" name="use_history" value="N" checked="checked"|cond="$module_info->use_history!='Y'&&$module_info->use_history!='Trace'" /> {$lang->notuse}</label>
-				<label class="x_inline"><input type="radio" name="use_history" value="Y" checked="checked"|cond="$module_info->use_history=='Y'" /> {$lang->use}</label>
-				<label class="x_inline"><input type="radio" name="use_history" value="Trace" checked="checked"|cond="$module_info->use_history=='Trace'" /> {$lang->trace_only2}</label>
-				<a href="#about_use_history2" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="about_use_history2" class="x_help-block" hidden>{$tmp?'Warning : please save the new value.':$lang->about_use_history2}</p>
-			</div>
-		</div>
-		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->consultation}</label>
-			<div class="x_controls {$compulsory_options['consultation']?'opt_cps':''} {$module_backup_options['consultation']?'opt_bks':''}">
-				<label class="x_inline"><input type="radio" name="consultation" value="N" checked="checked"|cond="$module_info->consultation!='Y'" /> {$lang->notuse}</label>
-				<label class="x_inline"><input type="radio" name="consultation" value="Y" checked="checked"|cond="$module_info->consultation=='Y'" /> {$lang->use}</label>
-				<a href="#about_consultation" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
-				<p id="about_consultation" class="x_help-block" hidden>{$lang->about_consultation}</p>
-			</div>
-		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
 			<label class="x_control-label">{$lang->use_title_color}</label>
 			<div class="x_controls {$compulsory_options['use_title_color']?'opt_cps':''} {$module_backup_options['use_title_color']?'opt_bks':''}">
@@ -525,6 +510,29 @@
 				<label class="x_inline"><input type="radio" name="use_trash" value="Y" checked="checked"|cond="$module_info->use_trash=='Y'" /> {$lang->use}</label>
 				<a href="#about_use_trash" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="about_use_trash" class="x_help-block" hidden>{$lang->about_use_trash}</p>
+			</div>
+		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->consultation}</label>
+			<div class="x_controls {$compulsory_options['consultation']?'opt_cps':''} {$module_backup_options['consultation']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="consultation" value="N" checked="checked"|cond="$module_info->consultation!='Y'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="consultation" value="Y" checked="checked"|cond="$module_info->consultation=='Y'" /> {$lang->use}</label>
+				<a href="#about_consultation" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_consultation" class="x_help-block" hidden>{$lang->about_consultation}</p>
+			</div>
+		</div>
+		{@
+			$tmp = $module_info->use_history&&($module_info->use_history!=$part_config->use_history);
+			($tmp&&!$module_info->module_srl)||$m_copy_target ? $tmp = 0 : 0;
+		}
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->history}</label>
+			<div class="x_controls {$compulsory_options['use_history']?'opt_cps':''} {$tmp||$module_backup_options['use_history']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="use_history" value="N" checked="checked"|cond="$module_info->use_history!='Y'&&$module_info->use_history!='Trace'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="use_history" value="Y" checked="checked"|cond="$module_info->use_history=='Y'" /> {$lang->use}</label>
+				<label class="x_inline"><input type="radio" name="use_history" value="Trace" checked="checked"|cond="$module_info->use_history=='Trace'" /> {$lang->trace_only2}</label>
+				<a href="#about_use_history2" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_use_history2" class="x_help-block" hidden>{$tmp?'Warning : please save the new value.':$lang->about_use_history2}</p>
 			</div>
 		</div>
 	</section>

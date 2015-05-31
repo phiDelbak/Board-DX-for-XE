@@ -93,6 +93,7 @@
 		<action name="procBeluxePayPoint" type="controller" />
 		<action name="procBeluxeRecoverPoint" type="controller" />
 		<action name="procBeluxeAdoptComment" type="controller" />
+		<action name="procBeluxeUpdatePageContent" type="controller" />
 
 		<action name="getBeluxeMobileCommentPage" type="mobile" />
 		<action name="getBeluxeTemplateFile" type="model" />

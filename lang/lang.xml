@@ -24,6 +24,11 @@
 		<value xml:lang="jp"><![CDATA[閉じる]]></value>
 		<value xml:lang="en"><![CDATA[Lock]]></value>
 	</item>
+	<item name="cmd_page_edit">
+		<value xml:lang="ko"><![CDATA[페이지 수정]]></value>
+		<value xml:lang="jp"><![CDATA[페이지 수정]]></value>
+		<value xml:lang="en"><![CDATA[page edit]]></value>
+	</item>
 	<item name="expand">
 		<value xml:lang="ko"><![CDATA[펼침]]></value>
 		<value xml:lang="en"><![CDATA[Expand]]></value>

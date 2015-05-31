@@ -193,7 +193,25 @@ class beluxeController extends beluxe
 	/*********** @public function						***********/
 	/**************************************************************/
 
-	/* @brief Insert a file url */
+	function procBeluxeUpdatePageContent()
+	{
+		$mod_srl = Context::get('module_srl');
+		if(!$mod_srl) return new Object(-1, 'msg_invalid_request');
+
+		$content = Context::get('content');
+
+		$args->module_srl = $mod_srl;
+		$args->{(Mobile::isFromMobilePhone()?'m':'').'content'} = $content ? $content : '';
+
+		$out = executeQuery('beluxe.updateModuleContent', $args);
+		if(!$out->toBool()) return $out;
+
+		$msg_code = 'success_updated';
+
+		$this->_setValidMessage(0, $msg_code, 'page_content_'.$msg_code);
+		$this->_setLocation('');
+	}
+
 	function procBeluxeInsertFileLink()
 	{
 		// 필요한 변수 설정
@@ -201,12 +219,16 @@ class beluxeController extends beluxe
 		$tar_srl = Context::get('document_srl');
 		$file_url = Context::get('filelink_url');
 		$mod_srl = $this->module_srl;
+		if(!$mod_srl){
+			$oMi = $this->_getModuleInfo();
+			$mod_srl = $oMi->module_srl;
+		}
 
 		if(!preg_match("/^(https?|ftp|file|mms):[\/]{2,3}[A-Za-z0-9-]+.[A-Za-z0-9-]+[.A-Za-z0-9-\:]*\/.*[A-Za-z0-9]{1,}/i", $file_url))
 			return new Object(-1, Context::getLang('msg_invalid_format') . "\r\nex: http, ftp, mms, file");
 
 		$filename = basename($file_url);
-		if(!$filename) return new Object(-1, 'msg_invalid_request');
+		if(!$mod_srl || !$filename) return new Object(-1, 'msg_invalid_request');
 
 		if(strlen($filename) > 20 && strpos($filename, '?') > -1)
 		{

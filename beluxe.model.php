@@ -248,6 +248,18 @@ class beluxeModel extends beluxe
         $this->add('html', $html);
     }
 
+    function getModuleContent($a_modsrl, $a_mode)
+    {
+        if (!$a_modsrl) return;
+
+        $collst = ($a_mode==='M'?'m':'').'content';
+
+        $args->module_srl = $a_modsrl;
+        $out = executeQuery('beluxe.getModuleContent', $args, array($collst));
+
+        return $out->toBool() ? $out->data->{$collst} : '';
+    }
+
     /* @brief Bringing the Categories list the specific module */
     function getCategoryList($a_modsrl, $a_catesrl = 0)
     {

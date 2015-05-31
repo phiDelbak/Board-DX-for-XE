@@ -353,6 +353,8 @@ jQuery(function($)
 					}else if($('.xpress-editor').length){
 						reloadFileList(uploaderSettings[ret.sequence_srl]);
 					}
+
+					$('#upload_filelink').val('');
 				}
 			);
 			return false;

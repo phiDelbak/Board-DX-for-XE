@@ -1,0 +1,12 @@
+<query id="updateModuleContent" action="update">
+	<tables>
+		<table name="modules" />
+	</tables>
+	<columns>
+		<column name="content" var="content" />
+		<column name="mcontent" var="mcontent" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+	</conditions>
+</query>
