@@ -2,6 +2,9 @@
 <include cond="!$is_modal" target="__header.html" />
 
 <div id="siBody">
+    <div class="clearBar">
+        <include cond="$mi->use_first_page==='Y'&&$first_page_content" target="_etc.firstpage.html" />
+    </div>
 
     <include cond="!$is_modal&&($is_sedt=='T'||$is_sedt=='C')" target="_etc.simplewrite.html" />
 
@@ -20,9 +23,6 @@
     $best_list = !$is_doc&&($mi->use_best=='Y'&&($mi->best_category!='Y'||!$is_cts||$category_srl))?$oThis->getBestList():array();
     $oTemplate = &TemplateHandler::getInstance();
 }
-        <div class="clearBar">
-            <include cond="$mi->use_first_page==='Y'&&$first_page_content" target="_etc.firstpage.html" />
-        </div>
 
         <block cond="$is_doc">
 {$oTemplate->compile($tpl_path, '_viw.'.($oDocument->isNotice()?'list':$viwtp).'.html')}

@@ -81,7 +81,7 @@ class BeluxeItem extends Object
 		return $cmThis->getCategoryList($this->module_srl);
 	}
 
-	function getNavigationList($a_docsrl, $a_count = 5, &$r_info = null)
+	function getNavigationList($a_docsrl, $a_count = 5)
 	{
 
 		$args = Context::get('beluxe_list_sort_keys');
@@ -112,13 +112,6 @@ class BeluxeItem extends Object
 		);
 
 		$out = $cmThis->getNavigationList($args, FALSE, FALSE, $a_collst);
-
-		if(!is_null($r_info))
-		{
-            $r_info = new stdClass;
-			$r_info->total_count = $out->total_count;
-			$r_info->current_key = $out->current_key;
-		}
 
 		return $out->data;
 	}

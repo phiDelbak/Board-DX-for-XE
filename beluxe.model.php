@@ -394,11 +394,10 @@ class beluxeModel extends beluxe
         }
 
         $idx = 0;
+        $cur_d_srl = $obj->current_document_srl;
+
         foreach ($outtmp2 as $key => $val) {
-            if ($val->document_srl == $obj->current_document_srl){
-                $outtmp2[$key]->selected = true;
-                break;
-            }
+            if ($val->document_srl == $cur_d_srl) break;
             $idx++;
         }
 
@@ -407,13 +406,15 @@ class beluxeModel extends beluxe
         $is_next = $idx + $lstcnt + 1;
         $is_next = $is_next > ($lstcnt * 2 + 1) ? ($lstcnt * 2 + 1) : $is_next;
 
-        $out->data = array_slice($outtmp2, $is_prev, $is_next);
+        $data = array_slice($outtmp2, $is_prev, $is_next);
+
+        foreach ($data as $key => $val) {
+            $data[$key]->selected = $val->document_srl == $cur_d_srl;
+        }
+
+        $out->data = $data;
         $out->total_count = count($out->data);
         $out->current_key = ($idx - $is_prev);
-
-        //$out->total_count = $out->total_page = count($out->data);
-        //$out->page_navigation = new PageHandler($out->total_count, $out->total_count, $idx - $is_prev, $out->total_count);
-        //$out->page = $page;
 
         return $out;
     }
