@@ -41,7 +41,7 @@
 			var $target = target ? $(target) : $('body'),
 				$body = $target.is('body') ? $target : $target.closest('body');
 
-		    if(!$('div.wait[data-modal-child=message]', $body).length){
+		    if(!$('.wait[data-modal-child=message]', $body).length){
 		    	url = url.setQuery('is_modal','');
 		        $msg = $('<div class="message update wait" data-modal-child="message">')
 		        .html('<p>'+waiting_message+'<br />If time delays continue, <a href="'+url+'"><span>click here</span></a>.</p>')
@@ -133,9 +133,9 @@
 				fstr = htmlDecode(footer),
 				childs = ['pid_modal-head', 'pid_modal-foot'];
 
-			$pmh = $modal.find('div.' + childs[0]);
+			$pmh = $modal.find('.' + childs[0]);
 			if(!$pmh.length) $pmh = $('<div class="'+childs[0]+'">').hide().prependTo($modal);
-			$pmf = $modal.find('div.' + childs[1]);
+			$pmf = $modal.find('.' + childs[1]);
 			if(!$pmf.length) $pmf = $('<div class="'+childs[1]+'">').hide().appendTo($modal);
 
 			if(hstr && hstr.substring(0,9) !== ':INHERIT:')
@@ -191,9 +191,9 @@
 
 	        $this.add($body.addClass('pid_modal-document')).scrollTop(0);
 
-			$moh = $('div.pid_modal-head', $modal);
-			$mob = $('div.pid_modal-body', $modal);
-			$mof = $('div.pid_modal-foot', $modal);
+			$moh = $('.pid_modal-head', $modal);
+			$mob = $('.pid_modal-body', $modal);
+			$mof = $('.pid_modal-foot', $modal);
 
 			smode = $this.attr('data-resize') || 'auto';
 
@@ -354,7 +354,7 @@
 						if($modal.is('.pid_modal-target'))
 						{
 							$modal.find('> *').hide(duration, function(event){
-								$modal.find('> div.pid_modal-body').show();
+								$modal.find('> .pid_modal-body').show();
 							});
 						}else{
 							$(document).on('keydown.mw', function(event)
@@ -373,7 +373,7 @@
 							zidx = pidModal.topIndex(target);
 
 							$bdrop.css('z-index', zidx).show();
-							$modal.css('z-index', zidx + 5).find('button.pid_modal-close:first').focus();
+							$modal.css('z-index', zidx + 5).find('.pid_modal-close:first').focus();
 							$body.css('overflow-x','hidden');
 							if(bg_close) $bdrop.click(function(){ $this.trigger('close.mw'); return false; });
 						}
@@ -382,7 +382,7 @@
 					// after event trigger
 					var after = function(oframe){$this.trigger('after-open.mw', [oframe]);};
 
-					$modal.find('div.pid_modal-body').css('overflow-y', 'hidden');
+					$modal.find('.pid_modal-body').css('overflow-y', 'hidden');
 					$modal.pidModalgoUrl(url, $this.attr('data-resize') || 'auto', after, mdmode);
 
 					//if(url){}else{$modal.fadeIn(duration, after);}
@@ -420,16 +420,16 @@
 					{
 						$modal.find('> *').show(duration, function(event)
 						{
-							$modal.find('> div.pid_modal-head').hide();
-							$modal.find('> div.pid_modal-body').hide();
-							$modal.find('> div.pid_modal-foot').hide();
+							$modal.find('> .pid_modal-head').hide();
+							$modal.find('> .pid_modal-body').hide();
+							$modal.find('> .pid_modal-foot').hide();
 						});
 					}else{
 						$bdrop = pidModal.backDrop(target);
 						$modal.fadeOut(duration, function()
 						{
 							after();
-							var $mdb = $(this).hide().find('> div.pid_modal-body');
+							var $mdb = $(this).hide().find('> .pid_modal-body');
 							$('body', target).css('overflow-x', pidModal.body_oflow || 'auto');
 							$bdrop.hide();
 							$mdb.children().remove();
@@ -446,13 +446,14 @@
 	});
 
 	try {
-		var $oFrm = $(window.frameElement);
-		if($oFrm.is('[id=pidOframe]'))
+		$(window.frameElement)
+		.filter(function(){ return $(this).is('[id=pidOframe]'); })
+		.is(function()
 		{
-			$frmDoc = $oFrm.closest('body');
+			var $oFrm = $(this), $frmDoc = $oFrm.closest('body');
 
 			pidModal.waitMessage(window.location.href, $frmDoc);
-			// xpresseditor가 먼저 시작하기에 ready 밖에서 해야함, 파일첨부 flash 버튼 숨어있어서 그럼
+			// xpresseditor 파일첨부 flash 버튼 숨어있어서... ready 밖에서...
 			$oFrm.pidModalAutoResize();
 
 			window.parent.pidModalParentReload = function()
@@ -471,7 +472,7 @@
 			.on('ready', function()
 			{
 				$('[data-modal-hide]').on('click', function(){
-					$oFrm.parent().parent().find('button.pid_modal-close:first').click();
+					$oFrm.parent().parent().find('.pid_modal-close:first').click();
 					return false;
 				});
 				// focusin scroll
@@ -487,7 +488,7 @@
 				$oFrm.parent().height(1).parent().hide().css({top:'0',left:'-150%'});
 				$('[data-modal-child=message]', $frmDoc).remove();
 			});
-		}
+		});
 	}catch(e){}
 }
 )(jQuery);

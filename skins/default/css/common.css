@@ -371,11 +371,11 @@
     position:absolute;
     z-index:1;
     top:5px;
-    right:0;
+    right:7px;
     height:19px
 }
 #siCat .scCaNavi {
-    right:15px
+    right:20px
 }
 #siCat .scCaNavi a,
 #siCat .scCaLock a {
@@ -442,12 +442,12 @@
     height:32px;
     display:block
 }
-#siCat.tabn ul {
+#siCat.tabn .cArea ul {
     padding:0;
     margin:2px 28px 0 0;
     font-size:12px
 }
-#siCat.tabn li {
+#siCat.tabn .cArea li {
     float:left;
     margin-bottom:10px;
     margin-right:-1px;
@@ -456,8 +456,8 @@
     -moz-border-radius:5px 5px 0px 0px;
     -webkit-border-radius:5px 5px 0px 0px
 }
-#siCat.tabn li,
-#siCat.colm .cateArea {
+#siCat.tabn .cArea li,
+#siCat.colm {
     text-shadow:0 1px rgba(255, 255, 255, .8);
     background-color:#fff;
     background-image:-moz-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
@@ -466,9 +466,9 @@
     background-image:-ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1));
     background-image:linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .1))
 }
-#siCat.tabn li a,
-#siCat.tabn li a:link,
-#siCat.tabn li a:visited {
+#siCat.tabn .cArea li a,
+#siCat.tabn .cArea li a:link,
+#siCat.tabn .cArea li a:visited {
     color:#000;
     position:relative;
     height:26px;
@@ -478,14 +478,14 @@
     margin:0;
     padding:0 15px
 }
-#siCat.tabn li:hover,
-#siCat.tabn li.active {
+#siCat.tabn .cArea li:hover,
+#siCat.tabn .cArea li.active {
     line-height:28px;
     margin-top:-2px;
     padding-bottom:2px;
     border-bottom:0
 }
-#siCat.tabn li.active a {
+#siCat.tabn .cArea li.active a {
     z-index:1;
     line-height:29px;
     padding:0 15px;
@@ -493,7 +493,7 @@
     font-weight:bold;
     letter-spacing:-1px
 }
-#siCat.tabn li.active {
+#siCat.tabn .cArea li.active {
     background-color:transparent!important;
     background-image:none!important
 }
@@ -503,25 +503,23 @@
 }
 #siCat.colm {
     position:absolute;
-    left:-99;
-    margin:0 5px;
-    visibility:hidden
-}
-#siCat.colm .cateArea {
-    position:relative;
-    z-index:1;
+    display:none;
     width:100%;
+    left:1px;
+    top:1px;
     overflow:hidden;
-    margin:1px 0 0;
-    padding:8px 0 0;
-    height:22px!important
+    height:33px!important
 }
-#siCat.colm ul {
+#siCat.colm .cArea {
+    margin:2px;
+    padding:7px 2px;
+}
+#siCat.colm .cArea ul {
     padding:0;
-    margin:0 42px 0 2px;
+    margin:0 44px 0 2px;
     border:0
 }
-#siCat.colm li {
+#siCat.colm .cArea li {
     float:left;
     font-size:15px;
     font-weight:normal;
@@ -530,21 +528,21 @@
     padding:0 20px 0 5px;
     background:transparent url(../img/common/nav_slant.gif) no-repeat right top
 }
-#siCat.colm li a,
-#siCat.colm li a:link,
-#siCat.colm li a:visited {
+#siCat.colm .cArea li a,
+#siCat.colm .cArea li a:link,
+#siCat.colm .cArea li a:visited {
     color:#4A4A4A;
     display:block;
     margin:0;
     white-space:nowrap;
     text-decoration:none
 }
-#siCat.colm li a:hover,
-#siCat.colm li a:active,
-#siCat.colm li a:focus {
+#siCat.colm .cArea li a:hover,
+#siCat.colm .cArea li a:active,
+#siCat.colm .cArea li a:focus {
     text-decoration:underline
 }
-#siCat.colm li.active a {
+#siCat.colm .cArea li.active a {
     color:#000;
     font-weight:bold;
     letter-spacing:-1px
@@ -579,42 +577,42 @@
     margin:0;
     list-style:none
 }
-#siCat.side .cateArea li {
+#siCat.side .cArea li {
     border-top:1px solid #eee;
     zoom:1
 }
-#siCat.side .cateArea li:after {
+#siCat.side .cArea li:after {
     content:"";
     display:block;
     clear:both
 }
-#siCat.side .cateArea li:first-child {
+#siCat.side .cArea li:first-child {
     border:0
 }
-#siCat.side .cateArea li a,
-#siCat.side .cateArea li a:link,
-#siCat.side .cateArea li a:visited {
+#siCat.side .cArea li a,
+#siCat.side .cArea li a:link,
+#siCat.side .cArea li a:visited {
     color:#666;
     padding:3px 5px;
     font-size:14px;
     display:block
 }
-#siCat.side .cateArea li a:hover,
-#siCat.side .cateArea li a:active,
-#siCat.side .cateArea li a:focus {
+#siCat.side .cArea li a:hover,
+#siCat.side .cArea li a:active,
+#siCat.side .cArea li a:focus {
     text-decoration:underline
 }
-#siCat.side .cateArea li.active a {
+#siCat.side .cArea li.active a {
     color:#333;
     font-weight:bold
 }
-#siCat.side .cateArea li b {
+#siCat.side .cArea li b {
     color:#bbb;
     font-size:12px;
     font-family:Tahoma, Geneva, sans-serif;
     padding:0 3px 0 2px
 }
-#siCat.side .cateArea li b:first-child {
+#siCat.side .cArea li b:first-child {
     display:inline-block
 }
 #siCat span.cnt {

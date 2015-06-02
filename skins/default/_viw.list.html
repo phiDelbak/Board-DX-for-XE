@@ -26,10 +26,10 @@ $allow_cmt = $oDocument->allowComment();
 $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
 }
 <!--@if($is_modal)-->
-<div id="__PID_MODAL_HEADER__" style="display:none">{$oDocument->getTitle()}</div>
+<div id="__PID_MODAL_HEADER__" style="display:none">{$oDocument->getTitle($mi->title_length)}</div>
 <div id="__PID_MODAL_FOOTER__" style="display:none">
     <span cond="count($cstus)" class="fl">[{$cstus[(int)$oDocument->get('is_notice')]}]&nbsp;</span>
-    <span cond="$cate" class="fl" style="color:{$cate->color}"|cond="$cate->color">{$cate->title}</span>
+    <span cond="$cate" class="fl" title="{htmlspecialchars($cate->description)}" style="color:{$cate->color}"|cond="$cate->color">{$cate->title}</span>
     <span>{$oDocument->getPermanentUrl()}</span>
 </div>
 <div id="siCat" class="text">

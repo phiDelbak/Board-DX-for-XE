@@ -5,10 +5,16 @@
 
 jQuery(function($)
 {
-	String.prototype.pidUcfirst = function()
-	{
-		var s=this;return s.charAt(0).toUpperCase() + s.slice(1);
-	};
+	var sjDxFuncs = $.extend({
+		ucfirst: function(s){
+			return s.charAt(0).toUpperCase() + s.slice(1);
+		},
+		miniMsg: function(e,s){
+			var tmp = $('<div class="dxc_minimsg">').html(s);
+			$(e).parent().after(tmp);
+			tmp.delay(3000).fadeOut(2500, function() {$(this).remove();});
+		}
+	});
 
 	$('a[href=#siManageBtn]')
 	.click(function()
@@ -42,70 +48,36 @@ jQuery(function($)
 	$('#siCat.tabn,#siCat.colm')
 	.each(function()
 	{
-		var $i = $(this), iscolm = $i.hasClass('colm'), $u = $('ul', this), $a = $('li.active:last', this),
-			dt = parseInt($u.css("margin-top")) || 0, uh = parseInt($u.height()) - dt,
-			lh = parseInt($('li:first', this).height()) + parseInt($('li:first', this).css('margin-bottom'));
-
-		// 선택된 분류가 있으면 위치 구하고 이동
-		var nn = parseInt(($a.position($i) ? $a.position($i).top : 0) / lh);
-		if(nn > 0) $u.css('margin-top', ((nn * lh) * -1)  + 'px');
-
-		if(lh >= uh)
-		{
-			$('.scCaNavi',this).css('display','none');
-			$u.css('margin-right',iscolm ? '18px' : '0');
-		}
-		else
-		{
-			$('.scCaNavi a:eq(0)',this).click(function(){
-				var t = parseInt($u.css("margin-top"));
-				if(t < dt) $u.css('margin-top', (t + lh + dt) + 'px');
-				return false;
-			});
-			$('.scCaNavi a:eq(1)',this).click(function(){
-				var t = parseInt($u.css("margin-top"));
-				if((t - lh - dt) > -uh) $u.css('margin-top', (t - lh - dt) + 'px');
-				return false;
-			});
-		}
+		var $i = $(this), iscolm = $i.hasClass('colm'), $u = $('.cArea ul', this),
+			$a = $('.cArea li.active:last', this), $f = $('.cArea li:first', this), uh, lh, nn, dt;
 
 		if(iscolm)
 		{
-			var $p = $('#siLst:not(.noheader):eq(0), #siHrm:not(.noheader):eq(0)'),
+			var $p = $('#siLst:not(.noheader), #siHrm:not(.noheader)'),
 				$k = $('.scCaLock',this), cok = getCookie('scCaLock');
 
 			if(!$p.length) return;
-			if($p.length>1) $p = $($p.get(0));
 
-			// 초반에 크기를 구하기 위해 visibility:hidden 사용했기에 숨기고 다시 켠다.
-			$i.css({'display':'none','visibility':'visible'});
-			$i.css({'top':$p.position().top+'px','width':$p.width()-10+'px'});
-
-			$i.on('fadeIn.fast', function(){
-				$(this).css({'top':$p.position().top+'px','width':$p.width()-10+'px'}).fadeIn('fast');
-			}).on('fadeOut.fast', function(){
-				$i.fadeOut();
-			});
-
-			if($k){
-				$k.click(function() {
-					if($(this).hasClass('active')){
-						$(this).removeClass('active');
-						setCookie('scCaLock','hide',null,'/');
-					} else {
-						$(this).addClass('active');
-						setCookie('scCaLock','',null,'/');
-					}
-					return false;
+			if($p[0].tagName==='TABLE') {
+				$($p[0]).find('th:eq(0)').is(function(){
+					$i.appendTo($(this).css('position','relative'));
 				});
-				if(cok=='hide') $k.removeClass('active');
 			}
+			else $i.appendTo($p[0]).show();
+
+			$i.width($p.width()-2);
+
+			$k.click(function() {
+				$(this).toggleClass('active');
+				setCookie('scCaLock',$(this).hasClass('active')?'':'hide',null,'/');
+				return false;
+			});
 
 			if($i.attr('data-autohide') == 'true'){
 				$('thead tr:first th:not(.sort), ul.scFrm:first', $p).mouseenter(function(e){
 					var te = e.target, $isSp = $('> span.sort:eq(0)',te);
 					if($isSp.length && (e.offsetX > $isSp.position().left)) return;
-					$i.trigger('fadeIn.fast');
+					$i.width($p.width()-2).fadeIn();
 				});
 				$(document).mousemove(function(e){
 					var te = e.target;
@@ -113,46 +85,57 @@ jQuery(function($)
 					if(!$i.is(':hidden')&&$i.css('opacity')=='1'&&!$k.hasClass('active')) $i.fadeOut();
 				});
 			}
+
+			if(cok==='hide') $k.removeClass('active');
+			if(cok!=='hide') $i.fadeIn();
+		}
+
+		// 선택된 분류가 있으면 위치 구하고 이동
+		dt = parseInt($u.css("margin-top")) || 0;
+		uh = parseInt($u.height()) - dt;
+		lh = parseInt($f.outerHeight(true));
+
+		if(lh >= uh)
+		{
+			$u.css('margin-right', '20px');
+		}
+		else
+		{
+			nn = parseInt(($a.position($i) ? $a.position($i).top : 0) / lh);
+			if(nn > 0) $u.css('margin-top', ((nn * lh) * -1)  + 'px');
+
+			$('.scCaNavi a:eq(0)',this).click(function(){
+				var t = parseInt($u.css("margin-top"));
+				if(t < dt) $u.css('margin-top', (t + lh + dt) + 'px');
+				return false;
+			});
+
+			$('.scCaNavi a:eq(1)',this).click(function(){
+				var t = parseInt($u.css("margin-top"));
+				if((t - lh - dt) > -uh) $u.css('margin-top', (t - lh - dt) + 'px');
+				return false;
+			});
+
+			$('.scCaNavi',this).show();
 		}
 	});
 
-	$('#siLst.gall .scInfo[data-autohide=true]')
+	$('.scInfo[data-autohide=true]', '#siLst.gall')
 	.each(function()
 	{
-		var $i = $(this), $n = $('.nick_name',this), $m = $i.prev('span.prtImg');
-
+		var $i = $(this), $m = $i.next(), t;
 		$i.css('cursor','pointer')
-		.click(function()
-		{
-			$(this).prev().click();
-		})
+		.click(function(){$(this).prev().click();})
 		.closest('.scItem')
-		.mouseenter(function()
-		{
+		.mouseenter(function(){
+			if(t) return true;
+			t = true;
 			$m.hide('slow');
-			$i.fadeIn('slow'); //if else $i.slideDown();
-			$n.show('slow');
-		}).mouseleave(function()
-		{
-			$n.hide('slow');
+			$i.fadeIn('slow',function(){t=false;}); //if else $i.slideDown();
+		}).mouseleave(function(){
 			$i.fadeOut(); //if else $i.slideUp();
 			$m.show('slow');
 		});
-	});
-
-	$('.scSns a')
-	.click(function()
-	{
-		var $o = $('#siHrm li.scElps strong:eq(0)'), v, t = $(this).attr('data-type'),
-			co = encodeURIComponent($o.text().trim()), rl = encodeURIComponent($o.attr('title'));
-		switch(t)
-		{
-			case 'fa': v = 'http://www.facebook.com/share.php?t=' + co + '&u=' + rl; break;
-			case 'de': v = 'http://www.delicious.com/save?v=5&noui&jump=close&url=' + rl + '&title=' + co; break;
-			default: v = 'http://twitter.com/home?status=' + co + ' ' + rl; break;
-		}
-		popopen(v, '_pop_sns');
-		return false;
 	});
 
 	$('a[href=#popopen][data-srl]')
@@ -188,7 +171,7 @@ jQuery(function($)
 		var params = {target_srl : srl, cur_mid : current_mid, mid : current_mid};
 
 		exec_json(
-			ty + '.proc' + ty.pidUcfirst() + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'),
+			ty + '.proc' + sjDxFuncs.ucfirst(ty) + (hr == '#recommend' ? 'VoteUp' : 'VoteDown'),
 			params,
 			function(ret_obj) {
 				alert(ret_obj.message);
@@ -214,17 +197,15 @@ jQuery(function($)
 		if(typeof c != 'string')  return false;
 		if(!c.trim())
 		{
-			tmp = $('<div class="dxc_minimsg">').html('Please enter the message.');
-			$i.parent().after(tmp);
-			tmp.delay(3000).fadeOut(2500, function() {$(this).remove();});
+			sjDxFuncs.miniMsg($i, 'Please enter the message.');
 			return false;
 		}
 		exec_json(
-			ty + '.proc' + ty.pidUcfirst() + 'Declare',
+			ty + '.proc' + sjDxFuncs.ucfirst(ty) + 'Declare',
 			{target_srl: srl, cur_mid: current_mid, mid: current_mid},
 			function(ret_obj) {
 				alert(ret_obj.message);
-				if(ret_obj.error === 0 && rec != '0')
+				if(ret_obj.error === 0 && rec !== '0')
 				{
 					var t = '[Board DX] Declare, received messages: ' + srl,
 						u = current_url.setQuery('comment_srl',(ty=='comment'?srl:''));
@@ -242,7 +223,7 @@ jQuery(function($)
 		return false;
 	});
 
-	$('.btnAdopt button[data-adopt-srl]')
+	$('.btnAdopt [data-adopt-srl]')
 	.click(function()
 	{
 		var $i = $(this), c, srl = $i.attr('data-adopt-srl') || '', name = $i.attr('data-adopt-name') || '';
@@ -253,9 +234,7 @@ jQuery(function($)
 		if(typeof c != 'string')  return false;
 		if(!c.trim())
 		{
-			tmp = $('<div class="dxc_minimsg">').html('Please enter the message.');
-			$i.parent().after(tmp);
-			tmp.delay(3000).fadeOut(2500, function() {$(this).remove();});
+			sjDxFuncs.miniMsg($i, 'Please enter the message.');
 			return false;
 		}
 		exec_json(
@@ -273,7 +252,7 @@ jQuery(function($)
 		return false;
 	});
 
-	$('#siFbk .scFbWt form textarea[name=content]')
+	$('.scFbWt textarea[name=content]', '#siFbk')
 	.focus(function()
 	{
 		$('.scWusr', $(this).closest('form')).show('slow');
@@ -282,7 +261,7 @@ jQuery(function($)
 	$('.scHLink[data-href]')
 	.click(function()
 	{
-		window.open($(this).attr('data-href'), ($(this).attr('data-target') || ''));
+		window.open($(this).attr('data-href'), $(this).attr('data-target') || '');
 		return false;
 	});
 
@@ -296,14 +275,23 @@ jQuery(function($)
 	$('.scClipboard')
 	.click(function()
 	{
-		var tg = $(this).attr('data-attr') || false;
-		prompt('press CTRL+C copy it to clipboard...', (tg ? $(this).attr(tg) : $(this).text()));
+		var $i = $(this), tg = $i.attr('data-attr') || false;
+		prompt('press CTRL+C copy it to clipboard...', (tg ? $i.attr(tg) : $i.text()));
 		return false;
 	});
 
 	// 글쓰기
 	$.fn.pidSettingWrite = function()
 	{
+		var $exli = $('.scWul.extraKeys >li:hidden', this);
+		if($exli.length){
+			$('.scExTog:hidden', this).show().click(function(){
+				$exli.show('slow');
+				$(this).hide();
+				return false;
+			});
+		}
+
 		$('.scWcateList', this).change(function(){
 			var v = $(this).val(), k = $(this).data('key'),
 				$d = $('.scWcateList[data-key='+k+']').hide('slow'),
@@ -325,13 +313,7 @@ jQuery(function($)
 				$('.scWcateList:eq(0)').change();
 			}
 		});
-		$('.scWul.extraKeys >li:hidden:eq(0)', this).each(function(){
-			$('#siWrt .scExTog:hidden').show().click(function(){
-				$('#siWrt .scWul.extraKeys >li:hidden').show('slow');
-				$(this).hide();
-				return false;
-			});
-		});
+
 		$('a[href=#insert_filelink]', this).click(function(){
 			var $p = $(this).closest('#insert_filelink').find('> input'),
 				v = $p.val(), q = $(this).attr('data-seq'), r = $(this).attr('data-srl');
@@ -363,158 +345,101 @@ jQuery(function($)
 
 	// check iframe
 	try{
-		var $frm = $(window.frameElement), $mod, m_par, m_doc;
+		var $frm = $(window.frameElement), $pid_mod, pid_mpar, pid_mdoc;
 		if($frm.is('[id=pidOframe]'))
 		{
-        	m_par = $frm.closest('body');
-        	m_doc = $('body', $frm[0].contentDocument || $frm[0].contentWindow.document);
+        	$pid_mod = $frm.parent().parent();
+        	pid_mpar = $frm.closest('body');
+        	pid_mdoc = $('body', $frm[0].contentDocument || $frm[0].contentWindow.document);
 
-        	$mod = $frm.parent().parent();
         	if($('#BELUXE_MESSAGE[data-valid-id=document_success_registed]').length)
         	{
-        		$mod.attr('data-parent-reload', 1);
+        		$pid_mod.attr('data-parent-reload', 1);
         	}
-        	$('.pid_modal-head:eq(0)', $mod).each(function()
+
+        	$('.pid_modal-head:eq(0),.pid_modal-foot:eq(0)', $pid_mod).each(function(i)
         	{
-        		var $pidtmp = $('#__PID_MODAL_HEADER__', m_doc||'');
+        		var $pidtmp = $('#__PID_MODAL_'+(i?'FOOT':'HEAD')+'ER__', pid_mdoc||'');
 				if($pidtmp.length) {
-					$(this).html('<div>' + $pidtmp.html() + '</div>').show();
+					$(this).html('<div>' + $pidtmp.eq(0).html() + '</div>').show();
 					$pidtmp.remove();
 				}
 			});
-        	$('.pid_modal-foot:eq(0)', $mod).each(function()
-        	{
-        		var $pidtmp = $('#__PID_MODAL_FOOTER__', m_doc||'');
-				if($pidtmp.length) {
-					$(this).html('<div>' + $pidtmp.html() + '</div>').show();
-					$pidtmp.remove();
-				}
-			});
-
-			// $('#siCat li.scVMdCmt a', m_doc||'')
-			// .click(function()
-			// {
-			// 	var $this = $(this),
-			// 		doc_srl = current_url.getQuery('document_srl'),
-			// 		cpage = current_url.getQuery('cpage'),
-			// 		is_modal = current_url.getQuery('is_modal');
-
-			// 	exec_json(
-			// 		'beluxe.getBeluxeTemplateFile',
-			// 		{ 'mid':current_mid,'document_srl':doc_srl,'cpage':cpage,'is_modal':is_modal,'template_file':'comment' },
-			// 		function(ret){
-			// 			var $cmt = $('#siCmt', m_doc||'');
-			// 			if($cmt.length){
-			// 				$('#siDoc,#siTrb', m_doc||'').hide();
-			// 				$cmt.html(ret.html).show('slow');
-			// 				$('li.scVMdTrb,li.scVMdDoc',$this.parent().parent()).removeClass('active');
-			// 				$('li.scVMdCmt',$this.parent().parent()).addClass('active');
-			// 			}
-			// 		}
-			// 	);
-
-			// 	return false;
-			// });
-
-			// $('#siCat li.scVMdDoc a', m_doc||'')
-			// .click(function()
-			// {
-			// 	$('#siCmt,#siTrb', m_doc||'').hide();
-			// 	$('#siDoc', m_doc||'').show('slow');
-			// 	$('li.scVMdTrb,li.scVMdCmt',$(this).parent().parent()).removeClass('active');
-			// 	$('li.scVMdDoc',$(this).parent().parent()).addClass('active');
-
-			// 	return false;
-			// });
 		}
 	}catch(e){}
+
+	$('a', '.scSns')
+	.click(function()
+	{
+		var $o = $('.scElps strong:eq(0)', '#siHrm'), v, co, rl;
+		co = ($pid_mod ? $pid_mod.find('.pid_modal-head:eq(0)').text() : $o.text()).trim();
+		rl = $pid_mod ? $pid_mod.find('.pid_modal-foot:eq(0)').find('span:last').text() : $o.attr('title');
+		co = encodeURIComponent(co);
+		rl = encodeURIComponent(rl);
+		switch($(this).attr('data-type')){
+			case 'fa': v = 'http://www.facebook.com/share.php?t=' + co + '&u=' + rl; break;
+			case 'de': v = 'http://www.delicious.com/save?v=5&noui&jump=close&url=' + rl + '&title=' + co; break;
+			default: v = 'http://twitter.com/home?status=' + co + ' ' + rl; break;
+		}
+		popopen(v, '_pop_sns');
+		return false;
+	});
 
 	$(window)
 	.ready(function()
 	{
-		$('a[type^=example\\/modal]').pidModalWindow(m_par||'');
-
-		$('#siWrt:eq(0)').pidSettingWrite();
-		$('div[data-flash-fix=true]').pidModalFlashFix();
-		$('div[data-link-fix=true]').each(function(){
-			$('a:not([target])',this).attr('target','_blank');
-		});
-
-		if(getCookie('scCaLock')!='hide') $('#siCat.colm').trigger('fadeIn.fast');
-
-		// 모바일 사용안할때 크기가 너무 줄어들면 조절
-		// 모바일 사용안하는 특정상황에만 필요한 경우라 onresize에선 처리안함
-		$('table#siLst')
-		.each(function()
-		{
-			var $th =$(this), ww = $('#siBody').parent().width(),
-				tr = /*$th.position().left + */$th.outerWidth();
-			if(ww < tr){
-				var ta = $('tr:eq(0) th.title', $th).outerWidth() || 150;
-					tt = Math.floor((tr-ww+ta) / ($('tr:eq(0) th', $th).length - 3));
-				if(!ta || ta>130) return;
-				$('th, td', $th).each(function(e) {
-					var $i = $(this);
-					if($i.is('.title')) return;
-					var j = $i.width() - tt;
-					$i.css({'max-width': j>0?j:1});
-				});
-			}
-		});
-		$('#siFbk .scFbH + .scClst > .scFrm')
-		.each(function()
-		{
-			var $th =$(this), tw = $th.outerWidth();
-			if(tw < 400) {
-				$('.scFbt', $th).css('width','auto');
-				$('.scCmtCon', $th).css('margin-left','5px');
-			}
-		});
+		$('#siWrt').eq(0).pidSettingWrite();
+		$('a[type^=example\\/modal]', '#siBody').pidModalWindow(pid_mpar||'');
+		$('[data-flash-fix=true]', '#siBody').pidModalFlashFix();
+		$('[data-link-fix=true]', '#siBody').find('a:not([target])').attr('target','_blank');
 
 		// 제목 자동조절
 		$('.scElps[data-active=true]')
 		.each(function()
 		{
-			var $i = $(this), $f = $('> :eq(0)', $i),$l = $('> :eq(1)', $i),fw = $i.width(),lw = 0;
-			if($l.length)
-			{
-				if($('> img', $l).length || $l.text().trim())
+			var $i = $(this), $l = $i.find('> :eq(1)'), fw = $i.width(), lw = 0;
+			if($l.length){
+				if($l.find('> img').length || $l.text().trim())
 					lw = $l.addClass('_last').outerWidth(true);
 				else $l.remove();
 			}
-			$f.css('width',(fw - lw - 5) + 'px').addClass('_first');
+			$i.find('> :eq(0)').width(fw - lw - 5).addClass('_first');
 		});
-	})
-	.load(function()
-	{
+
 		// 핫트랙
-		$('.scContent [data-hottrack]')
+		$('[data-hottrack]', '.scContent')
 		.each(function()
 		{
 			var $i = $(this), tp = $i.attr('data-type'), ur = $i.attr('data-hottrack'),
 				$a = $('<a class="scHotTrack">').attr('href', ur),
 				w = $i.outerWidth(tp !== 'gall') - (tp === 'widg' ? 7 : 4);
 
-			if($i.get(0).tagName=='TR') {
+			if($i[0].tagName==='TR') {
 				$i.find('>td:eq(0)').is(function(){
-					$(this).css('position','relative');
-					$a.prependTo(this).width(w);
+					$a.width(w).prependTo($(this).css('position','relative'));
 					if(tp === 'lstc') $a.height($i.outerHeight()+$i.next().outerHeight());
 				});
 			}
 			else $a.prependTo(this).width(w);
 
-			$i.removeAttr('data-hottrack','');
-			$i.removeAttr('data-type');
+			$i.removeAttr('data-hottrack').removeAttr('data-type');
 
 			// 모달 보기 사용시
 			if($i.is('[data-modal-key]')){
-				$a.attr({'type':'example/modal','data-footer':'__PID_MODAL_FOOTER__','data-header':'__PID_MODAL_HEADER__'}).pidModalWindow(m_par||'');
+				$a.attr({
+					'type':'example/modal',
+					'data-footer':'__PID_MODAL_FOOTER__',
+					'data-header':'__PID_MODAL_HEADER__'
+				}).pidModalWindow(pid_mpar||'');
 			}
 		});
-
-		$('#siFbk a[data-modal-scrollinto=true]:last', m_doc||'').parent().is(function(){this.scrollIntoView(true);});
-
+	})
+	.load(function()
+	{
+		$('a[data-modal-scrollinto=true]:last', pid_mdoc||'').parent().is(function(){
+			$(this).closest('.scClst:hidden').is(function(){$(this).show();});
+			this.scrollIntoView(true);
+		});
 		// ie 에서 클릭(커서) 버그 방지, 그러나 다른 브라우저도 걍 포커스 주는거 나쁘지 않아서...
 		$('input:not(:hidden):eq(0)','.pid_ajax-form').focus();
 	});

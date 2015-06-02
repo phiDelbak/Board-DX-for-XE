@@ -3,10 +3,10 @@
 .scBtn a,.scBtn *{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e2e2e2')}
 .scBtn.black a,.scBtn.black *{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#777777',endColorstr='#353535')}
 .scBtn.blue a,.scBtn.blue *{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9164BE',endColorstr='#5034A0')}
-#siCat.tabn li a,#siCat.colm .cateArea{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea')}
+#siCat.tabn .cArea li a,#siCat.colm{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea')}
 #siHrm .scFrm,#siLst thead tr div{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e2e2e2')}
 #siDoc.widg ul{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#f7f7f7')}
-.scBtn a em,#siCat.tabn li.active a{filter:progid:DXImageTransform.Microsoft.gradient(enabled='false') !important}
+.scBtn a em,#siCat.tabn .cArea li.active a{filter:progid:DXImageTransform.Microsoft.gradient(enabled='false') !important}
 
 #siModalWin .bg{filter:alpha(opacity:30)}
 #siBody .scTags a.rank.i3{filter:alpha(opacity=40)}
@@ -20,7 +20,7 @@
 /*ie7*/
 .scBtn{*margin:0}
 #siCat.tabn{*margin-bottom:0}
-#siCat.side .cateArea li b{*display:inline !important}
+#siCat.side .cArea li b{*display:inline !important}
 #siLst.gall .scItem{*float:left}
 #siLst.gall td.scBox{*padding-bottom:20px}
 #siDoc .thmAx img.thum,#siLst.webz .scItem a.thum{*float:none;*position:absolute;*left:5px;*top:3px}

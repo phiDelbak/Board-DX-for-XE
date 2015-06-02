@@ -27,33 +27,35 @@
 	</ul>
 </div>
 
-<div cond="$s_cate == 'Y' || $s_cate == 'T'" id="siCat" class="tabn">
-	<ul class="scFrm clearBar">
-		<li loop="$cts => $val" cond="$s_cate == 'T' || !$val->depth" class="active"|cond="$val->selected">
-			<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}"><span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <em cond="$val->category_srl">({$val->total_document_count})</em></a>
-		</li>
-	</ul>
-	<span class="scBtn small group scCaNavi" style="display:none"><a href="#" title="{$lang->cmd_prev}"><em>&lt;</em></a><a href="#" title="{$lang->cmd_next}"><em>&gt;</em></a></span>
-</div>
+<ul cond="$s_cate == 'Y' || $s_cate == 'T'" id="siCat" class="tabn">
+	<li class="cArea">
+		<ul class="clearBar">
+			<li loop="$cts => $val" cond="$s_cate == 'T' || !$val->depth" class="active"|cond="$val->selected">
+				<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}"><span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <em cond="$val->category_srl">({$val->total_document_count})</em></a>
+			</li>
+		</ul>
+	</li>
+	<li class="scBtn small group scCaNavi" style="display:none"><a href="#" title="{$lang->cmd_prev}"><em>&lt;</em></a><a href="#" title="{$lang->cmd_next}"><em>&gt;</em></a></li>
+</ul>
 
-<div cond="($s_cate == 'Y' && count($sub_cts)) || $s_cate == 'H'" id="siCat" class="colm" data-autohide="true">
+<ul cond="($s_cate == 'Y' && count($sub_cts)) || $s_cate == 'H'" id="siCat" class="colm" data-autohide="true">
 	{@ $s_cate == 'H' ? $sub_cts = $cts : 0}
-	<div class="cateArea">
-		<ul class="scFrm clearBar">
+	<li class="cArea">
+		<ul class="clearBar">
 			<block loop="$sub_cts => $val">
 				{@ is_object($val) ? 0 : $val = $cts[$val]}
 				<li cond="is_object($val)" class="active"|cond="$val->selected">
-					<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}"><span style="color:{$val->color}"|cond="$val->color">{$val->title}</span> <em cond="$val->category_srl">({$val->total_document_count})</em></a>
+					<a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}" style="color:{$val->color}"|cond="$val->color">{$val->title} <em cond="$val->category_srl">({$val->total_document_count})</em></a>
 				</li>
 			</block>
 		</ul>
-	</div>
-	<span class="scBtn small group scCaNavi"><a href="#" title="{$lang->cmd_prev}"><em>&lt;</em></a><a href="#" title="{$lang->cmd_next}"><em>&gt;</em></a></span>
-	<span class="scBtn small scCaLock active"><a href="#" title="{$lang->cmd_lock}"><em>&amp;</em></a></span>
-</div>
+	</li>
+	<li class="scBtn small group scCaNavi" style="display:none"><a href="#" title="{$lang->cmd_prev}"><em>&lt;</em></a><a href="#" title="{$lang->cmd_next}"><em>&gt;</em></a></li>
+	<li class="scBtn small scCaLock active"><a href="#" title="{$lang->cmd_lock}"><em>&amp;</em></a></li>
+</ul>
 {@ $cate_option = $mi->category_option?explode(',',$mi->category_option):array()}
 <div cond="$s_cate == 'S'" id="siCat" class="side" style="left:{$cate_option[1]}px"|cond="$cate_option[1]&&$cate_option[1]!='0'">
-	<div class="cateArea" style="position:fixed"|cond="$cate_option[0]=='Y'">
+	<div class="cArea" style="position:fixed"|cond="$cate_option[0]=='Y'">
 		<ul class="scFrm" style="width:{$cate_option[2]}px"|cond="$cate_option[2]&&$cate_option[2]!='0'">
 			{@ $depth=0}
 			<block loop="$cts => $key,$val">
