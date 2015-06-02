@@ -1,15 +1,14 @@
-{@ $first_page_content = $first_page_content==='empty'?'':$first_page_content}
 <block cond="$grant->manager">
 {@
 	$tmp = $tpl_path;
 	$cmWidget = &getModel('widget');
 	$widget_list = $cmWidget->getDownloadedWidgetList();
 	$ccWidget = &getController('widget');
-	$first_page_content = $ccWidget->transWidgetCode($first_page_content, true);
+	$first_page->content = $ccWidget->transWidgetCode($first_page->content, true);
 	$tpl_path = $tmp;
 }
 </block>
-<div id="zonePageContent" style="border:1px dashed #e5e5e5;border-left:0;border-right:0"|cond="$grant->manager">{$first_page_content}</div>
+<div id="zonePageContent" style="border:1px dashed #e5e5e5;border-left:0;border-right:0"|cond="$grant->manager">{$first_page->content}</div>
 <block cond="$grant->manager">
 	<load target="../../../widget/tpl/css/widget.css" />
 	<load target="../../../widget/tpl/js/widget.js" type="body" />

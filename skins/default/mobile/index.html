@@ -39,9 +39,9 @@
 		<a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','','page',$page)}" title="{$lang->new_document}" class="wt">{$lang->cmd_write}</a>
 	</h2>
 
-	<div class="cb" style="padding:0 10px">
-    	<include cond="$mi->use_first_page==='Y'&&$first_page_content" target="_firstpage.html" />
-	</div>
+    <div cond="$mi->use_first_page==='Y' && $first_page" class="cb" style="padding:0 10px">
+        <include target="_firstpage.html" />
+    </div>
 
 	<!--@if($is_doc)-->
 		<include target="_read.html" />

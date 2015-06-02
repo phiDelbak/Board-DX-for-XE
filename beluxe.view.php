@@ -324,13 +324,12 @@ class beluxeView extends beluxe
 
                     $b_title = $out->getTitleText();
 
-                    // 넘어온 분류와 문서 분류가 다를 경우 바꿈
                     if(strtolower(Context::get('cate_trace'))!=='n')
                     {
                         $temp = $this->lstCfg['temp'];
                         $category_srl = Context::get('category_srl');
                         $temp->dccate = $out->get('category_srl');
-                        //공지는 제외
+                        // 넘어온 분류와 문서 분류가 다를 경우 바꿈 //공지는 제외
                         if($temp->iscate && $temp->dccate != $category_srl) {
                             $temp->chcate = $oMi->category_trace == 'Y' && (!$out->isNotice() || $oMi->notice_category == 'Y');
                             if ($temp->chcate) {
@@ -349,7 +348,7 @@ class beluxeView extends beluxe
             // 첫 목록을 대신 페이지를 보여야 할때 사용하는 옵션
             if($oMi->use_first_page === 'Y' && count(explode('&', $_SERVER['QUERY_STRING'])) === 1){
                 $cont = $this->cmThis->getModuleContent($this->module_srl, Mobile::isFromMobilePhone()?'M':'P');
-                Context::set('first_page_content', $cont ? $cont : 'empty');
+                Context::set('first_page', (object)array('type'=>'widget', 'content'=>$cont));
                 Context::set('list_count', (int) $oMi->default_dlist_count);
             }
 

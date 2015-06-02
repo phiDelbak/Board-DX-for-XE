@@ -200,7 +200,10 @@
     background-position:0 -25px
 }
 .scVoteArea em.cnt {
-    padding-right:5px
+    padding:0 0 0 5px;
+}
+.scClst .scVoteArea em.cnt{
+    padding-left:17px;
 }
 .scRdStar {
     height:12px!important;
@@ -909,8 +912,8 @@
 }
 #siLst.gall .scInfo ul {
     width:100%;
-    margin:5px 0 0;
-    padding:0;
+    margin:5px 5px 0;
+    padding:0 1px;
     list-style:none
 }
 #siLst.gall .scIfHide .scInfo ul {
@@ -922,7 +925,7 @@
     white-space:nowrap
 }
 #siLst.gall .scInfo li {
-    margin:2px 7px;
+    margin:2px 0;
     overflow:hidden;
     text-overflow:ellipsis;
     -o-text-overflow:ellipsis;
@@ -1517,7 +1520,7 @@
     float:left;
     display:inline-block;
     margin:0;
-    height:55px;
+    height:58px;
     width:100%;
     resize:vertical
 }
@@ -1527,16 +1530,14 @@
     width:146px;
     text-align:right
 }
-#siFbk .scFbWt .cmtbtns .scBtn.blue {
-    margin-top:3px;
-    height:56px
+#siFbk .scFbWt .cmtbtns .scBtn.small {
+    margin-bottom:3px;
 }
 #siFbk .scFbWt .cmtbtns .scBtn.blue button {
-    height:53px
+    height:62px
 }
-#siFbk .scFbWt .cmtbtns .scBtn.small+.scBtn.blue,
 #siFbk .scFbWt .cmtbtns .scBtn.small+.scBtn.blue button {
-    height:32px
+    height:35px
 }
 #siFbk .scFbWt .cmtbtns .scBtn a {
     width:116px;

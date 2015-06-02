@@ -2,8 +2,8 @@
 <include cond="!$is_modal" target="__header.html" />
 
 <div id="siBody">
-    <div class="clearBar">
-        <include cond="$mi->use_first_page==='Y'&&$first_page_content" target="_etc.firstpage.html" />
+    <div cond="$mi->use_first_page==='Y' && $first_page" class="clearBar">
+        <include target="_etc.firstpage.html" />
     </div>
 
     <include cond="!$is_modal&&($is_sedt=='T'||$is_sedt=='C')" target="_etc.simplewrite.html" />
