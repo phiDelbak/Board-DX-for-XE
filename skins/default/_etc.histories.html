@@ -10,7 +10,7 @@
 				<a cond="$history->content" class="fl" href="#popopen" data-srl="{getUrl('','mid',$mid,'act','dispBoardHistory','history_srl',$history->history_srl)}">
 					{@
 						$tmp = htmlspecialchars(str_replace(array('&lt;', '&gt;', '&quot;', '&nbsp;'), array('<', '>', '"', ' '), cut_str(strip_tags($history->content), 250, '...')));
-						$tmp = $tmp ? $tmp:'...&nbsp;';
+						$tmp = trim($tmp) ? $tmp:'...&nbsp;';
 					}
 					{$tmp}
 				</a>
