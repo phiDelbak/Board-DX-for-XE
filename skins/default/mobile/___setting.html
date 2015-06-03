@@ -49,3 +49,15 @@
 	<load target="mboard.min.css" />
 	<load target="common.min.js" type="body" />
 <!--@endif-->
+
+<script>
+//<![CDATA[
+    var _DXS_MSGS_ = {
+        canceled: '{$lang->msg_canceled}'
+        <!--@if($pt_dtype=='P')-->,use_d_point: '{$lang->confirm_download_point}'<!--@endif-->
+        <!--@if($is_logged&&(strpos($mi->use_d_vote, 'declare')!==false||strpos($mi->use_c_vote, 'declare')!==false))-->
+        	,declare: '{sprintf($lang->confirm_declare, $oThis->getAdminId()?$lang->manager:$lang->author)}'
+        <!--@endif-->
+    };
+//]]>
+</script>

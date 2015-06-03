@@ -47,7 +47,7 @@ class beluxeModel extends beluxe
             $doc_srl = $attr->document_srl;
             if (!$doc_srl) continue;
 
-            if (!$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl]) {
+            if (!isset($GLOBALS['XE_DOCUMENT_LIST'][$doc_srl])) {
                 $oDocNew = NULL;
                 $oDocNew = new documentItem();
                 $oDocNew->setAttribute($attr, FALSE);
@@ -77,7 +77,7 @@ class beluxeModel extends beluxe
             $cmt_srl = $attr->comment_srl;
             if (!$cmt_srl) continue;
 
-            if (!$GLOBALS['XE_COMMENT_LIST'][$cmt_srl]) {
+            if (!isset($GLOBALS['XE_COMMENT_LIST'][$cmt_srl])) {
                 $oComNew = NULL;
                 $oComNew = new commentItem();
                 $oComNew->setAttribute($attr);
@@ -267,7 +267,7 @@ class beluxeModel extends beluxe
 
         $is_mobile = Mobile::isFromMobilePhone() ? 'mobile_' : '';
 
-        if (!$GLOBALS['BELUXE_CATEGORY_LIST'][$is_mobile.$a_modsrl]) {
+        if (!isset($GLOBALS['BELUXE_CATEGORY_LIST'][$is_mobile.$a_modsrl])) {
 
             $oCacheNew = &CacheHandler::getInstance('object');
             if ($oCacheNew->isSupport()) {
@@ -748,7 +748,6 @@ class beluxeModel extends beluxe
         $t = 'BELUXE_IS_BLIND';
         $x = $a_type.'_'.$a_consrl;
 
-        if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
         $oMi = $this->_getModuleInfo();
@@ -779,7 +778,7 @@ class beluxeModel extends beluxe
             $is_blind = ($out->toBool() && $out->data) ? ((int)$out->data->declared_count >= $count) : FALSE;
         }
 
-        return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_blind;
+        return $GLOBALS[$t][$x] = $is_blind;
     }
 
     function isLocked($a_consrl, $a_type = 'doc') {
@@ -787,7 +786,6 @@ class beluxeModel extends beluxe
         $t = 'BELUXE_IS_LOCKED';
         $x = $a_type.'_'.$a_consrl;
 
-        if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
         $oMi = $this->_getModuleInfo();
@@ -819,7 +817,7 @@ class beluxeModel extends beluxe
             else if ($oMi->use_lock_document == 'T') $is_lock = (time() - ztime($a_regdate)) > ((int)$oMi->use_lock_document_option * 60 * 60 * 24);
         }
 
-        return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_lock;
+        return $GLOBALS[$t][$x] = $is_lock;
     }
 
     function isWrote($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
@@ -827,7 +825,6 @@ class beluxeModel extends beluxe
         $t = 'BELUXE_IS_WROTE';
         $x = $a_type.'_'.$a_consrl;
 
-        if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
         $a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -835,7 +832,7 @@ class beluxeModel extends beluxe
         $out = executeQuery('beluxe.getCommentCount', $args);
         $is_wrote = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
 
-        return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_wrote;
+        return $GLOBALS[$t][$x] = $is_wrote;
     }
 
     function isRead($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
@@ -843,7 +840,6 @@ class beluxeModel extends beluxe
         $t = 'BELUXE_IS_READ';
         $x = $a_type.'_'.$a_consrl;
 
-        if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
         $a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -851,7 +847,7 @@ class beluxeModel extends beluxe
         $out = executeQuery('beluxe.getReadedCount', $args);
         $is_readed = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
 
-        return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_readed;
+        return $GLOBALS[$t][$x] = $is_readed;
     }
 
     function isVoted($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
@@ -859,7 +855,6 @@ class beluxeModel extends beluxe
         $t = 'BELUXE_IS_VOTED';
         $x = $a_type.'_'.$a_consrl;
 
-        if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
         $a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -867,23 +862,7 @@ class beluxeModel extends beluxe
         $out = executeQuery('document.getDocumentVotedLogInfo', $args);
         $is_voted = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
 
-        return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_voted;
-    }
-
-    function isDownloaded($a_filesrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
-        if (!$a_filesrl || ($a_ismbr && !$a_mbrsrl)) return;
-        $t = 'BELUXE_IS_DOWNLOADED';
-        $x = $a_type.'_'.$a_consrl;
-
-        if ($_SESSION[$t][$x]) return true;
-        if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
-
-        $a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
-        $args->file_srl = $a_filesrl;
-        $out = executeQuery('beluxe.getDownloadedCount', $args);
-        $is_downed = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
-
-        return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_downed;
+        return $GLOBALS[$t][$x] = $is_voted;
     }
 
     function isScrap($a_consrl, $a_mbrsrl) {
@@ -891,7 +870,6 @@ class beluxeModel extends beluxe
         $t = 'BELUXE_IS_SCRAP';
         $x = 'doc_'.$a_consrl;
 
-        if ($_SESSION[$t][$x]) return true;
         if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
         $args->document_srl = $a_consrl;
@@ -900,7 +878,22 @@ class beluxeModel extends beluxe
 
         $is_scrap = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
 
-        return $_SESSION[$t][$x] = $GLOBALS[$t][$x] = $is_scrap;
+        return $GLOBALS[$t][$x] = $is_scrap;
+    }
+
+    function isDownloaded($a_filesrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
+        if (!$a_filesrl || ($a_ismbr && !$a_mbrsrl)) return;
+        $t = 'BELUXE_IS_DOWNLOADED';
+        $x = $a_type.'_'.$a_filesrl;
+
+        if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
+
+        $a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
+        $args->file_srl = $a_filesrl;
+        $out = executeQuery('beluxe.getDownloadedCount', $args);
+        $is_downed = $out->toBool() ? (int)$out->data->count > 0 : FALSE;
+
+        return $GLOBALS[$t][$x] = $is_downed;
     }
 
     /* @brief return module name in sitemap */

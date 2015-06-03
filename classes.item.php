@@ -28,7 +28,7 @@ class BeluxeItem extends Object
 	{
 		$modsrl = $this->module_srl;
 
-		if(!$GLOBALS['BELUXE_ADMIN_ID'][$modsrl])
+		if(!isset($GLOBALS['BELUXE_ADMIN_ID'][$modsrl]))
 		{
 			$aids = array();
 

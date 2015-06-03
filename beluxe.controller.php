@@ -431,8 +431,8 @@ class beluxeController extends beluxe
 
 				if(!$this->grant->manager && ($oMi->use_lock_document != 'N' || $oMi->use_point_type == 'A'))
 				{
-					// 값이없으면 새로 db 읽는거 방지를 위해 값 저장
-					if(!$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl])
+					// 새로 db 읽는거 방지를 위해 값 저장
+					if(!isset($GLOBALS['XE_DOCUMENT_LIST'][$doc_srl]))
 					{
 						$tmp->variables = array(
 							'comment_count'=>$oDocIfo->get('comment_count'),
@@ -769,7 +769,7 @@ class beluxeController extends beluxe
 		if(!$this->grant->manager && ($oMi->use_lock_document != 'N' || $oMi->use_point_type == 'A'))
 		{
 			//값이없으면 새로 db 읽는거 방지를 위해 값 저장
-			if(!$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl])
+			if(!isset($GLOBALS['XE_DOCUMENT_LIST'][$doc_srl]))
 			{
 				$tmp->variables = array(
 					'comment_count'=>$oDocIfo->get('comment_count'),
@@ -1054,11 +1054,9 @@ class beluxeController extends beluxe
 			else
 			{
 				// 0인 포인트도 읽기위해 세션에 저장
-				$_SESSION['BELUXE_IS_READED'][$doc_srl] = TRUE;
+				$_SESSION['BELUXE_IS_READ']['doc_'.$doc_srl] = TRUE;
 			}
 		}
-		// 세션 삭제하여 다시 체크
-		unset($_SESSION['BELUXE_NOT_RESTRICT'][$doc_srl]);
 	}
 
 	function procBeluxeRecoverPoint()
@@ -1244,7 +1242,7 @@ class beluxeController extends beluxe
 			else
 			{
 				// 0인 포인트도 읽기위해 세션에 저장
-				$_SESSION['BELUXE_IS_DOWNLOADED'][$pObj->file_srl] = TRUE;
+				$_SESSION['BELUXE_IS_DOWNLOADED']['doc_'.$pObj->file_srl] = TRUE;
 			}
 		}
 	}
