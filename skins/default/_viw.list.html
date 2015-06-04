@@ -141,7 +141,7 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
             </div>
             <div cond="$tag_cnt = count($tags)" class="tags">
                 <block loop="$i=0;$i<$tag_cnt;$i++"> {@ $tag = $tags[$i]}
-                <span cond="$i">, </span><a href="{getUrl('','mid',$mid,'search_target','tag','search_keyword',$tag,'document_srl','')}" class="tag" rel="tag">{htmlspecialchars($tag)}</a>
+                <span cond="$i">, </span><a href="{getUrl('','mid',$mid,'search_target','tag','search_keyword',$tag,'document_srl','')}" class="tag" target="_parent"|cond="$is_modal">{htmlspecialchars($tag)}</a>
                 </block>
             </div>
             <div cond="$is_logged||$mi->display_document_do!='N'||$mi->display_button_sns!='N'" class="actBtns clearBar">
