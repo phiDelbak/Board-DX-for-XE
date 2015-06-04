@@ -54,7 +54,7 @@
 
 		<div class="bls cb">
 		{@
-			$lsttp!='list'?$lsttp='webzine':0;
+			($ci['thumbnail']->display=='Y'||$lsttp!='list')?$lsttp='webzine':0;
 			$oTemplate = &TemplateHandler::getInstance();
 			print $oTemplate->compile($tpl_path, '_lst.'.$lsttp.'.html');
 		}
@@ -65,8 +65,7 @@
 			<strong>{$page} / {$page_navigation->last_page}</strong>
 			<a cond="$page != $page_navigation->last_page" href="{getUrl('document_srl','','comment_srl','','page',$page+1,'division',$division,'last_division',$last_division)}" accesskey="n" class="next bn white">{$lang->cmd_next}</a>
 			{@ $copyright_text = $mi->copyright_text ? explode(',', $mi->copyright_text):''}
-			<a cond="!$copyright_text" href="#beluxe" class="lic fr"></a>
-			<a cond="$copyright_text" href="{$copyright_text[1]}" target="_blank" class="lic fr">{$copyright_text[0]}</a>
+			<a <!--@if($copyright_text)-->href="{$copyright_text[1]}" target="_blank"<!--@else-->href="#beluxe"<!--@endif--> class="lic fr">{$copyright_text[0]}</a>
 		</div>
 
 		<div class="sh cb">

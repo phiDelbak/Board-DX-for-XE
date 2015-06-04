@@ -20,8 +20,7 @@
     <!--@if($is_doc || $pt_vtype!='A')-->
 	<div class="scAdmActs">
 		{@ $copyright_text = $mi->copyright_text ? explode(',', $mi->copyright_text):''}
-		<a cond="!$copyright_text" href="#beluxe"></a>
-		<a cond="$copyright_text" href="{$copyright_text[1]}" target="_blank">{$copyright_text[0]}</a>
+		<a <!--@if($copyright_text)-->href="{$copyright_text[1]}" target="_blank"<!--@else-->href="#beluxe"<!--@endif-->>{$copyright_text[0]}</a>
 		<block cond="!$is_poped && $grant->manager">
 			<a href="#siManageBtn">{$lang->cmd_management}</a>
 			<span style="display:none">
