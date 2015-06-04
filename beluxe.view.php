@@ -132,8 +132,8 @@ class beluxeView extends beluxe
     function _setBeluxeContentList(&$aDoc)
     {
         $load_extvars = TRUE;
-        $this->oScrt->encodeHTML('category_srl', 'sort_index', 'page', 'list_count', 'page_count', 'search_target', 'search_keyword');
-        $args = Context::gets('category_srl', 'sort_index', 'page', 'list_count', 'page_count', 'search_target', 'search_keyword');
+        $this->oScrt->encodeHTML('category_srl', 'sort_index', 'order_type', 'page', 'list_count', 'page_count', 'search_target', 'search_keyword');
+        $args = Context::gets('category_srl', 'sort_index', 'order_type', 'page', 'list_count', 'page_count', 'search_target', 'search_keyword');
 
         $oMi = $this->module_info;
         $args->module_srl = $this->module_srl;
