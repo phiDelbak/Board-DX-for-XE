@@ -14,7 +14,7 @@
 		$ds_cdeclare = $is_logged&&strpos($mi->use_c_vote, 'declare')!==false;
 		$adm_id = $ds_cdeclare ? $oThis->getAdminId() : array();
 
-		$cmts = $comments_info?$comments_info:$oThis->getCommentList($doc_srl, $cpage, $cmt_lstcnt);
+		$cmts = $comment_list?$comment_list:$oThis->getCommentList($doc_srl, $cpage, $cmt_lstcnt);
 		$bscmts = $mi->use_c_best=='Y' ? $oThis->getBestCommentList($doc_srl) : array();
 		$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);
 

@@ -13,7 +13,7 @@
 		$ds_cdeclare = $is_logged&&strpos($mi->use_c_vote, 'declare')!==false;
 		$adm_id = $ds_cdeclare ? $oThis->getAdminId() : array();
 
-		$cmts = $comments_info?$comments_info:$oThis->getCommentList($doc_srl, $cpage, $cmt_lstcnt);
+		$cmts = $comment_list?$comment_list:$oThis->getCommentList($doc_srl, $cpage, $cmt_lstcnt);
 		$voted_list = $oThis->getDocumentVotedLogs($doc_srl);
 
 		$is_voted = $grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment();

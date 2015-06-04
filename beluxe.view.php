@@ -524,7 +524,7 @@ class beluxeView extends beluxe
             $out = $this->cmThis->getCommentList(0);
         }
 
-        Context::set('comments_info', $out);
+        Context::set('comment_list', $out);
         $this->_templateFileLoad('comment');
     }
 
