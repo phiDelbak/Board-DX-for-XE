@@ -121,7 +121,7 @@
 			</ul>
 
 			<div cond="$cmts->total_page > 1" class="scPageArea">
-				<span cond="$cmts->total_page > 1" class="scPage">
+				<span class="scPage">
 					<a href="{getUrl('comment_srl','','cpage','1')}#comment" class="direction prev"><span></span><span></span> {$lang->first_page}</a>
 					<block loop="$page_no=$cmts->page_navigation->getNextPage()">
 						<strong cond="$cpage==$page_no">{$page_no}</strong>

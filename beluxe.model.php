@@ -521,7 +521,8 @@ class beluxeModel extends beluxe
         return $out;
     }
 
-    function getDocumentVotedLogs($a_docsrl, $aObj = NULL) {
+    function getDocumentVotedLogs($a_docsrl, $aObj = NULL)
+    {
         if ($aObj->member_srl) $args->member_srl = $aObj->member_srl;
         if ($aObj->ipaddress) $args->ipaddress = $aObj->ipaddress;
 
@@ -539,14 +540,16 @@ class beluxeModel extends beluxe
         return $re;
     }
 
-    function getDocumentDeclaredCount($a_docsrl) {
+    function getDocumentDeclaredCount($a_docsrl)
+    {
         $args->document_srl = $a_docsrl;
         $out = executeQuery('document.getDeclaredDocument', $args);
         return $out->toBool() && $out->data ? (int)$out->data->declared_count : 0;
     }
 
     // 댓글은 목록 수 임의 조절이 안되고, GLOBALS 변수에 저장하기 위해, 직접 가져오기로 함
-    function getCommentList($a_docsrl, $a_page, $is_admin, $a_lstcnt) {
+    function getCommentList($a_docsrl, $a_page, $is_admin, $a_lstcnt)
+    {
         $oDoc = $this->_getDocumentColumns($a_docsrl, array(), true);
         if (!$oDoc->isExists() || !$oDoc->getCommentCount()) return;
         if (!$oDoc->isGranted() && $oDoc->isSecret()) return;

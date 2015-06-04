@@ -21,17 +21,17 @@
 	<section cond="$m_copy_target" class="section">
 		<h1>{$lang->module}</h1>
 		<div class="x_control-group">
-			<label class="x_control-label"><em style="color:red">*</em> {$lang->mid}</label>
+			<label class="x_control-label" for="id_t_module_mid"><em style="color:red">*</em> {$lang->mid}</label>
 			<div class="x_controls opt_bks">
-				<input type="text" name="module_mid" value="" />
+				<input id="id_t_module_mid" type="text" name="module_mid" value="" />
 				<a href="#about_mid" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p class="x_help-block" id="about_mid" hidden>{$lang->about_mid}</p>
 			</div>
 		</div>
 		<div class="x_control-group">
-			<label class="x_control-label">{$lang->module_category}</label>
+			<label class="x_control-label" for="id_t_module_category_srl">{$lang->module_category}</label>
 			<div class="x_controls opt_bks">
-				<select name="module_category_srl">
+				<select id="id_t_module_category_srl" name="module_category_srl">
 					<option value="0">{$lang->notuse}</option>
 					<option loop="$module_category => $key, $val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl == $key">{$val->title}</option>
 				</select>
@@ -40,9 +40,9 @@
 			</div>
 		</div>
 		<div class="x_control-group">
-			<label class="x_control-label">{$lang->browser_title}</label>
+			<label class="x_control-label" for="lang_id_t_browser_title">{$lang->browser_title}</label>
 			<div class="x_controls opt_bks">
-				<input type="text" class="lang_code" name="browser_title" value="{htmlspecialchars($module_info->browser_title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
+				<input id="id_t_browser_title" type="text" class="lang_code" name="browser_title" value="{htmlspecialchars($module_info->browser_title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 				<a href="#about_browser_title" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p class="x_help-block" id="about_browser_title" hidden>{$lang->about_browser_title}</p>
 			</div>
@@ -77,17 +77,17 @@
 		<h1>{$lang->module}</h1>
 		<block cond="$module=='admin'">
 			<div class="x_control-group">
-				<label class="x_control-label"><em style="color:red">*</em> {$lang->mid}</label>
+				<label class="x_control-label" for="id_module_mid"><em style="color:red">*</em> {$lang->mid}</label>
 				<div class="x_controls">
-					<input type="text" name="module_mid" required value="{$module_info->mid}" />
+					<input id="id_module_mid" type="text" name="module_mid" required value="{$module_info->mid}" />
 					<a href="#about_mid" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 					<p class="x_help-block" id="about_mid" hidden>{$lang->about_mid}</p>
 				</div>
 			</div>
 			<div class="x_control-group {$m_copy_target?'x_info':''}">
-				<label class="x_control-label">{$lang->module_category}</label>
+				<label class="x_control-label" for="id_module_category_srl">{$lang->module_category}</label>
 				<div class="x_controls">
-					<select name="module_category_srl">
+					<select id="id_module_category_srl" name="module_category_srl">
 						<option value="0">{$lang->notuse}</option>
 						<option loop="$module_category => $key, $val" value="{$key}" selected="selected"|cond="$module_info->module_category_srl == $key">{$val->title}</option>
 					</select>
@@ -97,9 +97,9 @@
 			</div>
 		</block>
 		<div class="x_control-group">
-			<label class="x_control-label">{$lang->browser_title}</label>
+			<label class="x_control-label" for="lang_id_browser_title">{$lang->browser_title}</label>
 			<div class="x_controls {$compulsory_options['browser_title']?'opt_cps':''} {$module_backup_options['browser_title']?'opt_bks':''}">
-				<input type="text" class="lang_code" name="browser_title" value="{htmlspecialchars($module_info->browser_title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
+				<input id="id_browser_title" type="text" class="lang_code" name="browser_title" value="{htmlspecialchars($module_info->browser_title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 				<a href="#about_browser_title" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p class="x_help-block" id="about_browser_title" hidden>{$lang->about_browser_title}</p>
 			</div>
@@ -109,9 +109,9 @@
 	<section class="section {$m_copy_target?'collapsed':''}">
 		<h1>{$lang->layout}</h1>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->layout}</label>
+			<label class="x_control-label" for="id_layout_srl">{$lang->layout}</label>
 			<div class="x_controls">
-				<select name="layout_srl">
+				<select id="id_layout_srl" name="layout_srl">
 					<option value="0">{$lang->notuse}</option>
 					<option loop="$layout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->layout_srl == $val->layout_srl">{$val->title} ({$val->layout})</option>
 				</select>
@@ -120,9 +120,9 @@
 			</div>
 		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->mobile_layout}</label>
+			<label class="x_control-label" for="id_mlayout_srl">{$lang->mobile_layout}</label>
 			<div class="x_controls {$compulsory_options['use_mobile']?'opt_cps':''} {$module_backup_options['use_mobile']?'opt_bks':''}">
-				<select name="mlayout_srl">
+				<select id="id_mlayout_srl" name="mlayout_srl">
 				<option value="0">{$lang->notuse}</option>
 				<option loop="$mlayout_list => $key,$val" value="{$val->layout_srl}" selected="selected"|cond="$module_info->use_mobile=='Y'&&$module_info->mlayout_srl==$val->layout_srl" >{$val->title} ({$val->layout})</option>
 				</select>
@@ -140,9 +140,9 @@
 	<section cond="!$m_allset_targets&&!$m_copy_target" class="section">
 		<h1>{$lang->skin}</h1>
 		<div class="x_control-group">
-			<label class="x_control-label">{$lang->skin}</label>
+			<label class="x_control-label" for="id_skin">{$lang->skin}</label>
 			<div class="x_controls">
-				<select name="skin" data-default="{$module_srl?$module_info->skin:'default'}">
+				<select id="id_skin" name="skin" data-default="{$module_srl?$module_info->skin:'default'}">
 					<option cond="!$skin_list || !count($skin_list)" value="">{$lang->notuse}</option>
 					<option loop="$skin_list => $key, $val" value="{$key}" selected="selected"|cond="($module_srl && $module_info->skin == $key) || (!$module_srl && $key == 'default')">{$val->title}</option>
 				</select>
@@ -152,7 +152,7 @@
 			<p class="x_controls msg_call_server" style="display:none"><strong style="color:blue">{$lang->msg_call_server}</strong></p>
 		</div>
 		<div cond="count($skin_list)&&count($default_type_list)" class="x_control-group {$module_info->module_srl&&!$module_info->default_type?'opt_bks':''}">
-			<label class="x_control-label">{$lang->skin_type}</label>
+			<label class="x_control-label" for="id_skin_type">{$lang->skin_type}</label>
 			<div class="x_controls">
 				{@ $t_dftype = $module_info->default_type}
 				<!--@if($default_type_list[$t_dftype] && $module_info->default_type_option)-->
@@ -166,7 +166,7 @@
 					$default_type_list[$t_dftype]->dlist_count = is_null($df_navi[5]) ? $df_navi[2] : $df_navi[5];
 				}
 				<!--@endif-->
-				<select name="default_type" data-skin="{$module_srl?$module_info->skin:'default'}" data-default="{$t_dftype}">
+				<select id="id_skin_type" name="default_type" data-skin="{$module_srl?$module_info->skin:'default'}" data-default="{$t_dftype}">
 				<block loop="$default_type_list => $key, $val">
 					{@ $tmp = array($val->sort_index,$val->order_type,$val->list_count,$val->page_count,$val->clist_count,$val->dlist_count)}
 					<option value="{$key}" data-option="{implode('|@|', $tmp)}" selected="selected"|cond="$key==$module_info->default_type">{$val->title}</option>
@@ -226,18 +226,18 @@
 	<section class="section {$m_copy_target?'collapsed':''}">
 		<h1>{$lang->cmd_list}</h1>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->notice}</label>
+			<label class="x_control-label" for="id_notice_category">{$lang->notice}</label>
 			<div class="x_controls {$compulsory_options['notice_category']?'opt_cps':''} {$module_backup_options['notice_category']?'opt_bks':''}">
-				<select name="notice_category">
+				<select id="id_notice_category" name="notice_category">
 					<option value="N" selected="selected"|cond="$module_info->notice_category != 'Y'">{$lang->list_options['category']['N']}</option>
 					<option value="Y" selected="selected"|cond="$module_info->notice_category == 'Y'">{$lang->list_options['category']['Y']}</option>
 				</select>
 			</div>
 		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->best}</label>
+			<label class="x_control-label" for="id_best_category">{$lang->best}</label>
 			<div class="x_controls {$compulsory_options['best_category']?'opt_cps':''} {$module_backup_options['best_category']?'opt_bks':''}">
-				<select name="best_category">
+				<select id="id_best_category" name="best_category">
 					<option value="N" selected="selected"|cond="$module_info->best_category != 'Y'">{$lang->list_options['category']['N']}</option>
 					<option value="Y" selected="selected"|cond="$module_info->best_category == 'Y'">{$lang->list_options['category']['Y']}</option>
 				</select>
@@ -372,13 +372,13 @@
 			</div>
 		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->point}</label>
+			<label class="x_control-label" for="id_use_point_percent">{$lang->point}</label>
 			<div class="x_controls {$compulsory_options['use_point_type']?'opt_cps':''} {$module_backup_options['use_point_type']?'opt_bks':''}">
 				<label class="x_inline"><input type="radio" name="use_point_type" value="R" checked="checked"|cond="$module_info->use_point_type!='A'" /> {$lang->restriction}</label>
 				<label class="x_inline"><input type="radio" name="use_point_type" value="A" checked="checked"|cond="$module_info->use_point_type=='A'" /> {$lang->adopt}</label>
 			</div>
 			<div class="x_controls">
-				<select name="use_point_percent">
+				<select id="id_use_point_percent" name="use_point_percent">
 					{@ $point_list = array('10','30','50','70','90','100')}
 					<option loop="$point_list=>$val" value="{$val}" selected="selected"|cond="$module_info->use_point_percent == $val">{$val}% {$lang->point}</option>
 				</select>
@@ -410,9 +410,9 @@
 			</div>
 		</div>
 		<div cond="!$m_allset_targets" class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->custom_status}</label>
+			<label class="x_control-label" for="lang_id_custom_status">{$lang->custom_status}</label>
 			<div class="x_controls {$compulsory_options['custom_status']?'opt_cps':''} {$module_backup_options['custom_status']?'opt_bks':''}">
-				<input type="text" class="lang_code" name="custom_status" value="{htmlspecialchars($module_info->custom_status, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
+				<input id="id_custom_status" type="text" class="lang_code" name="custom_status" value="{htmlspecialchars($module_info->custom_status, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 				<a href="#about_custom_status" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="about_custom_status" class="x_help-block" hidden>{$lang->about_custom_status}</p>
 			</div>
@@ -540,7 +540,7 @@
 	<section class="section {$m_copy_target?'collapsed':''}">
 		<h1>{$lang->etc}</h1>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->header_text}</label>
+			<label class="x_control-label" for="lang_header_text">{$lang->header_text}</label>
 			<div class="x_controls {$compulsory_options['header_text']?'opt_cps':''} {$module_backup_options['header_text']?'opt_bks':''}">
 				<textarea class="lang_code" name="header_text" id="header_text">{htmlspecialchars($module_info->header_text, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}</textarea>
 				<a href="#about_header_text" class="x_icon-question-sign" data-toggle style="vertical-align:top;margin-top:5px">{$lang->help}</a>
@@ -548,7 +548,7 @@
 			</div>
 		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->footer_text}</label>
+			<label class="x_control-label" for="lang_footer_text">{$lang->footer_text}</label>
 			<div class="x_controls {$compulsory_options['footer_text']?'opt_cps':''} {$module_backup_options['footer_text']?'opt_bks':''}">
 				<textarea class="lang_code" name="footer_text" id="footer_text">{htmlspecialchars($module_info->footer_text, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}</textarea>
 				<a href="#about_footer_text" class="x_icon-question-sign" data-toggle style="vertical-align:top;margin-top:5px">{$lang->help}</a>
@@ -560,9 +560,9 @@
 	<section class="section {$m_copy_target?'collapsed':''}">
 		<h1>{$lang->cmd_management}</h1>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->use_robots_meta}</label>
+			<label class="x_control-label" for="id_robots_meta_option">{$lang->use_robots_meta}</label>
 			<div class="x_controls {$compulsory_options['robots_meta_option']?'opt_cps':''} {$module_backup_options['robots_meta_option']?'opt_bks':''}">
-				<select name="robots_meta_option">
+				<select id="id_robots_meta_option" name="robots_meta_option">
 					<option value="">{$lang->robots_meta_option['0']}</option>
 					<option value="index,follow" selected="selected"|cond="$module_info->robots_meta_option=='index,follow'">{$lang->robots_meta_option['1']}</option>
 					<option value="index,nofollow" selected="selected"|cond="$module_info->robots_meta_option=='index,nofollow'">{$lang->robots_meta_option['2']}</option>
@@ -574,17 +574,17 @@
 			</div>
 		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->admin_email_address}</label>
+			<label class="x_control-label" for="id_admin_mail">{$lang->admin_email_address}</label>
 			<div class="x_controls">
-				<input type="text" name="admin_mail" value="{htmlspecialchars($module_info->admin_mail)}"  />
+				<input id="id_admin_mail" type="text" name="admin_mail" value="{htmlspecialchars($module_info->admin_mail)}"  />
 				<a href="#about_admin_mail" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
 				<p id="about_admin_mail" class="x_help-block" hidden>{$lang->about_admin_mail}</p>
 			</div>
 		</div>
 		<div cond="!$m_allset_targets" class="x_control-group {$m_copy_target?'x_info':''}">
-			<label class="x_control-label">{$lang->description}</label>
+			<label class="x_control-label" for="id_description">{$lang->description}</label>
 			<div class="x_controls">
-				<textarea name="description">{htmlspecialchars($module_info->description)}</textarea>
+				<textarea id="id_description" name="description">{htmlspecialchars($module_info->description)}</textarea>
 				<a href="#about_description" class="x_icon-question-sign" data-toggle style="vertical-align:top;margin-top:5px">{$lang->help}</a>
 				<p id="about_description" class="x_help-block" hidden>{$lang->about_description}</p>
 			</div>

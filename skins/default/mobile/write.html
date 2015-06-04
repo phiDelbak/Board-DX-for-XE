@@ -8,6 +8,24 @@
 	<section class="st">
 		{@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
 
+<!--@if($act=='dispBoardWriteComment')-->
+	{@
+		$is_cmt = $oComment && $oComment->isExists();
+		$is_par = !$is_cmt && $oSourceComment && $oSourceComment->isExists();
+	}
+<!--@else-->
+	{@ $is_doc = $oDocument && $oDocument->isExists()}
+<!--@endif-->
+
+	<h2 class="cb gn">
+		<a href="#{$is_cts?'categoryOpen':'noCategory'}" onclick="return false"|cond="!$is_cts">
+		<span class="ca"|cond="$is_cts">
+			{$not_permitted?$lang->msg_input_password:($act=='dispBoardWriteComment'?($is_cmt?$lang->modify_comment:$lang->new_comment):($is_doc?$lang->modify_document:$lang->new_document))}
+		</span>
+		</a>
+		<a href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl',($act=='dispBoardWriteComment'?($parent_srl?$parent_srl:$comment_srl):''),'parent_srl','','page',$page)}" class="wt bk">{$lang->cmd_back}</a>
+	</h2>
+
 		<include cond="$act!='dispBoardWriteComment'" target="_tpl.insert.html" />
 		<include cond="$act=='dispBoardWriteComment'" target="_tpl.c.insert.html" />
 	</section>

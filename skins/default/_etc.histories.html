@@ -7,14 +7,17 @@
 		<li loop="$histories->data=>$history" class="clearBar">
 			<div class="no fl"><span>{zdate($history->regdate)}</span></div>
 			<div class="scElps" data-active="true"|cond="$is_elips">
-				<a cond="$history->content" class="fl" href="#popopen" data-srl="{getUrl('','mid',$mid,'act','dispBoardHistory','history_srl',$history->history_srl)}">
+				<!--@if($history->content)-->
+				<a class="fl" href="#popopen" data-srl="{getUrl('','mid',$mid,'act','dispBoardHistory','history_srl',$history->history_srl)}">
 					{@
 						$tmp = htmlspecialchars(str_replace(array('&lt;', '&gt;', '&quot;', '&nbsp;'), array('<', '>', '"', ' '), cut_str(strip_tags($history->content), 250, '...')));
 						$tmp = trim($tmp) ? $tmp:'...&nbsp;';
 					}
 					{$tmp}
 				</a>
-				<strong cond="!$history->content" class="fl">{$lang->trace_only}</strong>
+				<!--@else-->
+				<strong class="fl">{$lang->trace_only}</strong>
+				<!--@endif-->
 				<span class="fr">
 					<block cond="$history->member_srl!=$oDocument->get('member_srl')">
 						{@ $nick = cut_str($history->nick_name, $mi->nickname_length)}

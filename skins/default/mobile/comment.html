@@ -90,9 +90,9 @@
 			{@ $ds_vtxt = !($ds_voteup||$ds_votedown) && ($comment->get('voted_count')!='0'||$comment->get('blamed_count')!='0')}
 			<p cond="$ds_voteup||$ds_votedown||$ds_declare||$ds_vtxt" class="auth">
 				<span cond="$ds_vtxt">{$lang->cmd_vote}: {(int)$comment->get('voted_count')} / {(int)$comment->get('blamed_count')}&nbsp;&nbsp;</span>
-				<a cond="$ds_voteup" class="bn small white" style="color:#AA3300" href="#recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_vote}"><em class="vote">&uarr;</em><em class="cnt">{$comment->get('voted_count')}</em></a>
+				<a cond="$ds_voteup" class="bn small white" style="color:#228200" href="#recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_vote}"><em class="vote">&uarr;</em><em class="cnt">{$comment->get('voted_count')}</em></a>
 				<a cond="$ds_votedown" class="bn small white" style="color:#0000AA" href="#not_recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_vote_down}"><em class="blame">&darr;</em><em class="cnt">{$comment->get('blamed_count')}</em></a>
-				<a cond="$ds_declare" class="bn small white" href="#declare" data-type="comment" data-srl="{$cmt_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$cmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a>
+				<a cond="$ds_declare" class="bn small white" style="color:#AA3300" href="#declare" data-type="comment" data-srl="{$cmt_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$cmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a>
 			</p>
 
 			<ul cond="$comment->hasUploadedFiles()" class="file">

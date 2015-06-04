@@ -83,7 +83,6 @@ class BeluxeItem extends Object
 
 	function getNavigationList($a_docsrl, $a_count = 5)
 	{
-
 		$args = Context::get('beluxe_list_sort_keys');
 		$args->category_srl = Context::get('category_srl');
 		$args->module_srl = $this->module_srl;
@@ -106,39 +105,23 @@ class BeluxeItem extends Object
 		$args->page = $cmDocument->getDocumentPage($doc, $args);
 
 		$cmThis = &getModel(__XEFM_NAME__);
-		$a_collst = array(
-			'category_srl', 'document_srl', 'member_srl', 'nick_name', 'title', 'comment_count', 'trackback_count',
-			'readed_count', 'voted_count', 'blamed_count', 'regdate', 'last_update', 'last_updater', 'extra_vars'
-		);
-
-		$out = $cmThis->getNavigationList($args, FALSE, FALSE, $a_collst);
+		$out = $cmThis->getNavigationList($args, FALSE, FALSE);
 
 		return $out->data;
 	}
 
-	function getHistoryList($a_docsrl, $a_page = 1)
+	function getHistoryList($a_docsrl, $a_page = 0)
 	{
-		$hpageStr = sprintf('%d_hpage', $a_docsrl);
-		$hpage = Context::get($hpageStr);
-		if(!$hpage) $hpage = $a_page;
-
 		$cmThis = &getModel(__XEFM_NAME__);
-		$out = $cmThis->getHistoryList($a_docsrl, $hpage, 5);
-		if(!$out)
-		{
-			$re->data = $re->page_navigation = array();
-			$re->total_count = $re->total_page = 0;
+		$out = $cmThis->getHistoryList($a_docsrl, $a_page, 5);
+
+		if(!$out || !$out->data){
+			$out->data = $out->page_navigation = array();
+			$out->total_count = $out->total_page = 0;
 		}
-		else
-		{
-			Context::set($hpageStr, $out->page_navigation->cur_page);
-			Context::set('hpage', $out->page_navigation->cur_page);
-			$re->data = $out->data;
-			$re->page_navigation = $out->page_navigation;
-			$re->total_count = $out->total_count;
-			$re->total_page = $out->total_page;
-		}
-		return $re;
+
+		Context::set('hpage', (int)$out->page_navigation->cur_page);
+		return $out;
 	}
 
 	function getNoticeList()
@@ -191,27 +174,18 @@ class BeluxeItem extends Object
 
 	function getCommentList($a_docsrl, $a_page = 0, $a_lstcnt = 50)
 	{
-		$cpageStr = sprintf('%d_cpage', $a_docsrl);
-		$cpage = Context::get($cpageStr);
-		if(!$cpage) $cpage = $a_page;
+		$grant = Context::get('grant');
+		$grant = $grant ? $grant->manager : 0;
 
 		$cmThis = &getModel(__XEFM_NAME__);
-		$out = $cmThis->getCommentList($a_docsrl, (int)$cpage, $this->grant->manager, (int)$a_lstcnt);
-		if(!$out)
-		{
-			$re->data = $re->page_navigation = array();
-			$re->total_count = $re->total_page = 0;
+		$out = $cmThis->getCommentList($a_docsrl, (int)$a_page, $grant, (int)$a_lstcnt);
+		if(!$out || !$out->data){
+			$out->data = $out->page_navigation = array();
+			$out->total_count = $out->total_page = 0;
 		}
-		else
-		{
-			Context::set($cpageStr, $out->page_navigation->cur_page);
-			Context::set('cpage', $out->page_navigation->cur_page);
-			$re->data = $out->data;
-			$re->page_navigation = $out->page_navigation;
-			$re->total_count = $out->total_count;
-			$re->total_page = $out->total_page;
-		}
-		return $re;
+
+		Context::set('cpage', (int)$out->page_navigation->cur_page);
+		return $out;
 	}
 
 	function getCommentByMemberSrl($a_docsrl, $a_mbrsrl = 0)

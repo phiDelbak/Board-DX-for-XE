@@ -160,12 +160,11 @@ class beluxeView extends beluxe
         }
 
         // 지정된 정렬값이 없다면  기본 설정 값을 이용, 확장변수면 eid 값 넣기
-        if (!$this->lstCfg[$args->sort_index]) {
+        if(!$this->lstCfg[$args->sort_index]){
             $args->sort_index = $oMi->default_sort_index ? $oMi->default_sort_index : 'list_order';
         }
-        else {
-            if ($this->lstCfg[$args->sort_index]->idx > 0) $args->sort_index = $this->lstCfg[$args->sort_index]->eid;
-        }
+        else if($this->lstCfg[$args->sort_index]->idx > 0) $args->sort_index = $this->lstCfg[$args->sort_index]->eid;
+
         if (!in_array($args->order_type, array('asc', 'desc'))) {
             $args->order_type = $oMi->default_order_type ? $oMi->default_order_type : 'asc';
         }
@@ -173,8 +172,6 @@ class beluxeView extends beluxe
         // 잘못된 정렬,검색 타겟 재설정
         switch ($args->sort_index) {
             case 'no':
-                $args->sort_index = 'list_order';
-                break;
             case 'document_srl':
                 $args->sort_index = 'list_order';
                 break;
@@ -507,21 +504,23 @@ class beluxeView extends beluxe
 
         if($doc->isExists() && $doc->document_srl) {
             $args->document_srl = $doc->document_srl;
-            $cmt_cnt = $args->comment_list_count?$args->comment_list_count:$this->module_info->default_clist_count;
+            $cmt_cnt = $args->clist_count?$args->clist_count:$this->module_info->default_clist_count;
 
             // 분류에 navigation 이 있으면 설정
-            if(!$args->comment_list_count && $args->category_srl) {
+            if(!$args->clist_count && $args->category_srl) {
                 $ct_navi = $this->cmThis->getCategoryList($this->module_srl, $args->category_srl);
                 if (count($ct_navi->navigation)) {
-                    $ct_navi = $ct_navi->navigation;
-                    if(!$ct_navi->clist_count) $cmt_cnt = $ct_navi->clist_count;
+                    if($ct_navi->navigation->clist_count) $cmt_cnt = (int)$ct_navi->navigation->clist_count;
                 }
             }
 
             $cmt_cnt = $cmt_cnt ? $cmt_cnt : 50;
             $out = $this->cmThis->getCommentList($args->document_srl, $args->cpage, $this->grant->manager, $cmt_cnt);
-        }else{
-            $out = $this->cmThis->getCommentList(0);
+        }
+
+        if(!$out){
+            $out->data = $out->page_navigation = array();
+            $out->total_count = $out->total_page = 0;
         }
 
         Context::set('comment_list', $out);

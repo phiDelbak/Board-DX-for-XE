@@ -1,19 +1,3 @@
-{@
-	$is_cmt = $oComment && $oComment->isExists();
-	$is_par = !$is_cmt && $oSourceComment && $oSourceComment->isExists();
-}
-
-<h2 class="cb gn">
-	<a href="#{$is_cts?'categoryOpen':'noCategory'}" onclick="return false"|cond="!$is_cts">
-	<span cond="!$is_cmt||$is_par" class="ca"|cond="$is_cts">
-		{$not_permitted?$lang->msg_input_password:$lang->new_comment}
-	</span>
-	<span cond="$is_cmt&&!$is_par" class="ca"|cond="$is_cts">
-		{$lang->modify_comment}
-	</span>
-	</a>
-	<a href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl',($parent_srl?$parent_srl:$comment_srl),'parent_srl','','page',$page)}" class="wt bk">{$lang->cmd_back}</a>
-</h2>
 
 <!--@if($not_permitted)-->
 	<form ruleset="checkPassword" action="./" method="post" class="co ff">

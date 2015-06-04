@@ -125,8 +125,8 @@
 				</ul>
 			</div>
 
-			<div cond="($cmts->total_page > 1) || (!$is_voted && $mi->use_input_comment_writer == 'N')" class="scPageArea">
-				<span cond="$cmts->total_page > 1" class="scPage">
+			<div cond="$cmts->total_page > 1" class="scPageArea">
+				<span class="scPage">
 					<a href="{getUrl('comment_srl','','cpage','1')}#comment" class="direction prev"><span></span><span></span> {$lang->first_page}</a>
 					<block loop="$page_no=$cmts->page_navigation->getNextPage()">
 						<strong cond="$cpage==$page_no">{$page_no}</strong>

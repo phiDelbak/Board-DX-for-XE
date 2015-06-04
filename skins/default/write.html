@@ -13,13 +13,9 @@
 	{@ $is_doc = $oDocument && $oDocument->isExists()}
 <!--@endif-->
 
-<!--@if($is_modal)-->
-		<div id="__PID_MODAL_HEADER__" style="display:none">{$act=='dispBoardWriteComment'?($is_cmt?$lang->modify_comment:$lang->new_comment):($is_doc?$lang->modify_document:$lang->new_document)}</div>
-<!--@else-->
-		<div class="pid_modal-head" style="margin-bottom:10px">
-			<div>{$act=='dispBoardWriteComment'?($is_cmt?$lang->modify_comment:$lang->new_comment):($is_doc?$lang->modify_document:$lang->new_document)}</div>
+		<div <!--@if($is_modal)-->id="__PID_MODAL_HEADER__" style="display:none"<!--@else-->class="pid_modal-head" style="margin-bottom:10px"<!--@endif-->>
+			<div>{$not_permitted?$lang->msg_input_password:($act=='dispBoardWriteComment'?($is_cmt?$lang->modify_comment:$lang->new_comment):($is_doc?$lang->modify_document:$lang->new_document))}</div>
 		</div>
-<!--@endif-->
 
 		<div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}" data-valid-id="{$XE_VALIDATOR_ID}"|cond="$XE_VALIDATOR_ID">
 			<p>{$XE_VALIDATOR_MESSAGE}</p>
