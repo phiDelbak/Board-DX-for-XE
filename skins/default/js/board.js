@@ -5,6 +5,14 @@
 
  jQuery(function($) {
  	var sjDxFuncs = $.extend({
+ 		isMobj: function(m) {
+ 			var r, f = this.pidFrm;
+ 			if (!f) return r;
+ 			if (m === 'b') r = f.closest('body');
+ 			else if (m === 'm') r = f.parent().parent();
+ 			else if (m === 's') r = $('body', f[0].contentDocument || f[0].contentWindow.document || '');
+ 			return r;
+ 		},
  		ucfirst: function(s) {
  			return s.charAt(0).toUpperCase() + s.slice(1);
  		},
@@ -14,6 +22,58 @@
  			tmp.delay(3000).fadeOut(2500, function() {
  				$(this).remove();
  			});
+ 		},
+ 		reSized: function() {
+ 			var $elp = $('.scElps[data-active=true]');
+
+ 			// 제목 자동조절
+ 			$elp.find('> :eq(0)').width('auto').removeClass('_first');
+ 			$elp.each(function() {
+ 				var $i = $(this),
+ 					$l = $i.find('> :eq(1)'),
+ 					fw = $i.width(),
+ 					lw = 0;
+ 				if ($l.length) {
+ 					if ($l.find('> img').length || $l.text().trim())
+ 						lw = $l.addClass('_last').outerWidth(true);
+ 					else $l.remove();
+ 				}
+ 				$i.find('> :eq(0)').width(fw - lw - 5).addClass('_first');
+ 			});
+
+ 			// 핫트랙
+ 			$('[data-hottrack]', '.scContent')
+ 				.each(function() {
+ 					var $e = $(this),
+ 						$i = $e,
+ 						$a = $i.find('.scHotTrack'),
+ 						tp = $i.attr('data-type'),
+ 						w = $i.outerWidth(tp !== 'gall') - (tp === 'widg' ? 7 : 4);
+
+ 					if (!$a.length) {
+ 						$a = $('<a class="scHotTrack">').attr('href', $i.attr('data-hottrack') || '#');
+ 						$i.attr('data-hottrack', '');
+ 						// 모달 보기 사용시
+ 						if ($i.is('[data-modal-key]')) {
+ 							$a.attr({
+ 								'type': 'example/modal',
+ 								'data-footer': '__PID_MODAL_FOOTER__',
+ 								'data-header': '__PID_MODAL_HEADER__'
+ 							}).pidModalWindow(sjDxFuncs.isMobj('b') || '');
+ 							$i.removeAttr('data-modal-key');
+ 						}
+ 					}
+
+ 					if ($i[0].tagName === 'TR') {
+ 						$i.find('>td:eq(0)').is(function() {
+ 							$e = $(this).css('position', 'relative');
+ 							$a.width(w);
+ 							if (tp === 'lstc') $a.height($i.outerHeight() + $i.next().outerHeight());
+ 						});
+ 					} else $a.width(w);
+
+ 					if (!$e.find('.scHotTrack').length) $a.prependTo($e);
+ 				});
  		}
  	});
 
@@ -383,33 +443,36 @@
 
  	// check iframe
  	try {
- 		var $frm = $(window.frameElement),
- 			$pid_mod, pid_mpar, pid_mdoc;
- 		if ($frm.is('[id=pidOframe]')) {
- 			$pid_mod = $frm.parent().parent();
- 			pid_mpar = $frm.closest('body');
- 			pid_mdoc = $('body', $frm[0].contentDocument || $frm[0].contentWindow.document);
+ 		var frm = $(window.frameElement);
+ 		if (frm.is('[id=pidOframe]')) {
+ 			sjDxFuncs.pidFrm = frm;
+ 			var mpp = frm.parent().parent(),
+ 				mbd = $('body', frm[0].contentDocument || frm[0].contentWindow.document);
 
  			if ($('#BELUXE_MESSAGE[data-valid-id=document_success_registed]').length) {
- 				$pid_mod.attr('data-parent-reload', 1);
+ 				mpp.attr('data-parent-reload', 1);
  			}
 
- 			$('.pid_modal-head:eq(0),.pid_modal-foot:eq(0)', $pid_mod).each(function(i) {
- 				var $pidtmp = $('#__PID_MODAL_' + (i ? 'FOOT' : 'HEAD') + 'ER__', pid_mdoc || '');
+ 			$('.pid_modal-head:eq(0),.pid_modal-foot:eq(0)', mpp).each(function(i) {
+ 				var $pidtmp = $('#__PID_MODAL_' + (i ? 'FOOT' : 'HEAD') + 'ER__', mbd || '');
  				if ($pidtmp.length) {
  					$(this).html('<div>' + $pidtmp.eq(0).html() + '</div>').show();
  					$pidtmp.remove();
  				}
  			});
+
+ 			frm = null;
+ 			mpp = null;
+ 			mbd = null;
  		}
  	} catch (e) {}
 
  	$('a', '.scSns')
  		.click(function() {
  			var $o = $('.scElps strong:eq(0)', '#siHrm'),
- 				v, co, rl;
- 			co = ($pid_mod ? $pid_mod.find('.pid_modal-head:eq(0)').text() : $o.text()).trim();
- 			rl = $pid_mod ? $pid_mod.find('.pid_modal-foot:eq(0)').find('span:last').text() : $o.attr('title');
+ 				v, co, rl, mpp = sjDxFuncs.isMobj('m') || false;
+ 			co = (mpp ? mpp.find('.pid_modal-head:eq(0)').text() : $o.text()).trim();
+ 			rl = mpp ? mpp.find('.pid_modal-foot:eq(0)').find('span:last').text() : $o.attr('title');
  			co = encodeURIComponent(co);
  			rl = encodeURIComponent(rl);
  			switch ($(this).attr('data-type')) {
@@ -427,58 +490,26 @@
  			return false;
  		});
 
+ 	if (!sjDxFuncs.pidFrm) {
+ 		$(window).resize(function() {
+ 			clearTimeout(window.resizedFinished);
+ 			window.resizedFinished = setTimeout(function() {
+ 				sjDxFuncs.reSized();
+ 			}, 500);
+ 		});
+ 	}
+
  	$(window)
  		.ready(function() {
  			$('#siWrt').eq(0).pidSettingWrite();
- 			$('a[type^=example\\/modal]', '#siBody').pidModalWindow(pid_mpar || '');
+ 			$('a[type^=example\\/modal]', '#siBody').pidModalWindow(sjDxFuncs.isMobj('b') || '');
  			$('[data-flash-fix=true]', '#siBody').pidModalFlashFix();
  			$('[data-link-fix=true]', '#siBody').find('a:not([target])').attr('target', '_blank');
 
- 			// 제목 자동조절
- 			$('.scElps[data-active=true]')
- 				.each(function() {
- 					var $i = $(this),
- 						$l = $i.find('> :eq(1)'),
- 						fw = $i.width(),
- 						lw = 0;
- 					if ($l.length) {
- 						if ($l.find('> img').length || $l.text().trim())
- 							lw = $l.addClass('_last').outerWidth(true);
- 						else $l.remove();
- 					}
- 					$i.find('> :eq(0)').width(fw - lw - 5).addClass('_first');
- 				});
-
- 			// 핫트랙
- 			$('[data-hottrack]', '.scContent')
- 				.each(function() {
- 					var $i = $(this),
- 						tp = $i.attr('data-type'),
- 						ur = $i.attr('data-hottrack'),
- 						$a = $('<a class="scHotTrack">').attr('href', ur),
- 						w = $i.outerWidth(tp !== 'gall') - (tp === 'widg' ? 7 : 4);
-
- 					if ($i[0].tagName === 'TR') {
- 						$i.find('>td:eq(0)').is(function() {
- 							$a.width(w).prependTo($(this).css('position', 'relative'));
- 							if (tp === 'lstc') $a.height($i.outerHeight() + $i.next().outerHeight());
- 						});
- 					} else $a.prependTo(this).width(w);
-
- 					$i.removeAttr('data-hottrack').removeAttr('data-type');
-
- 					// 모달 보기 사용시
- 					if ($i.is('[data-modal-key]')) {
- 						$a.attr({
- 							'type': 'example/modal',
- 							'data-footer': '__PID_MODAL_FOOTER__',
- 							'data-header': '__PID_MODAL_HEADER__'
- 						}).pidModalWindow(pid_mpar || '');
- 					}
- 				});
+ 			sjDxFuncs.reSized();
  		})
  		.load(function() {
- 			$('a[data-modal-scrollinto=true]:last', pid_mdoc || '').parent().is(function() {
+ 			$('a[data-modal-scrollinto=true]:last', sjDxFuncs.isMobj('s') || '').parent().is(function() {
  				$(this).closest('.scClst:hidden').is(function() {
  					$(this).show();
  				});
