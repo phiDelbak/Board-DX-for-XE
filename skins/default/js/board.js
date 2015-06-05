@@ -444,7 +444,7 @@
  	// check iframe
  	try {
  		var frm = $(window.frameElement);
- 		if (frm.is('[id=pidOframe]')) {
+ 		if (frm.is('[id=pidOiFrame]')) {
  			sjDxFuncs.pidFrm = frm;
  			var mpp = frm.parent().parent(),
  				mbd = $('body', frm[0].contentDocument || frm[0].contentWindow.document);

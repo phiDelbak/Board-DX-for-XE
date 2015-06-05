@@ -514,7 +514,8 @@
 #siCat.text li strong {
 	padding: 0 8px;
 	border-right: 1px solid #ddd;
-	line-height: 12px;
+	font-size: 12px;
+	line-height: 14px;
 	white-space: nowrap
 }
 
@@ -523,6 +524,15 @@
 	color: #000;
 	font-weight: bold;
 	letter-spacing: -1px
+}
+
+#siCat.text li.fr {
+	position: absolute;
+	right: 0;
+}
+
+#siCat.text li.fr a {
+	border: 0;
 }
 
 #siCat.tabn {
@@ -2607,6 +2617,41 @@ strong.sCkChr {
 #siBody .history {
 	min-height: 250px;
 	padding: 10px;
+}
+
+.pid_modal-foot a {
+	position: relative;
+	padding: 2px 12px 2px 2px;
+	margin: 0;
+	font-size: 14px;
+	line-height: 16px;
+	text-decoration: none;
+	color: #555;
+}
+
+.pid_modal-foot a:after {
+	position: absolute;
+	top: 2px;
+	right: 0;
+	content: "›";
+	color: #888;
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, sans-serif
+}
+
+.pid_modal-foot a.prev {
+	padding: 2px 2px 2px 12px;
+}
+
+.pid_modal-foot a.prev:after {
+	content: "‹";
+	right: auto;
+	left: 0;
+}
+
+.pid_modal-foot a:hover {
+	text-decoration: underline
 }
 
 

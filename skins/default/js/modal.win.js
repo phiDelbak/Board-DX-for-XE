@@ -24,14 +24,14 @@
 							if (zidx < thzidx) zidx = thzidx;
 						});
 				} catch (e) {
-					zidx = 999999;
+					zidx = 99999;
 				}
 
-				if (zidx > 99999999) zidx = 99999999;
+				if (zidx > 9999999) zidx = 9999999;
 				this.topZidx = zidx;
 			}
 
-			return zidx + 99;
+			return zidx + 999;
 		},
 		waitMessage: function(url, target) {
 			var $target = target ? $(target) : $('body'),
@@ -75,7 +75,7 @@
 	$.fn.extend({
 		pidModalgoUrl: function(url, resize, callback, mdmode) {
 			var $modal = $(this),
-				$oFrm = $('#pidOframe', $modal) /*, is_iframe*/ ;
+				$oFrm = $('#pidOiFrame', $modal) /*, is_iframe*/ ;
 
 			// false. the target position control
 			var validModal = function(ifrm) {
@@ -99,7 +99,7 @@
 				$oFrm.get(0).src = url;
 			} else {
 				// object는 아직 문제가 많아, 그냥 iframe 사용하기로...
-				$oFrm = $('<iframe id="pidOframe" data-resize="' + resize + '" allowTransparency="true" frameborder="0" scrolling="no" />')
+				$oFrm = $('<iframe id="pidOiFrame" name="pid_oi_frame" data-resize="' + resize + '" allowTransparency="true" frameborder="0" scrolling="no" />')
 					.on('load', function() {
 						$(this).parent().scrollTop(0);
 						validModal(this);
@@ -208,7 +208,7 @@
 							if ($mob.height() !== h) $mob.height(h);
 						}
 
-						if (!$modal.find('#pidOframe').length) clearInterval(timer);
+						if (!$modal.find('#pidOiFrame').length) clearInterval(timer);
 					}, 500);
 				},
 				setModalTimer = function() {
@@ -250,7 +250,7 @@
 								left: Math.floor((pw - $modal.outerWidth(true)) / 2)
 							});
 						}
-						if (!$modal.find('#pidOframe').length) clearInterval(timer);
+						if (!$modal.find('#pidOiFrame').length) clearInterval(timer);
 					}, 500);
 				};
 
@@ -462,7 +462,7 @@
 	try {
 		$(window.frameElement)
 			.filter(function() {
-				return $(this).is('[id=pidOframe]');
+				return $(this).is('[id=pidOiFrame]');
 			})
 			.is(function() {
 				var $oFrm = $(this),
