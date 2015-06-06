@@ -429,6 +429,14 @@
 				<description xml:lang="jp">게시판의 하단에 카피라이트 Board DX의 텍스트와 링크를 바꿉니다. (예제: Board DX,http://link)</description>
 				<description xml:lang="en">게시판의 하단에 카피라이트 Board DX의 텍스트와 링크를 바꿉니다. (예제: Board DX,http://link)</description>
 			</var>
+			<var name="custom_css" type="textarea">
+				<title xml:lang="ko">사용자 CSS</title>
+				<title xml:lang="jp">使用者 CSS</title>
+				<title xml:lang="en">Custom CSS</title>
+				<description xml:lang="ko">게시판 스타일을 CSS 코드를 사용해서 직접 수정할 수 있습니다.</description>
+				<description xml:lang="jp">掲示板スタイルを CSS コードを使って直接修正することができます.</description>
+				<description xml:lang="en">You can specified a board style by custom CSS.</description>
+			</var>
 		</group>
 	</extra_vars>
 </skin>
