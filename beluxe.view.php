@@ -55,7 +55,7 @@ class beluxeView extends beluxe
         $oMi->default_clist_count = (int) (is_numeric($navi[4]) ? $navi[4] : 50);
         $oMi->default_dlist_count = (int) (is_numeric($navi[5]) ? $navi[5] : $oMi->default_list_count);  //값이 없을때 호환을 위해 null 체크
 
-        if (!$oMi->skin || $oMi->skin == '/USE_DEFAULT/') {
+        if (!$oMi->skin || $oMi->skin === '/USE_DEFAULT/') {
             $oMi->skin = 'default';
             $oMi->mskin = 'default/mobile';
         }
@@ -81,7 +81,7 @@ class beluxeView extends beluxe
         }
 
         // 상담 기능 체크. 현재 게시판의 관리자이면 상담기능을 off시킴, 현재 사용자가 비로그인 사용자라면 글쓰기/댓글쓰기/목록보기/글보기 권한을 제거
-        if ($oMi->consultation == 'Y' && !Context::get('is_logged')) {
+        if ($oMi->consultation === 'Y' && !Context::get('is_logged')) {
             $this->grant->list = $this->grant->write_document = $this->grant->write_comment = $this->grant->view = FALSE;
         }
     }
@@ -141,7 +141,7 @@ class beluxeView extends beluxe
         $is_doc = $aDoc && $aDoc->isExists() ? (int)$aDoc->document_srl : 0;
 
         // 상담 기능시 현재 로그인 사용자 글만 나타나도록 변경
-        if ($oMi->consultation == 'Y' && !$this->grant->manager) {
+        if ($oMi->consultation === 'Y' && !$this->grant->manager) {
             $oLogIfo = Context::get('logged_info');
             $args->member_srl = $oLogIfo->member_srl;
         }
@@ -197,7 +197,7 @@ class beluxeView extends beluxe
         } else {
 
             $ori_page = $nvi_page = 0;
-            $is_get_srls = strpos($args->search_target, 't_comment_') === 0 || $args->search_target == 'is_adopted';
+            $is_get_srls = strpos($args->search_target, 't_comment_') === 0 || $args->search_target === 'is_adopted';
 
             if ($is_doc)
             {
@@ -227,7 +227,7 @@ class beluxeView extends beluxe
 
                 // 댓글 검색은 내용만 지원해서 만듬...
                 // 사용자 검색일땐 하단 목록 페이지도 같이 맞춰줌
-                $out = ($args->search_target == 'is_adopted')
+                $out = ($args->search_target === 'is_adopted')
                     ? $this->cmThis->getDocumentSrlsByAdopt($args, $order)
                     : $this->cmThis->getDocumentSrlsByComment($args, $order);
 
@@ -276,11 +276,11 @@ class beluxeView extends beluxe
                     // 글 보기 권한을 체크
                     $is_empty = !$this->grant->{$a_iswrite ? 'write_document' : 'view'} && !$is_grant;
                     // 상담기능이 사용되면 사용자의 글인지 체크
-                    if (!$is_empty && $oMi->consultation == 'Y') $is_empty = !$is_grant;
+                    if (!$is_empty && $oMi->consultation === 'Y') $is_empty = !$is_grant;
                     // 수정시 비회원 글 권한 체크
                     if (!$is_empty && $a_iswrite && !$out->get('member_srl')) $is_empty = !$is_grant;
                     // 블라인드 기능이 사용되면 블라인드 체크
-                    if (!$is_empty && !$this->grant->manager && $oMi->use_blind == 'Y') $is_empty = $this->cmThis->isBlind($doc_srl);
+                    if (!$is_empty && !$this->grant->manager && $oMi->use_blind === 'Y') $is_empty = $this->cmThis->isBlind($doc_srl);
                 }
                 else {
                     // 공지는 누구나 볼 수 있게 함
@@ -298,10 +298,10 @@ class beluxeView extends beluxe
                 } else {
                     $is_read = true;
                     // 권한이 있고 제한 기능 사용시
-                    if(!$is_grant && !$is_secret && $oMi->use_point_type != 'A' && $oMi->use_restrict_view != 'N')
+                    if(!$is_grant && !$is_secret && $oMi->use_point_type !== 'A' && $oMi->use_restrict_view !== 'N')
                     {
-                        $is_read = $oMi->use_restrict_view=='Y'&&$this->cmThis->isWrote($doc_srl, $mbr_srl, true, 'cmt')
-                                || $oMi->use_restrict_view=='P'&&$this->cmThis->isRead($doc_srl, $mbr_srl);
+                        $is_read = $oMi->use_restrict_view === 'Y' && $this->cmThis->isWrote($doc_srl, $mbr_srl, true, 'cmt')
+                                || $oMi->use_restrict_view === 'P' && $this->cmThis->isRead($doc_srl, $mbr_srl);
                         // 포인트가 0인것은 패스
                         if(!$is_read) {
                             $un_extra = $out->get('extra_vars');
@@ -321,18 +321,18 @@ class beluxeView extends beluxe
 
                     $b_title = $out->getTitleText();
 
-                    if(strtolower(Context::get('cate_trace'))!=='n')
-                    {
+                    if (
+                        $oMi->category_trace === 'Y'
+                        && strtolower(Context::get('cate_trace')) !== 'n'
+                        && (!$out->isNotice() || $oMi->notice_category === 'Y')
+                    ) {
                         $temp = $this->lstCfg['temp'];
                         $category_srl = Context::get('category_srl');
                         $temp->dccate = $out->get('category_srl');
                         // 넘어온 분류와 문서 분류가 다를 경우 바꿈 //공지는 제외
                         if($temp->iscate && $temp->dccate != $category_srl) {
-                            $temp->chcate = $oMi->category_trace == 'Y' && (!$out->isNotice() || $oMi->notice_category == 'Y');
-                            if ($temp->chcate) {
-                                $category_srl = $temp->dccate;
-                                Context::set('category_srl', $category_srl, true);
-                            }
+                            $category_srl = $temp->dccate;
+                            Context::set('category_srl', $category_srl, true);
                         }
                     }
                 }
@@ -462,6 +462,38 @@ class beluxeView extends beluxe
         $this->_templateFileLoad('doctags');
     }
 
+    function dispBoardContentCommentList() {
+        $this->_setBeluxeCommonInfo();
+        $doc = $this->_setBeluxeContentView();
+
+        $this->oScrt->encodeHTML('category_srl', 'document_srl', 'cpage','clist_count');
+        $args = Context::gets('category_srl', 'document_srl', 'cpage','clist_count');
+
+        if($doc->isExists() && $doc->document_srl) {
+            $args->document_srl = $doc->document_srl;
+            $cmt_cnt = $args->clist_count?$args->clist_count:$this->module_info->default_clist_count;
+
+            // 분류에 navigation 이 있으면 설정
+            if(!$args->clist_count && $args->category_srl) {
+                $ct_navi = $this->cmThis->getCategoryList($this->module_srl, $args->category_srl);
+                if (count($ct_navi->navigation)) {
+                    if($ct_navi->navigation->clist_count) $cmt_cnt = (int)$ct_navi->navigation->clist_count;
+                }
+            }
+
+            $cmt_cnt = $cmt_cnt ? $cmt_cnt : 50;
+            $out = $this->cmThis->getCommentList($args->document_srl, $args->cpage, $this->grant->manager, $cmt_cnt);
+        }
+
+        if(!$out){
+            $out->data = $out->page_navigation = array();
+            $out->total_count = $out->total_page = 0;
+        }
+
+        Context::set('comment_list', $out);
+        $this->_templateFileLoad('comment');
+    }
+
     function dispBoardContent() {
         $this->_setBeluxeCommonInfo();
         $doc = $this->_setBeluxeContentView();
@@ -493,38 +525,6 @@ class beluxeView extends beluxe
     function dispBoardDeleteComment() {
         $this->dispBoardWriteComment();
         $this->_templateFileLoad('delete');
-    }
-
-    function dispBoardContentCommentList() {
-        $this->_setBeluxeCommonInfo();
-        $doc = $this->_setBeluxeContentView();
-
-        $this->oScrt->encodeHTML('category_srl', 'document_srl', 'cpage','clist_count');
-        $args = Context::gets('category_srl', 'document_srl', 'cpage','clist_count');
-
-        if($doc->isExists() && $doc->document_srl) {
-            $args->document_srl = $doc->document_srl;
-            $cmt_cnt = $args->clist_count?$args->clist_count:$this->module_info->default_clist_count;
-
-            // 분류에 navigation 이 있으면 설정
-            if(!$args->clist_count && $args->category_srl) {
-                $ct_navi = $this->cmThis->getCategoryList($this->module_srl, $args->category_srl);
-                if (count($ct_navi->navigation)) {
-                    if($ct_navi->navigation->clist_count) $cmt_cnt = (int)$ct_navi->navigation->clist_count;
-                }
-            }
-
-            $cmt_cnt = $cmt_cnt ? $cmt_cnt : 50;
-            $out = $this->cmThis->getCommentList($args->document_srl, $args->cpage, $this->grant->manager, $cmt_cnt);
-        }
-
-        if(!$out){
-            $out->data = $out->page_navigation = array();
-            $out->total_count = $out->total_page = 0;
-        }
-
-        Context::set('comment_list', $out);
-        $this->_templateFileLoad('comment');
     }
 
     /**************************************************************/

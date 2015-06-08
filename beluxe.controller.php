@@ -41,7 +41,7 @@ class beluxeController extends beluxe
 
 		if(!$retUrl && func_num_args()){
 			$retAct = Context::get('success_return_act');
-			// 3자이상 순수 알파벳만 받음
+			// 보안을 위해, 3자이상 순수 알파벳만 받음
         	if(!preg_match("/[A-Za-z]{3,}/i", $retAct)) $retAct = '';
 
 			$args = array_merge(
@@ -79,9 +79,9 @@ class beluxeController extends beluxe
 	        $_SESSION['XE_VALIDATOR_ERROR'] = $a_err;
 	        $_SESSION['XE_VALIDATOR_MESSAGE'] = Context::getLang($a_msg);
 	        $_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = $a_type ? $a_type : ($a_err<0?'error':'info');
-	        //$_SESSION['XE_VALIDATOR_ID'] = $a_id ? $a_id : Context::get('xe_validator_id');
+	        $_SESSION['XE_VALIDATOR_ID'] = $a_id ? $a_id : Context::get('xe_validator_id');
 
-	        if($a_id) Context::set('xe_validator_id', $a_id);
+	        if($a_id) Context::set('xe_validator_id', $_SESSION['XE_VALIDATOR_ID']);
 	        if($a_retUrl) $_SESSION['XE_VALIDATOR_RETURN_URL'] = $a_retUrl;
 	        if($a_err < 0) $this->setMessage($a_msg);
 		}
@@ -99,7 +99,7 @@ class beluxeController extends beluxe
 
 	function _setAnonymous(&$pObj, $aMbrIfo)
 	{
-		if($pObj->anonymous == 'Y')
+		if($pObj->anonymous === 'Y')
 		{
 			$pObj->notify_message = 'N';
 			$pObj->member_srl = -1 * $aMbrIfo->member_srl;
@@ -335,59 +335,48 @@ class beluxeController extends beluxe
 			unset($args->nick_name);
 			unset($args->password);
 		}
-		else if($oMi->consultation == 'Y')
+		else if($oMi->consultation === 'Y')
 		{
 			return new Object(-1,'msg_invalid_request');
 		}
 
 		// 값 체크
 		settype($args->title, "string");
-		if($args->title == '') $args->title = cut_str(strip_tags($args->content), 20);
-		if($args->title == '') $args->title = 'Untitled';
+		//if(!trim($args->title)) $args->title = cut_str(strip_tags($args->content), 20);
+		if(!trim($args->title)) $args->title = 'Untitled';
 		if($args->tags) $args->tags = preg_replace('/\s+/', ',', strip_tags($args->tags));
 
-		$args->allow_comment = $args->allow_comment == 'Y' ? 'Y' : 'N';
-		$args->allow_trackback = $args->allow_trackback == 'Y' ? 'Y' : 'N';
-		$args->is_notice = $this->grant->manager && $args->is_notice == 'Y' ? 'Y' : 'N';
+		$args->allow_comment = $args->allow_comment === 'Y' ? 'Y' : 'N';
+		$args->allow_trackback = $args->allow_trackback === 'Y' ? 'Y' : 'N';
+		$args->is_notice = $this->grant->manager && $args->is_notice === 'Y' ? 'Y' : 'N';
 
 		// 관리자이면
 		if($this->grant->manager)
 		{
 			// 사용자 상태, 공지 아니면 is_notice에 입력 TODO is_notice인 이유? 필드가 없어...
-			if($oMi->custom_status && $args->is_notice != 'Y')
-			{
+			if($oMi->custom_status && $args->is_notice !== 'Y') {
 				$args->is_notice = (string) ((int) $args->custom_status < 1 && (int) $args->custom_status > 9) ? 'N' : $args->custom_status;
 			}
-		}
-		else
-		{
+		} else {
 			// 제목 색상 변경 허용이 아니라면 게시글 색상/굵기 제거
-			if($oMi->use_title_color != 'Y')
-			{
+			if($oMi->use_title_color !== 'Y') {
 				unset($args->title_color);
 				unset($args->title_bold);
 			}
 
-			if($oMi->allow_comment == 'Y' || $oMi->allow_comment == 'N')
-			{
-				$args->allow_comment = $oMi->allow_comment;
-			}
-
-			if($oMi->allow_trackback == 'Y' || $oMi->allow_trackback == 'N')
-			{
-				$args->allow_trackback = $oMi->allow_trackback;
-			}
+			if($oMi->allow_comment === 'Y' || $oMi->allow_comment === 'N') $args->allow_comment = $oMi->allow_comment;
+			if($oMi->allow_trackback === 'Y' || $oMi->allow_trackback === 'N') $args->allow_trackback = $oMi->allow_trackback;
 		}
 
 		// 사용 상태에 없는 값이면 임시로 설정, 공지는 공개로
 		$use_status = explode(',', $oMi->use_status);
 		if(!in_array($args->status, $use_status)) $args->status = count($use_status) ? $use_status[0] : 'PUBLIC';
-		if($args->is_notice == 'Y' && $this->grant->manager) $args->status = 'PUBLIC';
+		if($args->is_notice === 'Y' && $this->grant->manager) $args->status = 'PUBLIC';
 
 		// 포인트 사용이 아니면 포인트 값 제거
 		$args->use_point = (int) $args->use_point;
-		$is_use_point = $oMi->use_point_type != 'A' && ($oMi->use_restrict_view == 'P' || $oMi->use_restrict_down == 'P');
-		$is_use_point = Context::get('is_logged') && ($oMi->use_point_type == 'A' || $is_use_point);
+		$is_use_point = $oMi->use_point_type !== 'A' && ($oMi->use_restrict_view === 'P' || $oMi->use_restrict_down === 'P');
+		$is_use_point = Context::get('is_logged') && ($oMi->use_point_type === 'A' || $is_use_point);
 		if(!$is_use_point) unset($args->use_point);
 
 		// document module의 객체 생성
@@ -412,7 +401,7 @@ class beluxeController extends beluxe
 
 		// 익명 사용중인지 체크
 		$is_anonymous = $log_mbr_srl && in_array($oMi->use_anonymous, array('Y', 'S'));
-		$args->anonymous = ($is_anonymous && ($oMi->use_anonymous == 'Y' || $args->anonymous == 'Y')) ? 'Y' : 'N';
+		$args->anonymous = ($is_anonymous && ($oMi->use_anonymous === 'Y' || $args->anonymous === 'Y')) ? 'Y' : 'N';
 
 		$oDB = &DB::getInstance();
 		if($oDB)
@@ -429,7 +418,7 @@ class beluxeController extends beluxe
 					return new Object(-1,'msg_not_permitted');
 				}
 
-				if(!$this->grant->manager && ($oMi->use_lock_document != 'N' || $oMi->use_point_type == 'A'))
+				if(!$this->grant->manager && ($oMi->use_lock_document !== 'N' || $oMi->use_point_type === 'A'))
 				{
 					// 새로 db 읽는거 방지를 위해 값 저장
 					if(!isset($GLOBALS['XE_DOCUMENT_LIST'][$doc_srl]))
@@ -487,14 +476,15 @@ class beluxeController extends beluxe
 			{
 			// 그렇지 않으면 신규 등록
 				//text_editor 옵션이 있으면 변경
-				if($args->text_editor == 'Y')
+				if($args->text_editor === 'Y')
 				{
-					if($args->use_html != 'Y') $args->content = htmlspecialchars($args->content);
+					if($args->use_html !== 'Y') $args->content = htmlspecialchars($args->content);
 					$args->content = nl2br($args->content);
 				}
 
 				//익명 사용시
-				if($is_anonymous = $args->anonymous == 'Y') $this->_setAnonymous($args, $oLogIfo);
+				$is_anonymous = $args->anonymous === 'Y';
+				if($is_anonymous) $this->_setAnonymous($args, $oLogIfo);
 
 				// 신규에 srl 이 있으면 첨부 파일이 들어있는 경우
 				$out = $ccDocument->insertDocument($args, $is_anonymous);
@@ -566,7 +556,7 @@ class beluxeController extends beluxe
 			unset($args->nick_name);
 			unset($args->password);
 		}
-		else if($oMi->consultation == 'Y')
+		else if($oMi->consultation === 'Y')
 		{
 			return new Object(-1,'msg_invalid_request');
 		}
@@ -574,7 +564,7 @@ class beluxeController extends beluxe
 		// 사용 상태에 없는 값이면 비밀로 설정
 		$use_status = explode(',', $oMi->use_c_status);
 		if(!in_array($args->status, $use_status)) $args->status = count($use_status) ? $use_status[0] : 'PUBLIC';
-		$args->is_secret = $args->status == 'SECRET' ? 'Y' : 'N';
+		$args->is_secret = $args->status === 'SECRET' ? 'Y' : 'N';
 		unset($args->status);
 
 		// 원글이 존재하는지 체크
@@ -606,7 +596,7 @@ class beluxeController extends beluxe
 		}
 
 		// 자신의 글에 자신의 댓글 막기 사용중이면 체크
-		if($oMi->use_lock_owner_comment == 'Y' && !$args->parent_srl)
+		if($oMi->use_lock_owner_comment === 'Y' && !$args->parent_srl)
 		{
 			$is_mbr_srl = $log_mbr_srl && ($log_mbr_srl == (int) $oDocIfo->get('member_srl'));
 			$is_ipaddress = !$is_mbr_srl && ($_SERVER['REMOTE_ADDR'] == $oDocIfo->get('ipaddress'));
@@ -615,7 +605,7 @@ class beluxeController extends beluxe
 
 		// 익명 사용중인지 체크
 		$is_anonymous = $log_mbr_srl && in_array($oMi->use_anonymous, array('Y','S'));
-		$args->anonymous = ($is_anonymous && ($oMi->use_anonymous == 'Y' || $args->anonymous == 'Y')) ? 'Y' : 'N';
+		$args->anonymous = ($is_anonymous && ($oMi->use_anonymous === 'Y' || $args->anonymous === 'Y')) ? 'Y' : 'N';
 
 		unset($vote_point);
 
@@ -627,7 +617,7 @@ class beluxeController extends beluxe
 			if(!$args->parent_srl && (int) $args->vote_point)
 			{
 				// 포인트 체크 사용중일때 포인트가 없으면 중단
-				if($oMi->use_check_vote_point == 'Y')
+				if($oMi->use_check_vote_point === 'Y')
 				{
 					if(!$log_mbr_srl)
 					{
@@ -646,7 +636,7 @@ class beluxeController extends beluxe
 				if((int) $args->vote_point && !$cmThis->isVoted($doc_srl, $log_mbr_srl, FALSE))
 				{
 					// 포인트 체크 사용중일땐 1 이상도 받음
-					if($oMi->use_check_vote_point == 'Y')
+					if($oMi->use_check_vote_point === 'Y')
 						$vote_point = (int) $args->vote_point;
 					else
 						$vote_point = $args->vote_point<0 ? -1 : 1;
@@ -659,7 +649,7 @@ class beluxeController extends beluxe
 					}
 
 					// 포인트 체크 사용중일때 포인트 감소
-					$vote_point = $oMi->use_check_vote_point=='Y' ? $vote_point : 0;
+					$vote_point = $oMi->use_check_vote_point === 'Y' ? $vote_point : 0;
 				}
 			}
 
@@ -673,7 +663,7 @@ class beluxeController extends beluxe
 					return new Object(-1,'msg_not_permitted');
 				}
 
-				if(!$this->grant->manager && $oMi->use_point_type == 'A')
+				if(!$this->grant->manager && $oMi->use_point_type === 'A')
 				{
 					$cmThis = &getModel(__XEFM_NAME__);
 					$is_lock = $cmThis->isLocked($cmt_srl, 'cmt');
@@ -698,14 +688,14 @@ class beluxeController extends beluxe
 			{
 			// 없을 경우 신규 입력
 				//text_editor 옵션이 있으면 변경
-				if($args->text_editor == 'Y')
+				if($args->text_editor === 'Y')
 				{
-					if($args->use_html != 'Y')$args->content = htmlspecialchars($args->content);
+					if($args->use_html !== 'Y')$args->content = htmlspecialchars($args->content);
 					$args->content = nl2br($args->content);
 				}
 
 				//익명 사용시
-				if($is_anonymous = $args->anonymous == 'Y') $this->_setAnonymous($args, $oLogIfo);
+				if($is_anonymous = $args->anonymous === 'Y') $this->_setAnonymous($args, $oLogIfo);
 
 				$out = $ccComment->insertComment($args, $is_anonymous);
 
@@ -735,7 +725,7 @@ class beluxeController extends beluxe
 			}
 
 			// 포인트 체크 사용중일때 포인트 감소
-			if($oMi->use_check_vote_point == 'Y' && $vote_point)
+			if($oMi->use_check_vote_point === 'Y' && $vote_point)
 			{
 				$ccPoint = &getController('point');
 				$ccPoint->setPoint($log_mbr_srl, $vote_point, 'minus');
@@ -766,7 +756,7 @@ class beluxeController extends beluxe
 
 		$oMi = $this->_getModuleInfo($mod_srl);
 
-		if(!$this->grant->manager && ($oMi->use_lock_document != 'N' || $oMi->use_point_type == 'A'))
+		if(!$this->grant->manager && ($oMi->use_lock_document !== 'N' || $oMi->use_point_type === 'A'))
 		{
 			//값이없으면 새로 db 읽는거 방지를 위해 값 저장
 			if(!isset($GLOBALS['XE_DOCUMENT_LIST'][$doc_srl]))
@@ -790,7 +780,7 @@ class beluxeController extends beluxe
 			$oDB->begin();
 
 			//다국어일 경우
-			if($args->multilingual=='Y')
+			if($args->multilingual === 'Y')
 			{
 				$lnc_type = Context::getLangType();
 
@@ -838,7 +828,7 @@ class beluxeController extends beluxe
 				// 삭제 시도
 				$ccDocument = &getController('document');
 
-				if($oMi->use_trash == 'N')
+				if($oMi->use_trash === 'N')
 					$out = $ccDocument->deleteDocument($doc_srl, $this->grant->manager);
 				else
 				{
@@ -1024,7 +1014,7 @@ class beluxeController extends beluxe
 		$oMi = $this->_getModuleInfo($mod_srl);
 		if($oMi->module_srl != $mod_srl) return new Object(-1,'msg_invalid_request');
 
-		$pt_restrict = $oMi->use_point_type != 'A' && $oMi->use_restrict_view == 'P';
+		$pt_restrict = $oMi->use_point_type !== 'A' && $oMi->use_restrict_view === 'P';
 		if(!$pt_restrict) return new Object(-1,'msg_invalid_request');
 
 		$cmThis = &getModel(__XEFM_NAME__);
@@ -1071,7 +1061,7 @@ class beluxeController extends beluxe
 		$oMi = $this->_getModuleInfo();
 
 		$re_point = explode(':', $oMi->use_recover_vote_point);
-		if($re_point[0] != 'Y' || !$doc_srl) return new Object(-1,'msg_invalid_request');
+		if($re_point[0] !== 'Y' || !$doc_srl) return new Object(-1,'msg_invalid_request');
 
 		$cmThis = &getModel(__XEFM_NAME__);
 		$args->member_srl = $mbr_srl;
@@ -1201,21 +1191,18 @@ class beluxeController extends beluxe
 		$mod_srl = $oDocIfo->get('module_srl');
 		$oMi = $this->_getModuleInfo($mod_srl);
 
-		if(!$oMi || $oMi->module_srl != $pObj->module_srl)
-		{
-			$cmModule = &getModel('module');
-			$oMi = $cmModule->getModuleInfoByModuleSrl($pObj->module_srl);
-		}
+		if($oMi->module_srl != $pObj->module_srl) return new Object(-1, 'msg_invalid_request');
+		if($oMi->use_point_type === 'A') return new Object();
 
 		$cmThis = &getModel(__XEFM_NAME__);
 
-		if($oMi->use_point_type != 'A' && $oMi->use_restrict_down == 'Y')
+		if($oMi->use_restrict_down === 'Y')
 		{
 			if($cmThis->isWrote($pObj->upload_target_srl, $mbr_srl, TRUE, 'cmt'))
 				return new Object();
 			else return new Object(-1,'msg_required_comment');
 		}
-		else if($oMi->use_point_type != 'A' && $oMi->use_restrict_down == 'P')
+		else if($oMi->use_restrict_down === 'P')
 		{
 			// 포인트 사용시 맴버가 아니면 오류
 			if(!$mbr_srl) return new Object(-1,'msg_not_permitted');

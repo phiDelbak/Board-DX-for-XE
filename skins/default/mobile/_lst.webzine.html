@@ -35,8 +35,8 @@
 					<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
 				</div>
 				<div class="nick">
-					<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span> &rsaquo;
-					<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
+					<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span>
+					&rsaquo; <time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
 				</div>
 			</div>
 		</a>
@@ -97,9 +97,9 @@
 				<li cond="$ds_cstus||$is_cts" class="auth cb">
 					<div class="nick">
 						<block cond="$ds_nick||$ds_user">
-						<span class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span> &rsaquo;
+						<span class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span>
 						</block>
-						<time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
+						&rsaquo; <time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
 					</div>
 				</li>
 			</ul>

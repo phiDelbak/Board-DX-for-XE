@@ -113,6 +113,94 @@ class BeluxeCache
 
 		return $obj;
 	}
+
+	/* @brief Create a cache of Categories */
+	function categoryList($a_modsrl, $a_root)
+	{
+	    /** modules/document/document.model.php **/
+	    function _arrangeCategory(&$p_lst, $list, $depth) {
+	        if (!count($list)) return;
+
+	        $idx = 0;
+	        $list_order = array();
+	        $mid = Context::get('mid');
+	        $cate_srl = Context::get('category_srl');
+
+	        foreach ($list as $key => $val) {
+	            $obj = new stdClass();
+	            $obj->depth = $depth;
+	            $obj->mid = $val['mid'];
+	            $obj->module_srl = $val['module_srl'];
+	            $obj->category_srl = $val['category_srl'];
+	            $obj->parent_srl = $val['parent_srl'];
+	            $obj->title = $val['text'];
+	            $obj->color = $val['color'];
+	            $obj->grant = $val['grant'];
+	            $obj->selected = ($mid == $obj->mid && $cate_srl == $obj->category_srl);
+	            $obj->expand = ($obj->selected || $val['expand'] === 'Y');
+	            $obj->child_count = 0;
+	            $obj->childs = array();
+	            $obj->total_document_count = $obj->document_count = (int)$val['document_count'];
+	            $p_lst[0]->total_document_count += $obj->document_count;
+
+	            $t_prsrl = (int)$obj->parent_srl;
+	            $list_order[$idx++] = $obj->category_srl;
+
+	            // unserialize type and description
+	            $desc = $val['description'];
+	            $desc = (strpos($desc, '|@|') !== FALSE) ? explode('|@|', $desc) : array('', '', $desc);
+	            $obj->description = $desc[2];
+	            $obj->type = $desc[0];
+	            $navi = explode(',', $desc[1]);
+	            $obj->navigation = (object)array(
+	                'sort_index' => $navi[0] ? $navi[0] : $p_lst[$t_prsrl]->navigation->sort_index,
+	                'order_type' => $navi[1] ? $navi[1] : $p_lst[$t_prsrl]->navigation->order_type,
+	                'list_count' => $navi[2] ? $navi[2] : $p_lst[$t_prsrl]->navigation->list_count,
+	                'page_count' => $navi[3] ? $navi[3] : $p_lst[$t_prsrl]->navigation->page_count,
+	                'clist_count' => is_numeric($navi[4]) ? $navi[4] : $p_lst[$t_prsrl]->navigation->clist_count,
+	                'dlist_count' => is_numeric($navi[5]) ? $navi[5] : $p_lst[$t_prsrl]->navigation->dlist_count
+	            );
+
+	            if ($t_prsrl) {
+	                $parent_srl = $obj->parent_srl;
+	                $doc_count = $obj->document_count;
+	                $expand = $obj->expand;
+	                $selected = $obj->selected;
+
+	                while ($parent_srl) {
+	                    $p_lst[$parent_srl]->total_document_count+= $doc_count;
+	                    $p_lst[$parent_srl]->childs[] = $obj->category_srl;
+	                    $p_lst[$parent_srl]->child_count = count($p_lst[$parent_srl]->childs);
+	                    if ($expand) $p_lst[$parent_srl]->expand = $expand;
+	                    if ($selected) $p_lst[$parent_srl]->selected = $selected;
+	                    $parent_srl = $p_lst[$parent_srl]->parent_srl;
+	                }
+	            }
+
+	            $p_lst[$key] = $obj;
+	            if (count($val['list'])) _arrangeCategory($p_lst, $val['list'], $depth + 1);
+	        }
+
+	        if(count($list_order)) {
+	            $p_lst[$list_order[0]]->first = true;
+	            $p_lst[$list_order[count($list_order) - 1]]->last = true;
+	        }
+	    }
+
+        $cmDocument = & getModel('document');
+        $php = $cmDocument->getCategoryPhpFile($a_modsrl);
+        @include ($php);
+
+        $cate_list = array();
+        $cate_list[0] = $a_root;
+        $cate_list[0]->expand = true;
+        $cate_list[0]->selected = !Context::get('category_srl');
+        $cate_list[0]->total_document_count = 0;
+
+        _arrangeCategory($cate_list, $menu->list, 0);
+
+        return $cate_list;
+	}
 }
 
 /* End of file classes.cache.php */

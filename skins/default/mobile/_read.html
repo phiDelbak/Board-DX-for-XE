@@ -109,8 +109,8 @@
     <div class="lic fr">
         <a cond="$mi->display_document_do!='N'" class="document_{$doc_srl} action" href="#popup_menu_area" onclick="return false">{$lang->cmd_document_do}</a>
         <block cond="$mi->display_button_sns != 'N'">
-            <a href="http://twitter.com/" target="_blank" data-type="tw" title="Twitter">Twitter</a>
-            <a href="http://facebook.com/" target="_blank" data-type="fa" title="Facebook">Facebook</a>
+            &nbsp;<a href="http://twitter.com/" target="_blank" data-type="tw" title="Twitter">Twitter</a>,
+            <a href="http://facebook.com/" target="_blank" data-type="fa" title="Facebook">Facebook</a>,
             <a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a>
         </block>
     </div>
@@ -124,13 +124,9 @@
 
 <block cond="$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)">
     {@
-        $nav_ifo = array();
-        $nav_list = $oThis->getNavigationList($oDocument, (int)$mi->navigation_bottom_list_count, $nav_ifo);
-        $t_pagec = (int)$nav_ifo->current_key;
-        $t_pagep = $t_pagec - 1;
-        $t_pagen = $t_pagec + 1;
+        $nav_key = 'Prev';
+        $nav_list = $oThis->getNavigationList($oDocument, (int)$mi->navigation_bottom_list_count);
     }
-
     <button type="button" class="tbn cb" title="open/close">{sprintf($lang->nav_caption, $is_cts?$cts[(int)$category_srl]->title:'ALL')}</button>
     <ul class="nav tgo open">
         <li loop="$nav_list => $key,$val">
@@ -139,19 +135,24 @@
                 $nv_t_tn = $val->getTrackbackCount();
                 $nv_un_ex = ($pt_vtype!='N'||$pt_dtype!='N')?$val->get('extra_vars'):null;
                 $nv_un_ex = is_string($nv_un_ex)?unserialize($nv_un_ex):$nv_un_ex;
+                $val->selected?$nav_key='Next':0;
             }
             <a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'category_srl',$category_srl,'cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
                 <span class="no">
-                    {($t_pagec===$key)?'<strong class="sCkChr">&radic;</strong>':(($t_pagec<$key)?'Next':'Prev')}
+                    {$val->selected?'<strong class="sCkChr">&radic;</strong>':$nav_key}
                 </span>
-                <span class="cate fr">[{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]</span>
                 <span class="scElps">
-                    <em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{abs((int)$nv_un_ex->beluxe->use_point)}</em>
+                    <!--@if($pt_vtype!='N'||$pt_dtype!='N')-->
+                    <em class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{abs((int)$nv_un_ex->beluxe->use_point)}</em>
+                    <!--@else-->
+                    <em>&rsaquo;&nbsp;</em>
+                    <!--@endif-->
                     {$val->getTitle($mi->title_length)}
-                    <span class="fr">
-                        <em cond="$nv_t_cn" class="reply" title="Replies">+{$nv_t_cn}</em><em cond="$nv_t_tn" class="trackback" title="Trackbacks">.{$nv_t_tn}</em>
-                        {$val->printExtraImages(60*60*$mi->duration_new)}
-                    </span>
+                </span>
+                <span class="cate fr">
+                    <em cond="$nv_t_cn" class="reply" title="Replies">+{$nv_t_cn}</em><em cond="$nv_t_tn" class="trackback" title="Trackbacks">.{$nv_t_tn}</em>
+                    {$val->printExtraImages(60*60*$mi->duration_new)}
+                    [{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]
                 </span>
             </a>
         </li>

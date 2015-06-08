@@ -101,7 +101,7 @@
 
 			<div class="auth fl">
 				<span class="{$cmb_srl?'member_'.$cmb_srl:'fsi'}">{cut_str((!$cmb_srl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length)}</span>
-				<time>| {$comment->getRegdate("Y.m.d")}</time>
+				&rsaquo; <time>{$comment->getRegdate("Y.m.d")}</time>
 			</div>
 			<div class="fr">
 				<a cond="$grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()" href="{getUrl('','mid',$mid,'act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl, 'document_srl',$document_srl)}" title="{$lang->new_comment}" class="rb re">{$lang->cmd_reply}</a>

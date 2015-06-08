@@ -178,7 +178,7 @@
 
 		<div class="scExTog" style="display:none"><button type="button" title="{$lang->extra_toggle}"><i></i></button></div>
 
-		{@ $extra_keys = $oThis->getDocumentExtraVars($is_doc?$oDocument->document_srl:0)}
+		{@ $extra_keys = $oThis->getDocumentExtraVars((int)$oDocument->document_srl)}
 		<ul cond="count($extra_keys)" class="scWul extraKeys">
 			<li loop="$extra_keys => $key,$val" class="clearBar" style="display:none"|cond="$mi->use_auto_hide_extra_vars=='Y'&&$val->is_required!='Y'">
 				<label>{$val->name} <span cond="$val->is_required=='Y'" class="required">*</span></label>
@@ -197,8 +197,8 @@
 				<storng class="scBtn blue small"><a href="#insert_filelink" data-seq="{$editor_sequence}" data-srl="{$document_srl}">{$lang->upload_filelink}</a></storng>
 			</label>
 			<label cond="$mi->use_input_tag!='N'" class="scLaEt clearBar">
-				<span>Tags</span>{@ $tag_tmp = htmlspecialchars($oDocument->get('tags'))}
-				<input type="text" name="tags" id="doc_tags" value="{$tag_tmp}" placeholder="{htmlspecialchars($lang->about_tag)}" />
+				<span>Tags</span>
+				<input type="text" name="tags" id="doc_tags" value="{htmlspecialchars($oDocument->get('tags'))}" placeholder="{htmlspecialchars($lang->about_tag)}" />
 			</label>
 		</div>
 

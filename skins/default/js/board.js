@@ -67,8 +67,7 @@
  					if ($i[0].tagName === 'TR') {
  						$i.find('>td:eq(0)').is(function() {
  							$e = $(this).css('position', 'relative');
- 							$a.width(w);
- 							if (tp === 'lstc') $a.height($i.outerHeight() + $i.next().outerHeight());
+ 							$a.width(w).height($i.outerHeight() + (tp === 'lstc' ? $i.next().outerHeight() : 0));
  						});
  					} else $a.width(w);
 
@@ -287,6 +286,7 @@
  				sjDxFuncs.miniMsg($i, 'Please enter the message.');
  				return false;
  			}
+
  			exec_json(
  				ty + '.proc' + sjDxFuncs.ucfirst(ty) + 'Declare', {
  					target_srl: srl,
@@ -322,13 +322,12 @@
  				name = $i.attr('data-adopt-name') || '';
 
  			c = prompt('Send thanks message to ' + name, '');
- 			// 브라우저에서 블럭 옵션이 떠서 다른 방법 씀
- 			// if(typeof c != 'string' || !c.trim()) return alert(_DXS_MSGS_.canceled) || false;
  			if (typeof c != 'string') return false;
  			if (!c.trim()) {
  				sjDxFuncs.miniMsg($i, 'Please enter the message.');
  				return false;
  			}
+
  			exec_json(
  				'beluxe.procBeluxeAdoptComment', {
  					comment_srl: srl,

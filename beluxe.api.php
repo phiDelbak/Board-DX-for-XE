@@ -8,14 +8,6 @@
 class beluxeAPI extends beluxe
 {
 	/**
-	 * @brief notice list
-	 **/
-	function dispBoardNoticeList(&$oModule) {
-		 $oModule->add('notice_list',$this->arrangeContentList(Context::get('notice_list')));
-	}
-
-
-	/**
 	 * @brief content list
 	 **/
 	function dispBoardContentList(&$oModule) {
@@ -39,14 +31,6 @@ class beluxeAPI extends beluxe
 		$oModule->add('page_navigation',Context::get('page_navigation'));
 	}
 
-
-	/**
-	 * @brief category list
-	 **/
-	function dispBoardCategoryList(&$oModule) {
-		$oModule->add('category_list',Context::get('category_list'));
-	}
-
 	/**
 	 * @brief board content view
 	 **/
@@ -56,15 +40,6 @@ class beluxeAPI extends beluxe
 		$oDocument->add('extra_vars',$this->arrangeExtraVars($extra_vars));
 		$oModule->add('oDocument',$this->arrangeContent($oDocument));
 	}
-
-
-	/**
-	 * @brief contents file list
-	 **/
-	function dispBoardContentFileList(&$oModule) {
-		$oModule->add('file_list',$this->arrangeFile(Context::get('file_list')));
-	}
-
 
 	/**
 	 * @brief tag list
@@ -79,6 +54,46 @@ class beluxeAPI extends beluxe
 	function dispBoardContentCommentList(&$oModule) {
 		$oModule->add('comment_list',$this->arrangeComment(Context::get('comment_list')));
 	}
+
+	/**
+	 * @brief notice list
+	function dispBoardNoticeList(&$oModule) {
+		$oModule->add('notice_list',$this->arrangeContentList(Context::get('notice_list')));
+	}
+	 **/
+
+	/**
+	 * @brief category list
+	function dispBoardCategoryList(&$oModule) {
+		$oModule->add('category_list',Context::get('category_list'));
+	}
+	 **/
+
+	/**
+	 * @brief contents file list
+	function dispBoardContentFileList(&$oModule) {
+		$oModule->add('file_list',$this->arrangeFile(Context::get('file_list')));
+	}
+	 **/
+/*
+	function arrangeFile($file_list) {
+		$output = array();
+		if(count($file_list) > 0) {
+			foreach($file_list as $key => $val){
+				$item = new stdClass;
+				$item->sid = $val->sid;
+				$item->download_count = $val->download_count;
+				$item->source_filename = $val->source_filename;
+				$item->uploaded_filename = $val->uploaded_filename;
+				$item->file_size = $val->file_size;
+				$item->regdate = $val->regdate;
+				$item->download_url = $val->download_url;
+				$output[] = $item;
+			}
+		}
+		return $output;
+	}
+*/
 
 	function arrangeContentList($content_list) {
 		$output = array();
@@ -119,25 +134,6 @@ class beluxeAPI extends beluxe
 			foreach($comment_list as $key => $val){
 				$item = null;
 				$item = $val->gets('comment_srl','parent_srl','depth','is_secret','content','voted_count','blamed_count','user_id','user_name','nick_name','email_address','homepage','regdate','last_update');
-				$output[] = $item;
-			}
-		}
-		return $output;
-	}
-
-
-	function arrangeFile($file_list) {
-		$output = array();
-		if(count($file_list) > 0) {
-			foreach($file_list as $key => $val){
-				$item = new stdClass;
-				$item->sid = $val->sid;
-				$item->download_count = $val->download_count;
-				$item->source_filename = $val->source_filename;
-				$item->uploaded_filename = $val->uploaded_filename;
-				$item->file_size = $val->file_size;
-				$item->regdate = $val->regdate;
-				$item->download_url = $val->download_url;
 				$output[] = $item;
 			}
 		}

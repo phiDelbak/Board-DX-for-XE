@@ -18,10 +18,14 @@
 			<div class="no fl">
 				{$nav->selected?'<strong class="sCkChr">&radic;</strong>':$nav_key}
 			</div>
-			<div cond="$is_cts" class="cate fr">
+			<div class="cate fr">
+				<!--@if($is_cts)-->
 				{@ $cate = $cts[$nav->get('category_srl')] }
 				<a cond="$cate" href="{getUrl('','mid',$mid,'category_srl',$cate->category_srl)}" title="{htmlspecialchars($cate->description)}" style="color:{$cate->color}"|cond="$cate->color">[{$cate->title}]</a>
 				<span cond="!$cate">[{$lang->none_category}]</span>
+				<!--@else-->
+				<span>[{$nav->getRegdate("y.m.d")}]</span>
+				<!--@endif-->
 			</div>
 			<div class="scElps {$nav->selected?'active':''}" data-active="true"|cond="$is_elips">
 				<a class="fl" href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}">

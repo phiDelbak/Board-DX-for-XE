@@ -132,7 +132,7 @@
 }
 
 .scBtn.group > * {
-	padding: 0 5px;
+	padding: 0 7px;
 	border-left: 1px solid #ccc!important
 }
 
@@ -373,7 +373,11 @@
 #siBody select,
 #siBody select option {
 	padding: 1px;
-	white-space: nowrap
+	white-space: nowrap;
+}
+
+#siBody select option {
+	display: block;
 }
 
 #siBody img {
@@ -1047,7 +1051,7 @@
 #siLst.list td.content {
 	text-align: left;
 	vertical-align: top;
-	color: #aaa
+	color: #aaa;
 }
 
 
@@ -1462,38 +1466,23 @@
 
 #siDoc .actBtns {
 	margin-top: 10px;
-	text-align: right
+	text-align: right;
 }
 
-#siDoc .action {
-	display: inline-block;
-	line-height: 16px;
-	font-size: 11px;
-	margin: 0 5px 0 0
-}
-
-#siDoc .scSns {
+#siDoc .scSns,
+#siDoc .scSns li {
 	display: inline;
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	vertical-align: top
-}
-
-#siDoc .scSns li {
-	display: inline;
-	vertical-align: top
+	vertical-align: middle;
 }
 
 #siDoc .scSns a {
 	display: inline-block;
-	height: 16px;
-	line-height: 16px
-}
-
-#siDoc .scSns .link a {
 	width: 16px;
 	height: 0;
+	line-height: 16px;
 	padding: 16px 0 0 0;
 	overflow: hidden;
 	background: url(../img/common/sns_set.gif) no-repeat
@@ -2138,19 +2127,19 @@
 	border-bottom: 1px dotted #ddd
 }
 
-#siNavi li div.cate {
-	padding-left: 10px
-}
-
-#siNavi li div.cate a,
-#siNavi li div.no {
-	color: #555;
-	opacity: .7
+#siNavi li div.no,
+#siNavi li div.cate,
+#siNavi li div.cate a {
+	color: #999;
 }
 
 #siNavi li div.no {
 	width: 30px;
 	margin-right: 5px
+}
+
+#siNavi li div.cate {
+	padding-left: 10px
 }
 
 #siNavi li div.scElps em {
@@ -2750,6 +2739,9 @@ noindex:-o-prefocus,
 	#siBody .scSch .keyword {
 		width: 200px!important
 	}
+	#siLst.list td.content {
+		height: 100%;
+	}
 }
 
 
@@ -2767,5 +2759,18 @@ noindex:-o-prefocus,
 	}
 	#siCat.text {
 		margin-top: -8px
+	}
+}
+
+
+/* reaction type */
+
+@media screen and (max-width:450px) {
+	#siFbk .scFbt {
+		float: none;
+	}
+	#siFbk .scCmtCon {
+		margin-left: 0;
+		margin-top: 10px;
 	}
 }

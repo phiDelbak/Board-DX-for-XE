@@ -34,7 +34,7 @@ form select {
 }
 
 .bd {
-	background: #f8f8f8!important;
+	background: #f8f8f8;
 }
 
 
@@ -82,7 +82,7 @@ form select {
 .rp > li > ul > li > div {
 	background: #fff;
 	border: 1px solid #c9c9c9;
-	padding: 10px 15px;
+	padding: 15px;
 	margin: 10px;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -91,10 +91,6 @@ form select {
 	font-size: 14px;
 	line-height: 1.4;
 	list-style: none
-}
-
-.co.ff {
-	padding-top: 2px;
 }
 
 .message {
@@ -141,6 +137,7 @@ form select {
 .co .xv {
 	border-bottom: 1px solid #ccc8be;
 	padding-bottom: 10px;
+	margin-bottom: 10px;
 	color: #555;
 }
 
@@ -342,7 +339,7 @@ form select {
 }
 
 .pn.ts {
-	padding: 5px 10px 10px;
+	padding: 10px 10px;
 	text-align: left;
 	border-top: 0;
 	border-bottom: 1px solid #b5b5b5;
@@ -586,7 +583,11 @@ form select {
 
 .lt.wz li.cb .thum {
 	border: 1px solid #bfbfbf;
-	margin-right: 10px
+	margin-right: 10px;
+	padding: 3px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 }
 
 .lt.wz li.cb .summary {
@@ -708,6 +709,7 @@ form.ff > ul > li {
 }
 
 form.ff > ul hr {
+	margin: 15px 0;
 	border: 0;
 	height: 1px;
 	background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
@@ -905,7 +907,7 @@ form.ff.secret input[type="password"] {
 	display: inline-block;
 	padding: 0 5px;
 	height: 18px;
-	line-height: 16px;
+	line-height: 18px;
 	font-size: 12px;
 	font-weight: normal;
 }
@@ -1043,6 +1045,18 @@ input.bn.small {
 	color: #333
 }
 
+.nav li {
+	white-space: nowrap;
+}
+
+.nav li a {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
+	-moz-binding: url(/ellipsis-xbl.xml#ellipsis);
+}
+
 .nav .no {
 	display: inline-block;
 	color: #999;
@@ -1054,8 +1068,10 @@ input.bn.small {
 
 .nav .cate {
 	font-size: 12px;
-	color: #555;
+	color: #777;
 	margin-left: 10px;
+	position: absolute;
+	right: 23px;
 }
 
 .nav em {
