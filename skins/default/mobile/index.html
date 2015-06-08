@@ -74,6 +74,7 @@
 				<input type="hidden" name="mid" value="{$mid}" />
 				<input type="hidden" name="category" value="{$category}" />
 				<select name="search_target">
+                	<option cond="($ci['title']&&$ci['title']->search=='Y')&&($ci['content']&&$ci['content']->search=='Y')" value="title_content">{Context::getLang('title_content')}</option>
 					<option loop="$ci=>$key,$val" cond="$val->search=='Y'" value="{$key}" selected="selected"|cond="$key==$search_target">{$val->name}</option>
 					<option cond="$search_target&&$ci[$search_target]->search!='Y'" value="{$search_target}" selected="selected">{Context::getLang($search_target)}</option>
 				</select>
