@@ -440,10 +440,12 @@ class beluxeModel extends beluxe
         return $out;
     }
 
-    function getDocumentVotedLogs($a_docsrl, $aObj = NULL)
+    function getDocumentVotedLogs($a_docsrl, $a_mbrsrl = 0)
     {
-        if ($aObj->member_srl) $args->member_srl = $aObj->member_srl;
-        if ($aObj->ipaddress) $args->ipaddress = $aObj->ipaddress;
+        if ($a_mbrsrl) {
+            if(is_numeric($a_mbrsrl)) $args->member_srl = $a_mbrsrl;
+            else $args->ipaddress = $a_mbrsrl;
+        }
 
         $args->document_srl = $a_docsrl;
         $args->sort_index = 'point';
@@ -451,12 +453,24 @@ class beluxeModel extends beluxe
         $outlst = executeQueryArray('beluxe.getDocumentVotedLogs', $args);
         if (!$outlst->toBool() || !$outlst->data) return;
 
-        $re = array();
-        foreach ($outlst->data as $key => $attr) {
-            $re[$attr->member_srl ? $attr->member_srl : $attr->ipaddress] = $attr;
+        if ($a_mbrsrl) {
+            $re = current($outlst->data);
+        }else{
+            $re = array();
+            foreach ($outlst->data as $key => $attr) {
+                $re[$attr->member_srl ? $attr->member_srl : $attr->ipaddress] = $attr;
+            }
         }
 
         return $re;
+    }
+
+    function getDocumentVotedLogCount($a_docsrl)
+    {
+        if (!$a_docsrl) return 0;
+        $args->document_srl = $a_docsrl;
+        $out = executeQuery('beluxe.getDocumentVotedLogCount', $args);
+        return $out->toBool() ? (int)$out->data->count : 0;
     }
 
     function getDocumentDeclaredCount($a_docsrl)
@@ -496,6 +510,15 @@ class beluxeModel extends beluxe
         if (!$out->toBool() || !$out->data) return;
         $out->data = $this->_setCommentItem($out->data);
         return $out;
+    }
+
+    function getCommentCount($a_docsrl, $a_parsrl = null, $a_mbrsrl = null)
+    {
+        $args->document_srl = $a_docsrl;
+        if(is_numeric($a_parsrl)) $args->parent_srl = $a_parsrl;
+        if(is_numeric($a_mbrsrl)) $args->member_srl = $a_mbrsrl;
+        $out = executeQuery('beluxe.getCommentCount', $args);
+        return $out->toBool() ? (int) $out->data->count : 0;
     }
 
     function getDocumentSrlsByAdopt($a_obj, $a_list_order = false)
@@ -583,8 +606,6 @@ class beluxeModel extends beluxe
         $t_vals = $this->_getDocumentColumns($a_docsrl, array('voted_count', 'blamed_count'));
         if (count($t_vals) != 2) return new Object(-1, 'msg_invalid_request');
 
-        $t_vcnt = $t_vals['voted_count'];
-        $t_bcnt = $t_vals['blamed_count'];
         $is_Voted = $this->isVoted($a_docsrl, $a_mbrsrl, FALSE);
 
         $args->document_srl = $a_docsrl;
@@ -592,16 +613,18 @@ class beluxeModel extends beluxe
 
         // 카운트 업데이트 모드이면 이전 값 구함
         if ($a_upmode && $is_Voted) {
-            $vinfo = $this->getDocumentVotedLogs($a_docsrl, $args);
-            $old_point = $vinfo[$a_mbrsrl ? $args->member_srl : $args->ipaddress]->point;
+            $vinfo = $this->getDocumentVotedLogs($a_docsrl, $a_mbrsrl ? $a_mbrsrl : $_SERVER['REMOTE_ADDR']);
+            $old_point = $vinfo->point;
         }
 
         $args->point = $a_point;
         $out = executeQuery(($is_Voted ? 'beluxe.update' : 'document.insert') . 'DocumentVotedLog', $args);
 
-        if ($a_upmode && !$out->error) {
+        if ($a_upmode && $out->toBool()) {
             unset($args);
             $args->document_srl = $a_docsrl;
+            $t_vcnt = $t_vals['voted_count'];
+            $t_bcnt = $t_vals['blamed_count'];
 
             // 새값 넣고 이전 값은 되돌리기
             for ($i = 0; $i < 2; $i++) {
@@ -622,20 +645,6 @@ class beluxeModel extends beluxe
         return $out;
     }
 
-    function setCustomStatus($a_docsrl, $a_value) {
-
-        // 문서번호에 해당하는 글이 있는지 확인
-        $t_vals = $this->_getDocumentColumns($a_docsrl, array('module_srl'));
-        if (!count($t_vals)) return new Object(-1, 'msg_invalid_request');
-
-        $a_value = (int)$a_value;
-        $a_value = ($a_value < 1 && $a_value > 9) ? 'N' : ((string)$a_value);
-
-        $args->document_srl = $a_docsrl;
-        $args->is_notice = $a_value;
-        return executeQuery('beluxe.updateCustomStatus', $args);
-    }
-
     function setCustomActions($a_docsrl, $a_acts) {
 
         // 문서번호에 해당하는 글이 있는지 확인
@@ -652,12 +661,12 @@ class beluxeModel extends beluxe
         // 초기화
         unset($dx_exv->beluxe->action);
 
-        // 혹시 모를 오류에 대비해 값은 숫자로 제한
+        // 혹시 모를 오류에 대비해 값은 255 이하의 숫자로 제한
         for ($i = 0; $i < $c; $i = $i + 2) {
-            $key = $a_acts[$i];
-            if (!strlen($key)) continue;
-            $val = $a_acts[$i + 1];
-            $dx_exv->beluxe->action->{$key} = (int)$val;
+            $key = trim($a_acts[$i]);
+            $val = abs($a_acts[$i + 1]);
+            if (!strlen($key) || $val > 255) continue;
+            $dx_exv->beluxe->action->{$key} = $val;
         }
 
         $args->document_srl = $a_docsrl;

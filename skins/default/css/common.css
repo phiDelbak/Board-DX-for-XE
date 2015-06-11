@@ -242,6 +242,13 @@
 	padding-left: 17px;
 }
 
+.scRdStar,
+.scVtStar,
+.scVtStar em {
+	height: 10px!important;
+	background: url(../img/common/star_set.gif) no-repeat 0 0;
+}
+
 .scRdStar {
 	height: 12px!important;
 	line-height: 12px!important;
@@ -249,7 +256,7 @@
 	font-size: 12px;
 	font-family: Tahoma, Geneva, sans-serif;
 	padding-left: 12px;
-	background: url(../img/common/star_set.gif) no-repeat -60px -18px
+	background-position: -60px -18px
 }
 
 .scRdStar.colorR {
@@ -263,16 +270,13 @@
 .scVtStar {
 	margin-left: 0!important;
 	width: 50px!important;
-	height: 10px!important;
 	display: inline-block;
-	background: url(../img/common/star_set.gif) no-repeat 0 0
 }
 
 .scVtStar em {
 	display: block;
 	width: 0px;
-	height: 10px!important;
-	background: url(../img/common/star_set.gif) no-repeat 0 -20px
+	background-position: 0 -20px
 }
 
 .scVtStar.colorR em {
@@ -935,6 +939,7 @@
 #siLst td em.trackback {
 	font-style: normal;
 	font-size: 10px;
+	font-weight: normal;
 	font-family: Tahoma, Geneva, sans-serif
 }
 
@@ -1126,6 +1131,10 @@
 	height: 15px
 }
 
+#siLst.gall .scInfo li.nick_name {
+	text-align: right
+}
+
 #siLst.gall .scInfo li.scNbsp {
 	height: 33px;
 	line-height: 33px
@@ -1233,13 +1242,12 @@
 	float: left
 }
 
-#siLst.webz .scItem .scFrm li.mbAifo + li[class^="extra_vars"],
-#siLst.webz .scItem .scFrm li.category_srl + li[class^="extra_vars"] {
-	margin-top: 8px
+#siLst.webz .scItem .scFrm li.mbAifo * {
+	color: #555;
 }
 
-#siLst.webz .scItem .scFrm li.mbAifo a {
-	text-decoration: none
+#siLst.webz .scItem .scFrm li.mbAifo + li[class^="extra_vars"] {
+	margin-top: 8px
 }
 
 #siLst.webz .scItem .wzdate {
@@ -1396,7 +1404,7 @@
 	border-bottom: 1px solid #e6e6e6
 }
 
-#siDoc .mbAfrm li:first-child .fr span {
+#siDoc .mbAfrm li:first-child .fr > span {
 	margin-left: 5px
 }
 
@@ -1809,7 +1817,8 @@
 
 #siFbk .scFbWt .scWopts {
 	padding-right: 152px;
-	margin-bottom: 2px
+	margin-bottom: 2px;
+	text-align: right
 }
 
 #siFbk .scFbWt .scWcont {
@@ -1858,14 +1867,17 @@
 	display: none
 }
 
-#siFbk .scFbWt.nipt {
-	text-align: right
-}
-
 #siFbk .scFbWt .scWusr input {
 	margin: 0;
 	width: 16%;
 	max-width: 120px
+}
+
+#siFbk .scFbWt.nowrt {
+	text-align: right;
+	color: #999;
+	padding: 3px 7px;
+	font-size: 12px;
 }
 
 
@@ -2591,6 +2603,14 @@
 .message.wait {
 	padding-top: 2em;
 	background: #FFFDEF url(../../../../../common/img/msg.loading.gif) no-repeat 1em 1em
+}
+
+#BELUXE_MESSAGE.clone {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	z-index: 999;
+	margin: 0;
 }
 
 strong.sCkChr {

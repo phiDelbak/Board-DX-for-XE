@@ -28,7 +28,7 @@
 
 	$colcnt = $sotcnt = 0;
 	$sclms = array();
-	$ds_foot = $ds_update?array('last_update','regdate'):array('regdate');
+	$ds_foot = array($ds_update?'last_update':'regdate');
 
 	$is_notice_widget = !$document_srl && $mi->use_notice_widget=='widget';
 	$a_lsttp = array('notice'=>&$notice_list,'best'=>&$best_list);
@@ -93,13 +93,12 @@
 						<div class="scElps" data-active="true"|cond="$is_elips">
 							<a href="{$purl}" {$md_optstr}>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</a>
 							<span>
-								{@
-									$t_cmtn = $document->getCommentCount();
-									$t_tbkn = $document->getTrackbackCount();
-								}
-								<em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
-								<em cond="!$t_cmtn&&!$t_tbkn">&nbsp;</em>
 							{$document->printExtraImages(60*60*$mi->duration_new)}<img cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
+							{@
+								$t_cmtn = $document->getCommentCount();
+								$t_tbkn = $document->getTrackbackCount();
+							}
+							<em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
 							</span>
 						</div>
 					<!--@break-->
@@ -126,7 +125,7 @@
 								$totalp = $votedp?(($votedp / ($votedp + abs($blamedp)) * 100) * 0.5):0;
 							}
 							<span cond="$ds_readed" class="scRdStar color{$mi->star_style}" title="{$lang->readed_count}">{$document->get('readed_count')}</span>
-							<span class="scVtStar color{$mi->star_style}" title="{$lang->voted_count}: {$votedp.'/'.$blamedp}"><em style="width:{$totalp}px"></em></span>
+							<span class="scVtStar color{$mi->star_style}" title="{$lang->voted_count}: {$votedp.' / '.$blamedp}"><em style="width:{$totalp}px"></em></span>
 						<!--@else-->
 							{$document->get($key)}
 						<!--@endif-->
@@ -173,11 +172,11 @@
 			unset($sclms['last_update']);
 			unset($sclms['last_updater']);
 		}
-		<!--@if($ds_category)-->
-			{@$sclms = array_merge(array('title'=>null,'mbAifo'=>null,'category_srl'=>null), $sclms)}
+		<!--@if($ds_voted || $ds_blamed || $ds_readed)-->
+			{@ $sclms = array_merge(array('title'=>null,'starifo'=>null,'mbAifo'=>null), $sclms)}
 		<!--@else-->
-			{@$sclms = array_merge(array('title'=>null,'mbAifo'=>null), $sclms)}
-		<!--@end-->
+			{@ $sclms = array_merge(array('title'=>null,'mbAifo'=>null), $sclms)}
+		<!--@endif-->
 		<block loop="$document_list => $no,$document">
 		{@
 			$is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
@@ -210,35 +209,22 @@
 											<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$un_extra->beluxe->use_point)}</em>
 											{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}
 										</a>
-										<span class="fr">
-											{@
-												$t_cmtn = $document->getCommentCount();
-												$t_tbkn = $document->getTrackbackCount();
-											}
-											<em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
-											<em cond="!$t_cmtn&&!$t_tbkn">&nbsp;</em>
+										<span>
 											<block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">
 												{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}
 												<img class="scIcoSet coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}" />
 											</block>
 											{$document->printExtraImages(60*60*$mi->duration_new)}<img class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
+											{@
+												$t_cmtn = $document->getCommentCount();
+												$t_tbkn = $document->getTrackbackCount();
+											}
+											<em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
 										</span>
 									</div>
 								<!--@break-->
-								<!--@case('mbAifo')-->
-									<label>{$ds_nick?$lang->nick_name:$lang->user_name}:</label>
-									<block cond="$ds_nick||$ds_user">
-										{@
-											$mbsl = $document->get('member_srl');
-											$home = $document->get('homepage');
-											$nick = (!$mbsl||$ds_nick)?cut_str($document->getNickName(), $mi->nickname_length):'';
-											$nick .= ($mbsl&&$ds_user)?($nick?' (':'').cut_str($document->getUserName(), $mi->nickname_length).($nick?')':''):'';
-										}
-									<i cond="!$mbsl && !$home">{$nick}</i>
-									<span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
-									<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
-									</block>
-									<block cond="$ds_voted || $ds_blamed || $ds_readed || $ds_status">
+								<!--@case('starifo')-->
+									<div class="scElps">
 										<div class="fr">
 										<!--@if($mi->star_style!='N')-->
 											{@
@@ -247,19 +233,34 @@
 												$totalp = $votedp?(($votedp / ($votedp + abs($blamedp)) * 100) * 0.5):0;
 											}
 											<span cond="$ds_readed" class="scRdStar color{$mi->star_style}" title="{$lang->readed_count}">{$document->get('readed_count')}</span>
-											<span cond="$ds_voted || $ds_blamed" class="scVtStar color{$mi->star_style}" title="{$lang->voted_count}: {$votedp.'/'.$blamedp}"><em style="width:{$totalp}px"></em></span>
+											<span cond="$ds_voted || $ds_blamed" class="scVtStar color{$mi->star_style}" title="{$lang->voted_count}: {$votedp.' / '.$blamedp}"><em style="width:{$totalp}px"></em></span>
 										<!--@else-->
 											<span cond="$ds_readed">{$lang->readed_count}: {$document->get('readed_count')}</span>
-											<span cond="$ds_voted || $ds_blamed" style="margin-left:5px">{$lang->voted_count}: {$document->get('voted_count').'/'.$document->get('blamed_count')}</span>
+											<span cond="$ds_voted || $ds_blamed" style="margin-left:5px">{$lang->voted_count}: {$document->get('voted_count').' / '.$document->get('blamed_count')}</span>
 										<!--@endif-->
-										<span cond="$ds_status" class="custom_status_{(int)$document->get('is_notice')}" style="margin-left:5px">[{$cstus[(int)$document->get('is_notice')]}]</span>
 										</div>
-									</block>
+									</div>
 								<!--@break-->
-								<!--@case('category_srl')-->
-									<label>{$lang->category_srl}:</label> {@ $cate = $is_cts?$cts[$document->get('category_srl')]:0 }
-									<a cond="$cate" href="{getUrl('','mid',$mid,'category_srl',$cate->category_srl)}" title="{htmlspecialchars($cate->description)}" style="color:{$cate->color}"|cond="$cate->color">{$cate->title}</a>
-									<span cond="!$cate">{$lang->none_category}</span>
+								<!--@case('mbAifo')-->
+									<block cond="$ds_nick||$ds_user">
+										<label>{$lang->author}:</label>
+										{@
+											$mbsl = $document->get('member_srl');
+											$home = $document->get('homepage');
+											$nick = (!$mbsl||$ds_nick)?cut_str($document->getNickName(), $mi->nickname_length):'';
+											$nick .= ($mbsl&&$ds_user)?($nick?' (':'').cut_str($document->getUserName(), $mi->nickname_length).($nick?')':''):'';
+										}
+										<i cond="!$mbsl && !$home">{$nick}</i>
+										<span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
+										<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
+									</block>
+									<div cond="$ds_category || $ds_status" class="fr">
+										<block cond="$ds_category">
+										{@ $cate = $is_cts?$cts[$document->get('category_srl')]:0 }
+										[<a cond="$cate" href="{getUrl('','mid',$mid,'category_srl',$cate->category_srl)}" title="{htmlspecialchars($cate->description)}" style="color:{$cate->color}"|cond="$cate->color">{$cate->title}</a><span cond="!$cate">{$lang->none_category}</span>]
+										</block>
+										<span cond="$ds_status" class="custom_status_{(int)$document->get('is_notice')}">[{$cstus[(int)$document->get('is_notice')]}]</span>
+									</div>
 								<!--@break-->
 								<!--@default-->
 									<label>{$val->name}:</label> <span>{($ci[$key]->idx > 0)?$document->getExtraValueHTML($ci[$key]->idx):$document->get($key)}</span>
@@ -271,8 +272,6 @@
 					</ul>
 					<div class="wzdate" style="margin-right:-{(int)$mi->thumbnail_width+25}px;">
 						<block loop="$ds_foot=>$val">
-							<span cond="$val=='regdate'&&$ds_update">/</span>
-							<label>{$ci[$val]->name}:</label>
 							<span>{zdate($document->get($val), ($val=='regdate'&&$ds_update?'Y.m.d':'Y-m-d H:i:s'))}</span>
 							<span cond="$val=='last_update'&&$ds_updater&&$document->get('last_updater')">by {cut_str($document->get('last_updater'), $mi->nickname_length)}</span>
 						</block>

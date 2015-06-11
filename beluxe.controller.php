@@ -590,17 +590,24 @@ class beluxeController extends beluxe
 			if(!$oParComIfo->comment_srl) return new Object(-1, 'msg_invalid_request');
 			$args->parent_srl = $oParComIfo->comment_srl;
 		}
-		else
-		{
-			unset($args->parent_srl);
-		}
+		else unset($args->parent_srl);
 
-		// 자신의 글에 자신의 댓글 막기 사용중이면 체크
+		// 자신의 글에 자신의 댓글 막기 사용중이면...
 		if($oMi->use_lock_owner_comment === 'Y' && !$args->parent_srl)
 		{
-			$is_mbr_srl = $log_mbr_srl && ($log_mbr_srl == (int) $oDocIfo->get('member_srl'));
-			$is_ipaddress = !$is_mbr_srl && ($_SERVER['REMOTE_ADDR'] == $oDocIfo->get('ipaddress'));
-			if($is_mbr_srl || $is_ipaddress) return new Object(-1, 'msg_is_not_write_comment');
+			//$is_ipaddress = !$is_mbr_srl && ($_SERVER['REMOTE_ADDR'] == $oDocIfo->get('ipaddress'));
+			if(!$log_mbr_srl || ($log_mbr_srl == (int) $oDocIfo->get('member_srl'))) {
+				//return new Object(-1, 'msg_is_not_write_comment');
+			}
+		}
+
+		// 신규 문서일때 댓글 수 제한이 있으면...
+		$lok_cmt_cnt = (int) $oMi->use_lock_comment_count;
+		if(!$oComIfo->isExists() && $lok_cmt_cnt > 0 && !$args->parent_srl)
+		{
+			if(!$log_mbr_srl || ($lok_cmt_cnt < $cmThis->getCommentCount($doc_srl, 0, $log_mbr_srl))) {
+				return new Object(-1, 'msg_is_not_write_comment');
+			}
 		}
 
 		// 익명 사용중인지 체크
@@ -608,6 +615,8 @@ class beluxeController extends beluxe
 		$args->anonymous = ($is_anonymous && ($oMi->use_anonymous === 'Y' || $args->anonymous === 'Y')) ? 'Y' : 'N';
 
 		unset($vote_point);
+		$chk_vt_point = $oMi->use_vote_point_check === 'Y';
+		$upd_vt_count = $oMi->use_update_vote_count !== 'N';
 
 		$oDB = &DB::getInstance();
 		if($oDB)
@@ -617,39 +626,43 @@ class beluxeController extends beluxe
 			if(!$args->parent_srl && (int) $args->vote_point)
 			{
 				// 포인트 체크 사용중일때 포인트가 없으면 중단
-				if($oMi->use_check_vote_point === 'Y')
+				if($chk_vt_point)
 				{
-					if(!$log_mbr_srl)
-					{
-						$oDB->rollback();
-						return new Object(-1, 'msg_invalid_request');
-					}
+					if(!$log_mbr_srl) return new Object(-1, 'msg_invalid_request');
 
 					$cmPoint = &getModel('point');
-					if($cmPoint->getPoint($log_mbr_srl) < $args->vote_point)
-					{
-						$oDB->rollback();
+					if($cmPoint->getPoint($log_mbr_srl) < $args->vote_point) {
 						return new Object(-1, 'msg_not_enough_point');
 					}
 				}
 
 				if((int) $args->vote_point && !$cmThis->isVoted($doc_srl, $log_mbr_srl, FALSE))
 				{
-					// 포인트 체크 사용중일땐 1 이상도 받음
-					if($oMi->use_check_vote_point === 'Y')
-						$vote_point = (int) $args->vote_point;
-					else
-						$vote_point = $args->vote_point<0 ? -1 : 1;
+					$vote_point = (int) $args->vote_point;
 
-					$vpout = $cmThis->setVotePoint($doc_srl, $log_mbr_srl, $vote_point, $oMi->use_update_vote_count == 'Y', FALSE);
+					// 포인트 체크 사용중일땐 1 이상도 받음
+					if(!$chk_vt_point)
+					{
+						if(strpos($oMi->use_vote_point_range, ':') !== false) {
+							$range = explode(':', $oMi->use_vote_point_range);
+							if($vote_point < (int) $range[0] || $vote_point > (int) $range[1])
+							{
+								$oDB->rollback();
+								return new Object(-1, 'msg_out_of_range');
+							}
+						}
+						else $vote_point = $vote_point < 0 ? -1 : 1;
+					}
+
+					$vpout = $cmThis->setVotePoint($doc_srl, $log_mbr_srl, $vote_point, $upd_vt_count, FALSE);
 					if(!$vpout->toBool())
 					{
 						$oDB->rollback();
 						return $vpout;
 					}
 
-					// 포인트 체크 사용중일때 포인트 감소
-					$vote_point = $oMi->use_check_vote_point === 'Y' ? $vote_point : 0;
+					// 포인트 체크 사용중일때 포인트 감소를 위해...
+					$vote_point = $chk_vt_point ? $vote_point : 0;
 				}
 			}
 
@@ -686,6 +699,7 @@ class beluxeController extends beluxe
 			}
 			else
 			{
+
 			// 없을 경우 신규 입력
 				//text_editor 옵션이 있으면 변경
 				if($args->text_editor === 'Y')
@@ -725,7 +739,7 @@ class beluxeController extends beluxe
 			}
 
 			// 포인트 체크 사용중일때 포인트 감소
-			if($oMi->use_check_vote_point === 'Y' && $vote_point)
+			if($chk_vt_point && $vote_point)
 			{
 				$ccPoint = &getController('point');
 				$ccPoint->setPoint($log_mbr_srl, $vote_point, 'minus');
@@ -943,11 +957,18 @@ class beluxeController extends beluxe
 		if(!$this->grant->manager || !$this->module_srl || !$tar_srls) return new Object(-1,'msg_invalid_request');
 
 		$cmThis = &getModel(__XEFM_NAME__);
-
 		$tar_srls = explode(',', $tar_srls);
-		foreach($tar_srls as $val) $out = $cmThis->setCustomStatus($val, $new_value);
-		unset($_SESSION['document_management']);
 
+		foreach($tar_srls as $val) {
+	        $a_value = (int) $new_value;
+	        $a_value = ($a_value < 1 && $a_value > 9) ? 'N' : $a_value;
+
+	        $args->document_srl = $val;
+	        $args->is_notice = $a_value;
+	        $out = executeQuery('beluxe.updateCustomStatus', $args);
+		}
+
+		unset($_SESSION['document_management']);
 		$this->_setValidMessage(0, 'success_updated');
 	}
 
@@ -1054,26 +1075,25 @@ class beluxeController extends beluxe
 		$doc_srl = Context::get('document_srl');
 		if(!$doc_srl) $doc_srl = Context::get('target_srl');
 
+		$oMi = $this->_getModuleInfo();
+
+		$re_point = $oMi->use_vote_point_recover;
+		if(!$doc_srl || !is_numeric($re_point)) return new Object(-1,'msg_invalid_request');
+
 		$oLogIfo = Context::get('logged_info');
 		$mbr_srl = $oLogIfo->member_srl;
 		if(!$mbr_srl) return new Object(-1,'msg_not_permitted');
 
-		$oMi = $this->_getModuleInfo();
-
-		$re_point = explode(':', $oMi->use_recover_vote_point);
-		if($re_point[0] !== 'Y' || !$doc_srl) return new Object(-1,'msg_invalid_request');
-
 		$cmThis = &getModel(__XEFM_NAME__);
-		$args->member_srl = $mbr_srl;
-		$voted_list = $cmThis->getDocumentVotedLogs($doc_srl, $args);
-		if(!$voted_list[$mbr_srl]) return new Object(-1,'msg_not_founded');
+		$vtlog = $cmThis->getDocumentVotedLogs($doc_srl, $mbr_srl);
+		if(!$vtlog) return new Object(-1,'msg_not_founded');
 
 		// 값이 - 면  사용된 값으로 복구 불가
-		$vote_point = $voted_list[$mbr_srl]->point;
+		$vote_point = $vtlog->point;
 		if($vote_point < 0) return new Object(-1,'msg_not_permitted_act');
 
 		// 복구비용 빼기
-		$vote_point = $vote_point - (int) $re_point[1];
+		$vote_point = $vote_point - (int) $re_point;
 
 		// 복구 비용 뺀 값이 - 면 포인트가 충분한지 체크
 		if($vote_point < 0)
@@ -1082,6 +1102,7 @@ class beluxeController extends beluxe
 			if($cmPoint->getPoint($mbr_srl) < abs($vote_point))  return new Object(-1, 'msg_not_enough_point');
 		}
 
+		$args->member_srl = $mbr_srl;
 		$args->document_srl = $doc_srl;
 		$out = executeQuery('beluxe.deleteDocumentVotedLogs', $args);
 		if(!$out->toBool()) return $out;
@@ -1092,6 +1113,11 @@ class beluxeController extends beluxe
 			$ccPoint = &getController('point');
 			$ccPoint->setPoint($mbr_srl, $vote_point, 'add');
 		}
+
+		$msg_code = 'success_recovered';
+
+		$this->_setValidMessage(0, $msg_code);
+		$this->_setLocation('', 'document_srl', $doc_srl);
 	}
 
 	function procBeluxeAdoptComment()

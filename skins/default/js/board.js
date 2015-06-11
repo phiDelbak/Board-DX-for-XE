@@ -198,7 +198,7 @@
  				t;
  			$i.css('cursor', 'pointer')
  				.click(function() {
- 					$(this).prev().click();
+ 					$i.prev()[0].click();
  				})
  				.closest('.scItem')
  				.mouseenter(function() {
@@ -344,7 +344,7 @@
  			return false;
  		});
 
- 	$('.scFbWt textarea[name=content]', '#siFbk')
+ 	$('textarea[name=content]', '.scFbWt')
  		.focus(function() {
  			$('.scWusr', $(this).closest('form')).show('slow');
  		});
@@ -516,5 +516,22 @@
  			});
  			// ie 에서 클릭(커서) 버그 방지, 그러나 다른 브라우저도 걍 포커스 주는거 나쁘지 않아서...
  			$('input:not(:hidden):eq(0)', '.pid_ajax-form').focus();
+
+ 			// 메세지가 가려지면 상단에 표시
+ 			$('#BELUXE_MESSAGE').each(function() {
+ 				var $m, $i = $(this),
+ 					$b = $i.closest('body'),
+ 					w = $b.width(),
+ 					t = $i.offset().top + $i.outerHeight(),
+ 					s = $b.scrollTop();
+ 				if (t < s) {
+ 					$m = $i.clone().width(w - 30).addClass('clone').appendTo('body');
+ 					setInterval(function() {
+ 						$m.fadeOut(3000, function() {
+ 							$(this).remove();
+ 						});
+ 					}, 2000);
+ 				}
+ 			});
  		});
  });

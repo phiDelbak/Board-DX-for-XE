@@ -33,12 +33,19 @@ jQuery(function($)
 		// ruleset 에 사용자 filter 가 있으면 필터 추가
 		$('[name][data-filter-rule]', $f).each(function(){
 			var v = xe.getApp('Validator')[0],
-				n = $(this).attr('name'),
-				r = $(this).attr('data-filter-rule'),
-				m = $(this).attr('data-filter-name') || '';
+				i = $(this),
+				n = i.attr('name'),
+				r = i.attr('data-filter-rule'),
+				m = i.attr('data-filter-name') || '';
 
 			if (!v || !n || !r) return false;
 			r = r.split(',');
+
+			if(!(/^[a-z_]*$/i.test(r[1] || ''))){
+				v.cast('ADD_RULE', [n, new RegExp(r[1])]);
+				v.cast("ADD_MESSAGE", ['invalid_' + n, ' of invalid rule']);
+				r[1] = n;
+			}
 
 			if(m) v.cast("ADD_MESSAGE", [n, m]);
 			v.cast("ADD_EXTRA_FIELD", [n,

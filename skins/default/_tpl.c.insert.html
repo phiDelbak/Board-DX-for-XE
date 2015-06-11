@@ -61,7 +61,6 @@
 		}
 		<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
 		<div cond="$is_topic_vote || $is_logged || count($t_dstus) > 1 || $mi->use_anonymous=='S'" class="scWul clearBar">
-			<span>
 			<!--@if($is_topic_vote)-->
 				<label>
 					<input type="radio" name="vote_point" value="1" checked="checked"|cond="$is_topic_vote!='disagree'" />
@@ -72,6 +71,11 @@
 					<span class="colRed">{$lang->cmd_disagree}</span>
 				</label>
 			<!--@else-->
+				<label class="wrtTxt">
+					<em>WYSIWYG Editor</em>
+				</label>
+			<!--@endif-->
+			<div class="fr">
 				<label cond="$is_logged">
 					<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oComment->useNotify()" />
 					{$lang->notify}
@@ -80,26 +84,10 @@
 					<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oComment->get('member_srl')<0)&&(($oComment->get('nick_name').$oComment->get('user_name')) == 'anonymousanonymous')" />
 					{$lang->anonymous}
 				</label>
-				<label cond="!$is_logged&&$mi->use_anonymous!='S'&&count($t_dstus) > 1" class="wrtTxt">
-					<em>WYSIWYG Editor</em>
-				</label>
-			<!--@endif-->
-			</span>
-			<label cond="count($t_dstus) > 1" class="fr">
-				<select name="status">
+				<select cond="count($t_dstus) > 1" name="status" style="margin-left:8px">
 					<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$status == $value">{Context::getLang(strtolower($value))}</option>
 				</select>
-			</label>
-			<block cond="$is_topic_vote">
-				<label cond="$mi->use_anonymous!='S'" class="fr">
-					<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oComment->get('member_srl')<0)&&(($oComment->get('nick_name').$oComment->get('user_name')) == 'anonymousanonymous')" />
-					{$lang->anonymous}
-				</label>
-				<label cond="$is_logged" class="fr">
-					<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oComment->useNotify()" />
-					{$lang->notify}
-				</label>
-			</block>
+			</div>
 		</div>
 
 		<div cond="!$is_logged" class="scWusr clearBar">

@@ -11,9 +11,11 @@
 <input type="hidden" name="act" value="procBeluxeAdminInsert" />
 <input type="hidden" name="site_srl" value="{$module_info->site_srl}" />
 <input type="hidden" name="use_update_vote_count" value="Y" />
-<input type="hidden" name="use_check_vote_point" value="N" />
-<input type="hidden" name="use_recover_vote_point" value="N" />
+<input type="hidden" name="use_vote_point_check" value="N" />
+<input type="hidden" name="use_vote_point_recover" value="N" />
+<input type="hidden" name="use_vote_point_range" value="N" />
 <input type="hidden" name="use_lock_owner_comment" value="N" />
+<input type="hidden" name="use_lock_comment_count" value="0" />
 <input cond="$is_poped" type="hidden" name="is_poped" value="1" />
 
 <div class="{$is_poped?'x_modal-body':''}">

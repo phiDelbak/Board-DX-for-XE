@@ -351,7 +351,7 @@ jQuery(function($)
 	});
 
 	$('a[href=#popup_help][data-text]').click(function() {
-		return alert($(this).attr('data-text').replace(/\\n/gi,"\n")) || false;
+		return alert($(this).attr('data-text').replace(/\\n/gi,"<br />")) || false;
 	});
 
 	$('#addition').each(function() {

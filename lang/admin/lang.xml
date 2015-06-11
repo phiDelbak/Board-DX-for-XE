@@ -419,11 +419,6 @@
 		<value xml:lang="jp"><![CDATA[文書修正, 削除を禁止します.]]></value>
 		<value xml:lang="en"><![CDATA[lock write, change, delete.]]></value>
 	</item>
-	<item name="about_use_lock_owner_comment">
-		<value xml:lang="ko"><![CDATA[글 작성자의 댓글을 막습니다. (댓글의 댓글은 허용)]]></value>
-		<value xml:lang="jp"><![CDATA[文書作成者のコメントを禁止します. (コメントの コメントは 許可)]]></value>
-		<value xml:lang="en"><![CDATA[lock owner comment. (allow comment for comment)]]></value>
-	</item>
 	<item name="about_allow_comment">
 		<value xml:lang="ko"><![CDATA[댓글을 허용할지 선택합니다.]]></value>
 		<value xml:lang="jp"><![CDATA[コメントの許可を選択します.]]></value>

@@ -535,6 +535,12 @@ form select {
 	bottom: 0;
 }
 
+.lt > li .auth .vtt {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
 .nav .usept,
 .lt .usept {
 	text-align: center;
@@ -599,7 +605,7 @@ form select {
 	display: block;
 	color: #555;
 	padding-top: 2px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .lt.wz li.cb .title img[alt="file"] {
@@ -709,7 +715,7 @@ form.ff > ul {
 }
 
 form.ff > ul > li {
-	margin: 0 17px 5px 0;
+	margin: 0 17px 7px 0;
 	padding: 0
 }
 
@@ -724,16 +730,20 @@ form.ff > ul hr {
 }
 
 form.ff label {
-	margin-right: 5px;
+	margin: 0 3px;
 	white-space: nowrap;
+}
+
+form.ff li label:first-child {
+	margin-left: 0;
 }
 
 form.ff label+input[type=text],
 form.ff label+input[type=password],
 form.ff label+input[type=url],
 form.ff label+input[type=email],
-form.ff label+textarea,
-form.ff label+select {
+form.ff label+select,
+form.ff li>textarea {
 	display: block;
 	width: 100%;
 	font-size: 14px;
@@ -782,7 +792,7 @@ form.ff.secret input[type="password"] {
 #fUloader {
 	position: relative;
 	height: 50px;
-	margin: 10px 150px 10px 0;
+	margin: 10px 150px 13px 0;
 	clear: both;
 }
 

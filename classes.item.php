@@ -24,6 +24,19 @@ class BeluxeItem extends Object
         $ccDocument->addXmlJsFilter($this->module_srl);
     }
 
+	function setCustomActions()
+	{
+		$num_args = func_num_args();
+		if($num_args < 3) return;
+
+		$args_list = func_get_args();
+		$a_docsrl = $args_list[0];
+		unset($args_list[0]);
+
+		$cmThis = &getModel(__XEFM_NAME__);
+		return $cmThis->setCustomActions($a_docsrl, $args_list);
+	}
+
 	function getAdminId()
 	{
 		$modsrl = $this->module_srl;
@@ -154,11 +167,17 @@ class BeluxeItem extends Object
 			return $cmDocument->getExtraKeys($this->module_srl);
 	}
 
-	function getDocumentVotedLogs($a_docsrl)
+	function getDocumentVotedLogs($a_docsrl, $a_mbrsrl = 0)
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->getDocumentVotedLogs($a_docsrl);
+		return $cmThis->getDocumentVotedLogs($a_docsrl, $a_mbrsrl);
 	}
+
+    function getDocumentVotedLogCount($a_docsrl)
+    {
+		$cmThis = &getModel(__XEFM_NAME__);
+		return $cmThis->getDocumentVotedLogCount($a_docsrl);
+    }
 
 	function getDocumentDeclaredCount($a_docsrl)
 	{
@@ -195,24 +214,6 @@ class BeluxeItem extends Object
 		$cmThis = &getModel(__XEFM_NAME__);
 		$out = $cmThis->getCommentByMemberSrl($a_docsrl, $a_mbrsrl);
 		return ($out&&$out->data)?$out->data:array();
-	}
-
-	function setVotePoint($a_docsrl, $a_mbrsrl, $a_point)
-	{
-		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->setVotePoint($a_docsrl, $a_mbrsrl, $a_point);
-	}
-
-	function setCustomStatus($a_docsrl, $a_value)
-	{
-		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->setCustomStatus($a_docsrl, $a_value);
-	}
-
-	function setCustomActions($a_docsrl, $a_acts)
-	{
-		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->setCustomActions($a_docsrl, $a_acts);
 	}
 
 	function isBlind($a_consrl, $a_type = 'doc')
@@ -255,12 +256,6 @@ class BeluxeItem extends Object
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
 		return $cmThis->isScrap($a_consrl, $this->member_srl);
-	}
-
-	function sendMessageToMember($a_smbrsrl, $a_mbrsrl, $a_title, $a_ctent, $sender_log = TRUE)
-	{
-		$ccCommunication = &getController('communication');
-		return $ccCommunication->sendMessage($a_smbrsrl, $a_mbrsrl, $a_title, $a_ctent, $sender_log);
 	}
 }
 

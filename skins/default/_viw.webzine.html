@@ -78,9 +78,6 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
                 </strong>
                 <span cond="$mi->display_ip_address == 'Y'||($mi->display_ip_address == 'A' && $grant->manager)" class="ipAddress">(IP: {$oDocument->getIpaddress()})</span>
             </div>
-            <div cond="$ds_status" class="fr">
-                <span>[{$cstus[(int)$oDocument->get('is_notice')]}]</span>
-            </div>
             <div class="fr">
                 <block cond="$mi->star_style=='N'">
                     <block cond="$ds_readed">
@@ -94,7 +91,8 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
                 </block>
                 <block cond="$ds_update"><span title="{$lang->last_update}">{zdate($oDocument->get('last_update'))}</span><span title="{$lang->regdate}">({$oDocument->getRegdate('Y.m.d')})</span></block>
                 <span cond="!$ds_update" title="{$lang->regdate}">{$oDocument->getRegdate()}</span>
-                <block cond="$mi->star_style!='N' && ($ds_voted || $ds_blamed || $ds_readed)">
+                <span cond="$ds_status">[{$cstus[(int)$oDocument->get('is_notice')]}]</span>
+                <span cond="$mi->star_style!='N' && ($ds_voted || $ds_blamed || $ds_readed)">
                 {@
                 $votedp = (int)$oDocument->get('voted_count');
                 $blamedp = (int)$oDocument->get('blamed_count');
@@ -102,7 +100,7 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
                 }
                 <span cond="$ds_readed" class="scRdStar color{$mi->star_style}" title="{$lang->readed_count}">{$oDocument->get('readed_count')}</span>
                 <span cond="$ds_voted || $ds_blamed" class="scVtStar color{$mi->star_style}" title="{$lang->voted_count}: {$votedp.'/'.$blamedp}"><em style="width:{$totalp}px"></em></span>
-                </block>
+                </span>
             </div>
         </li>
     </ul>

@@ -233,21 +233,9 @@
             <input type="hidden" name="nick_name" value="0" />
             <input type="hidden" name="password" value="0" />
             </block>
-            <li cond="$mi->view_comment_style == 'webzine'">
-                <input type="radio" name="vote_point" id="si_agree" value="1" checked="checked" />
-                <label for="si_agree">{$lang->cmd_agree}</label>
-                <input type="radio" name="vote_point" id="si_disagree" value="-1" />
-                <label for="si_disagree">{$lang->cmd_disagree}</label>
-            </li>
-            <li>
+            <li style="text-align:right;margin:0 0 5px">
                 {@ $t_dstus = explode(',', $mi->use_c_status)}
-                <!--@if($is_logged || count($t_dstus) || $mi->use_anonymous=='S')-->
-                <label cond="count($t_dstus) > 1">
-                    <select name="status">
-                        <option loop="$t_dstus => $value" value="{$value}">{Context::getLang(strtolower($value))}</option>
-                    </select>
-                </label>
-                <input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
+                <label cond="$mi->use_input_comment_writer != 'T'"><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
                 <label cond="$is_logged">
                     <input type="checkbox" name="notify_message" value="Y" />
                     {$lang->notify}
@@ -256,12 +244,24 @@
                     <input type="checkbox" name="anonymous" value="Y" />
                     {$lang->anonymous}
                 </label>
+                <label cond="count($t_dstus) > 1">
+                    <select name="status">
+                        <option loop="$t_dstus => $value" value="{$value}">{Context::getLang(strtolower($value))}</option>
+                    </select>
+                </label>
+                <input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
+                <!--@if($mi->view_comment_style == 'webzine')-->
+                    <label for="si_agree" class="fl">
+                        <input type="radio" name="vote_point" id="si_agree" value="1" checked="checked" /> {$lang->cmd_agree}
+                    </label>
+                    <label for="si_disagree" class="fl">
+                        <input type="radio" name="vote_point" id="si_disagree" value="-1" /> {$lang->cmd_disagree}
+                    </label>
                 <!--@else-->
-                <label for="rText">{$lang->comment}</label>
+                    <label for="rText" class="fl">{$lang->comment}</label>
                 <!--@endif-->
-                <label cond="$mi->use_input_comment_writer != 'T'"><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
-                <textarea name="content" cols="20" rows="5" id="rText"></textarea>
             </li>
+            <li><textarea name="content" cols="20" rows="5" id="rText"></textarea></li>
         </ul>
         <div class="bna">
             <input name="" type="submit" value="{$lang->cmd_comment_registration}" class="bn dark" />

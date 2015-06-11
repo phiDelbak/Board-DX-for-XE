@@ -69,18 +69,12 @@
 			<input type="hidden" name="nick_name" value="1" />
 			<input type="hidden" name="password" value="1" />
 		</block>
-		<li>
+		<li style="text-align:right;margin:0 0 5px">
 			{@
 				$t_dstus = explode(',', $mi->use_c_status);
 				$status = $oComment->get('is_secret') == 'Y'?'SECRET':'PUBLIC';
 			}
-			<!--@if($is_logged || count($t_dstus) || $mi->use_anonymous=='S')-->
-			<label cond="count($t_dstus) > 1">
-				<select name="status">
-					<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$status == $value">{Context::getLang(strtolower($value))}</option>
-				</select>
-			</label>
-			<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
+			<label cond="$mi->use_input_comment_writer != 'T'"><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
 			<label cond="$is_logged">
 				<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oComment->useNotify()" />
 				{$lang->notify}
@@ -89,12 +83,15 @@
 				<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oComment->get('member_srl')<0)&&(($oComment->get('nick_name').$oComment->get('user_name')) == 'anonymousanonymous')" />
 				{$lang->anonymous}
 			</label>
-			<!--@else-->
-			<label for="rText">{$lang->comment}</label>
-			<!--@endif-->
-			<label cond="$mi->use_input_comment_writer != 'T'"><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
-			<textarea name="content" cols="20" rows="10" id="rText">{preg_replace('/<br[^>]*>[\r\n]/i','',$oComment->get('content'))}</textarea>
+			<label cond="count($t_dstus) > 1">
+				<select name="status">
+					<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$status == $value">{Context::getLang(strtolower($value))}</option>
+				</select>
+			</label>
+			<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
+			<label for="rText" class="fl">{$lang->comment}</label>
 		</li>
+		<li><textarea name="content" cols="20" rows="10" id="rText">{preg_replace('/<br[^>]*>[\r\n]/i','',$oComment->get('content'))}</textarea></li>
 	</ul>
 	<div class="bna">
 		<a class="bn white" href="{getUrl('','mid',$mid,'act','','document_srl',$document_srl,'comment_srl',($parent_srl?$parent_srl:$comment_srl),'parent_srl','','page',$page)}">{$lang->cmd_back}</a>

@@ -132,7 +132,8 @@
 			</div>
 		</div>
 
-		<div cond="$is_wcmt && $mi->use_input_comment_writer != 'N'" id="pidModalTarget" class="scFbWt">
+<!--@if($is_wcmt && $mi->use_input_comment_writer != 'N')-->
+		<div id="pidModalTarget" class="scFbWt">
 			<form ruleset="insertComment" action="./" method="post">
 				<input cond="$is_modal" type="hidden" name="is_modal" value="{$us_vmodal?2:1}" />
 				<input cond="$is_modal&&$us_vmodal" type="hidden" name="success_return_act" value="dispBoardContentCommentList" />
@@ -147,7 +148,7 @@
 				}
 				<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
 				<div class="scWopts clearBar">
-					<label cond="!$is_logged&&$mi->use_anonymous!='S'&&count($t_dstus) > 1&&$mi->use_input_comment_writer == 'T'" class="wrtTxt" for="siComContent">
+					<label class="wrtTxt fl" for="siComContent">
 						<em>Text Editor</em>
 					</label>
 					<label cond="$mi->use_input_comment_writer != 'T'"> <input type="checkbox" name="use_html" value="Y" /> HTML </label>
@@ -159,11 +160,9 @@
 						<input type="checkbox" name="anonymous" value="Y" />
 						{$lang->anonymous}
 					</label>
-					<label cond="count($t_dstus) > 1" class="fr">
-						<select name="status">
-							<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$status == $value">{Context::getLang(strtolower($value))}</option>
-						</select>
-					</label>
+					<select cond="count($t_dstus) > 1" name="status" style="margin-left:8px">
+						<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$status == $value">{Context::getLang(strtolower($value))}</option>
+					</select>
 				</div>
 
 				<div class="scWcont clearBar">
@@ -204,5 +203,8 @@
 				<!--@endif-->
 			</form>
 		</div>
+<!--@else-->
+		<div cond="!$is_modal" class="scFbWt nowrt">{$oDocument->getPermanentUrl()}</div>
+<!--@endif-->
 	</div>
 <!--@endif-->
