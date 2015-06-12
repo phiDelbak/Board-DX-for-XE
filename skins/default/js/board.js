@@ -23,23 +23,24 @@
  				$(this).remove();
  			});
  		},
- 		reSized: function() {
- 			var $elp = $('.scElps[data-active=true]');
-
+ 		reSized: function(mode) {
  			// 제목 자동조절
- 			$elp.find('> :eq(0)').width('auto').removeClass('_first');
- 			$elp.each(function() {
- 				var $i = $(this),
- 					$l = $i.find('> :eq(1)'),
- 					fw = $i.width(),
- 					lw = 0;
- 				if ($l.length) {
- 					if ($l.find('> img').length || $l.text().trim())
- 						lw = $l.addClass('_last').outerWidth(true);
- 					else $l.remove();
- 				}
- 				$i.find('> :eq(0)').width(fw - lw - 5).addClass('_first');
- 			});
+ 			if (!mode || mode !== 'h') {
+ 				var $elp = $('.scElps[data-active=true]');
+ 				$elp.find('> :eq(0)').width('auto').removeClass('_first');
+ 				$elp.each(function() {
+ 					var $i = $(this),
+ 						$l = $i.find('> :eq(1)'),
+ 						fw = $i.width(),
+ 						lw = 0;
+ 					if ($l.length) {
+ 						if ($l.find('> img').length || $l.text().trim())
+ 							lw = $l.addClass('_last').outerWidth(true);
+ 						else $l.remove();
+ 					}
+ 					$i.find('> :eq(0)').width(fw - lw - 5).addClass('_first');
+ 				});
+ 			}
 
  			// 핫트랙
  			$('[data-hottrack]', '.scContent')
@@ -505,9 +506,13 @@
  			$('[data-flash-fix=true]', '#siBody').pidModalFlashFix();
  			$('[data-link-fix=true]', '#siBody').find('a:not([target])').attr('target', '_blank');
 
+ 			//성격 급한 사람을 위해 일단 reSized 적용
  			sjDxFuncs.reSized();
  		})
  		.load(function() {
+ 			//핫트랙은 이미지 로드후 크기가 변할 수 있어 다시 적용
+ 			sjDxFuncs.reSized('h');
+
  			$('a[data-modal-scrollinto=true]:last', sjDxFuncs.isMobj('s') || '').parent().is(function() {
  				$(this).closest('.scClst:hidden').is(function() {
  					$(this).show();
