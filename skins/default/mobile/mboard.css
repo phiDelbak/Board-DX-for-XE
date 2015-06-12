@@ -574,22 +574,31 @@ form select {
 	display: block;
 }
 
-.lt.wz li.cb ul.ifo {
+.lt.wz ul.ifo {
 	position: relative;
 	padding: 0;
 	margin: 0;
 	list-style: none
 }
 
-.lt.wz li.cb ul.ifo li {
+.lt.wz ul.ifo > li {
 	white-space: normal;
 	word-break: break-all;
 	border: 0;
 	padding: 3px 0 0
 }
 
-.lt.wz li.cb ul.ifo li:first-child {
+.lt.wz ul.ifo > li:first-child {
 	padding: 0
+}
+
+.lt.wz ul.ifo > li.auth.cb {
+	padding-bottom: 20px
+}
+
+.lt.wz ul.ifo > li.auth a {
+	display: inline;
+	color: #777
 }
 
 .lt.wz li.cb .thum {

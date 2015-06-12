@@ -88,7 +88,7 @@
 				</li>
 				<li loop="$ci => $key,$val" cond="$val->display=='Y'&&$val->idx>0" class="auth">
 					<span>{$val->name}:</span>
-					<span>{$document->getExtraValueHTML($ci[$key]->idx)}</span>
+					<span>{$document->getExtraValue($ci[$key]->idx)}</span>
 				</li>
 				<li cond="$ds_summary"><span class="summary">&deg; {(!$is_grant||$is_blind)?($is_blind?$lang->msg_is_blind:$lang->msg_not_permitted):$document->getSummary($mi->summary_length)}</span></li>
 				<li class="auth cb">
