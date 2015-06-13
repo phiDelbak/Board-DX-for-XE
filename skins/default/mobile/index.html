@@ -48,7 +48,7 @@
 	<!--@else-->
 
 		<div cond="$mi->title||$mi->sub_title||$mi->board_desc" class="pn cb ts">
-			<h3 cond="$mi->title||$mi->sub_title">{$mi->title} - {$mi->sub_title}</h3>
+			<h3 cond="$mi->title||$mi->sub_title">{$mi->title} <span class="sbt">{$mi->sub_title}</span></h3>
 			<p cond="$mi->board_desc">{$mi->board_desc}</p>
 		</div>
 

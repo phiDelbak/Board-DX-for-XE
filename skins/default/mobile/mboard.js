@@ -160,6 +160,6 @@ jQuery(function($) {
 
 	$('li', '.nav').each(function() {
 		var w = $('.fr', this).width() || 0;
-		$('a', this).css('margin-right', w + 5 + 'px');
+		$('a', this).css('padding-right', w + 10 + 'px');
 	});
 });

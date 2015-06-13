@@ -348,6 +348,12 @@ form select {
 .pn.ts h3 {
 	margin: 0;
 	color: #333;
+	font-size: 16px;
+}
+
+.pn.ts h3 span.sbt {
+	color: #555;
+	font-size: 14px;
 }
 
 .pn.ts > p {
@@ -1074,6 +1080,7 @@ input.bn.small {
 }
 
 .nav li a {
+	position: relative;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	-o-text-overflow: ellipsis;
@@ -1093,9 +1100,10 @@ input.bn.small {
 .nav .cate {
 	font-size: 12px;
 	color: #777;
-	margin-left: 10px;
+	margin-left: 5px;
 	position: absolute;
-	right: 23px;
+	top: 7px;
+	right: 5px;
 }
 
 .nav em {
