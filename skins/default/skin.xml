@@ -94,6 +94,14 @@
 				<description xml:lang="jp">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
 				<description xml:lang="en">본문 하단에 이전/다음 문서 목록을 해당 수 만큼 표시합니다. (비워두면 표시 안함)</description>
 			</var>
+			<var name="duration_new" type="text" default="12">
+				<title xml:lang="ko">새 글 표시 시간</title>
+				<title xml:lang="jp">새 글 표시 시간</title>
+				<title xml:lang="en">새 글 표시 시간</title>
+				<description xml:lang="ko">새 글, 업데이트 아이콘의 표시 시간을 설정합니다. (기본: 12)</description>
+				<description xml:lang="jp">새 글, 업데이트 아이콘의 표시 시간을 설정합니다. (기본: 12)</description>
+				<description xml:lang="en">새 글, 업데이트 아이콘의 표시 시간을 설정합니다. (기본: 12)</description>
+			</var>
 		</group>
 		<group>
 			<title xml:lang="ko">모양</title>
