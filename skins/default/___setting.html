@@ -13,15 +13,16 @@
 	$lsttp = in_array($lsttp, array('gallery','webzine','widget'))?$lsttp:'list';
 	$viwtp = in_array($mi->view_style, array('webzine','list'))?$mi->view_style:(in_array($lsttp,array('webzine'))?'webzine':'list');
 
+
 	$mi->category_style?0:$mi->category_style = 'Y';
 	$mi->star_style?0:$mi->star_style = 'N';
-	$mi->duration_new?0:$mi->duration_new = '12';
 	$mi->thumbnail_type?0:$mi->thumbnail_type = 'crop';
 	$mi->thumbnail_width?0:$mi->thumbnail_width = '100';
 	$mi->thumbnail_height?0:$mi->thumbnail_height = '100';
 	$mi->summary_length?0:$mi->summary_length = '300';
 	$mi->display_attached_files?0:$mi->display_attached_files = 'Y';
 	$mi->bottom_list_style?0:$mi->bottom_list_style = 'default';
+	$mi->duration_new = 60*60*((int)$mi->duration_new?$mi->duration_new:12);
 
     $sedt_wbtn = strpos($mi->simple_editor_option, 'wrtbtn')!==false;
     $sedt_hide = strpos($mi->simple_editor_option, 'dochide')!==false;

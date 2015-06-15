@@ -151,7 +151,7 @@
                 </span>
                 <span class="cate fr">
                     <em cond="$nv_t_cn" class="reply" title="Replies">+{$nv_t_cn}</em><em cond="$nv_t_tn" class="trackback" title="Trackbacks">.{$nv_t_tn}</em>
-                    {$val->printExtraImages(60*60*$mi->duration_new)}
+                    {$val->printExtraImages($mi->duration_new)}
                     [{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]
                 </span>
             </a>

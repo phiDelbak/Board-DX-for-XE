@@ -41,38 +41,33 @@ class BeluxeItem extends Object
 	{
 		$modsrl = $this->module_srl;
 
-		if(!isset($GLOBALS['BELUXE_ADMIN_ID'][$modsrl]))
-		{
+		if(!isset($GLOBALS['BELUXE_ADMIN_ID'][$modsrl])){
 			$aids = array();
-
 			$cmModule = &getModel('module');
 			$out = $cmModule->getAdminId($modsrl);
-			if($out)
-			{
-				foreach($out as $key=>$val)
-				{
+			if($out){
+				foreach($out as $key=>$val){
 					$aids[$key]->member_srl = $val->member_srl;
 					$aids[$key]->user_id = $val->user_id;
 				}
 			}
-
 			$GLOBALS['BELUXE_ADMIN_ID'][$modsrl] = $aids;
 		}
 
 		return $GLOBALS['BELUXE_ADMIN_ID'][$modsrl];
 	}
 
-	function getBrowserInfo($agent='')
+	function getBrowserInfo()
 	{
 		// http://php.net/manual/en/function.get-browser.php
-		$known = array('trident', 'firefox', 'safari', 'webkit', 'opera', 'netscape', 'konqueror', 'gecko');
-
-		$agent = strtolower($agent ? $agent : $_SERVER['HTTP_USER_AGENT']);
-		$pattern = '#(?<browser>' . join('|', $known) . ')[/ ]+(?<version>[0-9]+(?:\.[0-9]+)?)#';
+		$agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+		$known = array('trident', 'firefox', 'chrome', 'opr', 'safari', 'netscape', 'webkit', 'konqueror', 'gecko');
+		$pattern = '#(?<browser>' . implode('|', $known) . ')[/ ]+(?<version>[0-9]+(?:\.[0-9]+)?)#';
 
 		if (!@preg_match_all($pattern, $agent, $matches)) return array('unknown' => '1');
 
 		$i = count($matches['browser'])-1;
+		if($matches['browser'][$i - 1] === 'chrome') $i--;
 		return array($matches['browser'][$i] => $matches['version'][$i]);
 	}
 

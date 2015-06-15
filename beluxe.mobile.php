@@ -17,9 +17,9 @@ class beluxeMobile extends beluxeView
 	function getBeluxeMobileCommentPage()
 	{
 		$doc_srl = Context::get('document_srl');
-		$cmDocument = &getModel('document');
 		if(!$doc_srl) return new Object(-1, 'msg_invalid_request');
 
+		$cmDocument = &getModel('document');
 		$oDocIfo = $cmDocument->getDocument($doc_srl, $this->grant->manager);
 		if(!$oDocIfo->isExists()) return new Object(-1, 'msg_invalid_request');
 
@@ -32,7 +32,7 @@ class beluxeMobile extends beluxeView
 		$cvThis = &getView(__XEFM_NAME__);
 		$tpl_path = $cvThis->_templateFileLoad('comment');
 
-		$oTplNew = new TemplateHandler;
+		$oTplNew = new TemplateHandler();
 		$html = $oTplNew->compile($tpl_path, 'comment.html');
 		$this->add('html', $html);
 	}

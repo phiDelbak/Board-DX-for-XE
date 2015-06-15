@@ -159,20 +159,22 @@ class beluxeModel extends beluxe
     {
         $mid = Context::get('mid');
         $tmp_file = Context::get('template_file');
-        if(!$mid || !$tmp_file) return new Object(-1, 'msg_invalid_request');
+        if(!$tmp_file || !$this->module_srl) return new Object(-1, 'msg_invalid_request');
+
         //파일이름 순수 알파벳만 받음
         if(!preg_match("/[A-Za-z]+/i", $tmp_file)) return new Object(-1, 'msg_invalid_request');
 
-        Context::set('oThis', new beluxeItem($this->module_srl));
         // 대상 항목을 구함
         $colifo = $this->getColumnInfo($this->module_srl);
         Context::set('column_info', $colifo);
+        Context::set('oThis', new beluxeItem($this->module_srl));
 
-        $cmThis = &getView('beluxe');
+        $cmThis = &getView(__XEFM_NAME__);
         $tpl_path = $cmThis->_templateFileLoad($tmp_file);
 
-        $oTplNew = new TemplateHandler;
+        $oTplNew = new TemplateHandler();
         $html = $oTplNew->compile($tpl_path, $tmp_file.'.html');
+
         $this->add('html', $html);
     }
 

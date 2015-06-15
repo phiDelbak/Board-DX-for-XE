@@ -476,11 +476,11 @@ class beluxeAdminController extends beluxe
             }
 
             // TODO 모바일 스킨 설정 db 안지워진다. 고칠때까지 직접 지움
-            $out = $ccModule->deleteModuleMobileSkinVars($mod_srl);
-            if (!$out->toBool()) {
-                $oDB->rollback();
-                return $out;
-            }
+            // $out = $ccModule->deleteModuleMobileSkinVars($mod_srl);
+            // if (!$out->toBool()) {
+            //     $oDB->rollback();
+            //     return $out;
+            // }
 
             $oDB->commit();
         }

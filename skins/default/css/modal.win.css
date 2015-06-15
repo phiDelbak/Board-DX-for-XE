@@ -1,3 +1,14 @@
+#pidOiFrame,
+.pid_modal-head,
+.pid_modal-foot,
+.pid_modal-body,
+.pid_modal-document {
+	margin: 0!important;
+	padding: 0!important;
+	width: 100%!important;
+	overflow: hidden;
+}
+
 .pid_modal-backdrop {
 	position: fixed!important;
 	left: 0!important;
@@ -29,18 +40,8 @@
 	width: 750px
 }
 
-.pid_modal-head,
-.pid_modal-foot,
-.pid_modal-body {
-	margin: 0;
-	padding: 0;
-	width: 100%!important;
-}
-
 .pid_modal-body {
 	border: 0;
-	padding: 10px;
-	width: auto!important;
 	height: 100%;
 }
 
@@ -100,6 +101,14 @@
 	padding: 5px 10px;
 }
 
+.pid_modal-document > div {
+	padding: 10px;
+}
+
+.pid_modal-target > .pid_modal-body {
+	min-height: 20px
+}
+
 .pid_modal-close {
 	position: absolute;
 	padding: 0;
@@ -117,19 +126,6 @@
 	color: #FFF;
 	font-weight: bold;
 	line-height: 23px
-}
-
-#pidOiFrame,
-.pid_modal-document {
-	margin: 0!important;
-	padding: 0!important;
-	width: 100%!important;
-	overflow: hidden;
-}
-
-.pid_modal-target > .pid_modal-body {
-	padding: 0;
-	min-height: 100px
 }
 
 .message.wait {

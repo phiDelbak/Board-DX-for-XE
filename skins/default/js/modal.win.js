@@ -79,16 +79,27 @@
 
 			// false. the target position control
 			var validModal = function(ifrm) {
-				var doc = ifrm.contentDocument || ifrm.contentWindow.document;
-				if (!$('script[src*=' + _PID_MODULE_ + ']', doc).length) {
-					$(doc).find('a').click(function(e) {
-						e.stopPropagation();
-						e.preventDefault();
-						parent.location.replace($(this).attr('href'));
-					});
-
-					$oFrm.pidModalAutoResize();
-				}
+				// ie 에서 jquery.js is,not,find 함수 못 찾는 버그 땜시 순수 코딩
+				var doc = ifrm.contentDocument || ifrm.contentWindow.document,
+					scs = doc.scripts || {},
+					chk = false,
+					i;
+				try {
+					for (i in scs) {
+						if (typeof scs[i] === 'object' && scs[i].src.match(/beluxe/)) {
+							chk = true;
+							break;
+						}
+					}
+					if (!chk) {
+						$(doc).find('a').click(function(e) {
+							e.stopPropagation();
+							e.preventDefault();
+							parent.location.replace($(this).attr('href'));
+						});
+						$oFrm.pidModalAutoResize();
+					} else $(ifrm).parent().scrollTop(0);
+				} catch (e) {}
 			};
 
 			url = url.setQuery('is_modal', mdmode);
@@ -99,9 +110,8 @@
 				$oFrm.get(0).src = url;
 			} else {
 				// object는 아직 문제가 많아, 그냥 iframe 사용하기로...
-				$oFrm = $('<iframe id="pidOiFrame" name="pid_oi_frame" data-resize="' + resize + '" allowTransparency="true" frameborder="0" scrolling="no" />')
+				$oFrm = $('<iframe id="pidOiFrame" name="pid_oi_frame" data-resize="' + resize + '" allowTransparency="true" frameborder="0" scrolling="yes" />')
 					.on('load', function() {
-						$(this).parent().scrollTop(0);
 						validModal(this);
 						callback(this);
 					})
@@ -170,7 +180,7 @@
 		},
 		pidModalAutoResize: function() {
 			var $this = $(this),
-				$modal, $bdrop, $body, $moh, $mof, $mob, pw, ph, smode, timer, once;
+				$modal, $bdrop, $body, $moh, $mof, $mob, pw, ph, smode, timer;
 
 			$body = $this[0].contentDocument || $this[0].contentWindow.document;
 			if ($body === undefined) return;
@@ -197,15 +207,20 @@
 			$mob = $('.pid_modal-body', $modal);
 			$mof = $('.pid_modal-foot', $modal);
 
+			//todo 구버전용 업데이트 전 지울것
+			$mob.css('padding', '0');
+			$body.find('>div').css('padding', '10px');
+			// ...
+
 			smode = $this.attr('data-resize') || 'auto';
 
 			var setTargetTimer = function() {
 					return setInterval(function() {
 						var h = $body.outerHeight(true);
 
-						if (h > 10) {
-							if ($this.height() !== h) $this.height(h);
-							if ($mob.height() !== h) $mob.height(h);
+						if (h > 10 && ($mob.height() === 1 || $this.height() !== h)) {
+							$mob.height('');
+							$this.height(h);
 						}
 
 						if (!$modal.find('#pidOiFrame').length) clearInterval(timer);
@@ -227,20 +242,10 @@
 							bh = ph - h - 100;
 							bh = (smode === 'hfix' || (fh > bh)) ? bh : fh;
 
-							if ($this.height() !== fh || $mob.height() !== bh) {
-								$this.height(fh);
-								$mob.css({
-									'height': bh + 'px',
-									'overflow-y': (fh > bh ? 'auto' : 'hidden')
-								});
-
-								if (!once) {
-									once = 1;
-									$('a[data-modal-scrollinto=true]:last', $body).is(function() {
-										once = $(this).offset().top;
-										$this.parent().scrollTop(once);
-									});
-								}
+							if ($mob.height() === 1 || $this.height() !== bh) {
+								$mob.height('');
+								$this.height(bh);
+								$body.css('overflow-y', (fh > bh ? 'auto' : 'hidden'));
 							}
 
 							h = $modal.outerHeight(true);
@@ -256,6 +261,7 @@
 
 			//is target frame
 			if ($modal.is('.pid_modal-target')) {
+				$this.attr('scrolling', 'no');
 				$mob.height(1);
 				$modal.css({
 					'top': '',
@@ -269,7 +275,6 @@
 						$(this).remove();
 					});
 			} else {
-
 				$bdrop = pidModal.backDrop($target);
 				pw = $bdrop.width();
 				$mob.height(1);
@@ -391,7 +396,6 @@
 						$this.trigger('after-open.mw', [oframe]);
 					};
 
-					$modal.find('.pid_modal-body').css('overflow-y', 'hidden');
 					$modal.pidModalgoUrl(url, $this.attr('data-resize') || 'auto', after, mdmode);
 
 					//if(url){}else{$modal.fadeIn(duration, after);}
@@ -410,8 +414,7 @@
 						$modal = pidModal.iFrame(this.modalId, target);
 						if ($modal.attr('data-parent-reload') || 0) pidModalParentReload();
 					} catch (e) {
-						// 쓰댕 ie 에서 is,not,find 함수 못 찾는 버그 처리
-						// jquery.js 문제라는말이 있던대 내가 풀 문제는 아니기에...
+						// ie 에서 jquery.js is,not,find 함수 못 찾는 버그 처리
 						pidModalParentReload();
 						return false;
 					}
@@ -490,11 +493,11 @@
 							return false;
 						});
 						// focusin scroll
-						$('input[name],select[name],textarea[name]', 'form').on('focusin', function() {
-							var $m = $oFrm.parent(),
-								top = $(this).offset().top;
-							if ($m.css('overflow-y') === 'auto' && $m.scrollTop() > top) $m.scrollTop(top);
-						});
+						// $('input[name],select[name],textarea[name]', 'form').on('focusin', function() {
+						// 	var $m = $oFrm.parent(),
+						// 		top = $(this).offset().top;
+						// 	if ($m.css('overflow-y') === 'auto' && $m.scrollTop() > top) $m.scrollTop(top);
+						// });
 					});
 
 				$(window)

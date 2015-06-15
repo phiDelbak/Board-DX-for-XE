@@ -524,18 +524,16 @@
 
  			// 메세지가 가려지면 상단에 표시
  			$('#BELUXE_MESSAGE').each(function() {
- 				var $m, $i = $(this),
- 					$b = $i.closest('body'),
- 					w = $b.width(),
- 					t = $i.offset().top + $i.outerHeight(),
- 					s = $b.scrollTop();
+ 				var $i = $(this),
+ 					t = $i.offset().top + 10,
+ 					s = $(window).scrollTop();
  				if (t < s) {
- 					$m = $i.clone().width(w - 30).addClass('clone').appendTo('body');
+ 					var $m = $i.clone().addClass('clone').outerWidth($i.width() + 11).appendTo($i.parent());
  					setInterval(function() {
- 						$m.fadeOut(3000, function() {
+ 						$m.fadeOut(2000, function() {
  							$(this).remove();
  						});
- 					}, 2000);
+ 					}, 3000);
  				}
  			});
  		});

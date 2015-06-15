@@ -25,12 +25,12 @@
 
 	$mi->category_style?0:$mi->category_style = 'Y';
 	$mi->star_style?0:$mi->star_style = 'N';
-	$mi->duration_new?0:$mi->duration_new = '12';
 	$mi->thumbnail_type?0:$mi->thumbnail_type = 'crop';
 	$mi->thumbnail_width?0:$mi->thumbnail_width = '100';
 	$mi->thumbnail_height?0:$mi->thumbnail_height = '100';
 	$mi->summary_length?0:$mi->summary_length = '300';
 	$mi->display_attached_files?0:$mi->display_attached_files = 'Y';
+	$mi->duration_new = 60*60*((int)$mi->duration_new?$mi->duration_new:12);
 
 	$tmp1 = array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/');
 	$tmp2 = array($mid,($logged_info?$logged_info->nick_name:'Guest'),$is_doc?$oDocument->getPermanentUrl():'',$is_doc?$oDocument->getTitle():'',$is_doc?$oDocument->getNickName():'',$is_doc?$oDocument->document_srl:'');

@@ -189,7 +189,7 @@
 	font-family: Tahoma, Geneva, sans-serif!important;
 	color: #fff;
 	line-height: 12px!important;
-	text-shadow: none!important
+	text-shadow: none!important;
 }
 
 #siBody .scLaEt > span+input {
@@ -305,7 +305,7 @@
 	-ms-text-overflow: ellipsis;
 	-moz-binding: url(/ellipsis-xbl.xml#ellipsis);
 	display: inline-block;
-	white-space: nowrap
+	white-space: nowrap;
 }
 
 .scElps ._last {
@@ -518,8 +518,7 @@
 	display: inline-block
 }
 
-#siCat.text li a,
-#siCat.text li strong {
+#siCat.text li a {
 	padding: 0 8px;
 	border-right: 1px solid #ddd;
 	font-size: 12px;
@@ -527,8 +526,7 @@
 	white-space: nowrap
 }
 
-#siCat.text li.active a,
-#siCat.text li.active strong {
+#siCat.text li.active a {
 	color: #000;
 	font-weight: bold;
 	letter-spacing: -1px
@@ -536,7 +534,7 @@
 
 #siCat.text li.fr {
 	position: absolute;
-	right: 0;
+	right: 10px;
 }
 
 #siCat.text li.fr a {
@@ -1496,6 +1494,10 @@
 	background: url(../img/common/sns_set.gif) no-repeat
 }
 
+#siDoc .scSns {
+	margin-left: 5px;
+}
+
 #siDoc .scSns .twitter a {
 	background-position: 0 0
 }
@@ -1810,9 +1812,13 @@
 /* comment Write */
 
 #siFbk .scFbWt {
-	padding: 7px;
+	padding: 0;
 	margin: 3px;
 	background-color: #f5f5f5
+}
+
+#siFbk .scFbWt >form {
+	padding: 7px;
 }
 
 #siFbk .scFbWt .scWopts {
@@ -1863,6 +1869,7 @@
 }
 
 #siFbk .scFbWt .scWusr {
+	position: relative;
 	margin-top: 5px;
 	display: none
 }
@@ -2779,6 +2786,9 @@ noindex:-o-prefocus,
 	}
 	#siCat.text {
 		margin-top: -8px
+	}
+	#siCat.text.scAdmActs {
+		margin-top: auto;
 	}
 }
 

@@ -34,13 +34,8 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
 	<div cond="$is_doc" id="siCat" class="text">
 	    <ul class="scFrm clearBar">
 	    	<li><a href="{getUrl('document_srl',$doc_srl,'act','','is_trackbacks','','clist_count','')}"><span>Document</span></a></li>
-	<!--@if($allow_trb&&$is_trackbacks)-->
-	        <li class="active"><strong><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></strong></li>
-	        <li cond="$allow_cmt"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','','clist_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
-	<!--@elseif($allow_cmt)-->
-	        <li cond="$allow_trb"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','1','clist_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
-	        <li class="active"><strong><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></strong></li>
-	<!--@endif-->
+	        <li cond="$allow_trb" class="active"|cond="$is_trackbacks"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','1','clist_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
+	        <li cond="$allow_cmt" class="active"|cond="!$is_trackbacks"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','','clist_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
 	        <li cond="$cate" class="fr">
 	            <a href="{getUrl('','mid',$mid,'category_srl',$cate->category_srl)}" target="_parent" title="{htmlspecialchars($cate->description)}" style="color:{$cate->color}"|cond="$cate->color">{$cate->title}</a>
 	        </li>

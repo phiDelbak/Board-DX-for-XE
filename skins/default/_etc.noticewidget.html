@@ -19,7 +19,7 @@
 						}
 						<em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
 						<em cond="!$t_cmtn&&!$t_tbkn">&nbsp;</em>
-						{$document->printExtraImages(60*60*$mi->duration_new)}<img class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
+						{$document->printExtraImages($mi->duration_new)}<img class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" />
 					</span>
 				</div>
 			</li>

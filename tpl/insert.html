@@ -1,5 +1,12 @@
 <include target="header.html" />
-
+{@
+	unset($module_backup_options['use_update_vote_count']);
+	unset($module_backup_options['use_vote_point_check']);
+	unset($module_backup_options['use_vote_point_recover']);
+	unset($module_backup_options['use_vote_point_range']);
+	unset($module_backup_options['use_lock_owner_comment']);
+	unset($module_backup_options['use_lock_comment_count']);
+}
 <div cond="($m_allset_targets||$m_copy_target)||count($module_backup_options)" class="message update">
 	<p cond="$m_allset_targets||$m_copy_target">{$m_copy_target ? $lang->about_setting_copy : $lang->about_all_setting}<br />{$lang->target}: {$m_copy_target ? $m_copy_target : $m_allset_targets}</p>
 	<p cond="count($module_backup_options)">{$lang->msg_module_backup_options}</p>

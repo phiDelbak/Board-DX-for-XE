@@ -369,24 +369,16 @@ jQuery(function($)
 		}
 	});
 
-	$('form.dx_skininfo:eq(0)').each(function(){
-		var a = [];
-		$('[data-info-target]', this).each(function(){
-			var n = $(this).attr('name'), t = $(this).attr('data-info-target')||'';
-				if(!a[n]) a[n] = [];
-				a[n][t] = $('[name^='+t+']', '.dx_skininfo').closest('.x_control-group');
-			if($(this).is(':checked')) a[n][t].show();
-		});
-		$('[type=radio]', $('[data-info-target]', this).closest('.x_controls')).click(function(){
-			var n = $(this).attr('name'), t = $(this).attr('data-info-target')||'';
-			for(var i in a[n]) a[n][i].hide();
-			if(t) a[n][t].show();
-		});
-	});
-
-
 	$('#dxiStMapFrm').dxfStMapinit();
 	$('#dxiColumnFrm').dxfColumninit();
 	$('#dxiExtraKeyFrm').dxfExtraKeyinit();
 	$('#dxiInsertFrm').dxfInsertinit();
+
+	$('[data-info-target]', '.dx_skininfo').each(function(){
+		var $i = $(this), t = ($i.attr('data-info-target') || '').split('/_VALUE_/'), v = t[1].split(',');
+		$('[name='+t[0]+']', '.dx_skininfo').click(function(){
+			if($.inArray($(this).val()+'', v) > -1) $i.show(); else $i.hide();
+		});
+		if($.inArray($('[name='+t[0]+']:checked', '.dx_skininfo').val()+'', v) > -1) $i.show();
+	});
 });

@@ -92,7 +92,7 @@
 								}
 								<em cond="$t_cmtn" class="reply" title="Replies">+{$t_cmtn}</em><em cond="$t_tbkn" class="trackback" title="Trackbacks">.{$t_tbkn}</em>
 								<em cond="!$t_cmtn&&!$t_tbkn">&nbsp;</em>
-								{$document->printExtraImages(60*60*$mi->duration_new)}<img cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
+								{$document->printExtraImages($mi->duration_new)}<img cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
 							</span>
 						</div>
 					<!--@break-->
@@ -233,7 +233,7 @@
 							{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}
 							<img class="scIcoSet coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}" />
 						</block>
-						{$document->printExtraImages(60*60*$mi->duration_new)}<img cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
+						{$document->printExtraImages($mi->duration_new)}<img cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
 						<em cond="$t_cmtn || $t_tbkn" class="reply" title="Replies">+{(int)$t_cmtn}<block cond="$t_tbkn">.{$t_tbkn}</block></em>
 						<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$un_extra->beluxe->use_point)}</em>
 					</span>

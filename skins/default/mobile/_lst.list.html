@@ -10,43 +10,41 @@
 	$a_lsttp = array('notice'=>&$notice_list,'best'=>&$best_list,''=>&$document_list);
 }
 
-<ul class="lt">
-	<block loop="$a_lsttp => $tlk,$p_list" cond="count($p_list)">
-		<li loop="$p_list => $no,$document" class="cb">
-		{@
-			$is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
-			$is_blind = ($tlk!='notice'&&$us_blind)?$oThis->isBlind($document->document_srl):0;
-			$is_scrap = $ds_scrap?$oThis->isScrap($document->document_srl):0;
-			$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
-			$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
-		}
-			<a href="{getUrl('','mid',$mid,'document_srl',$document->document_srl,'category_srl',$category_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
-				<div class="title"><span cond="$tlk" class="{$tlk}">{$tlk=='best'?'Best':$lang->notice}</span>
-					<span cond="!$tlk&&($pt_vtype!='N'||$pt_dtype!='N')" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{abs((int)$un_extra->beluxe->use_point)}</span>
-					<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
-					<block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">
-						{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}
-						<img src="../img/common/blank.gif" class="ise coin" title="{$ao_pppt}" alt="{$ao_pppt}" />
-					</block>
-					{$document->printExtraImages(60*60*$mi->duration_new)}<img src="../img/common/blank.gif" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="ise world" alt="multilingual" title="multilingual" /><img src="../img/common/blank.gif" cond="$is_scrap" class="ise scrap" alt="Scrap" title="Scrap" />
-					{@
-						$t_cmtn = $document->getCommentCount();
-						$t_tbkn = $document->getTrackbackCount();
-					}
-					<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
+<ul loop="$a_lsttp => $tlk,$p_list" cond="count($p_list)" class="lt">
+	<li loop="$p_list => $no,$document" class="cb">
+	{@
+		$is_grant = $grant->view && (!$document->isSecret() || $document->isGranted());
+		$is_blind = ($tlk!='notice'&&$us_blind)?$oThis->isBlind($document->document_srl):0;
+		$is_scrap = $ds_scrap?$oThis->isScrap($document->document_srl):0;
+		$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
+		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+	}
+		<a href="{getUrl('','mid',$mid,'document_srl',$document->document_srl,'category_srl',$category_srl,'sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword,'page',$spage)}">
+			<div class="title"><span cond="$tlk" class="{$tlk}">{$tlk=='best'?'Best':$lang->notice}</span>
+				<span cond="!$tlk&&($pt_vtype!='N'||$pt_dtype!='N')" class="usept {$un_extra->beluxe->adopt_srl?'blue':''}">{abs((int)$un_extra->beluxe->use_point)}</span>
+				<strong>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}</strong>
+				<block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">
+					{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->d->p)}
+					<img src="../img/common/blank.gif" class="ise coin" title="{$ao_pppt}" alt="{$ao_pppt}" />
+				</block>
+				{$document->printExtraImages($mi->duration_new)}<img src="../img/common/blank.gif" cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="ise world" alt="multilingual" title="multilingual" /><img src="../img/common/blank.gif" cond="$is_scrap" class="ise scrap" alt="Scrap" title="Scrap" />
+				{@
+					$t_cmtn = $document->getCommentCount();
+					$t_tbkn = $document->getTrackbackCount();
+				}
+				<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
+			</div>
+			<div class="auth cb">
+				<div class="fl">
+					<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
+					<span cond="$is_cts && $document->get('category_srl')">{$cts[$document->get('category_srl')]->title}</span>
+					&nbsp;
 				</div>
-				<div class="auth cb">
-					<div class="fl">
-						<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
-						<span cond="$is_cts && $document->get('category_srl')">{$cts[$document->get('category_srl')]->title}</span>
-						&nbsp;
-					</div>
-					<div class="nick">
-						<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span>
-						&rsaquo; <time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
-					</div>
+				<div class="nick">
+					<span cond="$ds_nick||$ds_user" class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span>
+					&rsaquo; <time>{!$ds_regdate&&$ds_update ? zdate($document->get('last_update')) : $document->getRegDate("Y.m.d")}</time>
 				</div>
-			</a>
-		</li>
-	</block>
+			</div>
+		</a>
+	</li>
 </ul>
