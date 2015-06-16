@@ -38,7 +38,6 @@ class beluxeView extends beluxe
 
         $oMi = &$this->module_info;
 
-
         $navi = explode('|@|', $oMi->default_type_option);
         $oMi->default_sort_index = $navi[0] ? $navi[0] : 'list_order';
         $oMi->default_order_type = $navi[1] ? $navi[1] : 'asc';
@@ -60,6 +59,7 @@ class beluxeView extends beluxe
             $oMi->mskin = 'default/mobile';
         }
 
+        // 변경된 정보 저장
         $oMi->module_srl = $this->module_srl;
         $this->module_info = $oMi;
         Context::set('module_info', $oMi);

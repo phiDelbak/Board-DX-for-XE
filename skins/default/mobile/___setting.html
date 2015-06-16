@@ -3,7 +3,7 @@
 	$mi = &$module_info;
 
 	$cts = ($ci['category_srl']&&$ci['category_srl']->display == 'Y')?$oThis->getCategoryList():array();
-	$cstus = $mi->custom_status?explode(',',$mi->custom_status):array();
+	$cstus = $mi->custom_status?explode(',',$oThis->getDefinedLang($mi->custom_status)):array();
 
 	$is_doc = $oDocument && $oDocument->isExists();
 	$is_cts = count($cts);

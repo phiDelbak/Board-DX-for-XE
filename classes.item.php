@@ -57,18 +57,27 @@ class BeluxeItem extends Object
 		return $GLOBALS['BELUXE_ADMIN_ID'][$modsrl];
 	}
 
+	function getDefinedLang($a_lang)
+	{
+        if(is_string($a_lang) && strpos($a_lang, '$user_lang->') !== false) {
+            $ccModule = &getController('module');
+            $ccModule->replaceDefinedLangCode($a_lang);
+        }
+        return $a_lang;
+    }
+
 	function getBrowserInfo()
 	{
 		// http://php.net/manual/en/function.get-browser.php
 		$agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 		$known = array('trident', 'firefox', 'chrome', 'opr', 'safari', 'netscape', 'webkit', 'konqueror', 'gecko');
-		$pattern = '#(?<browser>' . implode('|', $known) . ')[/ ]+(?<version>[0-9]+(?:\.[0-9]+)?)#';
+		$pattern = '/(' . implode('|', $known) . ')[\/ ]+([0-9]+(?:\.[0-9]+)?)/';
 
 		if (!@preg_match_all($pattern, $agent, $matches)) return array('unknown' => '1');
 
-		$i = count($matches['browser'])-1;
-		if($matches['browser'][$i - 1] === 'chrome') $i--;
-		return array($matches['browser'][$i] => $matches['version'][$i]);
+		$i = count($matches[1])-1;
+		if($matches[1][$i - 1] === 'chrome') $i--;
+		return array($matches[1][$i] => $matches[2][$i]);
 	}
 
 	function getIpaddress($is_crypt)
