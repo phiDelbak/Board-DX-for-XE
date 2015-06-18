@@ -460,7 +460,7 @@ class beluxeController extends beluxe
 				if($out->toBool() && $log_mbr_srl && $is_anonymous)
 				{
 					$cmMember = &getModel('member');
-					$oMbrIfo = $cmMember->getMemberInfoByMemberSrl(abs($oDocIfo->get('member_srl')));
+					$oMbrIfo = $cmMember->getMemberInfoByMemberSrl($oDocIfo->get('member_srl'));
 					$this->_setAnonymous($args, $oMbrIfo);
 					executeQuery('beluxe.updateDocumentMemberInfo', $args);
 				}
@@ -687,7 +687,7 @@ class beluxeController extends beluxe
 				if($out->toBool() && $log_mbr_srl && $is_anonymous)
 				{
 					$cmMember = &getModel('member');
-					$oMbrIfo = $cmMember->getMemberInfoByMemberSrl(abs($oComIfo->get('member_srl')));
+					$oMbrIfo = $cmMember->getMemberInfoByMemberSrl($oComIfo->get('member_srl'));
 					$this->_setAnonymous($args, $oMbrIfo);
 					executeQuery('beluxe.updateCommentMemberInfo', $args);
 				}
@@ -1131,7 +1131,9 @@ class beluxeController extends beluxe
 		$oComIfo = $cmComment->getComment($cmt_srl, false, $colLst);
         if(!$oComIfo->isExists()) return new Object(-1, 'msg_not_founded');
 
-        $doc_srl = $oComIfo->get('document_srl');
+        $cmb_srl = (int) $oComIfo->get('member_srl');
+        $doc_srl = (int) $oComIfo->get('document_srl');
+
         $cmDocument = &getModel('document');
         $oDocIfo = $cmDocument->getDocument($doc_srl, false, false);
         if(!$oDocIfo->isExists()) return new Object(-1, 'msg_not_founded');
@@ -1163,26 +1165,23 @@ class beluxeController extends beluxe
         $output = executeQuery('beluxe.updateExtraVars', $args);
         if(!$output->toBool()) return $output;
 
-        if($use_point > 0) {
+        if($cmb_srl && $use_point > 0) {
 	        // 채택시 포인트 갱신을 위해
 	        $point = round(($use_point * (int)$oMi->use_point_percent) / 100);
 	        // 성공하면 포인트 지급
 	        $ccPoint = &getController('point');
-	        if($point > 0) $ccPoint->setPoint(abs($oComIfo->get('member_srl')), $point, 'add');
+	        if($point > 0) $ccPoint->setPoint($cmb_srl, $point, 'add');
 	        // 나머지는 돌려줌
-	        if(($use_point-$point) > 0) $ccPoint->setPoint(abs($oDocIfo->get('member_srl')), $use_point-$point, 'add');
+	        if(($use_point-$point) > 0) $ccPoint->setPoint($cmb_srl, $use_point-$point, 'add');
 	    }
 
-	    if($send_message){
+	    if($cmb_srl && $send_message){
 			$t = '[Board DX] Adopted, thanks message: ' . $cmt_srl;
 			$u = getFullUrl('', 'document_srl',$doc_srl,'comment_srl',$cmt_srl);
 			$send_message = $send_message . '<br /><br /><a href="' . $u . '">'. $u .'</a>';
 
 		    $ccCommuni = &getController('communication');
-		    $ccCommuni->sendMessage(
-		    	$oDocIfo->get('member_srl'), $oComIfo->get('member_srl'),
-		    	$t, $send_message
-		    );
+		    $ccCommuni->sendMessage($oDocIfo->get('member_srl'), $cmb_srl, $t, $send_message);
 		}
 
         return new Object(0, 'success_adopted');

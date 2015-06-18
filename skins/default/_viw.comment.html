@@ -41,7 +41,7 @@
 						$is_granted = $comment->isGranted();
 						$is_secret = $grant->view && $comment->isSecret();
 						$is_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($cmt_srl, 'cmt'):0;
-						$show_btnAdopt = $pt_vtype=='A'&&!$is_blind&&$cmb_srl!=$dmb_srl&&($grant->manager||$is_doc_owner);
+						$show_btnAdopt = $pt_vtype=='A'&&!$is_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner);
 					}
 					<div class="scFbt">
 						<img cond="$tlk=='best'" src="img/common/label_best.gif" />
