@@ -1,7 +1,6 @@
 <!-- DOCUMENT -->
 {@
 $lg = $logged_info ? $logged_info : array();
-$doc_srl = $oDocument->document_srl;
 $ds_status = $ci['custom_status']->display == 'Y';
 $ds_readed = $ci['readed_count']->display == 'Y';
 $ds_voted = $ci['voted_count']->display == 'Y';
@@ -9,6 +8,7 @@ $ds_blamed = $ci['blamed_count']->display == 'Y';
 $ds_update = $ci['last_update']->display == 'Y';
 $ds_nick = $ci['nick_name']->display == 'Y';
 $ds_user =	$ci['user_name']->display == 'Y';
+$doc_srl = $oDocument->document_srl;
 $is_granted = $grant->view && $oDocument->isGranted();
 $is_secret = $oDocument->isSecret();
 $is_locked = $is_cklok?$oThis->isLocked($doc_srl):0;
@@ -24,13 +24,15 @@ $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
 $allow_trb = $oDocument->allowTrackback();
 $allow_cmt = $oDocument->allowComment();
 $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
+$dmb_srl = $oDocument->get('member_srl');
+$is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 }
 <!--@if($is_modal)-->
 <div id="__PID_MODAL_HEADER__" style="display:none">{$oDocument->getTitle($mi->title_length)}</div>
 <div id="__PID_MODAL_FOOTER__" style="display:none">
     <span class="fl">
         {@
-            $nav_list = $oThis->getNavigationList($oDocument->document_srl, 1);
+            $nav_list = $oThis->getNavigationList($doc_srl, 1);
             $nav_key = 'prev';
         }
         <block loop="$nav_list=>$key,$nav">
@@ -66,15 +68,14 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
             <div class="fl">
                 <img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
                 {@
-                $mbsl = $oDocument->get('member_srl');
                 $home = $oDocument->get('homepage');
-                $nick = (!$mbsl||$ds_nick||!$ds_user)?cut_str($oDocument->getNickName(), $mi->nickname_length):'';
-                $nick .= ($mbsl&&$ds_user)?($nick?' (':'').cut_str($oDocument->getUserName(), $mi->nickname_length).($nick?')':''):'';
+                $nick = (!$dmb_srl||$ds_nick||!$ds_user)?cut_str($oDocument->getNickName(), $mi->nickname_length):'';
+                $nick .= ($dmb_srl&&$ds_user)?($nick?' (':'').cut_str($oDocument->getUserName(), $mi->nickname_length).($nick?')':''):'';
                 }
                 <strong>
-                <i cond="!$mbsl && !$home">{$nick}</i>
-                <span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
-                <i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
+                <i cond="!$dmb_srl && !$home">{$nick}</i>
+                <span cond="$dmb_srl" class="scHLink member_{$dmb_srl}">{$nick}</span>
+                <i cond="!$dmb_srl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
                 </strong>
                 <span cond="$mi->display_ip_address == 'Y'||($mi->display_ip_address == 'A' && $grant->manager)" class="ipAddress">(IP: {$oDocument->getIpaddress()})</span>
             </div>
@@ -166,7 +167,7 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
                 <block cond="$mi->view_comment_style!='webzine'">
                     <span cond="$ds_voteup||$ds_votedown" class="scBtn small group"><a cond="$ds_voteup" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->short_voted_count}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a><a cond="$ds_votedown" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->short_blamed_count}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a></span>
                 </block>
-                <span cond="$ds_declare" class="scBtn small group"><a href="#declare" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$oDocument->get('member_srl')}"><em class="declare">{$lang->cmd_declare}</em></a></span>
+                <span cond="$ds_declare" class="scBtn small group"><a href="#declare" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$dmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a></span>
                 </span>
                 </block>
                 <a cond="$mi->display_document_do!='N'" class="document_{$doc_srl}" href="#popup_menu_area" onclick="return false">{$lang->cmd_document_do}</a>
@@ -213,10 +214,10 @@ $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
     <span class="scBtn"><a cond="!$is_modal" href="{getUrl('act', '','document_srl','','category_srl',$category_srl,'page',$page,'npage','','cpage','')}" accesskey="l">{$lang->cmd_list}</a><a cond="$is_modal" href="{getUrl('act','','is_modal','')}" data-modal-hide>{$lang->cmd_close}</a></span>
     <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
         <span class="scBtn black">
-            <a href="{getUrl('act','dispBoardWrite','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_document}">{$lang->cmd_modify}</a>
+            <a href="{getUrl('act','dispBoardWrite','document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_document}">{$lang->cmd_modify}</a>
         </span>
         <span class="scBtn black">
-            <a href="{getUrl('act','dispBoardDelete','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->delete_document}">{$lang->cmd_delete}</a>
+            <a href="{getUrl('act','dispBoardDelete','document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->delete_document}">{$lang->cmd_delete}</a>
         </span>
     </block>
 </div>

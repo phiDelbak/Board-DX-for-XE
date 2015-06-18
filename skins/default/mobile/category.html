@@ -1,9 +1,10 @@
 <ul class="gn">
 	<li><a href="{getUrl('','mid',$mid,'category_srl','')}">{$is_cts?$mi->default_category_title:$lang->all} <em cond="$is_cts">[{number_format($cts[0]->total_document_count)}]</em></a></li>
 	<block cond="$is_cts">
+		{@ $depth = -1}
 		<!--@foreach($cts as $val)-->
 		<block cond="$val->category_srl">
-			<!--@if(!$start && $val->depth == $depth)-->
+			<!--@if($val->depth == $depth)-->
 			</li>
 			<!--@end-->
 			<!--@if($val->depth > $depth)--> <!--more depth-->
@@ -16,7 +17,6 @@
 			<!--@end-->
 			<!--@endif-->
 			<li class="active"|cond="$val->category_srl==$category_srl"><a href="{getUrl('','mid',$mid,'category_srl',$val->category_srl)}">{$val->title} <em>[{number_format($val->total_document_count)}]</em></a>
-			{@ $start = false }
 			{@ $depth = $val->depth }
 		</block>
 		<!--@endforeach-->

@@ -8,6 +8,8 @@ $allow_trb = $oDocument->allowTrackback();
 $allow_cmt = $oDocument->allowComment();
 $is_locked = $is_cklok?$oThis->isLocked($doc_srl):0;
 $cate = $is_cts?$cts[$oDocument->get('category_srl')]:0;
+$dmb_srl = $oDocument->get('member_srl');
+$is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 }
 <div id="siBody">
 <div class="scContent clearBar">

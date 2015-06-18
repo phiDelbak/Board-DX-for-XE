@@ -1,31 +1,22 @@
 {@
-	$doc_srl = $oDocument->document_srl;
-	$dmb_srl = $oDocument->get('member_srl');
-	$lmb_srl = $logged_info?$logged_info->member_srl:0;
-
 	$ci = &$column_info;
 	$mi = &$module_info;
-
+	$doc_srl = $oDocument->document_srl;
+	$dmb_srl = $oDocument->get('member_srl');
+    $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 	$ds_nick = $ci['nick_name']->display == 'Y';
 	$ds_user =	$ci['user_name']->display == 'Y';
-
 	$ds_voteup = $is_logged&&strpos($mi->use_c_vote, 'up')!==false;
 	$ds_votedown = $is_logged&&strpos($mi->use_c_vote, 'down')!==false;
 	$ds_declare = $is_logged&&strpos($mi->use_c_vote, 'declare')!==false;
 	$adm_id = $ds_declare ? $oThis->getAdminId() : array();
-
-	$start = true;
-	$depth = 0;
-
 	$cmts = $oThis->getCommentList($doc_srl, $cpage, (int) $mi->default_clist_count);
 	$bscmts = $mi->use_c_best=='Y' ? $oThis->getBestCommentList($document_srl) : array();
 	$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);
-
 	$pt_vtype = $mi->use_point_type == 'A'?'A':'N';
 	$un_extra = $pt_vtype=='A'?$oDocument->get('extra_vars'):null;
 	$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 }
-
 <block cond="$mi->view_comment_style == 'webzine'">
 {@
 	$voted_list = $oThis->getDocumentVotedLogs($doc_srl);
@@ -36,26 +27,25 @@
 <li>
 	<ul loop="$a_clsttp => $tlk,$p_list" cond="count($p_list)">
 	<block loop="$p_list=>$key,$comment">
-		{@ $depth = $comment->get('depth') }
+		{@
+			$depth = $comment->get('depth');
+			$depth = $depth > 10 ? 10 : $depth;
+		}
 		<li class="{$depth?'dep':''}" style="margin-left:{($depth*20)}px">
 		<div class="cb">
-
 			<a name="comment_{$comment->comment_srl}"></a>
 			{@
 				$cmt_srl = $comment->get('comment_srl');
 				$cmb_srl = $comment->get('member_srl');
-
 				$is_granted = $comment->isGranted();
 				$is_secret = $grant->view && $comment->isSecret();
 				$is_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($comment->comment_srl, 'cmt'):0;
-
 				$tmp = $cmb_srl?$cmb_srl:$comment->get('ipaddress');
 				$is_chk = !$depth ? (int) $voted_list[$tmp]->point > -1 : $is_chk;
+				$show_btnAdopt = $pt_vtype=='A'&&!$is_blind&&$cmb_srl!=$dmb_srl&&($grant->manager||$is_doc_owner);
 			}
 			<span cond="$tlk" class="{$tlk}">Best</span>
 			<span cond="$is_webzine&&!$depth" class="best agree">{$is_chk ? $lang->cmd_agree : $lang->cmd_disagree }</span>
-
-			{@ $show_btnAdopt = $pt_vtype=='A'&&$un_extra->beluxe->use_point}
 
 			<div class="cmt {$is_blind?'blind':($is_secret?'secret':'')}">
 
@@ -74,11 +64,11 @@
 		            </ul>
 		        </form>
 
-				{$comment->getContent(false)}
+				{$is_blind&&!$grant->manager?$lang->msg_is_blind:$comment->getContent(false)}
 			</div>
 
 			<div cond="$show_btnAdopt" class="bna btnAdopt">
-				<!--@if(!$un_extra->beluxe->adopt_srl&&(($grant->manager&&$cmb_srl&&$cmb_srl!=$dmb_srl)||($dmb_srl&&$dmb_srl==$lmb_srl&&$cmb_srl&&$cmb_srl!=$lmb_srl)))-->
+				<!--@if(!$un_extra->beluxe->adopt_srl)-->
 					<a class="bn white" href="#" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</a>
 				<!--@elseif($un_extra->beluxe->adopt_srl==$cmt_srl)-->
 					<a class="bn white" href="#" onclick="return false">{$lang->adopted_comment}</a>
@@ -105,8 +95,7 @@
 			</div>
 			<div class="fr">
 				<a cond="$grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()" href="{getUrl('','mid',$mid,'act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl, 'document_srl',$document_srl)}" title="{$lang->new_comment}" class="rb re">{$lang->cmd_reply}</a>
-				{@ $start = false }
-				<block cond="!$is_blind&&$comment->isEditable()&&!($show_btnAdopt&&!$grant->manager&&$un_extra->beluxe->adopt_srl==$cmt_srl)" >
+				<block cond="$grant->manager||(!$is_blind&&$comment->isEditable()&&!($show_btnAdopt&&$un_extra->beluxe->adopt_srl==$cmt_srl))" >
 					<a href="{getUrl('','mid',$mid,'act','dispBoardWriteComment','comment_srl',$cmt_srl, 'document_srl',$document_srl)}" title="{$lang->modify_comment}" class="rb ed">{$lang->cmd_modify}</a>
 					<a href="{getUrl('','mid',$mid,'act','dispBoardDeleteComment','comment_srl',$cmt_srl, 'document_srl',$document_srl)}" title="{$lang->delete_comment}" class="rb de">{$lang->cmd_delete}</a>
 				</block>

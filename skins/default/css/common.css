@@ -1726,9 +1726,8 @@
 }
 
 #siFbk .btnAdopt {
-	position: absolute;
-	top: 0;
-	right: 0;
+	float: right;
+	margin:0 0px 15px 20px;
 }
 
 #siFbk.tbk .scFbH {
