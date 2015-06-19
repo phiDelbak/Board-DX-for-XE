@@ -21,15 +21,34 @@
 
 		$agree_list = $disagree_list = array();
 		$agree_cnt = $disagree_cnt = 0;
+		$is_chk = false;
 	}
+
+	<!--// 첫 댓글이 대댓글이면 root 값 체크 -->
+	<block cond="count($cmts->data)">
+		{@
+			reset($cmts->data);
+			$_tmp = current($cmts->data);
+		}
+		<block cond="$_tmp->get('depth')">
+			{@
+				$_tmp2 = new stdClass();
+				$_tmp2->comment_srl = $_tmp->comment_srl;
+				$_tmp = executeQuery('comment.getCommentListItem', $_tmp2, array('head'));
+				$_tmp2->comment_srl = count($_tmp->data) ? $_tmp->data->head : 0;
+				$_tmp = executeQuery('comment.getComment', $_tmp2, array('member_srl','ipaddress'));
+				$_tmp = count($_tmp->data) ? ($_tmp->data->member_srl?$_tmp->data->member_srl:$_tmp->data->ipaddress) : 0;
+				$is_chk = (int) $voted_list[$tmp]->point > -1;
+			}
+		</block>
+	</block>
 
 	<block loop="$cmts->data => $no,$comment">
 		{@
-			$tmp = $comment->get('member_srl')?abs($comment->get('member_srl')):$comment->get('ipaddress');
-			$tmp2 = !$comment->get('depth');
-			$is_chk = $tmp2 ? (int) $voted_list[$tmp]->point > -1 : $is_chk;
+			$tmp = $comment->get('member_srl')?$comment->get('member_srl'):$comment->get('ipaddress');
+			$is_chk = $comment->get('depth') ? $is_chk : (int) $voted_list[$tmp]->point > -1;
 			$is_chk ? $agree_list[] = $comment : $disagree_list[] = $comment;
-			$tmp2 ? ($is_chk ? $agree_cnt++ : $disagree_cnt++) : 0;
+			$comment->get('depth') ? 0 : ($is_chk ? $agree_cnt++ : $disagree_cnt++);
 		}
 	</block>
 
