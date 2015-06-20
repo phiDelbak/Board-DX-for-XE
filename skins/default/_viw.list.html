@@ -146,6 +146,10 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
                 <!--@endif-->
             </div>
             <include cond="!$is_secret&&!$is_blind&&!$is_restrict&&$mi->use_history&&$mi->use_history!='N'" target="_etc.histories.html" />
+            <div class="sign clearBar" cond="($mi->display_profile!='N'&&$mi->display_profile!='C')&&($oDocument->getProfileImage()||$oDocument->getSignature())">
+                <img cond="$oDocument->getProfileImage()" src="{$oDocument->getProfileImage()}" alt="Profile" class="pf" />
+                <div cond="$oDocument->getSignature()" class="tx">{$oDocument->getSignature()}</div>
+            </div>
             <div cond="$mi->document_bottom_text" class="scMbtTxt clearBar">
                 {$mi->document_bottom_text}
             </div>
@@ -178,10 +182,6 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
                 </ul>
             </div>
             <include cond="!$us_vmodal&&$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
-            <div class="sign clearBar" cond="($mi->display_profile!='N'&&$mi->display_profile!='C')&&($oDocument->getProfileImage()||$oDocument->getSignature())">
-                <img cond="$oDocument->getProfileImage()" src="{$oDocument->getProfileImage()}" alt="Profile" class="pf" />
-                <div cond="$oDocument->getSignature()" class="tx">{$oDocument->getSignature()}</div>
-            </div>
             {@
             $ds_flsgn = $mi->display_attached_files=='Y'||$mi->display_attached_files=='G';
             $ds_flsmd = $mi->display_attached_files=='Y'||$mi->display_attached_files=='M';
@@ -204,9 +204,9 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 </div>
 <!-- /DOCUMENT -->
 <div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
-    {@ $tmp = $grant->write_document&&$btm_lstcnt&&($sedt_wbtn||!$is_sedt)}
-    <div cond="!$is_modal||$tmp" class="fl">
-        <span cond="$tmp" class="scBtn black">
+    {@ $_tmp = $grant->write_document&&$btm_lstcnt&&($sedt_wbtn||!$is_sedt)}
+    <div cond="!$is_modal||$_tmp" class="fl">
+        <span cond="$_tmp" class="scBtn black">
             <a href="{getUrl('act','dispBoardWrite','document_srl','')}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->new_document}" accesskey="w">{$lang->document_write}</a>
         </span>
         <span cond="!$is_modal&&$category_srl" class="scBtn"><a href="{getUrl('','mid',$mid)}">{$lang->cmd_all_list}</a></span>

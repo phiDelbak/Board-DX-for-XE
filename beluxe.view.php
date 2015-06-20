@@ -326,12 +326,12 @@ class beluxeView extends beluxe
                         && strtolower(Context::get('cate_trace')) !== 'n'
                         && (!$out->isNotice() || $oMi->notice_category === 'Y')
                     ) {
-                        $temp = $this->lstCfg['temp'];
+                        $_tmp = $this->lstCfg['temp'];
                         $category_srl = Context::get('category_srl');
-                        $temp->dccate = $out->get('category_srl');
+                        $_tmp->dccate = $out->get('category_srl');
                         // 넘어온 분류와 문서 분류가 다를 경우 바꿈 //공지는 제외
-                        if($temp->iscate && $temp->dccate != $category_srl) {
-                            $category_srl = $temp->dccate;
+                        if($_tmp->iscate && $_tmp->dccate != $category_srl) {
+                            $category_srl = $_tmp->dccate;
                             Context::set('category_srl', $category_srl, true);
                         }
                     }

@@ -1,11 +1,11 @@
 <block cond="$grant->manager">
 {@
-	$tmp = $tpl_path;
+	$_tmp = $tpl_path;
 	$cmWidget = &getModel('widget');
 	$widget_list = $cmWidget->getDownloadedWidgetList();
 	$ccWidget = &getController('widget');
 	$first_page->content = $ccWidget->transWidgetCode($first_page->content, true);
-	$tpl_path = $tmp;
+	$tpl_path = $_tmp;
 }
 </block>
 <div id="zonePageContent" style="border:1px dashed #e5e5e5;border-left:0;border-right:0"|cond="$grant->manager">{$first_page->content}</div>

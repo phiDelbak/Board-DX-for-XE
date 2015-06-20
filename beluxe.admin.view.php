@@ -155,20 +155,20 @@ class beluxeAdminView extends beluxe
         }
         else {
             $cmAdmThis = & getAdminModel(__XEFM_NAME__);
-            $tmp = $cmAdmThis->getTypeList($this->module_srl ? $this->module_info->skin : 'default');
-            Context::set('default_type_list', $tmp);
+            $_tmp = $cmAdmThis->getTypeList($this->module_srl ? $this->module_info->skin : 'default');
+            Context::set('default_type_list', $_tmp);
 
             if (is_string($this->module_info->backup_options)) {
-                $tmp = unserialize($this->module_info->backup_options);
+                $_tmp = unserialize($this->module_info->backup_options);
                 $a = array();
-                foreach ($tmp as $key => $val) $a[$key] = $val;
+                foreach ($_tmp as $key => $val) $a[$key] = $val;
                 Context::set('compulsory_options', $a);
             }
 
             if (is_string($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS'])) {
-                $tmp = unserialize($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS']);
+                $_tmp = unserialize($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS']);
                 $a = array();
-                foreach ($tmp as $key => $val) $a[$key] = $val;
+                foreach ($_tmp as $key => $val) $a[$key] = $val;
                 Context::set('module_backup_options', $a);
                 unset($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS']);
             }

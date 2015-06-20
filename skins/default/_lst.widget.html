@@ -14,43 +14,52 @@
 	$mi->star_style!='N' ? $ci['blamed_count']->display = 'N' : 0;
 	$mi->star_style!='N' && $ds_voted ? $ci['readed_count']->display = 'N' : 0;
 
-	$lang->short_readed_count ? $ci['readed_count']->name = $lang->short_readed_count : 0;
-	$lang->short_blamed_count ? $ci['blamed_count']->name = $lang->short_blamed_count : 0;
-	$lang->short_voted_count ? $ci['voted_count']->name = $lang->short_voted_count : 0;
-	$lang->short_custom_status ? $ci['custom_status']->name = $lang->short_custom_status : 0;
-	$mi->star_style!='N' ? $ci['voted_count']->name = $lang->star_column : 0;
-
 	$is_notice_widget = !$is_doc;
 	$a_lsttp = array('notice'=>&$notice_list,'best'=>&$best_list);
 }
 
-<!--@if($mi->display_list_header == 'N')-->
-	<block loop="$ci => $key,$val" cond="$val->display=='Y'">
-		{@ $sclms[$key] = $val}
-	</block>
-<!--@endif-->
+<block loop="$ci => $key,$val" cond="$val->display=='Y'">
+	{@
+		$colcnt += $val->idx<0?1:0;
+		$sclms[$key] = clone $val;
+		$_tmp = Context::getLang('short_'.$val->eid);
+		$_tmp !== 'short_'.$val->eid ? $sclms[$key]->name = $_tmp: 0;
+	}
+</block>
+
+{@ $mi->star_style!='N' ? $sclms['voted_count']->name = $lang->star_column : 0}
 
 <!-- LIST -->
 <include cond="$is_notice_widget && (count($notice_list) || count($best_list))" target="_etc.noticewidget.html" />
 
-<div cond="$mi->display_list_header!='N'" id="siHrm" class="clearBar">
-	<ul class="scFrm">
-		<li class="scHaDCnts">
+<table cond="$mi->display_list_header != 'N'" id="siLst" class="widg" width="100%" border="0" cellspacing="0" summary="List of document" style="border:0">
+<thead class="scOneCol">
+	<tr>
+		<th scope="row" colspan="{$colcnt}">
+		<div>&nbsp;
 			<!--@if($mi->display_document_count!='N')-->
-			<em>Today</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd"))}</strong>,
-			<em>Yesterday</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd",strtotime("-1 day", time())))}</strong>,
-			<em>Total</em> <strong>{$oThis->getDocumentCountByDate()}</strong>
+			<span cond="$mi->display_document_count!='N'&&!$sotcnt" class="scHaDCnts">
+				<em>Today</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd"))}</strong>,
+				<em>Yesterday</em> <strong>{$oThis->getDocumentCountByDate(date("Ymd",strtotime("-1 day", time())))}</strong>,
+				<em>Total</em> <strong>{$oThis->getDocumentCountByDate()}</strong>
+			</span>
 			<!--@else-->
-			<span>&nbsp;</span>
+			<span loop="$sclms => $key,$val" cond="$val->sort == 'Y'" class="sort"> {@ $sotcnt++}
+				<a href="{getUrl('sort_index',$key,'order_type',($order_type!='asc'?'asc':'desc'))}">{$val->name}<em class="asc"|cond="$sort_index==$key&&$order_type=='asc'">&nbsp;</em></a>
+			</span>
 			<!--@endif-->
-		</li>
-	</ul>
-</div>
+		</div>
+		</th>
+		<td cond="$grant->manager" class="scCheck sort"><div><input type="checkbox" onclick="XE.checkboxToggleAll({ doClick:true }); return false;" /></div></td>
+	</tr>
+</thead>
+</table>
+
 {@
 	$md_optstr = !$us_hottrack&&$us_vmodal?'type="example/modal" data-footer="__PID_MODAL_FOOTER__" data-header="__PID_MODAL_HEADER__"':'';
 	$hot_optstr = $us_hottrack?'data-hottrack="%s" data-type="%s"'.($us_vmodal?'data-modal-key="%s" ':''):'';
 }
-<div cond="count($document_list)" id="siDoc" class="widg" style="margin-top:10px"|cond="count($notice_list) || count($best_list)">
+<div cond="count($document_list)" id="siDoc" class="widg">
 	{@
 		$ds_nick = $ci['nick_name']->display == 'Y';
 		$ds_user =	$ci['user_name']->display == 'Y';

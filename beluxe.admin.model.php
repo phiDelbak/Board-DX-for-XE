@@ -134,8 +134,8 @@ class beluxeAdminModel extends beluxe
 		$types = $this->getTypeList($skin);
 		foreach($types as $tk=>$tv)
 		{
-			$tmp = array($tv->sort_index,$tv->order_type,$tv->list_count,$tv->page_count,$tv->clist_count,$tv->dlist_count);
-			$html .= sprintf('<option value="%s" data-option="%s">%s</option>', $tk, implode('|@|', $tmp), $tv->title);
+			$_tmp = array($tv->sort_index,$tv->order_type,$tv->list_count,$tv->page_count,$tv->clist_count,$tv->dlist_count);
+			$html .= sprintf('<option value="%s" data-option="%s">%s</option>', $tk, implode('|@|', $_tmp), $tv->title);
 		}
 
 		$this->add("html", '<select data-skin="'.$skin.'">'.$html.'</select>');

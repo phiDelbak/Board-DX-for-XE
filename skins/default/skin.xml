@@ -637,29 +637,6 @@
 				<description xml:lang="jp">文作成の時下端にタッグ, リンク入力機の表示を設定します.</description>
 				<description xml:lang="en">Set whether to display the tag and link input devices.</description>
 			</var>
-			<var name="use_input_guest_info" type="radio" default="Y">
-				<title xml:lang="ko">비회원 정보</title>
-				<title xml:lang="jp">非会員情報</title>
-				<title xml:lang="en">Guest info</title>
-				<options value="N">
-					<title xml:lang="ko">사용 안함</title>
-					<title xml:lang="jp">使用しない</title>
-					<title xml:lang="en">not use</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">모두</title>
-					<title xml:lang="jp">すべて</title>
-					<title xml:lang="en">all</title>
-				</options>
-				<options value="S">
-					<title xml:lang="ko">닉네임</title>
-					<title xml:lang="jp">ニックネーム</title>
-					<title xml:lang="en">nickname</title>
-				</options>
-				<description xml:lang="ko">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
-				<description xml:lang="jp">非会員が文書作成の時入力情報を設定します.</description>
-				<description xml:lang="en">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
-			</var>
 			<var name="use_input_comment_writer" type="radio" default="Y">
 				<title xml:lang="ko">댓글 입력기</title>
 				<title xml:lang="jp">コメント入力機</title>
@@ -728,6 +705,29 @@
 				<description xml:lang="ko">같단 글쓰기 사용시 필요한 옵션들입니다.</description>
 				<description xml:lang="jp">같단 글쓰기 사용시 필요한 옵션들입니다.</description>
 				<description xml:lang="en">같단 글쓰기 사용시 필요한 옵션들입니다.</description>
+			</var>
+			<var name="use_input_guest_info" type="radio" default="Y">
+				<title xml:lang="ko">비회원 정보</title>
+				<title xml:lang="jp">非会員情報</title>
+				<title xml:lang="en">Guest info</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">모두</title>
+					<title xml:lang="jp">すべて</title>
+					<title xml:lang="en">all</title>
+				</options>
+				<options value="S">
+					<title xml:lang="ko">닉네임</title>
+					<title xml:lang="jp">ニックネーム</title>
+					<title xml:lang="en">nickname</title>
+				</options>
+				<description xml:lang="ko">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
+				<description xml:lang="jp">非会員が文書作成の時入力情報を設定します.</description>
+				<description xml:lang="en">비회원이 글 작성시 입력받을 정보를 설정합니다.</description>
 			</var>
 		</group>
 		<group>

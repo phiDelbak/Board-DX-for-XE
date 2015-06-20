@@ -4,12 +4,12 @@
 	<input class="lang_code" type="text" name="item_title[]" placeholder="{$lang->title}" value="{htmlspecialchars($item->title, ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}" />
 	<span class="side">
 		{@ $g_val = $type_list[$item->type]}
-		<span class="cbSelect" data-index="0">
+		<span class="dxSmSelect" data-index="0">
 			<input type="hidden" name="item_type[]" value="{$g_val?$item->type:''}" class="_value" />
 			<label class="_title">{$g_val?$g_val->title:$lang->is_default}</label>
-			<dl class="cbLayer x"></dl>
+			<dl class="dxcSmLayer x"></dl>
 		</span>
-		<span class="cbSelect" data-type="panel" data-index="1" style="border:1px solid {$item->color};"|cond="$item->color">
+		<span class="dxSmSelect" data-type="panel" data-index="1" style="border:1px solid {$item->color};"|cond="$item->color">
 			<input type="hidden" name="item_color[]" value="{$item->color}" class="_item_color" />
 			{@
 				$tmp = array($item->navigation->sort_index,$item->navigation->order_type,$item->navigation->list_count,$item->navigation->page_count,$item->navigation->clist_count,$item->navigation->dlist_count);
@@ -17,12 +17,12 @@
 			}
 			<input type="hidden" name="item_opts[]" value="{$tmp}" class="_value" />
 			<label class="_title" style="color:blue"|cond="$tmp!='N|@||@||@||@||@||@|'">{$lang->cmd_option}</label>
-			<dl class="cbLayer x"></dl>
+			<dl class="dxcSmLayer x"></dl>
 		</span>
-		<span cond="count($group_list)" class="cbSelect" data-type="array">
+		<span cond="count($group_list)" class="dxSmSelect" data-type="array">
 			<input type="hidden" name="group_srls[]" value="{implode('|@|',$item->group_srls)}" class="_value" />
 			<label class="_title" style="color:blue"|cond="count($item->group_srls)">{$lang->category_group_srls}</label>
-			<dl class="cbLayer x">
+			<dl class="dxcSmLayer x">
 				<dt loop="$group_list=>$g_val" data-val="{$g_val->group_srl}">
 					<label><input type="checkbox" value="{$g_val->group_srl}" checked="checked"|cond="in_array($g_val->group_srl,$item->group_srls)" /> {$g_val->title}</label>
 				</dt>

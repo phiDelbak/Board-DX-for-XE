@@ -60,7 +60,7 @@ class beluxeModel extends beluxe
         if ($is_exvars) {
             $cmDocument = & getModel('document');
             $cmDocument->setToAllDocumentExtraVars();
-            foreach ($out as $doc_srl => $tmp) {
+            foreach ($out as $doc_srl => $_tmp) {
                 $out[$doc_srl] = $GLOBALS['XE_DOCUMENT_LIST'][$doc_srl];
             }
         }
@@ -208,15 +208,15 @@ class beluxeModel extends beluxe
                 }
             }
 
-            $tmp = new stdClass();
+            $_tmp = new stdClass();
             $oMi = $this->_getModuleInfo($a_modsrl);
 
             // root에 기본값 입력
             if ($oMi->module_srl) {
                 $navi = explode('|@|', $oMi->default_type_option);
-                $tmp->mid = $oMi->mid;
-                $tmp->module_srl = $oMi->module_srl;
-                $tmp->title = $oMi->default_category_title ? $oMi->default_category_title : Context::getLang('category');
+                $_tmp->mid = $oMi->mid;
+                $_tmp->module_srl = $oMi->module_srl;
+                $_tmp->title = $oMi->default_category_title ? $oMi->default_category_title : Context::getLang('category');
 
                 if(Mobile::isFromMobilePhone()) {
                     if((int) $oMi->mobile_list_count) $navi[2] = $oMi->mobile_list_count;
@@ -225,7 +225,7 @@ class beluxeModel extends beluxe
                     if((int) $oMi->mobile_dlist_count) $navi[5] = $oMi->mobile_dlist_count;
                 }
 
-                $tmp->navigation = (object)array(
+                $_tmp->navigation = (object)array(
                     'sort_index' => $navi[0] ? $navi[0] : 'list_order',
                     'order_type' => $navi[1] ? $navi[1] : 'asc',
                     'list_count' => (int) ($navi[2] ? $navi[2] : 20),
@@ -236,7 +236,7 @@ class beluxeModel extends beluxe
             }
 
             require_once (__XEFM_PATH__ . 'classes.cache.php');
-            $cate_list = BeluxeCache::categoryList($a_modsrl, $tmp);
+            $cate_list = BeluxeCache::categoryList($a_modsrl, $_tmp);
             $GLOBALS['BELUXE_CATEGORY_LIST'][$a_modsrl] = $cate_list;
 
             //insert in cache

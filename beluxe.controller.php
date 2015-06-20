@@ -221,15 +221,15 @@ class beluxeController extends beluxe
 			$mod_srl = $oMi->module_srl;
 		}
 
-		if(!preg_match("/^(https?|ftp|file|mms):[\/]{2,3}[A-Za-z0-9-]+.[A-Za-z0-9-]+[.A-Za-z0-9-\:]*\/.*[A-Za-z0-9]{1,}/i", $file_url))
+		if(!preg_match("/^(https?|ftp|file|mms):[\/]{2,3}[\w\-]+\.[\w\-]+(.*?)\/.{3,}/i", $file_url))
 			return new Object(-1, Context::getLang('msg_invalid_format') . "\r\nex: http, ftp, mms, file");
 
 		$filename = basename($file_url);
 		if(!$mod_srl || !$filename) return new Object(-1, 'msg_invalid_request');
 
-		if(strlen($filename) > 20 && strpos($filename, '?') > -1)
+		if(strlen($filename) > 33 && strpos($filename, '?') > -1)
 		{
-			$rex = strpos($filename, '?') > 10 ? "/([^#]{1,10}).*\?.*(\#.+$)/i":"/.*\?([^#]{1,10}).*(\#.+$)/i";
+			$rex = "/^(.{1,20}).*?(.{1,10})$/i";
 			$filename = preg_replace($rex, '$1...$2', $filename);
 		}
 
@@ -249,7 +249,7 @@ class beluxeController extends beluxe
 		$filename = str_replace(array('<', '>'), array('%3C', '%3E'), $filename);
 
 		// 이미지인지 기타 파일인지 체크
-		$direct = preg_match("/\.(png|jpe?g|bmp|gif|ico|swf|flv|mp[1234]|as[fx]|wm[av]|mpe?g|avi|wav|midi?|moo?v|qt|ra?m|ra|rmm|m4v)$/i", $filename) ? 'Y' : 'N';
+		$direct = preg_match("/\.(jpe?g|gif|png|bmp|ico|wm[va]|mpe?g|avi|swf|flv|mp[1-4]|as[fx]|wav|midi?|moo?v|qt|r[am]{1,2}|m4v|mkv)$/i", $filename) ? 'Y' : 'N';
 
 		// 사용자 정보를 구함
 		$oLogIfo = Context::get('logged_info');
@@ -420,12 +420,12 @@ class beluxeController extends beluxe
 					// 새로 db 읽는거 방지를 위해 값 저장
 					if(!isset($GLOBALS['XE_DOCUMENT_LIST'][$doc_srl]))
 					{
-						$tmp->variables = array(
+						$_tmp->variables = array(
 							'comment_count'=>$oDocIfo->get('comment_count'),
 							'regdate'=>$oDocIfo->get('regdate')
 						);
 
-						$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl] = $tmp;
+						$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl] = $_tmp;
 					}
 
 					$cmThis = &getModel(__XEFM_NAME__);
@@ -490,13 +490,13 @@ class beluxeController extends beluxe
 				// 관리자 메일이 등록되어 있으면 메일 발송
 				if($out->toBool() && $oMi->admin_mail)
 				{
-					$tmp_url = getFullUrl('','document_srl',$doc_srl);
+					$_tmp = getFullUrl('','document_srl',$doc_srl);
 					$this->_sendMail(
 						$is_anonymous ? '' : ($args->nick_name ? $args->nick_name : $oLogIfo->nick_name),
 						$is_anonymous ? '' : ($args->email_address ? $args->email_address : $oLogIfo->email_address),
 						$oMi->admin_mail,
 						$args->title,
-						sprintf("From : <a href=\"%s\">%s</a><br/>\r\n%s", $tmp_url, $tmp_url, $args->content)
+						sprintf("From : <a href=\"%s\">%s</a><br/>\r\n%s", $_tmp, $_tmp, $args->content)
 					);
 				}
 
@@ -713,14 +713,14 @@ class beluxeController extends beluxe
 				// 관리자 메일이 등록되어 있으면 메일 발송
 				if($out->toBool() && $oMi->admin_mail)
 				{
-					$tmp_url = getFullUrl('','document_srl',$doc_srl);
+					$_tmp = getFullUrl('','document_srl',$doc_srl);
 					$cmt_srl = $out->get('comment_srl');
 					$this->_sendMail(
 						$is_anonymous ? '' : ($args->nick_name ? $args->nick_name : $oLogIfo->nick_name),
 						$is_anonymous ? '' : ($args->email_address ? $args->email_address : $oLogIfo->email_address),
 						$oMi->admin_mail,
 						$oDocIfo->getTitleText(),
-						sprintf("From : <a href=\"%s#comment_%d\">%s#comment_%d</a><br/>\r\n%s", $tmp_url,$cmt_srl, $tmp_url, $cmt_srl, $args->content)
+						sprintf("From : <a href=\"%s#comment_%d\">%s#comment_%d</a><br/>\r\n%s", $_tmp, $cmt_srl, $_tmp, $cmt_srl, $args->content)
 					);
 				}
 
@@ -772,12 +772,12 @@ class beluxeController extends beluxe
 			//값이없으면 새로 db 읽는거 방지를 위해 값 저장
 			if(!isset($GLOBALS['XE_DOCUMENT_LIST'][$doc_srl]))
 			{
-				$tmp->variables = array(
+				$_tmp->variables = array(
 					'comment_count'=>$oDocIfo->get('comment_count'),
 					'regdate'=>$oDocIfo->get('regdate')
 				);
 
-				$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl] = $tmp;
+				$GLOBALS['XE_DOCUMENT_LIST'][$doc_srl] = $_tmp;
 			}
 
 			$cmThis = &getModel(__XEFM_NAME__);

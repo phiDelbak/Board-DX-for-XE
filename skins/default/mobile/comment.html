@@ -40,12 +40,12 @@
 				$is_granted = $comment->isGranted();
 				$is_secret = $grant->view && $comment->isSecret();
 				$is_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($comment->comment_srl, 'cmt'):0;
-				$tmp = $cmb_srl?$cmb_srl:$comment->get('ipaddress');
-				$is_chk = !$depth ? (int) $voted_list[$tmp]->point > -1 : $is_chk;
-				$show_btnAdopt = $pt_vtype=='A'&&!$is_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner);
+				$_tmp = $cmb_srl?$cmb_srl:$comment->get('ipaddress');
+				$is_chk = !$depth ? (int) $voted_list[$_tmp]->point > -1 : $is_chk;
+				$show_btnAdopt = $mi->view_comment_style!='webzine'&&$pt_vtype=='A'&&!$is_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner);
 			}
 			<span cond="$tlk" class="{$tlk}">Best</span>
-			<span cond="$is_webzine&&!$depth" class="best agree">{$is_chk ? $lang->cmd_agree : $lang->cmd_disagree }</span>
+			<span cond="$is_webzine&&!$depth" class="best {$is_chk?'agree':'disagree'}">{$is_chk ? $lang->cmd_agree : $lang->cmd_disagree}</span>
 
 			<div class="cmt {$is_blind?'blind':($is_secret?'secret':'')}">
 

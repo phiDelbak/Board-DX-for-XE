@@ -31,9 +31,9 @@
 		<li class="active"|cond="$search_target == 'is_adopted'&&$search_keyword=='true'"><a href="{getUrl('','mid', $mid, 'search_target', 'is_adopted','search_keyword', 'true')}"><span>{$lang->adopt}</span></a></li>
         <li class="active"|cond="$search_target == 'is_adopted'&&$search_keyword=='false'"><a href="{getUrl('','mid', $mid, 'search_target', 'is_adopted','search_keyword', 'false')}"><span>{$lang->not_adopt}</span></a></li>
         <block cond="$logged_info">
-            {@ $tmp = $logged_info->member_srl}
-            <li class="active"|cond="$search_target == 'member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 'member_srl','search_keyword', $tmp)}"><span>{$lang->search_my_document}</span></a></li>
-            <li class="active"|cond="$search_target == 't_comment_member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 't_comment_member_srl','search_keyword', $tmp)}"><span>{$lang->search_my_comment}</span></a></li>
+            {@ $_tmp = $logged_info->member_srl}
+            <li class="active"|cond="$search_target == 'member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 'member_srl','search_keyword', $_tmp)}"><span>{$lang->search_my_document}</span></a></li>
+            <li class="active"|cond="$search_target == 't_comment_member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 't_comment_member_srl','search_keyword', $_tmp)}"><span>{$lang->search_my_comment}</span></a></li>
         </block>
 	</block>
 </ul>

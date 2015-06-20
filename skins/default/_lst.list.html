@@ -14,13 +14,6 @@
 	$mi->star_style!='N' ? $ci['blamed_count']->display = 'N' : 0;
 	$mi->star_style!='N' && $ds_voted ? $ci['readed_count']->display = 'N' : 0;
 
-	$lang->short_readed_count ? $ci['readed_count']->name = $lang->short_readed_count : 0;
-	$lang->short_blamed_count ? $ci['blamed_count']->name = $lang->short_blamed_count : 0;
-	$lang->short_voted_count ? $ci['voted_count']->name = $lang->short_voted_count : 0;
-	$lang->short_custom_status ? $ci['custom_status']->name = $lang->short_custom_status : 0;
-
-	$mi->star_style!='N' ? $ci['voted_count']->name = $lang->star_column : 0;
-
 	$colcnt = $sotcnt = 0;
 	$is_notice_widget = !$document_srl && $mi->use_notice_widget=='widget';
 }
@@ -47,11 +40,17 @@
 	{@
 		$colcnt ++;
 		$sotcnt += $val->sort=='Y'?1:0;
-		$sclms[$key] = $val;
+
+		$sclms[$key] = clone $val;
+		$_tmp = Context::getLang('short_'.$val->eid);
+		$_tmp !== 'short_'.$val->eid ? $sclms[$key]->name = $_tmp: 0;
 	}
 </block>
 
-{@ $dis_dcnt = $mi->display_document_count=='Y'}
+{@
+	$dis_dcnt = $mi->display_document_count=='Y';
+	$mi->star_style!='N' ? $sclms['voted_count']->name = $lang->star_column : 0;
+}
 
 <!-- LIST -->
 <include cond="$is_notice_widget && (count($notice_list) || count($best_list))" target="_etc.noticewidget.html" />
@@ -107,8 +106,9 @@
 				<!--@case('title')-->
 					<div class="scElps" data-active="true"|cond="$is_elips">
 						<a href="{$purl}" {$md_optstr}>
-							<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$un_extra->beluxe->use_point)}</em>
-							{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}
+							<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">
+								{$tlk?$tlk:abs((int)$un_extra->beluxe->use_point)}
+							</em>{$is_blind?$lang->msg_is_blind:$document->getTitle($mi->title_length)}
 						</a>
 						<span>
 							<block cond="$ao_ppang&&$un_extra->ppang&&$un_extra->ppang->d->p>0">

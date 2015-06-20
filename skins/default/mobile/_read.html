@@ -137,13 +137,13 @@
                 $nv_un_ex = is_string($nv_un_ex)?unserialize($nv_un_ex):$nv_un_ex;
                 $val->selected?$nav_key='Next':0;
             }
-            <a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'category_srl',$category_srl,'cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
+            <a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'category_srl',$category_srl,'cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword,'page',$spage)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
                 <span class="no">
                     {$val->selected?'<strong class="sCkChr">&radic;</strong>':$nav_key}
                 </span>
                 <span class="scElps">
                     <!--@if($pt_vtype!='N'||$pt_dtype!='N')-->
-                    <em class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{abs((int)$nv_un_ex->beluxe->use_point)}</em>
+                    <em class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{$val->get('is_notice')=='Y'?'Notice':abs((int)$nv_un_ex->beluxe->use_point)}</em>
                     <!--@else-->
                     <em>&rsaquo;&nbsp;</em>
                     <!--@endif-->

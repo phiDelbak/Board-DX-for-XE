@@ -162,4 +162,183 @@ jQuery(function($) {
 		var w = $('.fr', this).width() || 0;
 		$('a', this).css('padding-right', w + 10 + 'px');
 	});
+
+	$('#fUloader').is(function() {
+		var fUfuns = {
+				upBtn: $('#fUloader').find('.flc'),
+				evalScripts: function(txt, identify) {
+					var ScriptFragment = '<script[^>]*>([^]+?)<\/script>',
+						matchAll = new RegExp(ScriptFragment, 'img'),
+						matchOne = new RegExp(ScriptFragment, 'im');
+					var extractScripts = (txt.match(matchAll) || []).map(function(scriptTag) {
+						var tst = (scriptTag.match(matchOne) || ['', ''])[1];
+						return /^<\/?script>/i.test(tst) ? '' : tst;
+					});
+					eval(extractScripts.join(';'));
+					return eval(identify); // window[identify]; // get variable value by name
+				},
+				reLoadList: function(frl) {
+					var ff = document.getElementById('uploaderForm');
+
+					exec_json(
+						"file.getFileList", {
+							mid: current_mid,
+							editor_sequence: '1',
+							upload_target_srl: ff.uploadTargetSrl.value || ''
+						},
+						function(ret) {
+							var i, r, z, x, m, v, fs, ls, c = 0;
+
+							fs = ret.files;
+							ls = $('#siFiles').empty();
+
+							$('#fUpreview').find('.fpv').empty().end().is(function() {
+								if (fs && fs.length) $(this).show();
+								else $(this).hide();
+							});
+
+							if (fs && fs.length) {
+								for (i = 0, c = fs.length; i < c; i++) {
+									v = fs[i];
+									m = v.source_filename;
+									x = v.download_url;
+									r = v.file_srl;
+									z = parseInt(v.file_size);
+									z = z > 1024 ? Math.round(z / 1024) + 'kb' : z + 'byte';
+
+									$('<option value="' + r + '" data-src="' + x + '"></option>')
+										.appendTo(ls).text(m + ' (' + z + ')').addClass(x !== "" ? 'success' : 'error');
+								}
+								if (frl !== undefined && frl) ls.val(frl);
+								ls.trigger('change');
+							}
+
+							fUfuns.upBtn.text('File upload (' + c + ')');
+							//fUfuns.upIfo.html(ret.upload_status);
+						}
+					);
+				}
+			},
+			afOptions = {
+				beforeSend: function() {
+					fUfuns.upBtn.text('0%');
+				},
+				uploadProgress: function(event, position, total, percentComplete) {
+					fUfuns.upBtn.text(percentComplete + '%');
+				},
+				success: function() {
+					fUfuns.upBtn.text('100%');
+				},
+				complete: function(response) {
+					var ff, uifo = fUfuns.evalScripts(response.responseText, 'uploaded_fileinfo') || {};
+					if (uifo.error < 0) {
+						alert(uifo.message);
+					} else {
+						ff = document.getElementById('siFf');
+						ff.document_srl.value = uifo.upload_target_srl || '';
+						ff = document.getElementById('uploaderForm');
+						ff.uploadTargetSrl.value = uifo.upload_target_srl || '';
+					}
+					fUfuns.upBtn.text('File upload (0)');
+					fUfuns.reLoadList(uifo.file_srl);
+				},
+				error: function() {
+					alert('ERROR: unable to upload files');
+				}
+			};
+
+		$.fn.insertAtCaret = function(v) {
+			var o = (typeof this[0].name != 'undefined') ? this[0] : this;
+
+			if ($.browser.msie) {
+				o.focus();
+				sel = document.selection.createRange();
+				sel.text = v;
+				o.focus();
+			} else if ($.browser.mozilla || $.browser.webkit) {
+				var s = o.selectionStart,
+					d = o.selectionEnd,
+					t = o.scrollTop;
+				o.value = o.value.substring(0, s) + v + o.value.substring(d, o.value.length);
+				o.focus();
+				o.selectionStart = s + v.length;
+				o.selectionEnd = s + v.length;
+				o.scrollTop = t;
+			} else {
+				o.value += v;
+				o.focus();
+			}
+		};
+
+		$('#uploaderForm')
+			.find('input[type=file]')
+			.on('change', function() {
+				$(this).parent().trigger('submit');
+			})
+			.end().ajaxForm(afOptions);
+
+		fUfuns.upBtn.click(function() {
+			$('#uploaderForm').find('input[type=file]').trigger('click');
+			return false;
+		});
+
+		$('#fUpreview').is(function() {
+			$(this).find('.scFcl').click(function() {
+				var r = $('#siFiles').val();
+				if (r && confirm('Do you want to delete a file?')) {
+					exec_json(
+						"file.procFileDelete", {
+							file_srls: r,
+							editor_sequence: '1'
+						},
+						function(ret) {
+							fUfuns.reLoadList();
+						}
+					);
+				}
+				return false;
+			});
+
+			$(this).find('.scFin').click(function() {
+				var t, o = $('#siFiles');
+				o = [
+					o.find('option[value=' + o.val() + ']').text(),
+					o.find('option[value=' + o.val() + ']').attr('data-src')
+				];
+				if (o) {
+					if (o[1].match(/\.(?:(jpe?g|png|gif|ico))$/i)) {
+						t = '<img src="' + o[1] + '" />';
+						// } else if (o[1].match(/\.(?:(wmv|mpe?g|avi|swf|flv|mp4|as[fx]|moo?v|qt|mkv|m4v|ra?m))$/i)) {
+						// 	t = '<video src="' + o[1] + '">' + o[1] + '</video>';
+						// } else if (o[1].match(/\.(?:(wma|mp[1-3]|wav|midi?|ra))$/i)) {
+						// 	t = '<audio src="' + o[1] + '">' + o[1] + '</audio>';
+					} else {
+						t = '<a href="' + o[1] + '">' + o[0] + '</a>';
+					}
+					$('textarea[name=content]', '#siFf').insertAtCaret(t);
+					$('input[name=use_html]', '#siFf').attr('checked', 'checked');
+				}
+				return false;
+			});
+
+			$('#siFiles').change(function() {
+				var t, o = $(this);
+				o = [
+					o.find('option[value=' + o.val() + ']').text(),
+					o.find('option[value=' + o.val() + ']').attr('data-src')
+				];
+				if (o) {
+					if (o[1].match(/\.(?:(jpe?g|png|gif|ico))$/i)) {
+						t = '<img src="' + o[1] + '" />';
+					} else {
+						if (o[1]) t = '<img src="./modules/editor/tpl/images/files.gif" />';
+						else t = '<img src="./common/img/blank.gif" />';
+					}
+				}
+				$(t).appendTo($('#fUpreview').find('.fpv').empty());
+			});
+		});
+
+		fUfuns.reLoadList();
+	});
 });

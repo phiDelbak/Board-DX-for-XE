@@ -207,11 +207,6 @@
 			$mob = $('.pid_modal-body', $modal);
 			$mof = $('.pid_modal-foot', $modal);
 
-			//todo 구버전용 업데이트 전 지울것
-			$mob.css('padding', '0');
-			$body.find('>div').css('padding', '10px');
-			// ...
-
 			smode = $this.attr('data-resize') || 'auto';
 
 			var setTargetTimer = function() {
@@ -328,7 +323,7 @@
 
 					return false;
 				})
-				.bind('open.mw', function() {
+				.on('open.mw', function() {
 					var $this = $(this),
 						$modal, $bdrop, $body, before_event, duration, url, mdmode, zidx = 0;
 
@@ -400,7 +395,7 @@
 
 					//if(url){}else{$modal.fadeIn(duration, after);}
 				})
-				.bind('close.mw', function() {
+				.on('close.mw', function() {
 					var $this = $(this),
 						$modal, $bdrop, before_event, duration;
 

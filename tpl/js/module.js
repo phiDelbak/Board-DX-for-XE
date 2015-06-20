@@ -24,14 +24,13 @@ var _PID_MODULE_ = 'beluxe';
 
 
 // ruleset 사용시 일부 사용자 필터 따로 만들어 준다.
-jQuery(function($)
-{
+jQuery(function($) {
 
-	$('form input[type=hidden][name=ruleset]').each(function(){
+	$('form input[type=hidden][name=ruleset]').each(function() {
 		var $f = $(this).closest('form');
 
 		// ruleset 에 사용자 filter 가 있으면 필터 추가
-		$('[name][data-filter-rule]', $f).each(function(){
+		$('[name][data-filter-rule]', $f).each(function() {
 			var v = xe.getApp('Validator')[0],
 				i = $(this),
 				n = i.attr('name'),
@@ -41,22 +40,20 @@ jQuery(function($)
 			if (!v || !n || !r) return false;
 			r = r.split(',');
 
-			if(!(/^[a-z_]*$/i.test(r[1] || ''))){
+			if (!(/^[a-z_]*$/i.test(r[1] || ''))) {
 				v.cast('ADD_RULE', [n, new RegExp(r[1])]);
 				v.cast("ADD_MESSAGE", ['invalid_' + n, ' of invalid rule']);
 				r[1] = n;
 			}
 
-			if(m) v.cast("ADD_MESSAGE", [n, m]);
-			v.cast("ADD_EXTRA_FIELD", [n,
-				{
-					required: r[0] === 'true',
-					rule: r[1] || '',
-					minlength: r[2] || 0,
-					maxlength: r[3] || 0,
-					equalto: r[4] || ''
-				}
-			]);
+			if (m) v.cast("ADD_MESSAGE", [n, m]);
+			v.cast("ADD_EXTRA_FIELD", [n, {
+				required: r[0] === 'true',
+				rule: r[1] || '',
+				minlength: r[2] || 0,
+				maxlength: r[3] || 0,
+				equalto: r[4] || ''
+			}]);
 		});
 
 		// TODO 중복 호출 막기, xe 1.5.3.4 부터 지원, 하위 호환용...
@@ -68,5 +65,5 @@ jQuery(function($)
 		// });
 	});
 
-	$('a[href=#beluxe]:eq(0)').text('Board DX').attr('href','https://github.com/phiDelbak/Board-DX-for-XE').attr('target','_blank');
+	$('a[href=#beluxe]:eq(0)').text('Board DX').attr('href', 'https://github.com/phiDelbak/Board-DX-for-XE').attr('target', '_blank');
 });

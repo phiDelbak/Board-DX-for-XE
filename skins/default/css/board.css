@@ -1538,7 +1538,7 @@
 #siDoc .sign {
 	clear: both;
 	border: 1px solid #ddd;
-	margin: 5px 0 -1px 0;
+	margin: 5px;
 	padding: 13px;
 	overflow: hidden;
 	border-radius: 3px;
@@ -1547,6 +1547,10 @@
 }
 
 #siDoc .sign .pf {
+	border-radius: 40px;
+	-moz-border-radius: 40px;
+	-webkit-border-radius: 40px;
+	border: 1px solid #ddd;
 	float: left;
 	margin: 0 13px 0 0;
 	width: 80px;
@@ -1626,19 +1630,19 @@
 	float: left;
 	color: #4a4a4a;
 	width: 184px;
-	padding: 0 0 0 6px
+	padding: 0 0 0 6px;
 }
 
 #siFbk .scFbt .profile {
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+	border-radius: 25px;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
 	float: left;
-	width: 38px;
-	height: 38px;
+	width: 50px;
+	height: 50px;
 	margin: 0 6px 5px 0;
 	border: 1px solid #ddd;
-	background: url(../img/common/profile.gif) no-repeat
+	background: url(../img/common/profile.gif) no-repeat scroll center center
 }
 
 #siFbk .scFbt .author {
@@ -2157,7 +2161,8 @@
 }
 
 #siNavi li div.cate {
-	padding-left: 10px
+	padding-left: 5px;
+	letter-spacing: -0.2px;
 }
 
 #siNavi li div.scElps em {
@@ -2187,6 +2192,7 @@
 	margin: 0;
 	padding: 1px 0;
 	font-size: 15px;
+	color: #555;
 	line-height: 17px
 }
 
@@ -2250,7 +2256,8 @@
 #siFbk .scPageArea {
 	padding: 0 10px 3px;
 	margin: 5px 0;
-	height: 16px
+	height: 16px;
+	text-align: center;
 }
 
 #siFbk .scPageArea .scBtn {
@@ -2487,7 +2494,13 @@
 }
 
 #siBody .scAdmActs a {
+	font-size: inherit!important;
 	color: #555
+}
+
+#siBody .scAdmActs li:last-of-type a {
+	border: 0;
+	padding-right: 0
 }
 
 .scHaDCnts {
@@ -2556,8 +2569,9 @@
 #siBody em.usept {
 	text-align: center;
 	display: inline-block;
-	min-width: 25px;
-	margin: 0 5px 0 0;
+	white-space: nowrap;
+	width: 28px;
+	margin: 0 7px 0 0;
 	padding: 0 2px;
 	border: 1px solid #ccc;
 	background-color: #eee;
@@ -2566,6 +2580,7 @@
 	font-weight: normal;
 	font-size: 10px;
 	font-family: Tahoma, Geneva, sans-serif;
+	text-transform: capitalize;
 	line-height: 14px;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -2779,9 +2794,6 @@ noindex:-o-prefocus,
 	}
 	#siWrt .scWul >li input {
 		margin-top: 2px
-	}
-	#siBody em.usept {
-		padding: 0px 3px
 	}
 	#siCat.text {
 		margin-top: -8px

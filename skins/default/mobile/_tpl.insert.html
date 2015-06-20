@@ -159,15 +159,20 @@
 				<label><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
 			</li>
 			<li><textarea name="content" cols="20" rows="12" id="nText">{$is_doc?preg_replace('/<br[^>]*>[\r\n]/i','',$oDocument->get('content')):htmlspecialchars($mi->document_default_content)}</textarea></li>
-			<li cond="$mi->use_mobile_uploader == 'Y'">
-				<div id="fUloader">
+			<li cond="$mi->use_mobile_uploader == 'Y'" style="margin-right:0">
+				{@
+					$oFileModel = getModel('file');
+					$file_config = $oFileModel->getUploadConfig();
+					$file_config->allowed_filesize = $file_config->allowed_filesize;
+				}
+				<div id="fUloader" class="cb">
+					<span class="fif">{sprintf($lang->file_uploader_info, sprintf("%.2f", $file_config->allowed_filesize).'MB', $file_config->allowed_filetypes)}</span>
+					<a class="bn white fr flc">File upload (0)</a>
+				</div>
+				<div id="fUpreview">
 					<div class="fpv"></div>
 					<div class="fls"><select id="siFiles" class="fl"></select></div>
-					<div class="fct">
-						<a href="#" class="scFcl">Delete</a>
-						<a href="#" class="scFin">Insert</a>
-						<p><button class="bn white scFup">Upload <em id="siFileCnt">0</em></button></p>
-					</div>
+					<div class="fct"><a href="#" class="bn scFin">Insert</a><br /><a href="#" class="bn scFcl">Delete</a></div>
 				</div>
 			</li>
 			<li cond="$mi->use_input_tag!='N'">
@@ -181,6 +186,12 @@
 		</div>
 	</form>
 	<div cond="$mi->use_mobile_uploader == 'Y'" class="fd">
-		<form name="form" action="" method="POST" enctype="multipart/form-data"><input id="Filedata" type="file" name="Filedata" onchange="return pidAjaxFileUpload();"></form>
+		<form id="uploaderForm" action="./index.php" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="mid" value="{$mid}" />
+			<input type="hidden" name="act" value="procFileIframeUpload" />
+			<input type="hidden" name="editor_sequence" value="1" />
+			<input type="hidden" name="uploadTargetSrl" value="{$document_srl}" />
+			<input type="file" name="Filedata">
+		 </form>
 	</div>
 <!--@endif-->

@@ -94,4 +94,9 @@
 		<value xml:lang="jp"><![CDATA[% s" カテゴリーの他の文書]]></value>
 		<value xml:lang="en"><![CDATA["%s" 카테고리의 다른 글]]></value>
 	</item>
+	<item name="file_uploader_info">
+		<value xml:lang="ko"><![CDATA[파일 크기 제한: %s<br />허용 확장자 : %s]]></value>
+		<value xml:lang="jp"><![CDATA[파일 크기 제한: %s<br />허용 확장자 : %s]]></value>
+		<value xml:lang="en"><![CDATA[파일 크기 제한: %s<br />허용 확장자 : %s]]></value>
+	</item>
 </lang>

@@ -32,22 +32,23 @@
 	$mi->display_attached_files?0:$mi->display_attached_files = 'Y';
 	$mi->duration_new = 60*60*((int)$mi->duration_new?$mi->duration_new:12);
 
-	$tmp1 = array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/');
-	$tmp2 = array($mid,($logged_info?$logged_info->nick_name:'Guest'),$is_doc?$oDocument->getPermanentUrl():'',$is_doc?$oDocument->getTitle():'',$is_doc?$oDocument->getNickName():'',$is_doc?$oDocument->document_srl:'');
-	$mi->sub_title = $mi->sub_title ? preg_replace($tmp1,$tmp2,$mi->sub_title) : '';
-	$mi->board_desc = $mi->board_desc ? preg_replace($tmp1,$tmp2,$mi->board_desc) : '';
-	$mi->document_default_title = $mi->document_default_title ? preg_replace($tmp1,$tmp2,$mi->document_default_title) : '';
-	$mi->document_default_content = $mi->document_default_content ? preg_replace($tmp1,$tmp2,$mi->document_default_content) : '';
-	$mi->document_bottom_text = $mi->document_bottom_text ? preg_replace($tmp1,$tmp2,$mi->document_bottom_text) : '';
+	$_tmp = array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/');
+	$_tmp2 = array($mid,($logged_info?$logged_info->nick_name:'Guest'),$is_doc?$oDocument->getPermanentUrl():'',$is_doc?$oDocument->getTitle():'',$is_doc?$oDocument->getNickName():'',$is_doc?$oDocument->document_srl:'');
+	$mi->sub_title = $mi->sub_title ? preg_replace($_tmp,$_tmp2,$mi->sub_title) : '';
+	$mi->board_desc = $mi->board_desc ? preg_replace($_tmp,$_tmp2,$mi->board_desc) : '';
+	$mi->document_default_title = $mi->document_default_title ? preg_replace($_tmp,$_tmp2,$mi->document_default_title) : '';
+	$mi->document_default_content = $mi->document_default_content ? preg_replace($_tmp,$_tmp2,$mi->document_default_content) : '';
+	$mi->document_bottom_text = $mi->document_bottom_text ? preg_replace($_tmp,$_tmp2,$mi->document_bottom_text) : '';
 }
 
 <!--@if(__DEBUG__)-->
+	<load target="../../../tpl/js/uploader.ajax.js" type="body" />
 	<load target="mboard.css" />
 	<load target="mboard.js" type="body" />
-	<load target="ajaxfileupload.js" type="body" />
 <!--@else-->
+	<load target="../../../tpl/js/uploader.min.js" type="body" />
 	<load target="mboard.min.css" />
-	<load target="common.min.js" type="body" />
+	<load target="mboard.min.js" type="body" />
 <!--@endif-->
 <style type="text/css" cond="$mi->custom_css"> {$mi->custom_css} </style>
 

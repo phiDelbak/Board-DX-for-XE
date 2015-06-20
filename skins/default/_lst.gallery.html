@@ -14,12 +14,6 @@
 	$mi->star_style!='N' ? $ci['blamed_count']->display = 'N' : 0;
 	$mi->star_style!='N' && $ds_voted ? $ci['readed_count']->display = 'N' : 0;
 
-	$lang->short_readed_count ? $ci['readed_count']->name = $lang->short_readed_count : 0;
-	$lang->short_blamed_count ? $ci['blamed_count']->name = $lang->short_blamed_count : 0;
-	$lang->short_voted_count ? $ci['voted_count']->name = $lang->short_voted_count : 0;
-	$lang->short_custom_status ? $ci['custom_status']->name = $lang->short_custom_status : 0;
-	$mi->star_style!='N' ? $ci['voted_count']->name = $lang->star_column : 0;
-
 	$colcnt = $sotcnt = 0;
 	$sclms = array();
 
@@ -30,9 +24,13 @@
 <block loop="$ci => $key,$val" cond="$val->display=='Y'">
 	{@
 		$colcnt += $val->idx<0?1:0;
-		$sclms[$key] = $val;
+		$sclms[$key] = clone $val;
+		$_tmp = Context::getLang('short_'.$val->eid);
+		$_tmp !== 'short_'.$val->eid ? $sclms[$key]->name = $_tmp: 0;
 	}
 </block>
+
+{@ $mi->star_style!='N' ? $sclms['voted_count']->name = $lang->star_column : 0}
 
 <!-- LIST -->
 <include cond="$is_notice_widget && (count($notice_list) || count($best_list))" target="_etc.noticewidget.html" />
@@ -157,7 +155,6 @@
 			unset($sclms['no']);
 			unset($sclms['title']);
 			unset($sclms['category_srl']);
-			unset($sclms['blamed_count']);
 			unset($sclms['nick_name']);
 			unset($sclms['user_name']);
 			unset($sclms['regdate']);
@@ -165,6 +162,7 @@
 			unset($sclms['last_updater']);
 			unset($sclms['readed_count']);
 			unset($sclms['voted_count']);
+			unset($sclms['blamed_count']);
 		}
 		<block loop="$document_list => $no,$document">
 		{@
@@ -235,7 +233,9 @@
 						</block>
 						{$document->printExtraImages($mi->duration_new)}<img cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="scIcoSet world" src="img/common/blank.gif" alt="multilingual" title="multilingual" /><img cond="$is_scrap" class="scIcoSet scrap" src="img/common/blank.gif" alt="Scrap" title="Scrap" />
 						<em cond="$t_cmtn || $t_tbkn" class="reply" title="Replies">+{(int)$t_cmtn}<block cond="$t_tbkn">.{$t_tbkn}</block></em>
-						<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{abs((int)$un_extra->beluxe->use_point)}</em>
+						<em cond="$pt_vtype!='N'||$pt_dtype!='N'" class="usept {$un_extra->beluxe->adopt_srl?'colBgBlue':''}" title="Point">
+							{abs((int)$un_extra->beluxe->use_point)}
+						</em>
 					</span>
 					<strong cond="$ds_regdate || $ds_update" class="scRibbon {($document->document_srl==$document_srl)?'active':''}"><span class="caption">{$ds_regdate ? $document->getRegdate('M.d') : zdate($document->get('last_update'),'M.d')}</span></strong>
 			</div></block></td>

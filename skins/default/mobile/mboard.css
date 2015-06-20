@@ -517,6 +517,10 @@ form select {
 	margin: 0 0 5px 0
 }
 
+.lt .title > * {
+	vertical-align: middle;
+}
+
 .lt .title strong {
 	font-size: 14px;
 	font-weight: bold
@@ -548,11 +552,16 @@ form select {
 }
 
 .nav .usept,
-.lt .usept {
+.lt .usept,
+.rp .best,
+.lt .notice,
+.lt .best {
+	margin: 0 2px 0 0;
 	text-align: center;
 	display: inline-block;
-	min-width: 25px;
-	padding: 0 2px;
+	white-space: nowrap;
+	width: 28px;
+	padding: 1px 2px;
 	border: 1px solid #bfbfbf;
 	font-style: normal;
 	font-weight: normal;
@@ -630,20 +639,14 @@ form select {
 .rp .best,
 .lt .notice,
 .lt .best {
-	display: inline-block;
-	background: #a06acd;
-	font-weight: bold;
-	color: #fff;
-	font-size: 12px;
-	padding: 1px;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px
+	background: #eaeaff;
+	border: 1px solid #c4c4ff;
 }
 
 .rp .best,
 .lt .best {
-	background: #ff8000
+	background: #fff1ea;
+	border: 1px solid #ffb895;
 }
 
 .rp .best {
@@ -651,8 +654,16 @@ form select {
 	margin-left: 0
 }
 
-.rp .best.agree {
-	background: #A06ACD
+.rp .best.agree,
+.rp .best.disagree {
+	border: 1px solid #bfbfbf;
+	background: transparent;
+	font-size: 12px;
+	color: blue;
+}
+
+.rp .best.disagree {
+	color: red;
 }
 
 
@@ -805,25 +816,42 @@ form.ff.secret input[type="password"] {
 }
 
 #fUloader {
-	position: relative;
-	height: 50px;
-	margin: 10px 150px 13px 0;
-	clear: both;
+	margin: 10px 5px 13px;
+	font-size: 12px;
+	line-height: 14px;
+	vertical-align: middle;
 }
 
-#fUloader:after {
+#fUloader .fr {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 0;
+	min-width: 110px;
+	text-align: center;
+}
+
+#fUpreview {
+	position: relative;
+	height: 50px;
+	margin: 0 119px 13px 0;
+	clear: both;
+	display: none;
+}
+
+#fUpreview:after {
 	content: "";
 	display: block;
 	clear: both
 }
 
-#fUloader .fpv,
-#fUloader .fls {
+#fUpreview .fpv,
+#fUpreview .fls {
 	position: absolute;
 	float: left
 }
 
-#fUloader .fpv {
+#fUpreview .fpv {
 	width: 50px;
 	height: 50px;
 	border: 1px solid #ccc;
@@ -831,36 +859,41 @@ form.ff.secret input[type="password"] {
 	margin: 0 10px 5px 0
 }
 
-#fUloader .fpv img {
+#fUpreview .fpv img {
 	display: block;
 	width: 50px;
 	height: 50px
 }
 
-#fUloader .fls {
+#fUpreview .fls {
 	width: 100%;
 	margin: 0;
 	margin-left: 60px
 }
 
-#fUloader .fls select {
+#fUpreview .fls select {
 	width: 100%;
 	height: 56px
 }
 
-#fUloader .fct {
+#fUpreview .fct {
 	position: absolute;
-	right: -150px;
+	right: -117px;
 	padding: 0px;
 	font-size: 12px
 }
 
-#fUloader .fct p {
-	margin: 10px 0 0
-}
-
-#fUloader .fct a {
-	margin-left: 3px
+#fUpreview .fct a {
+	padding: 0 5px;
+	margin: 0 0 4px;
+	width: 40px;
+	height: 24px;
+	font-size: 12px;
+	line-height: 24px;
+	text-align: center;
+	border: 1px solid #ccc;
+	overflow: hidden;
+	color: #555
 }
 
 .fd {
@@ -1091,10 +1124,9 @@ input.bn.small {
 .nav .no {
 	display: inline-block;
 	color: #999;
-}
-
-.nav .no {
-	width: 33px;
+	width: 24px;
+	letter-spacing: -1px;
+	font-size: 12px
 }
 
 .nav .cate {
@@ -1104,6 +1136,7 @@ input.bn.small {
 	position: absolute;
 	top: 7px;
 	right: 5px;
+	letter-spacing: -0.2px;
 }
 
 .nav em {
@@ -1112,7 +1145,7 @@ input.bn.small {
 }
 
 .nav .usept {
-	padding: 0 3px 0 0;
+	padding: 0 2px;
 }
 
 

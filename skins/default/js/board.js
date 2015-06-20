@@ -25,10 +25,9 @@
  		},
  		reSized: function(mode) {
  			// 제목 자동조절
- 			if (!mode || mode !== 'h') {
- 				var $elp = $('.scElps[data-active=true]');
- 				$elp.find('> :eq(0)').width('auto').removeClass('_first');
- 				$elp.each(function() {
+ 			$('.scElps[data-active=true]')
+ 				.find('> :eq(0)').width('auto').removeClass('_first')
+ 				.end().each(function() {
  					var $i = $(this),
  						$l = $i.find('> :eq(1)'),
  						fw = $i.width(),
@@ -40,7 +39,6 @@
  					}
  					$i.find('> :eq(0)').width(fw - lw - 5).addClass('_first');
  				});
- 			}
 
  			// 핫트랙
  			$('[data-hottrack]', '.scContent')
@@ -79,14 +77,15 @@
 
  	$('a[href=#siManageBtn]')
  		.click(function() {
+ 			var $sa = $(this).closest('.scAdmActs');
+
  			$('.scElps ._first').each(function() {
  				$(this).css('width', ($(this).width() - 30) + 'px');
  			});
  			$('.scCheck').show('slow');
+ 			$sa.html($(this).next().html());
 
- 			var $a = $(this).next();
-
- 			$('select', $a).change(function() {
+ 			$('select', $sa).change(function() {
  				var v = $(this).val() || '',
  					s = [];
  				$('input[name=cart]:checked').each(function(i) {
@@ -101,7 +100,7 @@
  				return;
  			});
 
- 			$('a[data-type]', $a).click(function() {
+ 			$('a[data-type]', $sa).click(function() {
  				switch ($(this).attr('data-type')) {
  					case 'manage':
  						popopen(request_uri + '?module=document&act=dispDocumentManageDocument', 'manageDocument');
@@ -111,9 +110,6 @@
  				}
  				return false;
  			});
-
- 			$a.show('slow');
- 			$(this).hide().prevAll().hide();
  			return false;
  		});
 
@@ -501,17 +497,27 @@
 
  	$(window)
  		.ready(function() {
+ 			//성격 급한 사람을 위해 일단 reSized 적용
+ 			sjDxFuncs.reSized();
+
  			$('#siWrt').eq(0).pidSettingWrite();
  			$('a[type^=example\\/modal]', '#siBody').pidModalWindow(sjDxFuncs.isMobj('b') || '');
  			$('[data-flash-fix=true]', '#siBody').pidModalFlashFix();
  			$('[data-link-fix=true]', '#siBody').find('a:not([target])').attr('target', '_blank');
 
- 			//성격 급한 사람을 위해 일단 reSized 적용
- 			sjDxFuncs.reSized();
+ 			// $('#searchFo').each(function() {
+ 			// 	var $i = $(this);
+ 			// 	$i.find('[name=search_target]').each(function() {
+ 			// 		var w = $(this).css('width', 'auto').outerWidth(true);
+ 			// 		$i.find('[name=search_keyword]').each(function() {
+ 			// 			$(this).css({'padding-left': (w + 5) + 'px', 'width': (w + ($.browser.chrome?125:35)) + 'px'});
+ 			// 		});
+ 			// 	});
+ 			// });
  		})
  		.load(function() {
  			//핫트랙은 이미지 로드후 크기가 변할 수 있어 다시 적용
- 			sjDxFuncs.reSized('h');
+ 			sjDxFuncs.reSized();
 
  			$('a[data-modal-scrollinto=true]:last', sjDxFuncs.isMobj('s') || '').parent().is(function() {
  				$(this).closest('.scClst:hidden').is(function() {

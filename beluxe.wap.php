@@ -136,7 +136,7 @@ class beluxeWAP extends beluxe
 		$doc_list = $out->data;
 		$page_navi = $out->page_navigation;
 
-		$tmp = array();
+		$_tmp = array();
 		if($doc_list && count($doc_list))
 		{
 			foreach($doc_list as $key => $val)
@@ -148,9 +148,9 @@ class beluxeWAP extends beluxe
 				$title = htmlspecialchars($val->getTitleText());
 				if($val->getCommentCount()) $title .= ' ['.$val->getCommentCount().']';
 				$obj['link'] = $obj['text'] = '['.$val->getNickName().'] '.$title;
-				$tmp[] = $obj;
+				$_tmp[] = $obj;
 			}
-			$pMobile->setChilds($tmp);
+			$pMobile->setChilds($_tmp);
 		}
 
 		$last_page = $page_navi->last_page;

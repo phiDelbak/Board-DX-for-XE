@@ -10,10 +10,10 @@
 				<!--@if($history->content)-->
 				<a class="fl" href="#popopen" data-srl="{getUrl('','mid',$mid,'act','dispBoardHistory','history_srl',$history->history_srl)}">
 					{@
-						$tmp = htmlspecialchars(str_replace(array('&lt;', '&gt;', '&quot;', '&nbsp;'), array('<', '>', '"', ' '), cut_str(strip_tags($history->content), 250, '...')));
-						$tmp = trim($tmp) ? $tmp:'...&nbsp;';
+						$_tmp = htmlspecialchars(str_replace(array('&lt;', '&gt;', '&quot;', '&nbsp;'), array('<', '>', '"', ' '), cut_str(strip_tags($history->content), 250, '...')));
+						$_tmp = trim($_tmp) ? $_tmp:'...&nbsp;';
 					}
-					{$tmp}
+					{$_tmp}
 				</a>
 				<!--@else-->
 				<strong class="fl">{$lang->trace_only}</strong>
