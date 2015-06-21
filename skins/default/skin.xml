@@ -440,6 +440,24 @@
 				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
 				<description xml:lang="en">Set whether to display the attached files.</description>
 			</var>
+			<var name="display_recommender" type="radio" default="Y">
+				<title xml:lang="ko">추천인</title>
+				<title xml:lang="jp">추천인</title>
+				<title xml:lang="en">추천인</title>
+				<options value="N">
+					<title xml:lang="ko">표시 안함</title>
+					<title xml:lang="jp">非表示</title>
+					<title xml:lang="en">not display</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">표시</title>
+					<title xml:lang="jp">表示</title>
+					<title xml:lang="en">display</title>
+				</options>
+				<description xml:lang="ko">문서를 추천한 추천인을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">문서를 추천한 추천인을 표시할지 설정합니다.</description>
+				<description xml:lang="en">문서를 추천한 추천인을 표시할지 설정합니다.</description>
+			</var>
 		</group>
 		<group>
 			<title xml:lang="ko">버튼</title>

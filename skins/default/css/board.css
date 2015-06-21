@@ -1642,6 +1642,7 @@
 	padding: 0 0 0 6px;
 }
 
+#siFbk .scFbH .profile,
 #siFbk .scFbt .profile {
 	border-radius: 25px;
 	-moz-border-radius: 25px;
@@ -1652,6 +1653,21 @@
 	margin: 0 6px 5px 0;
 	border: 1px solid #ddd;
 	background: url(../img/common/profile.gif) no-repeat scroll center center
+}
+
+#siFbk .scFbH .profile {
+	width: 20px;
+	height: 20px;
+	margin: 4px 0 0 5px;
+}
+
+#siFbk .scFbH .recommender_count {
+	font-weight: normal;
+	font-size: 12px;
+	margin-right: 3px;
+	line-height: 33px;
+	font-style: italic;
+	color: #777;
 }
 
 #siFbk .scFbt .author {

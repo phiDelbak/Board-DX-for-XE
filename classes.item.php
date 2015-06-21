@@ -171,16 +171,16 @@ class BeluxeItem extends Object
 			return $cmDocument->getExtraKeys($this->module_srl);
 	}
 
-	function getDocumentVotedLogs($a_docsrl, $a_mbrsrl = 0)
+	function getDocumentVotedLogs($a_docsrl, $a_point = 0, $a_sort = '')
 	{
 		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->getDocumentVotedLogs($a_docsrl, $a_mbrsrl);
+		return $cmThis->getDocumentVotedLogs($a_docsrl, $a_point, 0, $a_sort);
 	}
 
-    function getDocumentVotedLogCount($a_docsrl)
+    function getDocumentVotedLogCount($a_docsrl, $a_point = 0)
     {
 		$cmThis = &getModel(__XEFM_NAME__);
-		return $cmThis->getDocumentVotedLogCount($a_docsrl);
+		return $cmThis->getDocumentVotedLogCount($a_docsrl, $a_point);
     }
 
 	function getDocumentDeclaredCount($a_docsrl)

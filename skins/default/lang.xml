@@ -29,6 +29,11 @@
 		<value xml:lang="jp"><![CDATA[내 답변]]></value>
 		<value xml:lang="en"><![CDATA[내 답변]]></value>
 	</item>
+	<item name="e_recommender_count">
+		<value xml:lang="ko"><![CDATA[외 %s명,]]></value>
+		<value xml:lang="jp"><![CDATA[외 %s명,]]></value>
+		<value xml:lang="en"><![CDATA[외 %s명,]]></value>
+	</item>	
 	<item name="use_wysiwyg">
 		<value xml:lang="ko"><![CDATA[위지윅 사용]]></value>
 		<value xml:lang="jp"><![CDATA[エディタ使用]]></value>

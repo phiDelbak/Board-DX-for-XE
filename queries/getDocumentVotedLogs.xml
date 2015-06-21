@@ -6,8 +6,10 @@
 		<condition operation="equal" column="document_srl" var="document_srl" filter="number" notnull="notnull" />
 		<condition operation="equal" column="member_srl" var="member_srl" filter="number" pipe="and" />
 		<condition operation="like_prefix" column="ipaddress" var="ipaddress" pipe="and" />
+		<condition operation="more" column="point" var="more_point" filter="number" pipe="and" />
+		<condition operation="less" column="point" var="less_point" filter="number" pipe="and" />
 	</conditions>
 	<navigation>
-		<index var="sort_index" default="point" order="order_type" />
+		<index var="sort_index" default="regdate" order="order_type" />
 	</navigation>
 </query>

@@ -1082,7 +1082,7 @@ class beluxeController extends beluxe
 		if(!$mbr_srl) return new Object(-1,'msg_not_permitted');
 
 		$cmThis = &getModel(__XEFM_NAME__);
-		$vtlog = $cmThis->getDocumentVotedLogs($doc_srl, $mbr_srl);
+		$vtlog = $cmThis->getDocumentVotedLogs($doc_srl, 0, $mbr_srl);
 		if(!$vtlog) return new Object(-1,'msg_not_founded');
 
 		// 값이 - 면  사용된 값으로 복구 불가

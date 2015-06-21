@@ -19,11 +19,30 @@
 		$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);
 	}
 
+	<block cond="$mi->display_recommender != 'N'">
+		{@ $voted_lst = $oThis->getDocumentVotedLogs($doc_srl, 1)}	
+	</block>
+
 	<div id="siFbk" class="cmt clearBar" style="margin:0"|cond="$is_modal"><a name="comment" data-modal-scrollinto="true"|cond="$comment_srl"></a>
 		<div class="scFbH scToggle" data-target="#siFbk .scClst.d{$doc_srl}">
 			<h2>
 				{$lang->comment} <em>{$oDocument->getCommentcount()}</em>
-				<span class="fr">...</span>
+				<span cond="count($voted_lst)" class="fr">
+					{@
+						$_tmp2 = 0;
+						$cmMember = &getModel('member');
+					}
+					<block loop="$voted_lst=>$mb">
+						{@ 
+							$_tmp2++;
+							$_tmp = $cmMember->getMemberInfoByMemberSrl($mb->member_srl);
+						}
+						<img cond="$_tmp->profile_image" src="{$_tmp->profile_image->src}" class="profile" title="{$_tmp->nick_name}" />
+						<span cond="!$_tmp->profile_image" class="profile" title="{$_tmp->nick_name}"></span>
+						<!--@if($_tmp2 > 9)-->{@ break;}<!--@endif-->
+					</block>
+				</span>	
+				<span cond="!count($voted_lst) || count($voted_lst)>10" class="fr <!--@if(count($voted_lst))-->recommender_count<!--@endif-->">{count($voted_lst)?sprintf($lang->e_recommender_count, count($voted_lst)-10):'...'}</span>
 			</h2>
 		</div>
 

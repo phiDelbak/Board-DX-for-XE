@@ -442,15 +442,18 @@ class beluxeModel extends beluxe
         return $out;
     }
 
-    function getDocumentVotedLogs($a_docsrl, $a_mbrsrl = 0)
+    function getDocumentVotedLogs($a_docsrl, $a_point = 0, $a_mbrsrl = 0, $a_sort = '')
     {
         if ($a_mbrsrl) {
             if(is_numeric($a_mbrsrl)) $args->member_srl = $a_mbrsrl;
             else $args->ipaddress = $a_mbrsrl;
         }
 
+        if((int)$a_point > 0) $args->more_point = $a_point;
+        if((int)$a_point < 0) $args->less_point = $a_point;
+
         $args->document_srl = $a_docsrl;
-        $args->sort_index = 'point';
+        $args->sort_index = $a_sort ? $a_sort : 'regdate';
         $args->order_type = 'desc';
         $outlst = executeQueryArray('beluxe.getDocumentVotedLogs', $args);
         if (!$outlst->toBool() || !$outlst->data) return;
@@ -467,9 +470,13 @@ class beluxeModel extends beluxe
         return $re;
     }
 
-    function getDocumentVotedLogCount($a_docsrl)
+    function getDocumentVotedLogCount($a_docsrl, $a_point = 0)
     {
         if (!$a_docsrl) return 0;
+
+        if((int)$a_point > 0) $args->more_point = $a_point;
+        if((int)$a_point < 0) $args->less_point = $a_point;
+
         $args->document_srl = $a_docsrl;
         $out = executeQuery('beluxe.getDocumentVotedLogCount', $args);
         return $out->toBool() ? (int)$out->data->count : 0;
@@ -615,7 +622,7 @@ class beluxeModel extends beluxe
 
         // 카운트 업데이트 모드이면 이전 값 구함
         if ($a_upmode && $is_Voted) {
-            $vinfo = $this->getDocumentVotedLogs($a_docsrl, $a_mbrsrl ? $a_mbrsrl : $_SERVER['REMOTE_ADDR']);
+            $vinfo = $this->getDocumentVotedLogs($a_docsrl, 0, $a_mbrsrl ? $a_mbrsrl : $_SERVER['REMOTE_ADDR']);
             $old_point = $vinfo->point;
         }
 
