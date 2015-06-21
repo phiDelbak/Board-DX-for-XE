@@ -27,12 +27,12 @@ class beluxeController extends beluxe
 
 		if($retUrl){
 			$GLOBALS['BELUXE_TEMP'] = '';
-	        function __preg_callback($mc) {
+	        function __beluxe__callback($mc) {
 	        	$GLOBALS['BELUXE_TEMP'] = $mc[3];
 	            return $mc[1].($mc[3]==='2'?$mc[2].'1':'').$mc[4];
 	        }
 			// 주소에 모달 is_modal 옵션이 있으면 제거 2는 예외
-			$retUrl = preg_replace_callback('/(.*[\?\&])(is_modal=)([1-5])(.*)/i', "__preg_callback", $retUrl);
+			$retUrl = preg_replace_callback('/(.*[\?\&])(is_modal=)([1-5])(.*)/i', "__beluxe__callback", $retUrl);
 		    $is_modal = (int)$GLOBALS['BELUXE_TEMP'];
 		}else{
 			$is_modal = (int)Context::get('is_modal');

@@ -304,6 +304,47 @@
 				<description xml:lang="jp">コメント入力機をコメントの下端に表示するか設定します.</description>
 				<description xml:lang="en">Set whether to display the comment editor.</description>
 			</var>
+			<var name="use_input_simple_editor" type="radio" default="N">
+				<title xml:lang="ko">간단 글쓰기</title>
+				<title xml:lang="jp">簡単書き込み</title>
+				<title xml:lang="en">Simple editor</title>
+				<options value="N">
+					<title xml:lang="ko">사용 안함</title>
+					<title xml:lang="jp">使用しない</title>
+					<title xml:lang="en">not use</title>
+				</options>
+				<options value="T">
+					<title xml:lang="ko">상단 표시</title>
+					<title xml:lang="jp">上端に表示</title>
+					<title xml:lang="en">display top</title>
+				</options>
+				<options value="C">
+					<title xml:lang="ko">중앙 표시</title>
+					<title xml:lang="jp">中央表示</title>
+					<title xml:lang="en">display center</title>
+				</options>
+				<description xml:lang="ko">간단 글 입력기를 목록에 표시할지 설정합니다. (중앙 표시시 관리자는 목록으로 표시)</description>
+				<description xml:lang="jp">簡単入力機をリストに表示するか設定します. (中央表示の時管理者はリストに表示)</description>
+				<description xml:lang="en">Set whether to display the simple editor. (중앙 표시시 관리자는 목록으로 표시)</description>
+			</var>
+			<var name="simple_editor_option" type="checkbox" default="N/_TARGET_/use_input_simple_editor/_VALUE_/T,B,C">
+				<title xml:lang="ko">간단 글쓰기 옵션</title>
+				<title xml:lang="jp">간단 글쓰기 옵션</title>
+				<title xml:lang="en">간단 글쓰기 옵션</title>
+				<options value="wrtbtn">
+					<title xml:lang="ko">일반 글쓰기 버튼 표시</title>
+					<title xml:lang="jp">일반 글쓰기 버튼 표시</title>
+					<title xml:lang="en">일반 글쓰기 버튼 표시</title>
+				</options>
+				<options value="dochide">
+					<title xml:lang="ko">문서안에선 입력창 감추기</title>
+					<title xml:lang="jp">문서안에선 입력창 감추기</title>
+					<title xml:lang="en">문서안에선 입력창 감추기</title>
+				</options>
+				<description xml:lang="ko">같단 글쓰기 사용시 필요한 옵션들입니다.</description>
+				<description xml:lang="jp">같단 글쓰기 사용시 필요한 옵션들입니다.</description>
+				<description xml:lang="en">같단 글쓰기 사용시 필요한 옵션들입니다.</description>
+			</var>
 			<var name="use_input_guest_info" type="radio" default="Y">
 				<title xml:lang="ko">비회원 정보</title>
 				<title xml:lang="jp">非会員情報</title>

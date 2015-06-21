@@ -2,16 +2,15 @@
     $lg = $logged_info ? $logged_info : array();
     $doc_srl = $oDocument->document_srl;
     $ds_nick = $ci['nick_name']->display == 'Y';
-    $ds_user =	$ci['user_name']->display == 'Y';
+    $ds_user =  $ci['user_name']->display == 'Y';
+    $dmb_srl = $oDocument->get('member_srl');
     $un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
     $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
-    $dmb_srl = $oDocument->get('member_srl');
 
     $is_granted = $grant->view && $oDocument->isGranted();
     $is_secret = $oDocument->isSecret();
     $is_locked = $is_cklok?$oThis->isLocked($doc_srl):0;
     $is_blind = $us_blind?$oThis->isBlind($doc_srl):0;
-    $is_scrap = $ds_scrap?$oThis->isScrap($doc_srl):0;
 }
 <block cond="$mi->view_comment_style == 'webzine'">
 {@
@@ -19,15 +18,6 @@
     $is_voted ? $is_voted = $oThis->isVoted($doc_srl, false) : 0;
 }
 </block>
-
-<div class="pn cb ts">
-    <h2>{$oDocument->getTitle()}</h2>
-    <div>
-        <img src="../img/common/blank.gif" cond="$is_scrap" class="ise scrap" alt="Scrap" title="Scrap" />
-        <span class="{$dmb_srl?'member_'.$dmb_srl:'fsi'} ex">{cut_str((!$dmb_srl||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}</span>
-        &rsaquo; <time class="ex">{$oDocument->getRegdate()}</time>
-    </div>
-</div>
 
 {@
     $exks = ((!$is_secret || $is_granted) && $oDocument->isExtraVarsExists()) ? $oDocument->getExtraVars() : array();
@@ -286,7 +276,7 @@
 <div style="height:1px;overflow:hidden;background:#ddd"></div>
 <div class="bna">
     <span class="fl">
-        <a cond="$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" title="{$lang->new_document}" class="bn dark">{$lang->cmd_write}</a>
+        <a cond="($sedt_wbtn||!$is_sedt)&&$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" title="{$lang->new_document}" class="bn dark">{$lang->cmd_write}</a>
     </span>
     <span class="fr">
         <a href="{getUrl('act', '','document_srl', '','page',$page)}" class="bn white">{$lang->cmd_list}</a>

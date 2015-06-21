@@ -1,0 +1,86 @@
+{@
+$ccDocument = &getController('document');
+$ccDocument->addXmlJsFilter($mi->module_srl);
+}
+<form ruleset="insertDocument" action="./" method="post" class="co ff">
+	<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+	<input type="hidden" name="act" value="procBoardInsertDocument" />
+	<input type="hidden" name="text_editor" value="Y" />
+	<input type="hidden" name="success_return_url" value="{getUrl('act','','is_modal','','document_srl','','comment_srl','')}" />
+	<block cond="$is_logged">
+		<input type="hidden" name="nick_name" value="1" />
+		<input type="hidden" name="password" value="1" />
+	</block>
+	<ul>
+		<li cond="$is_sedt!='C'">
+			<label for="nTitle">{$lang->title}</label>
+			<input name="title" type="text" id="nTitle" value="{htmlspecialchars($mi->document_default_title)}" <!--@if(!$grant->write_document)-->class="scGotoLoginPage" readonly="readonly" placeholder="{$lang->msg_not_permitted}"<!--@endif--> />
+		</li>
+		{@ $extra_keys = $grant->write_document?$oThis->getDocumentExtraVars(0):array()}
+		<block cond="count($extra_keys)">
+			<li><hr /></li>
+			<li loop="$extra_keys => $key,$val" class="exvar" style="display:none"|cond="$mi->use_auto_hide_extra_vars=='Y'&&$val->is_required!='Y'">
+				<label>{$val->name} <span cond="$val->is_required=='Y'" class="required">*</span></label>
+				{$val->getFormHTML()}
+			</li>
+		</block>
+		<block cond="!$is_logged">
+			<li><hr /></li>
+			<li cond="$mi->use_input_guest_info != 'N'">
+				<label for="uName">{$lang->writer}</label>
+				<input name="nick_name" type="text" id="uName" maxlength="80" value="{htmlspecialchars($oDocument->get('nick_name'))}" />
+			</li>
+			<li>
+				<block cond="$mi->use_input_guest_info == 'N'">
+					<input type="hidden" name="nick_name" value="{$oThis->getIpaddress(1)}" />
+				</block>
+				<label for="uPw">{$lang->password}</label>
+				<input name="password" type="password" id="uPw" />
+			</li>
+			<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
+				<li>
+					<label for="uMail">{$lang->email_address}</label>
+					<input name="email_address" type="email" id="uMail" maxlength="250" value="{htmlspecialchars($oDocument->get('email_address'))}" />
+				</li>
+				<li>
+					<label for="uSite">{$lang->homepage}</label>
+					<input name="homepage" type="url" id="uSite" maxlength="250" value="{htmlspecialchars($oDocument->get('homepage'))}" />
+				</li>
+			</block>
+		</block>
+		<li><hr /></li>
+		<li><textarea name="content" disabled="disabled"|cond="!$grant->write_document" rows="{$is_sedt == 'C' ? '10' : '3'}">{htmlspecialchars($mi->document_default_content)}</textarea></li>
+	</ul>
+
+	<div class="scWusr clearBar">
+		<span cond="$grant->write_document&&$is_logged">
+			<input type="hidden" name="nick_name" value="1" />
+			<input type="hidden" name="password" value="1" />
+			<label>
+				<input type="checkbox" name="notify_message" value="Y" />
+				{$lang->notify}
+			</label>
+			<label cond="$grant->manager || ($mi->allow_comment!='N' && $mi->allow_comment!='Y')">
+				<input type="checkbox" name="allow_comment" value="Y" checked="checked"|cond="!$grant->manager||($grant->manager&&$mi->allow_comment!='N')" />
+				{$lang->allow_comment}
+			</label>
+			<label cond="$grant->manager || ($mi->allow_trackback!='N' && $mi->allow_trackback!='Y')">
+				<input type="checkbox" name="allow_trackback" value="Y" checked="checked"|cond="!$grant->manager||($grant->manager&&$mi->allow_trackback!='N')" />
+				{$lang->allow_trackback}
+			</label>
+			<label cond="$mi->use_anonymous=='S'">
+				<input type="checkbox" name="anonymous" value="Y" />
+				{$lang->anonymous}
+			</label>
+		</span>
+		<span cond="!$grant->write_document||!$is_logged">&nbsp;</span>
+		{@ $t_ctsrl = $category_srl}
+		<block cond="!$t_ctsrl&&$is_cts" loop="$cts => $val" cond="$val->category_srl">
+			{@ $t_ctsrl = $val->category_srl}
+			<?php break; ?>
+		</block>
+		<input type="hidden" name="category_srl" value="{$t_ctsrl?$t_ctsrl:'0'}" />
+		<span cond="!$grant->write_document" class="fr"><a cond="!$is_logged" class="bn dark" href="{getUrl('act','dispMemberLoginForm')}">{$lang->cmd_login}</a><a cond="$is_logged" href="#" class="bn dark" onclick="location.reload();return false">{$lang->reload}</a></span>
+		<button cond="$grant->write_document" class="bn dark fr" type="submit">{$lang->cmd_write}</button>
+	</div>
+</form>

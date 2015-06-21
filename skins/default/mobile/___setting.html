@@ -33,6 +33,13 @@
 	$mi->duration_new = 60*60*((int)$mi->duration_new?$mi->duration_new:12);
     $mi->display_files?0:$mi->display_files='general,media,image,auto';
 
+    $sedt_wbtn = strpos($mi->simple_editor_option, 'wrtbtn')!==false;
+	$mi->consultation == 'Y' ? $mi->use_input_simple_editor = 'C' : 0;
+
+	$is_sedt = $mi->use_input_simple_editor != 'N'&&(!$is_doc || ($is_doc&&strpos($mi->simple_editor_option, 'dochide')===false)) ? $mi->use_input_simple_editor : 'N';
+	$is_sedt = $is_sedt == 'C' && $grant->manager ? '' : ($is_sedt != 'N' ? $is_sedt : '');
+	$is_sedt = $is_sedt == 'C' && $mi->consultation == 'Y' ? 'T' : $is_sedt;
+
 	$_tmp = array('/%MID%/','/%LOGIN%/','/%URL%/','/%TITLE%/','/%NAME%/','/%SRL%/');
 	$_tmp2 = array($mid,($logged_info?$logged_info->nick_name:'Guest'),$is_doc?$oDocument->getPermanentUrl():'',$is_doc?$oDocument->getTitle():'',$is_doc?$oDocument->getNickName():'',$is_doc?$oDocument->document_srl:'');
 	$mi->sub_title = $mi->sub_title ? preg_replace($_tmp,$_tmp2,$mi->sub_title) : '';

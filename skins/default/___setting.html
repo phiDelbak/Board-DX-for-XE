@@ -24,10 +24,9 @@
     $mi->display_files?0:$mi->display_files='general,media,image,auto';
 
     $sedt_wbtn = strpos($mi->simple_editor_option, 'wrtbtn')!==false;
-    $sedt_hide = strpos($mi->simple_editor_option, 'dochide')!==false;
 	$mi->consultation == 'Y' ? $mi->use_input_simple_editor = 'C' : 0;
 
-	$is_sedt = $mi->use_input_simple_editor != 'N'&&(!$is_doc || ($is_doc&&!$sedt_hide)) ? $mi->use_input_simple_editor : 'N';
+	$is_sedt = $mi->use_input_simple_editor != 'N'&&(!$is_doc || ($is_doc&&strpos($mi->simple_editor_option, 'dochide')===false)) ? $mi->use_input_simple_editor : 'N';
 	$is_sedt = $is_sedt == 'C' && $grant->manager ? '' : ($is_sedt != 'N' ? $is_sedt : '');
 	$is_sedt = $is_sedt == 'C' && $mi->consultation == 'Y' ? 'T' : $is_sedt;
 
