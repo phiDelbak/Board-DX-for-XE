@@ -337,6 +337,24 @@
 			<title xml:lang="ko">썸네일</title>
 			<title xml:lang="jp">サムネール</title>
 			<title xml:lang="en">Thumbnail</title>
+			<var name="thumbnail_slide" type="radio" default="N">
+				<title xml:lang="ko">썸네일 클릭</title>
+				<title xml:lang="jp">썸네일 클릭</title>
+				<title xml:lang="en">썸네일 클릭</title>
+				<options value="N">
+					<title xml:lang="ko">일반</title>
+					<title xml:lang="jp">一般</title>
+					<title xml:lang="en">general</title>
+				</options>
+				<options value="Y">
+					<title xml:lang="ko">슬라이드</title>
+					<title xml:lang="jp">slide</title>
+					<title xml:lang="en">slide</title>
+				</options>
+				<description xml:lang="ko">갤러리 형태일때 클릭시 슬라이드 보기할지 설정합니다.</description>
+				<description xml:lang="jp">갤러리 형태일때 클릭시 슬라이드 보기할지 설정합니다.</description>
+				<description xml:lang="en">갤러리 형태일때 클릭시 슬라이드 보기할지 설정합니다.</description>
+			</var>
 			<var name="thumbnail_type" type="radio" default="crop">
 				<title xml:lang="ko">썸네일 생성 방법</title>
 				<title xml:lang="jp">サムネール生成方法</title>

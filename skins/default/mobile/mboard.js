@@ -163,8 +163,41 @@ jQuery(function($) {
 		$('a', this).css('padding-right', w + 10 + 'px');
 	});
 
+	$('a[data-slide]', '#list').each(function() {
+		$(this).on('before-open.mw', function() {
+				this.manualShow = true;
+			})
+			.on('after-open.mw', function(e, slide) {
+				var a = this,
+					srl = $(this).attr('data-slide') || 0;
+				if (!srl) return true;
+				exec_json(
+					'file.getFileList', {
+						mid: current_mid,
+						editor_sequence: 0,
+						upload_target_srl: srl
+					},
+					function(ret_obj) {
+						var i, url, fs = ret_obj.files;
+						if (ret_obj.error === 0 && fs && fs.length) {
+							a.imglist = [];
+							for (i = 0, c = fs.length; i < c; i++) {
+								url = fs[i].download_url;
+								if (url.match(/\.(?:(jpe?g|png|gif|ico|bmp))$/i)) {
+									a.imglist[i] = url;
+								}
+							}
+							slide.list = a.imglist;
+							slide.index = 0;
+							slide.xeShow();
+						}
+					}
+				);
+			}).pidSlideShow();
+	});
+
 	$('#fUloader').is(function() {
-		var fUfuns = {
+		var fUfuncs = {
 				upBtn: $('#fUloader').find('.flc'),
 				evalScripts: function(txt, identify) {
 					var ScriptFragment = '<script[^>]*>([^]+?)<\/script>',
@@ -213,24 +246,24 @@ jQuery(function($) {
 								ls.trigger('change');
 							}
 
-							fUfuns.upBtn.text('File upload (' + c + ')');
-							//fUfuns.upIfo.html(ret.upload_status);
+							fUfuncs.upBtn.text('File upload (' + c + ')');
+							//fUfuncs.upIfo.html(ret.upload_status);
 						}
 					);
 				}
 			},
 			afOptions = {
 				beforeSend: function() {
-					fUfuns.upBtn.text('0%');
+					fUfuncs.upBtn.text('0%');
 				},
 				uploadProgress: function(event, position, total, percentComplete) {
-					fUfuns.upBtn.text(percentComplete + '%');
+					fUfuncs.upBtn.text(percentComplete + '%');
 				},
 				success: function() {
-					fUfuns.upBtn.text('100%');
+					fUfuncs.upBtn.text('100%');
 				},
 				complete: function(response) {
-					var ff, uifo = fUfuns.evalScripts(response.responseText, 'uploaded_fileinfo') || {};
+					var ff, uifo = fUfuncs.evalScripts(response.responseText, 'uploaded_fileinfo') || {};
 					if (uifo.error < 0) {
 						alert(uifo.message);
 					} else {
@@ -239,8 +272,8 @@ jQuery(function($) {
 						ff = document.getElementById('uploaderForm');
 						ff.uploadTargetSrl.value = uifo.upload_target_srl || '';
 					}
-					fUfuns.upBtn.text('File upload (0)');
-					fUfuns.reLoadList(uifo.file_srl);
+					fUfuncs.upBtn.text('File upload (0)');
+					fUfuncs.reLoadList(uifo.file_srl);
 				},
 				error: function() {
 					alert('ERROR: unable to upload files');
@@ -277,7 +310,7 @@ jQuery(function($) {
 			})
 			.end().ajaxForm(afOptions);
 
-		fUfuns.upBtn.click(function() {
+		fUfuncs.upBtn.click(function() {
 			$('#uploaderForm').find('input[type=file]').trigger('click');
 			return false;
 		});
@@ -292,7 +325,7 @@ jQuery(function($) {
 							editor_sequence: '1'
 						},
 						function(ret) {
-							fUfuns.reLoadList();
+							fUfuncs.reLoadList();
 						}
 					);
 				}
@@ -339,6 +372,6 @@ jQuery(function($) {
 			});
 		});
 
-		fUfuns.reLoadList();
+		fUfuncs.reLoadList();
 	});
 });

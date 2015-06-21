@@ -175,7 +175,7 @@
 		}
 			<div class="scItem {$mi->display_thumbnail_info!='N'?'scIfHide':''}" {sprintf($hot_optstr,$purl,'gall',$document->document_srl)}>
 				<span cond="$grant->manager" class="scCheck"><input type="checkbox" name="cart" value="{$document->document_srl}" onclick="doAddDocumentCart(this)" checked="checked"|cond="$document->isCarted()" /></span>
-					<a href="{$purl}" {$md_optstr}>
+					<a href="{$purl}" data-slide="{$document->document_srl}"|cond="$us_slide&&$is_grant&&!$is_blind" {$md_optstr}>
 					<!--@if($is_blind || !$is_grant)-->
 						<img class="thum" src="img/common/thum_{$is_blind?'blind':'secret'}.png" alt="{$is_blind?'blind':'secret'}" title="{$is_blind?'blind':'secret'}" height="{(int)$mi->thumbnail_height}" width="{(int)$mi->thumbnail_width}" />
 					<!--@else-->

@@ -125,7 +125,7 @@
 					</div>
 				<!--@break-->
 				<!--@case('thumbnail')-->
-					<a cond="!$tlk" href="{$purl}">
+					<a cond="!$tlk" href="{$purl}" data-slide="{$document->document_srl}"|cond="$us_slide&&$is_grant&&!$is_blind">
 						<!--@if($is_blind || !$is_grant)-->
 							<img src="img/common/thum_{$is_blind?'blind':'secret'}.png" alt="{$is_blind?'blind':'secret'}" title="{$is_blind?'blind':'secret'}" height="{$mi->thumbnail_height}" width="{$mi->thumbnail_width}" />
 						<!--@else-->

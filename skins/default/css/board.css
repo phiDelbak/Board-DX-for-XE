@@ -752,7 +752,8 @@
 #siCat em {
 	line-height: 11px;
 	font-size: 10px;
-	font-family: Tahoma, Geneva, sans-serif
+	font-family: Tahoma, Geneva, sans-serif;
+	font-style: normal
 }
 
 
@@ -879,7 +880,7 @@
 
 #siLst .notice td,
 #siLst .best td {
-	background-color: #fafafa
+	background-color: #f9f9f9
 }
 
 #siLst .readed_count,
@@ -936,7 +937,7 @@
 #siLst td em.reply,
 #siLst td em.trackback {
 	font-style: normal;
-	font-size: 10px;
+	font-size: 11px;
 	font-weight: normal;
 	font-family: Tahoma, Geneva, sans-serif
 }
@@ -964,7 +965,7 @@
 #siLst.webz .scItem a.thum,
 #siLst.gall .scItem img.thum,
 #siLst.gall .scIfHide .scInfo,
-#siDoc .thmAx img.thum {
+#siDoc .thmAx a.thum {
 	padding: 5px;
 	border: 1px solid #e6e6e6;
 	border-radius: 3px;
@@ -974,7 +975,8 @@
 
 #siLst.list td.thumbnail img:hover,
 #siLst.webz .scItem a.thum:hover,
-#siLst.gall .scItem img.thum:hover {
+#siLst.gall .scItem img.thum:hover,
+#siDoc .thmAx a.thum[data-slide]:hover {
 	box-shadow: 1px 1px 2px #e6e6e6;
 	-moz-box-shadow: 1px 1px 2px #e6e6e6;
 	-webkit-box-shadow: 1px 1px 2px #e6e6e6
@@ -1156,7 +1158,8 @@
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	opacity: .7
+	opacity: .7;
+	margin: 0
 }
 
 #siLst.gall .prtImg em.usept.colBgBlue {
@@ -1396,7 +1399,7 @@
 /* View */
 
 #siDoc .mbAfrm {
-	background-color: #fafafa;
+	background-color: #f9f9f9;
 	color: #4a4a4a;
 	margin: 2px!important;
 	border-bottom: 1px solid #e6e6e6
@@ -1452,7 +1455,7 @@
 	display: inline-block;
 	margin: 2px 0 2px -145px;
 	width: 120px;
-	background-color: #fafafa
+	background-color: #f9f9f9
 }
 
 #siDoc .thmAx {
@@ -1460,8 +1463,14 @@
 	margin-bottom: 15px
 }
 
-#siDoc .thmAx img.thum {
-	float: left
+#siDoc .thmAx a.thum {
+	float: left;
+	text-decoration: none;
+	cursor: default;
+}
+
+#siDoc .thmAx a.thum[data-slide] {
+	cursor: pointer;
 }
 
 #siDoc .thmAx ul.scVext {
@@ -1949,7 +1958,7 @@
 	width: 100%;
 	height: 12px;
 	border: 1px solid #e6e6e6;
-	background-color: #fafafa;
+	background-color: #f9f9f9;
 	padding: 2px;
 	cursor: pointer;
 	overflow: visible
@@ -1993,7 +2002,7 @@
 	display: inline-block;
 	margin: 2px 0 2px -145px;
 	width: 120px;
-	background-color: #fafafa
+	background-color: #f9f9f9
 }
 
 #siWrt .scWul >li input[type="text"],
@@ -2061,7 +2070,8 @@
 	font-size: 15px;
 	padding-right: 5px;
 	text-shadow: 0 1px #fff;
-	opacity: .6
+	opacity: .6;
+	font-style: italic
 }
 
 #siFbk .scWopts label,
@@ -2340,7 +2350,7 @@
 	border: 2px solid #e6e6e6;
 	margin: 5px 0 0;
 	padding: 5px 0 0 5px;
-	background-color: #fafafa
+	background-color: #f9f9f9
 }
 
 #siBody .scFiles li {

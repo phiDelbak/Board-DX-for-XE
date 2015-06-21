@@ -7,8 +7,8 @@
     $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
     $dmb_srl = $oDocument->get('member_srl');
 
-    $is_granted = $oDocument->isGranted();
-    $is_secret = $grant->view && $oDocument->isSecret();
+    $is_granted = $grant->view && $oDocument->isGranted();
+    $is_secret = $oDocument->isSecret();
     $is_locked = $is_cklok?$oThis->isLocked($doc_srl):0;
     $is_blind = $us_blind?$oThis->isBlind($doc_srl):0;
     $is_scrap = $ds_scrap?$oThis->isScrap($doc_srl):0;

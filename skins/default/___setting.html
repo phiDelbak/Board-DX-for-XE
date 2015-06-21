@@ -37,6 +37,7 @@
 	$us_vmodal = !$lte_ie9 && strpos($mi->use_modal_window, '"view"')!==false;
 	$us_hottrack = !$lte_ie9 && $mi->hot_track == 'Y';
 	$us_blind = $mi->use_blind=='Y';
+	$us_slide = $mi->thumbnail_slide=='Y';
 
 	$is_elips = !$mi->title_length;
 	$ao_ppang = $mi->addon_pang_pang == 'Y';
@@ -58,12 +59,22 @@
 }
 <!--// CSS,JS 파일 import -->
 <!--@if(__DEBUG__)-->
-	<load target="../../tpl/css/modal.win.css" />
-	<load target="../../tpl/js/modal.win.js" type="body" />
+	<block cond="$us_modal||$us_vmodal">
+		<load target="../../tpl/css/modal.win.css" />
+		<load target="../../tpl/js/modal.win.js" type="body" />
+	</block>
+	<block cond="$us_slide">
+		{Context::loadJavascriptPlugin('ui')}
+		<load target="../../tpl/js/gallery.slide.js" type="body" />
+	</block>
 	<load target="css/board.css" />
 	<load target="js/board.js" type="body" />
 <!--@else-->
-	<load target="../../tpl/js/modal.min.js" type="body" />
+	<load cond="$us_modal||$us_vmodal" target="../../tpl/js/modal.min.js" type="body" />
+	<block cond="$us_slide">
+		{Context::loadJavascriptPlugin('ui')}
+		<load target="../../tpl/js/gallery.min.js" type="body" />
+	</block>
 	<load target="css/board.min.css" />
 	<load target="js/board.min.js" type="body" />
 <!--@endif-->

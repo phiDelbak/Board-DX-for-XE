@@ -3,7 +3,7 @@
   * @author phiDel (xe.phidel@gmail.com, https://github.com/phiDelbak/Board-DX-for-XE)
   */
 
- jQuery(function($) {
+ (function($) {
  	var sjDxFuncs = $.extend({
  		isMobj: function(m) {
  			var r, f = this.pidFrm;
@@ -501,8 +501,48 @@
  			sjDxFuncs.reSized();
 
  			$('#siWrt').eq(0).pidSettingWrite();
- 			$('a[type^=example\\/modal]', '#siBody').pidModalWindow(sjDxFuncs.isMobj('b') || '');
- 			$('[data-flash-fix=true]', '#siBody').pidModalFlashFix();
+
+ 			$('a[type^=example\\/modal]', '#siBody').each(function() {
+ 				$(this).pidModalWindow(sjDxFuncs.isMobj('b') || '');
+ 			});
+
+ 			$('a[data-slide]', '#siBody').each(function() {
+ 				$(this).on('before-open.mw', function() {
+ 						this.manualShow = true;
+ 					})
+ 					.on('after-open.mw', function(e, slide) {
+ 						var a = this,
+ 							srl = $(this).attr('data-slide') || 0;
+ 						if (!srl) return true;
+ 						exec_json(
+ 							'file.getFileList', {
+ 								mid: current_mid,
+ 								editor_sequence: 0,
+ 								upload_target_srl: srl
+ 							},
+ 							function(ret_obj) {
+ 								var i, url, fs = ret_obj.files;
+ 								if (ret_obj.error === 0 && fs && fs.length) {
+ 									a.imglist = [];
+ 									for (i = 0, c = fs.length; i < c; i++) {
+ 										url = fs[i].download_url;
+ 										if (url.match(/\.(?:(jpe?g|png|gif|ico|bmp))$/i)) {
+ 											a.imglist[i] = url;
+ 										}
+ 									}
+ 									slide.list = a.imglist;
+ 									slide.index = 0;
+ 									slide.xeShow();
+ 								}
+ 							}
+ 						);
+ 					}).pidSlideShow();
+ 			});
+
+ 			$('[data-flash-fix=true]', '#siBody').each(function() {
+ 				$(this).pidModalFlashFix();
+ 			});
+
  			$('[data-link-fix=true]', '#siBody').find('a:not([target])').attr('target', '_blank');
 
  			// $('#searchFo').each(function() {
@@ -543,4 +583,5 @@
  				}
  			});
  		});
- });
+
+ })(jQuery);

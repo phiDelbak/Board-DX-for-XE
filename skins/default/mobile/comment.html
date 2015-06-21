@@ -37,8 +37,8 @@
 			{@
 				$cmt_srl = $comment->get('comment_srl');
 				$cmb_srl = $comment->get('member_srl');
-				$is_granted = $comment->isGranted();
-				$is_secret = $grant->view && $comment->isSecret();
+				$is_granted = $grant->view && $comment->isGranted();
+				$is_secret = $comment->isSecret();
 				$is_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($comment->comment_srl, 'cmt'):0;
 				$_tmp = $cmb_srl?$cmb_srl:$comment->get('ipaddress');
 				$is_chk = !$depth ? (int) $voted_list[$_tmp]->point > -1 : $is_chk;

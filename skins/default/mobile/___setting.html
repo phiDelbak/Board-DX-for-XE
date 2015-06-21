@@ -8,8 +8,6 @@
 	$is_doc = $oDocument && $oDocument->isExists();
 	$is_cts = count($cts);
 
-	$us_blind = $mi->use_blind=='Y';
-
 	$ao_ppang = $mi->addon_pang_pang == 'Y';
 	$ds_mtlng = $mi->display_lang_code == 'Y';
 	$ds_scrap = $mi->display_scrap_button == 'Y';
@@ -22,6 +20,9 @@
 
 	$lsttp = $category_srl&&$cts[$category_srl]->type?$cts[$category_srl]->type:$mi->default_type;
 	$lsttp = in_array($lsttp, array('gallery','webzine'))?$lsttp:'list';
+
+	$us_blind = $mi->use_blind=='Y';
+	$us_slide = $lsttp==='gallery'&&$mi->thumbnail_slide=='Y';
 
 	$mi->category_style?0:$mi->category_style = 'Y';
 	$mi->star_style?0:$mi->star_style = 'N';
@@ -43,10 +44,18 @@
 
 <!--@if(__DEBUG__)-->
 	<load target="../../../tpl/js/uploader.ajax.js" type="body" />
+	<block cond="$us_slide">
+		{Context::loadJavascriptPlugin('ui')}
+		<load target="../../../tpl/js/gallery.slide.js" type="body" />
+	</block>
 	<load target="mboard.css" />
 	<load target="mboard.js" type="body" />
 <!--@else-->
 	<load target="../../../tpl/js/uploader.min.js" type="body" />
+	<block cond="$us_slide">
+		{Context::loadJavascriptPlugin('ui')}
+		<load target="../../../tpl/js/gallery.min.js" type="body" />
+	</block>
 	<load target="mboard.min.css" />
 	<load target="mboard.min.js" type="body" />
 <!--@endif-->

@@ -78,8 +78,8 @@
 					}
 					<li class="{$depth?'indent':''} clearBar" style="padding-left:{((int)$depth*10+15)}px;background-position:{((int)$depth*10)}px -375px"|cond="$depth"><a name="comment_{$cmt_srl}" data-modal-scrollinto="true"|cond="$comment_srl&&$comment_srl==$cmt_srl"></a>
 						{@
-							$is_granted = $comment->isGranted();
-							$is_secret = $grant->view && $comment->isSecret();
+							$is_granted = $grant->view && $comment->isGranted();
+							$is_secret = $comment->isSecret();
 							$is_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($cmt_srl, 'cmt'):0;
 						}
 						<div class="scFbt">

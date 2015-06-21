@@ -324,13 +324,11 @@
 					return false;
 				})
 				.on('open.mw', function() {
-					var $this = $(this),
-						$modal, $bdrop, $body, before_event, duration, url, mdmode, zidx = 0;
+					var $this = $(this), $modal, $bdrop, $body, before_event, duration, url, mdmode, zidx = 0;
 
 					// before event trigger
 					before_event = $.Event('before-open.mw');
 					$this.trigger(before_event);
-
 					// is event canceled?
 					if (before_event.isDefaultPrevented()) return false;
 
@@ -396,8 +394,7 @@
 					//if(url){}else{$modal.fadeIn(duration, after);}
 				})
 				.on('close.mw', function() {
-					var $this = $(this),
-						$modal, $bdrop, before_event, duration;
+					var $this = $(this), $modal, $bdrop, before_event, duration;
 
 					// before event trigger
 					before_event = $.Event('before-close.mw');
