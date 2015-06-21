@@ -182,23 +182,33 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
                 </ul>
             </div>
             <include cond="!$us_vmodal&&$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
-            {@
-            $ds_flsgn = $mi->display_attached_files=='Y'||$mi->display_attached_files=='G';
-            $ds_flsmd = $mi->display_attached_files=='Y'||$mi->display_attached_files=='M';
-            }
-            <div cond="($ds_flsgn||$ds_flsmd)&&count($ufls)" class="scFiles">
-                <ul>
-                    <li loop="$ufls=>$key,$file" cond="($ds_flsgn&&$file->direct_download!='Y')||($ds_flsmd&&$file->direct_download=='Y')" class="notvalid"|cond="$file->isvalid!='Y'" class="direct"|cond="$file->isvalid=='Y'&&$file->direct_download=='Y'">
-                        {@
-                            $t_down_cm = $pt_dtype != 'N' && (!$lg || $lg->member_srl != $file->member_srl);
-                            $t_down_pt = $t_down_cm && $pt_dtype == 'P' && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
-                            $t_down_cm = !$t_down_pt && $t_down_cm && !$oThis->isWrote($doc_srl, true, 'cmt');
-                        }
-                        <a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="fsize">(link)</span></a>
-                        <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(_DXS_MSGS_.use_d_point.replace('%s','{$t_down_pt}'))"|cond="$t_down_pt&&$lg" class="isdownpt"|cond="$t_down_pt" onclick="return alert('{$lang->msg_required_comment}') || false"|cond="$t_down_cm&&$lg" onclick="return alert('{$lang->msg_not_permitted}') || false"|cond="($t_down_pt||$t_down_cm)&&!$lg">{$file->source_filename}<span class="fsize">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
-                    </li>
-                </ul>
-            </div>
+
+            <block cond="count($ufls)">
+                {@
+                    $ds_file = array();
+                    $us_ahfile = strpos($mi->display_files, 'auto')!==false;
+                }
+                <block loop="$ufls=>$file">
+                    {@
+                        $_tmp = $file->direct_download!='Y'?'general':'media';
+                        $_tmp = $_tmp=='media'&&preg_match("/\.(?:(jpe?g|png|gif|bmp|ico))$/i", $file->source_filename)?'image':$_tmp;
+                        $ds_file[$_tmp][] = $file;
+                    }
+                </block>
+                <block loop="array('general','media','image')=>$_tmp2">
+                    <ul cond="strpos($mi->display_files, $_tmp2)!==false&&count($ds_file[$_tmp2])" data-autohide="true"|cond="$us_ahfile" class="scFiles">
+                        <li loop="$ds_file[$_tmp2]=>$file" class="notvalid"|cond="$file->isvalid!='Y'" class="direct {$_tmp2}"|cond="$file->isvalid=='Y'&&$file->direct_download=='Y'">
+                            {@
+                                $t_down_cm = $pt_dtype != 'N' && (!$lg || $lg->member_srl != $file->member_srl);
+                                $t_down_pt = $t_down_cm && $pt_dtype == 'P' && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
+                                $t_down_cm = !$t_down_pt && $t_down_cm && !$oThis->isWrote($doc_srl, true, 'cmt');
+                            }
+                            <a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="fsize">(link)</span></a>
+                            <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(_DXS_MSGS_.use_d_point.replace('%s','{$t_down_pt}'))"|cond="$t_down_pt&&$lg" class="isdownpt"|cond="$t_down_pt" onclick="return alert('{$lang->msg_required_comment}') || false"|cond="$t_down_cm&&$lg" onclick="return alert('{$lang->msg_not_permitted}') || false"|cond="($t_down_pt||$t_down_cm)&&!$lg">{$file->source_filename}<span class="fsize">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
+                        </li>
+                    </ul>
+                </block>
+            </block>
         </li>
     </ul>
 </div>

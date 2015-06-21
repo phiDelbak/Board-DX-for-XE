@@ -75,44 +75,6 @@
  		}
  	});
 
- 	$('a[href=#siManageBtn]')
- 		.click(function() {
- 			var $sa = $(this).closest('.scAdmActs');
-
- 			$('.scElps ._first').each(function() {
- 				$(this).css('width', ($(this).width() - 30) + 'px');
- 			});
- 			$('.scCheck').show('slow');
- 			$sa.html($(this).next().html());
-
- 			$('select', $sa).change(function() {
- 				var v = $(this).val() || '',
- 					s = [];
- 				$('input[name=cart]:checked').each(function(i) {
- 					s[i] = $(this).val();
- 				});
- 				if (s.length < 1) return alert('Please select the items.', this) || false;
- 				exec_json('beluxe.procBeluxeChangeCustomStatus', {
- 					mid: current_mid,
- 					new_value: v,
- 					target_srls: s.join(',')
- 				}, completeCallModuleAction);
- 				return;
- 			});
-
- 			$('a[data-type]', $sa).click(function() {
- 				switch ($(this).attr('data-type')) {
- 					case 'manage':
- 						popopen(request_uri + '?module=document&act=dispDocumentManageDocument', 'manageDocument');
- 						break;
- 					case 'admin':
- 						location.href = current_url.setQuery('act', 'dispBeluxeAdminModuleInfo');
- 				}
- 				return false;
- 			});
- 			return false;
- 		});
-
  	$('#siCat.tabn,#siCat.colm')
  		.each(function() {
  			var $i = $(this),
@@ -209,6 +171,82 @@
  					$i.fadeOut(); //if else $i.slideUp();
  					$m.show('slow');
  				});
+ 		});
+
+ 	$('.scFiles[data-autohide=true]', '#siDoc')
+ 		.each(function() {
+ 			var $i = $(this),
+ 				oh = $(this).outerHeight(),
+ 				ishide, w;
+
+ 			$i.find('>li').each(function() {
+ 				var t = $(this).position().top;
+ 				console.log(t);
+ 				if (t > oh - 8) ishide = true;
+ 			});
+
+ 			if (ishide) {
+ 				w = $('<li><a href="#">more...</a></li>')
+ 					.css({
+ 						position: "absolute",
+ 						top: 5,
+ 						right: 5,
+ 						padding: 0,
+ 						'background-position': '-150px 0'
+ 					})
+ 					.find('>a')
+ 					.click(function() {
+ 						$(this).parent().parent().css({
+ 							'height': 'auto',
+ 							'padding-right': ''
+ 						}).end().remove();
+ 						return false;
+ 					})
+ 					.end().appendTo($i).width();
+ 				$i.css('padding-right', (w + 10) + 'px');
+ 			} else {
+ 				$i.removeAttr('data-autohide');
+ 			}
+
+ 			ishide = false;
+ 		});
+
+ 	$('a[href=#siManageBtn]')
+ 		.click(function() {
+ 			var $sa = $(this).closest('.scAdmActs');
+
+ 			$('.scElps ._first').each(function() {
+ 				$(this).css('width', ($(this).width() - 30) + 'px');
+ 			});
+ 			$('.scCheck').show('slow');
+ 			$sa.html($(this).next().html());
+
+ 			$('select', $sa).change(function() {
+ 				var v = $(this).val() || '',
+ 					s = [];
+ 				$('input[name=cart]:checked').each(function(i) {
+ 					s[i] = $(this).val();
+ 				});
+ 				if (s.length < 1) return alert('Please select the items.', this) || false;
+ 				exec_json('beluxe.procBeluxeChangeCustomStatus', {
+ 					mid: current_mid,
+ 					new_value: v,
+ 					target_srls: s.join(',')
+ 				}, completeCallModuleAction);
+ 				return;
+ 			});
+
+ 			$('a[data-type]', $sa).click(function() {
+ 				switch ($(this).attr('data-type')) {
+ 					case 'manage':
+ 						popopen(request_uri + '?module=document&act=dispDocumentManageDocument', 'manageDocument');
+ 						break;
+ 					case 'admin':
+ 						location.href = current_url.setQuery('act', 'dispBeluxeAdminModuleInfo');
+ 				}
+ 				return false;
+ 			});
+ 			return false;
  		});
 
  	$('a[href=#popopen][data-srl]')

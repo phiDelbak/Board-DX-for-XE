@@ -115,29 +115,24 @@
 			<title xml:lang="ko">표시</title>
 			<title xml:lang="jp">表示</title>
 			<title xml:lang="en">display</title>
-			<var name="display_attached_files" type="radio" default="Y">
+			<var name="display_files" type="checkbox" default="general,image,media">
 				<title xml:lang="ko">첨부 파일</title>
 				<title xml:lang="jp">添付ファイル</title>
 				<title xml:lang="en">Attached files</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
+				<options value="general">
+					<title xml:lang="ko">일반</title>
+					<title xml:lang="jp">general</title>
+					<title xml:lang="en">general</title>
 				</options>
-				<options value="Y">
-					<title xml:lang="ko">모든 파일</title>
-					<title xml:lang="jp">すべて表示</title>
-					<title xml:lang="en">all files</title>
+				<options value="image">
+					<title xml:lang="ko">이미지</title>
+					<title xml:lang="jp">image</title>
+					<title xml:lang="en">image</title>
 				</options>
-				<options value="G">
-					<title xml:lang="ko">일반 파일</title>
-					<title xml:lang="jp">一般ファイル</title>
-					<title xml:lang="en">general files</title>
-				</options>
-				<options value="M">
-					<title xml:lang="ko">미디어 파일</title>
-					<title xml:lang="jp">メディアファイル</title>
-					<title xml:lang="en">media files</title>
+				<options value="media">
+					<title xml:lang="ko">미디어</title>
+					<title xml:lang="jp">media</title>
+					<title xml:lang="en">media</title>
 				</options>
 				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
 				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>

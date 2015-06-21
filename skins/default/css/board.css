@@ -2354,12 +2354,9 @@
 
 /* file list */
 
-#siBody .scFiles span.fsize {
-	font-size: 10px;
-	font-family: Tahoma, Geneva, sans-serif
-}
-
-#siBody .scFiles ul {
+#siBody .scFiles,
+#siFbk .scFiles ul {
+	position: relative;
 	list-style: none;
 	overflow: hidden;
 	line-height: 16px;
@@ -2367,6 +2364,10 @@
 	margin: 5px 0 0;
 	padding: 5px 0 0 5px;
 	background-color: #f9f9f9
+}
+
+#siBody .scFiles[data-autohide=true] {
+	height: 19px;
 }
 
 #siBody .scFiles li {
@@ -2390,6 +2391,10 @@
 	background-position: 0 -25px
 }
 
+#siBody .scFiles li.direct.media {
+	background-position: 0 -50px
+}
+
 #siBody .scFiles li.notvalid {
 	background-position: 0 -77px;
 	text-decoration: line-through
@@ -2399,19 +2404,25 @@
 	font-weight: bold
 }
 
+#siBody .scFiles span.fsize {
+	font-size: 10px;
+	font-family: Tahoma, Geneva, sans-serif
+}
+
 #siFbk .scFiles {
-	position: relative;
-	margin: 0 0 0 190px;
+	position: static;
+	margin: 0 0 0 200px;
 	padding: 0;
 	display: inline;
 	float: left;
-	clear: both
+	clear: both;
+	border: 0;
+	background-color: transparent;
 }
 
 #siFbk .scFiles ul {
 	position: absolute;
-	z-index: 2;
-	overflow: visible;
+	z-index: 5;
 	display: none;
 	margin: 0;
 	padding: 5px;
@@ -2420,7 +2431,7 @@
 	-webkit-border-radius: 3px
 }
 
-#siFbk .scFiles ul li {
+#siFbk .scFiles ul > li {
 	float: none;
 	padding: 1px 0 1px 15px;
 	background-position: 0 -125px
@@ -2432,7 +2443,13 @@
 	cursor: pointer;
 	overflow: visible;
 	padding: 0 0 0 15px;
-	color: #767676
+	color: #767676;
+	font-size: 12px;
+	line-height: 14px;
+}
+
+#siFbk .scFiles .scToggle strong {
+	font-size: 10px;
 }
 
 #siFbk.cmt.web .scFiles {

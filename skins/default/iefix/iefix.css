@@ -111,7 +111,7 @@
 	*padding-bottom: 20px
 }
 
-#siDoc .thmAx img.thum,
+#siDoc .thmAx a.thum,
 #siLst.webz .scItem a.thum {
 	*float: none;
 	*position: absolute;

@@ -412,34 +412,6 @@
 				<description xml:lang="jp">IPアドレスの表示、非表示を設定します.</description>
 				<description xml:lang="en">Set whether to display the ip address.</description>
 			</var>
-			<var name="display_attached_files" type="radio" default="Y">
-				<title xml:lang="ko">첨부 파일</title>
-				<title xml:lang="jp">添付ファイル</title>
-				<title xml:lang="en">Attached files</title>
-				<options value="N">
-					<title xml:lang="ko">표시 안함</title>
-					<title xml:lang="jp">非表示</title>
-					<title xml:lang="en">not display</title>
-				</options>
-				<options value="Y">
-					<title xml:lang="ko">모든 파일</title>
-					<title xml:lang="jp">すべて表示</title>
-					<title xml:lang="en">all files</title>
-				</options>
-				<options value="G">
-					<title xml:lang="ko">일반 파일</title>
-					<title xml:lang="jp">一般ファイル</title>
-					<title xml:lang="en">general files</title>
-				</options>
-				<options value="M">
-					<title xml:lang="ko">미디어 파일</title>
-					<title xml:lang="jp">メディアファイル</title>
-					<title xml:lang="en">media files</title>
-				</options>
-				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
-				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
-				<description xml:lang="en">Set whether to display the attached files.</description>
-			</var>
 			<var name="display_recommender" type="radio" default="Y">
 				<title xml:lang="ko">추천인</title>
 				<title xml:lang="jp">추천인</title>
@@ -457,6 +429,34 @@
 				<description xml:lang="ko">문서를 추천한 추천인을 표시할지 설정합니다.</description>
 				<description xml:lang="jp">문서를 추천한 추천인을 표시할지 설정합니다.</description>
 				<description xml:lang="en">문서를 추천한 추천인을 표시할지 설정합니다.</description>
+			</var>
+			<var name="display_files" type="checkbox" default="general,image,media,auto">
+				<title xml:lang="ko">첨부 파일</title>
+				<title xml:lang="jp">添付ファイル</title>
+				<title xml:lang="en">Attached files</title>
+				<options value="general">
+					<title xml:lang="ko">일반</title>
+					<title xml:lang="jp">general</title>
+					<title xml:lang="en">general</title>
+				</options>
+				<options value="image">
+					<title xml:lang="ko">이미지</title>
+					<title xml:lang="jp">image</title>
+					<title xml:lang="en">image</title>
+				</options>
+				<options value="media">
+					<title xml:lang="ko">미디어</title>
+					<title xml:lang="jp">media</title>
+					<title xml:lang="en">media</title>
+				</options>
+				<options value="auto">
+					<title xml:lang="ko">자동 숨김</title>
+					<title xml:lang="jp">자동 숨김</title>
+					<title xml:lang="en">자동 숨김</title>
+				</options>
+				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
+				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
+				<description xml:lang="en">Set whether to display the attached files.</description>
 			</var>
 		</group>
 		<group>

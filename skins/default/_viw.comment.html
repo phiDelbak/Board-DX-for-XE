@@ -20,7 +20,7 @@
 	}
 
 	<block cond="$mi->display_recommender != 'N'">
-		{@ $voted_lst = $oThis->getDocumentVotedLogs($doc_srl, 1)}	
+		{@ $voted_lst = $oThis->getDocumentVotedLogs($doc_srl, 1)}
 	</block>
 
 	<div id="siFbk" class="cmt clearBar" style="margin:0"|cond="$is_modal"><a name="comment" data-modal-scrollinto="true"|cond="$comment_srl"></a>
@@ -33,7 +33,7 @@
 						$cmMember = &getModel('member');
 					}
 					<block loop="$voted_lst=>$mb">
-						{@ 
+						{@
 							$_tmp2++;
 							$_tmp = $cmMember->getMemberInfoByMemberSrl($mb->member_srl);
 						}
@@ -41,7 +41,7 @@
 						<span cond="!$_tmp->profile_image" class="profile" title="{$_tmp->nick_name}"></span>
 						<!--@if($_tmp2 > 9)-->{@ break;}<!--@endif-->
 					</block>
-				</span>	
+				</span>
 				<span cond="!count($voted_lst) || count($voted_lst)>10" class="fr <!--@if(count($voted_lst))-->recommender_count<!--@endif-->">{count($voted_lst)?sprintf($lang->e_recommender_count, count($voted_lst)-10):'...'}</span>
 			</h2>
 		</div>
@@ -119,7 +119,7 @@
 					</div>
 
 					<div cond="!$is_blind&&$comment->hasUploadedFiles()" class="scFiles c{$cmt_srl}">
-						<button type="button" class="scToggle" data-target="#siFbk .scFiles.c{$cmt_srl} ul">{$lang->uploaded_file} [<strong>{$comment->get('uploaded_count')}</strong>]</button>
+						<button type="button" class="scToggle" data-target="#siFbk .scFiles.c{$cmt_srl} ul">{$lang->uploaded_file} <strong>[{$comment->get('uploaded_count')}]</strong></button>
 						<ul>
 							<li loop="$comment->getUploadedFiles()=>$key,$file"><a href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}">{$file->source_filename}<span class="fsize">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a></li>
 						</ul>
