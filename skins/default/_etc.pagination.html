@@ -7,6 +7,11 @@
 }
 
 <div class="scPageArea">
+    <!--@if($mi->use_first_page==='Y' && $first_page)-->
+    <div class="scPage">
+		<a href="{getUrl('page','1')}" class="direction next" style="padding-left:0">{$lang->first_page} <span></span><span></span></a>
+	</div>
+    <!--@else-->
 	<div cond="$page_navigation&&$page_navigation->total_page" class="scPage">
 		<a href="{getUrl('comment_srl','',$t_pagei,'1','division',$division,'last_division',$last_division)}{$is_doc?'#navigation':''}" class="direction prev"><span></span><span></span> {$lang->first_page}</a>
 		<block loop="$page_no=$page_navigation->getNextPage()">
@@ -15,7 +20,7 @@
 		</block>
 		<a href="{getUrl('comment_srl','',$t_pagei,$page_navigation->last_page,'division',$division,'last_division',$last_division)}{$is_doc?'#navigation':''}" class="direction next">{$lang->last_page} <span></span><span></span></a>
 	</div>
-
+    <!--@endif-->
 
     <!--@if($is_doc || $pt_vtype!='A')-->
 	<div class="scAdmActs">

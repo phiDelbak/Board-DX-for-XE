@@ -1161,7 +1161,12 @@ input.bn.small {
 .file li a {
 	padding-left: 13px;
 	margin: 0 0 0 2px;
-	background-position: -20px -102px;
+	background-position: -20px -103px;
+}
+
+.rp .file a {
+	padding: 0 5px 0 13px;
+	background-position: -20px -107px;
 }
 
 .file li a.idw {
