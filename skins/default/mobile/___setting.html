@@ -15,6 +15,7 @@
 	$pt_dtype = ($pt_vtype != 'A' && $mi->use_restrict_down == 'P') ? 'P' : ($pt_vtype != 'A' && $mi->use_restrict_down == 'Y' ? 'Y' : 'N');
 
 	$is_cklok = !$grant->manager && $mi->use_lock_document && $mi->use_lock_document != 'N';
+	$is_ckclok = !$grant->manager && $mi->use_lock_comment && $mi->use_lock_comment != 'N';
 	$cmt_lstcnt = $is_cts?$cts[(int)$category_srl]->navigation->clist_count:$mi->default_clist_count;
 	$btm_lstcnt = $is_cts?$cts[(int)$category_srl]->navigation->dlist_count:$mi->default_dlist_count;
 

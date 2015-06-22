@@ -43,6 +43,7 @@
 	$ds_mtlng = $mi->display_lang_code == 'Y';
 	$ds_scrap = $mi->display_scrap_button == 'Y';
 	$is_cklok = !$grant->manager && $mi->use_lock_document && $mi->use_lock_document != 'N';
+	$is_ckclok = !$grant->manager && $mi->use_lock_comment && $mi->use_lock_comment != 'N';
 	$cmt_lstcnt = $is_cts?$cts[(int)$category_srl]->navigation->clist_count:$mi->default_clist_count;
 	$btm_lstcnt = $is_cts?$cts[(int)$category_srl]->navigation->dlist_count:$mi->default_dlist_count;
 	$pt_vtype = $mi->use_point_type == 'A' ? 'A' : ($mi->use_restrict_view == 'P' ? 'P' : ($mi->use_restrict_view == 'Y' ? 'Y' : 'N'));

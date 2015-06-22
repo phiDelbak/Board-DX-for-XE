@@ -83,8 +83,8 @@
         <div cond="$ds_voteup||$ds_votedown||$ds_declare||$ds_scrap" class="bna">
             <a cond="$ds_scrap" class="bn white" href="#scrap" onclick="doCallModuleAction('member','procMemberScrapDocument','{$doc_srl}');return false;"><em class="scrap">{$lang->cmd_scrap}</em></a>
             <block cond="$mi->view_comment_style!='webzine'">
-            <a cond="$ds_voteup" class="bn white" style="color:#228200" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_vote}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a>
-            <a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_vote_down}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a>
+            <a cond="$ds_voteup" class="bn white" style="color:#228200" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->empathy_button}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a>
+            <a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->blamed_button}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a>
             </block>
             <a cond="$ds_declare" href="#declare" class="bn white" style="color:#AA3300" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$dmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a>
         </div>

@@ -110,7 +110,7 @@
 					</block>
 					<block cond="$val->type == 'radio'">
 						<label loop="$val->options => $k, $v" class="x_inline">
-							<!--// 구버전 호환용 //-->
+							<!--// todo 구버전 호환용 //-->
 							<!--@if(strpos($v->value, '|_TARGET_|')!==false)-->
 							{@
 								$a = explode('|_TARGET_|', $v->value);

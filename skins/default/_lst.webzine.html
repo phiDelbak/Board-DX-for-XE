@@ -187,7 +187,7 @@
 		}
 			<div class="scItem clearBar" style="margin-right:{(int)$mi->thumbnail_width+25}px;" {sprintf($hot_optstr,$purl,'webz',$document->document_srl)}>
 				<div class="scInfo">
-					<a href="{$purl}" {$md_optstr} class="thum" data-slide="{$document->document_srl}"|cond="$us_slide&&$is_grant&&!$is_blind" style="width:{(int)$mi->thumbnail_width}px;height:{(int)$mi->thumbnail_height}px;">
+					<a href="{$purl}" class="thum" style="width:{(int)$mi->thumbnail_width}px;height:{(int)$mi->thumbnail_height}px;" <!--@if($us_slide)-->data-slide="{$is_grant&&!$is_blind?$document->document_srl:'Not permitted.'}"<!--@else-->{$md_optstr}<!--@endif-->>
 						<!--@if($is_blind || !$is_grant)-->
 							<img src="img/common/thum_{$is_blind?'blind':'secret'}.png" alt="{$is_blind?'blind':'secret'}" title="{$is_blind?'blind':'secret'}" height="{$mi->thumbnail_height}" width="{$mi->thumbnail_width}" />
 						<!--@else-->

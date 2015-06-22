@@ -14,6 +14,16 @@
 		<value xml:lang="jp"><![CDATA[反対]]></value>
 		<value xml:lang="en"><![CDATA[Disagree]]></value>
 	</item>
+	<item name="empathy_button">
+		<value xml:lang="ko"><![CDATA[좋아요]]></value>
+		<value xml:lang="jp"><![CDATA[좋아요]]></value>
+		<value xml:lang="en"><![CDATA[좋아요]]></value>
+	</item>
+	<item name="blamed_button">
+		<value xml:lang="ko"><![CDATA[싫어요]]></value>
+		<value xml:lang="jp"><![CDATA[싫어요]]></value>
+		<value xml:lang="en"><![CDATA[싫어요]]></value>
+	</item>
 	<item name="new_document">
 		<value xml:lang="ko"><![CDATA[새로운 문서를 작성합니다.]]></value>
 		<value xml:lang="jp"><![CDATA[새로운 문서를 작성합니다.]]></value>

@@ -33,7 +33,7 @@
 		<value xml:lang="ko"><![CDATA[외 %s명,]]></value>
 		<value xml:lang="jp"><![CDATA[외 %s명,]]></value>
 		<value xml:lang="en"><![CDATA[외 %s명,]]></value>
-	</item>	
+	</item>
 	<item name="use_wysiwyg">
 		<value xml:lang="ko"><![CDATA[위지윅 사용]]></value>
 		<value xml:lang="jp"><![CDATA[エディタ使用]]></value>
@@ -98,6 +98,16 @@
 		<value xml:lang="ko"><![CDATA[비추]]></value>
 		<value xml:lang="jp"><![CDATA[非推薦]]></value>
 		<value xml:lang="en"><![CDATA[Blame]]></value>
+	</item>
+	<item name="empathy_button">
+		<value xml:lang="ko"><![CDATA[좋아요]]></value>
+		<value xml:lang="jp"><![CDATA[좋아요]]></value>
+		<value xml:lang="en"><![CDATA[좋아요]]></value>
+	</item>
+	<item name="blamed_button">
+		<value xml:lang="ko"><![CDATA[싫어요]]></value>
+		<value xml:lang="jp"><![CDATA[싫어요]]></value>
+		<value xml:lang="en"><![CDATA[싫어요]]></value>
 	</item>
 	<item name="short_custom_status">
 		<value xml:lang="ko"><![CDATA[상태]]></value>

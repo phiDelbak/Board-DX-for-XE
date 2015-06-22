@@ -181,7 +181,6 @@
 
  			$i.find('>li').each(function() {
  				var t = $(this).position().top;
- 				console.log(t);
  				if (t > oh - 8) ishide = true;
  			});
 
@@ -546,7 +545,9 @@
 
  			$('a[data-slide]', '#siBody').each(function() {
  				$(this).on('before-open.mw', function() {
- 						this.manualShow = true;
+ 						var srl = $(this).attr('data-slide') || 0;
+ 						if (!isNaN(srl)) this.manualShow = true;
+ 						else alert(srl);
  					})
  					.on('after-open.mw', function(e, slide) {
  						var a = this,
@@ -612,8 +613,9 @@
  					t = $i.offset().top + 10,
  					s = $(window).scrollTop();
  				if (t < s) {
- 					var $m = $i.clone().addClass('clone').outerWidth($i.width() + 11).appendTo($i.parent());
- 					setInterval(function() {
+ 					var $m = $i.clone().addClass('clone').appendTo($i.parent());
+ 					$m.outerWidth($i.width() + 10);
+ 					setTimeout(function() {
  						$m.fadeOut(2000, function() {
  							$(this).remove();
  						});

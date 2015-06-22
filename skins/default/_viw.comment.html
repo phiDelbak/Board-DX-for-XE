@@ -37,8 +37,8 @@
 							$_tmp2++;
 							$_tmp = $cmMember->getMemberInfoByMemberSrl($mb->member_srl);
 						}
-						<img cond="$_tmp->profile_image" src="{$_tmp->profile_image->src}" class="profile" title="{$_tmp->nick_name}" />
-						<span cond="!$_tmp->profile_image" class="profile" title="{$_tmp->nick_name}"></span>
+						<img cond="$_tmp->profile_image" src="{$_tmp->profile_image->src}" class="profile" title="{htmlspecialchars($_tmp->nick_name)}" />
+						<span cond="!$_tmp->profile_image" class="profile" title="{htmlspecialchars($_tmp->nick_name)}"></span>
 						<!--@if($_tmp2 > 9)-->{@ break;}<!--@endif-->
 					</block>
 				</span>
@@ -57,10 +57,11 @@
 				}
 				<li class="{$depth?'indent':''} {($mi->display_profile!='N'&&$mi->display_profile!='D')?'':'noPfile'} clearBar" style="padding-left:{((int)$depth*17+3)}px;background-position:{((int)$depth*17-10)}px -375px"|cond="$depth"><a name="comment_{$cmt_srl}" data-modal-scrollinto="true"|cond="$comment_srl&&$comment_srl==$cmt_srl"></a>
 					{@
-						$is_granted = $grant->view && $comment->isGranted();
-						$is_secret = $comment->isSecret();
-						$is_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($cmt_srl, 'cmt'):0;
-						$show_btnAdopt = $pt_vtype=='A'&&!$is_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner);
+						$isc_locked = $is_ckclok?$oThis->isLocked($cmt_srl, 'cmt'):0;
+						$isc_granted = $grant->view && $comment->isGranted();
+						$isc_secret = $comment->isSecret();
+						$isc_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($cmt_srl, 'cmt'):0;
+						$show_btnAdopt = $pt_vtype=='A'&&!$isc_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner);
 					}
 					<div class="scFbt">
 						<img cond="$tlk=='best'" src="img/common/label_best.gif" />
@@ -86,8 +87,8 @@
 						</span>
 					</div>
 
-					<div class="scCmtCon clearBar {$is_blind?'blind':($is_secret?'secret':($show_btnAdopt?'adopt':''))}" data-link-fix="true"|cond="$is_modal">
-						<!--@if($is_secret && !$is_granted)-->
+					<div class="scCmtCon clearBar {$isc_blind?'blind':($isc_secret?'secret':($show_btnAdopt?'adopt':''))}" data-link-fix="true"|cond="$is_modal">
+						<!--@if($isc_secret && !$isc_granted)-->
 							<form ruleset="checkPassword" action="./" method="post" class="conSecret">
 								<input type="hidden" name="comment_srl" value="{$cmt_srl}" />
 								<input type="hidden" name="act" value="procBoardVerificationPassword" />
@@ -108,17 +109,17 @@
 							</div>
 						<!--@endif-->
 
-						{$is_blind&&!$grant->manager?$lang->msg_is_blind:$comment->getContent(false)}
+						{$isc_blind&&!$grant->manager?$lang->msg_is_blind:$comment->getContent(false)}
 					</div>
 
 					{@ $ds_vtxt = !($ds_cvoteup||$ds_cvotedown) && ($comment->get('voted_count')!='0'||$comment->get('blamed_count')!='0')}
 					<div cond="$ds_cvoteup||$ds_cvotedown||$ds_cdeclare||$ds_vtxt" class="scVoteArea clearBar">
 						<span cond="$ds_vtxt" class="vote">{$lang->cmd_vote}: {(int)$comment->get('voted_count')} / {(int)$comment->get('blamed_count')}</span>
-						<span cond="$ds_cvoteup||$ds_cvotedown" class="scBtn small group"><a cond="$ds_cvoteup" href="#recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_vote}"><em class="vote cnt">{$comment->get('voted_count')}</em></a><a cond="$ds_cvotedown" href="#not_recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_vote_down}"><em class="blame cnt">{$comment->get('blamed_count')}</em></a></span>
+						<span cond="$ds_cvoteup||$ds_cvotedown" class="scBtn small group"><a cond="$ds_cvoteup" href="#recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->empathy_button}"><em class="vote cnt">{$comment->get('voted_count')}</em></a><a cond="$ds_cvotedown" href="#not_recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->blamed_button}"><em class="blame cnt">{$comment->get('blamed_count')}</em></a></span>
 						<span cond="$ds_cdeclare" class="scBtn small group"><a href="#declare" data-type="comment" data-srl="{$cmt_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$cmb_srl}" title="{$lang->cmd_declare}"><em class="declare">*</em></a></span>
 					</div>
 
-					<div cond="!$is_blind&&$comment->hasUploadedFiles()" class="scFiles c{$cmt_srl}">
+					<div cond="!$isc_blind&&$comment->hasUploadedFiles()" class="scFiles c{$cmt_srl}">
 						<button type="button" class="scToggle" data-target="#siFbk .scFiles.c{$cmt_srl} ul">{$lang->uploaded_file} <strong>[{$comment->get('uploaded_count')}]</strong></button>
 						<ul>
 							<li loop="$comment->getUploadedFiles()=>$key,$file"><a href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}">{$file->source_filename}<span class="fsize">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a></li>
@@ -130,7 +131,7 @@
 						<block cond="$is_wcmt">
 							<a href="{getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->new_comment}" class="reply">{$lang->cmd_reply}</a>
 						</block>
-						<block cond="$grant->manager||(!$is_blind&&$comment->isEditable()&&!($show_btnAdopt&&$un_extra->beluxe->adopt_srl==$cmt_srl))">
+						<block cond="$grant->manager||(!$isc_locked&&!$isc_blind&&$comment->isEditable()&&!($show_btnAdopt&&$un_extra->beluxe->adopt_srl==$cmt_srl))">
 							<a href="{getUrl('act','dispBoardWriteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_comment}" class="modify">{$lang->cmd_modify}</a>
 							<a href="{getUrl('act','dispBoardDeleteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->delete_comment}" class="delete">{$lang->cmd_delete}</a>
 						</block>

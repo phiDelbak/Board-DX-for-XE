@@ -165,7 +165,9 @@ jQuery(function($) {
 
 	$('a[data-slide]', '#list').each(function() {
 		$(this).on('before-open.mw', function() {
-				this.manualShow = true;
+				var srl = $(this).attr('data-slide') || 0;
+				if (!isNaN(srl)) this.manualShow = true;
+				else alert(srl);
 			})
 			.on('after-open.mw', function(e, slide) {
 				var a = this,

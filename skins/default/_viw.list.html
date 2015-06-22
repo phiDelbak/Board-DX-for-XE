@@ -169,7 +169,7 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
                 <span cond="$ds_voteup||$ds_votedown||$ds_declare||$ds_scrap" class="scVoteArea fl">
                 <span cond="$ds_scrap" class="scBtn small group"><a href="#scrap" onclick="doCallModuleAction('member','procMemberScrapDocument','{$doc_srl}');return false;"><em class="scrap">{$lang->cmd_scrap}</em></a></span>
                 <block cond="$mi->view_comment_style!='webzine'">
-                    <span cond="$ds_voteup||$ds_votedown" class="scBtn small group"><a cond="$ds_voteup" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->short_voted_count}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a><a cond="$ds_votedown" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->short_blamed_count}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a></span>
+                    <span cond="$ds_voteup||$ds_votedown" class="scBtn small group"><a cond="$ds_voteup" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->empathy_button}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a><a cond="$ds_votedown" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->blamed_button}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a></span>
                 </block>
                 <span cond="$ds_declare" class="scBtn small group"><a href="#declare" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$dmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a></span>
                 </span>

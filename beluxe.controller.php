@@ -673,7 +673,7 @@ class beluxeController extends beluxe
 					return new Object(-1,'msg_not_permitted');
 				}
 
-				if(!$this->grant->manager && $oMi->use_point_type === 'A')
+				if(!$this->grant->manager && ($oMi->use_lock_comment !== 'N' || $oMi->use_point_type === 'A'))
 				{
 					$cmThis = &getModel(__XEFM_NAME__);
 					$is_lock = $cmThis->isLocked($cmt_srl, 'cmt');
@@ -710,22 +710,30 @@ class beluxeController extends beluxe
 
 				$out = $ccComment->insertComment($args, $is_anonymous);
 
-				// 관리자 메일이 등록되어 있으면 메일 발송
-				if($out->toBool() && $oMi->admin_mail)
-				{
-					$_tmp = getFullUrl('','document_srl',$doc_srl);
-					$cmt_srl = $out->get('comment_srl');
-					$this->_sendMail(
-						$is_anonymous ? '' : ($args->nick_name ? $args->nick_name : $oLogIfo->nick_name),
-						$is_anonymous ? '' : ($args->email_address ? $args->email_address : $oLogIfo->email_address),
-						$oMi->admin_mail,
-						$oDocIfo->getTitleText(),
-						sprintf("From : <a href=\"%s#comment_%d\">%s#comment_%d</a><br/>\r\n%s", $_tmp, $cmt_srl, $_tmp, $cmt_srl, $args->content)
-					);
-				}
-
 				$msg_code = 'success_registed';
 				$cpage = '';
+
+				if($out->toBool())
+				{
+					// 관리자 메일이 등록되어 있으면 메일 발송
+					if($oMi->admin_mail)
+					{
+						$_tmp = getFullUrl('','document_srl',$doc_srl);
+						$cmt_srl = $out->get('comment_srl');
+						$this->_sendMail(
+							$is_anonymous ? '' : ($args->nick_name ? $args->nick_name : $oLogIfo->nick_name),
+							$is_anonymous ? '' : ($args->email_address ? $args->email_address : $oLogIfo->email_address),
+							$oMi->admin_mail,
+							$oDocIfo->getTitleText(),
+							sprintf("From : <a href=\"%s#comment_%d\">%s#comment_%d</a><br/>\r\n%s", $_tmp, $cmt_srl, $_tmp, $cmt_srl, $args->content)
+						);
+					}
+
+					if(!$this->grant->manager && $ccComment->isModuleUsingPublishValidation($mod_srl))
+					{
+						$msg_code = 'about_comment_validation';
+					}
+				}
 			}
 
 			// 오류 발생시 멈춤
@@ -892,7 +900,7 @@ class beluxeController extends beluxe
 
 		$oMi = $this->_getModuleInfo($mod_srl);
 
-		if(!$this->grant->manager && $oMi->use_point_type == 'A')
+		if(!$this->grant->manager && ($oMi->use_lock_comment !== 'N' || $oMi->use_point_type == 'A'))
 		{
 			$cmThis = &getModel(__XEFM_NAME__);
 			$is_lock = $cmThis->isLocked($cmt_srl, 'cmt');

@@ -187,7 +187,7 @@ class beluxeAdminController extends beluxe
     function procBeluxeAdminInsert() {
 
         // 값 유효성 체크
-        function __checkArgs($chks) {
+        function __beluxe_checkArgs($chks) {
             $order = explode(',', __XEFM_ORDER__);
 
             if (isset($chks->use_anonymous) && !in_array($chks->use_anonymous, array('Y', 'S'))) $chks->use_anonymous = 'N';
@@ -232,6 +232,9 @@ class beluxeAdminController extends beluxe
 
             if (isset($chks->use_lock_document) && !in_array($chks->use_lock_document, array('Y', 'T', 'C'))) $chks->use_lock_document = 'N';
             if (isset($chks->use_lock_document_option)) $chks->use_lock_document_option = (int)$chks->use_lock_document_option;
+
+            if (isset($chks->use_lock_comment) && !in_array($chks->use_lock_comment, array('Y', 'T', 'C'))) $chks->use_lock_comment = 'N';
+            if (isset($chks->use_lock_comment_option)) $chks->use_lock_comment_option = (int)$chks->use_lock_comment_option;
 
             return $chks;
         }
@@ -291,6 +294,7 @@ class beluxeAdminController extends beluxe
         // 없으면 빈값 입력해서 체크되게
         if (!$args->custom_status) $args->custom_status = '';
         if ($args->tmp_lock_document != 'Y') $args->use_lock_document = 'N';
+        if ($args->tmp_lock_comment != 'Y') $args->use_lock_comment = 'N';
         if ($args->tmp_restrict_view != 'Y') $args->use_restrict_view = 'N';
         if ($args->tmp_restrict_down != 'Y' || !file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')) $args->use_restrict_down = 'N';
 
@@ -306,6 +310,7 @@ class beluxeAdminController extends beluxe
         unset($args->tmp_restrict_view);
         unset($args->tmp_restrict_down);
         unset($args->tmp_lock_document);
+        unset($args->tmp_lock_comment);
         unset($args->default_sort_index);
         unset($args->default_order_type);
         unset($args->default_list_count);
@@ -345,7 +350,7 @@ class beluxeAdminController extends beluxe
             }
         }
 
-        $args = __checkArgs($args);
+        $args = __beluxe_checkArgs($args);
 
         // 채택 기능 사용시 제한 기능 해제
         if($args->use_point_type == 'A') {

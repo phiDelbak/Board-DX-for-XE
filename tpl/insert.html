@@ -379,6 +379,23 @@
 					</select>
 				</div>
 			</div>
+			<div class="x_controls {$compulsory_options['use_lock_comment']?'opt_cps':''} {$module_backup_options['use_lock_comment']?'opt_bks':''}">
+				<label for="tmp_lock_comment">
+					<input type="checkbox" name="tmp_lock_comment" id="tmp_lock_comment" value="Y" checked="checked"|cond="$module_info->use_lock_comment=='Y'||$module_info->use_lock_comment=='T'||$module_info->use_lock_comment=='C'" />
+					{$lang->comment}
+				</label>
+				<div>
+					<select name="use_lock_comment" style="min-width:122px;width:122px">
+						<option value="Y" selected="selected"|cond="$module_info->use_lock_comment == 'Y'">{$lang->lock_options['lock']['Y']}</option>
+						<option value="T" selected="selected"|cond="$module_info->use_lock_comment == 'T'">{$lang->lock_options['lock']['T']}</option>
+						<option value="C" selected="selected"|cond="$module_info->use_lock_comment != 'Y'&&$module_info->use_lock_comment != 'T'">{$lang->lock_options['lock']['C']}</option>
+					</select>
+					{@ $lock_count_list = explode(',', $lang->lock_options['count'])}
+					<select name="use_lock_comment_option" style="min-width:20px;width:95px">
+						<option loop="$lock_count_list=>$val" value="{$val}" selected="selected"|cond="$module_info->use_lock_comment_option == $val">{$val} more</option>
+					</select>
+				</div>
+			</div>
 		</div>
 		<div class="x_control-group {$m_copy_target?'x_info':''}">
 			<label class="x_control-label" for="id_use_point_percent">{$lang->point}</label>

@@ -23,8 +23,8 @@
 	</description>
 
 	<!-- make public 2011-10-01 -->
-	<version>1.8</version>
-	<date>2013-01-11</date>
+	<version>2.0</version>
+	<date>2015-06-22</date>
 	<!--
 	<history version="0.1" date="2011-10-01">
 		<author email_address="xe.phidel@gmail.com">
@@ -860,17 +860,17 @@
 					<title xml:lang="jp">使用</title>
 					<title xml:lang="en">use</title>
 				</options>
+				<description xml:lang="ko">SocialXE 댓글을 표시할지 설정합니다. (필요: SocialXE 모듈, 위젯)</description>
+				<description xml:lang="jp">SocialXE コメントを表示するか設定します. (必要: SocialXE モジュール, ウィゼット)</description>
+				<description xml:lang="en">Set whether to display the SocialXE comments. (Need: SocialXE module, widget)</description>
 			</var>
-			<var name="addon_socialxe_option" type="text" default="">
+			<var name="addon_socialxe_option" type="text" default="/_TARGET_/addon_socialxe/_VALUE_/Y">
 				<title xml:lang="ko">SocialXE 옵션</title>
 				<title xml:lang="jp">SocialXE オプション</title>
 				<title xml:lang="en">SocialXE options</title>
-				<description xml:lang="ko">SocialXE 댓글을 표시할지 설정합니다. (필요: SocialXE 모듈, 위젯)
-					SocialXE 옵션 : list_count="20" enter_send="Y" auto_view_sub="N"</description>
-				<description xml:lang="jp">SocialXE コメントを表示するか設定します. (必要: SocialXE モジュール, ウィゼット)
-					SocialXE 옵션 : list_count="20" enter_send="Y" auto_view_sub="N"</description>
-				<description xml:lang="en">Set whether to display the SocialXE comments. (Need: SocialXE module, widget)
-					SocialXE options : list_count="20" enter_send="Y" auto_view_sub="N"</description>
+				<description xml:lang="ko">SocialXE 옵션 : list_count="20" enter_send="Y" auto_view_sub="N"</description>
+				<description xml:lang="jp">SocialXE 옵션 : list_count="20" enter_send="Y" auto_view_sub="N"</description>
+				<description xml:lang="en">SocialXE options : list_count="20" enter_send="Y" auto_view_sub="N"</description>
 			</var>
 			<var name="addon_pang_pang" type="radio" default="N">
 				<title xml:lang="ko">포인트 팡팡</title>

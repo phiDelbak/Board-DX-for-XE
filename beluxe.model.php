@@ -734,15 +734,23 @@ class beluxeModel extends beluxe
         $is_lock = FALSE;
 
         if($a_type === 'cmt') {
-            $t_vals = $this->_getCommentColumns($a_consrl, array('document_srl'));
-            $t_vals = $this->_getDocumentColumns((int)$t_vals['document_srl'], array('extra_vars'));
+            $t_vals = $this->_getCommentColumns($a_consrl, array('document_srl', 'regdate'));
 
-            $ex_vars = $t_vals['extra_vars'];
-            $ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
-            if(!$ex_vars->beluxe) return true;
+            $a_docsrl = (int)$t_vals['document_srl'];
+            $a_regdate = $t_vals['regdate'];
 
-            $adopt_srl = (int) $ex_vars->beluxe->adopt_srl ?  $ex_vars->beluxe->adopt_srl : 0;
-            if ($oMi->use_point_type === 'A') $is_lock = $adopt_srl == $a_consrl;
+            if ($oMi->use_point_type === 'A') {
+                $t_vals = $this->_getDocumentColumns($a_docsrl, array('extra_vars'));
+                $ex_vars = $t_vals['extra_vars'];
+                $ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
+                if(!$ex_vars->beluxe) return true;
+                $adopt_srl = (int) $ex_vars->beluxe->adopt_srl ?  $ex_vars->beluxe->adopt_srl : 0;
+                $is_lock = $adopt_srl == $a_consrl;
+            } else if ($oMi->use_lock_comment === 'Y') $is_lock = TRUE;
+            else if ($oMi->use_lock_comment === 'C') {
+                $a_comcnt = $this->getCommentCount($a_docsrl, $a_consrl);
+                $is_lock = (int)$oMi->use_lock_comment_option <= $a_comcnt;
+            } else if ($oMi->use_lock_comment === 'T') $is_lock = (time() - ztime($a_regdate)) > ((int)$oMi->use_lock_comment_option * 60 * 60 * 24);
 
         } else {
             $t_vals = $this->_getDocumentColumns($a_consrl, array('comment_count', 'regdate'));
