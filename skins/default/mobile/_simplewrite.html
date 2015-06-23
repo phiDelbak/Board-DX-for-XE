@@ -28,7 +28,7 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 			<li><hr /></li>
 			<li cond="$mi->use_input_guest_info != 'N'">
 				<label for="uName">{$lang->writer}</label>
-				<input name="nick_name" type="text" id="uName" maxlength="80" value="{htmlspecialchars($oDocument->get('nick_name'))}" />
+				<input name="nick_name" type="text" id="uName" maxlength="80" />
 			</li>
 			<li>
 				<block cond="$mi->use_input_guest_info == 'N'">
@@ -40,15 +40,19 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 			<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
 				<li>
 					<label for="uMail">{$lang->email_address}</label>
-					<input name="email_address" type="email" id="uMail" maxlength="250" value="{htmlspecialchars($oDocument->get('email_address'))}" />
+					<input name="email_address" type="email" id="uMail" maxlength="250" />
 				</li>
 				<li>
 					<label for="uSite">{$lang->homepage}</label>
-					<input name="homepage" type="url" id="uSite" maxlength="250" value="{htmlspecialchars($oDocument->get('homepage'))}" />
+					<input name="homepage" type="url" id="uSite" maxlength="250" />
 				</li>
 			</block>
 		</block>
 		<li><hr /></li>
+		<li style="text-align:right;margin:0 0 5px">
+			<label for="nText" class="fl">{$lang->content}</label>
+			<label><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
+		</li>
 		<li><textarea name="content" disabled="disabled"|cond="!$grant->write_document" rows="{$is_sedt == 'C' ? '10' : '3'}">{htmlspecialchars($mi->document_default_content)}</textarea></li>
 	</ul>
 

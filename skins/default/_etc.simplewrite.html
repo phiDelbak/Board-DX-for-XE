@@ -67,7 +67,10 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 						{$lang->anonymous}
 					</label>
 				<!--@else-->
-					<label class="scLaEt">
+					<block cond="$mi->use_input_guest_info == 'N'">
+						<input type="hidden" name="nick_name" value="{$oThis->getIpaddress(1)}" />
+					</block>
+					<label cond="$mi->use_input_guest_info != 'N'" class="scLaEt">
 						<span>Name</span>
 						<input type="text" name="nick_name" maxlength="80" />
 					</label>
@@ -75,14 +78,16 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 						<span>Pass</span>
 						<input type="password" name="password" value="" />
 					</label>
-					<label class="scLaEt">
-						<span>Email</span>
-						<input type="email" name="email_address" maxlength="250" />
-					</label>
-					<label class="scLaEt">
-						<span>Home</span>
-						<input type="url" name="homepage" maxlength="250" />
-					</label>
+					<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
+						<label class="scLaEt">
+							<span>Email</span>
+							<input type="email" name="email_address" maxlength="250" />
+						</label>
+						<label class="scLaEt">
+							<span>Home</span>
+							<input type="url" name="homepage" maxlength="250" />
+						</label>
+					</block>
 					<input type="hidden" name="allow_comment" value="Y" />
 					<input type="hidden" name="allow_trackback" value="N" />
 				<!--@endif-->
