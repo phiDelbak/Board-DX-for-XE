@@ -49,7 +49,7 @@
 						{@ $_img_info = getImageSize($val->screenshot); $_height = $_img_info[1]+40; $_width = $_img_info[0]+20; $_talign = "center"; }
 						<!--@else-->
 						{@ $_width = 200; $_height = 20; $_talign = "left"; }
-						<!--@end-->
+						<!--@endif-->
 						<div style="display:inline-block;text-align:{$_talign};margin-bottom:1em;width:{$_width}px;height:{$_height}px;margin-right:10px;">
 							<input type="radio" name="colorset" value="{$val->name}" id="colorset_{$key}" checked="checked"|cond="$skin_vars['colorset']->value==$val->name" />
 							<label for="colorset_{$key}">{$val->title}</label>
@@ -99,10 +99,10 @@
 						</select>
 					</block>
 					<block cond="$val->type == 'checkbox'">
-						<label loop="$val->options => $k, $v" class="x_inline">
+						<label loop="$val->options => $k, $v" class="x_inline" style="display:none"|cond="$v->title==='/_HIDDEN_/'">
 							{@
 								$value = is_string($value) ? unserialize($value) : $value;
-								$is_check = in_array($v->value, $value);
+								$is_check = in_array($v->value, $value) || $v->title==='/_HIDDEN_/';
 							}
 							<input type="checkbox" name="{$val->name}[]" value="{$v->value}" id="ch_{$key}_{$k}" checked="checked"|cond="$is_check" class="checkbox" />
 							{$v->title}
@@ -116,7 +116,7 @@
 								$a = explode('|_TARGET_|', $v->value);
 								$v->value = $a[0];
 							}
-							<!--@end-->
+							<!--@endif-->
 							<input type="radio" name="{$val->name}" value="{$v->value}" checked="checked"|cond="$v->value==$value" />
 							{$v->title}
 						</label>
@@ -134,7 +134,7 @@
 					<p class="x_help-block" id="about_{$val->name}" hidden cond="$val->description">{nl2br(trim($val->description))}</p>
 				</div>
 			</div>
-		<!--@end-->
+		<!--@endif-->
 	</block>
 	</section>
 

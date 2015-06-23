@@ -454,6 +454,9 @@
 					<title xml:lang="jp">자동 숨김</title>
 					<title xml:lang="en">자동 숨김</title>
 				</options>
+				<options value="temp">
+					<title>/_HIDDEN_/</title>
+				</options>
 				<description xml:lang="ko">해당 글에 포함한 첨부 파일을 표시할지 설정합니다.</description>
 				<description xml:lang="jp">該当の文書に添付されたファイルを表示するか設定します.</description>
 				<description xml:lang="en">Set whether to display the attached files.</description>
