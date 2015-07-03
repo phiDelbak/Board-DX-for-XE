@@ -62,3 +62,4 @@
 .dxcSmLayer dt.text select{;width:84px}
 .dxcSmLayer dt,.x .dxSmSelect,.x .dxSmSelect ._title{cursor:pointer !important}
 .x .dxSmSelect{border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px}
+.x select[multiple] {height:60px !important}

@@ -82,7 +82,13 @@
 						<em cond="$t_cmtn">+{$t_cmtn}</em><em cond="$t_tbkn">.{$t_tbkn}</em>
 					</div>
 				</li>
-				<li cond="$is_cts||$ds_cstus" class="auth" style="text-align:right">
+				<li cond="$is_cts||$ds_cstus||$ds_voted||$ds_blamed" class="auth" style="text-align:right">
+					<span class="fl">
+						<block cond="$ds_voted||$ds_blamed">
+							<em class="ent vote {$ds_voted?'':'dis'}like">{$ds_voted&&$ds_blamed?'&hearts;':($ds_voted?'Like':'Hate')}</em> {$ds_voted?$document->get('voted_count'):''}{$ds_voted&&$ds_blamed?' / ':''}{$ds_blamed?$document->get('blamed_count'):''}
+						</block>
+						&nbsp;
+					</span>
 					<span cond="$is_cts && $document->get('category_srl')">{$cts[$document->get('category_srl')]->title}</span>
 					<span cond="$ds_cstus">:{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}</span>
 				</li>
@@ -92,11 +98,6 @@
 				</li>
 				<li cond="$ds_summary"><span class="summary">&deg; {(!$is_grant||$is_blind)?($is_blind?$lang->msg_is_blind:$lang->msg_not_permitted):$document->getSummary($mi->summary_length)}</span></li>
 				<li class="auth cb">
-					<div class="vtt">
-						<span cond="$ds_readed" style="margin-right:5px">{$lang->readed_count}: {$document->get('readed_count')}</span>
-						<span cond="$ds_voted || $ds_blamed">{$lang->voted_count}: {$document->get('voted_count').' / '.$document->get('blamed_count')}</span>
-						&nbsp;
-					</div>
 					<div class="nick">
 						<block cond="$ds_nick||$ds_user">
 						<span class="fsi"|cond="!$document->get('member_srl')">{cut_str((!$document->get('member_srl')||$ds_nick)?$document->getNickName():$document->getUserName(), $mi->nickname_length)}</span>

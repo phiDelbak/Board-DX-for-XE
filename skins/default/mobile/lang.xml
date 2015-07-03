@@ -14,12 +14,12 @@
 		<value xml:lang="jp"><![CDATA[反対]]></value>
 		<value xml:lang="en"><![CDATA[Disagree]]></value>
 	</item>
-	<item name="empathy_button">
+	<item name="cmd_like">
 		<value xml:lang="ko"><![CDATA[좋아요]]></value>
 		<value xml:lang="jp"><![CDATA[좋아요]]></value>
 		<value xml:lang="en"><![CDATA[좋아요]]></value>
 	</item>
-	<item name="blamed_button">
+	<item name="cmd_dislike">
 		<value xml:lang="ko"><![CDATA[싫어요]]></value>
 		<value xml:lang="jp"><![CDATA[싫어요]]></value>
 		<value xml:lang="en"><![CDATA[싫어요]]></value>
@@ -100,13 +100,18 @@
 		<value xml:lang="en"><![CDATA[사용된 포인트는 채택시에 %s를 돌려 받을 수 있습니다. 꼭! 채택해 주세요.]]></value>
 	</item>
 	<item name="nav_caption">
-		<value xml:lang="ko"><![CDATA["%s" 카테고리의 다른 글]]></value>
-		<value xml:lang="jp"><![CDATA[% s" カテゴリーの他の文書]]></value>
-		<value xml:lang="en"><![CDATA["%s" 카테고리의 다른 글]]></value>
+		<value xml:lang="ko"><![CDATA[%s의 다른 글]]></value>
+		<value xml:lang="jp"><![CDATA[%sの他の文書]]></value>
+		<value xml:lang="en"><![CDATA[%s의 다른 글]]></value>
 	</item>
 	<item name="file_uploader_info">
 		<value xml:lang="ko"><![CDATA[파일 크기 제한: %s<br />허용 확장자 : %s]]></value>
 		<value xml:lang="jp"><![CDATA[파일 크기 제한: %s<br />허용 확장자 : %s]]></value>
 		<value xml:lang="en"><![CDATA[파일 크기 제한: %s<br />허용 확장자 : %s]]></value>
+	</item>
+	<item name="confirm_declare">
+		<value xml:lang="ko"><![CDATA[%s에게 이유를 설명해주십시오.]]></value>
+		<value xml:lang="jp"><![CDATA[Please describe the reasons to %s.]]></value>
+		<value xml:lang="en"><![CDATA[Please describe the reasons to %s.]]></value>
 	</item>
 </lang>

@@ -1184,7 +1184,7 @@ class beluxeController extends beluxe
 	    }
 
 	    if($cmb_srl && $send_message){
-			$t = '[Board DX] Adopted, thanks message: ' . $cmt_srl;
+			$t = sprintf(Context::getLang('msg_adopt_thanks'), $cmt_srl);
 			$u = getFullUrl('', 'document_srl',$doc_srl,'comment_srl',$cmt_srl);
 			$send_message = $send_message . '<br /><br /><a href="' . $u . '">'. $u .'</a>';
 

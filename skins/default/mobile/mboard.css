@@ -131,6 +131,7 @@ form select {
 }
 
 .rp .cmt {
+	margin-top: 7px;
 	min-height: 60px;
 }
 
@@ -537,6 +538,11 @@ form select {
 	display: block;
 	font-size: 12px;
 	color: #777;
+}
+
+.lt .auth em.ent {
+	font-size: 15px;
+	font-weight: bold;
 }
 
 .lt > li .auth .nick {
@@ -1155,12 +1161,13 @@ input.bn.small {
 .file li a {
 	padding-left: 13px;
 	margin: 0 0 0 2px;
-	background-position: -20px -103px;
+	background-position: -20px -102px;
 }
 
 .rp .file a {
 	padding: 0 5px 0 13px;
-	background-position: -20px -107px;
+	background-position: -20px -109px;
+	font-size: 12px
 }
 
 .file li a.idw {
@@ -1182,7 +1189,8 @@ input.bn.small {
 	margin: 0;
 	border: 0;
 	margin-right: 10px;
-	display: inline-flex;
+	display: block;
+	font-size: 12px
 }
 
 #cl .file li a {
@@ -1214,6 +1222,59 @@ div.lic {
 
 div.lic a {
 	color: #999
+}
+
+
+/* sns */
+
+.scSns a[data-type] {
+	display: inline-block;
+	vertical-align: bottom;
+	margin-left: 2px;
+	width: 16px;
+	height: 0;
+	line-height: 16px;
+	padding: 16px 0 0 0;
+	overflow: hidden;
+	background: url(../img/common/etc_set.gif) no-repeat 0 0
+}
+
+.scSns a[data-type=fa] {
+	background-position: 0 -30px
+}
+
+.scSns a[data-type=de] {
+	background-position: 0 -60px
+}
+
+
+/* vote */
+
+.scVote a > em:first-child {
+	padding: 0 0 0 17px;
+	background: url(../img/common/etc_set.gif) no-repeat -17px -17px
+}
+
+.scVote a > em.blame {
+	background-position: -17px -46px
+}
+
+.scVote a > em.declare {
+	background-position: -17px -77px
+}
+
+.scVote a > em.scrap {
+	padding: 0 0 0 14px;
+	background: url(mx.png) no-repeat 0px -82px;
+}
+
+.rp .cb .scVote em.vote,
+.rp .cb .scVote em.blame {
+	overflow: hidden;
+	vertical-align: middle;
+	display: inline-block;
+	width: 0px;
+	text-indent: -30px;
 }
 
 

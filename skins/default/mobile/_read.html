@@ -1,288 +1,292 @@
 {@
-    $lg = $logged_info ? $logged_info : array();
-    $doc_srl = $oDocument->document_srl;
-    $ds_nick = $ci['nick_name']->display == 'Y';
-    $ds_user =  $ci['user_name']->display == 'Y';
-    $dmb_srl = $oDocument->get('member_srl');
-    $un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
-    $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+	$lg = $logged_info ? $logged_info : array();
+	$doc_srl = $oDocument->document_srl;
+	$ds_nick = $ci['nick_name']->display == 'Y';
+	$ds_user =  $ci['user_name']->display == 'Y';
+	$dmb_srl = $oDocument->get('member_srl');
+	$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
+	$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 
-    $is_granted = $grant->view && $oDocument->isGranted();
-    $is_secret = $oDocument->isSecret();
-    $is_locked = $is_cklok?$oThis->isLocked($doc_srl):0;
-    $is_blind = $us_blind?$oThis->isBlind($doc_srl):0;
+	$is_granted = $grant->view && $oDocument->isGranted();
+	$is_secret = $oDocument->isSecret();
+	$is_locked = $is_cklok?$oThis->isLocked($doc_srl):0;
+	$is_blind = $us_blind?$oThis->isBlind($doc_srl):0;
 }
 <block cond="$mi->view_comment_style == 'webzine'">
 {@
-    $is_voted = $grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment();
-    $is_voted ? $is_voted = $oThis->isVoted($doc_srl, false) : 0;
+	$is_voted = $grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment();
+	$is_voted ? $is_voted = $oThis->isVoted($doc_srl, false) : 0;
 }
 </block>
 
 {@
-    $exks = ((!$is_secret || $is_granted) && $oDocument->isExtraVarsExists()) ? $oDocument->getExtraVars() : array();
-    $tags = (!$is_secret || $is_granted) ? $oDocument->get('tag_list') : array();
-    $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDocument->getUploadedFiles() : array();
-    $is_restrict = !$is_granted&&!$is_secret&&($pt_vtype=='Y'&&!$oThis->isWrote($doc_srl, true, 'cmt')||$pt_vtype=='P'&&!$oThis->isRead($doc_srl));
-    $is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
+	$exks = ((!$is_secret || $is_granted) && $oDocument->isExtraVarsExists()) ? $oDocument->getExtraVars() : array();
+	$tags = (!$is_secret || $is_granted) ? $oDocument->get('tag_list') : array();
+	$ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDocument->getUploadedFiles() : array();
+	$is_restrict = !$is_granted&&!$is_secret&&($pt_vtype=='Y'&&!$oThis->isWrote($doc_srl, true, 'cmt')||$pt_vtype=='P'&&!$oThis->isRead($doc_srl));
+	$is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
 }
 
 <div class="co cb">
 
-    <dl cond="count($exks)" class="xv">
-        <block loop="$exks=>$key,$val">
-            <dt>{$val->name}</dt>
-            <dd>{$val->getValueHTML()}</dd>
-        </block>
-    </dl>
+	<dl cond="count($exks)" class="xv">
+		<block loop="$exks=>$key,$val">
+			<dt>{$val->name}</dt>
+			<dd>{$val->getValueHTML()}</dd>
+		</block>
+	</dl>
 
-    <div cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="vln">
-        <a loop="$un_extra->beluxe->langs => $vlnc" href="#" onclick="doChangeLangType('{$vlnc}');return false;" class="{$vlnc}"><strong>{$lang_supported[$vlnc]}</strong></a>
-    </div>
+	<div cond="$ds_mtlng&&count($un_extra->beluxe->langs)" class="vln">
+		<a loop="$un_extra->beluxe->langs => $vlnc" href="#" onclick="doChangeLangType('{$vlnc}');return false;" class="{$vlnc}"><strong>{$lang_supported[$vlnc]}</strong></a>
+	</div>
 
-    <div class="doc {$is_blind?'blind':($is_secret?'secret':'')}">
+	<div class="doc {$is_blind?'blind':($is_secret?'secret':'')}">
 
-        <form cond="$is_secret && !$is_granted" ruleset="checkPassword" action="./" method="post" class="ff secret">
-            <input type="hidden" name="document_srl" value="{$doc_srl}" />
-            <input type="hidden" name="act" value="procBoardVerificationPassword" />
-            <ul>
-                <li>
-                    <label for="cpw" style="display:none">{$lang->password}</label>
-                    <input type="password" name="password" id="cpw" placeholder="{$lang->password}" />
-                    <input type="submit" value="{$lang->cmd_input}" class="bn dark" />
-                </li>
-            </ul>
-        </form>
+		<form cond="$is_secret && !$is_granted" ruleset="checkPassword" action="./" method="post" class="ff secret">
+			<input type="hidden" name="document_srl" value="{$doc_srl}" />
+			<input type="hidden" name="act" value="procBoardVerificationPassword" />
+			<ul>
+				<li>
+					<label for="cpw" style="display:none">{$lang->password}</label>
+					<input type="password" name="password" id="cpw" placeholder="{$lang->password}" />
+					<input type="submit" value="{$lang->cmd_input}" class="bn dark" />
+				</li>
+			</ul>
+		</form>
 
-        <!--@if($is_restrict)-->
-        <div id="rsv">
-            <div class="msa">
-                {sprintf(Context::getLang('msg_restricted_view'), 100)}
-                <br />
-                {Context::getLang($pt_vtype == 'P' ? 'msg_required_point' : 'msg_required_comment')}
-            </div>
-            {$oDocument->getSummary(100)}
-            <div cond="$pt_vtype == 'P'" class="bna">
-                <a class="bn dark" href="#" onclick="doCallModuleAction('beluxe','procBeluxePayPoint','{$doc_srl}');return false">
-                {sprintf(Context::getLang('msg_point_is_used'), (int)$un_extra->beluxe->use_point)}
-                </a>
-            </div>
-        </div>
-        <!--@else-->
-        {$oDocument->getContent(false)}
-        <!--@endif-->
-    </div>
+		<!--@if($is_restrict)-->
+		<div id="rsv">
+			<div class="msa">
+				{sprintf(Context::getLang('msg_restricted_view'), 100)}
+				<br />
+				{Context::getLang($pt_vtype == 'P' ? 'msg_required_point' : 'msg_required_comment')}
+			</div>
+			{$oDocument->getSummary(100)}
+			<div cond="$pt_vtype == 'P'" class="bna">
+				<a class="bn dark" href="#" onclick="doCallModuleAction('beluxe','procBeluxePayPoint','{$doc_srl}');return false">
+				{sprintf(Context::getLang('msg_point_is_used'), (int)$un_extra->beluxe->use_point)}
+				</a>
+			</div>
+		</div>
+		<!--@else-->
+		{$oDocument->getContent(false)}
+		<!--@endif-->
+	</div>
 
-    <block cond="$is_logged">
-        {@
-            $ds_voteup = strpos($mi->use_d_vote, 'up')!==false;
-            $ds_votedown = strpos($mi->use_d_vote, 'down')!==false;
-            $ds_declare = strpos($mi->use_d_vote, 'declare')!==false;
-            $adm_id = $ds_declare ? $oThis->getAdminId() : array();
-        }
-        <div cond="$ds_voteup||$ds_votedown||$ds_declare||$ds_scrap" class="bna">
-            <a cond="$ds_scrap" class="bn white" href="#scrap" onclick="doCallModuleAction('member','procMemberScrapDocument','{$doc_srl}');return false;"><em class="scrap">{$lang->cmd_scrap}</em></a>
-            <block cond="$mi->view_comment_style!='webzine'">
-            <a cond="$ds_voteup" class="bn white" style="color:#228200" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->empathy_button}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a>
-            <a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->blamed_button}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a>
-            </block>
-            <a cond="$ds_declare" href="#declare" class="bn white" style="color:#AA3300" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$dmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a>
-        </div>
-    </block>
+	{@
+		$ds_voteup = strpos($mi->use_d_vote, 'up')!==false;
+		$ds_votedown = strpos($mi->use_d_vote, 'down')!==false;
+		$ds_vtxt = !$is_logged && ($ds_voteup||$ds_votedown) && ($oDocument->get('voted_count')!='0'||$oDocument->get('blamed_count')!='0');
+	}
+	<div cond="$ds_vtxt" class="lic">{$lang->voted_count}: {(int)$oDocument->get('voted_count')} / {(int)$oDocument->get('blamed_count')}&nbsp;</div>
+	<block cond="$is_logged">
+		{@
+			$ds_declare = strpos($mi->use_d_vote, 'declare')!==false;
+			$adm_id = $ds_declare ? $oThis->getAdminId() : array();
+		}
+		<div cond="$ds_voteup||$ds_votedown||$ds_declare||$ds_scrap" class="bna scVote">
+			<a cond="$ds_scrap" class="bn white" href="#scrap" onclick="doCallModuleAction('member','procMemberScrapDocument','{$doc_srl}');return false;"><em class="scrap">{$lang->cmd_scrap}</em></a>
+			<block cond="$mi->view_comment_style!='webzine'">
+			<a cond="$ds_voteup" class="bn white" style="color:#228200" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_like}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a>
+			<a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_dislike}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a>
+			</block>
+			<a cond="$ds_declare" href="#declare" class="bn white" style="color:#AA3300" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$dmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a>
+		</div>
+	</block>
 
-    <div cond="$tag_cnt = count($tags)" class="tags">
-        <block loop="$i=0;$i<$tag_cnt;$i++"> {@ $tag = $tags[$i]}
-            <span cond="$i">, </span><a href="{getUrl('', 'mid',$mid,'search_target','tag','search_keyword',$tag,'document_srl','')}" class="tag" rel="tag">{htmlspecialchars($tag)}</a>
-        </block>
-    </div>
+	<div cond="$tag_cnt = count($tags)" class="tags">
+		<block loop="$i=0;$i<$tag_cnt;$i++"> {@ $tag = $tags[$i]}
+			<span cond="$i">, </span><a href="{getUrl('', 'mid',$mid,'search_target','tag','search_keyword',$tag,'document_srl','')}" class="tag" rel="tag">{htmlspecialchars($tag)}</a>
+		</block>
+	</div>
 
-    <div class="lic fr">
-        <a cond="$mi->display_document_do!='N'" class="document_{$doc_srl} action" href="#popup_menu_area" onclick="return false">{$lang->cmd_document_do}</a>
-        <block cond="$mi->display_button_sns != 'N'">
-            &nbsp;<a href="http://twitter.com/" target="_blank" data-type="tw" title="Twitter">Twitter</a>,
-            <a href="http://facebook.com/" target="_blank" data-type="fa" title="Facebook">Facebook</a>,
-            <a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a>
-        </block>
-    </div>
+	<div class="lic scSns fr">
+		<a cond="$mi->display_document_do!='N'" class="document_{$doc_srl} action" href="#popup_menu_area" onclick="return false">{$lang->cmd_document_do}</a>
+		<block cond="$mi->display_button_sns != 'N'">
+			&nbsp;<a href="http://twitter.com/" target="_blank" data-type="tw" title="Twitter">Twitter</a>
+			<a href="http://facebook.com/" target="_blank" data-type="fa" title="Facebook">Facebook</a>
+			<a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a>
+		</block>
+	</div>
 
 </div>
 
 <div cond="$mi->document_bottom_text" class="co">
-    {$mi->document_bottom_text}
+	{$mi->document_bottom_text}
 </div>
 <div id="skip_co"></div>
 
 <block cond="$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)">
-    {@
-        $nav_key = 'Prev';
-        $nav_list = $oThis->getNavigationList($oDocument, (int)$mi->navigation_bottom_list_count);
-    }
-    <button type="button" class="tbn cb" title="open/close">{sprintf($lang->nav_caption, $is_cts?$cts[(int)$category_srl]->title:'ALL')}</button>
-    <ul class="nav tgo open">
-        <li loop="$nav_list => $key,$val">
-            {@
-                $nv_t_cn = $val->getCommentCount();
-                $nv_t_tn = $val->getTrackbackCount();
-                $nv_un_ex = ($pt_vtype!='N'||$pt_dtype!='N')?$val->get('extra_vars'):null;
-                $nv_un_ex = is_string($nv_un_ex)?unserialize($nv_un_ex):$nv_un_ex;
-                $val->selected?$nav_key='Next':0;
-            }
-            <a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'category_srl',$category_srl,'cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword,'page',$spage)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
-                <span class="no">
-                    {$val->selected?'<strong class="sCkChr">&radic;</strong>':$nav_key}
-                </span>
-                <span class="scElps">
-                    <!--@if($pt_vtype!='N'||$pt_dtype!='N')-->
-                    <em class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{$val->get('is_notice')=='Y'?'Notice':abs((int)$nv_un_ex->beluxe->use_point)}</em>
-                    <!--@else-->
-                    <em>&rsaquo;&nbsp;</em>
-                    <!--@endif-->
-                    {$val->getTitle($mi->title_length)}
-                </span>
-                <span class="cate fr">
-                    <em cond="$nv_t_cn" class="reply" title="Replies">+{$nv_t_cn}</em><em cond="$nv_t_tn" class="trackback" title="Trackbacks">.{$nv_t_tn}</em>
-                    {$val->printExtraImages($mi->duration_new)}
-                    [{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]
-                </span>
-            </a>
-        </li>
-    </ul>
+	{@
+		$nav_key = 'Prev';
+		$nav_list = $oThis->getNavigationList($oDocument, (int)$mi->navigation_bottom_list_count);
+	}
+	<button type="button" class="tbn cb" title="open/close">{$is_cts?sprintf($lang->nav_caption, $cts[(int)$category_srl]->title):($lang->cmd_prev.'/'.$lang->cmd_next.' '.$lang->document)}</button>
+	<ul class="nav tgo open">
+		<li loop="$nav_list => $key,$val">
+			{@
+				$nv_t_cn = $val->getCommentCount();
+				$nv_t_tn = $val->getTrackbackCount();
+				$nv_un_ex = ($pt_vtype!='N'||$pt_dtype!='N')?$val->get('extra_vars'):null;
+				$nv_un_ex = is_string($nv_un_ex)?unserialize($nv_un_ex):$nv_un_ex;
+				$val->selected?$nav_key='Next':0;
+			}
+			<a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'category_srl',$category_srl,'cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword,'page',$spage)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
+				<span class="no">
+					{$val->selected?'<strong class="sCkChr">&radic;</strong>':$nav_key}
+				</span>
+				<span class="scElps">
+					<!--@if($pt_vtype!='N'||$pt_dtype!='N')-->
+					<em class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{$val->get('is_notice')=='Y'?'Notice':abs((int)$nv_un_ex->beluxe->use_point)}</em>
+					<!--@else-->
+					<em>&rsaquo;&nbsp;</em>
+					<!--@endif-->
+					{$val->getTitle($mi->title_length)}
+				</span>
+				<span class="cate fr">
+					<em cond="$nv_t_cn" class="reply" title="Replies">+{$nv_t_cn}</em><em cond="$nv_t_tn" class="trackback" title="Trackbacks">.{$nv_t_tn}</em>
+					{$val->printExtraImages($mi->duration_new)}
+					[{$is_cts?$cts[$val->get('category_srl')]->title:$val->getRegdate("y.m.d")}]
+				</span>
+			</a>
+		</li>
+	</ul>
 </block>
 
 <block cond="count($ufls)">
-    {@
-        $ft_cnt = 0;
-        $ds_file = array();
-        $us_ahfile = strpos($mi->display_files, 'auto')!==false;
-    }
-    <block loop="$ufls=>$file">
-        {@
-            $_tmp = $file->direct_download!='Y'?'general':'media';
-            $_tmp = $_tmp=='media'&&preg_match("/\.(?:(jpe?g|png|gif|bmp|ico))$/i", $file->source_filename)?'image':$_tmp;
-            $ds_file[$_tmp][] = $file;
-        }
-    </block>
-    <block loop="array('general','media','image')=>$_tmp2" cond="strpos($mi->display_files, $_tmp2)!==false">
-        {@ $ft_cnt += count($ds_file[$_tmp2])}
-    </block>
-    <block cond="$ft_cnt">
-        <button type="button" class="tbn cb" title="open/close">{$lang->uploaded_file} <span>[{$ft_cnt}]</span><span cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, (int)$un_extra->beluxe->use_point)} (Once)</span></button>
-        <ul data-autohide="true"|cond="$us_ahfile" class="file tgo">
-            <block loop="array('general','media','image')=>$_tmp2" cond="strpos($mi->display_files, $_tmp2)!==false&&count($ds_file[$_tmp2])">
-                <li loop="$ds_file[$_tmp2]=>$file" class="notvalid"|cond="$file->isvalid!='Y'" class="direct {$_tmp2}"|cond="$file->isvalid=='Y'&&$file->direct_download=='Y'">
-                    {@
-                        $t_down_cm = $pt_dtype != 'N' && (!$lg || $lg->member_srl != $file->member_srl);
-                        $t_down_pt = $t_down_cm && $pt_dtype == 'P' && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
-                        $t_down_cm = !$t_down_pt && $t_down_cm && !$oThis->isWrote($doc_srl, true, 'cmt');
-                    }
-                    <a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="size">(link)</span></a>
-                    <a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(_DXS_MSGS_.use_d_point.replace('%s','{$t_down_pt}'))"|cond="$t_down_pt&&$lg" class="idw"|cond="$t_down_pt" onclick="return alert('{$lang->msg_required_comment}') || false"|cond="$t_down_cm&&$lg" onclick="return alert('{$lang->msg_not_permitted}') || false"|cond="($t_down_pt||$t_down_cm)&&!$lg">{$file->source_filename}<span class="size">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
-                </li>
-            </block>
-        </ul>
-    </block>
+	{@
+		$ft_cnt = 0;
+		$ds_file = array();
+		$us_ahfile = strpos($mi->display_files, 'auto')!==false;
+	}
+	<block loop="$ufls=>$file">
+		{@
+			$_tmp = $file->direct_download!='Y'?'general':'media';
+			$_tmp = $_tmp=='media'&&preg_match("/\.(?:(jpe?g|png|gif|bmp|ico))$/i", $file->source_filename)?'image':$_tmp;
+			$ds_file[$_tmp][] = $file;
+		}
+	</block>
+	<block loop="array('general','media','image')=>$_tmp2" cond="strpos($mi->display_files, $_tmp2)!==false">
+		{@ $ft_cnt += count($ds_file[$_tmp2])}
+	</block>
+	<block cond="$ft_cnt">
+		<button type="button" class="tbn cb" title="open/close">{$lang->uploaded_file} <span>[{$ft_cnt}]</span><span cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, (int)$un_extra->beluxe->use_point)} (Once)</span></button>
+		<ul data-autohide="true"|cond="$us_ahfile" class="file tgo">
+			<block loop="array('general','media','image')=>$_tmp2" cond="strpos($mi->display_files, $_tmp2)!==false&&count($ds_file[$_tmp2])">
+				<li loop="$ds_file[$_tmp2]=>$file" class="{$_tmp2}{$file->isvalid=='Y'?'':' notvalid'}">
+					{@
+						$t_down_cm = $pt_dtype != 'N' && (!$lg || $lg->member_srl != $file->member_srl);
+						$t_down_pt = $t_down_cm && $pt_dtype == 'P' && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
+						$t_down_cm = !$t_down_pt && $t_down_cm && !$oThis->isWrote($doc_srl, true, 'cmt');
+					}
+					<a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="size">(link)</span></a>
+					<a cond="$file->file_size" href="{$file->isvalid=='Y'?getUrl('').$file->download_url:'#'}" onclick="return confirm(_DXS_MSGS_.use_d_point.replace('%s','{$t_down_pt}'))"|cond="$t_down_pt&&$lg" class="idw"|cond="$t_down_pt" onclick="return alert('{$lang->msg_required_comment}') || false"|cond="$t_down_cm&&$lg" onclick="return alert('{$lang->msg_not_permitted}') || false"|cond="($t_down_pt||$t_down_cm)&&!$lg">{$file->source_filename}<span class="size">({FileHandler::filesize($file->file_size)}/{number_format($file->download_count)})</span></a>
+				</li>
+			</block>
+		</ul>
+	</block>
 </block>
 
 <block cond="$oDocument->allowTrackback() || $oDocument->getTrackbackCount()">
-    <button type="button" class="tbn cb" title="open/close">{$lang->trackback} <span>[{$oDocument->getTrackbackCount()}]</span></button>
-    <ul class="rp tgo">
-        {@ $_trackback_list = $oDocument->getTrackbacks() }
-        <li loop="$_trackback_list => $key,$val">
-            <p>{$val->excerpt}</p>
-            <div class="auth">
-                <strong>{htmlspecialchars($val->title)} - {htmlspecialchars($val->blog_name)}</strong>
-                <time>{zdate($val->regdate, "Y.m.d")}</time>
-            </div>
-        </li>
-    </ul>
+	<button type="button" class="tbn cb" title="open/close">{$lang->trackback} <span>[{$oDocument->getTrackbackCount()}]</span></button>
+	<ul class="rp tgo">
+		{@ $_trackback_list = $oDocument->getTrackbacks() }
+		<li loop="$_trackback_list => $key,$val">
+			<p>{$val->excerpt}</p>
+			<div class="auth">
+				<strong>{htmlspecialchars($val->title)} - {htmlspecialchars($val->blog_name)}</strong>
+				<time>{zdate($val->regdate, "Y.m.d")}</time>
+			</div>
+		</li>
+	</ul>
 </block>
 
 <block cond="$oDocument->allowComment() || $oDocument->getCommentCount()">
-    <button id="clst" type="button" class="tbn tgr cb" title="open/close" data-srl="{$doc_srl}" data-page="{$cpage}" data-count="{$cmt_lstcnt}" data-load="{$comment_srl}"|cond="$oDocument->getCommentCount()&&($comment_srl||$mi->display_comment_expand==='Y')&&$XE_VALIDATOR_MESSAGE_TYPE!='error'">{$lang->comment} <span>[{$oDocument->getCommentCount()}]</span></button>
+	<button id="clst" type="button" class="tbn tgr cb" title="open/close" data-srl="{$doc_srl}" data-page="{$cpage}" data-count="{$cmt_lstcnt}" data-load="{$comment_srl}"|cond="$oDocument->getCommentCount()&&($comment_srl||$mi->display_comment_expand==='Y')&&$XE_VALIDATOR_MESSAGE_TYPE!='error'">{$lang->comment} <span>[{$oDocument->getCommentCount()}]</span></button>
 </block>
 
 <block cond="$mi->use_input_comment_writer != 'N' && !$is_voted && $grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()">
-    <button type="button" class="tbn cb" title="open/close">{$lang->comment} {$lang->cmd_write}</button>
-    <form ruleset="insertComment" action="./" method="post" class="co ff tgo">
-        <input type="hidden" name="module_srl" value="{$mi->module_srl}" />
-        <input type="hidden" name="act" value="procBoardInsertComment" />
-        <input type="hidden" name="document_srl" value="{$doc_srl}" />
-        <input type="hidden" name="comment_srl" value="" />
-        <ul>
-            <block cond="!$is_logged">
-            <li cond="$mi->use_input_guest_info != 'N'">
-                <label for="uName">{$lang->writer}</label>
-                <input name="nick_name" type="text" id="uName" maxlength="80" />
-            </li>
-            <li>
-                <block cond="$mi->use_input_guest_info == 'N'">
-                <input type="hidden" name="nick_name" value="{$oThis->getIpaddress(1)}" />
-                </block>
-                <label for="uPw">{$lang->password}</label>
-                <input name="password" type="password" id="uPw" />
-            </li>
-            <block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
-            <li>
-                <label for="uMail">{$lang->email_address}</label>
-                <input name="email_address" type="text" id="uMail" maxlength="250" />
-            </li>
-            <li>
-                <label for="uSite">{$lang->homepage}</label>
-                <input name="homepage" type="text" id="uSite" maxlength="250" />
-            </li>
-            </block>
-            <li class="hr"><hr /></li>
-            </block>
-            <block cond="$is_logged">
-            <input type="hidden" name="nick_name" value="0" />
-            <input type="hidden" name="password" value="0" />
-            </block>
-            <li style="text-align:right;margin:0 0 5px">
-                {@ $t_dstus = explode(',', $mi->use_c_status)}
-                <label cond="$mi->use_input_comment_writer != 'T'"><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
-                <label cond="$is_logged">
-                    <input type="checkbox" name="notify_message" value="Y" />
-                    {$lang->notify}
-                </label>
-                <label cond="$mi->use_anonymous=='S'">
-                    <input type="checkbox" name="anonymous" value="Y" />
-                    {$lang->anonymous}
-                </label>
-                <label cond="count($t_dstus) > 1">
-                    <select name="status">
-                        <option loop="$t_dstus => $value" value="{$value}">{Context::getLang(strtolower($value))}</option>
-                    </select>
-                </label>
-                <input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
-                <!--@if($mi->view_comment_style == 'webzine')-->
-                    <label for="si_agree" class="fl">
-                        <input type="radio" name="vote_point" id="si_agree" value="1" checked="checked" /> {$lang->cmd_agree}
-                    </label>
-                    <label for="si_disagree" class="fl">
-                        <input type="radio" name="vote_point" id="si_disagree" value="-1" /> {$lang->cmd_disagree}
-                    </label>
-                <!--@else-->
-                    <label for="rText" class="fl">{$lang->comment}</label>
-                <!--@endif-->
-            </li>
-            <li><textarea name="content" cols="20" rows="5" id="rText"></textarea></li>
-        </ul>
-        <div class="bna">
-            <input name="" type="submit" value="{$lang->cmd_comment_registration}" class="bn dark" />
-        </div>
-    </form>
+	<button type="button" class="tbn cb" title="open/close">{$lang->comment} {$lang->cmd_write}</button>
+	<form ruleset="insertComment" action="./" method="post" class="co ff tgo">
+		<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
+		<input type="hidden" name="act" value="procBoardInsertComment" />
+		<input type="hidden" name="document_srl" value="{$doc_srl}" />
+		<input type="hidden" name="comment_srl" value="" />
+		<ul>
+			<block cond="!$is_logged">
+			<li cond="$mi->use_input_guest_info != 'N'">
+				<label for="uName">{$lang->writer}</label>
+				<input name="nick_name" type="text" id="uName" maxlength="80" />
+			</li>
+			<li>
+				<block cond="$mi->use_input_guest_info == 'N'">
+				<input type="hidden" name="nick_name" value="{$oThis->getIpaddress(1)}" />
+				</block>
+				<label for="uPw">{$lang->password}</label>
+				<input name="password" type="password" id="uPw" />
+			</li>
+			<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
+			<li>
+				<label for="uMail">{$lang->email_address}</label>
+				<input name="email_address" type="text" id="uMail" maxlength="250" />
+			</li>
+			<li>
+				<label for="uSite">{$lang->homepage}</label>
+				<input name="homepage" type="text" id="uSite" maxlength="250" />
+			</li>
+			</block>
+			<li class="hr"><hr /></li>
+			</block>
+			<block cond="$is_logged">
+			<input type="hidden" name="nick_name" value="0" />
+			<input type="hidden" name="password" value="0" />
+			</block>
+			<li style="text-align:right;margin:0 0 5px">
+				{@ $t_dstus = explode(',', $mi->use_c_status)}
+				<label cond="$mi->use_input_comment_writer != 'T'"><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
+				<label cond="$is_logged">
+					<input type="checkbox" name="notify_message" value="Y" />
+					{$lang->notify}
+				</label>
+				<label cond="$mi->use_anonymous=='S'">
+					<input type="checkbox" name="anonymous" value="Y" />
+					{$lang->anonymous}
+				</label>
+				<label cond="count($t_dstus) > 1">
+					<select name="status">
+						<option loop="$t_dstus => $value" value="{$value}">{Context::getLang(strtolower($value))}</option>
+					</select>
+				</label>
+				<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
+				<!--@if($mi->view_comment_style == 'webzine')-->
+					<label for="si_agree" class="fl">
+						<input type="radio" name="vote_point" id="si_agree" value="1" checked="checked" /> {$lang->cmd_agree}
+					</label>
+					<label for="si_disagree" class="fl">
+						<input type="radio" name="vote_point" id="si_disagree" value="-1" /> {$lang->cmd_disagree}
+					</label>
+				<!--@else-->
+					<label for="rText" class="fl">{$lang->comment}</label>
+				<!--@endif-->
+			</li>
+			<li><textarea name="content" cols="20" rows="5" id="rText"></textarea></li>
+		</ul>
+		<div class="bna">
+			<input name="" type="submit" value="{$lang->cmd_comment_registration}" class="bn dark" />
+		</div>
+	</form>
 </block>
 
 <div style="height:1px;overflow:hidden;background:#ddd"></div>
 <div class="bna">
-    <span class="fl">
-        <a cond="($sedt_wbtn||!$is_sedt)&&$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" title="{$lang->new_document}" class="bn dark">{$lang->cmd_write}</a>
-    </span>
-    <span class="fr">
-        <a href="{getUrl('act', '','document_srl', '','page',$page)}" class="bn white">{$lang->cmd_list}</a>
-        <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
-            <a href="{getUrl('act','dispBoardWrite','document_srl',$doc_srl,'comment_srl','','page',$page)}" title="{$lang->modify_document}" class="bn dark">{$lang->cmd_modify}</a>
-            <a href="{getUrl('act','dispBoardDelete','document_srl',$doc_srl,'comment_srl','','page',$page)}" title="{$lang->delete_document}" class="bn dark">{$lang->cmd_delete}</a>
-        </block>
-    </span>
+	<span class="fl">
+		<a cond="($sedt_wbtn||!$is_sedt)&&$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','')}" title="{$lang->new_document}" class="bn dark">{$lang->cmd_write}</a>
+	</span>
+	<span class="fr">
+		<a href="{getUrl('act', '','document_srl', '','page',$page)}" class="bn white">{$lang->cmd_list}</a>
+		<block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
+			<a href="{getUrl('act','dispBoardWrite','document_srl',$doc_srl,'comment_srl','','page',$page)}" title="{$lang->modify_document}" class="bn dark">{$lang->cmd_modify}</a>
+			<a href="{getUrl('act','dispBoardDelete','document_srl',$doc_srl,'comment_srl','','page',$page)}" title="{$lang->delete_document}" class="bn dark">{$lang->cmd_delete}</a>
+		</block>
+	</span>
 </div>

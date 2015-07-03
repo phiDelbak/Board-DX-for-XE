@@ -16,7 +16,7 @@ jQuery(function($) {
 					cur_mid: current_mid,
 					mid: current_mid
 				};
-			c = prompt('Please describe the reasons.', '');
+			c = prompt(_DXS_MSGS_.declare, '');
 			if (typeof c != 'string') return false;
 			if (!c.trim()) return alert('Please enter the message.') || false;
 			exec_json(
@@ -26,7 +26,7 @@ jQuery(function($) {
 					alert(ret_obj.message);
 					if (ret_obj.error === 0) {
 						if (rec == '0') return location.reload() || false;
-						var t = '[Board DX] Declare, ' + ty + ':' + srl,
+						var t = (_DXS_MSGS_.declare_msg || 'declare').replace(/%s/g, srl),
 							u = current_url.setQuery('comment_srl', ('comment' ? srl : ''));
 						c = c + '<br /><br /><a href="' + u + '">' + u + '</a>';
 						var params2 = {
@@ -162,6 +162,27 @@ jQuery(function($) {
 		var w = $('.fr', this).width() || 0;
 		$('a', this).css('padding-right', w + 10 + 'px');
 	});
+
+	$('a[data-type]', '.scSns')
+		.click(function() {
+			var $o = $('h2', '.pn:eq(0)'),
+				v, co, rl;
+			co = encodeURIComponent($o.text().trim());
+			rl = encodeURIComponent($o.attr('title'));
+			switch ($(this).attr('data-type')) {
+				case 'fa':
+					v = 'http://www.facebook.com/share.php?t=' + co + '&u=' + rl;
+					break;
+				case 'de':
+					v = 'http://www.delicious.com/save?v=5&noui&jump=close&url=' + rl + '&title=' + co;
+					break;
+				default:
+					v = 'http://twitter.com/home?status=' + co + ' ' + rl;
+					break;
+			}
+			popopen(v, '_pop_sns');
+			return false;
+		});
 
 	$('a[data-slide]', '#list').each(function() {
 		$(this).on('before-open.mw', function() {

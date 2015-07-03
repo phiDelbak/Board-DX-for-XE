@@ -168,7 +168,15 @@ class beluxeAdminView extends beluxe
             if (is_string($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS'])) {
                 $_tmp = unserialize($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS']);
                 $a = array();
-                foreach ($_tmp as $key => $val) $a[$key] = $val;
+                $arr_sk = array(
+                    'use_update_vote_count', 'use_vote_point_check', 'use_vote_point_recover', 'use_vote_point_range',
+                    'use_lock_owner_comment', 'use_lock_comment_count'
+                );
+                foreach ($_tmp as $key => $val) {
+                    if (in_array($key, $arr_sk)) continue;
+                    $a[$key] = $val;
+                }
+
                 Context::set('module_backup_options', $a);
                 unset($_SESSION['BELUXE_MODULE_BACKUP_OPTIONS']);
             }

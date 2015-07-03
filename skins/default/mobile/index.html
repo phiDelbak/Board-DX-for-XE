@@ -35,37 +35,37 @@
 				</span>
 			</a>
 		</block>
-    	<a cond="!$is_cts&&$pt_vtype!='A'" href="#noCategory" onclick="return false"><span>{$mi->browser_title}</span></a>
+		<a cond="!$is_cts&&$pt_vtype!='A'" href="#noCategory" onclick="return false"><span>{$mi->browser_title}</span></a>
 		<a cond="($sedt_wbtn||!$is_sedt)&&$grant->write_document" href="{getUrl('act','dispBoardWrite','document_srl','','page',$page)}" title="{$lang->new_document}" class="wt">{$lang->cmd_write}</a>
 	</h2>
 
-	<div cond="$is_doc || $mi->title||$mi->sub_title||$mi->board_desc" class="pn cb ts">
+	<div cond="$is_doc||$mi->title||$mi->sub_title||$mi->board_desc" class="pn cb ts">
 	<!--@if($is_doc)-->
 		{@
-		    $ds_nick = $ci['nick_name']->display == 'Y';
-		    $ds_user =  $ci['user_name']->display == 'Y';
-		    $dmb_srl = $oDocument->get('member_srl');
-    		$is_scrap = $ds_scrap?$oThis->isScrap($oDocument->document_srl):0;
+			$ds_nick = $ci['nick_name']->display == 'Y';
+			$ds_user =  $ci['user_name']->display == 'Y';
+			$dmb_srl = $oDocument->get('member_srl');
+			$is_scrap = $ds_scrap?$oThis->isScrap($oDocument->document_srl):0;
 		}
-	    <h2>{$oDocument->getTitle()}</h2>
-	    <div>
-	        <img src="../img/common/blank.gif" cond="$is_scrap" class="ise scrap" alt="Scrap" title="Scrap" />
-	        <span class="{$dmb_srl?'member_'.$dmb_srl:'fsi'} ex">{cut_str((!$dmb_srl||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}</span>
-	        &rsaquo; <time class="ex">{$oDocument->getRegdate()}</time>
-	    </div>
+		<h2 title="{$oDocument->getPermanentUrl()}">{$oDocument->getTitle()}</h2>
+		<div>
+			<img src="../img/common/blank.gif" cond="$is_scrap" class="ise scrap" alt="Scrap" title="Scrap" />
+			<span class="{$dmb_srl?'member_'.$dmb_srl:'fsi'} ex">{cut_str((!$dmb_srl||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}</span>
+			<time class="ex fr">{$oDocument->getRegdate('Y.m.d H:i')}</time>
+		</div>
 	<!--@else-->
 		<h3 cond="$mi->title||$mi->sub_title">{$mi->title} <span class="sbt">{$mi->sub_title}</span></h3>
 		<p cond="$mi->board_desc">{$mi->board_desc}</p>
 	<!--@endif-->
 	</div>
 
-    <div cond="$mi->use_first_page==='Y' && $first_page" class="cb" style="padding:0 10px">
-        <include target="_firstpage.html" />
-    </div>
+	<div cond="$mi->use_first_page==='Y' && $first_page" class="cb" style="padding:0 10px">
+		<include target="_firstpage.html" />
+	</div>
 
-    <include cond="$is_sedt=='T'||$is_sedt=='C'" target="_simplewrite.html" />
+	<include cond="$is_sedt=='T'||$is_sedt=='C'" target="_simplewrite.html" />
 
-    <block cond="$grant->manager || $is_sedt != 'C'">
+	<block cond="$grant->manager || $is_sedt != 'C'">
 	<!--@if($is_doc)-->
 		<include target="_read.html" />
 	<!--@else-->
@@ -97,7 +97,7 @@
 				<input type="hidden" name="mid" value="{$mid}" />
 				<input type="hidden" name="category" value="{$category}" />
 				<select name="search_target">
-                	<option cond="($ci['title']&&$ci['title']->search=='Y')&&($ci['content']&&$ci['content']->search=='Y')" value="title_content">{Context::getLang('title_content')}</option>
+					<option cond="($ci['title']&&$ci['title']->search=='Y')&&($ci['content']&&$ci['content']->search=='Y')" value="title_content">{Context::getLang('title_content')}</option>
 					<option loop="$ci=>$key,$val" cond="$val->search=='Y'" value="{$key}" selected="selected"|cond="$key==$search_target">{$val->name}</option>
 					<option cond="$search_target&&$ci[$search_target]->search!='Y'" value="{$search_target}" selected="selected">{Context::getLang($search_target)}</option>
 				</select>
@@ -106,7 +106,7 @@
 			</form>
 		</div>
 	<!--@endif-->
-    </block>
+	</block>
 
 	</section>
 

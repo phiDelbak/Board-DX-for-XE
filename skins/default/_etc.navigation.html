@@ -5,13 +5,14 @@
 <!-- NAVIGATION -->
 <a name="navigation2"></a>
 <div id="siNavi">
-	<h2>{sprintf($lang->nav_caption, $is_cts?$cts[(int)$category_srl]->title:'ALL')}</h2>
+	<h2 cond="$is_cts">{sprintf($lang->nav_caption, $cts[(int)$category_srl]->title)}</h2>
+	<h2 cond="!$is_cts">{$lang->cmd_prev}/{$lang->cmd_next} {$lang->document}</h2>
 	<ul>
 		<li loop="$nav_list=>$key,$nav" class="clearBar">
 			{@
 				$nv_t_cn = $nav->getCommentCount();
 				$nv_t_tn = $nav->getTrackbackCount();
-                $nv_un_ex = ($pt_vtype!='N'||$pt_dtype!='N')?$nav->get('extra_vars'):null;
+				$nv_un_ex = ($pt_vtype!='N'||$pt_dtype!='N')?$nav->get('extra_vars'):null;
 				$nv_un_ex = is_string($nv_un_ex)?unserialize($nv_un_ex):$nv_un_ex;
 				$nav->selected?$nav_key='Next':0;
 			}
@@ -29,11 +30,11 @@
 			</div>
 			<div class="scElps {$nav->selected?'active':''}" data-active="true"|cond="$is_elips">
 				<a class="fl" href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}">
-    				<!--@if($pt_vtype!='N'||$pt_dtype!='N')-->
+					<!--@if($pt_vtype!='N'||$pt_dtype!='N')-->
 					<em class="usept {$nv_un_ex->beluxe->adopt_srl?'colBgBlue':''}" title="Point">{$nav->get('is_notice')=='Y'?'Notice':abs((int)$nv_un_ex->beluxe->use_point)}</em>
-    				<!--@else-->
+					<!--@else-->
 					<em>&rsaquo;&nbsp;</em>
-    				<!--@endif-->
+					<!--@endif-->
 					{$nav->getTitle($mi->title_length)}
 				</a>
 				<span class="fr">

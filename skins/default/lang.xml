@@ -99,12 +99,12 @@
 		<value xml:lang="jp"><![CDATA[非推薦]]></value>
 		<value xml:lang="en"><![CDATA[Blame]]></value>
 	</item>
-	<item name="empathy_button">
+	<item name="cmd_like">
 		<value xml:lang="ko"><![CDATA[좋아요]]></value>
 		<value xml:lang="jp"><![CDATA[좋아요]]></value>
 		<value xml:lang="en"><![CDATA[좋아요]]></value>
 	</item>
-	<item name="blamed_button">
+	<item name="cmd_dislike">
 		<value xml:lang="ko"><![CDATA[싫어요]]></value>
 		<value xml:lang="jp"><![CDATA[싫어요]]></value>
 		<value xml:lang="en"><![CDATA[싫어요]]></value>
@@ -166,7 +166,7 @@
 	</item>
 	<item name="nav_caption">
 		<value xml:lang="ko"><![CDATA["%s" 카테고리의 다른 글]]></value>
-		<value xml:lang="jp"><![CDATA[% s" カテゴリーの他の文書]]></value>
+		<value xml:lang="jp"><![CDATA["%s" カテゴリーの他の文書]]></value>
 		<value xml:lang="en"><![CDATA["%s" 카테고리의 다른 글]]></value>
 	</item>
 </lang>

@@ -216,22 +216,22 @@
 
 .scVoteArea em.vote,
 .scVoteArea em.blame,
-.scVoteArea em.declare,
-.scVoteArea em.scrap {
+.scVoteArea em.declare {
 	padding: 0 0 0 17px;
-	background: url(../img/common/ico_set.gif) no-repeat 0 -267px
+	background: url(../img/common/etc_set.gif) no-repeat -17px -14px
 }
 
 .scVoteArea em.blame {
-	background-position: 0 -297px
+	background-position: -17px -43px
 }
 
 .scVoteArea em.declare {
-	background-position: 0 -327px
+	background-position: -17px -74px
 }
 
 .scVoteArea em.scrap {
-	background-position: 0 -25px
+	padding: 0 0 0 14px;
+	background: url(../img/common/ico_set.gif) no-repeat 0 -25px
 }
 
 .scVoteArea em.cnt {
@@ -1361,7 +1361,7 @@
 	top: 5px;
 	margin: 0;
 	padding: 5px 10px;
-	width: 88px;
+	width: 85px;
 	height: 50px;
 	border: 0
 }
@@ -1500,23 +1500,19 @@
 	line-height: 16px;
 	padding: 16px 0 0 0;
 	overflow: hidden;
-	background: url(../img/common/sns_set.gif) no-repeat
+	background: url(../img/common/etc_set.gif) no-repeat 0 0
 }
 
 #siDoc .scSns {
 	margin-left: 5px;
 }
 
-#siDoc .scSns .twitter a {
-	background-position: 0 0
-}
-
 #siDoc .scSns .facebook a {
-	background-position: 0 -60px
+	background-position: 0 -30px
 }
 
 #siDoc .scSns .delicious a {
-	background-position: 0 -90px
+	background-position: 0 -60px
 }
 
 #siDoc .tags {
@@ -1650,7 +1646,7 @@
 	float: left;
 	width: 50px;
 	height: 50px;
-	margin: 0 6px 5px 0;
+	margin: 0 8px 5px 0;
 	border: 1px solid #ddd;
 	background: url(../img/common/profile.gif) no-repeat scroll center center
 }
@@ -2125,23 +2121,17 @@
 	left: 10px
 }
 
-.scSimWrt .scWul {
-	padding: 0 10px
+#siWrt.scSimWrt .scWul {
+	padding: 0 5px
 }
 
-.scSimWrt .scWul >li {
-	padding-top: 5px;
-	padding-bottom: 2px
-}
-
-.scSimWrt .scWul textarea {
-	margin: 2px 0;
+#siWrt.scSimWrt .scWul textarea {
+	margin: 5px 0 0;
 	padding: 2px;
 	margin-left: -9px;
 	width: 100%;
 	resize: vertical;
 	height: 80px;
-	border-width: 3px;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px
@@ -2149,6 +2139,11 @@
 
 
 /* Navi */
+
+#siNavi {
+	margin: 10px;
+	padding: 0 10px 10px;
+}
 
 #siNavi h2 {
 	padding: 0;
@@ -2195,14 +2190,6 @@
 	font-style: normal;
 	font-size: 10px;
 	font-family: Tahoma, Geneva, sans-serif
-}
-
-#siNavi.histories {
-	margin: 10px;
-	padding: 10px;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px
 }
 
 #siNavi.histories li div.no {
@@ -2366,6 +2353,10 @@
 	background-color: #f9f9f9
 }
 
+#siBody .actBtns+.scFiles {
+	margin-top: 15px
+}
+
 #siBody .scFiles[data-autohide=true] {
 	height: 19px;
 }
@@ -2375,7 +2366,7 @@
 	float: left;
 	padding: 0 5px 5px 17px;
 	white-space: nowrap;
-	background: url(../img/common/file_set.gif) no-repeat 0 1px
+	background: url(../img/common/ico_set.gif) no-repeat 1px -267px;
 }
 
 #siBody .scFiles li a {
@@ -2383,20 +2374,20 @@
 	text-decoration: none
 }
 
-#siBody .scFiles li a:hover {
+#siBody .scFiles li a:hover,
+#siFbk .scFiles .scToggle:hover {
 	text-decoration: underline
 }
 
-#siBody .scFiles li.direct {
-	background-position: 0 -25px
+#siBody .scFiles li.image {
+	background-position: 1px -297px;
 }
 
-#siBody .scFiles li.direct.media {
-	background-position: 0 -50px
+#siBody .scFiles li.media {
+	background-position: 1px -327px;
 }
 
 #siBody .scFiles li.notvalid {
-	background-position: 0 -77px;
 	text-decoration: line-through
 }
 
@@ -2434,15 +2425,15 @@
 #siFbk .scFiles ul > li {
 	float: none;
 	padding: 1px 0 1px 15px;
-	background-position: 0 -125px
+	background-position: -19px -248px;
 }
 
 #siFbk .scFiles .scToggle {
 	border: 0;
-	background: url(../img/common/file_set.gif) no-repeat 0 -102px;
+	background: url(../img/common/ico_set.gif) no-repeat 1px -237px;
 	cursor: pointer;
 	overflow: visible;
-	padding: 0 0 0 15px;
+	padding: 0 0 0 13px;
 	color: #767676;
 	font-size: 12px;
 	line-height: 14px;

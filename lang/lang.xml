@@ -184,6 +184,16 @@
 		<value xml:lang="jp"><![CDATA[Canceled to successfully.]]></value>
 		<value xml:lang="en"><![CDATA[Canceled to successfully.]]></value>
 	</item>
+	<item name="msg_adopt_thanks">
+		<value xml:lang="ko"><![CDATA[[Board DX] 답변이 채택 되었습니다. (%s)]]></value>
+		<value xml:lang="jp"><![CDATA[[Board DX] 답변이 채택 되었습니다. (%s)]]></value>
+		<value xml:lang="en"><![CDATA[[Board DX] 답변이 채택 되었습니다. (%s)]]></value>
+	</item>
+	<item name="msg_declare_received">
+		<value xml:lang="ko"><![CDATA[[Board DX] 신고가 접수 되었습니다. (%s)]]></value>
+		<value xml:lang="jp"><![CDATA[[Board DX] 신고가 접수 되었습니다. (%s)]]></value>
+		<value xml:lang="en"><![CDATA[[Board DX] 신고가 접수 되었습니다. (%s)]]></value>
+	</item>
 	<item name="about_upload_filelink">
 		<value xml:lang="ko"><![CDATA[링크를 첨부 하실 수 있습니다.]]></value>
 		<value xml:lang="jp"><![CDATA[リンクを添付することができます.]]></value>

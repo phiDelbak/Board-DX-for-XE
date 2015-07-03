@@ -330,7 +330,7 @@
  				function(ret_obj) {
  					alert(ret_obj.message);
  					if (ret_obj.error === 0 && rec !== '0') {
- 						var t = '[Board DX] Declare, received messages: ' + srl,
+ 						var t = (_DXS_MSGS_.declare_msg || 'declare').replace(/%s/g, srl),
  							u = current_url.setQuery('comment_srl', (ty == 'comment' ? srl : ''));
  						c = c + '<br /><br /><a href="' + u + '">' + u + '</a>';
  						exec_json('communication.procCommunicationSendMessage', {
@@ -500,14 +500,12 @@
  		}
  	} catch (e) {}
 
- 	$('a', '.scSns')
+ 	$('a[data-type]', '.scSns')
  		.click(function() {
  			var $o = $('.scElps strong:eq(0)', '#siHrm'),
  				v, co, rl, mpp = sjDxFuncs.isMobj('m') || false;
- 			co = (mpp ? mpp.find('.pid_modal-head:eq(0)').text() : $o.text()).trim();
- 			rl = mpp ? mpp.find('.pid_modal-foot:eq(0)').find('span:last').text() : $o.attr('title');
- 			co = encodeURIComponent(co);
- 			rl = encodeURIComponent(rl);
+ 			co = encodeURIComponent((mpp ? mpp.find('.pid_modal-head:eq(0)').text() : $o.text()).trim());
+ 			rl = encodeURIComponent(mpp ? mpp.find('.pid_modal-foot:eq(0)').find('span:last').text() : $o.attr('title'));
  			switch ($(this).attr('data-type')) {
  				case 'fa':
  					v = 'http://www.facebook.com/share.php?t=' + co + '&u=' + rl;

@@ -47,19 +47,20 @@
 
 .pid_modal-head {
 	border-bottom: 1px solid #aaa;
-	background-color: #333;
 	-webkit-border-radius: 5px 5px 0 0;
 	-moz-border-radius: 5px 5px 0 0;
 	border-radius: 5px 5px 0 0;
-	background-image: -webkit-linear-gradient(top, #666, #333 50%, #000 50%, #333 100%);
-	background-image: -moz-linear-gradient(top, #666, #333 50%, #000 50%, #333 100%);
-	background-image: -o-linear-gradient(top, #666, #333 50%, #000 50%, #333 100%);
-	background-image: linear-gradient(top, #666, #333 50%, #000 50%, #333 100%);
+	text-shadow: 0 1px rgba(0, 0, 0, .8);
+	background-color: #000;
+	background-image: -moz-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+	background-image: -webkit-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+	background-image: -o-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+	background-image: -ms-linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+	background-image: linear-gradient(rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
 	color: #fff;
 	font-size: 16px;
 	line-height: 18px;
 	height: 40px;
-	text-shadow: 0 -1px 0 #000;
 	white-space: normal;
 }
 
@@ -94,11 +95,13 @@
 	-o-text-overflow: ellipsis;
 	-ms-text-overflow: ellipsis;
 	-moz-binding: url(/ellipsis-xbl.xml#ellipsis);
-	white-space: nowrap
+	white-space: nowrap;
+	font-weight: bold
 }
 
 .pid_modal-foot > div {
 	padding: 5px 10px;
+	font-weight:normal
 }
 
 .pid_modal-document > div {

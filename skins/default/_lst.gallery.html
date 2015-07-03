@@ -212,7 +212,7 @@
 										<span>{($ci[$key]->idx > 0)?strip_tags($document->getExtraValueHTML($ci[$key]->idx)):$document->get($key)}</span>
 								<!--@endswitch-->
 							</li>
-							<li cond="$ds_nick || $ds_user" class="nick_name">
+							<li cond="$ds_nick || $ds_user" class="nick_name" style="text-align:left"|cond="$mi->display_thumbnail_info=='N'">
 								{@
 									$mbsl = $document->get('member_srl');
 									$home = $document->get('homepage');

@@ -21,9 +21,9 @@
 	$mi->summary_length?0:$mi->summary_length = '300';
 	$mi->bottom_list_style?0:$mi->bottom_list_style = 'default';
 	$mi->duration_new = 60*60*((int)$mi->duration_new?$mi->duration_new:12);
-    $mi->display_files?0:$mi->display_files='general,media,image,auto';
+	$mi->display_files?0:$mi->display_files='general,media,image,auto';
 
-    $sedt_wbtn = strpos($mi->simple_editor_option, 'wrtbtn')!==false;
+	$sedt_wbtn = strpos($mi->simple_editor_option, 'wrtbtn')!==false;
 	$mi->consultation == 'Y' ? $mi->use_input_simple_editor = 'C' : 0;
 
 	$is_sedt = $mi->use_input_simple_editor != 'N'&&(!$is_doc || ($is_doc&&strpos($mi->simple_editor_option, 'dochide')===false)) ? $mi->use_input_simple_editor : 'N';
@@ -90,12 +90,13 @@
 
 <script cond="$is_doc">
 //<![CDATA[
-    var _DXS_MSGS_ = {
-        canceled: ''
-        <!--@if($pt_dtype=='P')-->,use_d_point: '{$lang->confirm_download_point}'<!--@endif-->
-        <!--@if($is_logged&&(strpos($mi->use_d_vote, 'declare')!==false||strpos($mi->use_c_vote, 'declare')!==false))-->
-        	,declare: '{sprintf($lang->confirm_declare, $oThis->getAdminId()?$lang->manager:$lang->author)}'
-        <!--@endif-->
-    };
+	var _DXS_MSGS_ = {
+		canceled: ''
+		<!--@if($pt_dtype=='P')-->,use_d_point: '{$lang->confirm_download_point}'<!--@endif-->
+		<!--@if($is_logged&&(strpos($mi->use_d_vote, 'declare')!==false||strpos($mi->use_c_vote, 'declare')!==false))-->
+			,declare: '{sprintf($lang->confirm_declare, $oThis->getAdminId()?$lang->manager:$lang->author)}'
+			,declare_msg: '{$lang->msg_declare_received}'
+		<!--@endif-->
+	};
 //]]>
 </script>

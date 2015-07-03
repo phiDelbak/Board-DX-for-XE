@@ -87,7 +87,7 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
                     </block>
                     <block cond="$ds_voted || $ds_blamed">
                     <span>{$lang->voted_count}:</span>
-                    <span>{$oDocument->get('voted_count').'/'.$oDocument->get('blamed_count')},</span>
+                    <span>{$oDocument->get('voted_count').' / '.$oDocument->get('blamed_count')},</span>
                     </block>
                 </block>
                 <block cond="$ds_update"><span title="{$lang->last_update}">{zdate($oDocument->get('last_update'))}</span><span title="{$lang->regdate}">({$oDocument->getRegdate('Y.m.d')})</span></block>
@@ -172,7 +172,10 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
                 {$oDocument->getContent(false)}
                 <!--@endif-->
             </div>
+
             <include cond="!$is_secret&&!$is_blind&&!$is_restrict&&$mi->use_history&&$mi->use_history!='N'" target="_etc.histories.html" />
+            <include cond="!$us_vmodal&&$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
+
             <div class="sign clearBar" cond="($mi->display_profile!='N'&&$mi->display_profile!='C')&&($oDocument->getProfileImage()||$oDocument->getSignature())">
                 <img cond="$oDocument->getProfileImage()" src="{$oDocument->getProfileImage()}" alt="Profile" class="pf" />
                 <div cond="$oDocument->getSignature()" class="tx">{$oDocument->getSignature()}</div>
@@ -196,7 +199,7 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
                 <span cond="$ds_voteup||$ds_votedown||$ds_declare||$ds_scrap" class="scVoteArea fl">
                 <span cond="$ds_scrap" class="scBtn small group"><a href="#scrap" onclick="doCallModuleAction('member','procMemberScrapDocument','{$doc_srl}');return false;"><em class="scrap">{$lang->cmd_scrap}</em></a></span>
                 <block cond="$mi->view_comment_style!='webzine'">
-                    <span cond="$ds_voteup||$ds_votedown" class="scBtn small group"><a cond="$ds_voteup" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->empathy_button}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a><a cond="$ds_votedown" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->blamed_button}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a></span>
+                    <span cond="$ds_voteup||$ds_votedown" class="scBtn small group"><a cond="$ds_voteup" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_like}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a><a cond="$ds_votedown" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_dislike}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a></span>
                 </block>
                 <span cond="$ds_declare" class="scBtn small group"><a href="#declare" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$dmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a></span>
                 </span>
@@ -208,7 +211,6 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
                     <li class="delicious link"><a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a></li>
                 </ul>
             </div>
-            <include cond="!$us_vmodal&&$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
 
             <block cond="count($ufls)">
                 {@
@@ -224,7 +226,7 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
                 </block>
                 <block loop="array('general','media','image')=>$_tmp2">
                     <ul cond="strpos($mi->display_files, $_tmp2)!==false&&count($ds_file[$_tmp2])" data-autohide="true"|cond="$us_ahfile" class="scFiles">
-                        <li loop="$ds_file[$_tmp2]=>$file" class="notvalid"|cond="$file->isvalid!='Y'" class="direct {$_tmp2}"|cond="$file->isvalid=='Y'&&$file->direct_download=='Y'">
+                        <li loop="$ds_file[$_tmp2]=>$file" class="{$_tmp2}{$file->isvalid=='Y'?'':' notvalid'}">
                             {@
                                 $t_down_cm = $pt_dtype != 'N' && (!$lg || $lg->member_srl != $file->member_srl);
                                 $t_down_pt = $t_down_cm && $pt_dtype == 'P' && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
