@@ -23,7 +23,7 @@
  				$(this).remove();
  			});
  		},
- 		reSized: function(mode) {
+ 		reSized: function(skip) {
  			// 제목 자동조절
  			$('.scElps[data-active=true]')
  				.find('> :eq(0)').width('auto').removeClass('_first')
@@ -41,37 +41,39 @@
  				});
 
  			// 핫트랙
- 			$('[data-hottrack]', '.scContent')
- 				.each(function() {
- 					var $e = $(this),
- 						$i = $e,
- 						$a = $i.find('.scHotTrack'),
- 						tp = $i.attr('data-type'),
- 						w = $i.outerWidth(tp !== 'gall') - (tp === 'widg' ? 7 : 4);
+ 			if (!skip) {
+ 				$('[data-hottrack]', '.scContent')
+ 					.each(function() {
+ 						var $e = $(this),
+ 							$i = $e,
+ 							$a = $i.find('.scHotTrack'),
+ 							tp = $i.attr('data-type'),
+ 							w = $i.outerWidth(tp !== 'gall') - (tp === 'widg' ? 7 : 4);
 
- 					if (!$a.length) {
- 						$a = $('<a class="scHotTrack">').attr('href', $i.attr('data-hottrack') || '#');
- 						$i.attr('data-hottrack', '');
- 						// 모달 보기 사용시
- 						if ($i.is('[data-modal-key]')) {
- 							$a.attr({
- 								'type': 'example/modal',
- 								'data-footer': '__PID_MODAL_FOOTER__',
- 								'data-header': '__PID_MODAL_HEADER__'
- 							}).pidModalWindow(sjDxFuncs.isMobj('b') || '');
- 							$i.removeAttr('data-modal-key');
+ 						if (!$a.length) {
+ 							$a = $('<a class="scHotTrack">').attr('href', $i.attr('data-hottrack') || '#');
+ 							$i.attr('data-hottrack', '');
+ 							// 모달 보기 사용시
+ 							if ($i.is('[data-modal-key]')) {
+ 								$a.attr({
+ 									'type': 'example/modal',
+ 									'data-footer': '__PID_MODAL_FOOTER__',
+ 									'data-header': '__PID_MODAL_HEADER__'
+ 								}).pidModalWindow(sjDxFuncs.isMobj('b') || '');
+ 								$i.removeAttr('data-modal-key');
+ 							}
  						}
- 					}
 
- 					if ($i[0].tagName === 'TR') {
- 						$i.find('>td:eq(0)').is(function() {
- 							$e = $(this).css('position', 'relative');
- 							$a.width(w).height($i.outerHeight() + (tp === 'lstc' ? $i.next().outerHeight() : 0));
- 						});
- 					} else $a.width(w);
+ 						if ($i[0].tagName === 'TR') {
+ 							$i.find('>td:eq(0)').is(function() {
+ 								$e = $(this).css('position', 'relative');
+ 								$a.width(w).height($i.outerHeight() + (tp === 'lstc' ? $i.next().outerHeight() : 0));
+ 							});
+ 						} else $a.width(w);
 
- 					if (!$e.find('.scHotTrack').length) $a.prependTo($e);
- 				});
+ 						if (!$e.find('.scHotTrack').length) $a.prependTo($e);
+ 					});
+ 			}
  		}
  	});
 
@@ -533,7 +535,7 @@
  	$(window)
  		.ready(function() {
  			//성격 급한 사람을 위해 일단 reSized 적용
- 			sjDxFuncs.reSized();
+ 			sjDxFuncs.reSized(1);
 
  			$('#siWrt').eq(0).pidSettingWrite();
 

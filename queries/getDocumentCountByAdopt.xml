@@ -1,0 +1,17 @@
+<query id="getDocumentCountByAdopt" action="select">
+	<tables>
+		<table name="documents" />
+	</tables>
+	<columns>
+		<column name="count(*)" alias="count" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+		<condition operation="equal" column="member_srl" var="member_srl" filter="number" pipe="and" />
+		<condition operation="like" column="extra_vars" var="extra_vars" notnull="notnull" pipe="and" />
+        <group pipe="and">
+			<condition operation="like" column="extra_vars" var="like_vars" pipe="and" />
+			<condition operation="notlike" column="extra_vars" var="notlike_vars" pipe="and" />
+        </group>
+	</conditions>
+</query>

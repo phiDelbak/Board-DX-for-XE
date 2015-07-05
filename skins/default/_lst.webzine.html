@@ -234,8 +234,8 @@
 											<span cond="$ds_readed" class="scRdStar color{$mi->star_style}" title="{$lang->readed_count}">{$document->get('readed_count')}</span>
 											<span cond="$ds_voted || $ds_blamed" class="scVtStar color{$mi->star_style}" title="{$lang->voted_count}: {$votedp.' / '.$blamedp}"><em style="width:{$totalp}px"></em></span>
 										<!--@else-->
-											<span cond="$ds_readed">{$lang->readed_count}: {$document->get('readed_count')}</span>
-											<span cond="$ds_voted || $ds_blamed" style="margin-left:5px">{$lang->voted_count}: {$document->get('voted_count').' / '.$document->get('blamed_count')}</span>
+											<span cond="$ds_voted || $ds_blamed" style="margin-left:5px" title="{$ds_voted?$lang->voted_count:$lang->blamed_count}">{$ds_voted&&$ds_blamed?'&hearts;':($ds_voted?$lang->voted_count:$lang->blamed_count).':'} {$ds_voted?$document->get('voted_count'):''}{$ds_voted&&$ds_blamed?' / ':''}{$ds_blamed?$document->get('blamed_count'):''}</span>
+											<span cond="$ds_readed" title="{$lang->readed_count}">{!$ds_voted&&!$ds_blamed?$lang->readed_count.':':'Hit'} {$document->get('readed_count')}</span>
 										<!--@endif-->
 										</div>
 									</div>

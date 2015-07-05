@@ -447,12 +447,12 @@ form select {
 	border-left: 0;
 	border-right: 0;
 	background: #cecece;
-	padding: 8px 100px;
+	padding: 8px 110px;
 	text-align: center;
 }
 
 .sh select {
-	width: 80px;
+	width: 90px;
 	margin: 0;
 	height: 24px;
 	position: absolute;

@@ -27,13 +27,13 @@ class beluxeController extends beluxe
 
 		if($retUrl){
 			$GLOBALS['BELUXE_TEMP'] = '';
-	        function __beluxe__callback($mc) {
-	        	$GLOBALS['BELUXE_TEMP'] = $mc[3];
-	            return $mc[1].($mc[3]==='2'?$mc[2].'1':'').$mc[4];
-	        }
+			function __beluxe__callback($mc) {
+				$GLOBALS['BELUXE_TEMP'] = $mc[3];
+				return $mc[1].($mc[3]==='2'?$mc[2].'1':'').$mc[4];
+			}
 			// 주소에 모달 is_modal 옵션이 있으면 제거 2는 예외
 			$retUrl = preg_replace_callback('/(.*[\?\&])(is_modal=)([1-5])(.*)/i', "__beluxe__callback", $retUrl);
-		    $is_modal = (int)$GLOBALS['BELUXE_TEMP'];
+			$is_modal = (int)$GLOBALS['BELUXE_TEMP'];
 		}else{
 			$is_modal = (int)Context::get('is_modal');
 		}
@@ -41,7 +41,7 @@ class beluxeController extends beluxe
 		if(!$retUrl && func_num_args()){
 			$retAct = Context::get('success_return_act');
 			// 보안을 위해, 3자이상 순수 알파벳만 받음
-        	if(!preg_match("/[A-Za-z]{3,}/i", $retAct)) $retAct = '';
+			if(!preg_match("/[A-Za-z]{3,}/i", $retAct)) $retAct = '';
 
 			$args = array_merge(
 				func_get_args(),
@@ -68,31 +68,31 @@ class beluxeController extends beluxe
 		}
 	}
 
-    function _setValidMessage($a_err, $a_msg, $a_id, $a_type, $a_retUrl)
-    {
+	function _setValidMessage($a_err, $a_msg, $a_id, $a_type, $a_retUrl)
+	{
 		if(in_array(Context::getRequestMethod(), array('XMLRPC', 'JSON', 'JS_CALLBACK'))) {
 			$this->setMessage($a_msg);
 		}else{
-	        $_SESSION['XE_VALIDATOR_ERROR'] = $a_err;
-	        $_SESSION['XE_VALIDATOR_MESSAGE'] = Context::getLang($a_msg);
-	        $_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = $a_type ? $a_type : ($a_err<0?'error':'info');
-	        $_SESSION['XE_VALIDATOR_ID'] = $a_id ? $a_id : Context::get('xe_validator_id');
+			$_SESSION['XE_VALIDATOR_ERROR'] = $a_err;
+			$_SESSION['XE_VALIDATOR_MESSAGE'] = Context::getLang($a_msg);
+			$_SESSION['XE_VALIDATOR_MESSAGE_TYPE'] = $a_type ? $a_type : ($a_err<0?'error':'info');
+			$_SESSION['XE_VALIDATOR_ID'] = $a_id ? $a_id : Context::get('xe_validator_id');
 
-	        if($a_id) Context::set('xe_validator_id', $_SESSION['XE_VALIDATOR_ID']);
-	        if($a_retUrl) $_SESSION['XE_VALIDATOR_RETURN_URL'] = $a_retUrl;
-	        if($a_err < 0) $this->setMessage($a_msg);
+			if($a_id) Context::set('xe_validator_id', $_SESSION['XE_VALIDATOR_ID']);
+			if($a_retUrl) $_SESSION['XE_VALIDATOR_RETURN_URL'] = $a_retUrl;
+			if($a_err < 0) $this->setMessage($a_msg);
 		}
-    }
+	}
 
-    function _getModuleInfo($a_modsrl = 0)
-    {
+	function _getModuleInfo($a_modsrl = 0)
+	{
 		if(!$this->module_info || !$this->module_info->module_srl) {
 			$cmThis = &getModel(__XEFM_NAME__);
 			$this->module_info = $cmThis->_getModuleInfo($a_modsrl);
 			$this->module_srl = $this->module_info->module_srl;
 		}
 		return $this->module_info;
-    }
+	}
 
 	function _setAnonymous(&$pObj, $aMbrIfo)
 	{
@@ -965,12 +965,12 @@ class beluxeController extends beluxe
 		$tar_srls = explode(',', $tar_srls);
 
 		foreach($tar_srls as $val) {
-	        $a_value = (int) $new_value;
-	        $a_value = ($a_value < 1 && $a_value > 9) ? 'N' : $a_value;
+			$a_value = (int) $new_value;
+			$a_value = ($a_value < 1 && $a_value > 9) ? 'N' : $a_value;
 
-	        $args->document_srl = $val;
-	        $args->is_notice = $a_value;
-	        $out = executeQuery('beluxe.updateCustomStatus', $args);
+			$args->document_srl = $val;
+			$args->is_notice = $a_value;
+			$out = executeQuery('beluxe.updateCustomStatus', $args);
 		}
 
 		unset($_SESSION['document_management']);
@@ -1128,7 +1128,7 @@ class beluxeController extends beluxe
 	function procBeluxeAdoptComment()
 	{
 		$cmt_srl = Context::get('comment_srl');
-        if(!$cmt_srl) return new Object(-1, 'msg_invalid_request');
+		if(!$cmt_srl) return new Object(-1, 'msg_invalid_request');
 
 		$send_message = Context::get('send_message');
 
@@ -1137,62 +1137,62 @@ class beluxeController extends beluxe
 
 		// 존재하는 글인지 체크
 		$oComIfo = $cmComment->getComment($cmt_srl, false, $colLst);
-        if(!$oComIfo->isExists()) return new Object(-1, 'msg_not_founded');
+		if(!$oComIfo->isExists()) return new Object(-1, 'msg_not_founded');
 
-        $cmb_srl = (int) $oComIfo->get('member_srl');
-        $doc_srl = (int) $oComIfo->get('document_srl');
+		$cmb_srl = (int) $oComIfo->get('member_srl');
+		$doc_srl = (int) $oComIfo->get('document_srl');
 
-        $cmDocument = &getModel('document');
-        $oDocIfo = $cmDocument->getDocument($doc_srl, false, false);
-        if(!$oDocIfo->isExists()) return new Object(-1, 'msg_not_founded');
+		$cmDocument = &getModel('document');
+		$oDocIfo = $cmDocument->getDocument($doc_srl, false, false);
+		if(!$oDocIfo->isExists()) return new Object(-1, 'msg_not_founded');
 
-        // 확장 필드 사용
-        $ex_vars = $oDocIfo->get('extra_vars');
-        $ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
-        if(!$ex_vars->beluxe) return new Object(-1, 'msg_invalid_request');
+		// 확장 필드 사용
+		$ex_vars = $oDocIfo->get('extra_vars');
+		$ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
+		if(!$ex_vars->beluxe) return new Object(-1, 'msg_invalid_request');
 
-        $beluxe = $ex_vars->beluxe;
-        $use_point = (int) $beluxe->use_point;
-        $adopt_srl = (int) $beluxe->adopt_srl ? $beluxe->adopt_srl : 0;
+		$beluxe = $ex_vars->beluxe;
+		$use_point = (int) $beluxe->use_point;
+		$adopt_srl = (int) $beluxe->adopt_srl ? $beluxe->adopt_srl : 0;
 
-        // 이미 채택된 답글이 있다면 중단
-        if($adopt_srl){
-            $oTmp = $cmComment->getComment($adopt_srl, false, $colLst);
-            if($oTmp->isExists()) return new Object(-1, 'msg_invalid_request');
-        }
+		// 이미 채택된 답글이 있다면 중단
+		if($adopt_srl){
+			$oTmp = $cmComment->getComment($adopt_srl, false, $colLst);
+			if($oTmp->isExists()) return new Object(-1, 'msg_invalid_request');
+		}
 
 		$oMi = $this->_getModuleInfo($oComIfo->get('module_srl'));
 
-        // 확장 필드 저장
-        $beluxe->adopt_srl = (int) $cmt_srl;
+		// 확장 필드 저장
+		$beluxe->adopt_srl = (int) $cmt_srl;
 
-        $ex_vars->beluxe = $beluxe;
-        $args->extra_vars = serialize($ex_vars);
-        // 채택된 답글번호 입력
-        $args->document_srl = $doc_srl;
-        $output = executeQuery('beluxe.updateExtraVars', $args);
-        if(!$output->toBool()) return $output;
+		$ex_vars->beluxe = $beluxe;
+		$args->extra_vars = serialize($ex_vars);
+		// 채택된 답글번호 입력
+		$args->document_srl = $doc_srl;
+		$output = executeQuery('beluxe.updateExtraVars', $args);
+		if(!$output->toBool()) return $output;
 
-        if($cmb_srl && $use_point > 0) {
-	        // 채택시 포인트 갱신을 위해
-	        $point = round(($use_point * (int)$oMi->use_point_percent) / 100);
-	        // 성공하면 포인트 지급
-	        $ccPoint = &getController('point');
-	        if($point > 0) $ccPoint->setPoint($cmb_srl, $point, 'add');
-	        // 나머지는 돌려줌
-	        if(($use_point-$point) > 0) $ccPoint->setPoint($cmb_srl, $use_point-$point, 'add');
-	    }
+		if($cmb_srl && $use_point > 0) {
+			// 채택시 포인트 갱신을 위해
+			$point = round(($use_point * (int)$oMi->use_point_percent) / 100);
+			// 성공하면 포인트 지급
+			$ccPoint = &getController('point');
+			if($point > 0) $ccPoint->setPoint($cmb_srl, $point, 'add');
+			// 나머지는 돌려줌
+			if(($use_point-$point) > 0) $ccPoint->setPoint($cmb_srl, $use_point-$point, 'add');
+		}
 
-	    if($cmb_srl && $send_message){
+		if($cmb_srl && $send_message){
 			$t = sprintf(Context::getLang('msg_adopt_thanks'), $cmt_srl);
 			$u = getFullUrl('', 'document_srl',$doc_srl,'comment_srl',$cmt_srl);
 			$send_message = $send_message . '<br /><br /><a href="' . $u . '">'. $u .'</a>';
 
-		    $ccCommuni = &getController('communication');
-		    $ccCommuni->sendMessage($oDocIfo->get('member_srl'), $cmb_srl, $t, $send_message);
+			$ccCommuni = &getController('communication');
+			$ccCommuni->sendMessage($oDocIfo->get('member_srl'), $cmb_srl, $t, $send_message);
 		}
 
-        return new Object(0, 'success_adopted');
+		return new Object(0, 'success_adopted');
 	}
 
 	function triggerBeforeDownloadFile(&$pObj)

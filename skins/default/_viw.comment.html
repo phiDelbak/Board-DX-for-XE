@@ -112,12 +112,20 @@
 						{$isc_blind&&!$grant->manager?$lang->msg_is_blind:$comment->getContent(false)}
 					</div>
 
-					{@ $ds_vtxt = !($ds_cvoteup||$ds_cvotedown) && ($comment->get('voted_count')!='0'||$comment->get('blamed_count')!='0')}
-					<div cond="$ds_cvoteup||$ds_cvotedown||$ds_cdeclare||$ds_vtxt" class="scVoteArea clearBar">
-						<span cond="$ds_vtxt" class="vote">{$lang->cmd_vote}: {(int)$comment->get('voted_count')} / {(int)$comment->get('blamed_count')}</span>
-						<span cond="$ds_cvoteup||$ds_cvotedown" class="scBtn small group"><a cond="$ds_cvoteup" href="#recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_like}"><em class="vote cnt">{$comment->get('voted_count')}</em></a><a cond="$ds_cvotedown" href="#not_recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_dislike}"><em class="blame cnt">{$comment->get('blamed_count')}</em></a></span>
+					{@
+						$votedp = (int)$comment->get('voted_count');
+						$blamedp = (int)$comment->get('blamed_count');
+					}
+					<!--@if($ds_cvoteup||$ds_cvotedown||$ds_cdeclare)-->
+					<div class="scVoteArea clearBar">
+						<span cond="$ds_cvoteup||$ds_cvotedown" class="scBtn small group"><a cond="$ds_cvoteup" href="#recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_like}"><em class="vote cnt">{$votedp}</em></a><a cond="$ds_cvotedown" href="#not_recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_dislike}"><em class="blame cnt">{$blamedp}</em></a></span>
 						<span cond="$ds_cdeclare" class="scBtn small group"><a href="#declare" data-type="comment" data-srl="{$cmt_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$cmb_srl}" title="{$lang->cmd_declare}"><em class="declare">*</em></a></span>
 					</div>
+					<!--@elseif($votedp || $blamedp)-->
+					<div class="scVoteArea clearBar">
+						<span class="vote">{$lang->cmd_vote}: {$votedp} / {$blamedp}</span>
+					</div>
+					<!--@endif-->
 
 					<div cond="!$isc_blind&&$comment->hasUploadedFiles()" class="scFiles c{$cmt_srl}">
 						<button type="button" class="scToggle" data-target="#siFbk .scFiles.c{$cmt_srl} ul">{$lang->uploaded_file} <strong>[{$comment->get('uploaded_count')}]</strong></button>

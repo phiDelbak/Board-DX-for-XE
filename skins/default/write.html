@@ -13,7 +13,7 @@
 	{@ $is_doc = $oDocument && $oDocument->isExists()}
 <!--@endif-->
 
-		<div <!--@if($is_modal)-->id="__PID_MODAL_HEADER__" style="display:none"<!--@else-->class="pid_modal-head" style="margin-bottom:10px"<!--@endif-->>
+		<div <!--@if($is_modal)-->id="__PID_MODAL_HEADER__" style="display:none"<!--@else-->class="pid_modal-head" style="margin-bottom:10px!important"<!--@endif-->>
 			<div>{$not_permitted?$lang->msg_input_password:($act=='dispBoardWriteComment'?($is_cmt?$lang->modify_comment:$lang->new_comment):($is_doc?$lang->modify_document:$lang->new_document))}</div>
 		</div>
 

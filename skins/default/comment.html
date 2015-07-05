@@ -14,34 +14,34 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 <div id="siBody">
 <div class="scContent clearBar">
 
-    <div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}" data-valid-id="{$XE_VALIDATOR_ID}"|cond="$XE_VALIDATOR_ID">
-        <p>{$XE_VALIDATOR_MESSAGE}</p>
-    </div>
+	<div cond="$XE_VALIDATOR_MESSAGE" id="BELUXE_MESSAGE" class="message {$XE_VALIDATOR_MESSAGE_TYPE}" data-valid-id="{$XE_VALIDATOR_ID}"|cond="$XE_VALIDATOR_ID">
+		<p>{$XE_VALIDATOR_MESSAGE}</p>
+	</div>
 
 <!--@if($is_modal)-->
 	<div id="__PID_MODAL_HEADER__" style="display:none">{$oDocument->getTitle($mi->title_length)}</div>
 	<div id="__PID_MODAL_FOOTER__" style="display:none">
-	    <span class="fl">
-	        {@
-	            $nav_list = $oThis->getNavigationList($oDocument->document_srl, 1);
-	            $nav_key = 'prev';
-	        }
-	        <block loop="$nav_list=>$key,$nav">
-	            {@ $nav->selected?$nav_key='next':0}
-	            <a cond="!$nav->selected" class="{$nav_key}" href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'is_modal','1','cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" target="pid_oi_frame" title="{htmlspecialchars($nav->getTitleText(55), ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}"><span>{$nav_key==='prev'?$lang->cmd_prev:$lang->cmd_next}</span></a>
-	        </block>
-	    </span>
-	    <span>{$oDocument->getPermanentUrl()}</span>
+		<span class="fl">
+			{@
+				$nav_list = $oThis->getNavigationList($oDocument->document_srl, 1);
+				$nav_key = 'prev';
+			}
+			<block loop="$nav_list=>$key,$nav">
+				{@ $nav->selected?$nav_key='next':0}
+				<a cond="!$nav->selected" class="{$nav_key}" href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'is_modal','1','cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" target="pid_oi_frame" title="{htmlspecialchars($nav->getTitleText(55), ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}"><span>{$nav_key==='prev'?$lang->cmd_prev:$lang->cmd_next}</span></a>
+			</block>
+		</span>
+		<span>{$oDocument->getPermanentUrl()}</span>
 	</div>
 	<div cond="$is_doc" id="siCat" class="text">
-	    <ul class="scFrm clearBar">
-	    	<li><a href="{getUrl('document_srl',$doc_srl,'act','','is_trackbacks','','clist_count','')}"><span>Document</span></a></li>
-	        <li cond="$allow_trb" class="active"|cond="$is_trackbacks"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','1','clist_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
-	        <li cond="$allow_cmt" class="active"|cond="!$is_trackbacks"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','','clist_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
-	        <li cond="$cate" class="fr">
-	            <a href="{getUrl('','mid',$mid,'category_srl',$cate->category_srl)}" target="_parent" title="{htmlspecialchars($cate->description)}" style="color:{$cate->color}"|cond="$cate->color">{$cate->title}</a>
-	        </li>
-	    </ul>
+		<ul class="scFrm clearBar">
+			<li><a href="{getUrl('document_srl',$doc_srl,'act','','is_trackbacks','','clist_count','')}"><span>Document</span></a></li>
+			<li cond="$allow_trb" class="active"|cond="$is_trackbacks"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','1','clist_count','1')}"><span>Trackbacks</span> <em>{$oDocument->getTrackbackCount()}</em></a></li>
+			<li cond="$allow_cmt" class="active"|cond="!$is_trackbacks"><a href="{getUrl('document_srl',$doc_srl,'act','dispBoardContentCommentList','is_trackbacks','','clist_count','')}"><span>Comments</span> <em>{$oDocument->getCommentcount()}</em></a></li>
+			<li cond="$cate" class="fr">
+				<a href="{getUrl('','mid',$mid,'category_srl',$cate->category_srl)}" target="_parent" title="{htmlspecialchars($cate->description)}" style="color:{$cate->color}"|cond="$cate->color">{$cate->title}</a>
+			</li>
+		</ul>
 	</div>
 <!--@endif-->
 
@@ -54,22 +54,22 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 	<!--@endif-->
 	</div>
 	<div class="btnArea" style="margin-bottom:0"|cond="$is_modal">
-        <span class="scBtn black fl" cond="$grant->write_document&&$btm_lstcnt&&($sedt_wbtn||!$is_sedt)">
-            <a href="{getUrl('act','dispBoardWrite','document_srl','')}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->new_document}" accesskey="w">{$lang->document_write}</a>
-        </span>
-	    <block cond="!$is_modal">
-	        <span class="scBtn fl" cond="$category_srl"><a href="{getUrl('','mid',$mid)}">{$lang->cmd_all_list}</a></span>
-	        <span class="scBtn"><a href="{getUrl('act', '','document_srl','','category_srl',$category_srl,'page',$page,'npage','','cpage','')}" accesskey="l">{$lang->cmd_list}</a></span>
-	    </block>
-    	<span cond="$is_modal" class="scBtn"><a href="{getUrl('act','','is_modal','')}" data-modal-hide>{$lang->cmd_close}</a></span>
-	    <block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
-	        <span class="scBtn black">
-	            <a href="{getUrl('act','dispBoardWrite','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_document}">{$lang->cmd_modify}</a>
-	        </span>
-	        <span class="scBtn black">
-	            <a href="{getUrl('act','dispBoardDelete','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->delete_document}">{$lang->cmd_delete}</a>
-	        </span>
-	    </block>
+		<span class="scBtn black fl" cond="$grant->write_document&&$btm_lstcnt&&($sedt_wbtn||!$is_sedt)">
+			<a href="{getUrl('act','dispBoardWrite','document_srl','')}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->new_document}" accesskey="w">{$lang->document_write}</a>
+		</span>
+		<block cond="!$is_modal">
+			<span class="scBtn fl" cond="$category_srl"><a href="{getUrl('','mid',$mid)}">{$lang->cmd_all_list}</a></span>
+			<span class="scBtn"><a href="{getUrl('act', '','document_srl','','category_srl',$category_srl,'page',$page,'npage','','cpage','')}" accesskey="l">{$lang->cmd_list}</a></span>
+		</block>
+		<span cond="$is_modal" class="scBtn"><a href="{getUrl('act','','is_modal','')}" data-modal-hide>{$lang->cmd_close}</a></span>
+		<block cond="!$is_locked && $oDocument->isEditable() && !($pt_vtype=='A'&&!$grant->manager&&$oDocument->get('comment_count')>0)">
+			<span class="scBtn black">
+				<a href="{getUrl('act','dispBoardWrite','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_document}">{$lang->cmd_modify}</a>
+			</span>
+			<span class="scBtn black">
+				<a href="{getUrl('act','dispBoardDelete','document_srl',$document_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->delete_document}">{$lang->cmd_delete}</a>
+			</span>
+		</block>
 	</div>
 </div>
 </div>

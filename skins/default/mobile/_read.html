@@ -6,6 +6,7 @@
 	$dmb_srl = $oDocument->get('member_srl');
 	$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
 	$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+	$use_point = $un_extra?(int)$un_extra->beluxe->use_point:0;
 
 	$is_granted = $grant->view && $oDocument->isGranted();
 	$is_secret = $oDocument->isSecret();
@@ -24,7 +25,7 @@
 	$tags = (!$is_secret || $is_granted) ? $oDocument->get('tag_list') : array();
 	$ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDocument->getUploadedFiles() : array();
 	$is_restrict = !$is_granted&&!$is_secret&&($pt_vtype=='Y'&&!$oThis->isWrote($doc_srl, true, 'cmt')||$pt_vtype=='P'&&!$oThis->isRead($doc_srl));
-	$is_restrict = $is_restrict && (int)$un_extra->beluxe->use_point;
+	$is_restrict = $is_restrict && $use_point;
 }
 
 <div class="co cb">
@@ -64,7 +65,7 @@
 			{$oDocument->getSummary(100)}
 			<div cond="$pt_vtype == 'P'" class="bna">
 				<a class="bn dark" href="#" onclick="doCallModuleAction('beluxe','procBeluxePayPoint','{$doc_srl}');return false">
-				{sprintf(Context::getLang('msg_point_is_used'), (int)$un_extra->beluxe->use_point)}
+				{sprintf(Context::getLang('msg_point_is_used'), $use_point)}
 				</a>
 			</div>
 		</div>
@@ -73,12 +74,24 @@
 		<!--@endif-->
 	</div>
 
+	<div cond="$pt_vtype=='A'&&$dmb_srl" class="co">
+		{@
+			$_tmp = $oThis->getDocumentCountByAdopt(true, $dmb_srl);
+			$_tmp2 = $oThis->getDocumentCountByAdopt(false, $dmb_srl);
+		}
+		<div class="tx" style="height:auto">
+		{sprintf($lang->about_author_adopt_info, $nick, (!$_tmp&&$_tmp2===1)?'100%':(round($_tmp/($_tmp+$_tmp2),2)*100).'%', round(($use_point * (int)$mi->use_point_percent) / 100))}
+		</div>
+	</div>
+
 	{@
+		$votedp = (int)$oDocument->get('voted_count');
+		$blamedp = (int)$oDocument->get('blamed_count');
 		$ds_voteup = strpos($mi->use_d_vote, 'up')!==false;
 		$ds_votedown = strpos($mi->use_d_vote, 'down')!==false;
-		$ds_vtxt = !$is_logged && ($ds_voteup||$ds_votedown) && ($oDocument->get('voted_count')!='0'||$oDocument->get('blamed_count')!='0');
+		$ds_vtxt = !$is_logged && ($ds_voteup||$ds_votedown) && ($votedp||$blamedp);
 	}
-	<div cond="$ds_vtxt" class="lic">{$lang->voted_count}: {(int)$oDocument->get('voted_count')} / {(int)$oDocument->get('blamed_count')}&nbsp;</div>
+	<div cond="$ds_vtxt" class="lic">{$lang->voted_count}: {$votedp} / {$blamedp}&nbsp;</div>
 	<block cond="$is_logged">
 		{@
 			$ds_declare = strpos($mi->use_d_vote, 'declare')!==false;
@@ -87,8 +100,8 @@
 		<div cond="$ds_voteup||$ds_votedown||$ds_declare||$ds_scrap" class="bna scVote">
 			<a cond="$ds_scrap" class="bn white" href="#scrap" onclick="doCallModuleAction('member','procMemberScrapDocument','{$doc_srl}');return false;"><em class="scrap">{$lang->cmd_scrap}</em></a>
 			<block cond="$mi->view_comment_style!='webzine'">
-			<a cond="$ds_voteup" class="bn white" style="color:#228200" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_like}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a>
-			<a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_dislike}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a>
+			<a cond="$ds_voteup" class="bn white" style="color:#228200" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_like}</em><em class="cnt">{$votedp}</em></a>
+			<a cond="$ds_votedown" class="bn white" style="color:#0000AA" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_dislike}</em><em class="cnt">{$blamedp}</em></a>
 			</block>
 			<a cond="$ds_declare" href="#declare" class="bn white" style="color:#AA3300" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$dmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a>
 		</div>
@@ -137,7 +150,7 @@
 				</span>
 				<span class="scElps">
 					<!--@if($pt_vtype!='N'||$pt_dtype!='N')-->
-					<em class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{$val->get('is_notice')=='Y'?'Notice':abs((int)$nv_un_ex->beluxe->use_point)}</em>
+					<em class="usept {$nv_un_ex->beluxe->adopt_srl?'blue':''}" title="Point">{$val->get('is_notice')=='Y'?'Notice':abs($use_point)}</em>
 					<!--@else-->
 					<em>&rsaquo;&nbsp;</em>
 					<!--@endif-->
@@ -170,13 +183,13 @@
 		{@ $ft_cnt += count($ds_file[$_tmp2])}
 	</block>
 	<block cond="$ft_cnt">
-		<button type="button" class="tbn cb" title="open/close">{$lang->uploaded_file} <span>[{$ft_cnt}]</span><span cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, (int)$un_extra->beluxe->use_point)} (Once)</span></button>
+		<button type="button" class="tbn cb" title="open/close">{$lang->uploaded_file} <span>[{$ft_cnt}]</span><span cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, $use_point)} (Once)</span></button>
 		<ul data-autohide="true"|cond="$us_ahfile" class="file tgo">
 			<block loop="array('general','media','image')=>$_tmp2" cond="strpos($mi->display_files, $_tmp2)!==false&&count($ds_file[$_tmp2])">
 				<li loop="$ds_file[$_tmp2]=>$file" class="{$_tmp2}{$file->isvalid=='Y'?'':' notvalid'}">
 					{@
 						$t_down_cm = $pt_dtype != 'N' && (!$lg || $lg->member_srl != $file->member_srl);
-						$t_down_pt = $t_down_cm && $pt_dtype == 'P' && !$oThis->isDownloaded($file->file_srl) ? (int)$un_extra->beluxe->use_point : 0;
+						$t_down_pt = $t_down_cm && $pt_dtype == 'P' && !$oThis->isDownloaded($file->file_srl) ? $use_point : 0;
 						$t_down_cm = !$t_down_pt && $t_down_cm && !$oThis->isWrote($doc_srl, true, 'cmt');
 					}
 					<a cond="!$file->file_size" href="{$file->isvalid=='Y'?$file->uploaded_filename:'#'}" target="_blank"|cond="$file->isvalid=='Y'">{$file->source_filename}<span class="size">(link)</span></a>

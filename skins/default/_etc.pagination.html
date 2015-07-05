@@ -7,11 +7,11 @@
 }
 
 <div class="scPageArea">
-    <!--@if($mi->use_first_page==='Y' && $first_page)-->
-    <div class="scPage">
+	<!--@if($mi->use_first_page==='Y' && $first_page)-->
+	<div class="scPage">
 		<a href="{getUrl('page','1')}" class="direction next" style="padding-left:0">{$lang->first_page} <span></span><span></span></a>
 	</div>
-    <!--@else-->
+	<!--@else-->
 	<div cond="$page_navigation&&$page_navigation->total_page" class="scPage">
 		<a href="{getUrl('comment_srl','',$t_pagei,'1','division',$division,'last_division',$last_division)}{$is_doc?'#navigation':''}" class="direction prev"><span></span><span></span> {$lang->first_page}</a>
 		<block loop="$page_no=$page_navigation->getNextPage()">
@@ -20,9 +20,9 @@
 		</block>
 		<a href="{getUrl('comment_srl','',$t_pagei,$page_navigation->last_page,'division',$division,'last_division',$last_division)}{$is_doc?'#navigation':''}" class="direction next">{$lang->last_page} <span></span><span></span></a>
 	</div>
-    <!--@endif-->
+	<!--@endif-->
 
-    <!--@if($is_doc || $pt_vtype!='A')-->
+	<!--@if($is_doc || $pt_vtype!='A')-->
 	<div class="scAdmActs">
 		{@ $copyright_text = $mi->copyright_text ? explode(',', $mi->copyright_text):''}
 		<a <!--@if($copyright_text)-->href="{$copyright_text[1]}" target="_blank"<!--@else-->href="#beluxe"<!--@endif-->>{$copyright_text[0]}</a>
@@ -34,16 +34,16 @@
 			</span>
 		</block>
 	</div>
-    <!--@else-->
-    <div id="siCat" class="scAdmActs text">
-        <ul>
-            <li class="active"|cond="$search_target == 'is_adopted'&&$search_keyword=='true'"><a href="{getUrl('','mid', $mid, 'search_target', 'is_adopted','search_keyword', 'true')}"><span>{$lang->adopt}</span></a></li>
-            <li class="active"|cond="$search_target == 'is_adopted'&&$search_keyword=='false'"><a href="{getUrl('','mid', $mid, 'search_target', 'is_adopted','search_keyword', 'false')}"><span>{$lang->not_adopt}</span></a></li>
-            <block cond="$logged_info">
-                {@ $_tmp = $logged_info->member_srl}
-                <li class="active"|cond="$search_target == 'member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 'member_srl','search_keyword', $_tmp)}"><span>{$lang->search_my_document}</span></a></li>
-                <li class="active"|cond="$search_target == 't_comment_member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 't_comment_member_srl','search_keyword', $_tmp)}"><span>{$lang->search_my_comment}</span></a></li>
-            </block>
+	<!--@else-->
+	<div id="siCat" class="scAdmActs text">
+		<ul>
+			<li class="active"|cond="$search_target == 'is_adopted'&&$search_keyword=='true'"><a href="{getUrl('','mid', $mid, 'search_target', 'is_adopted','search_keyword', 'true')}"><span>{$lang->adopt}</span></a></li>
+			<li class="active"|cond="$search_target == 'is_adopted'&&$search_keyword=='false'"><a href="{getUrl('','mid', $mid, 'search_target', 'is_adopted','search_keyword', 'false')}"><span>{$lang->not_adopt}</span></a></li>
+			<block cond="$logged_info">
+				{@ $_tmp = $logged_info->member_srl}
+				<li class="active"|cond="$search_target == 'member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 'member_srl','search_keyword', $_tmp)}"><span>{$lang->search_my_document}</span></a></li>
+				<li class="active"|cond="$search_target == 't_comment_member_srl'"><a href="{getUrl('','mid', $mid, 'search_target', 't_comment_member_srl','search_keyword', $_tmp)}"><span>{$lang->search_my_comment}</span></a></li>
+			</block>
 			<li cond="$grant->manager">
 				<a href="#siManageBtn">{$lang->cmd_management}</a>
 				<span style="display:none">
@@ -51,7 +51,7 @@
 				<block cond="count($cstus)">[<select style="border:0;padding:0;margin:0"><option value="">{$lang->status}</option><option loop="$cstus => $key,$value" value="{$key}">{$value}</option></select>]</block>
 				</span>
 			</li>
-        </ul>
-    </div>
-    <!--@endif-->
+		</ul>
+	</div>
+	<!--@endif-->
 </div>

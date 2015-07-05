@@ -159,6 +159,11 @@
 		<value xml:lang="jp"><![CDATA[사용된 포인트는 채택시에 %s를 돌려 받을 수 있습니다. 꼭! 채택해 주세요.]]></value>
 		<value xml:lang="en"><![CDATA[사용된 포인트는 채택시에 %s를 돌려 받을 수 있습니다. 꼭! 채택해 주세요.]]></value>
 	</item>
+	<item name="about_author_adopt_info">
+		<value xml:lang="ko"><![CDATA[이 문서의 작성자인 <strong>%s</strong>님의 답변 채택률은 <strong>%s</strong>입니다.<br />채택된 답변의 작성자는 보증금을 제외한 <strong>%s</strong>포인트를 받을 수 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[이 문서의 작성자인 <strong>%s</strong>님의 답변 채택률은 <strong>%s</strong>입니다.<br />채택된 답변의 작성자는 보증금을 제외한 <strong>%s</strong>포인트를 받을 수 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[이 문서의 작성자인 <strong>%s</strong>님의 답변 채택률은 <strong>%s</strong>입니다.<br />채택된 답변의 작성자는 보증금을 제외한 <strong>%s</strong>포인트를 받을 수 있습니다.]]></value>
+	</item>
 	<item name="extra_toggle">
 		<value xml:lang="ko"><![CDATA[추가 입력항목 보기]]></value>
 		<value xml:lang="jp"><![CDATA[追加入力項目表示]]></value>

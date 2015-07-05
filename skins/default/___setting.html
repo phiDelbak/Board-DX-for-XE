@@ -59,15 +59,13 @@
 }
 <!--// CSS,JS 파일 import -->
 <!--@if(__DEBUG__)-->
-	<block cond="$us_modal||$us_vmodal">
-		<load target="../../tpl/css/modal.win.css" />
-		<load target="../../tpl/js/modal.win.js" type="body" />
-	</block>
+	<load cond="$us_modal||$us_vmodal" target="../../tpl/js/modal.win.js" type="body" />
 	<block cond="$us_slide">
 		{Context::loadJavascriptPlugin('ui')}
 		<load target="../../tpl/js/gallery.slide.js" type="body" />
 	</block>
 	<load target="css/board.css" />
+	<load target="../../tpl/css/modal.win.css" />
 	<load target="js/board.js" type="body" />
 <!--@else-->
 	<load cond="$us_modal||$us_vmodal" target="../../tpl/js/modal.min.js" type="body" />

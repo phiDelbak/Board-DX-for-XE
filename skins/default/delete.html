@@ -5,7 +5,7 @@
 	<div class="scContent clearBar">
 {@ $not_permitted = $XE_VALIDATOR_ERROR == '-1380'}
 
-		<div <!--@if($is_modal)-->id="__PID_MODAL_HEADER__" style="display:none"<!--@else-->class="pid_modal-head" style="margin-bottom:10px"<!--@endif-->>
+		<div <!--@if($is_modal)-->id="__PID_MODAL_HEADER__" style="display:none"<!--@else-->class="pid_modal-head" style="margin-bottom:10px!important"<!--@endif-->>
 			<div>{$not_permitted?$lang->msg_input_password:($act=='dispBoardDeleteComment'?$lang->delete_comment:$lang->delete_document)}</div>
 		</div>
 

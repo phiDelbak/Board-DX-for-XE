@@ -18,11 +18,11 @@ class BeluxeItem extends Object
 	}
 
 	// ruleset 사용시 callback 과 extra_keys 메세지 지원 안해주니...
-    function addExtraKeyJsFilter()
-    {
-        $ccDocument = getController('document');
-        $ccDocument->addXmlJsFilter($this->module_srl);
-    }
+	function addExtraKeyJsFilter()
+	{
+		$ccDocument = getController('document');
+		$ccDocument->addXmlJsFilter($this->module_srl);
+	}
 
 	function setCustomActions()
 	{
@@ -59,12 +59,12 @@ class BeluxeItem extends Object
 
 	function getDefinedLang($a_lang)
 	{
-        if(is_string($a_lang) && strpos($a_lang, '$user_lang->') !== false) {
-            $ccModule = &getController('module');
-            $ccModule->replaceDefinedLangCode($a_lang);
-        }
-        return $a_lang;
-    }
+		if(is_string($a_lang) && strpos($a_lang, '$user_lang->') !== false) {
+			$ccModule = &getController('module');
+			$ccModule->replaceDefinedLangCode($a_lang);
+		}
+		return $a_lang;
+	}
 
 	function getBrowserInfo()
 	{
@@ -177,11 +177,11 @@ class BeluxeItem extends Object
 		return $cmThis->getDocumentVotedLogs($a_docsrl, $a_point, 0, $a_sort);
 	}
 
-    function getDocumentVotedLogCount($a_docsrl, $a_point = 0)
-    {
+	function getDocumentVotedLogCount($a_docsrl, $a_point = 0)
+	{
 		$cmThis = &getModel(__XEFM_NAME__);
 		return $cmThis->getDocumentVotedLogCount($a_docsrl, $a_point);
-    }
+	}
 
 	function getDocumentDeclaredCount($a_docsrl)
 	{
@@ -218,6 +218,12 @@ class BeluxeItem extends Object
 		$cmThis = &getModel(__XEFM_NAME__);
 		$out = $cmThis->getCommentByMemberSrl($a_docsrl, $a_mbrsrl);
 		return ($out&&$out->data)?$out->data:array();
+	}
+
+	function getDocumentCountByAdopt($a_ised = true, $a_mbrsrl = 0)
+	{
+		$cmThis = &getModel(__XEFM_NAME__);
+		return $cmThis->getDocumentCountByAdopt($this->module_srl, $a_ised, $a_mbrsrl);
 	}
 
 	function isBlind($a_consrl, $a_type = 'doc')
