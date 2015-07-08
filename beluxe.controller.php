@@ -1070,7 +1070,7 @@ class beluxeController extends beluxe
 			else
 			{
 				// 0인 포인트도 읽기위해 세션에 저장
-				$_SESSION['BELUXE_IS_READ']['doc_'.$doc_srl] = TRUE;
+				$GLOBALS['BELUXE_IS_READ']['doc_'.$doc_srl.'_'.$mbr_srl] = TRUE;
 			}
 		}
 	}
@@ -1260,7 +1260,7 @@ class beluxeController extends beluxe
 			else
 			{
 				// 0인 포인트도 읽기위해 세션에 저장
-				$_SESSION['BELUXE_IS_DOWNLOADED']['doc_'.$pObj->file_srl] = TRUE;
+				$GLOBALS['BELUXE_IS_DOWNLOADED']['doc_'.$pObj->file_srl.'_'.$mbr_srl] = TRUE;
 			}
 		}
 	}

@@ -470,25 +470,6 @@ class beluxeModel extends beluxe
 		return $re;
 	}
 
-	function getDocumentVotedLogCount($a_docsrl, $a_point = 0)
-	{
-		if (!$a_docsrl) return 0;
-
-		if((int)$a_point > 0) $args->more_point = $a_point;
-		if((int)$a_point < 0) $args->less_point = $a_point;
-
-		$args->document_srl = $a_docsrl;
-		$out = executeQuery('beluxe.getDocumentVotedLogCount', $args);
-		return $out->toBool() ? (int)$out->data->count : 0;
-	}
-
-	function getDocumentDeclaredCount($a_docsrl)
-	{
-		$args->document_srl = $a_docsrl;
-		$out = executeQuery('document.getDeclaredDocument', $args);
-		return $out->toBool() && $out->data ? (int)$out->data->declared_count : 0;
-	}
-
 	// 댓글은 목록 수 임의 조절이 안되고, GLOBALS 변수에 저장하기 위해, 직접 가져오기로 함
 	function getCommentList($a_docsrl, $a_page, $is_admin, $a_lstcnt)
 	{
@@ -521,39 +502,10 @@ class beluxeModel extends beluxe
 		return $out;
 	}
 
-	function getCommentCount($a_docsrl, $a_parsrl = null, $a_mbrsrl = null)
-	{
-		$args->document_srl = $a_docsrl;
-		if(is_numeric($a_parsrl)) $args->parent_srl = $a_parsrl;
-		if(is_numeric($a_mbrsrl)) $args->member_srl = $a_mbrsrl;
-		$out = executeQuery('beluxe.getCommentCount', $args);
-		return $out->toBool() ? (int) $out->data->count : 0;
-	}
-
-	function getDocumentCountByAdopt($a_modsrl, $a_ised = true, $a_mbrsrl = 0)
-	{
-		$args = new stdClass();
-		$args->module_srl = $a_modsrl;
-
-		// regexp 를 지원 안하는거 같다. 어쩔... 다른 방법으로 변경...
-		$args->extra_vars = 'stdClass%\"beluxe\"';
-
-		if($a_ised) {
-			$args->like_vars = '\"adopt_srl\"\;';
-			if(is_numeric($a_ised)) $args->adopt_member = '\"adopt_member\"\;i:'.$a_ised.';';
-		} else {
-			$args->notlike_vars = '\"adopt_srl\"\;';
-		}
-
-		if($a_mbrsrl) $args->member_srl = $a_mbrsrl;
-
-		$out = executeQuery('beluxe.getDocumentCountByAdopt', $args);
-		return $out->toBool() ? (int) $out->data->count : 0;
-	}
-
 	function getDocumentSrlsByAdopt($a_obj, $a_list_order = false)
 	{
-		$haystack = array('true','false');
+		// todo old version only... // search_keyword ('true','false')
+		$haystack = array('true','false','Y','N');
 		if(!in_array($a_obj->search_keyword, $haystack)) return array();
 
 		$args = new stdClass();
@@ -562,7 +514,7 @@ class beluxeModel extends beluxe
 		// regexp 를 지원 안하는거 같다. 어쩔... 다른 방법으로 변경...
 		$args->extra_vars = 'stdClass%\"beluxe\"';
 
-		if($a_obj->search_keyword == 'true')
+		if($a_obj->search_keyword == 'true' || $a_obj->search_keyword == 'Y')
 			$args->like_vars = '\"adopt_srl\"\;';
 		else
 			$args->notlike_vars = '\"adopt_srl\"\;';
@@ -627,6 +579,80 @@ class beluxeModel extends beluxe
 		}
 
 		return $out;
+	}
+
+	function getDocumentVotedLogCount($a_docsrl, $a_point = 0)
+	{
+		if (!$a_docsrl) return 0;
+
+		$t = 'BELUXE_DOCUMENT_VOTED_LOG_COUNT';
+		$x = $a_docsrl.'_'.$a_point;
+		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
+
+		if((int)$a_point > 0) $args->more_point = $a_point;
+		if((int)$a_point < 0) $args->less_point = $a_point;
+
+		$args->document_srl = $a_docsrl;
+		$out = executeQuery('beluxe.getDocumentVotedLogCount', $args);
+
+		$GLOBALS[$t][$x] = $out->toBool() ? (int)$out->data->count : 0;
+		return $GLOBALS[$t][$x];
+	}
+
+	function getDocumentDeclaredCount($a_docsrl)
+	{
+		if (!$a_docsrl) return 0;
+
+		$t = 'BELUXE_DOCUMENT_DECLARED_COUNT';
+		$x = $a_docsrl;
+		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
+
+		$args->document_srl = $a_docsrl;
+		$out = executeQuery('document.getDeclaredDocument', $args);
+
+		$GLOBALS[$t][$x] = $out->toBool() && $out->data ? (int)$out->data->declared_count : 0;
+		return $GLOBALS[$t][$x];
+	}
+
+	function getDocumentCountByAdopt($a_modsrl, $a_ised = true, $a_mbrsrl = 0)
+	{
+		$t = 'BELUXE_DOCUMENT_COUNT_BY_ADOPT';
+		$x = $a_modsrl.'_'.$a_ised.'_'.$a_mbrsrl;
+		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
+
+		$args->module_srl = $a_modsrl;
+
+		// regexp 를 지원 안하는거 같다. 어쩔... 다른 방법으로 변경...
+		$args->extra_vars = 'stdClass%\"beluxe\"';
+
+		if($a_ised) {
+			$args->like_vars = '\"adopt_srl\"\;';
+			if(is_numeric($a_ised)) $args->adopt_member = '\"adopt_member\"\;i:'.$a_ised.';';
+		} else {
+			$args->notlike_vars = '\"adopt_srl\"\;';
+		}
+
+		if($a_mbrsrl) $args->member_srl = $a_mbrsrl;
+
+		$out = executeQuery('beluxe.getDocumentCountByAdopt', $args);
+
+		$GLOBALS[$t][$x] = $out->toBool() ? (int) $out->data->count : 0;
+		return $GLOBALS[$t][$x];
+	}
+
+	function getCommentCount($a_docsrl, $a_parsrl = null, $a_mbrsrl = null)
+	{
+		$t = 'BELUXE_COMMENT_COUNT';
+		$x = $a_docsrl.'_'.$a_parsrl.'_'.$a_mbrsrl;
+		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
+
+		$args->document_srl = $a_docsrl;
+		if(is_numeric($a_parsrl)) $args->parent_srl = $a_parsrl;
+		if(is_numeric($a_mbrsrl)) $args->member_srl = $a_mbrsrl;
+		$out = executeQuery('beluxe.getCommentCount', $args);
+
+		$GLOBALS[$t][$x] = $out->toBool() ? (int) $out->data->count : 0;
+		return $GLOBALS[$t][$x];
 	}
 
 	function setVotePoint($a_docsrl, $a_mbrsrl, $a_point, $a_upmode = FALSE, $a_ismbr = TRUE) {
@@ -706,9 +732,9 @@ class beluxeModel extends beluxe
 
 	function isBlind($a_consrl, $a_type = 'doc') {
 		if (!$a_consrl) return true;
+
 		$t = 'BELUXE_IS_BLIND';
 		$x = $a_type.'_'.$a_consrl;
-
 		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
 		$oMi = $this->_getModuleInfo();
@@ -744,9 +770,9 @@ class beluxeModel extends beluxe
 
 	function isLocked($a_consrl, $a_type = 'doc') {
 		if (!$a_consrl) return true;
+
 		$t = 'BELUXE_IS_LOCKED';
 		$x = $a_type.'_'.$a_consrl;
-
 		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
 		$oMi = $this->_getModuleInfo();
@@ -791,9 +817,9 @@ class beluxeModel extends beluxe
 
 	function isWrote($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
 		if (!$a_consrl || ($a_ismbr && !$a_mbrsrl)) return;
-		$t = 'BELUXE_IS_WROTE';
-		$x = $a_type.'_'.$a_consrl;
 
+		$t = 'BELUXE_IS_WROTE';
+		$x = $a_type.'_'.$a_consrl.'_'.$a_mbrsrl;
 		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
 		$a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -806,9 +832,9 @@ class beluxeModel extends beluxe
 
 	function isRead($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
 		if (!$a_consrl || ($a_ismbr && !$a_mbrsrl)) return;
-		$t = 'BELUXE_IS_READ';
-		$x = $a_type.'_'.$a_consrl;
 
+		$t = 'BELUXE_IS_READ';
+		$x = $a_type.'_'.$a_consrl.'_'.$a_mbrsrl;
 		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
 		$a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -821,9 +847,9 @@ class beluxeModel extends beluxe
 
 	function isVoted($a_consrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
 		if (!$a_consrl || ($a_ismbr && !$a_mbrsrl)) return;
-		$t = 'BELUXE_IS_VOTED';
-		$x = $a_type.'_'.$a_consrl;
 
+		$t = 'BELUXE_IS_VOTED';
+		$x = $a_type.'_'.$a_consrl.'_'.$a_mbrsrl;
 		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
 		$a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -836,9 +862,9 @@ class beluxeModel extends beluxe
 
 	function isScrap($a_consrl, $a_mbrsrl) {
 		if (!$a_consrl || !$a_mbrsrl) return;
-		$t = 'BELUXE_IS_SCRAP';
-		$x = 'doc_'.$a_consrl;
 
+		$t = 'BELUXE_IS_SCRAP';
+		$x = 'doc_'.$a_consrl.'_'.$a_mbrsrl;
 		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
 		$args->document_srl = $a_consrl;
@@ -852,9 +878,9 @@ class beluxeModel extends beluxe
 
 	function isDownloaded($a_filesrl, $a_mbrsrl, $a_ismbr = TRUE, $a_type = 'doc') {
 		if (!$a_filesrl || ($a_ismbr && !$a_mbrsrl)) return;
-		$t = 'BELUXE_IS_DOWNLOADED';
-		$x = $a_type.'_'.$a_filesrl;
 
+		$t = 'BELUXE_IS_DOWNLOADED';
+		$x = $a_type.'_'.$a_filesrl.'_'.$a_mbrsrl;
 		if (isset($GLOBALS[$t][$x])) return $GLOBALS[$t][$x];
 
 		$a_mbrsrl ? $args->member_srl = $a_mbrsrl : $args->ipaddress = $_SERVER['REMOTE_ADDR'];

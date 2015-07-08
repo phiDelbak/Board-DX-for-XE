@@ -78,8 +78,7 @@
 </thead>
 {@
 	$ds_summary = $mi->summary_length != '-1';
-	$md_optstr = !$us_hottrack&&$us_vmodal?'type="example/modal" data-footer="__PID_MODAL_FOOTER__" data-header="__PID_MODAL_HEADER__"':'';
-	$hot_optstr = $us_hottrack?'data-hottrack="%s" data-type="%s"'.($us_vmodal?'data-modal-key="%s" ':''):'';
+	$md_optstr = $us_vmodal?'type="example/modal" data-footer="__PID_MODAL_FOOTER__" data-header="__PID_MODAL_HEADER__"':'type="text/html"';
 }
 <tbody loop="$a_lsttp2 => $tlk,$p_list" cond="count($p_list)" class="{$tlk}">
 	<block loop="$p_list => $no,$document">
@@ -91,7 +90,7 @@
 		$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$document->get('extra_vars'):null;
 		$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 	}
-	<tr {sprintf($hot_optstr,$purl,!$tlk&&$ds_content?'lstc':'',$document->document_srl)}>
+	<tr {$us_hottrack?'data-hottrack="'.(!$tlk&&$ds_content?'lstc':'list').'"':''}>
 		<td loop="$sclms => $key,$val" cond="$key" scope="col" class="{$key}" rowspan="2"|cond="!$tlk&&$ds_content&&$key==$f_key" style="color:{$val->color}"|cond="$val->color">
 			<!--@switch($key)-->
 				<!--@case('no')-->

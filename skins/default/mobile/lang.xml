@@ -64,21 +64,6 @@
 		<value xml:lang="jp"><![CDATA[내 답변]]></value>
 		<value xml:lang="en"><![CDATA[내 답변]]></value>
 	</item>
-	<item name="is_adopted">
-		<value xml:lang="ko"><![CDATA[채택여부]]></value>
-		<value xml:lang="jp"><![CDATA[채택여부]]></value>
-		<value xml:lang="en"><![CDATA[채택여부]]></value>
-	</item>
-	<item name="t_comment_member_srl">
-		<value xml:lang="ko"><![CDATA[회원번호]]></value>
-		<value xml:lang="jp"><![CDATA[회원번호]]></value>
-		<value xml:lang="en"><![CDATA[회원번호]]></value>
-	</item>
-	<item name="member_srl">
-		<value xml:lang="ko"><![CDATA[회원번호]]></value>
-		<value xml:lang="jp"><![CDATA[회원번호]]></value>
-		<value xml:lang="en"><![CDATA[회원번호]]></value>
-	</item>
 	<item name="bonus_pang_pang">
 		<value xml:lang="ko"><![CDATA[보너스 : %s포인트]]></value>
 		<value xml:lang="jp"><![CDATA[ボーナス : % sポイント]]></value>
@@ -100,9 +85,9 @@
 		<value xml:lang="en"><![CDATA[사용된 포인트는 채택시에 %s를 돌려 받을 수 있습니다. 꼭! 채택해 주세요.]]></value>
 	</item>
 	<item name="about_author_adopt_info">
-		<value xml:lang="ko"><![CDATA[<strong>%s</strong>님의 채택률은 <strong>%s</strong>입니다.<br />채택된 답변은 <strong>%s</strong>포인트를 받습니다.]]></value>
-		<value xml:lang="jp"><![CDATA[<strong>%s</strong>님의 채택률은 <strong>%s</strong>입니다.<br />채택된 답변은 <strong>%s</strong>포인트를 받습니다.]]></value>
-		<value xml:lang="en"><![CDATA[<strong>%s</strong>님의 채택률은 <strong>%s</strong>입니다.<br />채택된 답변은 <strong>%s</strong>포인트를 받습니다.]]></value>
+		<value xml:lang="ko"><![CDATA[<strong>%s</strong>님의 채택율은 <strong>%s</strong>입니다.<br />채택된 답변은 <strong>%s</strong>포인트를 받습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[<strong>%s</strong>님의 채택율은 <strong>%s</strong>입니다.<br />채택된 답변은 <strong>%s</strong>포인트를 받습니다.]]></value>
+		<value xml:lang="en"><![CDATA[<strong>%s</strong>님의 채택율은 <strong>%s</strong>입니다.<br />채택된 답변은 <strong>%s</strong>포인트를 받습니다.]]></value>
 	</item>
 	<item name="nav_caption">
 		<value xml:lang="ko"><![CDATA[%s의 다른 글]]></value>

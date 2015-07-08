@@ -79,10 +79,10 @@
 	<div cond="$pt_vtype=='A'&&$dmb_srl" class="co">
 		{@
 			$_tmp = $oThis->getDocumentCountByAdopt(true, $dmb_srl);
-			$_tmp2 = $oThis->getDocumentCountByAdopt(false, $dmb_srl);
+			$_tmp2 = $oThis->getDocumentCountByAdopt(false, $dmb_srl)-1;
 		}
 		<div class="tx" style="height:auto">
-		{sprintf($lang->about_author_adopt_info, $nick, (!$_tmp&&$_tmp2===1)?'100%':(round($_tmp/($_tmp+$_tmp2),2)*100).'%', round(($use_point * (int)$mi->use_point_percent) / 100))}
+		{sprintf($lang->about_author_adopt_info, $nick, ($_tmp2<1)?'100%':(round($_tmp/($_tmp+$_tmp2),2)*100).'%', round(($use_point * (int)$mi->use_point_percent) / 100))}
 		</div>
 	</div>
 
@@ -147,7 +147,7 @@
 				$nv_un_ex = is_string($nv_un_ex)?unserialize($nv_un_ex):$nv_un_ex;
 				$val->selected?$nav_key='Next':0;
 			}
-			<a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'category_srl',$category_srl,'cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword,'page',$spage)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
+			<a href="{getUrl('','mid',$mid,'document_srl',$val->document_srl,'category_srl',$category_srl,'cate_trace','N','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_keyword?$search_target:'','search_keyword',$search_keyword,'page',$spage)}" accesskey="b"|cond="$t_pagep===$key" accesskey="n"|cond="$t_pagen===$key">
 				<span class="no">
 					{$val->selected?'<strong class="sCkChr">&radic;</strong>':$nav_key}
 				</span>

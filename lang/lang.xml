@@ -9,35 +9,10 @@
 		<value xml:lang="jp"><![CDATA[掲示板 DX]]></value>
 		<value xml:lang="en"><![CDATA[Board DX]]></value>
 	</item>
-	<item name="cmd_repeat_write">
-		<value xml:lang="ko"><![CDATA[연속 쓰기]]></value>
-		<value xml:lang="jp"><![CDATA[連続書き込み]]></value>
-		<value xml:lang="en"><![CDATA[Repeat write]]></value>
-	</item>
-	<item name="cmd_download">
-		<value xml:lang="ko"><![CDATA[다운로드]]></value>
-		<value xml:lang="jp"><![CDATA[ダウンロード]]></value>
-		<value xml:lang="en"><![CDATA[Download]]></value>
-	</item>
-	<item name="cmd_lock">
-		<value xml:lang="ko"><![CDATA[잠금]]></value>
-		<value xml:lang="jp"><![CDATA[閉じる]]></value>
-		<value xml:lang="en"><![CDATA[Lock]]></value>
-	</item>
-	<item name="cmd_page_edit">
-		<value xml:lang="ko"><![CDATA[페이지 수정]]></value>
-		<value xml:lang="jp"><![CDATA[페이지 수정]]></value>
-		<value xml:lang="en"><![CDATA[page edit]]></value>
-	</item>
-	<item name="expand">
-		<value xml:lang="ko"><![CDATA[펼침]]></value>
-		<value xml:lang="en"><![CDATA[Expand]]></value>
-		<value xml:lang="jp"><![CDATA[展開]]></value>
-	</item>
-	<item name="collapse">
-		<value xml:lang="ko"><![CDATA[접기]]></value>
-		<value xml:lang="en"><![CDATA[Collapse]]></value>
-		<value xml:lang="jp"><![CDATA[접기]]></value>
+	<item name="thumbnail">
+		<value xml:lang="ko"><![CDATA[썸네일]]></value>
+		<value xml:lang="jp"><![CDATA[サムネール]]></value>
+		<value xml:lang="en"><![CDATA[Thumbnail]]></value>
 	</item>
 	<item name="blamed_count">
 		<value xml:lang="ko"><![CDATA[비추천 수]]></value>
@@ -48,6 +23,26 @@
 		<value xml:lang="ko"><![CDATA[최근 수정자]]></value>
 		<value xml:lang="jp"><![CDATA[最近修正者]]></value>
 		<value xml:lang="en"><![CDATA[Updater]]></value>
+	</item>
+	<item name="member_srl">
+		<value xml:lang="ko"><![CDATA[회원 번호]]></value>
+		<value xml:lang="jp"><![CDATA[회원 번호]]></value>
+		<value xml:lang="en"><![CDATA[회원 번호]]></value>
+	</item>
+	<item name="t_comment_member_srl">
+		<value xml:lang="ko"><![CDATA[댓글 회원 번호]]></value>
+		<value xml:lang="jp"><![CDATA[댓글 회원 번호]]></value>
+		<value xml:lang="en"><![CDATA[댓글 회원 번호]]></value>
+	</item>
+	<item name="expand">
+		<value xml:lang="ko"><![CDATA[펼침]]></value>
+		<value xml:lang="en"><![CDATA[Expand]]></value>
+		<value xml:lang="jp"><![CDATA[展開]]></value>
+	</item>
+	<item name="collapse">
+		<value xml:lang="ko"><![CDATA[접기]]></value>
+		<value xml:lang="en"><![CDATA[Collapse]]></value>
+		<value xml:lang="jp"><![CDATA[접기]]></value>
 	</item>
 	<item name="manager">
 		<value xml:lang="ko"><![CDATA[관리자]]></value>
@@ -79,11 +74,6 @@
 		<value xml:lang="jp"><![CDATA[미채택]]></value>
 		<value xml:lang="en"><![CDATA[미채택]]></value>
 	</item>
-	<item name="thumbnail">
-		<value xml:lang="ko"><![CDATA[썸네일]]></value>
-		<value xml:lang="jp"><![CDATA[サムネール]]></value>
-		<value xml:lang="en"><![CDATA[Thumbnail]]></value>
-	</item>
 	<item name="custom_status">
 		<value xml:lang="ko"><![CDATA[사용자 지정 상태]]></value>
 		<value xml:lang="jp"><![CDATA[使用者指定状態]]></value>
@@ -94,25 +84,50 @@
 		<value xml:lang="jp"><![CDATA[リンク添付]]></value>
 		<value xml:lang="en"><![CDATA[Link file]]></value>
 	</item>
+	<item name="adopted_comment">
+		<value xml:lang="ko"><![CDATA[채택된 댓글]]></value>
+		<value xml:lang="jp"><![CDATA[채택된 댓글]]></value>
+		<value xml:lang="en"><![CDATA[채택된 댓글]]></value>
+	</item>
+	<item name="is_adopted">
+		<value xml:lang="ko"><![CDATA[채택여부]]></value>
+		<value xml:lang="jp"><![CDATA[채택여부]]></value>
+		<value xml:lang="en"><![CDATA[채택여부]]></value>
+	</item>
+	<item name="cmd_repeat_write">
+		<value xml:lang="ko"><![CDATA[연속 쓰기]]></value>
+		<value xml:lang="jp"><![CDATA[連続書き込み]]></value>
+		<value xml:lang="en"><![CDATA[Repeat write]]></value>
+	</item>
+	<item name="cmd_download">
+		<value xml:lang="ko"><![CDATA[다운로드]]></value>
+		<value xml:lang="jp"><![CDATA[ダウンロード]]></value>
+		<value xml:lang="en"><![CDATA[Download]]></value>
+	</item>
+	<item name="cmd_lock">
+		<value xml:lang="ko"><![CDATA[잠금]]></value>
+		<value xml:lang="jp"><![CDATA[閉じる]]></value>
+		<value xml:lang="en"><![CDATA[Lock]]></value>
+	</item>
+	<item name="cmd_page_edit">
+		<value xml:lang="ko"><![CDATA[페이지 수정]]></value>
+		<value xml:lang="jp"><![CDATA[페이지 수정]]></value>
+		<value xml:lang="en"><![CDATA[page edit]]></value>
+	</item>
 	<item name="cmd_current_lang_delete">
 		<value xml:lang="ko"><![CDATA[해당 언어만 삭제]]></value>
 		<value xml:lang="jp"><![CDATA[該当の言語のみ削除]]></value>
 		<value xml:lang="en"><![CDATA[delete the current language]]></value>
-	</item>
-	<item name="success_adopted">
-		<value xml:lang="ko"><![CDATA[채택하였습니다.]]></value>
-		<value xml:lang="jp"><![CDATA[채택하였습니다.]]></value>
-		<value xml:lang="en"><![CDATA[채택하였습니다.]]></value>
 	</item>
 	<item name="cmd_adopt">
 		<value xml:lang="ko"><![CDATA[답변 채택]]></value>
 		<value xml:lang="jp"><![CDATA[답변 채택]]></value>
 		<value xml:lang="en"><![CDATA[답변 채택]]></value>
 	</item>
-	<item name="adopted_comment">
-		<value xml:lang="ko"><![CDATA[채택된 댓글]]></value>
-		<value xml:lang="jp"><![CDATA[채택된 댓글]]></value>
-		<value xml:lang="en"><![CDATA[채택된 댓글]]></value>
+	<item name="success_adopted">
+		<value xml:lang="ko"><![CDATA[채택하였습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[채택하였습니다.]]></value>
+		<value xml:lang="en"><![CDATA[채택하였습니다.]]></value>
 	</item>
 	<item name="msg_out_of_range">
 		<value xml:lang="ko"><![CDATA[범위를 벗어나는 값입니다.]]></value>

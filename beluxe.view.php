@@ -321,11 +321,7 @@ class beluxeView extends beluxe
 
 					$b_title = $out->getTitleText();
 
-					if (
-						$oMi->category_trace === 'Y'
-						&& strtolower(Context::get('cate_trace')) !== 'n'
-						&& (!$out->isNotice() || $oMi->notice_category === 'Y')
-					) {
+					if ($oMi->category_trace === 'Y' && Context::get('cate_trace') !== 'N' && (!$out->isNotice() || $oMi->notice_category === 'Y')) {
 						$_tmp = $this->lstCfg['temp'];
 						$category_srl = Context::get('category_srl');
 						$_tmp->dccate = $out->get('category_srl');

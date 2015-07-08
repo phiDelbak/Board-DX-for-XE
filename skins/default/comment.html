@@ -29,7 +29,7 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 			}
 			<block loop="$nav_list=>$key,$nav">
 				{@ $nav->selected?$nav_key='next':0}
-				<a cond="!$nav->selected" class="{$nav_key}" href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'is_modal','1','cate_trace','n','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" target="pid_oi_frame" title="{htmlspecialchars($nav->getTitleText(55), ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}"><span>{$nav_key==='prev'?$lang->cmd_prev:$lang->cmd_next}</span></a>
+				<a cond="!$nav->selected" class="{$nav_key}" href="{getUrl('','mid',$mid,'document_srl',$nav->document_srl,'category_srl',$category_srl,'is_modal','1','cate_trace','N','sort_index',$sort_index,'order_type',$order_type,'search_target',$search_target,'search_keyword',$search_keyword)}" target="pid_oi_frame" title="{htmlspecialchars($nav->getTitleText(55), ENT_COMPAT | ENT_HTML401, 'UTF-8', false)}"><span>{$nav_key==='prev'?$lang->cmd_prev:$lang->cmd_next}</span></a>
 			</block>
 		</span>
 		<span>{$oDocument->getPermanentUrl()}</span>

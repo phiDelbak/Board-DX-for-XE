@@ -47,21 +47,20 @@
  						var $e = $(this),
  							$i = $e,
  							$a = $i.find('.scHotTrack'),
- 							tp = $i.attr('data-type'),
+ 							tp = $i.attr('data-hottrack'),
  							w = $i.outerWidth(tp !== 'gall') - (tp === 'widg' ? 7 : 4);
 
  						if (!$a.length) {
- 							$a = $('<a class="scHotTrack">').attr('href', $i.attr('data-hottrack') || '#');
- 							$i.attr('data-hottrack', '');
- 							// 모달 보기 사용시
- 							if ($i.is('[data-modal-key]')) {
- 								$a.attr({
- 									'type': 'example/modal',
- 									'data-footer': '__PID_MODAL_FOOTER__',
- 									'data-header': '__PID_MODAL_HEADER__'
- 								}).pidModalWindow(sjDxFuncs.isMobj('b') || '');
- 								$i.removeAttr('data-modal-key');
- 							}
+ 							$a = $('<a class="scHotTrack" href="#">')
+ 								.click(function() {
+ 									// 갤러리형 슬라이드 사용시
+ 									if (tp === 'gall' && $i.find('a[data-slide]').length) {
+ 										$i.find('a[data-slide]:eq(0)').click();
+ 									} else {
+ 										$i.find('a[type=example\\/modal], a[type=text\\/html]')[0].click();
+ 									}
+ 									return false;
+ 								});
  						}
 
  						if ($i[0].tagName === 'TR') {
