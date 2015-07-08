@@ -7,6 +7,7 @@
 
 define('__XEFM_NAME__', 'beluxe');
 define('__XEFM_PATH__', _XE_PATH_.'modules/' . __XEFM_NAME__ . '/');
+define('__XEFM_ORDER__', 'list_order,regdate,update_order,readed_count,voted_count,blamed_count,comment_count,title,random');
 
 if (file_exists(__XEFM_PATH__ . 'classes.item.php')) require_once (__XEFM_PATH__ . 'classes.item.php');
 

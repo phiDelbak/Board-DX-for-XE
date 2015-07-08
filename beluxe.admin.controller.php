@@ -6,8 +6,6 @@
  * @brief admin controller class of the BoardDX module
  */
 
-define('__XEFM_ORDER__', 'list_order,update_order,regdate,voted_count,readed_count,comment_count,title');
-
 class beluxeAdminController extends beluxe
 {
 

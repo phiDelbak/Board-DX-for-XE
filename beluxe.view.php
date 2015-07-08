@@ -181,6 +181,12 @@ class beluxeView extends beluxe
 			case 'custom_status':
 				$args->sort_index = 'is_notice';
 				break;
+			case 'random':
+				$_tmp = explode(',', __XEFM_ORDER__);
+				$args->sort_index = $_tmp[rand(0, count($_tmp) - 2)];
+				$_tmp = array('asc', 'desc');
+				$args->order_type = $_tmp[rand(0, 1)];
+				break;
 		}
 
 		//목록수, 페이지수 설정
@@ -223,13 +229,13 @@ class beluxeView extends beluxe
 			{
 				$nvi_page = (int)Context::get('npage');
 				if ($nvi_page) $args->page = $nvi_page;
-				$order = $is_doc && !$nvi_page ? $aDoc->get('list_order') : false;
+				$lorder = $is_doc && !$nvi_page ? $aDoc->get('list_order') : false;
 
 				// 댓글 검색은 내용만 지원해서 만듬...
 				// 사용자 검색일땐 하단 목록 페이지도 같이 맞춰줌
 				$out = ($args->search_target === 'is_adopted')
-					? $this->cmThis->getDocumentSrlsByAdopt($args, $order)
-					: $this->cmThis->getDocumentSrlsByComment($args, $order);
+					? $this->cmThis->getDocumentSrlsByAdopt($args, $lorder)
+					: $this->cmThis->getDocumentSrlsByComment($args, $lorder);
 
 				if(count($out->data)) {
 					$doc_list = $this->cmDoc->getDocuments($out->data, $this->grant->manager, $load_extvars);

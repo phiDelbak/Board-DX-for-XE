@@ -9,15 +9,15 @@
 		<value xml:lang="jp"><![CDATA[掲示板 DX]]></value>
 		<value xml:lang="en"><![CDATA[Board DX]]></value>
 	</item>
+	<item name="random">
+		<value xml:lang="ko"><![CDATA[무작위]]></value>
+		<value xml:lang="jp"><![CDATA[무작위]]></value>
+		<value xml:lang="en"><![CDATA[Random]]></value>
+	</item>
 	<item name="thumbnail">
 		<value xml:lang="ko"><![CDATA[썸네일]]></value>
 		<value xml:lang="jp"><![CDATA[サムネール]]></value>
 		<value xml:lang="en"><![CDATA[Thumbnail]]></value>
-	</item>
-	<item name="blamed_count">
-		<value xml:lang="ko"><![CDATA[비추천 수]]></value>
-		<value xml:lang="jp"><![CDATA[非推薦数]]></value>
-		<value xml:lang="en"><![CDATA[Blames]]></value>
 	</item>
 	<item name="last_updater">
 		<value xml:lang="ko"><![CDATA[최근 수정자]]></value>
