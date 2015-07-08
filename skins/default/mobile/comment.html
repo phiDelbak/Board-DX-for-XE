@@ -24,6 +24,7 @@
 	$pt_vtype = $mi->use_point_type == 'A'?'A':'N';
 	$un_extra = $pt_vtype=='A'?$oDocument->get('extra_vars'):null;
 	$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
+	$adopt_srl = $un_extra?(int)$un_extra->beluxe->adopt_srl:0;
 }
 <block cond="$mi->view_comment_style == 'webzine'">
 {@
@@ -51,13 +52,13 @@
 				$isc_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($comment->comment_srl, 'cmt'):0;
 				$_tmp = $cmb_srl?$cmb_srl:$comment->get('ipaddress');
 				$is_chk = !$depth ? (int) $voted_list[$_tmp]->point > -1 : $is_chk;
-				$show_btnAdopt = $mi->view_comment_style!='webzine'&&$pt_vtype=='A'&&!$isc_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner);
+				$show_btnAdopt = $mi->view_comment_style!='webzine'&&$pt_vtype=='A'&&!$isc_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner||$adopt_srl==$cmt_srl);
 			}
 
 			<div class="auth">
 				<span cond="$tlk" class="{$tlk}">Best</span>
 				<span cond="$is_webzine&&!$depth" class="best {$is_chk?'agree':'disagree'}">{$is_chk ? $lang->cmd_agree : $lang->cmd_disagree}</span>
-				<span class="{$cmb_srl?'member_'.$cmb_srl:'fsi'}">{cut_str((!$cmb_srl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length)}</span>
+				<span class="{$cmb_srl?'member_'.$cmb_srl:'fsi'}">{cut_str((!$cmb_srl||$ds_nick||!$ds_user)?$comment->getNickName():$comment->getUserName(), $mi->nickname_length)}<!--@if($pt_vtype=='A'&&$cmb_srl)--> ({$oThis->getCommentCountByAdopted($cmb_srl)})<!--@endif--></span>
 				<time class="fr">{$comment->getRegdate('y.m.d H:i')}</time>
 			</div>
 
@@ -82,9 +83,9 @@
 			</div>
 
 			<div cond="$show_btnAdopt" class="bna btnAdopt">
-				<!--@if(!$un_extra->beluxe->adopt_srl)-->
+				<!--@if(!$adopt_srl)-->
 					<a class="bn white" href="#" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</a>
-				<!--@elseif($un_extra->beluxe->adopt_srl==$cmt_srl)-->
+				<!--@elseif($adopt_srl==$cmt_srl)-->
 					<a class="bn" href="#" onclick="return false">{$lang->adopted_comment}</a>
 				<!--@else-->
 					{@ $show_btnAdopt = 0}
@@ -103,8 +104,8 @@
 				}
 				<div class="auth scVote fl">
 				<!--@if($ds_voteup||$ds_votedown||$ds_declare)-->
-					<a cond="$ds_voteup" class="bn small white" style="color:#228200" href="#recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_like}"><em class="vote">^.^</em><em class="cnt">{$votedp}</em></a>
-					<a cond="$ds_votedown" class="bn small white" style="color:#0000AA" href="#not_recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_dislike}"><em class="blame">-.-</em><em class="cnt">{$blamedp}</em></a>
+					<a cond="$ds_voteup" class="bn small white" style="color:#228200" href="#recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_like}"><em class="vote"></em><em class="cnt">{$votedp}</em></a>
+					<a cond="$ds_votedown" class="bn small white" style="color:#0000AA" href="#not_recommend" data-type="comment" data-srl="{$cmt_srl}" title="{$lang->cmd_dislike}"><em class="blame"></em><em class="cnt">{$blamedp}</em></a>
 					<a cond="$ds_declare" class="bn small white" style="color:#AA3300" href="#declare" data-type="comment" data-srl="{$cmt_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$cmb_srl}"><em class="declare">*</em></a>
 				<!--@else-->
 					<span cond="$votedp || $blamedp">{$lang->cmd_vote}: {$votedp} / {$blamedp}</span>&nbsp;
@@ -113,7 +114,7 @@
 
 				<div class="fr">
 					<a cond="$grant->write_comment && $oDocument->isEnableComment() && $oDocument->allowComment()" href="{getUrl('','mid',$mid,'act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl, 'document_srl',$document_srl)}" title="{$lang->new_comment}" class="rb re">{$lang->cmd_reply}</a>
-					<block cond="$grant->manager||(!$isc_locked&&!$isc_blind&&$comment->isEditable()&&!($show_btnAdopt&&$un_extra->beluxe->adopt_srl==$cmt_srl))" >
+					<block cond="$grant->manager||(!$isc_locked&&!$isc_blind&&$comment->isEditable()&&!($show_btnAdopt&&$adopt_srl==$cmt_srl))" >
 						<a href="{getUrl('','mid',$mid,'act','dispBoardWriteComment','comment_srl',$cmt_srl, 'document_srl',$document_srl)}" title="{$lang->modify_comment}" class="rb ed">{$lang->cmd_modify}</a>
 						<a href="{getUrl('','mid',$mid,'act','dispBoardDeleteComment','comment_srl',$cmt_srl, 'document_srl',$document_srl)}" title="{$lang->delete_comment}" class="rb de">{$lang->cmd_delete}</a>
 					</block>

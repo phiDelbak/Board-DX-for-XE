@@ -17,6 +17,8 @@
 		$cmts = $comment_list?$comment_list:$oThis->getCommentList($doc_srl, $cpage, $cmt_lstcnt);
 		$bscmts = $mi->use_c_best=='Y' ? $oThis->getBestCommentList($doc_srl) : array();
 		$a_clsttp = array('best'=>&$bscmts,''=>&$cmts->data);
+
+		$adopt_grade = explode(',', $lang->adopt_grade);
 	}
 
 	<block cond="$mi->display_recommender != 'N'">
@@ -61,7 +63,7 @@
 						$isc_granted = $grant->view && $comment->isGranted();
 						$isc_secret = $comment->isSecret();
 						$isc_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($cmt_srl, 'cmt'):0;
-						$show_btnAdopt = $pt_vtype=='A'&&!$isc_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner);
+						$show_btnAdopt = $pt_vtype=='A'&&!$isc_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner||$adopt_srl==$cmt_srl);
 					}
 					<div class="scFbt">
 						<img cond="$tlk=='best'" src="img/common/label_best.gif" />
@@ -78,12 +80,15 @@
 							<span cond="$cmb_srl" class="scHLink member_{$cmb_srl}">{$nick}</span>
 							<i cond="!$cmb_srl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
 						</h3>
-						<p class="time">{$comment->getRegdate('Y.m.d H:i')}<br /><span cond="$mi->display_ip_address == 'Y'||($mi->display_ip_address == 'A' && $grant->manager)" class="ipAddress">(IP: {$comment->getIpaddress()})</span></p>
-						<span cond="$mi->addon_pang_pang == 'Y'" class="scIcoArea">
-							<block cond="$mi->addon_pang_pang == 'Y' && $un_extra->ppang && $un_extra->ppang->c[$cmt_srl]->p > 0">
-								{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->c[$cmt_srl]->p)}
-								<img class="scIcoSet coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}">
-							</block>
+
+						{@
+							$_tmp2 = $pt_vtype=='A'&&$cmb_srl?$oThis->getCommentCountByAdopted($cmb_srl):0;
+							$_tmp = $_tmp2?round(sqrt($_tmp2) / 2):0;
+						}
+						<p class="time">{$comment->getRegdate('Y.m.d H:i')}<!--@if($ds_ipaddr)--><br /><span class="ipAddress">(IP: {$comment->getIpaddress()})</span><!--@endif--><!--@if($_tmp)--><br /><span class="author" title="{$lang->adopt}: {$_tmp2}">{$adopt_grade[$_tmp>8?8:$_tmp-1]} ({$_tmp2})</span><!--@endif--></p>
+						<span cond="$mi->addon_pang_pang == 'Y' && $un_extra->ppang && $un_extra->ppang->c[$cmt_srl]->p > 0" class="scIcoArea">
+							{@$ao_pppt = sprintf($lang->bonus_pang_pang, $un_extra->ppang->c[$cmt_srl]->p)}
+							<img class="scIcoSet coin" src="img/common/blank.gif" title="{$ao_pppt}" alt="{$ao_pppt}">
 						</span>
 					</div>
 
@@ -99,9 +104,9 @@
 							</form>
 						<!--@elseif($show_btnAdopt)-->
 							<div class="btnArea btnAdopt">
-								<!--@if(!$un_extra->beluxe->adopt_srl)-->
+								<!--@if(!$adopt_srl)-->
 								<span class="scBtn"><button type="button" data-adopt-srl="{$cmt_srl}" data-adopt-name="{$comment->get('nick_name')}">{$lang->cmd_adopt}</button></span>
-								<!--@elseif($un_extra->beluxe->adopt_srl==$cmt_srl)-->
+								<!--@elseif($adopt_srl==$cmt_srl)-->
 								<span class="scBtn blue"><button type="button" onclick="return false">{$lang->adopted_comment}</button></span>
 								<!--@else-->
 									{@ $show_btnAdopt = 0}
@@ -139,7 +144,7 @@
 						<block cond="$is_wcmt">
 							<a href="{getUrl('act','dispBoardWriteComment','comment_srl','','parent_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->new_comment}" class="reply">{$lang->cmd_reply}</a>
 						</block>
-						<block cond="$grant->manager||(!$isc_locked&&!$isc_blind&&$comment->isEditable()&&!($show_btnAdopt&&$un_extra->beluxe->adopt_srl==$cmt_srl))">
+						<block cond="$grant->manager||(!$isc_locked&&!$isc_blind&&$comment->isEditable()&&!($show_btnAdopt&&$adopt_srl==$cmt_srl))">
 							<a href="{getUrl('act','dispBoardWriteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->modify_comment}" class="modify">{$lang->cmd_modify}</a>
 							<a href="{getUrl('act','dispBoardDeleteComment','comment_srl',$cmt_srl,'document_srl',$doc_srl)}" type="example/modal"|cond="$us_modal&&!$is_modal" title="{$lang->delete_comment}" class="delete">{$lang->cmd_delete}</a>
 						</block>

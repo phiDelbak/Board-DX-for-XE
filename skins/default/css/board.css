@@ -181,15 +181,12 @@
 	height: 14px;
 	width: 28px;
 	background: url(../img/common/label_tag.gif) no-repeat right top;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	font-size: 10px;
-	font-style: normal!important;
-	font-family: Tahoma, Geneva, sans-serif!important;
 	color: #fff;
-	line-height: 12px!important;
-	text-shadow: none!important;
+	font-style: normal;
+	font-family: "Courier New", Courier, monospace!important;
+	font-size: 12px!important;
+	line-height: 14px!important;
+	letter-spacing: -1px
 }
 
 #siBody .scLaEt > span+input {
@@ -211,7 +208,7 @@
 .scVoteArea em {
 	min-width: 11px;
 	font-style: normal;
-	font-family: Tahoma, Geneva, sans-serif
+	font-family: Tahoma, Verdana, sans-serif
 }
 
 .scVoteArea em.vote,
@@ -254,7 +251,7 @@
 	line-height: 12px!important;
 	display: inline-block;
 	font-size: 12px;
-	font-family: Tahoma, Geneva, sans-serif;
+	font-family: Tahoma, Verdana, sans-serif;
 	padding-left: 12px;
 	background-position: -60px -18px
 }
@@ -741,7 +738,7 @@
 #siCat.side .cArea li b {
 	color: #bbb;
 	font-size: 12px;
-	font-family: Tahoma, Geneva, sans-serif;
+	font-family: Tahoma, Verdana, sans-serif;
 	padding: 0 3px 0 2px
 }
 
@@ -752,7 +749,7 @@
 #siCat em {
 	line-height: 11px;
 	font-size: 10px;
-	font-family: Tahoma, Geneva, sans-serif;
+	font-family: Tahoma, Verdana, sans-serif;
 	font-style: normal
 }
 
@@ -931,7 +928,7 @@
 #siLst td.last_updater {
 	letter-spacing: -1px;
 	font-size: 10px;
-	font-family: Tahoma, Geneva, sans-serif
+	font-family: Tahoma, Verdana, sans-serif
 }
 
 #siLst td em.reply,
@@ -939,7 +936,7 @@
 	font-style: normal;
 	font-size: 11px;
 	font-weight: normal;
-	font-family: Tahoma, Geneva, sans-serif
+	font-family: Tahoma, Verdana, sans-serif
 }
 
 #siLst thead .sort em {
@@ -1256,8 +1253,8 @@
 	right: 0;
 	bottom: 0;
 	padding: 5px 5px 0;
-	font: 11px Tahoma;
-	opacity: .8
+	font: 11px Tahoma, Verdana, sans-serif;
+	color: #6a6a6a;
 }
 
 #siLst.webz .scItem .scCheck {
@@ -1323,7 +1320,7 @@
 #siDoc.widg .scElps em {
 	font-style: normal;
 	font-size: 11px;
-	font-family: Tahoma, Geneva, sans-serif;
+	font-family: Tahoma, Verdana, sans-serif;
 	border: 0;
 	color: #777
 }
@@ -1551,6 +1548,14 @@
 	-webkit-border-radius: 3px
 }
 
+#siDoc .sign > .fl {
+	color: #999;
+	font-family: Tahoma, Verdana, sans-serif;
+	font-size: 30px;
+	line-height: 30px;
+	margin-right: 10px
+}
+
 #siDoc .sign .pf {
 	border-radius: 40px;
 	-moz-border-radius: 40px;
@@ -1585,8 +1590,8 @@
 #siFbk .time {
 	margin: 0;
 	font-weight: normal;
-	font: 10px Tahoma, Geneva, sans-serif;
-	opacity: .8
+	font: 10px Tahoma, Verdana, sans-serif;
+	color: #777;
 }
 
 #siFbk {
@@ -1627,7 +1632,7 @@
 #siFbk .scFbH .trackbackURL {
 	margin-top: 8px;
 	line-height: 1;
-	font: 11px Tahoma, Geneva, sans-serif
+	font: 11px Tahoma, Verdana, sans-serif
 }
 
 #siFbk .scFbt {
@@ -2082,8 +2087,9 @@
 	font-size: 15px;
 	padding-right: 5px;
 	text-shadow: 0 1px #fff;
-	opacity: .6;
-	font-style: italic
+	font-style: italic;
+	font-family: "Times New Roman", Times, serif;
+	color: #777;
 }
 
 #siFbk .scWopts label,
@@ -2150,7 +2156,7 @@
 	margin: 10px 0 5px;
 	font-size: 15px;
 	font-weight: bold;
-	text-shadow: 0 1px #ccc
+	text-shadow: 0 1px #ccc;
 }
 
 #siNavi ul {
@@ -2189,7 +2195,7 @@
 #siNavi li div.scElps em {
 	font-style: normal;
 	font-size: 10px;
-	font-family: Tahoma, Geneva, sans-serif
+	font-family: Tahoma, Verdana, sans-serif
 }
 
 #siNavi.histories li div.no {
@@ -2301,7 +2307,7 @@
 	top: 7px;
 	left: 43px;
 	height: 21px;
-	width: 65px;
+	width: 85px;
 	border: 0!important
 }
 
@@ -2314,8 +2320,8 @@
 
 #siBody .scSch .keyword {
 	cursor: text!important;
-	width: 125px!important;
-	padding: 0 7px 0 74px!important;
+	width: 120px!important;
+	padding: 0 7px 0 94px!important;
 	font-weight: normal!important
 }
 
@@ -2397,7 +2403,7 @@
 
 #siBody .scFiles span.fsize {
 	font-size: 10px;
-	font-family: Tahoma, Geneva, sans-serif
+	font-family: Tahoma, Verdana, sans-serif
 }
 
 #siFbk .scFiles {
@@ -2549,7 +2555,7 @@
 
 .scHaDCnts em {
 	font-size: 12px;
-	font-family: Tahoma, Geneva, sans-serif;
+	font-family: Tahoma, Verdana, sans-serif;
 	font-weight: normal
 }
 
@@ -2613,7 +2619,7 @@
 	font-style: normal;
 	font-weight: normal;
 	font-size: 10px;
-	font-family: Tahoma, Geneva, sans-serif;
+	font-family: "Times New Roman", Times, serif;
 	text-transform: capitalize;
 	line-height: 14px;
 	border-radius: 3px;
@@ -2669,7 +2675,7 @@
 }
 
 strong.sCkChr {
-	font-family: Arial, "Courier New", Courier, monospace
+	font-family: Tahoma, Verdana, sans-serif
 }
 
 .dxc_minimsg {
@@ -2701,7 +2707,7 @@ strong.sCkChr {
 	color: #888;
 	font-size: 18px;
 	font-weight: bold;
-	font-family: Verdana, Geneva, sans-serif
+	font-family: Tahoma, Verdana, sans-serif
 }
 
 .pid_modal-foot a.prev {

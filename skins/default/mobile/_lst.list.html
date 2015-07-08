@@ -37,8 +37,8 @@
 			</div>
 			<div class="auth cb">
 				<div class="fl">
-					<span cond="$ds_cstus">{$tlk&&$tlk=='notice'?$lang->notice:$cstus[(int)$document->get('is_notice')]}:</span>
-					<span cond="$is_cts && $document->get('category_srl')">{$cts[$document->get('category_srl')]->title}</span>
+					<span cond="!$tlk&&$ds_cstus">{$cstus[(int)$document->get('is_notice')]}:</span>
+					<span cond="!$tlk&&$is_cts&&$document->get('category_srl')">{$cts[$document->get('category_srl')]->title}</span>
 					&nbsp;
 				</div>
 				<div class="nick">

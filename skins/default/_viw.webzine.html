@@ -20,6 +20,7 @@ $ufls = ((!$is_secret || $is_granted) && $oDocument->hasUploadedFiles()) ? $oDoc
 $un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
 $un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
 $use_point = $un_extra?(int)$un_extra->beluxe->use_point:0;
+$adopt_srl = $un_extra?(int)$un_extra->beluxe->adopt_srl:0;
 $is_restrict = !$is_granted&&!$is_secret&&($pt_vtype=='Y'&&!$oThis->isWrote($doc_srl, true, 'cmt')||$pt_vtype=='P'&&!$oThis->isRead($doc_srl));
 $is_restrict = $is_restrict && $use_point;
 $allow_trb = $oDocument->allowTrackback();
@@ -78,7 +79,7 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 				<span cond="$dmb_srl" class="scHLink member_{$dmb_srl}">{$nick}</span>
 				<i cond="!$dmb_srl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
 				</strong>
-				<span cond="$mi->display_ip_address == 'Y'||($mi->display_ip_address == 'A' && $grant->manager)" class="ipAddress">(IP: {$oDocument->getIpaddress()})</span>
+				<span cond="$ds_ipaddr" class="ipAddress">(IP: {$oDocument->getIpaddress()})</span>
 			</div>
 			<div class="fr">
 				{@
@@ -178,6 +179,7 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 			<include cond="!$us_vmodal&&$is_doc&&!$is_blind&&($mi->navigation_bottom_list_count>0)" target="_etc.navigation.html" />
 
 			<div cond="$pt_vtype=='A'&&$dmb_srl" class="sign clearBar">
+				<strong class="fl">!</strong>
 				{@
 					$_tmp = $oThis->getDocumentCountByAdopt(true, $dmb_srl);
 					$_tmp2 = $oThis->getDocumentCountByAdopt(false, $dmb_srl);
@@ -234,7 +236,7 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 						$ds_file[$_tmp][] = $file;
 					}
 				</block>
-				<block loop="array('general','media','image')=>$_tmp2">
+				<block loop="array('media','image','general')=>$_tmp2">
 					<ul cond="strpos($mi->display_files, $_tmp2)!==false&&count($ds_file[$_tmp2])" data-autohide="true"|cond="$us_ahfile" class="scFiles">
 						<li loop="$ds_file[$_tmp2]=>$file" class="{$_tmp2}{$file->isvalid=='Y'?'':' notvalid'}">
 							{@

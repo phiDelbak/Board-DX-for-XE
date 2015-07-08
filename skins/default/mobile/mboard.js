@@ -72,6 +72,12 @@ jQuery(function($) {
 		});
 	};
 	pidLoadPage = function(r, z, c) {
+		if (!$("#clwm").length) {
+			var wmgs = '<div id="clwm" style="height:2px;overflow:hidden"><img src="../../../common/img/msg.loading.gif" style="width:100%" /></div>';
+			if ($("#clpn").length)
+				$("#clpn").before(wmgs);
+			else $("#clst").after(wmgs);
+		}
 		exec_json(
 			'beluxe.getBeluxeMobileCommentPage', {
 				cpage: z,
@@ -81,7 +87,6 @@ jQuery(function($) {
 			},
 			function(ret) {
 				var $htm = $(ret.html);
-
 				$("#cl").remove();
 				$("#clpn").remove();
 				$("a.prev[data-page],a.next[data-page]", $htm).click(function() {
@@ -93,6 +98,7 @@ jQuery(function($) {
 				});
 				$('a[href^=#][href$=recommend][data-type]', $htm).pidVoteBtninit();
 				$('a[href=#declare][data-type]', $htm).pidDeclareBtninit();
+				$("#clwm").remove();
 				$("#clst").after($htm);
 			}
 		);

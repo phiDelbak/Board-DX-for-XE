@@ -41,6 +41,7 @@
 				<span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
 				<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
 			</h3>
+			<h4>{$oDocument->getTitle()}</h4>
 			<div class="clearBar">
 				{preg_replace(array('!(<[A-Za-z]+\s+[^>]*)name\s*=\s*(\"|\')?([^>\"\']+)(\"|\')?!is','!<(iframe|embed|object)([^>]*)>(.*?)<\/(iframe|embed|object)>!is'), array('$1','<div class="message"><p>$1 $2</p></div>'), $oDocument->getContent(false))}
 			</div>

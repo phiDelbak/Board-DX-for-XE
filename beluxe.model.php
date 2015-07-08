@@ -538,10 +538,12 @@ class beluxeModel extends beluxe
 		// regexp 를 지원 안하는거 같다. 어쩔... 다른 방법으로 변경...
 		$args->extra_vars = 'stdClass%\"beluxe\"';
 
-		if($a_ised)
+		if($a_ised) {
 			$args->like_vars = '\"adopt_srl\"\;';
-		else
+			if(is_numeric($a_ised)) $args->adopt_member = '\"adopt_member\"\;i:'.$a_ised.';';
+		} else {
 			$args->notlike_vars = '\"adopt_srl\"\;';
+		}
 
 		if($a_mbrsrl) $args->member_srl = $a_mbrsrl;
 

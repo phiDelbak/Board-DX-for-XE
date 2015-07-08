@@ -3,6 +3,8 @@
 	$doc_srl = $oDocument->document_srl;
 	$ds_nick = $ci['nick_name']->display == 'Y';
 	$ds_user =  $ci['user_name']->display == 'Y';
+	$ds_voted = $ci['voted_count']->display == 'Y';
+	$ds_blamed = $ci['blamed_count']->display == 'Y';
 	$dmb_srl = $oDocument->get('member_srl');
 	$un_extra = ($pt_vtype!='N'||$pt_dtype!='N'||$ao_ppang||$ds_mtlng)?$oDocument->get('extra_vars'):null;
 	$un_extra = is_string($un_extra)?unserialize($un_extra):$un_extra;
@@ -89,9 +91,7 @@
 		$blamedp = (int)$oDocument->get('blamed_count');
 		$ds_voteup = strpos($mi->use_d_vote, 'up')!==false;
 		$ds_votedown = strpos($mi->use_d_vote, 'down')!==false;
-		$ds_vtxt = !$is_logged && ($ds_voteup||$ds_votedown) && ($votedp||$blamedp);
 	}
-	<div cond="$ds_vtxt" class="lic">{$lang->voted_count}: {$votedp} / {$blamedp}&nbsp;</div>
 	<block cond="$is_logged">
 		{@
 			$ds_declare = strpos($mi->use_d_vote, 'declare')!==false;
@@ -113,13 +113,16 @@
 		</block>
 	</div>
 
-	<div class="lic scSns fr">
-		<a cond="$mi->display_document_do!='N'" class="document_{$doc_srl} action" href="#popup_menu_area" onclick="return false">{$lang->cmd_document_do}</a>
-		<block cond="$mi->display_button_sns != 'N'">
-			&nbsp;<a href="http://twitter.com/" target="_blank" data-type="tw" title="Twitter">Twitter</a>
-			<a href="http://facebook.com/" target="_blank" data-type="fa" title="Facebook">Facebook</a>
-			<a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a>
-		</block>
+	<div class="lic cb">
+		<div cond="(!$is_logged||(!$ds_voteup&&!$ds_votedown))&&($ds_voted||$ds_blamed)&&($votedp||$blamedp)" class="fl">{$lang->voted_count}: {$votedp} / {$blamedp}&nbsp;</div>
+		<div class="fr scSns">
+			<a cond="$mi->display_document_do!='N'" class="document_{$doc_srl} action" href="#popup_menu_area" onclick="return false">{$lang->cmd_document_do}</a>
+			<block cond="$mi->display_button_sns != 'N'">
+				&nbsp;<a href="http://twitter.com/" target="_blank" data-type="tw" title="Twitter">Twitter</a>
+				<a href="http://facebook.com/" target="_blank" data-type="fa" title="Facebook">Facebook</a>
+				<a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a>
+			</block>
+		</div>
 	</div>
 
 </div>
@@ -179,13 +182,13 @@
 			$ds_file[$_tmp][] = $file;
 		}
 	</block>
-	<block loop="array('general','media','image')=>$_tmp2" cond="strpos($mi->display_files, $_tmp2)!==false">
+	<block loop="array('media','image','general')=>$_tmp2" cond="strpos($mi->display_files, $_tmp2)!==false">
 		{@ $ft_cnt += count($ds_file[$_tmp2])}
 	</block>
 	<block cond="$ft_cnt">
 		<button type="button" class="tbn cb" title="open/close">{$lang->uploaded_file} <span>[{$ft_cnt}]</span><span cond="$pt_dtype=='P'" class="fr" style="letter-spacing:-1px">{sprintf($lang->msg_point_is_used, $use_point)} (Once)</span></button>
 		<ul data-autohide="true"|cond="$us_ahfile" class="file tgo">
-			<block loop="array('general','media','image')=>$_tmp2" cond="strpos($mi->display_files, $_tmp2)!==false&&count($ds_file[$_tmp2])">
+			<block loop="array('media','image','general')=>$_tmp2" cond="strpos($mi->display_files, $_tmp2)!==false&&count($ds_file[$_tmp2])">
 				<li loop="$ds_file[$_tmp2]=>$file" class="{$_tmp2}{$file->isvalid=='Y'?'':' notvalid'}">
 					{@
 						$t_down_cm = $pt_dtype != 'N' && (!$lg || $lg->member_srl != $file->member_srl);

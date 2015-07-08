@@ -226,6 +226,12 @@ class BeluxeItem extends Object
 		return $cmThis->getDocumentCountByAdopt($this->module_srl, $a_ised, $a_mbrsrl);
 	}
 
+	function getCommentCountByAdopted($a_mbrsrl)
+	{
+		$cmThis = &getModel(__XEFM_NAME__);
+		return $cmThis->getDocumentCountByAdopt($this->module_srl, $a_mbrsrl);
+	}
+
 	function isBlind($a_consrl, $a_type = 'doc')
 	{
 		$cmThis = &getModel(__XEFM_NAME__);

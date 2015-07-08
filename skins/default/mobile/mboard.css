@@ -72,7 +72,7 @@ form select {
 	color: #888;
 	font-size: 18px;
 	font-weight: bold;
-	font-family: Verdana, Geneva, sans-serif
+	font-family: Tahoma, Verdana, sans-serif
 }
 
 .lt,
@@ -326,17 +326,12 @@ form select {
 /* desc */
 
 .pn {
-	font-size: 14px;
 	text-align: center;
-	background: #f2f0ec;
 	padding: 8px 0;
 	border-top: 1px solid #fff;
-	color: #555;
-}
-
-.pn.ts h2 {
-	margin: 0 0 5px;
-	color: #000;
+	background: #f2f0ec;
+	color: #777;
+	text-shadow: 0 0 2px #fff;
 }
 
 .pn.ts {
@@ -349,7 +344,6 @@ form select {
 .pn.ts h3 {
 	margin: 0;
 	color: #333;
-	font-size: 16px;
 }
 
 .pn.ts h3 span.sbt {
@@ -358,8 +352,7 @@ form select {
 }
 
 .pn.ts > p {
-	color: #555;
-	margin: 0 5px;
+	margin: 0;
 	padding-top: 5px;
 	font-size: 12px;
 }
@@ -540,11 +533,6 @@ form select {
 	color: #777;
 }
 
-.lt .auth em.ent {
-	font-size: 15px;
-	font-weight: bold;
-}
-
 .lt > li .auth .nick {
 	position: absolute;
 	right: 0;
@@ -561,11 +549,11 @@ form select {
 	display: inline-block;
 	white-space: nowrap;
 	width: 28px;
-	padding: 1px 2px;
+	padding: 0 2px;
 	border: 1px solid #bfbfbf;
 	font-style: normal;
 	font-weight: normal;
-	font-family: Tahoma;
+	font-family: "Times New Roman", Times, serif;
 	font-size: 10px;
 	color: #777;
 	line-height: 14px;
@@ -1148,6 +1136,10 @@ input.bn.small {
 	padding: 0 2px;
 }
 
+.nav .sCkChr {
+	font-family: Tahoma, Verdana, sans-serif
+}
+
 
 /* file List */
 
@@ -1229,7 +1221,7 @@ div.lic a {
 
 .scSns a[data-type] {
 	display: inline-block;
-	vertical-align: bottom;
+	vertical-align: text-bottom;
 	margin-left: 2px;
 	width: 16px;
 	height: 0;
@@ -1266,15 +1258,6 @@ div.lic a {
 .scVote a > em.scrap {
 	padding: 0 0 0 14px;
 	background: url(mx.png) no-repeat 0px -82px;
-}
-
-.rp .cb .scVote em.vote,
-.rp .cb .scVote em.blame {
-	overflow: hidden;
-	vertical-align: middle;
-	display: inline-block;
-	width: 0px;
-	text-indent: -30px;
 }
 
 

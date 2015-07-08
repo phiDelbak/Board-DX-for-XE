@@ -52,13 +52,11 @@
 				<input type="hidden" name="category_srl" value="{$category_srl}" />
 				<ul>
 					<li cond="$oDocument->isExists()">
-						<h3>{$lang->document}:
-							{cut_str((!$oDocument->get('member_srl')||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}
-						</h3>
+						<h3>{cut_str((!$oDocument->get('member_srl')||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName(), $mi->nickname_length)}</h3>
 						<hr />
 						<strong>{$oDocument->getTitle()}</strong>
 						<hr />
-						<p>{$oDocument->getContentText(255)}</p>
+						<p class="doc">{$oDocument->getContentText(255)}</p>
 					</li>
 				</ul>
 				<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
@@ -68,23 +66,20 @@
 					<button cond="$ds_mtlng&&count($un_extra->beluxe->langs)" type="submit" name="multilingual" value="Y" class="bn dark">{$lang->cmd_current_lang_delete}</button>
 					<button type="submit" accesskey="s" class="bn dark">{$lang->cmd_delete}</button>
 				</div>
-
 			</form>
+
 			<form cond="$act=='dispBoardDeleteComment'" ruleset="deleteComment" action="./" method="post" class="ff co">
 				<input type="hidden" name="module_srl" value="{$mi->module_srl}" />
 				<input type="hidden" name="act" value="procBoardDeleteComment" />
 				<input type="hidden" name="category_srl" value="{$category_srl}" />
 				<ul>
 					<li cond="$oComment->isExists()">
-						<h3>{$lang->comment}:
-							{cut_str((!$oComment->get('member_srl')||$ds_nick||!$ds_user)?$oComment->getNickName():$oComment->getUserName(), $mi->nickname_length)}
-						</h3>
+						<h3>{cut_str((!$oComment->get('member_srl')||$ds_nick||!$ds_user)?$oComment->getNickName():$oComment->getUserName(), $mi->nickname_length)}</h3>
 						<hr />
 						<p class="doc">{$oComment->getContentText(255)}</p>
-						<hr />
 					</li>
-					<input type="hidden" name="comment_srl" value="{$oComment->comment_srl}" />
 				</ul>
+				<input type="hidden" name="comment_srl" value="{$oComment->comment_srl}" />
 				<input type="hidden" name="document_srl" value="{$oDocument->document_srl}" />
 
 				<div class="bna">
@@ -92,7 +87,6 @@
 					<button cond="$ds_mtlng&&count($un_extra->beluxe->langs)" type="submit" name="multilingual" value="Y" class="bn dark">{$lang->cmd_current_lang_delete}</button>
 					<button type="submit" accesskey="s" class="bn dark">{$lang->cmd_delete}</button>
 				</div>
-
 			</form>
 		<!--@endif-->
 

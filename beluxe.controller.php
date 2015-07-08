@@ -1165,6 +1165,7 @@ class beluxeController extends beluxe
 
 		// 확장 필드 저장
 		$beluxe->adopt_srl = (int) $cmt_srl;
+		if($cmb_srl) $beluxe->adopt_member = (int) $cmb_srl;
 
 		$ex_vars->beluxe = $beluxe;
 		$args->extra_vars = serialize($ex_vars);

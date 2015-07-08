@@ -48,12 +48,12 @@
 			$is_scrap = $ds_scrap?$oThis->isScrap($oDocument->document_srl):0;
 			$nick = (!$dmb_srl||$ds_nick||!$ds_user)?$oDocument->getNickName():$oDocument->getUserName();
 		}
-		<h2 title="{$oDocument->getPermanentUrl()}">{$oDocument->getTitle()}</h2>
-		<div>
+		<h3 title="{$oDocument->getPermanentUrl()}">{$oDocument->getTitle()}</h3>
+		<p>
 			<img src="../img/common/blank.gif" cond="$is_scrap" class="ise scrap" alt="Scrap" title="Scrap" />
 			<span class="{$dmb_srl?'member_'.$dmb_srl:'fsi'} ex">{cut_str($nick, $mi->nickname_length)}</span>
 			<time class="ex fr">{$oDocument->getRegdate('Y.m.d H:i')}</time>
-		</div>
+		</p>
 	<!--@else-->
 		<h3 cond="$mi->title||$mi->sub_title">{$mi->title} <span class="sbt">{$mi->sub_title}</span></h3>
 		<p cond="$mi->board_desc">{$mi->board_desc}</p>
