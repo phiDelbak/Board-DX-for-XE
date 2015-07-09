@@ -58,8 +58,8 @@ class beluxeAdminController extends beluxe
 
 		array_shift($arglst);
 
-		$cmModule = & getModel('module');
-		$ccModule = & getController('module');
+		$cmModule = &getModel('module');
+		$ccModule = &getController('module');
 
 		$args = $cmModule->getModuleInfoByModuleSrl($a_modsrl);
 
@@ -74,8 +74,8 @@ class beluxeAdminController extends beluxe
 	{
 		if (!count($a_cfg)) return;
 
-		$ccModule = & getController('module');
-		$cmModule = & getModel('module');
+		$ccModule = &getController('module');
+		$cmModule = &getModel('module');
 
 		foreach ($a_cfg as $tk => $tv) {
 			$doc_cfg = $cmModule->getModulePartConfig($tk, $a_modsrl);
@@ -98,9 +98,9 @@ class beluxeAdminController extends beluxe
 
 	/* @brief Delete a category */
 	function doDeleteCategory($a_catesrl) {
-		$oThisModel = & getModel(__XEFM_NAME__);
+		$oThisModel = &getModel(__XEFM_NAME__);
 
-		$cmDocument = & getModel('document');
+		$cmDocument = &getModel('document');
 		$oCateIfo = $cmDocument->getCategory($a_catesrl, array('module_srl'));
 		if (!$oCateIfo->module_srl) return new Object(-1, 'msg_invalid_request');
 
@@ -142,7 +142,7 @@ class beluxeAdminController extends beluxe
 		if ($aObj->parent_srl) {
 
 			// Get its parent category
-			$cmDocument = & getModel('document');
+			$cmDocument = &getModel('document');
 			$oParCate = $cmDocument->getCategory($aObj->parent_srl, array('module_srl', 'category_srl', 'list_order'));
 			if ($aObj->parent_srl != $oParCate->category_srl) return new Object(-1, 'msg_invalid_request');
 
@@ -191,8 +191,11 @@ class beluxeAdminController extends beluxe
 			if (isset($chks->use_anonymous) && !in_array($chks->use_anonymous, array('Y', 'S'))) $chks->use_anonymous = 'N';
 			if (isset($chks->use_history) && !in_array($chks->use_history, array('Y', 'Trace'))) $chks->use_history = 'N';
 			if (isset($chks->consultation) && $chks->consultation != 'Y') $chks->consultation = 'N';
-			if (isset($chks->use_title_color) && $chks->use_title_color != 'Y') $chks->use_title_color = 'N';
+			if (isset($chks->schedule_document_register) && $chks->schedule_document_register != 'Y') $chks->schedule_document_register = 'N';
 			if (isset($chks->use_mobile_uploader) && $chks->use_mobile_uploader != 'Y') $chks->use_mobile_uploader = 'N';
+			if (isset($chks->use_title_color) && $chks->use_title_color != 'Y') $chks->use_title_color = 'N';
+			if (isset($chks->category_trace) && $chks->category_trace != 'Y') $chks->category_trace = 'N';
+			if (isset($chks->use_trash) && $chks->use_trash != 'Y') $chks->use_trash = 'N';
 
 			if (isset($chks->use_best) && $chks->use_best != 'Y') $chks->use_best = 'N';
 			if (isset($chks->use_c_best) && $chks->use_c_best != 'Y') $chks->use_c_best = 'N';
@@ -365,8 +368,8 @@ class beluxeAdminController extends beluxe
 		$t_cfgs['trackback']['enable_trackback'] = $args->allow_trackback == 'N' ? 'N' : 'Y';
 
 		// ...로드
-		$ccModule = & getController('module');
-		$cmModule = & getModel('module');
+		$ccModule = &getController('module');
+		$cmModule = &getModel('module');
 
 		$oDB = & DB::getInstance();
 		if ($oDB) {
@@ -471,7 +474,7 @@ class beluxeAdminController extends beluxe
 			return $out;
 			}*/
 
-			$ccModule = & getController('module');
+			$ccModule = &getController('module');
 			$out = $ccModule->deleteModule($mod_srl);
 			if (!$out->toBool()) {
 				$oDB->rollback();
@@ -551,7 +554,7 @@ class beluxeAdminController extends beluxe
 					// navi 필드는 불필요 문자 제거, description필드 크기는 200 이므로 주의...
 					$args->description = $item_type[$key] . '|@|' . preg_replace('/[^0-9a-zA-Z_,]/', '', implode(',', $opts)) . '|@|';
 
-					$cmDocument = & getModel('document');
+					$cmDocument = &getModel('document');
 
 					// Check if already exists
 					if ($args->category_srl) {
@@ -608,7 +611,7 @@ class beluxeAdminController extends beluxe
 		if (!$mod_srl) return new Object(-1, 'msg_invalid_request');
 
 		// Get original information
-		$cmDocument = & getModel('document');
+		$cmDocument = &getModel('document');
 		$oCateIfo = $cmDocument->getCategory($args->category_srl, array('parent_srl'));
 		$add_cate_srl = ($oCateIfo->parent_srl) ? $oCateIfo->parent_srl : $args->category_srl;
 
@@ -631,7 +634,7 @@ class beluxeAdminController extends beluxe
 		}
 		else return new Object(-1, 'msg_dbconnect_failed');
 
-		$ccDocument = & getController('document');
+		$ccDocument = &getController('document');
 		$ccDocument->makeCategoryFile($mod_srl);
 
 		$this->_deleteCacheHandler($args->module_srl, array('category_list', 'mobile_category_list'));
@@ -643,7 +646,7 @@ class beluxeAdminController extends beluxe
 	function procBeluxeAdminMakeCategoryCache() {
 		$mod_srl = Context::get('module_srl');
 		if (!$mod_srl) return new Object(-1, 'msg_invalid_request');
-		$ccDocument = & getController('document');
+		$ccDocument = &getController('document');
 		$ccDocument->makeCategoryFile($mod_srl);
 		$this->_deleteCacheHandler($args->module_srl, array('category_list', 'mobile_category_list'));
 	}
@@ -664,7 +667,7 @@ class beluxeAdminController extends beluxe
 			$list_arr[$val] = array($key + 1, ($color != 'transparent' ? $color : ''), $option[0], $option[1], $option[2]);
 		}
 
-		$ccModule = & getController('module');
+		$ccModule = &getController('module');
 		$out = $ccModule->insertModulePartConfig('beluxe', $mod_srl, $list_arr);
 		if (!$out->toBool()) return $out;
 
@@ -787,7 +790,7 @@ class beluxeAdminController extends beluxe
 		$var_idx = $args->extra_idx;
 		if (!$mod_srl || !$var_idx) return new Object(-1, 'msg_invalid_request');
 
-		$ccDocument = & getController('document');
+		$ccDocument = &getController('document');
 		$out = $ccDocument->deleteDocumentExtraKeys($mod_srl, $var_idx);
 		if (!$out->toBool()) return $out;
 
@@ -804,7 +807,7 @@ class beluxeAdminController extends beluxe
 		$msync = Context::get('_SET_SYNC_OPTIONS_');
 		Context::set('_SET_SYNC_OPTIONS_', '');
 
-		$ccAdmModule = & getAdminController('module');
+		$ccAdmModule = &getAdminController('module');
 		$out = $ccAdmModule->procModuleAdminUpdateSkinInfo();
 		if ($out && !$out->toBool()) return $out;
 

@@ -226,11 +226,6 @@
 	background-position: -17px -74px
 }
 
-.scVoteArea em.scrap {
-	padding: 0 0 0 14px;
-	background: url(../img/common/ico_set.gif) no-repeat 0 -25px
-}
-
 .scVoteArea em.cnt {
 	padding: 0 0 0 5px;
 }
@@ -1504,6 +1499,10 @@
 	margin-left: 5px;
 }
 
+#siDoc .scSns .scrap a {
+	background-position: 0 -90px
+}
+
 #siDoc .scSns .facebook a {
 	background-position: 0 -30px
 }
@@ -1587,7 +1586,8 @@
 /* feedback */
 
 #siDoc .ipAddress,
-#siFbk .time {
+#siFbk .time,
+#siWrt .scCpar .author .time {
 	margin: 0;
 	font-weight: normal;
 	font: 10px Tahoma, Verdana, sans-serif;
@@ -1635,7 +1635,8 @@
 	font: 11px Tahoma, Verdana, sans-serif
 }
 
-#siFbk .scFbt {
+#siFbk .scFbt,
+#siWrt .scCpar .author {
 	position: relative;
 	float: left;
 	color: #4a4a4a;
@@ -1644,7 +1645,8 @@
 }
 
 #siFbk .scFbH .profile,
-#siFbk .scFbt .profile {
+#siFbk .scFbt .profile,
+#siWrt .scCpar .author .profile {
 	border-radius: 25px;
 	-moz-border-radius: 25px;
 	-webkit-border-radius: 25px;
@@ -1671,7 +1673,8 @@
 	color: #777;
 }
 
-#siFbk .scFbt .author {
+#siFbk .scFbt .author,
+#siWrt .scCpar .author > h3 {
 	margin: 0;
 	font-size: 12px
 }
@@ -1740,7 +1743,8 @@
 	margin: 0 0 -1px 0
 }
 
-#siFbk .scCmtCon {
+#siFbk .scCmtCon,
+#siWrt .scCpar .content {
 	overflow: hidden;
 	min-height: 90px;
 	margin: 0 6px 5px 200px;
@@ -1924,21 +1928,12 @@
 	overflow: hidden;
 	overflow-y: auto;
 	margin: 10px 0;
-	padding: 10px;
+	padding: 10px 5px;
 	height: 150px;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border: 2px solid #ddd
-}
-
-#siWrt .scCpar .author {
-	margin-top: 0
-}
-
-#siWrt .scCpar .content {
-	position: absolute;
-	white-space: normal
 }
 
 #siWrt .scWusr {
@@ -2036,7 +2031,11 @@
 #siWrt .scWul >li input.tel,
 #siWrt .scWul >li input.date {
 	width: 20%!important;
-	margin-right: 10px
+	max-width: 120px!important
+}
+
+#siWrt .scWul >li input.tel {
+	margin-right: 10px;
 }
 
 #siWrt .scWul >li a.button {
@@ -2847,10 +2846,11 @@ noindex:-o-prefocus,
 /* reaction type */
 
 @media screen and (max-width:450px) {
-	#siFbk .scFbt {
+	#siFbk .scFbt, #siWrt .scCpar .author {
 		float: none;
 	}
-	#siFbk .scCmtCon {
+	#siFbk .scCmtCon,
+	#siWrt .scCpar .content {
 		margin-left: 0;
 		margin-top: 10px;
 	}

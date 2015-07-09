@@ -23,7 +23,7 @@ class beluxeModel extends beluxe
 	{
 		if (!$this->module_info || !$this->module_info->module_srl) {
 			// module model 객체 생성
-			$cmModule = & getModel('module');
+			$cmModule = &getModel('module');
 			if ($a_modsrl) $oMi = $cmModule->getModuleInfoByModuleSrl($a_modsrl);
 			else {
 				$mid = Context::get('mid');
@@ -58,7 +58,7 @@ class beluxeModel extends beluxe
 		}
 
 		if ($is_exvars) {
-			$cmDocument = & getModel('document');
+			$cmDocument = &getModel('document');
 			$cmDocument->setToAllDocumentExtraVars();
 			foreach ($out as $doc_srl => $_tmp) {
 				$out[$doc_srl] = $GLOBALS['XE_DOCUMENT_LIST'][$doc_srl];
@@ -111,7 +111,7 @@ class beluxeModel extends beluxe
 			$t_cols = $a_collst;
 			$t_cols[] = 'document_srl';
 			$t_cols[] = 'module_srl';
-			$cmDocument = & getModel('document');
+			$cmDocument = &getModel('document');
 			$oDocIfo = $cmDocument->getDocument($a_docsrl, $this->grant->manager, FALSE, $t_cols);
 			if ($oDocIfo->isExists()) {
 				foreach ($a_collst as $tv) $re[$tv] = $oDocIfo->get($tv);
@@ -139,7 +139,7 @@ class beluxeModel extends beluxe
 			$t_cols[] = 'comment_srl';
 			$t_cols[] = 'document_srl';
 			$t_cols[] = 'module_srl';
-			$cmComment = & getModel('comment');
+			$cmComment = &getModel('comment');
 			$oCmtIfo = $cmComment->getComment($a_cmtsrl, $this->grant->manager, FALSE, $t_cols);
 			if ($oCmtIfo->isExists()) {
 				foreach ($a_collst as $tv) $re[$tv] = $oCmtIfo->get($tv);
@@ -289,7 +289,7 @@ class beluxeModel extends beluxe
 	// 그냥 간단히 3번 돌려 해결함 (TODO 나중에 좀더 빠른 방법 연구)
 	function getNavigationList($obj, $a_ectnotice = FALSE, $a_loadextra = TRUE, $a_collst = array())
 	{
-		$cmDocument = & getModel('document');
+		$cmDocument = &getModel('document');
 
 		// 계산을 위해 페이지 값 구함
 		$page = $obj->page;
@@ -343,7 +343,7 @@ class beluxeModel extends beluxe
 	/* @brief Get a history list */
 	function getHistoryList($a_docsrl, $a_page, $a_lstcnt)
 	{
-		$cmDocument = & getModel('document');
+		$cmDocument = &getModel('document');
 		return $cmDocument->getHistories($a_docsrl, $a_lstcnt, $a_page);
 	}
 
@@ -355,7 +355,7 @@ class beluxeModel extends beluxe
 
 		if ($oMi->notice_category === 'Y') $cate_srl = Context::get('category_srl');
 
-		$cmDocument = & getModel('document');
+		$cmDocument = &getModel('document');
 		$args->module_srl = $oMi->module_srl;
 		if ($cate_srl) $args->category_srl = $cate_srl;
 
@@ -477,7 +477,7 @@ class beluxeModel extends beluxe
 		if (!$oDoc->isExists() || !$oDoc->getCommentCount()) return;
 		if (!$oDoc->isGranted() && $oDoc->isSecret()) return;
 
-		$cmComment = & getModel('comment');
+		$cmComment = &getModel('comment');
 		$out = $cmComment->getCommentList($a_docsrl, $a_page, $is_admin, $a_lstcnt);
 		if (!$out->toBool()) return;
 
@@ -728,6 +728,26 @@ class beluxeModel extends beluxe
 		$args->document_srl = $a_docsrl;
 		$args->extra_vars = serialize($dx_exv);
 		return executeQuery('beluxe.updateExtraVars', $args);
+	}
+
+	function scheduleDocumentRegister($a_modsrl) {
+
+		$_tmp = new stdClass();
+		$_tmp->module_srl = $a_modsrl;
+		$_tmp->last_update = date('YmdHis');
+		$_tmp2 = executeQueryArray('beluxe.getScheduleDocumentRegister', $_tmp);
+
+		if(!$_tmp2->error && count($_tmp2->data)) {
+			$_tmp = new stdClass();
+			$_tmp->last_update = date('YmdHis');
+			$_tmp->status = 'PUBLIC';
+
+			foreach ($_tmp2->data as $val) {
+				$_tmp->document_srl = $val->document_srl;
+				$_tmp->list_order = getNextSequence() * -1;
+				executeQuery('beluxe.updateScheduleDocumentRegister', $_tmp);
+			}
+		}
 	}
 
 	function isBlind($a_consrl, $a_type = 'doc') {

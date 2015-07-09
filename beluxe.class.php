@@ -16,8 +16,8 @@ class beluxe extends ModuleObject
 
 	/* @brief Install the module */
 	function moduleInstall() {
-		$cmModule = & getModel('module');
-		$ccModule = & getController('module');
+		$cmModule = &getModel('module');
+		$ccModule = &getController('module');
 
 		if (file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')) {
 			if (!$cmModule->getTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before')) $ccModule->insertTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before');
@@ -32,7 +32,7 @@ class beluxe extends ModuleObject
 
 	/* @brief Check the module */
 	function checkUpdate() {
-		$cmModule = & getModel('module');
+		$cmModule = &getModel('module');
 
 		if (file_exists(__XEFM_PATH__ . 'schemas/file_downloaded_log.xml')) {
 			if (!$cmModule->getTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before')) return TRUE;
@@ -53,7 +53,7 @@ class beluxe extends ModuleObject
 
 	/* @brief Uninstall the module */
 	function moduleUninstall() {
-		$ccModule = & getController('module');
+		$ccModule = &getController('module');
 
 		$ccModule->deleteTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerBeforeDownloadFile', 'before');
 		$ccModule->deleteTrigger('file.downloadFile', 'beluxe', 'controller', 'triggerDownloadFile', 'after');

@@ -115,8 +115,8 @@ class beluxeView extends beluxe
 	{
 
 		// 한번만 부르려고 전역 셋팅
-		$this->cmDoc = & getModel('document');
-		$this->cmThis = & getModel(__XEFM_NAME__);
+		$this->cmDoc = &getModel('document');
+		$this->cmThis = &getModel(__XEFM_NAME__);
 
 		// 대상 항목을 구함
 		$this->lstCfg = $this->cmThis->getColumnInfo($this->module_srl);
@@ -201,6 +201,10 @@ class beluxeView extends beluxe
 			Context::set('page_navigation', new PageHandler(0, 0, 1, 10));
 			Context::set('page', 1);
 		} else {
+			// 예약 문서 확인
+			if($oMi->schedule_document_register==='Y') {
+				$this->cmThis->scheduleDocumentRegister($args->module_srl);
+			}
 
 			$ori_page = $nvi_page = 0;
 			$is_get_srls = strpos($args->search_target, 't_comment_') === 0 || $args->search_target === 'is_adopted';
@@ -371,7 +375,7 @@ class beluxeView extends beluxe
 		$par_srl = Context::get('parent_srl');
 
 		// 해당 댓글를 찾아본다
-		$cmComment = & getModel('comment');
+		$cmComment = &getModel('comment');
 		$out = $cmComment->getComment((int)$cmt_srl, $this->grant->manager);
 		if($out->isExists()) {
 			// 글 보기 권한을 체크해서 권한이 없으면 빈문서
@@ -438,7 +442,7 @@ class beluxeView extends beluxe
 
 	function dispBoardTagList() {
 		if ($this->grant->list) {
-			$cmTag = & getModel('tag');
+			$cmTag = &getModel('tag');
 
 			$obj->mid = $this->mid;
 			$obj->list_count = Context::get('list_count');

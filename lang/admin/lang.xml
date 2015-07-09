@@ -145,6 +145,11 @@
 		<value xml:lang="jp"><![CDATA[相談機能]]></value>
 		<value xml:lang="en"><![CDATA[Consultation]]></value>
 	</item>
+	<item name="schedule_document_register">
+		<value xml:lang="ko"><![CDATA[예약 기능]]></value>
+		<value xml:lang="jp"><![CDATA[예약 기능]]></value>
+		<value xml:lang="en"><![CDATA[예약 기능]]></value>
+	</item>
 	<item name="trace_only2">
 		<value xml:lang="ko"><![CDATA[흔적만]]></value>
 		<value xml:lang="jp"><![CDATA[記録だけ]]></value>

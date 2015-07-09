@@ -1,0 +1,17 @@
+<query id="updateScheduleDocumentRegister" action="update">
+	<tables>
+		<table name="documents" />
+	</tables>
+	<columns>
+		<column name="last_updater" default="" />
+		<column name="readed_count" default="0" />
+		<column name="status" var="status" />
+		<column name="last_update" var="last_update" />
+		<column name="regdate" var="last_update" />
+		<column name="list_order" var="list_order" />
+		<column name="update_order" var="list_order" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="document_srl" var="document_srl" filter="number" notnull="notnull" />
+	</conditions>
+</query>

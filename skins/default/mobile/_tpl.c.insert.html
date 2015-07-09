@@ -32,9 +32,7 @@
 
 		<block cond="$oSourceComment->isExists()">
 			<li>
-				<h3>{$lang->comment}:
-					{cut_str((!$oSourceComment->get('member_srl')||$ds_nick||!$ds_user)?$oSourceComment->getNickName():$oSourceComment->getUserName(), $mi->nickname_length)}
-				</h3>
+				<h3>{cut_str((!$oSourceComment->get('member_srl')||$ds_nick||!$ds_user)?$oSourceComment->getNickName():$oSourceComment->getUserName(), $mi->nickname_length)}</h3>
 				<hr />
 				<p>{$oSourceComment->getContentText(255)}</p>
 			</li>

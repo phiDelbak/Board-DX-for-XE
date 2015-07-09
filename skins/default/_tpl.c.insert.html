@@ -39,18 +39,25 @@
 		</block>
 
 		<div cond="$is_par" class="scCpar clearBar">
-			<h3 class="author">
-				{@
-					$mbsl = $oSourceComment->get('member_srl');
-					$home = $oSourceComment->get('homepage');
-					$nick = (!$mbsl||$ds_nick||!$ds_user)?$oSourceComment->getNickName():'';
-					$nick .= ($mbsl&&$ds_user)?($nick?' (':'').$oSourceComment->getUserName().($nick?')':''):'';
-				}
-				<i cond="!$mbsl && !$home">{$nick}</i>
-				<span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
-				<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
-			</h3>
-			<div class="clearBar">
+			<div class="author">
+				<block cond="($mi->display_profile!='N'&&$mi->display_profile!='D')">
+					<img cond="$oSourceComment->getProfileImage()" src="{$oSourceComment->getProfileImage()}" alt="Profile" class="profile" />
+					<span cond="!$oSourceComment->getProfileImage()" class="profile"></span>
+				</block>
+				<h3>
+					{@
+						$mbsl = $oSourceComment->get('member_srl');
+						$home = $oSourceComment->get('homepage');
+						$nick = (!$mbsl||$ds_nick||!$ds_user)?$oSourceComment->getNickName():'';
+						$nick .= ($mbsl&&$ds_user)?($nick?' (':'').$oSourceComment->getUserName().($nick?')':''):'';
+					}
+					<i cond="!$mbsl && !$home">{$nick}</i>
+					<span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
+					<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
+				</h3>
+				<p class="time">{$oSourceComment->getRegdate('Y.m.d H:i')}</p>
+			</div>
+			<div class="content clearBar">
 				{preg_replace(array('!(<[A-Za-z]+\s+[^>]*)name\s*=\s*(\"|\')?([^>\"\']+)(\"|\')?!is','!<(iframe|embed|object)([^>]*)>(.*?)<\/(iframe|embed|object)>!is'), array('$1','<div class="message"><p>$1 $2</p></div>'), $oSourceComment->getContent(false))}
 			</div>
 		</div>

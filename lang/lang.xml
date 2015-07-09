@@ -74,6 +74,11 @@
 		<value xml:lang="jp"><![CDATA[미채택]]></value>
 		<value xml:lang="en"><![CDATA[미채택]]></value>
 	</item>
+	<item name="reserve">
+		<value xml:lang="ko"><![CDATA[예약]]></value>
+		<value xml:lang="jp"><![CDATA[예약]]></value>
+		<value xml:lang="en"><![CDATA[예약]]></value>
+	</item>
 	<item name="custom_status">
 		<value xml:lang="ko"><![CDATA[사용자 지정 상태]]></value>
 		<value xml:lang="jp"><![CDATA[使用者指定状態]]></value>
@@ -128,6 +133,11 @@
 		<value xml:lang="ko"><![CDATA[채택하였습니다.]]></value>
 		<value xml:lang="jp"><![CDATA[채택하였습니다.]]></value>
 		<value xml:lang="en"><![CDATA[채택하였습니다.]]></value>
+	</item>
+	<item name="invalid_schedule_regdate">
+		<value xml:lang="ko"><![CDATA[잘못된 예약 날짜입니다.]]></value>
+		<value xml:lang="jp"><![CDATA[잘못된 예약 날짜입니다.]]></value>
+		<value xml:lang="en"><![CDATA[잘못된 예약 날짜입니다.]]></value>
 	</item>
 	<item name="msg_out_of_range">
 		<value xml:lang="ko"><![CDATA[범위를 벗어나는 값입니다.]]></value>
@@ -218,5 +228,10 @@
 		<value xml:lang="ko"><![CDATA[쉼표(,)를 이용해 복수 등록이 가능합니다.]]></value>
 		<value xml:lang="jp"><![CDATA[コンマ(,)を利用して複数登録が可能です.]]></value>
 		<value xml:lang="en"><![CDATA[쉼표(,)를 이용해 복수 등록이 가능합니다.]]></value>
+	</item>
+	<item name="about_schedule_document_register">
+		<value xml:lang="ko"><![CDATA[예약된 날짜에 문서를 등록 할 수 있게 합니다.<br />그 전까지 임시 문서로 저장되며 임시 문서 목록에서 확인 할 수 있습니다.]]></value>
+		<value xml:lang="jp"><![CDATA[예약된 날짜에 문서를 등록 할 수 있게 합니다.<br />그 전까지 임시 문서로 저장되며 임시 문서 목록에서 확인 할 수 있습니다.]]></value>
+		<value xml:lang="en"><![CDATA[예약된 날짜에 문서를 등록 할 수 있게 합니다.<br />그 전까지 임시 문서로 저장되며 임시 문서 목록에서 확인 할 수 있습니다.]]></value>
 	</item>
 </lang>

@@ -539,6 +539,15 @@
 				<p id="about_consultation" class="x_help-block" hidden>{$lang->about_consultation}</p>
 			</div>
 		</div>
+		<div class="x_control-group {$m_copy_target?'x_info':''}">
+			<label class="x_control-label">{$lang->schedule_document_register}</label>
+			<div class="x_controls {$compulsory_options['schedule_document_register']?'opt_cps':''} {$module_backup_options['schedule_document_register']?'opt_bks':''}">
+				<label class="x_inline"><input type="radio" name="schedule_document_register" value="N" checked="checked"|cond="$module_info->schedule_document_register!='Y'" /> {$lang->notuse}</label>
+				<label class="x_inline"><input type="radio" name="schedule_document_register" value="Y" checked="checked"|cond="$module_info->schedule_document_register=='Y'" /> {$lang->use}</label>
+				<a href="#about_schedule_document_register" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="about_schedule_document_register" class="x_help-block" hidden>{$lang->about_schedule_document_register}</p>
+			</div>
+		</div>
 		{@
 			$tmp = $module_info->use_history&&($module_info->use_history!=$part_config->use_history);
 			($tmp&&!$module_info->module_srl)||$m_copy_target ? $tmp = 0 : 0;

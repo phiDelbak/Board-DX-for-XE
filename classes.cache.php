@@ -187,7 +187,7 @@ class BeluxeCache
 			}
 		}
 
-		$cmDocument = & getModel('document');
+		$cmDocument = &getModel('document');
 		$php = $cmDocument->getCategoryPhpFile($a_modsrl);
 		@include ($php);
 

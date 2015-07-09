@@ -30,19 +30,26 @@
 	<input type="hidden" name="category_srl" value="{$category_srl}" />
 	<div id="siWrt">
 		<div class="scCpar clearBar">
-			<h3 class="author">
-				{@
-					$mbsl = $oDocument->get('member_srl');
-					$home = $oDocument->get('homepage');
-					$nick = (!$mbsl||$ds_nick||!$ds_user)?$oDocument->getNickName():'';
-					$nick .= ($mbsl&&$ds_user)?($nick?' (':'').$oDocument->getUserName().($nick?')':''):'';
-				}
-				<i cond="!$mbsl && !$home">{$nick}</i>
-				<span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
-				<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
-			</h3>
-			<h4>{$oDocument->getTitle()}</h4>
-			<div class="clearBar">
+			<div class="author">
+				<block cond="($mi->display_profile!='N'&&$mi->display_profile!='D')">
+					<img cond="$oDocument->getProfileImage()" src="{$oDocument->getProfileImage()}" alt="Profile" class="profile" />
+					<span cond="!$oDocument->getProfileImage()" class="profile"></span>
+				</block>
+				<h3>
+					{@
+						$mbsl = $oDocument->get('member_srl');
+						$home = $oDocument->get('homepage');
+						$nick = (!$mbsl||$ds_nick||!$ds_user)?$oDocument->getNickName():'';
+						$nick .= ($mbsl&&$ds_user)?($nick?' (':'').$oDocument->getUserName().($nick?')':''):'';
+					}
+					<i cond="!$mbsl && !$home">{$nick}</i>
+					<span cond="$mbsl" class="scHLink member_{$mbsl}">{$nick}</span>
+					<i cond="!$mbsl && $home" class="scHLink" data-href="{$home}">{$nick}</i>
+				</h3>
+				<p class="time">{$oDocument->getRegdate('Y.m.d H:i')}</p>
+			</div>
+			<div class="content clearBar">
+				<h4 style="margin-top:0">{$oDocument->getTitle()}</h4>
 				{preg_replace(array('!(<[A-Za-z]+\s+[^>]*)name\s*=\s*(\"|\')?([^>\"\']+)(\"|\')?!is','!<(iframe|embed|object)([^>]*)>(.*?)<\/(iframe|embed|object)>!is'), array('$1','<div class="message"><p>$1 $2</p></div>'), $oDocument->getContent(false))}
 			</div>
 		</div>

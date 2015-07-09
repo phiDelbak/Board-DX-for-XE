@@ -97,7 +97,7 @@
 			</li>
 			<block cond="$is_logged && ($pt_vtype!='N'||$pt_dtype!='N')">
 				<li><hr /></li>
-				<li>
+				<li class="exvar">
 					<label>
 						{$lang->point}
 						{@
@@ -115,6 +115,48 @@
 						</block>
 					</label>
 					<p>{$pt_vtype=='A'?sprintf($lang->about_use_adopt,(100-$mi->use_point_percent).'%'):sprintf($lang->about_use_point,$mi->use_point_percent.'%')}</p>
+				</li>
+			</block>
+			<block cond="$is_logged&&!$is_doc&&$mi->schedule_document_register==='Y'">
+				<li><hr /></li>
+				<li class="exvar">
+				<label class="exnm">{$lang->reserve}</label>
+				<input type="hidden" name="schedule_regdate" value="" />
+				Date. <input type="text" id="date_schedule_regdate" class="date" value="" style="margin-bottom:5px" /><br />
+				Time. <input type="text" id="date_schedule_regdate_hour" class="date" value="" placeholder="0~23" maxlength="2" style="width:35px!important" />H&nbsp;&nbsp;
+				<input type="text" id="date_schedule_regdate_minute" class="date" value="" placeholder="0~59" maxlength="2" style="width:35px!important" />M&nbsp;&nbsp;
+				<input type="button" value="{$lang->cmd_delete}" class="btn" id="dateRemover_schedule_regdate" />
+				<p>{$lang->about_schedule_document_register}</p>
+				{@ Context::loadJavascriptPlugin('ui.datepicker')}
+				<script>
+				//<![CDATA[
+				(function($){
+				$(function(){
+					var option = {
+						 dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, gotoCurrent: true,yearRange:'-100:+10',
+						onSelect:function(){
+							$('#date_schedule_regdate_hour').change();
+						}
+					};
+					$.extend(option, $.datepicker.regional["{Context::getLangType()?Context::getLangType():'ko'}"]);
+					$('#date_schedule_regdate').datepicker(option);
+					$("#dateRemover_schedule_regdate").click(function(){
+						$(this).siblings("input").val("");
+						$('#date_schedule_regdate_hour,#date_schedule_regdate_minute').val('');
+						return false;
+					});
+					$('#date_schedule_regdate_hour, #date_schedule_regdate_minute').change(function(){
+						var dd = $('#date_schedule_regdate')[0].value.replace(/[-:\s]/g,''),
+							dh = $('#date_schedule_regdate_hour').val()||'0',
+							dm = $('#date_schedule_regdate_minute').val()||'0';
+						if(dh.length === 1) dh = '0' + dh;
+						if(dm.length === 1) dm = '0' + dm;
+						$('#date_schedule_regdate').prev('input[name=schedule_regdate]').val(dd+dh+dm);
+					});
+				});
+				})(jQuery);
+				//]]>
+				</script>
 				</li>
 			</block>
 			{@ $extra_keys = $oThis->getDocumentExtraVars($is_doc?$oDocument->document_srl:0)}
@@ -170,7 +212,7 @@
 					<a class="bn white fr flc">File upload (0)</a>
 				</div>
 				<div id="fUpreview">
-					<div class="fpv"></div>
+					<div class="fpv" data-set-cover="1"|cond="version_compare(__XE_VERSION__, '1.8.4', '>')"></div>
 					<div class="fls"><select id="siFiles" class="fl"></select></div>
 					<div class="fct"><a href="#" class="bn scFin">Insert</a><br /><a href="#" class="bn scFcl">Delete</a></div>
 				</div>

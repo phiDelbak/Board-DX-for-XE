@@ -13,7 +13,7 @@ class beluxeAdminView extends beluxe
 	/*********** @initialization							***********/
 
 	function init() {
-		$cmModule = & getModel('module');
+		$cmModule = &getModel('module');
 
 		// module_srl이 있으면 미리 체크하여 존재하는 모듈이면 module_info 세팅
 		$mod_srl = Context::get('module_srl');
@@ -83,7 +83,7 @@ class beluxeAdminView extends beluxe
 
 	/* @brief Display a list of beluxe */
 	function dispBeluxeAdminList() {
-		$cmAdmThis = & getAdminModel(__XEFM_NAME__);
+		$cmAdmThis = &getAdminModel(__XEFM_NAME__);
 		$out = $cmAdmThis->getBeluxeList();
 
 		Context::set('beluxe_list', $out->data);
@@ -102,12 +102,12 @@ class beluxeAdminView extends beluxe
 	function dispBeluxeAdminInsert() {
 
 		// 스킨 목록을 구해옴
-		$cmModule = & getModel('module');
+		$cmModule = &getModel('module');
 		$skin_lst = $cmModule->getSkins($this->module_path);
 		Context::set('skin_list', $skin_lst);
 
 		// 레이아웃 목록을 구해옴
-		$cmLayout = & getModel('layout');
+		$cmLayout = &getModel('layout');
 		$layout_lst = $cmLayout->getLayoutList();
 		Context::set('layout_list', $layout_lst);
 
@@ -120,7 +120,7 @@ class beluxeAdminView extends beluxe
 		$security->encodeHTML('mlayout_list..title', 'mlayout_list..layout');
 
 		// get document status list
-		$cmDocument = & getModel('document');
+		$cmDocument = &getModel('document');
 		$stat_lst = $cmDocument->getStatusNameList();
 		Context::set('document_status_list', $stat_lst);
 
@@ -152,7 +152,7 @@ class beluxeAdminView extends beluxe
 			$security->encodeHTML('module_info.');
 		}
 		else {
-			$cmAdmThis = & getAdminModel(__XEFM_NAME__);
+			$cmAdmThis = &getAdminModel(__XEFM_NAME__);
 			$_tmp = $cmAdmThis->getTypeList($this->module_srl ? $this->module_info->skin : 'default');
 			Context::set('default_type_list', $_tmp);
 
@@ -202,12 +202,12 @@ class beluxeAdminView extends beluxe
 
 	/* @brief Display a category info */
 	function dispBeluxeAdminCategoryInfo() {
-		$cmAdmThis = & getAdminModel(__XEFM_NAME__);
+		$cmAdmThis = &getAdminModel(__XEFM_NAME__);
 		$out = $cmAdmThis->getCategories($this->module_srl);
 		Context::set('menu', $out->data);
 
 		// Get a list of member groups
-		$cmMember = & getModel('member');
+		$cmMember = &getModel('member');
 		$gru_lst = $cmMember->getGroups($this->module_info->site_srl);
 		Context::set('group_list', $gru_lst);
 
@@ -231,7 +231,7 @@ class beluxeAdminView extends beluxe
 			Context::set('XE_VALIDATOR_MESSAGE', Context::getLang('msg_skin_does_not_exist'));
 		}
 
-		$cmModule = & getModel('module');
+		$cmModule = &getModel('module');
 		$skin_info = $cmModule->loadSkinInfo($module_path, $skin);
 		$skin_vars = $cmModule->getModuleSkinVars($this->module_srl);
 
@@ -254,7 +254,7 @@ class beluxeAdminView extends beluxe
 			Context::set('XE_VALIDATOR_MESSAGE', Context::getLang('msg_skin_does_not_exist'));
 		}
 
-		$cmModule = & getModel('module');
+		$cmModule = &getModel('module');
 		$skin_info = $cmModule->loadSkinInfo($module_path, $mskin);
 		$skin_vars = $cmModule->getModuleMobileSkinVars($this->module_srl);
 
@@ -267,7 +267,7 @@ class beluxeAdminView extends beluxe
 
 	/* @brief Display a grant info */
 	function dispBeluxeAdminGrantInfo() {
-		$cmAdmModule = & getAdminModel('module');
+		$cmAdmModule = &getAdminModel('module');
 		$grant_content = $cmAdmModule->getModuleGrantHTML($this->module_srl, $this->xml_info->grant);
 		Context::set('grant_content', $grant_content);
 
@@ -294,7 +294,7 @@ class beluxeAdminView extends beluxe
 	function dispBeluxeAdminColumnInfo() {
 
 		// 대상 항목을 구함
-		$cmThis = & getModel(__XEFM_NAME__);
+		$cmThis = &getModel(__XEFM_NAME__);
 		$lst_cfg = $cmThis->getColumnInfo($this->module_srl);
 
 		// 설정 항목 추출 (설정항목이 없을 경우 기본 값을 세팅)
@@ -306,7 +306,7 @@ class beluxeAdminView extends beluxe
 
 	/* @brief Setting a extra vars */
 	function dispBeluxeAdminExtraKeys() {
-		$cmDocument = & getModel('document');
+		$cmDocument = &getModel('document');
 
 		// Bringing existing extra_keys
 		$extra_keys = $cmDocument->getExtraKeys($this->module_srl);

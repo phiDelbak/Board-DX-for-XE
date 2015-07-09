@@ -28,7 +28,7 @@
 				<!--@endif-->
 				<block cond="count($pcatlst)">
 					{@ $pcatlst = array_reverse($pcatlst)}
-					<span loop="$pcatlst=>$key,$val">{$key>0?'..':$val} &rsaquo;</span>
+					<span loop="$pcatlst=>$key,$val"> {$key>0?'..':$val} &rsaquo;</span>
 				</block>
 				<span class="ca">
 					{$category_srl?$cts[$category_srl]->title:$mi->browser_title}

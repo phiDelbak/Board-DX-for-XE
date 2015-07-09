@@ -176,6 +176,48 @@
 			</li>
 		</ul>
 
+		<ul cond="$is_logged&&!$is_doc&&$mi->schedule_document_register==='Y'" class="scWul">
+			<li class="clearBar">
+				<label>{$lang->reserve}</label>
+				<input type="hidden" name="schedule_regdate" value="" />
+				<input type="text" id="date_schedule_regdate" class="date" value="" style="margin-bottom:2px" placeholder="Date." />D&nbsp;&nbsp;&nbsp;
+				<input type="text" id="date_schedule_regdate_hour" class="date" value="" placeholder="0~23" maxlength="2" style="width:35px!important" />H&nbsp;&nbsp;
+				<input type="text" id="date_schedule_regdate_minute" class="date" value="" placeholder="0~59" maxlength="2" style="width:35px!important" />M&nbsp;&nbsp;
+				<input type="button" value="{$lang->cmd_delete}" class="btn" id="dateRemover_schedule_regdate" />
+				<p>{$lang->about_schedule_document_register}</p>
+				{@ Context::loadJavascriptPlugin('ui.datepicker')}
+				<script>
+				//<![CDATA[
+				(function($){
+				$(function(){
+					var option = {
+						 dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, gotoCurrent: true,yearRange:'-100:+10',
+						onSelect:function(){
+							$('#date_schedule_regdate_hour').change();
+						}
+					};
+					$.extend(option, $.datepicker.regional["{Context::getLangType()?Context::getLangType():'ko'}"]);
+					$('#date_schedule_regdate').datepicker(option);
+					$("#dateRemover_schedule_regdate").click(function(){
+						$(this).siblings("input").val("");
+						$('#date_schedule_regdate_hour,#date_schedule_regdate_minute').val('');
+						return false;
+					});
+					$('#date_schedule_regdate_hour, #date_schedule_regdate_minute').change(function(){
+						var dd = $('#date_schedule_regdate')[0].value.replace(/[-:\s]/g,''),
+							dh = $('#date_schedule_regdate_hour').val()||'0',
+							dm = $('#date_schedule_regdate_minute').val()||'0';
+						if(dh.length === 1) dh = '0' + dh;
+						if(dm.length === 1) dm = '0' + dm;
+						$('#date_schedule_regdate').prev('input[name=schedule_regdate]').val(dd+dh+dm);
+					});
+				});
+				})(jQuery);
+				//]]>
+				</script>
+			</li>
+		</ul>
+
 		<div class="scExTog" style="display:none"><button type="button" title="{$lang->extra_toggle}"><i></i></button></div>
 
 		{@ $extra_keys = $oThis->getDocumentExtraVars((int)$oDocument->document_srl)}

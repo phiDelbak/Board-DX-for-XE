@@ -468,13 +468,12 @@ class beluxeController extends beluxe
 				$is_upCateCnt = $oDocIfo->get('category_srl') != $args->category_srl;
 				$msg_code = 'success_updated';
 				$page = Context::get('page');
-			}
-			else
-			{
+
+			} else {
 			// 그렇지 않으면 신규 등록
+
 				//text_editor 옵션이 있으면 변경
-				if($args->text_editor === 'Y')
-				{
+				if($args->text_editor === 'Y') {
 					if($args->use_html !== 'Y') $args->content = htmlspecialchars($args->content);
 					$args->content = nl2br($args->content);
 				}
@@ -482,6 +481,21 @@ class beluxeController extends beluxe
 				//익명 사용시
 				$is_anonymous = $args->anonymous === 'Y';
 				if($is_anonymous) $this->_setAnonymous($args, $oLogIfo);
+
+				// 예약 등록
+				if($oMi->schedule_document_register==='Y' && $args->schedule_regdate) {
+					if(!preg_match("/[0-9]{8,14}/i", $args->schedule_regdate)){
+						$oDB->rollback();
+						return new Object(-1,'invalid_schedule_regdate');
+					}
+
+					$args->status = 'TEMP';
+					$args->readed_count = '-1'; // 조회수 -로 임시 목록에서 예약 구분
+					$args->last_updater = '/BELUXE_SCHEDULE_DOCUMENT_REGISTER/';
+					$args->last_update = $args->schedule_regdate;
+					$_tmp = strlen($args->last_update);
+					if($_tmp < 14) $args->last_update .= str_repeat('0', 14 - $_tmp);
+				}
 
 				// 신규에 srl 이 있으면 첨부 파일이 들어있는 경우
 				$out = $ccDocument->insertDocument($args, $is_anonymous);
@@ -1174,11 +1188,11 @@ class beluxeController extends beluxe
 		$output = executeQuery('beluxe.updateExtraVars', $args);
 		if(!$output->toBool()) return $output;
 
+		// 채택시 포인트 갱신을 위해
 		if($cmb_srl && $use_point > 0) {
-			// 채택시 포인트 갱신을 위해
-			$point = round(($use_point * (int)$oMi->use_point_percent) / 100);
-			// 성공하면 포인트 지급
+			$point = round($use_point*0.01*(int)$oMi->use_point_percent);
 			$ccPoint = &getController('point');
+			// 포인트 지급
 			if($point > 0) $ccPoint->setPoint($cmb_srl, $point, 'add');
 			// 나머지는 돌려줌
 			if(($use_point-$point) > 0) $ccPoint->setPoint($cmb_srl, $use_point-$point, 'add');

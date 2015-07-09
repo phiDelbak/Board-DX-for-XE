@@ -266,7 +266,7 @@ jQuery(function($) {
 									x = v.download_url;
 									r = v.file_srl;
 									z = parseInt(v.file_size);
-									z = z > 1024 ? Math.round(z / 1024) + 'kb' : z + 'byte';
+									z = z < 1024 ? z + 'Byte' : (z < 1048576 ? (Math.round((z / 1024) * 10) / 10) + 'KB' : (Math.round((z / 1048576) * 10) / 10) + 'MB');
 
 									$('<option value="' + r + '" data-src="' + x + '"></option>')
 										.appendTo(ls).text(m + ' (' + z + ')').addClass(x !== "" ? 'success' : 'error');
@@ -384,20 +384,41 @@ jQuery(function($) {
 			});
 
 			$('#siFiles').change(function() {
-				var t, o = $(this);
+				var t,
+					v = $('#fUpreview').find('.fpv'),
+					o = $(this),
+					file_srl = o.val();
+
 				o = [
 					o.find('option[value=' + o.val() + ']').text(),
 					o.find('option[value=' + o.val() + ']').attr('data-src')
 				];
-				if (o) {
-					if (o[1].match(/\.(?:(jpe?g|png|gif|ico))$/i)) {
-						t = '<img src="' + o[1] + '" />';
-					} else {
-						if (o[1]) t = '<img src="./modules/editor/tpl/images/files.gif" />';
-						else t = '<img src="./common/img/blank.gif" />';
-					}
+
+				if (o[1].match(/\.(?:(jpe?g|png|gif|ico))$/i)) {
+					t = '<img src="' + o[1] + '" class="cover_image" />';
+					v.addClass('is_image');
+				} else {
+					if (o[1]) t = '<img src="./modules/editor/tpl/images/files.gif" />';
+					else t = '<img src="./common/img/blank.gif" />';
+					v.removeClass('is_image');
 				}
-				$(t).appendTo($('#fUpreview').find('.fpv').empty());
+
+				$(t).click(function() {
+					if (!v.is('[data-set-cover]')) return false;
+					if (($(this).attr('class') || '') === 'cover_image') {
+						exec_json('file.procFileSetCoverImage', {
+								'file_srl': file_srl,
+								'mid': current_mid,
+								'editor_sequence': '1'
+							},
+							function(res) {
+								if (res.error !== 0) return;
+								alert('set cover image');
+							}
+						);
+					}
+					return false;
+				}).appendTo(v.empty());
 			});
 		});
 

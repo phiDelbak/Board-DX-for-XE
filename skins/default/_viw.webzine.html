@@ -208,19 +208,21 @@ $is_doc_owner = $lg->member_srl && $dmb_srl == $lg->member_srl;
 				$ds_declare = strpos($mi->use_d_vote, 'declare')!==false;
 				$adm_id = $ds_declare ? $oThis->getAdminId() : array();
 				}
-				<span cond="$ds_voteup||$ds_votedown||$ds_declare||$ds_scrap" class="scVoteArea fl">
-				<span cond="$ds_scrap" class="scBtn small group"><a href="#scrap" onclick="doCallModuleAction('member','procMemberScrapDocument','{$doc_srl}');return false;"><em class="scrap">{$lang->cmd_scrap}</em></a></span>
-				<block cond="$mi->view_comment_style!='webzine'">
-					<span cond="$ds_voteup||$ds_votedown" class="scBtn small group"><a cond="$ds_voteup" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_like}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a><a cond="$ds_votedown" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_dislike}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a></span>
-				</block>
-				<span cond="$ds_declare" class="scBtn small group"><a href="#declare" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$dmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a></span>
+				<span cond="$ds_voteup||$ds_votedown||$ds_declare" class="scVoteArea fl">
+					<block cond="$mi->view_comment_style!='webzine'">
+						<span cond="$ds_voteup||$ds_votedown" class="scBtn small group"><a cond="$ds_voteup" href="#recommend" data-type="document" data-srl="{$doc_srl}" accesskey="z"><em class="vote">{$lang->cmd_like}</em><em class="cnt">{$oDocument->get('voted_count')}</em></a><a cond="$ds_votedown" href="#not_recommend" data-type="document" data-srl="{$doc_srl}" accesskey="x"><em class="blame">{$lang->cmd_dislike}</em><em class="cnt">{$oDocument->get('blamed_count')}</em></a></span>
+					</block>
+					<span cond="$ds_declare" class="scBtn small group"><a href="#declare" data-type="document" data-srl="{$doc_srl}" data-rec="{count($adm_id)?$adm_id[0]->member_srl:$dmb_srl}"><em class="declare">{$lang->cmd_declare}</em></a></span>
 				</span>
 				</block>
 				<a cond="$mi->display_document_do!='N'" class="document_{$doc_srl}" href="#popup_menu_area" onclick="return false">{$lang->cmd_document_do}</a>
-				<ul cond="$mi->display_button_sns!='N'" class="scSns">
+				<ul cond="$mi->display_button_sns!='N'||($ds_scrap&&!$is_scrap)" class="scSns">
+					<li cond="$ds_scrap&&!$is_scrap" class="scrap link"><a href="#scrap" onclick="doCallModuleAction('member','procMemberScrapDocument','{$doc_srl}');return false" title="{$lang->cmd_scrap}">Scrap</a></li>
+					<block cond="$mi->display_button_sns!='N'">
 					<li class="twitter link"><a href="http://twitter.com/" target="_blank" data-type="tw" title="Twitter">Twitter</a></li>
 					<li class="facebook link"><a href="http://facebook.com/" target="_blank" data-type="fa" title="Facebook">Facebook</a></li>
 					<li class="delicious link"><a href="http://delicious.com/" target="_blank" data-type="de" title="Delicious">Delicious</a></li>
+					</block>
 				</ul>
 			</div>
 

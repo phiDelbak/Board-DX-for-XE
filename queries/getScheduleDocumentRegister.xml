@@ -1,0 +1,14 @@
+<query id="getScheduleDocumentRegister" action="select">
+	<tables>
+		<table name="documents" />
+	</tables>
+    <columns>
+        <column name="document_srl" />
+    </columns>
+	<conditions>
+		<condition operation="equal" column="module_srl" var="module_srl" filter="number" notnull="notnull" />
+		<condition operation="equal" column="last_updater" default="/BELUXE_SCHEDULE_DOCUMENT_REGISTER/" notnull="notnull" pipe="and" />
+		<condition operation="equal" column="status" default="TEMP" notnull="notnull" pipe="and" />
+		<condition operation="less" column="last_update" var="last_update" notnull="notnull" pipe="and" />
+	</conditions>
+</query>
