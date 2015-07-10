@@ -12,7 +12,7 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 		<input type="hidden" name="password" value="1" />
 	</block>
 	<ul>
-		<li cond="$is_sedt!='C'">
+		<li>
 			<label for="nTitle">{$lang->title}</label>
 			<input name="title" type="text" id="nTitle" value="{htmlspecialchars($mi->document_default_title)}" <!--@if(!$grant->write_document)-->class="scGotoLoginPage" readonly="readonly" placeholder="{$lang->msg_not_permitted}"<!--@endif--> />
 		</li>
@@ -24,7 +24,7 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 				{$val->getFormHTML()}
 			</li>
 		</block>
-		<block cond="!$is_logged">
+		<block cond="$grant->write_document&&!$is_logged">
 			<li><hr /></li>
 			<li cond="$mi->use_input_guest_info != 'N'">
 				<label for="uName">{$lang->writer}</label>

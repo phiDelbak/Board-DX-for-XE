@@ -56,7 +56,7 @@
 				<label for="nTitle">{$lang->title}</label>
 				<input name="title" type="text" id="nTitle" value="{htmlspecialchars($is_doc?$oDocument->getTitleText():$mi->document_default_title)}" />
 			</li>
-			<li style="margin:7px 0 0">
+			<li class="cb" style="margin:7px 0 0">
 				<block cond="$grant->manager||$mi->use_title_color=='Y'">
 					<input type="hidden" name="title_color" value="{$is_doc?$oDocument->get('title_color'):''}" />
 					<input type="hidden" name="title_bold" value="{$is_doc?$oDocument->get('title_bold'):''}" />
@@ -64,10 +64,6 @@
 				<label cond="$grant->manager">
 					<input type="checkbox" name="is_notice" value="Y" checked="checked"|cond="$oDocument->isNotice()" />
 					{$lang->notice}
-				</label>
-				<label cond="$is_logged">
-					<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify()" />
-					{$lang->notify}
 				</label>
 				<label cond="$grant->manager || ($mi->allow_comment!='N' && $mi->allow_comment!='Y')">
 					<input type="checkbox" name="allow_comment" value="Y" checked="checked"|cond="!$is_doc&&(!$grant->manager||($grant->manager&&$mi->allow_comment!='N')) || $oDocument->allowComment()" />
@@ -77,17 +73,6 @@
 					<input type="checkbox" name="allow_trackback" value="Y" checked="checked"|cond="!$is_doc&&(!$grant->manager||($grant->manager&&$mi->allow_trackback!='N')) || $oDocument->allowTrackback()" />
 					{$lang->allow_trackback}
 				</label>
-				<label cond="$mi->use_anonymous=='S'">
-					<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oDocument->get('member_srl')<0)&&(($oDocument->get('nick_name').$oDocument->get('user_name')) == 'anonymousanonymous')" />
-					{$lang->anonymous}
-				</label>
-				{@ $t_dstus = explode(',', $mi->use_status)}
-				<label cond="count($t_dstus) > 1" class="fr">
-					<select name="status">
-						<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$oDocument->get('status') == $value">{Context::getLang(strtolower($value))}</option>
-					</select>
-				</label>
-				<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
 				<label cond="$grant->manager && count($cstus)" class="fr">
 					{$lang->status}
 					<select name="custom_status">
@@ -199,6 +184,21 @@
 			<li style="text-align:right;margin:0 0 5px">
 				<label for="nText" class="fl">{$lang->content}</label>
 				<label><input type="checkbox" name="use_html" value="Y" checked="checked" /> HTML</label>
+				<label cond="$is_logged">
+					<input type="checkbox" name="notify_message" value="Y" checked="checked"|cond="$oDocument->useNotify()" />
+					{$lang->notify}
+				</label>
+				<label cond="$mi->use_anonymous=='S'">
+					<input type="checkbox" name="anonymous" value="Y" checked="checked"|cond="($oDocument->get('member_srl')<0)&&(($oDocument->get('nick_name').$oDocument->get('user_name')) == 'anonymousanonymous')" />
+					{$lang->anonymous}
+				</label>
+				{@ $t_dstus = explode(',', $mi->use_status)}
+				<label cond="count($t_dstus) > 1">
+					<select name="status">
+						<option loop="$t_dstus => $value" value="{$value}" selected="selected"|cond="$oDocument->get('status') == $value">{Context::getLang(strtolower($value))}</option>
+					</select>
+				</label>
+				<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
 			</li>
 			<li><textarea name="content" cols="20" rows="12" id="nText">{$is_doc?preg_replace('/<br[^>]*>[\r\n]/i','',$oDocument->get('content')):htmlspecialchars($mi->document_default_content)}</textarea></li>
 			<li cond="$mi->use_mobile_uploader == 'Y'" style="margin-right:0">

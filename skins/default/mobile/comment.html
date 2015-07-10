@@ -49,7 +49,7 @@
 				$isc_locked = $is_ckclok?$oThis->isLocked($cmt_srl, 'cmt'):0;
 				$isc_granted = $grant->view && $comment->isGranted();
 				$isc_secret = $comment->isSecret();
-				$isc_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($comment->comment_srl, 'cmt'):0;
+				$isc_blind = $mi->use_c_blind=='Y'?$oThis->isBlind($cmt_srl, 'cmt'):0;
 				$_tmp = $cmb_srl?$cmb_srl:$comment->get('ipaddress');
 				$is_chk = !$depth ? (int) $voted_list[$_tmp]->point > -1 : $is_chk;
 				$show_btnAdopt = $mi->view_comment_style!='webzine'&&$pt_vtype=='A'&&!$isc_blind&&(!$cmb_srl||$cmb_srl!=$dmb_srl)&&($grant->manager||$is_doc_owner||$adopt_srl==$cmt_srl);

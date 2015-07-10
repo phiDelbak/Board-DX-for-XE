@@ -28,12 +28,14 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 		</div>
 
 		<ul class="scWul clearBar">
+			<li><hr /></li>
 			{@ $extra_keys = $grant->write_document?$oThis->getDocumentExtraVars(0):array()}
 			<block cond="count($extra_keys)">
 				<li loop="$extra_keys => $key,$val" class="clearBar" style="display:none"|cond="$mi->use_auto_hide_extra_vars=='Y'&&$val->is_required!='Y'">
 					<label>{$val->name} <span cond="$val->is_required=='Y'" class="required">*</span></label>
 					{$val->getFormHTML()}
 				</li>
+				<li><hr /></li>
 			</block>
 			<li cond="$is_sedt == 'C'">
 				<label>{$lang->title} <span class="required">*</span></label>
@@ -80,7 +82,7 @@ $ccDocument->addXmlJsFilter($mi->module_srl);
 					</label>
 					<block cond="$mi->use_input_guest_info != 'N' && $mi->use_input_guest_info != 'S'">
 						<label class="scLaEt">
-							<span>Email</span>
+							<span>Mail</span>
 							<input type="email" name="email_address" maxlength="250" />
 						</label>
 						<label class="scLaEt">

@@ -1998,9 +1998,9 @@
 #siWrt .scWul >li {
 	line-height: 20px;
 	position: relative;
-	padding-left: 145px;
 	border: 0 solid #e6e6e6;
-	border-bottom-width: 1px
+	border-bottom-width: 1px;
+	padding: 2px 0 2px 145px;
 }
 
 #siWrt .scWul >li:first-child {
@@ -2113,12 +2113,12 @@
 
 .scSimWrt #siHrm .scFrm li {
 	text-align: right;
-	padding-left: 130px!important
+	padding-left: 130px!important;
+	padding-right: 3px!important
 }
 
 .scSimWrt #siHrm .scFrm li input {
 	width: 100%;
-	margin-top: -4px
 }
 
 .scSimWrt #siHrm .scFrm li strong.t {
@@ -2128,6 +2128,10 @@
 
 #siWrt.scSimWrt .scWul {
 	padding: 0 5px
+}
+
+#siWrt.scSimWrt .scWul li hr {
+	border: 1px solid #eee;
 }
 
 #siWrt.scSimWrt .scWul textarea {
@@ -2830,9 +2834,6 @@ noindex:-o-prefocus,
 @-moz-document url-prefix() {
 	#siFbk .scFbWt .cmtbtns {
 		padding: 0 5px 0 0
-	}
-	#siWrt .scWul >li input {
-		margin-top: 2px
 	}
 	#siCat.text {
 		margin-top: -8px

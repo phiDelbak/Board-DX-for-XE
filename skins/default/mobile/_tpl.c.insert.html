@@ -68,6 +68,7 @@
 			<input type="hidden" name="password" value="1" />
 		</block>
 		<li style="text-align:right;margin:0 0 5px">
+			<label for="rText" class="fl">{$lang->comment}</label>
 			{@
 				$t_dstus = explode(',', $mi->use_c_status);
 				$status = $oComment->get('is_secret') == 'Y'?'SECRET':'PUBLIC';
@@ -87,7 +88,6 @@
 				</select>
 			</label>
 			<input cond="count($t_dstus) === 1 && $t_dstus[0]" type="hidden" name="status" value="{$t_dstus[0]}" />
-			<label for="rText" class="fl">{$lang->comment}</label>
 		</li>
 		<li><textarea name="content" cols="20" rows="10" id="rText">{preg_replace('/<br[^>]*>[\r\n]/i','',$oComment->get('content'))}</textarea></li>
 	</ul>
