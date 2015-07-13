@@ -73,7 +73,7 @@
 	});
 
 	$.fn.extend({
-		pidModalgoUrl: function(url, resize, callback, mdmode) {
+		pidModalgoUrl: function(url, resize, callback) {
 			var $modal = $(this),
 				$oFrm = $('#pidOiFrame', $modal) /*, is_iframe*/ ;
 
@@ -102,7 +102,7 @@
 				} catch (e) {}
 			};
 
-			url = url.setQuery('is_modal', mdmode);
+			url = url.setQuery('is_modal', $modal.is('.pid_modal-target') ? 3 : 1);
 
 			//is_iframe = (/msie|chromium|chrome/.test(navigator.userAgent.toLowerCase()) === true);
 			if ($oFrm.length) {
@@ -127,7 +127,7 @@
 
 			pidModal.waitMessage(url, $oFrm.closest('body'));
 		},
-		pidModalSetTitle: function(header, footer, close_callback) {
+		pidModalSetTitle: function(header, footer) {
 			var htmlDecode = function(str) {
 				var o = {
 						'&amp;': '&',
@@ -168,15 +168,6 @@
 				else fstr = '<div>' + fstr + '</div>';
 				$pmf.html(fstr).css('display', fstr ? 'block' : 'none');
 			} else if (!fstr) $pmf.html('').css('display', 'none');
-
-			// set close button
-			$close = $modal.find('.pid_modal-close');
-			if (!$close.length) {
-				$close =
-					$('<button type="button" title="press esc to close" class="pid_modal-close">&times;</button>')
-					.click(close_callback);
-				$modal.prepend($close);
-			}
 		},
 		pidModalAutoResize: function() {
 			var $this = $(this),
@@ -324,7 +315,7 @@
 					return false;
 				})
 				.on('open.mw', function() {
-					var $this = $(this), $modal, $bdrop, $body, before_event, duration, url, mdmode, zidx = 0;
+					var $this = $(this), $modal, $bdrop, $body, before_event, duration, url, zidx = 0;
 
 					// before event trigger
 					before_event = $.Event('before-open.mw');
@@ -334,20 +325,7 @@
 
 					$modal = pidModal.iFrame(this.modalId, target);
 
-					if (!$modal.is('.pid_modal-target')) {
-						// set header, footer, close
-						$modal.pidModalSetTitle(
-							($this.attr('data-header') || $this.attr('title')) || '',
-							$this.attr('data-footer') || '',
-							function() {
-								$this.trigger('close.mw');
-								return false;
-							}
-						);
-					}
-
 					url = ($this.data('go-url') || $this.attr('href')) || 'about:blank';
-					mdmode = $modal.is('.pid_modal-target') ? 3 : 1;
 
 					if ($modal.data('state') !== 'showing') {
 						// set state : showing
@@ -360,6 +338,25 @@
 								$modal.find('> .pid_modal-body').show();
 							});
 						} else {
+							// set header, footer
+							$modal.pidModalSetTitle(
+								($this.attr('data-header') || $this.attr('title')) || '',
+								$this.attr('data-footer') || ''
+							);
+
+							// set close button
+							if (!$modal.find('.pid_modal-close').length) {
+								$modal.prepend(
+									$('<button type="button" title="press esc to close">')
+										.addClass('pid_modal-close')
+										.html('&times;')
+										.click(function(){
+											$this.trigger('close.mw');
+											return false;
+										})
+								);
+							}
+
 							$(document).on('keydown.mw', function(event) {
 								if (event.which === 27) { //esc
 									$this.trigger('close.mw');
@@ -368,15 +365,17 @@
 							});
 
 							$body = $('body', target);
+							if (!pidModal.body_oflow) pidModal.body_oflow = $body.css('overflow-x');
+
 							$bdrop = pidModal.backDrop(target).css('z-index', '1');
 							$modal.css('z-index', '5');
-							if (!pidModal.body_oflow) pidModal.body_oflow = $body.css('overflow-x');
 
 							zidx = pidModal.topIndex(target);
 
 							$bdrop.css('z-index', zidx).show();
-							$modal.css('z-index', zidx + 5).find('.pid_modal-close:first').focus();
+							$modal.css('z-index', zidx + 5);
 							$body.css('overflow-x', 'hidden');
+
 							if (bg_close) $bdrop.click(function() {
 								$this.trigger('close.mw');
 								return false;
@@ -389,7 +388,7 @@
 						$this.trigger('after-open.mw', [oframe]);
 					};
 
-					$modal.pidModalgoUrl(url, $this.attr('data-resize') || 'auto', after, mdmode);
+					$modal.pidModalgoUrl(url, $this.attr('data-resize') || 'auto', after);
 
 					//if(url){}else{$modal.fadeIn(duration, after);}
 				})
@@ -404,7 +403,10 @@
 
 					try {
 						$modal = pidModal.iFrame(this.modalId, target);
-						if ($modal.attr('data-parent-reload') || 0) pidModalParentReload();
+						if ($modal.attr('data-parent-reload') || 0) {
+							pidModalParentReload();
+							return false;
+						}
 					} catch (e) {
 						// ie 에서 jquery.js is,not,find 함수 못 찾는 버그 처리
 						pidModalParentReload();
@@ -420,7 +422,7 @@
 						$this.trigger('after-close.mw');
 					};
 
-					//this.focus();
+					//$this.focus();
 
 					if ($modal.is('.pid_modal-target')) {
 						$modal.find('> *').show(duration, function(event) {
@@ -480,16 +482,29 @@
 
 				$(document)
 					.on('ready', function() {
-						$('[data-modal-hide]').on('click', function() {
-							$oFrm.parent().parent().find('.pid_modal-close:first').click();
-							return false;
-						});
-						// focusin scroll
-						// $('input[name],select[name],textarea[name]', 'form').on('focusin', function() {
-						// 	var $m = $oFrm.parent(),
-						// 		top = $(this).offset().top;
-						// 	if ($m.css('overflow-y') === 'auto' && $m.scrollTop() > top) $m.scrollTop(top);
-						// });
+						var $close = $oFrm.parent().parent().find('.pid_modal-close:first');
+						if($close.length) {
+
+							$('[data-modal-hide]').on('click', function() {
+								$close.click();
+								return false;
+							});
+
+							// ie 10~11 // focus bug fix
+							if(navigator.userAgent.match(/Trident\/[0-9]/)) {
+								$close.hide();
+								var tmp = $oFrm.parent().parent().find('.pid_modal-head');
+								if(tmp.length) {
+									tmp.on('click', function() {
+										$close.click();
+										return false;
+									}).css('cursor','pointer');
+									tmp.append('<style>.pid_modal-head:after{content:"X";position:absolute;top:12px;right:12px}</style>');
+								}
+							}else{
+								$close.focus();
+							}
+						}
 					});
 
 				$(window)
