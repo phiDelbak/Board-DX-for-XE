@@ -44,12 +44,15 @@
 		$sclms[$key] = clone $val;
 		$_tmp = Context::getLang('short_'.$val->eid);
 		$_tmp !== 'short_'.$val->eid ? $sclms[$key]->name = $_tmp: 0;
+
+		$ds_no_title ? 0 : $ds_no_title=$key;
 	}
 </block>
 
 {@
 	$dis_dcnt = $mi->display_document_count=='Y';
 	$mi->star_style!='N' ? $sclms['voted_count']->name = $lang->star_column : 0;
+	$ci['title']->display != 'N' ? $ds_no_title = 0 : 0;
 }
 
 <!-- LIST -->
@@ -92,6 +95,9 @@
 	}
 	<tr {$us_hottrack?'data-hottrack="'.(!$tlk&&$ds_content?'lstc':'list').'"':''}>
 		<td loop="$sclms => $key,$val" cond="$key" scope="col" class="{$key}" rowspan="2"|cond="!$tlk&&$ds_content&&$key==$f_key" style="color:{$val->color}"|cond="$val->color">
+			<block cond="$ds_no_title&&$ds_no_title===$key">
+				<a href="{$purl}" {$md_optstr} style="display:none">...</a>
+			</block>
 			<!--@switch($key)-->
 				<!--@case('no')-->
 					{@ $no = $tlk?'<img src="img/common/label_'.$tlk.'.gif" alt="'.$tlk.'" />':$no}

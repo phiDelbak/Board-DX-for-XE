@@ -57,7 +57,7 @@
 				</h3>
 				<p class="time">{$oSourceComment->getRegdate('Y.m.d H:i')}</p>
 			</div>
-			<div class="content clearBar">
+			<div class="scPvCon clearBar">
 				{preg_replace(array('!(<[A-Za-z]+\s+[^>]*)name\s*=\s*(\"|\')?([^>\"\']+)(\"|\')?!is','!<(iframe|embed|object)([^>]*)>(.*?)<\/(iframe|embed|object)>!is'), array('$1','<div class="message"><p>$1 $2</p></div>'), $oSourceComment->getContent(false))}
 			</div>
 		</div>

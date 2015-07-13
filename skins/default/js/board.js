@@ -603,6 +603,7 @@
  				});
  				this.scrollIntoView(true);
  			});
+
  			// ie 에서 클릭(커서) 버그 방지, 그러나 다른 브라우저도 걍 포커스 주는거 나쁘지 않아서...
  			$('input:not(:hidden):eq(0)', '.pid_ajax-form').focus();
 

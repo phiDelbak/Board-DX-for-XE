@@ -48,7 +48,7 @@
 				</h3>
 				<p class="time">{$oDocument->getRegdate('Y.m.d H:i')}</p>
 			</div>
-			<div class="content clearBar">
+			<div class="scPvCon clearBar">
 				<h4 style="margin-top:0">{$oDocument->getTitle()}</h4>
 				{preg_replace(array('!(<[A-Za-z]+\s+[^>]*)name\s*=\s*(\"|\')?([^>\"\']+)(\"|\')?!is','!<(iframe|embed|object)([^>]*)>(.*?)<\/(iframe|embed|object)>!is'), array('$1','<div class="message"><p>$1 $2</p></div>'), $oDocument->getContent(false))}
 			</div>
