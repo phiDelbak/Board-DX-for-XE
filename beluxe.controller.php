@@ -1160,14 +1160,17 @@ class beluxeController extends beluxe
 		$oDocIfo = $cmDocument->getDocument($doc_srl, false, false);
 		if(!$oDocIfo->isExists()) return new Object(-1, 'msg_not_founded');
 
+		$dmb_srl = (int) $oDocIfo->get('member_srl');
+
 		// 확장 필드 사용
 		$ex_vars = $oDocIfo->get('extra_vars');
 		$ex_vars = is_string($ex_vars) ? unserialize($ex_vars) : $ex_vars;
 		if(!$ex_vars->beluxe) return new Object(-1, 'msg_invalid_request');
 
 		$beluxe = $ex_vars->beluxe;
+
 		$use_point = (int) $beluxe->use_point;
-		$adopt_srl = (int) $beluxe->adopt_srl ? $beluxe->adopt_srl : 0;
+		$adopt_srl = (int) $beluxe->adopt_srl;
 
 		// 이미 채택된 답글이 있다면 중단
 		if($adopt_srl){
@@ -1176,6 +1179,7 @@ class beluxeController extends beluxe
 		}
 
 		$oMi = $this->_getModuleInfo($oComIfo->get('module_srl'));
+		$_percent = (int) $oMi->use_point_percent;
 
 		// 확장 필드 저장
 		$beluxe->adopt_srl = (int) $cmt_srl;
@@ -1190,12 +1194,12 @@ class beluxeController extends beluxe
 
 		// 채택시 포인트 갱신을 위해
 		if($cmb_srl && $use_point > 0) {
-			$point = round($use_point*0.01*(int)$oMi->use_point_percent);
+			$point = round($use_point*0.01*$_percent);
 			$ccPoint = &getController('point');
 			// 포인트 지급
 			if($point > 0) $ccPoint->setPoint($cmb_srl, $point, 'add');
 			// 나머지는 돌려줌
-			if(($use_point-$point) > 0) $ccPoint->setPoint($cmb_srl, $use_point-$point, 'add');
+			if($dmb_srl && ($use_point-$point) > 0) $ccPoint->setPoint($dmb_srl, $use_point-$point, 'add');
 		}
 
 		if($cmb_srl && $send_message){
@@ -1204,7 +1208,7 @@ class beluxeController extends beluxe
 			$send_message = $send_message . '<br /><br /><a href="' . $u . '">'. $u .'</a>';
 
 			$ccCommuni = &getController('communication');
-			$ccCommuni->sendMessage($oDocIfo->get('member_srl'), $cmb_srl, $t, $send_message);
+			$ccCommuni->sendMessage($dmb_srl, $cmb_srl, $t, $send_message);
 		}
 
 		return new Object(0, 'success_adopted');
